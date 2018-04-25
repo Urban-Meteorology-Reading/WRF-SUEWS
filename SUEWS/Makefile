@@ -109,7 +109,7 @@ main: SUEWS_Program.f95 $(MODULES) $(OTHERS) $(TEST)
 			$(CC) SUEWS_Program.o $(MODULES) $(OTHERS) $(TEST) \
 			$(STATICLIB) \
 			-o $(TARGET)
-			cp $(TARGET) $(SUEWS_build_dir)/.
+			# cp $(TARGET) $(SUEWS_build_dir)/.
 
 # Build main program with NETCDF support - main uses MODULES and OTHERS
 netcdf: SUEWS_Program.f95 $(MODULES) $(OTHERS) $(TEST)
