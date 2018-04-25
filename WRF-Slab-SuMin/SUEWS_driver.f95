@@ -6,7 +6,7 @@
 ! TS 24 Apr 2018: a mini version of SUEWS
 MODULE SUEWS_Driver
   USE AtmMoist_module,ONLY:LUMPS_cal_AtmMoist,qsatf
-  USE NARP_MODULE,ONLY:NARP_cal_SunPosition
+  USE NARP_MODULE,ONLY:NARP_cal_SunPosition,RadMethod,NARP
   ! USE AnOHM_module,ONLY:AnOHM
   ! USE ESTM_module,ONLY:ESTM
   ! USE Snow_module,ONLY:SnowCalc,Snow_cal_MeltHeat
@@ -14,13 +14,6 @@ MODULE SUEWS_Driver
   USE WaterDist_module,ONLY:&
        drainage,soilstore,SUEWS_cal_SoilMoist,&
        SUEWS_update_SoilMoist,ReDistributeWater
-  ! USE ctrl_output,ONLY:varList
-  ! USE allocateArray,ONLY:&
-  !      ! nsurf,nvegsurf,&
-  !      ! PavSurf,BldgSurf,ConifSurf,DecidSurf,GrassSurf,BSoilSurf,WaterSurf,&
-  !      ! ivConif,ivDecid,ivGrass,&
-  !      ncolumnsDataOutSUEWS,ncolumnsDataOutSnow,&
-  !      ncolumnsDataOutESTM,ncolumnsDataOutDailyState
 
 
   IMPLICIT NONE
@@ -43,13 +36,13 @@ MODULE SUEWS_Driver
        ivDecid = 2,&
        ivGrass = 3
 
-! ---- Set number of columns in output files ---------------------------------------------------
-INTEGER, PARAMETER:: ncolumnsDataOutSUEWS=84,&    !Main output file (_5.txt). dataOutSUEWS created in SUEWS_Calculations.f95
-     ncolumnsDataOutSnow=102,&
-     ncolumnsdataOutSOL=31,&
-     ncolumnsdataOutBL=22,&
-     ncolumnsDataOutESTM=32,&
-     ncolumnsDataOutDailyState=46
+  ! ---- Set number of columns in output files ---------------------------------------------------
+  INTEGER, PARAMETER:: ncolumnsDataOutSUEWS=84,&    !Main output file (_5.txt). dataOutSUEWS created in SUEWS_Calculations.f95
+       ncolumnsDataOutSnow=102,&
+       ncolumnsdataOutSOL=31,&
+       ncolumnsdataOutBL=22,&
+       ncolumnsDataOutESTM=32,&
+       ncolumnsDataOutDailyState=46
 
 
 
@@ -762,738 +755,6 @@ CONTAINS
   END SUBROUTINE SUEWS_cal_Main
   ! ================================================================================
 
-  SUBROUTINE SUEWS_cal_Main_x(&
-       alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&! input&inout in alphabetical order
-       alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
-       alt,avkdn,avRh,avU1,BaseT,BaseTe,&
-       BaseTHDD,bldgH,CapMax_dec,CapMin_dec,&
-       CRWmax,CRWmin,DayWat,DayWatPer,&
-       DecidCap,dectime,DecTreeH,DRAINRT,&
-       emis,endDLS,EveTreeH,FAIBldg,&
-       FAIDecTree,FAIEveTree,Faut,FlowChange,&
-       G1,G2,G3,G4,G5,G6,GDD,&
-       GDDFull,HDD,&
-       id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
-       it,iy,Kmax,LAI,LAIMax,LAIMin,&
-       LAIPower,LAIType,lat,lng,MaxConductance,&
-       OHM_coef,OHMIncQF,OHM_threshSW,&
-       OHM_threshWD,PipeCapacity,PorMax_dec,PorMin_dec,porosity,&
-       Precip,Press_hPa,&
-       qn1_av_store,qn1_store,RAINCOVER,RainMaxRes,&
-       RunoffToWater,S1,S2,&
-       SDDFull,sfr,&
-       soilmoist,soilstoreCap,startDLS,state,StateLimit,&
-       surf,SurfaceArea,tau_a,tau_f,tau_r,&
-       Temp_C,TH,&
-       timezone,TL,&
-       tstep,&
-       WaterDist,WetThresh,WU_Day,&
-       xsmd,Z,&
-       qh,qe)!output
-
-    IMPLICIT NONE
-
-    INTEGER::AerodynamicResistanceMethod
-    INTEGER::Diagnose
-    INTEGER::DiagQN
-    INTEGER::DiagQS
-    INTEGER,INTENT(IN)::startDLS
-    INTEGER,INTENT(IN)::endDLS
-    INTEGER::EmissionsMethod
-    INTEGER::Gridiv
-    INTEGER::gsModel
-    INTEGER,INTENT(IN)::id
-    ! INTEGER,INTENT(IN)::id_prev_t
-    INTEGER,INTENT(IN)::Ie_end
-    INTEGER,INTENT(IN)::Ie_start
-    INTEGER,INTENT(IN)::imin
-    INTEGER,INTENT(IN)::it
-    INTEGER::ity
-    INTEGER,INTENT(IN)::iy
-    ! INTEGER,INTENT(IN)::iy_prev_t
-    INTEGER::LAICalcYes
-    INTEGER::NetRadiationMethod
-    INTEGER,INTENT(IN)::OHMIncQF
-    INTEGER::RoughLenHeatMethod
-    INTEGER::RoughLenMomMethod
-    INTEGER::SMDMethod
-    INTEGER::snowUse
-    INTEGER::StabilityMethod
-    INTEGER::StorageHeatMethod
-    INTEGER,INTENT(IN)::tstep
-    INTEGER::veg_type
-    INTEGER::WaterUseMethod
-
-    REAL(KIND(1D0)),INTENT(IN)::alBMax_DecTr
-    REAL(KIND(1D0)),INTENT(IN)::alBMax_EveTr
-    REAL(KIND(1D0)),INTENT(IN)::alBMax_Grass
-    REAL(KIND(1D0)),INTENT(IN)::AlbMin_DecTr
-    REAL(KIND(1D0)),INTENT(IN)::AlbMin_EveTr
-    REAL(KIND(1D0)),INTENT(IN)::AlbMin_Grass
-    REAL(KIND(1D0)),INTENT(IN)::alt
-    REAL(KIND(1D0)),INTENT(IN)::avkdn
-    REAL(KIND(1D0)),INTENT(IN)::avRh
-    REAL(KIND(1D0)),INTENT(IN)::avU1
-    REAL(KIND(1D0)),INTENT(IN)::BaseTHDD
-    REAL(KIND(1D0)),INTENT(IN)::bldgH
-    REAL(KIND(1D0)),INTENT(IN)::CapMax_dec
-    REAL(KIND(1D0)),INTENT(IN)::CapMin_dec
-    REAL(KIND(1D0)),INTENT(IN)::CRWmax
-    REAL(KIND(1D0)),INTENT(IN)::CRWmin
-    REAL(KIND(1D0)),INTENT(IN)::dectime
-    REAL(KIND(1D0)),INTENT(IN)::DecTreeH
-    REAL(KIND(1D0)),INTENT(IN)::DRAINRT
-    ! REAL(KIND(1D0)),INTENT(IN)::EF_umolCO2perJ
-    ! REAL(KIND(1D0)),INTENT(IN)::EnEF_v_Jkm
-    REAL(KIND(1D0)),INTENT(IN)::EveTreeH
-    REAL(KIND(1D0)),INTENT(IN)::FAIBldg
-    REAL(KIND(1D0)),INTENT(IN)::FAIDecTree
-    REAL(KIND(1D0)),INTENT(IN)::FAIEveTree
-    REAL(KIND(1D0)),INTENT(IN)::Faut
-    ! REAL(KIND(1D0)),INTENT(IN)::FcEF_v_kgkm
-    REAL(KIND(1D0))::fcld_obs
-    REAL(KIND(1D0)),INTENT(IN)::FlowChange
-    ! REAL(KIND(1D0)),INTENT(IN)::FrFossilFuel_Heat
-    ! REAL(KIND(1D0)),INTENT(IN)::FrFossilFuel_NonHeat
-    REAL(KIND(1D0)),INTENT(IN)::G1
-    REAL(KIND(1D0)),INTENT(IN)::G2
-    REAL(KIND(1D0)),INTENT(IN)::G3
-    REAL(KIND(1D0)),INTENT(IN)::G4
-    REAL(KIND(1D0)),INTENT(IN)::G5
-    REAL(KIND(1D0)),INTENT(IN)::G6
-    ! REAL(KIND(1D0)),INTENT(IN)::InternalWaterUse_h
-    ! REAL(KIND(1D0)),INTENT(IN)::IrrFracConif
-    ! REAL(KIND(1D0)),INTENT(IN)::IrrFracDecid
-    ! REAL(KIND(1D0)),INTENT(IN)::IrrFracGrass
-    REAL(KIND(1D0)),INTENT(IN)::Kmax
-    REAL(KIND(1D0))::LAI_obs
-    REAL(KIND(1D0)),INTENT(IN)::lat
-    REAL(KIND(1D0))::ldown_obs
-    REAL(KIND(1D0)),INTENT(IN)::lng
-    ! REAL(KIND(1D0)),INTENT(IN)::MaxQFMetab
-    ! REAL(KIND(1D0)),INTENT(IN)::MinQFMetab
-    REAL(KIND(1D0))::NARP_EMIS_SNOW
-    REAL(KIND(1D0))::NARP_TRANS_SITE
-    ! REAL(KIND(1D0)),INTENT(IN)::NumCapita
-    REAL(KIND(1D0)),INTENT(IN)::PipeCapacity
-    ! REAL(KIND(1D0)),INTENT(IN)::PopDensDaytime
-    ! REAL(KIND(1D0)),INTENT(IN)::PopDensNighttime
-    REAL(KIND(1D0)),INTENT(IN)::PorMax_dec
-    REAL(KIND(1D0)),INTENT(IN)::PorMin_dec
-    REAL(KIND(1D0)),INTENT(IN)::Precip
-    ! REAL(KIND(1D0)),INTENT(IN)::PrecipLimit
-    ! REAL(KIND(1D0)),INTENT(IN)::PrecipLimitAlb
-    REAL(KIND(1D0)),INTENT(IN)::Press_hPa
-    REAL(KIND(1D0))::qh_obs
-    REAL(KIND(1D0))::qn1_obs
-    ! REAL(KIND(1D0)),INTENT(IN)::RadMeltFact
-    REAL(KIND(1D0)),INTENT(IN)::RAINCOVER
-    REAL(KIND(1D0)),INTENT(IN)::RainMaxRes
-    REAL(KIND(1D0)),INTENT(IN)::RunoffToWater
-    REAL(KIND(1D0)),INTENT(IN)::S1
-    REAL(KIND(1D0)),INTENT(IN)::S2
-    ! REAL(KIND(1D0)),INTENT(IN)::SnowAlbMax
-    REAL(KIND(1D0))::SnowAlbMin
-    REAL(KIND(1D0))::SnowDensMax
-    REAL(KIND(1D0))::SnowDensMin
-    REAL(KIND(1D0))::SnowLimBuild
-    REAL(KIND(1D0))::SnowLimPaved
-    REAL(KIND(1D0))::snow_obs
-    REAL(KIND(1D0)),INTENT(IN)::SurfaceArea
-    REAL(KIND(1D0)),INTENT(IN)::tau_a
-    REAL(KIND(1D0)),INTENT(IN)::tau_f
-    REAL(KIND(1D0)),INTENT(IN)::tau_r
-    REAL(KIND(1D0)),INTENT(IN)::Temp_C
-    ! REAL(KIND(1D0)),INTENT(IN)::TempMeltFact
-    REAL(KIND(1D0)),INTENT(IN)::TH
-    REAL(KIND(1D0)),INTENT(IN)::timezone
-    REAL(KIND(1D0)),INTENT(IN)::TL
-    ! REAL(KIND(1D0)),INTENT(IN)::TrafficUnits
-    REAL(KIND(1D0)),INTENT(IN)::xsmd
-    REAL(KIND(1D0)),INTENT(IN)::Z
-
-    INTEGER,DIMENSION(NVEGSURF),INTENT(IN)::LAIType
-
-    ! REAL(KIND(1D0)),DIMENSION(2)               ::AH_MIN
-    ! REAL(KIND(1D0)),DIMENSION(2)              ::AH_SLOPE_Cooling
-    ! REAL(KIND(1D0)),DIMENSION(2)               ::AH_SLOPE_Heating
-    ! REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)               ::QF0_BEU
-    ! REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)               ::Qf_A
-    ! REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)               ::Qf_B
-    ! REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)               ::Qf_C
-    ! REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)               ::T_CRITIC_Cooling
-    ! REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)               ::T_CRITIC_Heating
-    ! REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)               ::TrafficRate
-    REAL(KIND(1D0)),DIMENSION(3),INTENT(IN)               ::Ie_a
-    REAL(KIND(1D0)),DIMENSION(3),INTENT(IN)               ::Ie_m
-    REAL(KIND(1D0)),DIMENSION(3),INTENT(IN)               ::MaxConductance
-    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::AHProf_tstep
-    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN) ::HumActivity_tstep
-    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN) ::PopProf_tstep
-    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN) ::TraffProf_tstep
-    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN) ::WUProfA_tstep
-    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN) ::WUProfM_tstep
-    REAL(KIND(1D0)),DIMENSION(7),INTENT(IN)               ::DayWat
-    REAL(KIND(1D0)),DIMENSION(7),INTENT(IN)               ::DayWatPer
-    REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)         ::OHM_threshSW
-    REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)         ::OHM_threshWD
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::chAnOHM
-    REAL(KIND(1D0)),DIMENSION(NSURF)          ::cpAnOHM
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::emis
-    REAL(KIND(1D0)),DIMENSION(NSURF)        ::kkAnOHM
-    ! REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::SatHydraulicConduct
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::sfr
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::snowD
-    ! REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::SoilDepth
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::soilstoreCap
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::StateLimit
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::WetThresh
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::alpha_bioCO2
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::alpha_enh_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::BaseT
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::BaseTe
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::beta_bioCO2
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::beta_enh_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::GDDFull
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::LAIMax
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::LAIMin
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::min_res_bioCO2
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::resp_a
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::resp_b
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::SDDFull
-    REAL(KIND(1D0)),DIMENSION(0:23,2)          ::snowProf
-    ! REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::theta_bioCO2
-    REAL(KIND(1d0)),DIMENSION(:),allocatable             ::Ts5mindata_ir
-    REAL(KIND(1D0)),DIMENSION(NSURF+1,NSURF-1),INTENT(IN) ::WaterDist
-    REAL(KIND(1D0)),DIMENSION(nsurf+1,4,3),INTENT(IN)     ::OHM_coef
-    REAL(KIND(1D0)),DIMENSION(4,NVEGSURF),INTENT(IN)      ::LAIPower
-    REAL(KIND(1D0)),DIMENSION(:,:),allocatable          ::MetForcingData_grid
-
-    ! REAL(KIND(1D0)),INTENT(INOUT) ::SnowfallCum
-    REAL(KIND(1D0))                             ::SnowAlb
-    ! INTEGER,DIMENSION(0:NDAYS,3),INTENT(INOUT)                ::DayofWeek
-    REAL(KIND(1d0)),DIMENSION(24*3600/tstep)  ::Tair24HR
-    REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
-    REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1)  ::qn1_S_av_store
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albGrass
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::DecidCap
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::porosity
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS,5),INTENT(INOUT)        ::GDD
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS,9),INTENT(INOUT)        ::WU_Day
-    REAL(KIND(1D0)),DIMENSION(6,NSURF),INTENT(INOUT)          ::surf
-    REAL(KIND(1D0)),DIMENSION(-4:NDAYS,6),INTENT(INOUT)       ::HDD
-    REAL(KIND(1D0)),DIMENSION(-4:NDAYS,NVEGSURF),INTENT(INOUT)::LAI
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::alb
-    REAL(KIND(1D0)),DIMENSION(NSURF)            ::IceFrac
-    REAL(KIND(1D0)),DIMENSION(NSURF)            ::MeltWaterStore
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::SnowDens
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::snowFrac
-    REAL(KIND(1D0)),DIMENSION(NSURF)        ::SnowPack
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
-    REAL(KIND(1D0)),DIMENSION(3600/tstep)      ::qn1_S_store
-    REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
-
-    ! REAL(KIND(1D0)),DIMENSION(5),INTENT(OUT)                           ::datetimeLine
-    ! REAL(KIND(1D0)),DIMENSION(ncolumnsDataOutSUEWS-5),INTENT(OUT)      ::dataOutLineSUEWS
-    ! REAL(KIND(1D0)),DIMENSION(ncolumnsDataOutSnow-5)       ::dataOutLineSnow
-    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutESTM-5)       ::dataOutLineESTM
-    ! REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutDailyState-5),INTENT(OUT) ::DailyStateLine
-
-    REAL(KIND(1D0))::a1
-    REAL(KIND(1D0))::a2
-    REAL(KIND(1D0))::a3
-    REAL(KIND(1D0))::AdditionalWater
-    ! REAL(KIND(1D0))::avU10_ms
-    REAL(KIND(1D0))::azimuth
-    REAL(KIND(1D0))::chSnow_per_interval
-
-    REAL(KIND(1D0))::dens_dry
-    REAL(KIND(1d0))::deltaLAI
-    REAL(KIND(1D0))::drain_per_tstep
-    REAL(KIND(1D0))::Ea_hPa
-    REAL(KIND(1D0))::E_mod
-    REAL(KIND(1D0))::es_hPa
-    REAL(KIND(1D0))::ev
-    REAL(KIND(1D0))::ev_per_tstep
-    ! REAL(KIND(1D0))::ext_wu
-    ! REAL(KIND(1D0))::Fc
-    ! REAL(KIND(1D0))::Fc_anthro
-    ! REAL(KIND(1D0))::Fc_biogen
-    ! REAL(KIND(1D0))::Fc_build
-    REAL(KIND(1D0))::fcld
-    ! REAL(KIND(1D0))::Fc_metab
-    ! REAL(KIND(1D0))::Fc_photo
-    ! REAL(KIND(1D0))::Fc_respi
-    ! REAL(KIND(1D0))::Fc_traff
-    ! REAL(KIND(1D0))::fwh
-    REAL(KIND(1D0))::gsc
-    REAL(KIND(1D0))::H_mod
-    ! REAL(KIND(1D0))::int_wu
-    REAL(KIND(1D0))::kclear
-    REAL(KIND(1D0))::kup
-    REAL(KIND(1D0))::ldown
-    REAL(KIND(1D0))::lup
-    REAL(KIND(1D0))::L_mod
-    ! REAL(KIND(1D0))::mwh
-    REAL(KIND(1D0))::mwstore
-    REAL(KIND(1D0))::NWstate_per_tstep
-    REAL(KIND(1D0))::planF
-    REAL(KIND(1D0))::p_mm
-    REAL(KIND(1D0))::psim
-    ! REAL(KIND(1D0))::q2_gkg
-    REAL(KIND(1D0))::qeOut
-    REAL(KIND(1D0))::qe_per_tstep
-    REAL(KIND(1D0))::qf
-    ! REAL(KIND(1D0))::QF_SAHP
-    REAL(KIND(1D0)),intent(out)::qh
-    REAL(KIND(1D0))::qh_r
-    REAL(KIND(1D0))::Qm
-    REAL(KIND(1D0))::QmFreez
-    REAL(KIND(1D0))::QmRain
-    REAL(KIND(1D0))::qn1
-    REAL(KIND(1D0))::qn1_S
-    REAL(KIND(1D0))::qn1_SF
-    REAL(KIND(1D0))::qs
-    REAL(KIND(1D0))::RA
-    REAL(KIND(1D0))::ResistSurf
-    REAL(KIND(1D0))::rss
-    REAL(KIND(1d0))::runoffAGveg
-    REAL(KIND(1d0))::runoffAGimpervious
-    REAL(KIND(1D0))::runoff_per_tstep
-    REAL(KIND(1D0))::runoffPipes
-    REAL(KIND(1D0))::runoffPipes_m3
-    ! REAL(KIND(1D0))::runoffSoil_per_tstep
-    REAL(KIND(1D0))::runoffwaterbody
-    REAL(KIND(1D0))::runoffWaterBody_m3
-    REAL(KIND(1D0))::smd
-    REAL(KIND(1D0))::SoilState
-    REAL(KIND(1D0))::state_per_tstep
-    REAL(KIND(1D0))::surf_chang_per_tstep
-    REAL(KIND(1D0))::swe
-    ! REAL(KIND(1D0))::t2_C
-    REAL(KIND(1D0))::TempVeg
-    REAL(KIND(1D0))::tot_chang_per_tstep
-    REAL(KIND(1D0))::Tstar
-    REAL(KIND(1D0))::tsurf
-    REAL(KIND(1D0))::UStar
-    REAL(KIND(1D0))::VPD_Pa
-    ! REAL(KIND(1D0))::WUAreaDecTr_m2
-    ! REAL(KIND(1D0))::WUAreaEveTr_m2
-    ! REAL(KIND(1D0))::WUAreaGrass_m2
-    ! REAL(KIND(1D0))::WUAreaTotal_m2
-    REAL(KIND(1D0))::wu_DecTr
-    REAL(KIND(1D0))::wu_EveTr
-    REAL(KIND(1D0))::wu_Grass
-    ! REAL(KIND(1D0))::wu_m3
-    REAL(KIND(1D0))::Z0m
-    REAL(KIND(1D0))::Zdm
-    REAL(KIND(1D0))::ZENITH_deg
-    REAL(KIND(1D0))::Zh
-
-
-    REAL(KIND(1D0)),DIMENSION(2)::SnowRemoval
-    REAL(KIND(1D0)),DIMENSION(NSURF)::chang
-    REAL(KIND(1D0)),DIMENSION(NSURF)::changSnow
-    REAL(KIND(1D0)),DIMENSION(NSURF)::evap
-    REAL(KIND(1D0)),DIMENSION(NSURF)::ev_snow
-    REAL(KIND(1D0)),DIMENSION(NSURF)::FreezMelt
-    REAL(KIND(1d0)),DIMENSION(nsurf)::kup_ind_snow
-    REAL(KIND(1D0)),DIMENSION(NSURF)::mw_ind
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::Qm_freezState
-    REAL(KIND(1D0)),DIMENSION(NSURF)::Qm_melt
-    REAL(KIND(1D0)),DIMENSION(NSURF)::Qm_rain
-    REAL(KIND(1D0)),DIMENSION(NSURF)::qn1_ind_snow
-    REAL(KIND(1D0)),DIMENSION(NSURF)::rainOnSnow
-    REAL(KIND(1D0)),DIMENSION(NSURF)::rss_nsurf
-    REAL(KIND(1D0)),DIMENSION(NSURF)::runoff
-    REAL(KIND(1D0)),DIMENSION(NSURF)::runoffSnow
-    REAL(KIND(1D0)),DIMENSION(NSURF)::runoffSoil
-    REAL(KIND(1D0)),DIMENSION(NSURF)::smd_nsurf
-    REAL(KIND(1D0)),DIMENSION(NSURF)::SnowToSurf
-    REAL(KIND(1D0)),DIMENSION(NSURF)::snowDepth
-
-    REAL(KIND(1d0)),DIMENSION(nsurf)::Tsurf_ind_snow
-
-    INTEGER,DIMENSION(NSURF)::snowCalcSwitch
-    INTEGER,DIMENSION(3)    ::dayofWeek_id
-    INTEGER::DLS
-
-    REAL(KIND(1D0))::avcp
-    REAL(KIND(1D0))::avdens
-    REAL(KIND(1D0))::dq
-    REAL(KIND(1D0))::lv_J_kg
-    REAL(KIND(1D0))::lvS_J_kg
-    REAL(KIND(1D0))::psyc_hPa
-    REAL(KIND(1D0)),intent(out)::qe
-    REAL(KIND(1D0))::RAsnow
-    REAL(KIND(1D0))::rb
-    REAL(KIND(1D0))::runoff_per_interval
-    REAL(KIND(1D0))::s_hPa
-    REAL(KIND(1D0))::sIce_hpa
-    REAL(KIND(1D0))::SoilMoistCap
-    REAL(KIND(1D0))::veg_fr
-    REAL(KIND(1D0))::VegPhenLumps
-    REAL(KIND(1D0))::VPd_hpa
-    REAL(KIND(1D0))::vsmd
-    REAL(KIND(1D0))::ZZD
-
-    REAL(KIND(1D0)),DIMENSION(NSURF)::deltaQi
-    REAL(KIND(1D0)),DIMENSION(NSURF)::drain
-    REAL(KIND(1D0)),DIMENSION(NSURF)::FreezState
-    REAL(KIND(1D0)),DIMENSION(NSURF)::FreezStateVol
-    REAL(KIND(1D0)),DIMENSION(NSURF)::soilmoistOld
-    REAL(KIND(1D0)),DIMENSION(NSURF)::stateOld
-    REAL(KIND(1D0)),DIMENSION(NSURF)::tsurf_ind
-
-    ! TODO: TS 25 Oct 2017
-    ! the `add-*` variables are not used currently as grid-to-grid connection is NOT set up.
-    ! set these variables as zero.
-    REAL(KIND(1D0))::addImpervious=0
-    REAL(KIND(1D0))::addPipes=0
-    REAL(KIND(1D0))::addVeg=0
-    REAL(KIND(1D0))::addWaterBody=0
-    REAL(KIND(1D0)),DIMENSION(NSURF)::AddWater=0
-    REAL(KIND(1D0)),DIMENSION(NSURF)::AddWaterRunoff=0
-
-    ! values that are derived from tstep
-    INTEGER::nsh ! number of timesteps per hour
-    REAL(KIND(1D0))::nsh_real ! nsh in type real
-    REAL(KIND(1D0))::tstep_real ! tstep in type real
-
-    ! values that are derived from sfr (surface fractions)
-    REAL(KIND(1D0))::VegFraction
-    REAL(KIND(1D0))::ImpervFraction
-    REAL(KIND(1D0))::PervFraction
-    REAL(KIND(1D0))::NonWaterFraction
-
-    Diagnose=0
-    snowCalcSwitch=0
-    snowUse=0
-    DiagQN=0
-    DiagQS=0
-    WaterUseMethod=0
-    ity=2
-    LAICalcYes=1
-    RoughLenMomMethod=2
-    EmissionsMethod=0
-    NetRadiationMethod=3
-    StorageHeatMethod=1
-    LAI_obs=0
-    ldown_obs=0
-    fcld_obs=0
-    snow_obs=0
-    qn1_obs=0
-    qh_obs=0
-
-    MeltWaterStore=0
-
-    SnowAlb=0
-
-    ! calculate tstep related VARIABLES
-    CALL SUEWS_cal_tstep(&
-         tstep,& ! input
-         nsh, nsh_real, tstep_real) ! output
-
-    ! calculate surface fraction related VARIABLES
-    CALL SUEWS_cal_surf(&
-         sfr,& !input
-         VegFraction,ImpervFraction,PervFraction,NonWaterFraction) ! output
-
-    ! calculate dayofweek information
-    CALL SUEWS_cal_weekday(&
-         iy,id,lat,& !input
-         dayofWeek_id) !output
-
-    ! calculate dayofweek information
-    CALL SUEWS_cal_DLS(&
-         id,startDLS,endDLS,& !input
-         DLS) !output
-
-
-    !==============main calculation start=======================
-    IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_RoughnessParameters...'
-    ! CALL SUEWS_cal_RoughnessParameters(Gridiv) ! Added by HCW 11 Nov 2014
-    CALL SUEWS_cal_RoughnessParameters(&
-         RoughLenMomMethod,sfr,&!input
-         bldgH,EveTreeH,DecTreeH,&
-         porosity(id),FAIBldg,FAIEveTree,FAIDecTree,Z,&
-         planF,&!output
-         Zh,Z0m,Zdm,ZZD)
-
-    ! Calculate sun position
-    IF(Diagnose==1) WRITE(*,*) 'Calling NARP_cal_SunPosition...'
-    CALL NARP_cal_SunPosition(&
-         REAL(iy,KIND(1d0)),&!input:
-         dectime-tstep/2,&! sun position at middle of timestep before
-         timezone,lat,lng,alt,&
-         azimuth,zenith_deg)!output:
-
-
-    !Call the SUEWS_cal_DailyState routine to get surface characteristics ready
-    IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_DailyState...'
-    CALL SUEWS_cal_DailyState(&
-         iy,id,it,imin,tstep,DayofWeek_id,&!input
-         WaterUseMethod,snowUse,Ie_start,Ie_end,&
-         LAICalcYes,LAIType,&
-         nsh_real,avkdn,Temp_C,Precip,BaseTHDD,&
-         lat,Faut,LAI_obs,tau_a,tau_f,tau_r,&
-         SnowDensMax,SnowDensMin,SnowAlbMin,&
-         alBMax_DecTr,alBMax_EveTr,alBMax_Grass,&
-         AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
-         CapMax_dec,CapMin_dec,PorMax_dec,PorMin_dec,&
-         Ie_a,Ie_m,DayWatPer,DayWat,SnowPack,&
-         BaseT,BaseTe,GDDFull,SDDFull,LAIMin,LAIMax,LAIPower,&
-         SnowAlb,DecidCap,albDecTr,albEveTr,albGrass,&!inout
-         porosity,GDD,HDD,SnowDens,LAI,WU_Day,&
-         deltaLAI)!output
-
-
-    !Calculation of density and other water related parameters
-    IF(Diagnose==1) WRITE(*,*) 'Calling LUMPS_cal_AtmMoist...'
-    CALL LUMPS_cal_AtmMoist(&
-         Temp_C,Press_hPa,avRh,dectime,&! input:
-         lv_J_kg,lvS_J_kg,&! output:
-         es_hPa,Ea_hPa,VPd_hpa,VPD_Pa,dq,dens_dry,avcp,avdens)
-
-
-    !======== Calculate soil moisture =========
-    IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_update_SoilMoist...'
-    CALL SUEWS_update_SoilMoist(&
-         NonWaterFraction,&!input
-         soilstoreCap,sfr,soilmoist,&
-         SoilMoistCap,SoilState,&!output
-         vsmd,smd)
-
-
-    ! ===================NET ALLWAVE RADIATION================================
-    CALL SUEWS_cal_Qn(&
-         NetRadiationMethod,snowUse,id,&!input
-         Diagnose,snow_obs,ldown_obs,fcld_obs,&
-         dectime,ZENITH_deg,avKdn,Temp_C,avRH,Ea_hPa,qn1_obs,&
-         SnowAlb,DiagQN,&
-         NARP_TRANS_SITE,NARP_EMIS_SNOW,IceFrac,sfr,emis,&
-         alb,albDecTr,DecidCap,albEveTr,albGrass,surf,&!inout
-         snowFrac,ldown,fcld,&!output
-         qn1,qn1_SF,qn1_S,kclear,kup,lup,tsurf,&
-         qn1_ind_snow,kup_ind_snow,Tsurf_ind_snow,Tsurf_ind)
-
-
-    ! ===================ANTHROPOGENIC HEAT FLUX================================
-    ! disabled for SuMiN
-    ! CALL SUEWS_cal_AnthropogenicEmission(&
-    !      AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,AH_SLOPE_Heating,alpha_bioCO2,&
-    !      alpha_enh_bioCO2,avkdn,beta_bioCO2,beta_enh_bioCO2,DayofWeek_id,&
-    !      Diagnose,DLS,EF_umolCO2perJ,EmissionsMethod,EnEF_v_Jkm,Fc,Fc_anthro,Fc_biogen,&
-    !      Fc_build,FcEF_v_kgkm,Fc_metab,Fc_photo,Fc_respi,Fc_traff,FrFossilFuel_Heat,&
-    !      FrFossilFuel_NonHeat,HDD,HumActivity_tstep,id,imin,it,LAI, LaiMax,LaiMin,&
-    !      MaxQFMetab,MinQFMetab,min_res_bioCO2,nsh,NumCapita,&
-    !      PopDensDaytime,PopDensNighttime,PopProf_tstep,QF,QF0_BEU,Qf_A,Qf_B,Qf_C,QF_SAHP,&
-    !      resp_a,resp_b,sfr,snowFrac,T_CRITIC_Cooling,T_CRITIC_Heating,Temp_C,&
-    !      theta_bioCO2,TrafficRate,TrafficUnits,TraffProf_tstep)
-
-
-    ! =================STORAGE HEAT FLUX=======================================
-    ! only OHM
-    Gridiv=1
-    CALL SUEWS_cal_Qs(&
-         StorageHeatMethod,OHMIncQF,Gridiv,&!input
-         id,tstep,Diagnose,sfr,&
-         OHM_coef,OHM_threshSW,OHM_threshWD,&
-         soilmoist,soilstoreCap,state,nsh,SnowUse,DiagQS,&
-         HDD,MetForcingData_grid,Ts5mindata_ir,qf,qn1,&
-         avkdn, avu1, temp_c, zenith_deg, avrh, press_hpa, ldown,&
-         bldgh,alb,emis,cpAnOHM,kkAnOHM,chAnOHM,EmissionsMethod,&
-         Tair24HR,qn1_store,qn1_S_store,&!inout
-         qn1_av_store,qn1_S_av_store,surf,&
-         qn1_S,snowFrac,dataOutLineESTM,qs,&!output
-         deltaQi,a1,a2,a3)
-
-
-    !==================Energy related to snow melting/freezing processes=======
-    ! IF(Diagnose==1) WRITE(*,*) 'Calling MeltHeat'
-    ! CALL Snow_cal_MeltHeat(&
-    !      snowUse,&!input
-    !      lvS_J_kg,lv_J_kg,tstep_real,RadMeltFact,TempMeltFact,SnowAlbMax,&
-    !      SnowDensMin,Temp_C,Precip,PrecipLimit,PrecipLimitAlb,&
-    !      nsh_real,sfr,Tsurf_ind,Tsurf_ind_snow,state,qn1_ind_snow,&
-    !      kup_ind_snow,Meltwaterstore,deltaQi,&
-    !      SnowPack,snowFrac,SnowAlb,SnowDens,SnowfallCum,&!inout
-    !      mwh,fwh,Qm,QmFreez,QmRain,&! output
-    !      veg_fr,snowCalcSwitch,Qm_melt,Qm_freezState,Qm_rain,FreezMelt,&
-    !      FreezState,FreezStateVol,rainOnSnow,SnowDepth,mw_ind,&
-    !      dataOutLineSnow)!output
-
-
-
-    !==========================Turbulent Fluxes================================
-    IF(Diagnose==1) WRITE(*,*) 'Calling LUMPS_cal_QHQE...'
-    !Calculate QH and QE from LUMPS
-    snowUse=0
-    veg_type=1
-    CALL LUMPS_cal_QHQE(&
-         veg_type,& !input
-         snowUse,id,qn1,qf,qs,Qm,Temp_C,Veg_Fr,avcp,Press_hPa,lv_J_kg,&
-         tstep_real,DRAINRT,nsh_real,&
-         Precip,RainMaxRes,RAINCOVER,sfr,LAI,LAImax,LAImin,&
-         H_mod,E_mod,psyc_hPa,s_hPa,sIce_hpa,TempVeg,VegPhenLumps)!output
-
-
-    ! IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_WaterUse...'
-    ! !Gives the external and internal water uses per timestep
-    ! CALL SUEWS_cal_WaterUse(&
-    !      nsh_real,& ! input:
-    !      SurfaceArea,sfr,&
-    !      IrrFracConif,IrrFracDecid,IrrFracGrass,&
-    !      dayofWeek_id,WUProfA_tstep,WUProfM_tstep,&
-    !      InternalWaterUse_h,HDD(id-1,:),WU_Day(id-1,:),&
-    !      WaterUseMethod,NSH,it,imin,DLS,&
-    !      WUAreaEveTr_m2,WUAreaDecTr_m2,& ! output:
-    !      WUAreaGrass_m2,WUAreaTotal_m2,&
-    !      wu_EveTr,wu_DecTr,wu_Grass,wu_m3,int_wu,ext_wu)
-
-
-    !===============Resistance Calculations=======================
-    StabilityMethod=2
-    AerodynamicResistanceMethod=2
-    RoughLenHeatMethod=2
-    gsModel=2
-    SMDMethod=0
-    CALL SUEWS_cal_Resistance(&
-         StabilityMethod,&!input:
-         Diagnose,AerodynamicResistanceMethod,RoughLenHeatMethod,snowUse,&
-         id,it,gsModel,SMDMethod,&
-         qh_obs,avdens,avcp,h_mod,qn1,dectime,zzd,z0M,zdm,&
-         avU1,Temp_C,UStar,VegFraction,avkdn,&
-         Kmax,&
-         g1,g2,g3,g4,&
-         g5,g6,s1,s2,&
-         th,tl,&
-         dq,xsmd,vsmd,MaxConductance,LAIMax,LAI(id-1,:),snowFrac,sfr,&
-         Tstar,L_mod,&!output
-         psim,gsc,ResistSurf,RA,RAsnow,rb)
-
-
-    !============= calculate water balance =============
-    CALL SUEWS_cal_Water(&
-         Diagnose,&!input
-         snowUse,NonWaterFraction,addPipes,addImpervious,addVeg,addWaterBody,&
-         state,soilmoist,sfr,surf,WaterDist,nsh_real,&
-         drain_per_tstep,&  !output
-         drain,AddWaterRunoff,&
-         AdditionalWater,runoffPipes,runoff_per_interval,&
-         AddWater,stateOld,soilmoistOld)
-    !============= calculate water balance end =============
-
-    !======== Evaporation and surface state ========
-    CALL SUEWS_cal_QE(&
-         Diagnose,&!input
-         id,tstep,imin,it,ity,snowCalcSwitch,DayofWeek_id,CRWmin,CRWmax,&
-         nsh_real,dectime,lvS_J_kg,lv_j_kg,avdens,avRh,Press_hPa,Temp_C,&
-         RAsnow,psyc_hPa,avcp,sIce_hPa,&
-         PervFraction,vegfraction,addimpervious,qn1_SF,qf,qs,vpd_hPa,s_hPa,&
-         ResistSurf,ra,rb,tstep_real,snowdensmin,precip,PipeCapacity,RunoffToWater,&
-         NonWaterFraction,wu_EveTr,wu_DecTr,wu_Grass,addVeg,addWaterBody,SnowLimPaved,SnowLimBuild,&
-         SurfaceArea,FlowChange,drain,WetThresh,stateOld,mw_ind,soilstorecap,rainonsnow,&
-         freezmelt,freezstate,freezstatevol,Qm_Melt,Qm_rain,Tsurf_ind,sfr,&
-         StateLimit,AddWater,addwaterrunoff,surf,snowD,&
-         runoff_per_interval,state,soilmoist,SnowPack,snowFrac,MeltWaterStore,&! inout:
-         iceFrac,SnowDens,&
-         snowProf,& ! output:
-         runoffSnow,runoff,runoffSoil,chang,changSnow,&
-         snowDepth,SnowToSurf,ev_snow,SnowRemoval,&
-         evap,rss_nsurf,p_mm,rss,qe,state_per_tstep,NWstate_per_tstep,qeOut,&
-         swe,ev,chSnow_per_interval,ev_per_tstep,qe_per_tstep,runoff_per_tstep,&
-         surf_chang_per_tstep,runoffPipes,mwstore,runoffwaterbody,&
-         runoffAGveg,runoffAGimpervious,runoffWaterBody_m3,runoffPipes_m3)
-    !======== Evaporation and surface state end========
-
-    !============ Sensible heat flux ===============
-    IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_QH...'
-    CALL SUEWS_cal_QH(&
-         1,&
-         qn1,qf,QmRain,qeOut,qs,QmFreez,qm,avdens,avcp,tsurf,Temp_C,ra,&
-         qh,qh_r)!output
-    !============ Sensible heat flux end===============
-
-    !=== Horizontal movement between soil stores ===
-    ! Now water is allowed to move horizontally between the soil stores
-    ! IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_HorizontalSoilWater...'
-    ! CALL SUEWS_cal_HorizontalSoilWater(&
-    !      sfr,&! input: ! surface fractions
-    !      SoilStoreCap,&!Capacity of soil store for each surface [mm]
-    !      SoilDepth,&!Depth of sub-surface soil store for each surface [mm]
-    !      SatHydraulicConduct,&!Saturated hydraulic conductivity for each soil subsurface [mm s-1]
-    !      SurfaceArea,&!Surface area of the study area [m2]
-    !      NonWaterFraction,&! sum of surface cover fractions for all except water surfaces
-    !      tstep_real,& !tstep cast as a real for use in calculations
-    !      SoilMoist,&! inout:!Soil moisture of each surface type [mm]
-    !      runoffSoil,&!Soil runoff from each soil sub-surface [mm]
-    !      runoffSoil_per_tstep&!  output:!Runoff to deep soil per timestep [mm] (for whole surface, excluding water body)
-    !      )
-
-    !========== Calculate soil moisture ============
-    IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_SoilMoist...'
-    CALL SUEWS_cal_SoilMoist(&
-         SMDMethod,xsmd,NonWaterFraction,SoilMoistCap,&!input
-         SoilStoreCap,surf_chang_per_tstep,&
-         soilmoist,soilmoistOld,sfr,&
-         smd,smd_nsurf,tot_chang_per_tstep,SoilState)!output
-
-
-    !============ surface-level diagonostics ===============
-    ! IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_Diagnostics...'
-    ! CALL SUEWS_cal_Diagnostics(&
-    !      tsurf,qh,&!input
-    !      Press_hPa,qe,&
-    !      UStar,veg_fr,z0m,L_mod,avdens,avcp,lv_J_kg,tstep_real,&
-    !      RoughLenHeatMethod,StabilityMethod,&
-    !      avU10_ms,t2_C,q2_gkg)!output
-    !============ surface-level diagonostics end ===============
-
-
-    !==============main calculation end=======================
-
-    !==============translation of  output variables into output array===========
-    ! CALL SUEWS_update_outputLine(&
-    !      AdditionalWater,alb,avkdn,avU10_ms,azimuth,&!input
-    !      chSnow_per_interval,dectime,&
-    !      drain_per_tstep,E_mod,ev_per_tstep,ext_wu,Fc,Fc_build,fcld,&
-    !      Fc_metab,Fc_photo,Fc_respi,Fc_traff,FlowChange,&
-    !      h_mod,id,id_prev_t,imin,int_wu,it,iy,iy_prev_t,&
-    !      kup,LAI,ldown,l_mod,lup,mwh,MwStore,&
-    !      nsh_real,NWstate_per_tstep,Precip,q2_gkg,&
-    !      qeOut,qf,qh,QH_r,Qm,QmFreez,&
-    !      QmRain,qn1,qn1_S,qn1_SF,qs,RA,&
-    !      resistsurf,runoffAGimpervious,runoffAGveg,&
-    !      runoff_per_tstep,runoffPipes,runoffSoil_per_tstep,&
-    !      runoffWaterBody,sfr,smd,smd_nsurf,SnowAlb,SnowRemoval,&
-    !      state,state_per_tstep,surf_chang_per_tstep,swe,t2_C,&
-    !      tot_chang_per_tstep,tsurf,UStar,wu_DecTr,&
-    !      wu_EveTr,wu_Grass,z0m,zdm,zenith_deg,&
-    !      datetimeLine,dataOutLineSUEWS)!output
-
-    ! model state:
-
-    ! ! daily state:
-    ! CALL update_DailyState(&
-    !      iy,id,it,imin,nsh_real,&!input
-    !      GDD,HDD,LAI,&
-    !      DecidCap,albDecTr,albEveTr,albGrass,porosity,&
-    !      WU_Day,&
-    !      deltaLAI,VegPhenLumps,&
-    !      SnowAlb,SnowDens,&
-    !      a1,a2,a3,&
-    !      DailyStateLine)!out
-
-    !==============translation end ================
-
-  END SUBROUTINE SUEWS_cal_Main_x
-
-
-
   ! ===================ANTHROPOGENIC HEAT + CO2 FLUX================================
   SUBROUTINE SUEWS_cal_AnthropogenicEmission(&
        AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,AH_SLOPE_Heating,alpha_bioCO2,&
@@ -1676,7 +937,7 @@ CONTAINS
        snowFrac,ldown,fcld,&!output
        qn1,qn1_SF,qn1_S,kclear,kup,lup,tsurf,&
        qn1_ind_snow,kup_ind_snow,Tsurf_ind_snow,Tsurf_ind)
-    USE NARP_MODULE, ONLY: RadMethod,NARP
+
 
     IMPLICIT NONE
     ! INTEGER,PARAMETER ::nsurf     = 7 ! number of surface types
@@ -2699,8 +1960,6 @@ CONTAINS
 
     REAL(KIND(1D0)),DIMENSION(5),INTENT(OUT)::datetimeLine
     REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutSUEWS-5),INTENT(out) :: dataOutLineSUEWS
-    ! REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutSnow-5),INTENT(out) :: dataOutLineSnow
-    ! REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutESTM-5),INTENT(out) :: dataOutLineESTM
 
     ! INTEGER:: is
     REAL(KIND(1d0)):: LAI_wt
@@ -2712,90 +1971,14 @@ CONTAINS
     REAL(KIND(1d0))::smd_nsurf_x(nsurf)
     REAL(KIND(1d0))::state_x(nsurf)
 
-    !=====================================================================
     !====================== Prepare data for output ======================
 
-    ! Check surface composition (HCW 21 Jul 2016)
-    ! if totally water surface, set output to -999 for columns that do not exist
-    !IF(sfr(WaterSurf)==1) THEN
-    !   NWstate_per_tstep = NAN    !no non-water surface
-    !   smd = NAN                  !no soil store beneath water surface
-    !   SoilState = NAN
-    !   runoffSoil_per_tstep = NAN
-    !   drain_per_tstep = NAN      !no drainage from water surf
-    !ENDIF
-    !These removed as now all these get a value of 0. LJ 15/06/2017
-
-    ! Remove non-existing surface type from surface and soil outputs   ! Added back in with NANs by HCW 24 Aug 2016
-    ! DO is=1,nsurf
-    !    IF (sfr(is)<0.00001) THEN
-    !       state_x(is)= NAN
-    !       smd_nsurf_x(is)= NAN
-    !       !runoffOut(is)= NAN
-    !       !runoffSoilOut(is)= NAN
-    !    ELSE
-    !       state_x(is)=state(is)
-    !       smd_nsurf_x(is)=smd_nsurf(is)
-    !       !runoffOut(is)=runoff(is)
-    !       !runoffSoilOut(is)=runoffSoil(is)
-    !    ENDIF
-    ! ENDDO
     ! Remove non-existing surface type from surface and soil outputs   ! Added back in with NANs by HCW 24 Aug 2016
     state_x=UNPACK(SPREAD(NAN, dim=1, ncopies=SIZE(sfr)), mask=(sfr<0.00001), field=state)
     smd_nsurf_x=UNPACK(SPREAD(NAN, dim=1, ncopies=SIZE(sfr)), mask=(sfr<0.00001), field=smd_nsurf)
 
-
-    ! Remove negative state   !ErrorHint added, then commented out by HCW 16 Feb 2015 as should never occur
-    !if(st_per_interval<0) then
-    !   call ErrorHint(63,'SUEWS_Calculations: st_per_interval < 0',st_per_interval,NotUsed,NotUsedI)
-    !   !st_per_interval=0
-    !endif
-
-    !Set limits on output data to avoid formatting issues ---------------------------------
-    ! Set limits as +/-9999, depending on sign of value
-    ! errorHints -> warnings commented out as writing these slow down the code considerably when there are many instances
-    ! IF(ResistSurf > 9999) THEN
-    !    !CALL errorHint(6,'rs set to 9999 s m-1 in output; calculated value > 9999 s m-1',ResistSurf,notUsed,notUsedI)
-    !    ResistSurf_x=MIN(9999.,ResistSurf)
-    ! ENDIF
     ResistSurf_x=MIN(9999.,ResistSurf)
-
-    ! IF(l_mod > 9999) THEN
-    !    !CALL errorHint(6,'Lob set to 9999 m in output; calculated value > 9999 m',L_mod,notUsed,notUsedI)
-    !    l_mod_x=MIN(9999.,l_mod)
-    ! ELSEIF(l_mod < -9999) THEN
-    !    !CALL errorHint(6,'Lob set to -9999 m in output; calculated value < -9999 m',L_mod,notUsed,notUsedI)
-    !    l_mod_x=MAX(-9999.,l_mod)
-    ! ENDIF
     l_mod_x=MAX(MIN(9999.,l_mod), -9999.)
-
-    ! Set NA values   !!Why only these variables??  !!ErrorHints here too - error hints can be very slow here
-    ! IF(ABS(qh)>pNAN) qh=NAN
-    ! IF(ABS(qh_r)>pNAN) qh_r=NAN
-    ! IF(ABS(qeOut)>pNAN) qeOut=NAN
-    ! IF(ABS(qs)>pNAN) qs=NAN
-    ! ! IF(ABS(ch_per_interval)>pNAN) ch_per_interval=NAN
-    ! IF(ABS(surf_chang_per_tstep)>pNAN) surf_chang_per_tstep=NAN
-    ! IF(ABS(tot_chang_per_tstep)>pNAN) tot_chang_per_tstep=NAN
-    ! IF(ABS(SoilState)>pNAN) SoilState=NAN
-    ! IF(ABS(smd)>pNAN) smd=NAN
-    ! casting invalid values to NANs
-    ! qh_x                   = set_nan(qh)
-    ! qh_r_x                 = set_nan(qh_r)
-    ! qeOut_x                = set_nan(qeOut)
-    ! qs_x                   = set_nan(qs)
-    ! surf_chang_per_tstep_x = set_nan(surf_chang_per_tstep)
-    ! tot_chang_per_tstep_x  = set_nan(tot_chang_per_tstep)
-    ! SoilState_x            = set_nan(SoilState)
-    ! smd_x                  = set_nan(smd)
-
-    ! this part is now handled in `SUEWS_cal_SoilMoist`
-    ! ! If measured smd is used, set components to -999 and smd output to measured one
-    ! IF (SMDMethod>0) THEN
-    !    !  smd_nsurf=NAN
-    !    smd_nsurf_x=NAN
-    !    smd_x=xsmd
-    ! ENDIF
 
     ! Calculate areally-weighted LAI
     IF(iy == (iy_prev_t+1) .AND. (id-1) == 0) THEN   !Check for start of next year and avoid using LAI(id-1) as this is at the start of the year
@@ -2814,29 +1997,6 @@ CONTAINS
 
     ! Calculate areally-weighted albedo
     bulkalbedo=DOT_PRODUCT(alb,sfr)
-    ! bulkalbedo = 0
-    ! DO is=1,nsurf
-    !    bulkalbedo = bulkalbedo + alb(is)*sfr(is)
-    ! ENDDO
-
-    ! NB: this part needs to be reconsidered for calculation logic:
-    ! where to put it? seems to be better placed somewhere near. TS, 20170927
-    ! ! Save qh and qe for CBL in next iteration
-    ! IF(Qh_choice==1) THEN   !use QH and QE from SUEWS
-    !    qhforCBL(Gridiv) = qh
-    !    qeforCBL(Gridiv) = qeOut
-    ! ELSEIF(Qh_choice==2)THEN   !use QH and QE from LUMPS
-    !    qhforCBL(Gridiv) = h_mod
-    !    qeforCBL(Gridiv) = e_mod
-    ! ELSEIF(qh_choice==3)THEN  !use QH and QE from OBS
-    !    qhforCBL(Gridiv) = qh_obs
-    !    qeforCBL(Gridiv) = qe_obs
-    !    IF(qh_obs<-900.OR.qe_obs<-900)THEN  ! observed data has a problem
-    !       CALL ErrorHint(22,'Unrealistic observed qh or qe_value.',qh_obs,qe_obs,qh_choice)
-    !    ENDIF
-    ! ENDIF
-
-
 
     !====================== update output line ==============================
     ! date & time:
@@ -2874,52 +2034,7 @@ CONTAINS
   END SUBROUTINE SUEWS_update_outputLine
   !========================================================================
 
-  !==============Update output arrays=========================
-  SUBROUTINE SUEWS_update_output(&
-       SnowUse,storageheatmethod,&!input
-       ReadLinesMetdata,NumberOfGrids,&
-       ir,gridiv,datetimeLine,dataOutLineSUEWS,dataOutLineSnow,dataOutLineESTM,&!input
-       dataOutSUEWS,dataOutSnow,dataOutESTM)!inout
-    IMPLICIT NONE
-
-    INTEGER,INTENT(in) ::ReadLinesMetdata
-    INTEGER,INTENT(in) ::NumberOfGrids
-    INTEGER,INTENT(in) ::Gridiv
-    INTEGER,INTENT(in) ::SnowUse
-    INTEGER,INTENT(in) ::storageheatmethod
-    INTEGER,INTENT(in) ::ir
-
-    REAL(KIND(1d0)),DIMENSION(5),INTENT(in) :: datetimeLine
-    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutSUEWS-5),INTENT(in) :: dataOutLineSUEWS
-    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutESTM-5),INTENT(in) :: dataOutLineESTM
-    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutSnow-5),INTENT(in) :: dataOutLineSnow
-
-
-    REAL(KIND(1d0)),INTENT(inout) :: dataOutSUEWS(ReadLinesMetdata,ncolumnsDataOutSUEWS,NumberOfGrids)
-    REAL(KIND(1d0)),INTENT(inout) :: dataOutSnow(ReadLinesMetdata,ncolumnsDataOutSnow,NumberOfGrids)
-    REAL(KIND(1d0)),INTENT(inout) :: dataOutESTM(ReadLinesMetdata,ncolumnsDataOutESTM,NumberOfGrids)
-
-
-    !====================== update output arrays ==============================
-    !Define the overall output matrix to be printed out step by step
-    dataOutSUEWS(ir,1:ncolumnsDataOutSUEWS,Gridiv)=[datetimeLine,set_nan(dataOutLineSUEWS)]
-    ! ! set invalid values to NAN
-    ! dataOutSUEWS(ir,6:ncolumnsDataOutSUEWS,Gridiv)=set_nan(dataOutSUEWS(ir,6:ncolumnsDataOutSUEWS,Gridiv))
-
-    IF (snowUse==1) THEN
-       dataOutSnow(ir,1:ncolumnsDataOutSnow,Gridiv)=[datetimeLine,set_nan(dataOutLineSnow)]
-    END IF
-
-    IF (storageheatmethod==4) THEN
-       dataOutESTM(ir,1:ncolumnsDataOutESTM,Gridiv)=[datetimeLine,set_nan(dataOutLineESTM)]
-    END IF
-
-    !====================update output arrays end==============================
-
-  END SUBROUTINE SUEWS_update_output
   !========================================================================
-
-
   SUBROUTINE SUEWS_cal_Diagnostics(&
        tsurf,qh,&!input
        Press_hPa,qe,&
@@ -3096,27 +2211,6 @@ CONTAINS
 
        CASE (1) ! temperature at 2 m
           xDiag=xSurf-xFlux/(k*us*avdens*avcp)*(LOG(z2zd/z0h)-psyhz2+psyhz0)
-          !  IF ( ABS((LOG(z2zd/z0h)-psyhz2+psyhz0))>10 ) THEN
-          !     PRINT*, '#####################################'
-          !     PRINT*, 'xSurf',xSurf
-          !     PRINT*, 'xFlux',xFlux
-          !     PRINT*, 'k*us*avdens*avcp',k*us*avdens*avcp
-          !     PRINT*, 'k',k
-          !     PRINT*, 'us',us
-          !     PRINT*, 'avdens',avdens
-          !     PRINT*, 'avcp',avcp
-          !     PRINT*, 'xFlux/X',xFlux/(k*us*avdens*avcp)
-          !     PRINT*, 'stab',(LOG(z2zd/z0h)-psyhz2+psyhz0)
-          !     PRINT*, 'LOG(z2zd/z0h)',LOG(z2zd/z0h)
-          !     PRINT*, 'z2zd',z2zd,'L_mod',L_mod,'z0h',z0h
-          !     PRINT*, 'z2zd/L_mod',z2zd/L_mod
-          !     PRINT*, 'psyhz2',psyhz2
-          !     PRINT*, 'psyhz0',psyhz0
-          !     PRINT*, 'psyhz2-psyhz0',psyhz2-psyhz0
-          !     PRINT*, 'xDiag',xDiag
-          !     PRINT*, '*************************************'
-          !  END IF
-
 
        CASE (2) ! humidity at 2 m
           xDiag=xSurf-xFlux/(k*us*avdens*tlv)*(LOG(z2zd/z0h)-psyhz2+psyhz0)
@@ -3147,30 +2241,6 @@ CONTAINS
   END FUNCTION set_nan
   !========================================================================
 
-  !===============the functions below are only for test in f2py conversion===
-  FUNCTION square(x) RESULT(xx)
-    IMPLICIT NONE
-    REAL(KIND(1d0)),PARAMETER::pNAN=9999
-    REAL(KIND(1d0)),PARAMETER::NAN=-999
-    REAL(KIND(1d0)),INTENT(in)::x
-    REAL(KIND(1d0))::xx
-
-    xx=x**2+nan/pNAN
-    xx=x**2
-
-  END FUNCTION square
-
-  FUNCTION square_real(x) RESULT(xx)
-    IMPLICIT NONE
-    REAL,PARAMETER::pNAN=9999
-    REAL,PARAMETER::NAN=-999
-    REAL,INTENT(in)::x
-    REAL::xx
-
-    xx=x**2+nan/pNAN
-    xx=x**2
-
-  END FUNCTION square_real
 
   ! SUBROUTINE output_name_n(i,name,group,aggreg)
   !   ! used by f2py module `SuPy` to handle output names
@@ -3252,502 +2322,36 @@ CONTAINS
   !
   ! END SUBROUTINE output_names
 
-  SUBROUTINE SUEWS_write_model_state(&
-       AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,& ! input&inout in alphabetical order
-       AH_SLOPE_Heating,alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&
-       alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
-       alpha_bioCO2,alpha_enh_bioCO2,alt,avkdn,avRh,avU1,BaseT,BaseTe,&
-       BaseTHDD,beta_bioCO2,beta_enh_bioCO2,bldgH,CapMax_dec,CapMin_dec,&
-       chAnOHM,cpAnOHM,CRWmax,CRWmin,DayWat,DayWatPer,&
-       DecidCap,dectime,DecTreeH,Diagnose,DiagQN,DiagQS,DRAINRT,&
-       EF_umolCO2perJ,emis,EmissionsMethod,EnEF_v_Jkm,endDLS,EveTreeH,FAIBldg,&
-       FAIDecTree,FAIEveTree,Faut,FcEF_v_kgkm,fcld_obs,FlowChange,&
-       FrFossilFuel_Heat,FrFossilFuel_NonHeat,G1,G2,G3,G4,G5,G6,GDD,&
-       GDDFull,Gridiv,gsModel,HDD,HumActivity_tstep,&
-       IceFrac,id,id_prev_t,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
-       InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,it,ity,&
-       iy,iy_prev_t,kkAnOHM,Kmax,LAI,LAICalcYes,LAIMax,LAIMin,LAI_obs,&
-       LAIPower,LAIType,lat,ldown_obs,lng,MaxConductance,MaxQFMetab,&
-       MeltWaterStore,MetForcingData_grid,MinQFMetab,min_res_bioCO2,&
-       NARP_EMIS_SNOW,NARP_TRANS_SITE,NetRadiationMethod,&
-       NumCapita,OHM_coef,OHMIncQF,OHM_threshSW,&
-       OHM_threshWD,PipeCapacity,PopDensDaytime,&
-       PopDensNighttime,PopProf_tstep,PorMax_dec,PorMin_dec,porosity,&
-       Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,QF0_BEU,Qf_A,Qf_B,&
-       Qf_C,qh_obs,qn1_av_store,qn1_obs,qn1_S_av_store,qn1_S_store,&
-       qn1_store,RadMeltFact,RAINCOVER,RainMaxRes,resp_a,resp_b,&
-       RoughLenHeatMethod,RoughLenMomMethod,RunoffToWater,S1,S2,&
-       SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
-       SnowAlbMin,snowD,SnowDens,SnowDensMax,SnowDensMin,SnowfallCum,snowFrac,&
-       SnowLimBuild,SnowLimPaved,snow_obs,SnowPack,SnowProf,snowUse,SoilDepth,&
-       soilmoist,soilstoreCap,StabilityMethod,startDLS,state,StateLimit,&
-       StorageHeatMethod,surf,SurfaceArea,Tair24HR,tau_a,tau_f,tau_r,&
-       T_CRITIC_Cooling,T_CRITIC_Heating,Temp_C,TempMeltFact,TH,&
-       theta_bioCO2,timezone,TL,TrafficRate,TrafficUnits,&
-       TraffProf_tstep,Ts5mindata_ir,tstep,veg_type,&
-       WaterDist,WaterUseMethod,WetThresh,WU_Day,WUProfA_tstep,&
-       WUProfM_tstep,xsmd,Z)
-
-    USE data_in,ONLY:FileOutputPath
-
-    IMPLICIT NONE
-
-    INTEGER,INTENT(IN)::AerodynamicResistanceMethod
-    INTEGER,INTENT(IN)::Diagnose
-    INTEGER,INTENT(IN)::DiagQN
-    INTEGER,INTENT(IN)::DiagQS
-    INTEGER,INTENT(IN)::startDLS
-    INTEGER,INTENT(IN)::endDLS
-    INTEGER,INTENT(IN)::EmissionsMethod
-    INTEGER,INTENT(IN)::Gridiv
-    INTEGER,INTENT(IN)::gsModel
-    INTEGER,INTENT(IN)::id
-    INTEGER,INTENT(IN)::id_prev_t
-    INTEGER,INTENT(IN)::Ie_end
-    INTEGER,INTENT(IN)::Ie_start
-    INTEGER,INTENT(IN)::imin
-    INTEGER,INTENT(IN)::it
-    INTEGER,INTENT(IN)::ity
-    INTEGER,INTENT(IN)::iy
-    INTEGER,INTENT(IN)::iy_prev_t
-    INTEGER,INTENT(IN)::LAICalcYes
-    INTEGER,INTENT(IN)::NetRadiationMethod
-    INTEGER,INTENT(IN)::OHMIncQF
-    INTEGER,INTENT(IN)::RoughLenHeatMethod
-    INTEGER,INTENT(IN)::RoughLenMomMethod
-    INTEGER,INTENT(IN)::SMDMethod
-    INTEGER,INTENT(IN)::snowUse
-    INTEGER,INTENT(IN)::StabilityMethod
-    INTEGER,INTENT(IN)::StorageHeatMethod
-    INTEGER,INTENT(IN)::tstep
-    INTEGER,INTENT(IN)::veg_type
-    INTEGER,INTENT(IN)::WaterUseMethod
-
-    REAL(KIND(1D0)),INTENT(IN)::alBMax_DecTr
-    REAL(KIND(1D0)),INTENT(IN)::alBMax_EveTr
-    REAL(KIND(1D0)),INTENT(IN)::alBMax_Grass
-    REAL(KIND(1D0)),INTENT(IN)::AlbMin_DecTr
-    REAL(KIND(1D0)),INTENT(IN)::AlbMin_EveTr
-    REAL(KIND(1D0)),INTENT(IN)::AlbMin_Grass
-    REAL(KIND(1D0)),INTENT(IN)::alt
-    REAL(KIND(1D0)),INTENT(IN)::avkdn
-    REAL(KIND(1D0)),INTENT(IN)::avRh
-    REAL(KIND(1D0)),INTENT(IN)::avU1
-    REAL(KIND(1D0)),INTENT(IN)::BaseTHDD
-    REAL(KIND(1D0)),INTENT(IN)::bldgH
-    REAL(KIND(1D0)),INTENT(IN)::CapMax_dec
-    REAL(KIND(1D0)),INTENT(IN)::CapMin_dec
-    REAL(KIND(1D0)),INTENT(IN)::CRWmax
-    REAL(KIND(1D0)),INTENT(IN)::CRWmin
-    REAL(KIND(1D0)),INTENT(IN)::dectime
-    REAL(KIND(1D0)),INTENT(IN)::DecTreeH
-    REAL(KIND(1D0)),INTENT(IN)::DRAINRT
-    REAL(KIND(1D0)),INTENT(IN)::EF_umolCO2perJ
-    REAL(KIND(1D0)),INTENT(IN)::EnEF_v_Jkm
-    REAL(KIND(1D0)),INTENT(IN)::EveTreeH
-    REAL(KIND(1D0)),INTENT(IN)::FAIBldg
-    REAL(KIND(1D0)),INTENT(IN)::FAIDecTree
-    REAL(KIND(1D0)),INTENT(IN)::FAIEveTree
-    REAL(KIND(1D0)),INTENT(IN)::Faut
-    REAL(KIND(1D0)),INTENT(IN)::FcEF_v_kgkm
-    REAL(KIND(1D0)),INTENT(IN)::fcld_obs
-    REAL(KIND(1D0)),INTENT(IN)::FlowChange
-    REAL(KIND(1D0)),INTENT(IN)::FrFossilFuel_Heat
-    REAL(KIND(1D0)),INTENT(IN)::FrFossilFuel_NonHeat
-    REAL(KIND(1D0)),INTENT(IN)::G1
-    REAL(KIND(1D0)),INTENT(IN)::G2
-    REAL(KIND(1D0)),INTENT(IN)::G3
-    REAL(KIND(1D0)),INTENT(IN)::G4
-    REAL(KIND(1D0)),INTENT(IN)::G5
-    REAL(KIND(1D0)),INTENT(IN)::G6
-    REAL(KIND(1D0)),INTENT(IN)::InternalWaterUse_h
-    REAL(KIND(1D0)),INTENT(IN)::IrrFracConif
-    REAL(KIND(1D0)),INTENT(IN)::IrrFracDecid
-    REAL(KIND(1D0)),INTENT(IN)::IrrFracGrass
-    REAL(KIND(1D0)),INTENT(IN)::Kmax
-    REAL(KIND(1D0)),INTENT(IN)::LAI_obs
-    REAL(KIND(1D0)),INTENT(IN)::lat
-    REAL(KIND(1D0)),INTENT(IN)::ldown_obs
-    REAL(KIND(1D0)),INTENT(IN)::lng
-    REAL(KIND(1D0)),INTENT(IN)::MaxQFMetab
-    REAL(KIND(1D0)),INTENT(IN)::MinQFMetab
-    REAL(KIND(1D0)),INTENT(IN)::NARP_EMIS_SNOW
-    REAL(KIND(1D0)),INTENT(IN)::NARP_TRANS_SITE
-    REAL(KIND(1D0)),INTENT(IN)::NumCapita
-    REAL(KIND(1D0)),INTENT(IN)::PipeCapacity
-    REAL(KIND(1D0)),INTENT(IN)::PopDensDaytime
-    REAL(KIND(1D0)),INTENT(IN)::PopDensNighttime
-    REAL(KIND(1D0)),INTENT(IN)::PorMax_dec
-    REAL(KIND(1D0)),INTENT(IN)::PorMin_dec
-    REAL(KIND(1D0)),INTENT(IN)::Precip
-    REAL(KIND(1D0)),INTENT(IN)::PrecipLimit
-    REAL(KIND(1D0)),INTENT(IN)::PrecipLimitAlb
-    REAL(KIND(1D0)),INTENT(IN)::Press_hPa
-    REAL(KIND(1D0)),INTENT(IN)::qh_obs
-    REAL(KIND(1D0)),INTENT(IN)::qn1_obs
-    REAL(KIND(1D0)),INTENT(IN)::RadMeltFact
-    REAL(KIND(1D0)),INTENT(IN)::RAINCOVER
-    REAL(KIND(1D0)),INTENT(IN)::RainMaxRes
-    REAL(KIND(1D0)),INTENT(IN)::RunoffToWater
-    REAL(KIND(1D0)),INTENT(IN)::S1
-    REAL(KIND(1D0)),INTENT(IN)::S2
-    REAL(KIND(1D0)),INTENT(IN)::SnowAlbMax
-    REAL(KIND(1D0)),INTENT(IN)::SnowAlbMin
-    REAL(KIND(1D0)),INTENT(IN)::SnowDensMax
-    REAL(KIND(1D0)),INTENT(IN)::SnowDensMin
-    REAL(KIND(1D0)),INTENT(IN)::SnowLimBuild
-    REAL(KIND(1D0)),INTENT(IN)::SnowLimPaved
-    REAL(KIND(1D0)),INTENT(IN)::snow_obs
-    REAL(KIND(1D0)),INTENT(IN)::SurfaceArea
-    REAL(KIND(1D0)),INTENT(IN)::tau_a
-    REAL(KIND(1D0)),INTENT(IN)::tau_f
-    REAL(KIND(1D0)),INTENT(IN)::tau_r
-    REAL(KIND(1D0)),INTENT(IN)::Temp_C
-    REAL(KIND(1D0)),INTENT(IN)::TempMeltFact
-    REAL(KIND(1D0)),INTENT(IN)::TH
-    REAL(KIND(1D0)),INTENT(IN)::timezone
-    REAL(KIND(1D0)),INTENT(IN)::TL
-    REAL(KIND(1D0)),INTENT(IN)::TrafficUnits
-    REAL(KIND(1D0)),INTENT(IN)::xsmd
-    REAL(KIND(1D0)),INTENT(IN)::Z
-
-    INTEGER,DIMENSION(NVEGSURF),INTENT(IN)::LAIType
-
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::AH_MIN
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::AH_SLOPE_Cooling
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::AH_SLOPE_Heating
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::QF0_BEU
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::Qf_A
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::Qf_B
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::Qf_C
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::T_CRITIC_Cooling
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::T_CRITIC_Heating
-    REAL(KIND(1D0)),DIMENSION(2),INTENT(IN)                   ::TrafficRate
-    REAL(KIND(1D0)),DIMENSION(3),INTENT(IN)                   ::Ie_a
-    REAL(KIND(1D0)),DIMENSION(3),INTENT(IN)                   ::Ie_m
-    REAL(KIND(1D0)),DIMENSION(3),INTENT(IN)                   ::MaxConductance
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN)     ::AHProf_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN)     ::HumActivity_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN)     ::PopProf_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN)     ::TraffProf_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN)     ::WUProfA_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2),INTENT(IN)     ::WUProfM_tstep
-    REAL(KIND(1D0)),DIMENSION(7),INTENT(IN)                   ::DayWat
-    REAL(KIND(1D0)),DIMENSION(7),INTENT(IN)                   ::DayWatPer
-    REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)             ::OHM_threshSW
-    REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)             ::OHM_threshWD
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::chAnOHM
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::cpAnOHM
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::emis
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::kkAnOHM
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::SatHydraulicConduct
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::sfr
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::snowD
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::SoilDepth
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::soilstoreCap
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::StateLimit
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)               ::WetThresh
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::alpha_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::alpha_enh_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::BaseT
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::BaseTe
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::beta_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::beta_enh_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::GDDFull
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::LAIMax
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::LAIMin
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::min_res_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::resp_a
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::resp_b
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::SDDFull
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)            ::theta_bioCO2
-    REAL(KIND(1d0)),DIMENSION(:),INTENT(in)                   ::Ts5mindata_ir
-    REAL(KIND(1D0)),DIMENSION(0:23,2),INTENT(in)              ::snowProf
-    REAL(KIND(1D0)),DIMENSION(NSURF+1,NSURF-1),INTENT(IN)     ::WaterDist
-    REAL(KIND(1D0)),DIMENSION(nsurf+1,4,3),INTENT(IN)         ::OHM_coef
-    REAL(KIND(1D0)),DIMENSION(4,NVEGSURF),INTENT(IN)          ::LAIPower
-    REAL(KIND(1D0)),DIMENSION(:,:),INTENT(IN)                 ::MetForcingData_grid
-
-    REAL(KIND(1D0)),INTENT(INOUT)                             ::SnowfallCum
-    REAL(KIND(1D0)),INTENT(INOUT)                             ::SnowAlb
-    REAL(KIND(1d0)),DIMENSION(24*3600/tstep),INTENT(inout)    ::Tair24HR
-    REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
-    REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_S_av_store
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albGrass
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::DecidCap
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::porosity
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS,5),INTENT(INOUT)        ::GDD
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS,9),INTENT(INOUT)        ::WU_Day
-    REAL(KIND(1D0)),DIMENSION(6,NSURF),INTENT(INOUT)          ::surf
-    REAL(KIND(1D0)),DIMENSION(-4:NDAYS,6),INTENT(INOUT)       ::HDD
-    REAL(KIND(1D0)),DIMENSION(-4:NDAYS,NVEGSURF),INTENT(INOUT)::LAI
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::alb
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::IceFrac
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::MeltWaterStore
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::SnowDens
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::snowFrac
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::SnowPack
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
-    REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_S_store
-    REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
-
-
-    INTEGER :: fn,xx=0
-    CHARACTER(len=100) :: FileOut
-    CHARACTER(len=20)::str_grid
-
-    WRITE(str_grid,'(i4)') Gridiv
-    FileOut=TRIM(FileOutputPath)//&
-         'init_cond_'//&
-         TRIM(ADJUSTL(str_grid))//&
-         '.txt'
-    ! write out data
-    IF ( xx==0 ) THEN
-       fn=50
-       OPEN(fn,file=TRIM(FileOut),status='unknown')!,err=112)
-
-       WRITE(fn,*)'AerodynamicResistanceMethod',AerodynamicResistanceMethod
-       WRITE(fn,*)'Diagnose',Diagnose
-       WRITE(fn,*)'DiagQN',DiagQN
-       WRITE(fn,*)'DiagQS',DiagQS
-       WRITE(fn,*)'startDLS',startDLS
-       WRITE(fn,*)'endDLS',endDLS
-       WRITE(fn,*)'EmissionsMethod',EmissionsMethod
-       WRITE(fn,*)'Gridiv',Gridiv
-       WRITE(fn,*)'gsModel',gsModel
-       WRITE(fn,*)'id',id
-       WRITE(fn,*)'id_prev_t',id_prev_t
-       WRITE(fn,*)'Ie_end',Ie_end
-       WRITE(fn,*)'Ie_start',Ie_start
-       WRITE(fn,*)'imin',imin
-       WRITE(fn,*)'it',it
-       WRITE(fn,*)'ity',ity
-       WRITE(fn,*)'iy',iy
-       WRITE(fn,*)'iy_prev_t',iy_prev_t
-       WRITE(fn,*)'LAICalcYes',LAICalcYes
-       WRITE(fn,*)'NetRadiationMethod',NetRadiationMethod
-       WRITE(fn,*)'OHMIncQF',OHMIncQF
-       WRITE(fn,*)'RoughLenHeatMethod',RoughLenHeatMethod
-       WRITE(fn,*)'RoughLenMomMethod',RoughLenMomMethod
-       WRITE(fn,*)'SMDMethod',SMDMethod
-       WRITE(fn,*)'snowUse',snowUse
-       WRITE(fn,*)'StabilityMethod',StabilityMethod
-       WRITE(fn,*)'StorageHeatMethod',StorageHeatMethod
-       WRITE(fn,*)'tstep',tstep
-       WRITE(fn,*)'veg_type',veg_type
-       WRITE(fn,*)'WaterUseMethod',WaterUseMethod
-       WRITE(fn,*)'alBMax_DecTr',alBMax_DecTr
-       WRITE(fn,*)'alBMax_EveTr',alBMax_EveTr
-       WRITE(fn,*)'alBMax_Grass',alBMax_Grass
-       WRITE(fn,*)'AlbMin_DecTr',AlbMin_DecTr
-       WRITE(fn,*)'AlbMin_EveTr',AlbMin_EveTr
-       WRITE(fn,*)'AlbMin_Grass',AlbMin_Grass
-       WRITE(fn,*)'alt',alt
-       WRITE(fn,*)'avkdn',avkdn
-       WRITE(fn,*)'avRh',avRh
-       WRITE(fn,*)'avU1',avU1
-       WRITE(fn,*)'BaseTHDD',BaseTHDD
-       WRITE(fn,*)'bldgH',bldgH
-       WRITE(fn,*)'CapMax_dec',CapMax_dec
-       WRITE(fn,*)'CapMin_dec',CapMin_dec
-       WRITE(fn,*)'CRWmax',CRWmax
-       WRITE(fn,*)'CRWmin',CRWmin
-       WRITE(fn,*)'dectime',dectime
-       WRITE(fn,*)'DecTreeH',DecTreeH
-       WRITE(fn,*)'DRAINRT',DRAINRT
-       WRITE(fn,*)'EF_umolCO2perJ',EF_umolCO2perJ
-       WRITE(fn,*)'EnEF_v_Jkm',EnEF_v_Jkm
-       WRITE(fn,*)'EveTreeH',EveTreeH
-       WRITE(fn,*)'FAIBldg',FAIBldg
-       WRITE(fn,*)'FAIDecTree',FAIDecTree
-       WRITE(fn,*)'FAIEveTree',FAIEveTree
-       WRITE(fn,*)'Faut',Faut
-       WRITE(fn,*)'FcEF_v_kgkm',FcEF_v_kgkm
-       WRITE(fn,*)'fcld_obs',fcld_obs
-       WRITE(fn,*)'FlowChange',FlowChange
-       WRITE(fn,*)'FrFossilFuel_Heat',FrFossilFuel_Heat
-       WRITE(fn,*)'FrFossilFuel_NonHeat',FrFossilFuel_NonHeat
-       WRITE(fn,*)'G1',G1
-       WRITE(fn,*)'G2',G2
-       WRITE(fn,*)'G3',G3
-       WRITE(fn,*)'G4',G4
-       WRITE(fn,*)'G5',G5
-       WRITE(fn,*)'G6',G6
-       WRITE(fn,*)'InternalWaterUse_h',InternalWaterUse_h
-       WRITE(fn,*)'IrrFracConif',IrrFracConif
-       WRITE(fn,*)'IrrFracDecid',IrrFracDecid
-       WRITE(fn,*)'IrrFracGrass',IrrFracGrass
-       WRITE(fn,*)'Kmax',Kmax
-       WRITE(fn,*)'LAI_obs',LAI_obs
-       WRITE(fn,*)'lat',lat
-       WRITE(fn,*)'ldown_obs',ldown_obs
-       WRITE(fn,*)'lng',lng
-       WRITE(fn,*)'MaxQFMetab',MaxQFMetab
-       WRITE(fn,*)'MinQFMetab',MinQFMetab
-       WRITE(fn,*)'NARP_EMIS_SNOW',NARP_EMIS_SNOW
-       WRITE(fn,*)'NARP_TRANS_SITE',NARP_TRANS_SITE
-       WRITE(fn,*)'NumCapita',NumCapita
-       WRITE(fn,*)'PipeCapacity',PipeCapacity
-       WRITE(fn,*)'PopDensDaytime',PopDensDaytime
-       WRITE(fn,*)'PopDensNighttime',PopDensNighttime
-       WRITE(fn,*)'PorMax_dec',PorMax_dec
-       WRITE(fn,*)'PorMin_dec',PorMin_dec
-       WRITE(fn,*)'Precip',Precip
-       WRITE(fn,*)'PrecipLimit',PrecipLimit
-       WRITE(fn,*)'PrecipLimitAlb',PrecipLimitAlb
-       WRITE(fn,*)'Press_hPa',Press_hPa
-       WRITE(fn,*)'qh_obs',qh_obs
-       WRITE(fn,*)'qn1_obs',qn1_obs
-       WRITE(fn,*)'RadMeltFact',RadMeltFact
-       WRITE(fn,*)'RAINCOVER',RAINCOVER
-       WRITE(fn,*)'RainMaxRes',RainMaxRes
-       WRITE(fn,*)'RunoffToWater',RunoffToWater
-       WRITE(fn,*)'S1',S1
-       WRITE(fn,*)'S2',S2
-       WRITE(fn,*)'SnowAlbMax',SnowAlbMax
-       WRITE(fn,*)'SnowAlbMin',SnowAlbMin
-       WRITE(fn,*)'SnowDensMax',SnowDensMax
-       WRITE(fn,*)'SnowDensMin',SnowDensMin
-       WRITE(fn,*)'SnowLimBuild',SnowLimBuild
-       WRITE(fn,*)'SnowLimPaved',SnowLimPaved
-       WRITE(fn,*)'snow_obs',snow_obs
-       WRITE(fn,*)'SurfaceArea',SurfaceArea
-       WRITE(fn,*)'tau_a',tau_a
-       WRITE(fn,*)'tau_f',tau_f
-       WRITE(fn,*)'tau_r',tau_r
-       WRITE(fn,*)'Temp_C',Temp_C
-       WRITE(fn,*)'TempMeltFact',TempMeltFact
-       WRITE(fn,*)'TH',TH
-       WRITE(fn,*)'timezone',timezone
-       WRITE(fn,*)'TL',TL
-       WRITE(fn,*)'TrafficUnits',TrafficUnits
-       WRITE(fn,*)'xsmd',xsmd
-       WRITE(fn,*)'Z',Z
-       WRITE(fn,*)'LAIType',LAIType
-       WRITE(fn,*)'AH_MIN',AH_MIN
-       WRITE(fn,*)'AH_SLOPE_Cooling',AH_SLOPE_Cooling
-       WRITE(fn,*)'AH_SLOPE_Heating',AH_SLOPE_Heating
-       WRITE(fn,*)'QF0_BEU',QF0_BEU
-       WRITE(fn,*)'Qf_A',Qf_A
-       WRITE(fn,*)'Qf_B',Qf_B
-       WRITE(fn,*)'Qf_C',Qf_C
-       WRITE(fn,*)'T_CRITIC_Cooling',T_CRITIC_Cooling
-       WRITE(fn,*)'T_CRITIC_Heating',T_CRITIC_Heating
-       WRITE(fn,*)'TrafficRate',TrafficRate
-       WRITE(fn,*)'Ie_a',Ie_a
-       WRITE(fn,*)'Ie_m',Ie_m
-       WRITE(fn,*)'MaxConductance',MaxConductance
-       WRITE(fn,*)'AHProf_tstep',AHProf_tstep
-       WRITE(fn,*)'HumActivity_tstep',HumActivity_tstep
-       WRITE(fn,*)'PopProf_tstep',PopProf_tstep
-       WRITE(fn,*)'TraffProf_tstep',TraffProf_tstep
-       WRITE(fn,*)'WUProfA_tstep',WUProfA_tstep
-       WRITE(fn,*)'WUProfM_tstep',WUProfM_tstep
-       WRITE(fn,*)'DayWat',DayWat
-       WRITE(fn,*)'DayWatPer',DayWatPer
-       WRITE(fn,*)'OHM_threshSW',OHM_threshSW
-       WRITE(fn,*)'OHM_threshWD',OHM_threshWD
-       WRITE(fn,*)'chAnOHM',chAnOHM
-       WRITE(fn,*)'cpAnOHM',cpAnOHM
-       WRITE(fn,*)'emis',emis
-       WRITE(fn,*)'kkAnOHM',kkAnOHM
-       WRITE(fn,*)'SatHydraulicConduct',SatHydraulicConduct
-       WRITE(fn,*)'sfr',sfr
-       WRITE(fn,*)'snowD',snowD
-       WRITE(fn,*)'SoilDepth',SoilDepth
-       WRITE(fn,*)'soilstoreCap',soilstoreCap
-       WRITE(fn,*)'StateLimit',StateLimit
-       WRITE(fn,*)'WetThresh',WetThresh
-       WRITE(fn,*)'alpha_bioCO2',alpha_bioCO2
-       WRITE(fn,*)'alpha_enh_bioCO2',alpha_enh_bioCO2
-       WRITE(fn,*)'BaseT',BaseT
-       WRITE(fn,*)'BaseTe',BaseTe
-       WRITE(fn,*)'beta_bioCO2',beta_bioCO2
-       WRITE(fn,*)'beta_enh_bioCO2',beta_enh_bioCO2
-       WRITE(fn,*)'GDDFull',GDDFull
-       WRITE(fn,*)'LAIMax',LAIMax
-       WRITE(fn,*)'LAIMin',LAIMin
-       WRITE(fn,*)'min_res_bioCO2',min_res_bioCO2
-       WRITE(fn,*)'resp_a',resp_a
-       WRITE(fn,*)'resp_b',resp_b
-       WRITE(fn,*)'SDDFull',SDDFull
-       WRITE(fn,*)'theta_bioCO2',theta_bioCO2
-       WRITE(fn,*)'Ts5mindata_ir',Ts5mindata_ir
-       WRITE(fn,*)'snowProf',snowProf
-       WRITE(fn,*)'WaterDist',WaterDist
-       WRITE(fn,*)'OHM_coef',OHM_coef
-       WRITE(fn,*)'LAIPower',LAIPower
-       WRITE(fn,*)'MetForcingData_grid',MetForcingData_grid
-       WRITE(fn,*)'SnowfallCum',SnowfallCum
-       WRITE(fn,*)'SnowAlb',SnowAlb
-       WRITE(fn,*)'Tair24HR',Tair24HR
-       WRITE(fn,*)'qn1_av_store',qn1_av_store
-       WRITE(fn,*)'qn1_S_av_store',qn1_S_av_store
-       WRITE(fn,*)'albDecTr',albDecTr
-       WRITE(fn,*)'albEveTr',albEveTr
-       WRITE(fn,*)'albGrass',albGrass
-       WRITE(fn,*)'DecidCap',DecidCap
-       WRITE(fn,*)'porosity',porosity
-       WRITE(fn,*)'GDD',GDD
-       WRITE(fn,*)'WU_Day',WU_Day
-       WRITE(fn,*)'surf',surf
-       WRITE(fn,*)'HDD',HDD
-       WRITE(fn,*)'LAI',LAI
-       WRITE(fn,*)'alb',alb
-       WRITE(fn,*)'IceFrac',IceFrac
-       WRITE(fn,*)'MeltWaterStore',MeltWaterStore
-       WRITE(fn,*)'SnowDens',SnowDens
-       WRITE(fn,*)'snowFrac',snowFrac
-       WRITE(fn,*)'SnowPack',SnowPack
-       WRITE(fn,*)'soilmoist',soilmoist
-       WRITE(fn,*)'state',state
-       WRITE(fn,*)'qn1_S_store',qn1_S_store
-       WRITE(fn,*)'qn1_store',qn1_store
-
-       CLOSE (fn)
-       PRINT*, 'initial condition has been written out for ', Gridiv
-       xx=1 ! change flag for completion
-    ELSE
-       PRINT*, 'initial condition output has been done before for ', Gridiv
-       PRINT*, 'see:', FileOut
-
-    END IF
-
-  END SUBROUTINE SUEWS_write_model_state
-
 
   ! a mini version of SUEWS
   SUBROUTINE SuMin(&
-    alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&! input&inout in alphabetical order
-    alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
-    alt,avkdn,avRh,avU1,BaseT,BaseTe,&
-    BaseTHDD,bldgH,CapMax_dec,CapMin_dec,&
-    CRWmax,CRWmin,DayWat,DayWatPer,&
-    DecidCap,dectime,DecTreeH,DRAINRT,&
-    emis,endDLS,EveTreeH,FAIBldg,&
-    FAIDecTree,FAIEveTree,Faut,FlowChange,&
-    G1,G2,G3,G4,G5,G6,GDD,&
-    GDDFull,HDD,&
-    id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
-    it,iy,Kmax,LAI,LAIMax,LAIMin,&
-    LAIPower,LAIType,lat,lng,MaxConductance,&
-    OHM_coef,OHMIncQF,OHM_threshSW,&
-    OHM_threshWD,PipeCapacity,PorMax_dec,PorMin_dec,porosity,&
-    Precip,Press_hPa,&
-    qn1_av_store,qn1_store,RAINCOVER,RainMaxRes,&
-    RunoffToWater,S1,S2,&
-    SDDFull,sfr,&
-    soilmoist,soilstoreCap,startDLS,state,StateLimit,&
-    surf,SurfaceArea,tau_a,tau_f,tau_r,&
-    Temp_C,TH,&
-    timezone,TL,&
-    tstep,&
-    WaterDist,WetThresh,WU_Day,&
-    xsmd,Z,&
-    qh,qe)!output
+       alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&! input&inout in alphabetical order
+       alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
+       alt,avkdn,avRh,avU1,BaseT,BaseTe,&
+       BaseTHDD,bldgH,CapMax_dec,CapMin_dec,&
+       CRWmax,CRWmin,DayWat,DayWatPer,&
+       DecidCap,dectime,DecTreeH,DRAINRT,&
+       emis,endDLS,EveTreeH,FAIBldg,&
+       FAIDecTree,FAIEveTree,Faut,FlowChange,&
+       G1,G2,G3,G4,G5,G6,GDD,&
+       GDDFull,HDD,&
+       id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
+       it,iy,Kmax,LAI,LAIMax,LAIMin,&
+       LAIPower,LAIType,lat,lng,MaxConductance,&
+       OHM_coef,OHMIncQF,OHM_threshSW,&
+       OHM_threshWD,PipeCapacity,PorMax_dec,PorMin_dec,porosity,&
+       Precip,Press_hPa,&
+       qn1_av_store,qn1_store,RAINCOVER,RainMaxRes,&
+       RunoffToWater,S1,S2,&
+       SDDFull,sfr,&
+       soilmoist,soilstoreCap,startDLS,state,StateLimit,&
+       surf,SurfaceArea,tau_a,tau_f,tau_r,&
+       Temp_C,TH,&
+       timezone,TL,&
+       tstep,&
+       WaterDist,WetThresh,WU_Day,&
+       xsmd,Z,&
+       qh,qe)!output
 
     INTEGER::AerodynamicResistanceMethod
     INTEGER::Diagnose
@@ -3919,11 +2523,11 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::SDDFull
     REAL(KIND(1D0)),DIMENSION(0:23,2)          ::snowProf
     REAL(KIND(1D0)),DIMENSION(NVEGSURF)     ::theta_bioCO2
-    REAL(KIND(1d0)),DIMENSION(:),allocatable             ::Ts5mindata_ir
+    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE             ::Ts5mindata_ir
     REAL(KIND(1D0)),DIMENSION(NSURF+1,NSURF-1),INTENT(IN) ::WaterDist
     REAL(KIND(1D0)),DIMENSION(nsurf+1,4,3),INTENT(IN)     ::OHM_coef
     REAL(KIND(1D0)),DIMENSION(4,NVEGSURF),INTENT(IN)      ::LAIPower
-    REAL(KIND(1D0)),DIMENSION(:,:),allocatable          ::MetForcingData_grid
+    REAL(KIND(1D0)),DIMENSION(:,:),ALLOCATABLE          ::MetForcingData_grid
 
     REAL(KIND(1D0)) ::SnowfallCum
     REAL(KIND(1D0))                             ::SnowAlb
@@ -3958,172 +2562,12 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutESTM-5)       ::dataOutLineESTM
     REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutDailyState-5) ::DailyStateLine
 
-    ! REAL(KIND(1D0))::a1
-    ! REAL(KIND(1D0))::a2
-    ! REAL(KIND(1D0))::a3
-    ! REAL(KIND(1D0))::AdditionalWater
-    ! ! REAL(KIND(1D0))::avU10_ms
-    ! REAL(KIND(1D0))::azimuth
-    ! REAL(KIND(1D0))::chSnow_per_interval
-    !
-    ! REAL(KIND(1D0))::dens_dry
-    ! REAL(KIND(1d0))::deltaLAI
-    ! REAL(KIND(1D0))::drain_per_tstep
-    ! REAL(KIND(1D0))::Ea_hPa
-    ! REAL(KIND(1D0))::E_mod
-    ! REAL(KIND(1D0))::es_hPa
-    ! REAL(KIND(1D0))::ev
-    ! REAL(KIND(1D0))::ev_per_tstep
-    ! REAL(KIND(1D0))::ext_wu
-    ! REAL(KIND(1D0))::Fc
-    ! REAL(KIND(1D0))::Fc_anthro
-    ! REAL(KIND(1D0))::Fc_biogen
-    ! REAL(KIND(1D0))::Fc_build
-    ! REAL(KIND(1D0))::fcld
-    ! REAL(KIND(1D0))::Fc_metab
-    ! REAL(KIND(1D0))::Fc_photo
-    ! REAL(KIND(1D0))::Fc_respi
-    ! REAL(KIND(1D0))::Fc_traff
-    ! REAL(KIND(1D0))::fwh
-    ! REAL(KIND(1D0))::gsc
-    ! REAL(KIND(1D0))::H_mod
-    ! REAL(KIND(1D0))::int_wu
-    ! REAL(KIND(1D0))::kclear
-    ! REAL(KIND(1D0))::kup
-    ! REAL(KIND(1D0))::ldown
-    ! REAL(KIND(1D0))::lup
-    ! REAL(KIND(1D0))::L_mod
-    ! REAL(KIND(1D0))::mwh
-    ! REAL(KIND(1D0))::mwstore
-    ! REAL(KIND(1D0))::NWstate_per_tstep
-    ! REAL(KIND(1D0))::planF
-    ! REAL(KIND(1D0))::p_mm
-    ! REAL(KIND(1D0))::psim
-    ! REAL(KIND(1D0))::q2_gkg
-    ! REAL(KIND(1D0))::qeOut
-    ! REAL(KIND(1D0))::qe_per_tstep
-    ! REAL(KIND(1D0))::qf
-    ! REAL(KIND(1D0))::QF_SAHP
-    REAL(KIND(1D0)),intent(out)::qh
-    ! REAL(KIND(1D0))::qh_r
-    ! REAL(KIND(1D0))::Qm
-    ! REAL(KIND(1D0))::QmFreez
-    ! REAL(KIND(1D0))::QmRain
-    ! REAL(KIND(1D0))::qn1
-    ! REAL(KIND(1D0))::qn1_S
-    ! REAL(KIND(1D0))::qn1_SF
-    ! REAL(KIND(1D0))::qs
-    ! REAL(KIND(1D0))::RA
-    ! REAL(KIND(1D0))::ResistSurf
-    ! REAL(KIND(1D0))::rss
-    ! REAL(KIND(1d0))::runoffAGveg
-    ! REAL(KIND(1d0))::runoffAGimpervious
-    ! REAL(KIND(1D0))::runoff_per_tstep
-    ! REAL(KIND(1D0))::runoffPipes
-    ! REAL(KIND(1D0))::runoffPipes_m3
-    ! REAL(KIND(1D0))::runoffSoil_per_tstep
-    ! REAL(KIND(1D0))::runoffwaterbody
-    ! REAL(KIND(1D0))::runoffWaterBody_m3
-    ! REAL(KIND(1D0))::smd
-    ! REAL(KIND(1D0))::SoilState
-    ! REAL(KIND(1D0))::state_per_tstep
-    ! REAL(KIND(1D0))::surf_chang_per_tstep
-    ! REAL(KIND(1D0))::swe
-    ! REAL(KIND(1D0))::t2_C
-    ! REAL(KIND(1D0))::TempVeg
-    ! REAL(KIND(1D0))::tot_chang_per_tstep
-    ! REAL(KIND(1D0))::Tstar
-    ! REAL(KIND(1D0))::tsurf
-    ! REAL(KIND(1D0))::UStar
-    ! REAL(KIND(1D0))::VPD_Pa
-    ! REAL(KIND(1D0))::WUAreaDecTr_m2
-    ! REAL(KIND(1D0))::WUAreaEveTr_m2
-    ! REAL(KIND(1D0))::WUAreaGrass_m2
-    ! REAL(KIND(1D0))::WUAreaTotal_m2
-    ! REAL(KIND(1D0))::wu_DecTr
-    ! REAL(KIND(1D0))::wu_EveTr
-    ! REAL(KIND(1D0))::wu_Grass
-    ! REAL(KIND(1D0))::wu_m3
-    ! REAL(KIND(1D0))::Z0m
-    ! REAL(KIND(1D0))::Zdm
-    ! REAL(KIND(1D0))::ZENITH_deg
-    ! REAL(KIND(1D0))::Zh
+    REAL(KIND(1D0)),INTENT(out)::qh
 
-
-    ! REAL(KIND(1D0)),DIMENSION(2)::SnowRemoval
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::chang
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::changSnow
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::evap
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::ev_snow
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::FreezMelt
-    ! REAL(KIND(1d0)),DIMENSION(nsurf)::kup_ind_snow
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::mw_ind
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::Qm_freezState
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::Qm_melt
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::Qm_rain
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::qn1_ind_snow
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::rainOnSnow
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::rss_nsurf
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::runoff
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::runoffSnow
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::runoffSoil
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::smd_nsurf
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::SnowToSurf
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::snowDepth
-
-    ! REAL(KIND(1d0)),DIMENSION(nsurf)::Tsurf_ind_snow
 
     INTEGER,DIMENSION(NSURF)::snowCalcSwitch
-    ! INTEGER,DIMENSION(3)    ::dayofWeek_id
-    ! INTEGER::DLS
+    REAL(KIND(1D0)),INTENT(out)::qe
 
-    ! REAL(KIND(1D0))::avcp
-    ! REAL(KIND(1D0))::avdens
-    ! REAL(KIND(1D0))::dq
-    ! REAL(KIND(1D0))::lv_J_kg
-    ! REAL(KIND(1D0))::lvS_J_kg
-    ! REAL(KIND(1D0))::psyc_hPa
-    REAL(KIND(1D0)),intent(out)::qe
-    ! REAL(KIND(1D0))::RAsnow
-    ! REAL(KIND(1D0))::rb
-    ! REAL(KIND(1D0))::runoff_per_interval
-    ! REAL(KIND(1D0))::s_hPa
-    ! REAL(KIND(1D0))::sIce_hpa
-    ! REAL(KIND(1D0))::SoilMoistCap
-    ! REAL(KIND(1D0))::veg_fr
-    ! REAL(KIND(1D0))::VegPhenLumps
-    ! REAL(KIND(1D0))::VPd_hpa
-    ! REAL(KIND(1D0))::vsmd
-    ! REAL(KIND(1D0))::ZZD
-
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::deltaQi
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::drain
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::FreezState
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::FreezStateVol
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::soilmoistOld
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::stateOld
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::tsurf_ind
-
-    ! TODO: TS 25 Oct 2017
-    ! the `add-*` variables are not used currently as grid-to-grid connection is NOT set up.
-    ! set these variables as zero.
-    ! REAL(KIND(1D0))::addImpervious=0
-    ! REAL(KIND(1D0))::addPipes=0
-    ! REAL(KIND(1D0))::addVeg=0
-    ! REAL(KIND(1D0))::addWaterBody=0
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::AddWater=0
-    ! REAL(KIND(1D0)),DIMENSION(NSURF)::AddWaterRunoff=0
-
-    ! values that are derived from tstep
-    ! INTEGER::nsh ! number of timesteps per hour
-    ! REAL(KIND(1D0))::nsh_real ! nsh in type real
-    ! REAL(KIND(1D0))::tstep_real ! tstep in type real
-
-    ! values that are derived from sfr (surface fractions)
-    ! REAL(KIND(1D0))::VegFraction
-    ! REAL(KIND(1D0))::ImpervFraction
-    ! REAL(KIND(1D0))::PervFraction
-    ! REAL(KIND(1D0))::NonWaterFraction
 
     Diagnose=0
     snowCalcSwitch=0
@@ -4148,7 +2592,7 @@ CONTAINS
 
     SnowAlb=0
 
-    call SUEWS_cal_Main(&
+    CALL SUEWS_cal_Main(&
          AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,& ! input&inout in alphabetical order
          AH_SLOPE_Heating,alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&
          alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
@@ -4186,487 +2630,12 @@ CONTAINS
          datetimeLine,dataOutLineSUEWS,dataOutLineSnow,dataOutLineESTM,&!output
          DailyStateLine)!output
 
-  qh=dataOutLineSUEWS(9)
-  qe=dataOutLineSUEWS(10)
+    qh=dataOutLineSUEWS(9)
+    qe=dataOutLineSUEWS(10)
 
   END SUBROUTINE SuMin
 
 END MODULE SUEWS_Driver
-
-MODULE AtmMoist_module
-  IMPLICIT NONE
-
-CONTAINS
-  !.c!! For Lumps Version 2 - no stability calculations
-  ! Latent heat of sublimation when air temperature below zero added. LJ Nov 2012
-  ! explict interface added to all subroutines, TS 08 Aug 2017
-  SUBROUTINE LUMPS_cal_AtmMoist(&
-       Temp_C,Press_hPa,avRh,dectime,&! input:
-       lv_J_kg,lvS_J_kg,&! output:
-       es_hPa,Ea_hPa,VPd_hpa,VPD_Pa,dq,dens_dry,avcp,air_dens)
-    ! USE data_in
-    ! USE moist
-    ! USE gas
-    ! USE time
-    ! use snowMod
-    ! use defaultnotUsed
-
-    IMPLICIT NONE
-    REAL(KIND(1d0))::vap_dens
-
-    REAL(KIND(1d0)),INTENT(in)::&
-         Temp_C,&
-         Press_hPa,&
-         avRh,dectime
-    REAL(KIND(1d0)),INTENT(out)::&
-         lv_J_kg,&!Latent heat of vaporization in [J kg-1]
-         lvS_J_kg,&!Latent heat of sublimation in J/kg
-         es_hPa,&!Saturation vapour pressure over water in hPa
-         Ea_hPa,&!Vapour pressure of water in hPa
-         VPd_hpa,& !vapour pressure deficit in hPa
-         VPD_Pa,& !vapour pressure deficit in Pa
-         dq,&!Specific humidity deficit in g/kg
-         dens_dry,& !Vap density or absolute humidity	 (kg/m3)
-         avcp,&!specific heat capacity in J kg-1 K-1
-         air_dens!Air density in kg/m3
-
-     !REAL(KIND(1d0))::sat_vap_press,spec_heat_beer,lat_vap,lat_vapSublim,SPEC_HUM_DEF   ! functions
-
-
-    REAL (KIND(1d0)),PARAMETER:: &
-                                !  comp          = 0.9995, &
-                                !  epsil         = 0.62197,&           !ratio molecular weight of water vapor/dry air (kg/mol/kg/mol)
-                                !  epsil_gkg     = 621.97, &           !ratio molecular weight of water vapor/dry air in g/kg
-                                !  dry_gas       = 8.31451,&           !Dry gas constant (J/k/mol)
-                                !  gas_ct_wat    = 461.05,&            !Gas constant for water (J/kg/K)
-                                !  molar         = 0.028965,&          !Dry air molar fraction in kg/mol
-                                !  molar_wat_vap = 0.0180153,&         !Molar fraction of water vapor in kg/mol
-         gas_ct_dry    = 8.31451/0.028965,&  !j/kg/k=dry_gas/molar
-         gas_ct_wv     = 8.31451/0.0180153 !j/kg/kdry_gas/molar_wat_vap
-    !  waterDens     = 999.8395            !Density of water in 0 cel deg
-    INTEGER::from=1
-
-    !Saturation vapour pressure over water in hPa
-    es_hPa = sat_vap_press(Temp_C,Press_hPa,from,dectime) ! dectime is more or less unnecessary here
-
-    !Vapour pressure of water in hPa
-    Ea_hPa=avRh/100*es_hPa
-
-    ! if(debug.and.dectime>55.13.and.dectime<55.2)write(35,*)'%',Temp_C
-
-    VPd_hpa=es_hPa-ea_hpa           !vapour pressure deficit in hPa
-    VPD_Pa=(es_hPa*100)-(Ea_hPa*100)!vapour pressure deficit in Pa
-
-    dq=(spec_hum_def(vpd_hPa,Press_hPa)) !Specific humidity deficit in g/kg
-
-    !Vap density or absolute humidity	 (kg/m3)
-    vap_dens=(Ea_hPa*100/((Temp_C+273.16)*gas_ct_wv))
-
-    !density Dry Air Beer(1990)	kg/m3
-    dens_dry=((Press_hPa-Ea_hPa)*100)/(gas_ct_dry*(273.16+Temp_C))
-
-    !Air density in kg/m3
-    air_dens=(Press_hPa*100)/(gas_ct_dry*(Temp_C+273.16))
-
-    !Calculate specific heat capacity in J kg-1 K-1
-    avcp=spec_heat_beer(Temp_C,avRh,vap_dens,dens_dry)
-
-    !Latent heat of vaporization in [J kg-1]
-    lv_J_kg=lat_vap(Temp_C,Ea_hPa,Press_hPa,avcp,dectime)
-
-    !Latent heat of sublimation in J/kg
-    IF(Temp_C<0.000) THEN
-       lvS_J_kg=lat_vapSublim(Temp_C,Ea_hPa,Press_hPa,avcp)
-    ELSE
-       lvS_J_kg = 2834000
-    ENDIF
-    !if(debug)write(*,*)lv_J_kg,Temp_C,'lv2'
-    IF(press_hPa<900) THEN
-       CALL ErrorHint(46, 'Function LUMPS_cal_AtmMoist',press_hPa,-55.55, -55)
-    ENDIF
-    RETURN
-  END SUBROUTINE LUMPS_cal_AtmMoist
-
-  !=====================================================================
-  ! sg sept 99 f90
-  ! Uses eqns from Buck (1981) JAM 20, 1527-1532
-  ! units T (deg C) e (mb) P (mb)
-  ! f corrects for the fact that we are not dealing with pure water
-  ! LJ Feb 2010
-  !Changed to use the updated version (Buck research manual, 1996) from Buck (1981)
-  !For water different equations in cold and warm temperatures
-
-  FUNCTION sat_vap_press(Temp_c,PRESS_hPa,from,dectime) RESULT(es_hPa)
-    ! USE time
-    ! USE defaultnotUsed
-    IMPLICIT NONE
-
-    REAL(KIND(1d0))::temp_C,press_hpa,dectime!,pw
-    REAL(KIND(1d0))::e_mb,f,press_kpa,es_hPA
-    INTEGER:: from,iv
-    INTEGER,PARAMETER::notUsedI=-55
-
-    !If air temperature between -0.001 -
-    IF(ABS(temp_C)<0.001000)THEN
-       IF(from==1) THEN  ! not from determining Tw
-          iv=INT(press_Hpa)
-          CALL errorHint(29,'Function sat_vap_press: temp_C, dectime,press_Hpa = ',temp_C, dectime,iv)
-
-       ENDIF
-       temp_C=0.001000
-    ENDIF
-
-    Press_kPa=Press_hPa/10
-
-    IF(Temp_C<50.AND.Temp_C>-40)THEN
-       !e_mb=6.1121*EXP(((18.729-Temp_C/227.3)*Temp_C)/(Temp_C+257.87)) !Old one
-       !f=1.00072+Press_hPa*(3.2E-6+5.9D-10*Temp_C**2)
-
-       IF (Temp_C>=0.001000) THEN
-          e_mb=6.1121*EXP(((18.678-Temp_C/234.5)*Temp_C)/(Temp_C+257.14))
-          f=1.00072+Press_kPa*(3.2E-6+5.9E-10*Temp_C**2)
-          es_hPa=e_mb*f
-
-       ELSEIF (Temp_C<=-0.001000) THEN
-          e_mb=6.1115*EXP(((23.036-Temp_C/333.7)*Temp_C)/(Temp_C+279.82))
-          f=1.00022+Press_kPa*(3.83E-6+6.4E-10*Temp_C**2)
-          es_hPa=e_mb*f
-       ENDIF
-
-    ELSE
-       CALL ErrorHint(28,'FUNCTION sat_vap_press: [Temperature is out of range], Temp_C,dectime',Temp_C,dectime,notUsedI)
-
-    ENDIF
-
-    RETURN
-  END FUNCTION sat_vap_press
-
-
-  FUNCTION sat_vap_pressIce(Temp_c,PRESS_hPa,from,dectime) RESULT(es_hPa)
-    ! USE time
-    ! USE defaultnotUsed
-    IMPLICIT NONE
-
-    REAL(KIND(1d0))::e_mb,f,temp_C,press_hpa,press_kpa,es_hPA,dectime!,pw
-    INTEGER:: from,iv
-    INTEGER,PARAMETER::notUsedI=-55
-
-    !If air temperature between -0.001 -
-    IF(ABS(temp_C)<0.001000)THEN
-       IF(from==1) THEN  ! not from determining Tw
-          iv=INT(press_Hpa)
-          CALL errorHint(29,'Function sat_vap_press: temp_C, dectime,press_Hpa = ',temp_C, dectime,iv)
-
-       ENDIF
-       temp_C=0.001000
-    ENDIF
-
-    Press_kPa=Press_hPa/10
-
-    IF(Temp_C<50.AND.Temp_C>-40)THEN
-       e_mb=6.1115*EXP(((23.036-Temp_C/333.7)*Temp_C)/(Temp_C+279.82))
-       f=1.00022+Press_kPa*(3.83E-6+6.4E-10*Temp_C**2) !In hPa
-       es_hPa=e_mb*f
-
-    ELSE
-       CALL ErrorHint(28,'FUNCTION sat_vap_press: [Temperature is out of range], Temp_C,dectime',Temp_C,dectime,notUsedI)
-
-    ENDIF
-
-    RETURN
-  END FUNCTION sat_vap_pressIce
-
-  !==========================================================
-  !Output: specific humidity deficit in g/kg
-  !Input: Dry air density and air pressure in hPa
-  FUNCTION spec_hum_def(vpd_hPa,press_hPa) RESULT(dq)
-    ! USE gas
-    IMPLICIT NONE
-    REAL(KIND(1d0))           :: press_hPa,vpd_hPa,dq
-    REAL(KIND(1d0)),PARAMETER :: epsil_gkg = 621.97 !ratio molecular weight of water vapor/dry air in g/kg
-    dq=epsil_gkg*vpd_hPa/press_hPa ! Phd Thesis II.13 p 196
-  END FUNCTION spec_hum_def
-
-  ! ==============================================================================
-  FUNCTION spec_heat_beer(Temp_C,rh,rho_v,rho_d) RESULT (cp)
-    ! Input: Air temperature, relative humidity, water vapour and dry air densities
-    ! Output: heat capacity in units J kg-1 K-1
-    ! Reference: Tom Beer, CSIRO, 1990. Applied Environmetrics Meteorological Tables.
-    ! Can be found from SG:s office from Atmmos Moist map
-    !-------------------------------------------------------------------------------
-
-    ! USE defaultnotUsed
-    IMPLICIT NONE
-
-    REAL(KIND(1d0))::cp,cpd,cpm,rho_v,rho_d,rh,temp_C
-
-    !Garratt equation a20 (1992)
-    CPd = 1005.0+((Temp_C+23.16)**2)/3364.0 !Changed from 23.15 to 23.16
-
-    !Beer (1990) for water vapor
-    cpm = 1859 + 0.13*rH+ (19.3+0.569*rH)*(Temp_C/100.) + &
-         (10.+0.5*rH)*(Temp_C/100.)**2
-
-    IF(ABS(rho_d)<0.000100.OR.ABS(rho_v)<0.000100.OR.ABS(rho_d+rho_v)<0.000100)THEN
-       CALL ErrorHint(42,'spec-heat_beer',rho_v,rho_d,INT(Temp_C))
-    ENDIF
-
-    cp=cpd*(rho_d/(rho_d+rho_v))+cpm*(rho_v/(rho_d+rho_v))
-
-    !   print*,"cp: ",cp,cpd,rho_d,rho_v,cpm,rh
-  END FUNCTION spec_heat_beer
-
-  !==========================================================
-  !Latent_heat.f sg nov 96
-  !sg sep 99 converted f90 FUNCTION
-  !Added calcualation of latent heat of sublimation, LJ June 2012
-
-  FUNCTION Lat_vap(Temp_C,Ea_hPa,Press_hPa,cp,dectime) RESULT (lv_J_kg)
-    !Input: Air temperature, Water vapour pressure, Air pressure, heat capacity
-    !Output: latent heat of vaporization
-
-    ! USE time
-    ! USE SnowMod
-    ! USE defaultnotUsed
-
-    IMPLICIT NONE
-    REAL(KIND(1d0))::cp,lv_J_kg,ea_fix,tw,&
-         incr,es_tw,psyc,ea_est,press_hPa,ea_HPa, temp_C,dectime!,Temp_K
-    ! REAL(KIND(1d0))::sat_vap_press,psyc_const ! functions
-
-    LOGICAL:: switch1=.FALSE.,switch2=.FALSE.!,debug=.true.
-    INTEGER:: ii,from=2
-    REAL(KIND(1d0)),PARAMETER::notUsed=-55.55
-
-    ea_fix=ea_hPa
-    !if(debug) write(*,*)Temp_C, 'LV'
-    !Temp_K=temp_C+273.16
-
-    !lv=1.91846E6*(Temp_K/(Temp_K-33.91))**2
-
-    lv_J_kg=(2500.25-2.365*temp_C)*1000  !First guess for lv in units J/kg
-
-
-    tw=Temp_C/2.  !First estimate for wet bulb temperature
-    incr=3.
-    DO ii=1,100
-       IF(Press_hPa<900) THEN
-          CALL ErrorHint(45,'function Lat_vap',Press_hPA,notUsed,ii)
-       ENDIF
-
-       ! if(debug.and.dectime>55.13.and.dectime<55.2)write(35,*)'% 1',Tw
-
-       es_tw=sat_vap_press(Tw,Press_hPa,from,dectime)  !Calculate saturation vapour pressure in hPa
-
-       !if(debug.and.dectime>55.13.and.dectime<55.2)write(35,*)'% 2',Tw
-
-       IF(Press_hPa<900) THEN
-          CALL ErrorHint(45,'function Lat_vap - 2',Press_hPA,notUsed,ii)
-       ENDIF
-
-       psyc=psyc_const(cp,Press_hPa,lv_J_kg) !in units hPa/K
-
-       IF(Press_hPa<900) THEN
-          CALL ErrorHint(45,'function Lat _vap -31',Press_hPA,notUsed,ii)
-       ENDIF
-
-       ea_est=es_tw-psyc*(temp_C-tw)
-
-       lv_J_kg=(2500.25-2.365*tw)*1e3
-
-       IF(switch1.AND.switch2)THEN
-          incr=incr/10.
-          switch1=.FALSE.
-          switch2=.FALSE.
-       ENDIF
-       IF(ABS(ea_est-ea_fix)<0.001000)THEN
-          RETURN
-       ELSEIF(ea_est > ea_fix)THEN
-          tw=tw-incr
-          switch1=.TRUE.
-       ELSEIF(ea_est< ea_fix)THEN
-          tw=tw+incr
-          switch2=.TRUE.
-       ENDIF
-    ENDDO
-
-    RETURN
-  END FUNCTION Lat_vap
-
-
-  FUNCTION Lat_vapSublim(Temp_C,Ea_hPa,Press_hPa,cp) RESULT (lvS_J_kg)
-    !Input: Air temperature, Water vapour pressure, Air pressure, heat capacity
-    !Output: latent heat of sublimation in units J/kg
-
-    ! USE time
-
-    IMPLICIT NONE
-
-    REAL(KIND(1d0))::lvS_J_kg,temp_C,tw,incr,Ea_hPa,Press_hPa,cp
-   ! REAL(KIND(1d0))::ea_fix,es_tw,psyc,ea_est,Temp_K
-   ! REAL(KIND(1d0))::sat_vap_pressIce,psyc_const ! functions
-   ! LOGICAL:: switch1=.FALSE.,switch2=.FALSE.!,debug=.true.
-   ! INTEGER:: ii,from=2
-
-    !Latent heat for sublimation
-    !From Rogers&Yau (A short course in cloud physics), Wikipedia
-
-   ! ea_fix=ea_hPa
-
-    lvS_J_kg=(2834.1-0.29*temp_C)*1e3 !First guess for Ls in J/kg
-
-    tw=Temp_C/2.  !First estimate for wet bulb temperature
-    incr=3.
-    Press_hPa=Press_hPa
-    Ea_hPa=Ea_hPa
-    cp=cp
-
-    !DO ii=1,100
-
-   !    es_tw=sat_vap_pressIce(Tw,Press_hPa,from)  !Calculate saturation vapour pressure in hPa
-
-     ! psyc=psyc_const(cp,Press_hPa,lv_J_kg)
-
-  !   ea_est=es_tw-psyc*(temp_C-tw)
-  !  lvS_J_kg=(2834.1-0.29*tw)*1e3
-
-  !   IF(switch1.AND.switch2)THEN
-  !      incr=incr/10.
-  !     switch1=.FALSE.
-  !     switch2=.FALSE.
-  !    ENDIF
-
-  !   IF(ABS(ea_est-ea_fix)<0.001)THEN
-  !     RETURN
-  !   ELSEIF(ea_est > ea_fix)THEN
-  !      tw=tw-incr
-  !      switch1=.TRUE.
-  !   ELSEIF(ea_est< ea_fix)THEN
-  !      tw=tw+incr
-  !      switch2=.TRUE.
-  !    ENDIF
-  !   ENDDO
-
-   ! RETURN
-  END FUNCTION Lat_vapSublim
-
-
-
-  !=====================================================================
-  !psyc_const.f   sg   nov 96
-  !sg june 99 f90
-  !calculate psyc - psychrometic constant Fritschen and Gay (1979)
-
-  FUNCTION psyc_const(cp,Press_hPa,lv_J_kg) RESULT(psyc_hPa) !In units hPa/K
-    USE gas
-
-    IMPLICIT NONE
-    REAL (KIND(1d0))::cp,lv_J_kg,press_hPa,psyc_hpa
-
-    ! cp for moist air (shuttleworth p 4.13)
-    IF(cp*press_hPa<900.OR.lv_J_kg<10000)THEN
-       CALL errorHint(19,'in psychrometric constant calculation:  cp [J kg-1 K-1], p [hPa], Lv [J kg-1]',cp,Press_hPa,INT(lv_J_kg))
-    ENDIF
-
-    psyc_hPa=(cp*press_hPa)/(epsil*lv_J_kg)
-    !    if(debug)write(*,*)psyc_hpa, 'g',cp,press_HPa,lv
-    ! LV MJKg-1
-    !www.cimis.water.ca.gov/infoEotPmEquation.jsp
-    !psyc_hPa=(0.00163*(Press_hPa/10)/LV)*10
-    ! write(*,*)psyc_hpa
-    !psyc=psyc*100.! convert into Pa
-  END FUNCTION psyc_const
-
-  !==========================================================
-
-  FUNCTION dewpoint(ea_hPa) RESULT(Temp_C_dew)
-    ! ea = vapor pressure (hPa)
-    ! td = dewpoint (oC)
-    !calculates dewpoint in degC from
-    ! http://www.atd.ucar.edu/weather_fl/dewpoint.html
-    !     dewpoint = (237.3 * ln(e_vp/6.1078)) / (17.27 - (ln(e_vp/6.1078)))
-
-    REAL(KIND(1d0))::ea_hPa,temp_C_dew
-    Temp_C_dew = (237.3 * LOG(ea_hPa/6.1078)) / (17.27 - (LOG(ea_hPa/6.1078)))
-  END FUNCTION dewpoint
-  !===============================================================================
-  FUNCTION slope_svp(temp_C) RESULT(s_hPa)
-    !COEFFICENTS FOR CALCULATING desat/dT
-    !Slope of the saturation vapor pressure vst air temperature curve
-
-    IMPLICIT  NONE
-
-    REAL (KIND(1d0)):: b1,b2,b3,b4,b5,b6,b7,S_hPa,temp_C
-    B1=4.438099984D-1
-    B2=2.857002636D-2
-    B3=7.938054040D-4
-    B4=1.215215065D-5
-    B5=1.036561403D-7
-    B6=3.532421810D-10
-    B7=-7.090244804D-13
-
-    !     s - slope of saturation vapour pressure curve - Lowe (1977) -T (K)
-    !     mb /K
-    S_hPa=B1+temp_C*(B2+temp_C*(B3+temp_C*(B4+temp_C*(B5+temp_C*(B6+B7*temp_C)))))
-    ! write(*,*)'s',s_hpa,temp_C
-    !s_Pa=s_Pa*100  ! Pa/K
-    !www.cimis.water.ca.gov/infoEotPmEquation.jsp
-    ! s_hPa=(((4099 *(es_hPa/10))/(Temp_C+273.3)**2))*10
-    ! if(debug)write(*,*)s_hpa
-    RETURN
-  END FUNCTION slope_svp
-
-  !===============================================================================
-  FUNCTION slopeIce_svp(temp_C) RESULT(s_hPa)
-    !COEFFICENTS FOR CALCULATING desat/dT
-    !Slope of the saturation vapor pressure vst air temperature curve
-
-    IMPLICIT  NONE
-
-    REAL (KIND(1d0)):: b1,b2,b3,b4,b5,b6,b7,S_hPa,temp_C
-
-    B1=5.030305237D-1
-    B2=3.773255020D-2
-    B3=1.267995369D-3
-    B4=2.477563108D-5
-    B5=3.005693132D-7
-    B6=2.158542548D-9
-    B7=7.131097725D-12
-
-    ! s - slope of saturation vapour pressure curve - Lowe (1977) -T (K)
-    ! mb /K
-    S_hPa=B1+temp_C*(B2+temp_C*(B3+temp_C*(B4+temp_C*(B5+temp_C*(B6+B7*temp_C)))))
-
-    RETURN
-  END FUNCTION slopeIce_svp
-
-  !------------------------------------------------------------------------
-  FUNCTION qsatf(T,PMB) RESULT(qsat)
-    !       MRR, 1987
-    ! AT TEMPERATURE T (DEG C) AND PRESSURE PMB (MB), GET SATURATION SPECIFIC
-    !       HUMIDITY (KG/KG) FROM TETEN FORMULA
-
-    REAL (KIND(1D0))::T,es,qsat,PMB
-
-    REAL (KIND(1D0)),PARAMETER::&
-
-                                !Teten coefficients
-         A=6.106,&
-         B=17.27,&
-         C=237.3,&
-         molar=0.028965,& !Dry air molar fraction in kg/mol
-         molar_wat_vap=0.0180153 !Molar fraction of water vapor in kg/mol
-
-
-    IF(t.GT.55)THEN
-       CALL ErrorHint(34,'Function qsatf',T,0.00D0,-55)
-    ENDIF
-
-    ES = A*dEXP(B*T/(C+T))
-    qsat = (molar_wat_vap/molar)*ES/PMB!(rmh2o/rmair)*ES/PMB
-  END FUNCTION qsatf
-
-END MODULE AtmMoist_module
 
 
 MODULE WaterDist_module
@@ -4829,14 +2798,6 @@ CONTAINS
     !   - What happens if sfr(is) = 0 or 1?
     !   - Consider how irrigated trees actually works...
     !------------------------------------------------------------------------------
-
-    ! USE allocateArray
-    ! USE data_in
-    ! USE defaultNotUsed
-    ! USE gis_data
-    ! USE sues_data
-    ! USE thresh
-    ! USE time
 
     IMPLICIT NONE
 
@@ -5367,8 +3328,8 @@ CONTAINS
 
   END SUBROUTINE SUEWS_cal_SoilMoist
 
-END MODULE WaterDist_module
 
+END MODULE WaterDist_module
 
 MODULE NARP_MODULE
   !==============================================================================
@@ -6626,26 +4587,6 @@ CONTAINS
     IF(FWC>1.) FWC=1.
     IF(FWC<0.) FWC=0.
   END FUNCTION WC_fraction
-  !===============================================================================
-  !FUNCTION solar_zenith(lat,lng,timezone,dectime) RESULT(zenith)
-  !  !Stull, 1989
-  !  !returns zenith in radians
-  !  !lat, lng in RADS
-  !  REAL(KIND(1d0)) ::lat,lng,timezone,dectime,zenith, eqtime
-  !  REAL(KIND(1d0)) ::ha, decl,tst, time_offset,gamma
-  !
-  !  gamma=2.*3.141592654/365.25463*dectime
-  !  eqtime=229.18*(7.5e-5+1.868e-3*COS(gamma)-0.032077*SIN(gamma)&
-  !       -0.014615*COS(2.*gamma)-0.040849*SIN(2.*gamma))
-  !  decl=6.918e-3-0.399912*COS(gamma)+0.070257*SIN(gamma)&
-  !       -0.006758*COS(2.*gamma)+9.07e-4*SIN(2.*gamma)-2.697e-3*COS(3.*gamma)&
-  !       +1.48e-3*SIN(3.*gamma)
-  !  time_offset=eqtime-4.*lng*RAD2DEG-60.*timezone
-  !  tst=(dectime-FLOOR(dectime))*1440.+time_offset
-  !  ha=(tst/4.)-180.
-  !  ha=ha*DEG2RAD
-  !  zenith=ACOS(SIN(lat)*SIN(decl)+COS(lat)*COS(decl)*COS(ha))
-  !END FUNCTION solar_zenith
 
   !===============================================================================
   FUNCTION ISURFACE(doy,zenith) RESULT(Isurf)
@@ -6742,3 +4683,1480 @@ CONTAINS
   END FUNCTION transmissivity
   !===============================================================================
 END MODULE NARP_MODULE
+
+
+MODULE AtmMoist_module
+  IMPLICIT NONE
+
+CONTAINS
+  !.c!! For Lumps Version 2 - no stability calculations
+  ! Latent heat of sublimation when air temperature below zero added. LJ Nov 2012
+  ! explict interface added to all subroutines, TS 08 Aug 2017
+  SUBROUTINE LUMPS_cal_AtmMoist(&
+       Temp_C,Press_hPa,avRh,dectime,&! input:
+       lv_J_kg,lvS_J_kg,&! output:
+       es_hPa,Ea_hPa,VPd_hpa,VPD_Pa,dq,dens_dry,avcp,air_dens)
+
+
+    IMPLICIT NONE
+    REAL(KIND(1d0))::vap_dens
+
+    REAL(KIND(1d0)),INTENT(in)::&
+         Temp_C,&
+         Press_hPa,&
+         avRh,dectime
+    REAL(KIND(1d0)),INTENT(out)::&
+         lv_J_kg,&!Latent heat of vaporization in [J kg-1]
+         lvS_J_kg,&!Latent heat of sublimation in J/kg
+         es_hPa,&!Saturation vapour pressure over water in hPa
+         Ea_hPa,&!Vapour pressure of water in hPa
+         VPd_hpa,& !vapour pressure deficit in hPa
+         VPD_Pa,& !vapour pressure deficit in Pa
+         dq,&!Specific humidity deficit in g/kg
+         dens_dry,& !Vap density or absolute humidity	 (kg/m3)
+         avcp,&!specific heat capacity in J kg-1 K-1
+         air_dens!Air density in kg/m3
+
+     !REAL(KIND(1d0))::sat_vap_press,spec_heat_beer,lat_vap,lat_vapSublim,SPEC_HUM_DEF   ! functions
+
+
+    REAL (KIND(1d0)),PARAMETER:: &
+         gas_ct_dry    = 8.31451/0.028965,&  !j/kg/k=dry_gas/molar
+         gas_ct_wv     = 8.31451/0.0180153 !j/kg/kdry_gas/molar_wat_vap
+    !  waterDens     = 999.8395            !Density of water in 0 cel deg
+    INTEGER::from=1
+
+    !Saturation vapour pressure over water in hPa
+    es_hPa = sat_vap_press(Temp_C,Press_hPa,from,dectime) ! dectime is more or less unnecessary here
+
+    !Vapour pressure of water in hPa
+    Ea_hPa=avRh/100*es_hPa
+
+    ! if(debug.and.dectime>55.13.and.dectime<55.2)write(35,*)'%',Temp_C
+
+    VPd_hpa=es_hPa-ea_hpa           !vapour pressure deficit in hPa
+    VPD_Pa=(es_hPa*100)-(Ea_hPa*100)!vapour pressure deficit in Pa
+
+    dq=(spec_hum_def(vpd_hPa,Press_hPa)) !Specific humidity deficit in g/kg
+
+    !Vap density or absolute humidity	 (kg/m3)
+    vap_dens=(Ea_hPa*100/((Temp_C+273.16)*gas_ct_wv))
+
+    !density Dry Air Beer(1990)	kg/m3
+    dens_dry=((Press_hPa-Ea_hPa)*100)/(gas_ct_dry*(273.16+Temp_C))
+
+    !Air density in kg/m3
+    air_dens=(Press_hPa*100)/(gas_ct_dry*(Temp_C+273.16))
+
+    !Calculate specific heat capacity in J kg-1 K-1
+    avcp=spec_heat_beer(Temp_C,avRh,vap_dens,dens_dry)
+
+    !Latent heat of vaporization in [J kg-1]
+    lv_J_kg=lat_vap(Temp_C,Ea_hPa,Press_hPa,avcp,dectime)
+
+    !Latent heat of sublimation in J/kg
+    IF(Temp_C<0.000) THEN
+       lvS_J_kg=lat_vapSublim(Temp_C,Ea_hPa,Press_hPa,avcp)
+    ELSE
+       lvS_J_kg = 2834000
+    ENDIF
+    !if(debug)write(*,*)lv_J_kg,Temp_C,'lv2'
+    IF(press_hPa<900) THEN
+       CALL ErrorHint(46, 'Function LUMPS_cal_AtmMoist',press_hPa,-55.55, -55)
+    ENDIF
+    RETURN
+  END SUBROUTINE LUMPS_cal_AtmMoist
+
+  !=====================================================================
+  ! sg sept 99 f90
+  ! Uses eqns from Buck (1981) JAM 20, 1527-1532
+  ! units T (deg C) e (mb) P (mb)
+  ! f corrects for the fact that we are not dealing with pure water
+  ! LJ Feb 2010
+  !Changed to use the updated version (Buck research manual, 1996) from Buck (1981)
+  !For water different equations in cold and warm temperatures
+
+  FUNCTION sat_vap_press(Temp_c,PRESS_hPa,from,dectime) RESULT(es_hPa)
+    ! USE time
+    ! USE defaultnotUsed
+    IMPLICIT NONE
+
+    REAL(KIND(1d0))::temp_C,press_hpa,dectime!,pw
+    REAL(KIND(1d0))::e_mb,f,press_kpa,es_hPA
+    INTEGER:: from,iv
+    INTEGER,PARAMETER::notUsedI=-55
+
+    !If air temperature between -0.001 -
+    IF(ABS(temp_C)<0.001000)THEN
+       IF(from==1) THEN  ! not from determining Tw
+          iv=INT(press_Hpa)
+          CALL errorHint(29,'Function sat_vap_press: temp_C, dectime,press_Hpa = ',temp_C, dectime,iv)
+
+       ENDIF
+       temp_C=0.001000
+    ENDIF
+
+    Press_kPa=Press_hPa/10
+
+    IF(Temp_C<50.AND.Temp_C>-40)THEN
+       !e_mb=6.1121*EXP(((18.729-Temp_C/227.3)*Temp_C)/(Temp_C+257.87)) !Old one
+       !f=1.00072+Press_hPa*(3.2E-6+5.9D-10*Temp_C**2)
+
+       IF (Temp_C>=0.001000) THEN
+          e_mb=6.1121*EXP(((18.678-Temp_C/234.5)*Temp_C)/(Temp_C+257.14))
+          f=1.00072+Press_kPa*(3.2E-6+5.9E-10*Temp_C**2)
+          es_hPa=e_mb*f
+
+       ELSEIF (Temp_C<=-0.001000) THEN
+          e_mb=6.1115*EXP(((23.036-Temp_C/333.7)*Temp_C)/(Temp_C+279.82))
+          f=1.00022+Press_kPa*(3.83E-6+6.4E-10*Temp_C**2)
+          es_hPa=e_mb*f
+       ENDIF
+
+    ELSE
+       CALL ErrorHint(28,'FUNCTION sat_vap_press: [Temperature is out of range], Temp_C,dectime',Temp_C,dectime,notUsedI)
+
+    ENDIF
+
+    RETURN
+  END FUNCTION sat_vap_press
+
+
+  FUNCTION sat_vap_pressIce(Temp_c,PRESS_hPa,from,dectime) RESULT(es_hPa)
+    ! USE time
+    ! USE defaultnotUsed
+    IMPLICIT NONE
+
+    REAL(KIND(1d0))::e_mb,f,temp_C,press_hpa,press_kpa,es_hPA,dectime!,pw
+    INTEGER:: from,iv
+    INTEGER,PARAMETER::notUsedI=-55
+
+    !If air temperature between -0.001 -
+    IF(ABS(temp_C)<0.001000)THEN
+       IF(from==1) THEN  ! not from determining Tw
+          iv=INT(press_Hpa)
+          CALL errorHint(29,'Function sat_vap_press: temp_C, dectime,press_Hpa = ',temp_C, dectime,iv)
+
+       ENDIF
+       temp_C=0.001000
+    ENDIF
+
+    Press_kPa=Press_hPa/10
+
+    IF(Temp_C<50.AND.Temp_C>-40)THEN
+       e_mb=6.1115*EXP(((23.036-Temp_C/333.7)*Temp_C)/(Temp_C+279.82))
+       f=1.00022+Press_kPa*(3.83E-6+6.4E-10*Temp_C**2) !In hPa
+       es_hPa=e_mb*f
+
+    ELSE
+       CALL ErrorHint(28,'FUNCTION sat_vap_press: [Temperature is out of range], Temp_C,dectime',Temp_C,dectime,notUsedI)
+
+    ENDIF
+
+    RETURN
+  END FUNCTION sat_vap_pressIce
+
+  !==========================================================
+  !Output: specific humidity deficit in g/kg
+  !Input: Dry air density and air pressure in hPa
+  FUNCTION spec_hum_def(vpd_hPa,press_hPa) RESULT(dq)
+    ! USE gas
+    IMPLICIT NONE
+    REAL(KIND(1d0))           :: press_hPa,vpd_hPa,dq
+    REAL(KIND(1d0)),PARAMETER :: epsil_gkg = 621.97 !ratio molecular weight of water vapor/dry air in g/kg
+    dq=epsil_gkg*vpd_hPa/press_hPa ! Phd Thesis II.13 p 196
+  END FUNCTION spec_hum_def
+
+  ! ==============================================================================
+  FUNCTION spec_heat_beer(Temp_C,rh,rho_v,rho_d) RESULT (cp)
+    ! Input: Air temperature, relative humidity, water vapour and dry air densities
+    ! Output: heat capacity in units J kg-1 K-1
+    ! Reference: Tom Beer, CSIRO, 1990. Applied Environmetrics Meteorological Tables.
+    ! Can be found from SG:s office from Atmmos Moist map
+    !-------------------------------------------------------------------------------
+
+    ! USE defaultnotUsed
+    IMPLICIT NONE
+
+    REAL(KIND(1d0))::cp,cpd,cpm,rho_v,rho_d,rh,temp_C
+
+    !Garratt equation a20 (1992)
+    CPd = 1005.0+((Temp_C+23.16)**2)/3364.0 !Changed from 23.15 to 23.16
+
+    !Beer (1990) for water vapor
+    cpm = 1859 + 0.13*rH+ (19.3+0.569*rH)*(Temp_C/100.) + &
+         (10.+0.5*rH)*(Temp_C/100.)**2
+
+    IF(ABS(rho_d)<0.000100.OR.ABS(rho_v)<0.000100.OR.ABS(rho_d+rho_v)<0.000100)THEN
+       CALL ErrorHint(42,'spec-heat_beer',rho_v,rho_d,INT(Temp_C))
+    ENDIF
+
+    cp=cpd*(rho_d/(rho_d+rho_v))+cpm*(rho_v/(rho_d+rho_v))
+
+    !   print*,"cp: ",cp,cpd,rho_d,rho_v,cpm,rh
+  END FUNCTION spec_heat_beer
+
+  !==========================================================
+  !Latent_heat.f sg nov 96
+  !sg sep 99 converted f90 FUNCTION
+  !Added calcualation of latent heat of sublimation, LJ June 2012
+
+  FUNCTION Lat_vap(Temp_C,Ea_hPa,Press_hPa,cp,dectime) RESULT (lv_J_kg)
+    !Input: Air temperature, Water vapour pressure, Air pressure, heat capacity
+    !Output: latent heat of vaporization
+
+    IMPLICIT NONE
+    REAL(KIND(1d0))::cp,lv_J_kg,ea_fix,tw,&
+         incr,es_tw,psyc,ea_est,press_hPa,ea_HPa, temp_C,dectime!,Temp_K
+    ! REAL(KIND(1d0))::sat_vap_press,psyc_const ! functions
+
+    LOGICAL:: switch1=.FALSE.,switch2=.FALSE.!,debug=.true.
+    INTEGER:: ii,from=2
+    REAL(KIND(1d0)),PARAMETER::notUsed=-55.55
+
+    ea_fix=ea_hPa
+    !if(debug) write(*,*)Temp_C, 'LV'
+    !Temp_K=temp_C+273.16
+
+    !lv=1.91846E6*(Temp_K/(Temp_K-33.91))**2
+
+    lv_J_kg=(2500.25-2.365*temp_C)*1000  !First guess for lv in units J/kg
+
+
+    tw=Temp_C/2.  !First estimate for wet bulb temperature
+    incr=3.
+    DO ii=1,100
+       IF(Press_hPa<900) THEN
+          CALL ErrorHint(45,'function Lat_vap',Press_hPA,notUsed,ii)
+       ENDIF
+
+       ! if(debug.and.dectime>55.13.and.dectime<55.2)write(35,*)'% 1',Tw
+
+       es_tw=sat_vap_press(Tw,Press_hPa,from,dectime)  !Calculate saturation vapour pressure in hPa
+
+       !if(debug.and.dectime>55.13.and.dectime<55.2)write(35,*)'% 2',Tw
+
+       IF(Press_hPa<900) THEN
+          CALL ErrorHint(45,'function Lat_vap - 2',Press_hPA,notUsed,ii)
+       ENDIF
+
+       psyc=psyc_const(cp,Press_hPa,lv_J_kg) !in units hPa/K
+
+       IF(Press_hPa<900) THEN
+          CALL ErrorHint(45,'function Lat _vap -31',Press_hPA,notUsed,ii)
+       ENDIF
+
+       ea_est=es_tw-psyc*(temp_C-tw)
+
+       lv_J_kg=(2500.25-2.365*tw)*1e3
+
+       IF(switch1.AND.switch2)THEN
+          incr=incr/10.
+          switch1=.FALSE.
+          switch2=.FALSE.
+       ENDIF
+       IF(ABS(ea_est-ea_fix)<0.001000)THEN
+          RETURN
+       ELSEIF(ea_est > ea_fix)THEN
+          tw=tw-incr
+          switch1=.TRUE.
+       ELSEIF(ea_est< ea_fix)THEN
+          tw=tw+incr
+          switch2=.TRUE.
+       ENDIF
+    ENDDO
+
+    RETURN
+  END FUNCTION Lat_vap
+
+
+  FUNCTION Lat_vapSublim(Temp_C,Ea_hPa,Press_hPa,cp) RESULT (lvS_J_kg)
+    !Input: Air temperature, Water vapour pressure, Air pressure, heat capacity
+    !Output: latent heat of sublimation in units J/kg
+
+    ! USE time
+
+    IMPLICIT NONE
+
+    REAL(KIND(1d0))::lvS_J_kg,temp_C,tw,incr,Ea_hPa,Press_hPa,cp
+
+    lvS_J_kg=(2834.1-0.29*temp_C)*1e3 !First guess for Ls in J/kg
+
+    tw=Temp_C/2.  !First estimate for wet bulb temperature
+    incr=3.
+    Press_hPa=Press_hPa
+    Ea_hPa=Ea_hPa
+    cp=cp
+
+  END FUNCTION Lat_vapSublim
+
+
+
+  !=====================================================================
+  !psyc_const.f   sg   nov 96
+  !sg june 99 f90
+  !calculate psyc - psychrometic constant Fritschen and Gay (1979)
+
+  FUNCTION psyc_const(cp,Press_hPa,lv_J_kg) RESULT(psyc_hPa) !In units hPa/K
+    USE gas
+
+    IMPLICIT NONE
+    REAL (KIND(1d0))::cp,lv_J_kg,press_hPa,psyc_hpa
+
+    ! cp for moist air (shuttleworth p 4.13)
+    IF(cp*press_hPa<900.OR.lv_J_kg<10000)THEN
+       CALL errorHint(19,'in psychrometric constant calculation:  cp [J kg-1 K-1], p [hPa], Lv [J kg-1]',cp,Press_hPa,INT(lv_J_kg))
+    ENDIF
+
+    psyc_hPa=(cp*press_hPa)/(epsil*lv_J_kg)
+    !    if(debug)write(*,*)psyc_hpa, 'g',cp,press_HPa,lv
+    ! LV MJKg-1
+    !www.cimis.water.ca.gov/infoEotPmEquation.jsp
+    !psyc_hPa=(0.00163*(Press_hPa/10)/LV)*10
+    ! write(*,*)psyc_hpa
+    !psyc=psyc*100.! convert into Pa
+  END FUNCTION psyc_const
+
+  !==========================================================
+
+  FUNCTION dewpoint(ea_hPa) RESULT(Temp_C_dew)
+    ! ea = vapor pressure (hPa)
+    ! td = dewpoint (oC)
+    !calculates dewpoint in degC from
+    ! http://www.atd.ucar.edu/weather_fl/dewpoint.html
+    !     dewpoint = (237.3 * ln(e_vp/6.1078)) / (17.27 - (ln(e_vp/6.1078)))
+
+    REAL(KIND(1d0))::ea_hPa,temp_C_dew
+    Temp_C_dew = (237.3 * LOG(ea_hPa/6.1078)) / (17.27 - (LOG(ea_hPa/6.1078)))
+  END FUNCTION dewpoint
+  !===============================================================================
+  FUNCTION slope_svp(temp_C) RESULT(s_hPa)
+    !COEFFICENTS FOR CALCULATING desat/dT
+    !Slope of the saturation vapor pressure vst air temperature curve
+
+    IMPLICIT  NONE
+
+    REAL (KIND(1d0)):: b1,b2,b3,b4,b5,b6,b7,S_hPa,temp_C
+    B1=4.438099984D-1
+    B2=2.857002636D-2
+    B3=7.938054040D-4
+    B4=1.215215065D-5
+    B5=1.036561403D-7
+    B6=3.532421810D-10
+    B7=-7.090244804D-13
+
+    !     s - slope of saturation vapour pressure curve - Lowe (1977) -T (K)
+    !     mb /K
+    S_hPa=B1+temp_C*(B2+temp_C*(B3+temp_C*(B4+temp_C*(B5+temp_C*(B6+B7*temp_C)))))
+    ! write(*,*)'s',s_hpa,temp_C
+    !s_Pa=s_Pa*100  ! Pa/K
+    !www.cimis.water.ca.gov/infoEotPmEquation.jsp
+    ! s_hPa=(((4099 *(es_hPa/10))/(Temp_C+273.3)**2))*10
+    ! if(debug)write(*,*)s_hpa
+    RETURN
+  END FUNCTION slope_svp
+
+  !===============================================================================
+  FUNCTION slopeIce_svp(temp_C) RESULT(s_hPa)
+    !COEFFICENTS FOR CALCULATING desat/dT
+    !Slope of the saturation vapor pressure vst air temperature curve
+
+    IMPLICIT  NONE
+
+    REAL (KIND(1d0)):: b1,b2,b3,b4,b5,b6,b7,S_hPa,temp_C
+
+    B1=5.030305237D-1
+    B2=3.773255020D-2
+    B3=1.267995369D-3
+    B4=2.477563108D-5
+    B5=3.005693132D-7
+    B6=2.158542548D-9
+    B7=7.131097725D-12
+
+    ! s - slope of saturation vapour pressure curve - Lowe (1977) -T (K)
+    ! mb /K
+    S_hPa=B1+temp_C*(B2+temp_C*(B3+temp_C*(B4+temp_C*(B5+temp_C*(B6+B7*temp_C)))))
+
+    RETURN
+  END FUNCTION slopeIce_svp
+
+  !------------------------------------------------------------------------
+  FUNCTION qsatf(T,PMB) RESULT(qsat)
+    !       MRR, 1987
+    ! AT TEMPERATURE T (DEG C) AND PRESSURE PMB (MB), GET SATURATION SPECIFIC
+    !       HUMIDITY (KG/KG) FROM TETEN FORMULA
+
+    REAL (KIND(1D0))::T,es,qsat,PMB
+
+    REAL (KIND(1D0)),PARAMETER::&
+
+                                !Teten coefficients
+         A=6.106,&
+         B=17.27,&
+         C=237.3,&
+         molar=0.028965,& !Dry air molar fraction in kg/mol
+         molar_wat_vap=0.0180153 !Molar fraction of water vapor in kg/mol
+
+
+    IF(t.GT.55)THEN
+       CALL ErrorHint(34,'Function qsatf',T,0.00D0,-55)
+    ENDIF
+
+    ES = A*dEXP(B*T/(C+T))
+    qsat = (molar_wat_vap/molar)*ES/PMB!(rmh2o/rmair)*ES/PMB
+  END FUNCTION qsatf
+
+END MODULE AtmMoist_module
+
+
+MODULE DailyState_module
+  USE allocateArray,ONLY:&
+       ndays,nsurf,nvegsurf,ivConif,ivDecid,ivGrass,ncolumnsDataOutDailyState
+
+
+  IMPLICIT NONE
+
+CONTAINS
+
+  ! Calculation of daily state variables
+  ! Responds to what has happened in the past (temperature, rainfall, etc)
+  ! Updates each time step, but for many variables, correct values are calculated only at the end of each day!
+  ! --> for these variables, the rest of the code MUST use values from the previous day
+  ! N.B. Some of this code is repeated in SUEWS_Initial
+  ! --> so if changes are made here, SUEWS_Initial may also need to be updated accordingly
+  ! N.B. Currently, daily variables are calculated using 00:00-23:55 timestamps (for 5-min resolution); should use 00:05-00:00
+  !
+  ! Last modified:
+  !  TS 18 Sep 2017  - Added explicit interface
+  !  TS 07 Jun 2017  - Improve the format of output with more friendly alignment
+  !  HCW 04 Jul 2016 - GridID can now be up to 10 digits long
+  !  HCW 25 May 2016 - Added extra columns to daily state file (albedo for EveTr and Grass)
+  !  HCW 24 May 2016 - Bug fixed in naming of SUEWS_cal_DailyState file (now uses GridIDmatrix(Gridiv) rather than Gridiv)
+  !  LJ 27 Jan 2016  - Removal of tabs
+  !  HCW 20 Aug 2015 - Sign of the porosity change corrected so that porosity is greatest when LAI is smallest
+  !  HCW 03 Jul 2015 - Increased output resolution of P/day in SUEWS_cal_DailyState file to avoid rounding errors.
+  !                    Albedo of EveTr and Grass now adjusted based on change in LAI for EveTr and Grass
+  !                    (rather than DecTr)
+  !  HCW 29 Jun 2015 - Added albChange for EveTr and Grass surfaces
+  !  HCW 11 Jun 2015 - Bug fix from 05 Jun now fixed in a different way -
+  !                    DecidCap is now treated the same as DecidAlb so should be able to cope with multiple grids.
+  !  HCW 05 Jun 2015 - Bug fix - set all current storage capacities (surf(6,)) to min. value, then set for DecTr
+  !  LJ 11 Mar 2015  - Removed switch as no longer necessary
+  !  HCW 06 Mar 2015 - iy used instead of year which does not have a value here
+  !  HCW 20 Feb 2015 - Added surf(6,is) for the current storage capacity
+  !  Updated and corrected SUEWS_cal_DailyState output file
+  !  LJ 05 Feb 2015  - SUEWS_cal_DailyState saving fixed. Now header is printed and the file closed and opened as suggested.
+  ! N.B. Bug in daily Precip - needs fixing!!! - HCW thinks this is fixed 20 Feb 2015
+  !  HCW 26 Jan 2015 - sfr and IrrFracs deleted from WU_Day calculations, so that WU_Day is not spread over
+  !  the total area
+  !  HCW 23 Jan 2015 - WU_Day now has 9 columns (EveTr, DecTr, Grass; automatic, manual, total)
+  !  HCW 27 Nov 2014 - Handles values for different grids (Gridiv & ir arguments)
+  ! Added the calculation of surface temperature
+  !  LJ 22 Feb 2013  - Snow albedo aging and calculation of snow density added,
+  !  LJ 22 Jul 2013  - Calculation of LAI senescence from previous day length added
+  ! sg feb 2012 - rewritten from LUMPS_LAI so done in real time
+  !
+  ! To Do
+  !   - Account for change of year in 5-day running mean?
+  !   - Check LAI calcs (N/S hemisphere similarities; use of day length)
+  !       - Take out doy limits (140,170, etc) and code as parameters
+  !   - Could add different coefficients (Ie_m, Ie_a) for each vegetation type
+  !==============================================================================
+  SUBROUTINE SUEWS_cal_DailyState(&
+       iy,id,it,imin,tstep,DayofWeek_id,&!input
+       WaterUseMethod,snowUse,Ie_start,Ie_end,&
+       LAICalcYes,LAIType,&
+       nsh_real,avkdn,Temp_C,Precip,BaseTHDD,&
+       lat,Faut,LAI_obs,tau_a,tau_f,tau_r,&
+       SnowDensMax,SnowDensMin,SnowAlbMin,&
+       alBMax_DecTr,alBMax_EveTr,alBMax_Grass,&
+       AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
+       CapMax_dec,CapMin_dec,PorMax_dec,PorMin_dec,&
+       Ie_a,Ie_m,DayWatPer,DayWat,SnowPack,&
+       BaseT,BaseTe,GDDFull,SDDFull,LAIMin,LAIMax,LAIPower,&
+       SnowAlb,DecidCap,albDecTr,albEveTr,albGrass,&!inout
+       porosity,GDD,HDD,SnowDens,LAI,WU_Day,&
+       deltaLAI)!output
+
+
+    IMPLICIT NONE
+
+    INTEGER,INTENT(IN)::iy
+    INTEGER,INTENT(IN)::id
+    INTEGER,INTENT(IN)::it
+    INTEGER,INTENT(IN)::imin
+
+    ! INTEGER,INTENT(IN)::Gridiv
+    INTEGER,INTENT(IN)::tstep
+    INTEGER,INTENT(IN)::WaterUseMethod
+    INTEGER,INTENT(IN)::snowUse
+    INTEGER,INTENT(IN)::Ie_start   !Starting time of water use (DOY)
+    INTEGER,INTENT(IN)::Ie_end       !Ending time of water use (DOY)
+    ! INTEGER,INTENT(IN)::ReadLinesMetdata
+    ! INTEGER,INTENT(IN)::ncolumnsDataOutSUEWS
+    ! INTEGER,INTENT(IN)::NumberOfGrids
+    INTEGER,INTENT(IN)::LAICalcYes
+
+
+    INTEGER,DIMENSION(nvegsurf),INTENT(IN):: LAIType                  !LAI equation to use: original (0) or new (1)
+
+    ! INTEGER,DIMENSION(MaxNumberOfGrids),INTENT(IN):: GridIDmatrix         !Array containing GridIDs in SiteSelect after sorting
+
+    REAL(KIND(1d0)),INTENT(IN)::nsh_real
+    REAL(KIND(1d0)),INTENT(IN)::avkdn
+    REAL(KIND(1d0)),INTENT(IN)::Temp_C
+    REAL(KIND(1d0)),INTENT(IN)::Precip
+    REAL(KIND(1d0)),INTENT(IN)::BaseTHDD
+    REAL(KIND(1d0)),INTENT(IN)::lat
+    REAL(KIND(1d0)),INTENT(IN)::Faut
+    REAL(KIND(1d0)),INTENT(IN)::LAI_obs
+    REAL(KIND(1D0)),INTENT(IN)::tau_a
+    REAL(KIND(1D0)),INTENT(IN)::tau_f
+    REAL(KIND(1D0)),INTENT(IN)::tau_r
+    REAL(KIND(1D0)),INTENT(IN)::SnowDensMax
+    REAL(KIND(1D0)),INTENT(IN)::SnowDensMin
+    REAL(KIND(1D0)),INTENT(IN)::SnowAlbMin
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_DecTr
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_EveTr
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_Grass
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_DecTr
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_EveTr
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_Grass
+    REAL(KIND(1d0)),INTENT(IN)::CapMax_dec
+    REAL(KIND(1d0)),INTENT(IN)::CapMin_dec
+    REAL(KIND(1d0)),INTENT(IN)::PorMax_dec
+    REAL(KIND(1d0)),INTENT(IN)::PorMin_dec
+    ! REAL(KIND(1d0)),INTENT(IN) ::VegPhenLumps
+
+    REAL(KIND(1d0)),DIMENSION(3),INTENT(IN) ::Ie_a
+    REAL(KIND(1d0)),DIMENSION(3),INTENT(IN) ::Ie_m !Coefficients for automatic and manual irrigation models
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(IN) ::DayWatPer !% of houses following daily water
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(IN) ::DayWat !Days of watering allowed
+
+
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(IN)      ::SnowPack
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)   ::BaseT !Base temperature for growing degree days [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)   ::BaseTe !Base temperature for senescence degree days [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)   ::GDDFull !Growing degree days needed for full capacity [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)   ::SDDFull !Senescence degree days needed to initiate leaf off [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)   ::LAIMin !Min LAI [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)   ::LAIMax !Max LAI [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION(4,nvegsurf),INTENT(IN) ::LAIPower !Coeffs for LAI equation: 1,2 - leaf growth; 3,4 - leaf off
+
+    REAL(KIND(1d0)),INTENT(INOUT)::SnowAlb
+
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::DecidCap
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albDecTr
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albEveTr
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albGrass
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::porosity
+    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5),INTENT(INOUT):: GDD !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6),INTENT(INOUT):: HDD          !Heating Degree Days (see SUEWS_DailyState.f95)
+
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(INOUT)::SnowDens
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf),INTENT(INOUT):: LAI !LAI for each veg surface [m2 m-2]
+    INTEGER,DIMENSION(3),INTENT(in)::DayofWeek_id
+
+    !Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(0:ndays,9),INTENT(INOUT):: WU_Day
+    REAL(KIND(1d0)),INTENT(OUT)::deltaLAI
+    ! REAL(KIND(1d0)),INTENT(OUT)::xBo
+
+    INTEGER::date
+
+    ! --------------------------------------------------------------------------------
+    ! ------------- Key to daily arrays ----------------------------------------------
+    ! HDD(,1) ---- Heating         [degC] ! GDD(,1) ---- Growing      [degC]
+    ! HDD(,2) ---- Cooling         [degC] ! GDD(,2) ---- Senescence   [degC]
+    ! HDD(,3) ---- Daily mean temp     [degC] ! GDD(,3) ---- Daily min temp   [degC]
+    ! HDD(,4) ---- 5-day running mean temp [degC] ! GDD(,4) ---- Daily max temp   [degC]
+    ! HDD(,5) ---- Daily precip total  [mm]   ! GDD(,5) ---- Daytime hours    [h]
+    ! HDD(,6) ---- Days since rain     [d]
+    !
+    ! LAI(,1:3) -- LAI for each veg surface [m2 m-2]
+    !
+    ! WU_Day(,1) - Daily water use total for Irr EveTr (automatic+manual) [mm]
+    ! WU_Day(,2) - Automatic irrigation for Irr EveTr             [mm]
+    ! WU_Day(,3) - Manual irrigation for Irr EveTr            [mm]
+    ! WU_Day(,4) - Daily water use total for Irr DecTr (automatic+manual) [mm]
+    ! WU_Day(,5) - Automatic irrigation for Irr DecTr             [mm]
+    ! WU_Day(,6) - Manual irrigation for Irr DecTr            [mm]
+    ! WU_Day(,7) - Daily water use total for Irr Grass (automatic+manual) [mm]
+    ! WU_Day(,8) - Automatic irrigation for Irr Grass                 [mm]
+    ! WU_Day(,9) - Manual irrigation for Irr Grass            [mm]
+    ! --------------------------------------------------------------------------------
+
+    CALL init_DailyState(&
+         id,& !input
+         avkdn,&
+         Temp_C,&
+         Precip,&
+         BaseTHDD,&
+         nsh_real,&
+         GDD,&!inout
+         HDD)
+
+
+    ! Update snow density, albedo surface fraction
+    IF (snowUse==1) CALL SnowUpdate(&
+         nsurf,tstep,Temp_C,tau_a,tau_f,tau_r,&!input
+         SnowDensMax,SnowDensMin,SnowAlbMin,SnowPack,&
+         SnowAlb,SnowDens)!inout
+
+    ! ================================================================================
+    ! This next part occurs only on the first or last timestep of each day ===========
+
+    ! --------------------------------------------------------------------------------
+    ! On first timestep of each day, define whether the day each a workday or weekend
+    IF (it==0.AND.imin==0) THEN
+       ! CALL Cal_DailyStateStart(&
+       !      id,iy,lat,&!input
+       !      DayofWeek_id)!output
+
+       ! --------------------------------------------------------------------------------
+       ! On last timestep, perform the daily calculations -------------------------------
+       ! Daily values not correct until end of each day,
+       !  so main program should use values from the previous day
+    ELSEIF (it==23 .AND. imin==(nsh_real-1)/nsh_real*60) THEN
+       CALL Cal_DailyStateEnd(&
+            id,it,imin,tstep,&!input
+            LAIType,Ie_end,Ie_start,LAICalcYes,&
+            WaterUseMethod,DayofWeek_id,&
+            alBMax_DecTr,alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
+            BaseT,BaseTe,CapMax_dec,CapMin_dec,DayWat,DayWatPer,Faut,GDDFull,&
+            Ie_a,Ie_m,LAIMax,LAIMin,LAIPower,lat,PorMax_dec,PorMin_dec,SDDFull,LAI_obs,&
+            albDecTr,albEveTr,albGrass,porosity,DecidCap,&!inout
+            GDD,HDD,LAI,WU_Day,&!inout
+            deltaLAI)!output
+       ! ,xBo)!output
+    ENDIF   !End of section done only at the end of each day (i.e. only once per day)
+
+    RETURN
+
+  END SUBROUTINE SUEWS_cal_DailyState
+
+
+  SUBROUTINE Cal_DailyStateEnd(&
+       id,it,imin,tstep,&!input
+       LAIType,Ie_end,Ie_start,LAICalcYes,&
+       WaterUseMethod,DayofWeek_id,&
+       alBMax_DecTr,alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
+       BaseT,BaseTe,CapMax_dec,CapMin_dec,DayWat,DayWatPer,Faut,GDDFull,&
+       Ie_a,Ie_m,LAIMax,LAIMin,LAIPower,lat,PorMax_dec,PorMin_dec,SDDFull,LAI_obs,&
+       albDecTr,albEveTr,albGrass,porosity,DecidCap,&!inout
+       GDD,HDD,LAI,WU_Day,&!inout
+       deltaLAI)!output
+    IMPLICIT NONE
+    ! INTEGER,PARAMETER::ndays    = 366
+    ! INTEGER,PARAMETER::nvegsurf = 3
+
+
+    ! INTEGER,INTENT(IN)::ncolumnsDataOutSUEWS
+    ! INTEGER,INTENT(IN)::NumberOfGrids
+    ! INTEGER,INTENT(IN)::ReadLinesMetdata
+    ! INTEGER,INTENT(IN)::Gridiv
+    INTEGER,INTENT(IN)::id
+    INTEGER,INTENT(IN)::it
+    INTEGER,INTENT(IN)::imin
+    INTEGER,INTENT(IN)::tstep
+    INTEGER,INTENT(IN)::LAIType(nvegsurf)
+    INTEGER,INTENT(IN)::Ie_end
+    INTEGER,INTENT(IN)::Ie_start
+    INTEGER,INTENT(IN)::LAICalcYes
+    INTEGER,INTENT(IN)::WaterUseMethod
+    INTEGER,INTENT(in)::DayofWeek_id(3)
+
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_DecTr
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_EveTr
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_Grass
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_DecTr
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_EveTr
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_Grass
+    REAL(KIND(1d0)),INTENT(IN)::BaseT(nvegsurf)
+    REAL(KIND(1d0)),INTENT(IN)::BaseTe(nvegsurf)
+    REAL(KIND(1d0)),INTENT(IN)::CapMax_dec
+    REAL(KIND(1d0)),INTENT(IN)::CapMin_dec
+    ! REAL(KIND(1d0)),INTENT(IN)::dataOutSUEWS(ReadLinesMetdata,ncolumnsDataOutSUEWS,NumberOfGrids)
+    REAL(KIND(1d0)),INTENT(IN)::DayWat(7)
+    REAL(KIND(1d0)),INTENT(IN)::DayWatPer(7)
+    REAL(KIND(1d0)),INTENT(IN)::Faut
+    REAL(KIND(1d0)),INTENT(IN)::GDDFull(nvegsurf)
+    REAL(KIND(1d0)),INTENT(IN)::Ie_a(3)
+    REAL(KIND(1d0)),INTENT(IN)::Ie_m(3)
+    REAL(KIND(1d0)),INTENT(IN)::LAIMax(nvegsurf)
+    REAL(KIND(1d0)),INTENT(IN)::LAIMin(nvegsurf)
+    REAL(KIND(1d0)),INTENT(IN)::LAIPower(4,nvegsurf)
+    REAL(KIND(1d0)),INTENT(IN)::lat
+    REAL(KIND(1d0)),INTENT(IN)::PorMax_dec
+    REAL(KIND(1d0)),INTENT(IN)::PorMin_dec
+    REAL(KIND(1d0)),INTENT(IN)::SDDFull(nvegsurf)
+    REAL(KIND(1d0)),INTENT(IN)::LAI_obs
+
+    ! REAL(KIND(1d0)),INTENT(INOUT)::a1
+    ! REAL(KIND(1d0)),INTENT(INOUT)::a2
+    ! REAL(KIND(1d0)),INTENT(INOUT)::a3
+    REAL(KIND(1d0)),INTENT(INOUT)::albDecTr( 0:ndays)
+    REAL(KIND(1d0)),INTENT(INOUT)::albEveTr( 0:ndays)
+    REAL(KIND(1d0)),INTENT(INOUT)::albGrass( 0:ndays)
+    ! REAL(KIND(1d0)),INTENT(INOUT)::tstepcount
+    REAL(KIND(1d0)),INTENT(INOUT)::porosity( 0:ndays)
+    REAL(KIND(1d0)),INTENT(INOUT)::DecidCap( 0:ndays)
+    ! REAL(KIND(1d0)),INTENT(INOUT)::xmAH
+    REAL(KIND(1d0)),INTENT(INOUT)::GDD( 0:ndays, 5)
+    REAL(KIND(1d0)),INTENT(INOUT)::HDD(-4:ndays, 6)
+    REAL(KIND(1d0)),INTENT(INOUT)::LAI(-4:ndays, nvegsurf)
+
+    REAL(KIND(1d0)),INTENT(INOUT):: WU_Day(0:ndays,9)
+    REAL(KIND(1d0)),INTENT(OUT)::deltaLAI
+    ! REAL(KIND(1d0)),INTENT(OUT):: xBo
+
+
+    !write(*,*) 'Last timestep of day'
+
+    CALL update_HDD(&
+         id,it,imin,tstep,& !input
+         HDD) !inout
+
+    ! IF(Gridiv == NumberOfGrids) tstepcount=0  !Set to zero only after last grid has run
+
+    ! Calculate modelled daily water use ------------------------------------------
+    CALL update_WaterUse(&
+         id,WaterUseMethod,DayofWeek_id,lat,Faut,HDD,&!input
+         Ie_a,Ie_m,Ie_start,Ie_end,DayWatPer,DayWat,&
+         WU_Day) !inout
+
+    !------------------------------------------------------------------------------
+    ! Calculation of LAI from growing degree days
+    ! This was revised and checked on 16 Feb 2014 by LJ
+    !------------------------------------------------------------------------------
+    CALL update_GDDLAI(&
+         id,LAICalcYes,& !input
+         lat,LAI_obs,&
+         BaseT,&
+         BaseTe,&
+         GDDFull,&
+         SDDFull,&
+         LAIMin,&
+         LAIMax,&
+         LAIPower,LAIType,&
+         GDD,LAI) !inout
+
+    CALL update_Veg(&
+         id,&!input
+         LAImax,&
+         LAIMin,&
+         alBMax_DecTr,&
+         alBMax_EveTr,&
+         alBMax_Grass,&
+         AlbMin_DecTr,&
+         AlbMin_EveTr,&
+         AlbMin_Grass,&
+         CapMax_dec,&
+         CapMin_dec,&
+         PorMax_dec,&
+         PorMin_dec,&
+         DecidCap,&!inout
+         albDecTr,&
+         albEveTr,&
+         albGrass,&
+         porosity,&
+         LAI,&
+         deltaLAI)!output
+
+    ! CALL update_AnOHM(&
+    !      Gridiv,id,& !input
+    !      ReadLinesMetdata,ncolumnsDataOutSUEWS,NumberOfGrids,dataOutSUEWS,&
+    !                             !  a1,a2,a3,&!inout
+    !      xBo,xmAH) !output
+
+
+  END SUBROUTINE Cal_DailyStateEnd
+
+
+  SUBROUTINE init_DailyState(&
+       id,& !input
+       avkdn,&
+       Temp_C,&
+       Precip,&
+       BaseTHDD,&
+       nsh_real,&
+       GDD,&!inout
+       HDD)
+    IMPLICIT NONE
+    ! INTEGER,PARAMETER::ndays    = 366
+
+    INTEGER,INTENT(IN)::id
+    ! INTEGER,INTENT(IN)::it
+    ! INTEGER,INTENT(IN)::imin
+    ! INTEGER,INTENT(IN)::tstep
+    ! INTEGER,INTENT(IN)::Gridiv
+    REAL(KIND(1d0)),INTENT(IN)::avkdn
+    REAL(KIND(1d0)),INTENT(IN)::Temp_C
+    REAL(KIND(1d0)),INTENT(IN)::Precip
+    REAL(KIND(1d0)),INTENT(IN)::BaseTHDD
+    REAL(KIND(1d0)),INTENT(IN)::nsh_real
+
+    ! REAL(KIND(1d0))::tstepcount
+    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5),INTENT(INOUT):: GDD !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6),INTENT(INOUT):: HDD          !Heating Degree Days (see SUEWS_DailyState.f95)
+
+    INTEGER::gamma1
+    INTEGER::gamma2
+    !! Initialization -----------------------------------------------------------------
+    !! These variables don't seem to be needed (commented out HCW 27 Nov 2014)
+    !! If required, they will need updating for a non-hourly timestep
+    !runT(it)=Temp_C      !runT has been initialized in SUEWS_initial to the previous day average
+    !avT_h=sum(runT)/24   !Average daily temperature
+    !runP(it)=Precip   !Same for precipitation
+    !totP_h=sum(runP)     !Daily sum for precipitation
+
+    ! Daily min and max temp (these get updated through the day) ---------------------
+    GDD(id,3) = MIN(Temp_C,GDD(id,3))     !Daily min T in column 3
+    GDD(id,4) = MAX(Temp_C,GDD(id,4))     !Daily max T in column 4
+    IF (avkdn>10) THEN
+       GDD(id,5) = GDD(id,5)+1/nsh_real   !Cumulate daytime hours !Divide by nsh (HCW 01 Dec 2014)
+    ENDIF
+
+    ! Calculations related to heating and cooling degree days (HDD) ------------------
+    ! See Sailor & Vasireddy (2006) EMS Eq 1,2 (theirs is hourly timestep)
+    IF ((BaseTHDD-Temp_C)>=0) THEN   !Heating
+       gamma1=1
+    ELSE
+       gamma1=0
+    ENDIF
+
+    IF ((Temp_C-BaseTHDD)>=0) THEN   !Cooling
+       gamma2=1
+    ELSE
+       gamma2=0
+    ENDIF
+
+    ! count of timesteps performed during day `id`
+    ! tstepcount=(it*60+imin)*60/tstep
+    ! IF(Gridiv == 1) tstepcount=tstepcount+1   !Add 1 to tstepcount only once for all grids
+
+    HDD(id,1)=HDD(id,1) + gamma1*(BaseTHDD-Temp_C)   !Heating
+    HDD(id,2)=HDD(id,2) + gamma2*(Temp_C-BaseTHDD)   !Cooling
+    HDD(id,3)=HDD(id,3) + Temp_C                     !Will become daily average temperature
+    !      4 ------------------------------------!   !5-day running mean
+    HDD(id,5)=HDD(id,5) + Precip                     !Daily precip total
+    !      6 ------------------------------------!   !Days since rain
+
+  END SUBROUTINE init_DailyState
+
+
+  SUBROUTINE update_AnOHM(&
+       Gridiv,id,& !input
+       ReadLinesMetdata,ncolumnsDataOutSUEWS,NumberOfGrids,dataOutSUEWS,&
+                                !  a1,a2,a3,&!inout
+       xBo,xmAH) !output
+    IMPLICIT NONE
+    INTEGER,INTENT(IN) :: Gridiv
+    INTEGER,INTENT(IN) ::id
+    INTEGER,INTENT(IN) ::ReadLinesMetdata
+    INTEGER,INTENT(IN) ::ncolumnsDataOutSUEWS
+    INTEGER,INTENT(IN) ::NumberOfGrids
+
+    REAL(KIND(1d0)),DIMENSION(ReadLinesMetdata,ncolumnsDataOutSUEWS,NumberOfGrids),INTENT(IN)::dataOutSUEWS
+
+    ! REAL(KIND(1d0)),INTENT(INOUT)::a1
+    ! REAL(KIND(1d0)),INTENT(INOUT)::a2
+    ! REAL(KIND(1d0)),INTENT(INOUT)::a3
+
+    REAL(KIND(1d0)),INTENT(OUT)::xBo
+    REAL(KIND(1d0)),INTENT(OUT)::xmAH
+    !   local variables:
+    REAL(KIND(1d0)),DIMENSION(:,:),ALLOCATABLE :: subMet ! subset array of daytime series
+
+    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE :: xQH
+    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE ::xQE
+    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE ::xAH
+    REAL(KIND(1d0))::mxQH
+    REAL(KIND(1d0))::mxQE
+    ! REAL(KIND(1d0))::xa1
+    ! REAL(KIND(1d0))::xa2
+    ! REAL(KIND(1d0))::xa3
+
+    INTEGER:: err
+    INTEGER:: lenMetData
+    INTEGER::nVar
+
+
+    LOGICAL, ALLOCATABLE :: metMask(:)
+
+
+    ! construct mask
+    IF (ALLOCATED(metMask)) DEALLOCATE(metMask, STAT=err)
+    ALLOCATE(metMask(SIZE(dataOutSUEWS, dim=1)))
+    metMask=(dataOutSUEWS(:,2,Gridiv)==id & ! day=xid
+         .AND. dataOutSUEWS(:,4,Gridiv)==0)! tmin=0
+
+    ! determine the length of subset
+    lenMetData = COUNT(metMask)
+
+    ! construct array for time and met variables
+    nVar=3! number of variables to retrieve
+    ! print*, 'good 1'
+    ! allocate subMet:
+    IF (ALLOCATED(subMet)) DEALLOCATE(subMet, STAT=err)
+    ALLOCATE(subMet(lenMetData,nVar))
+    subMet=RESHAPE(PACK(dataOutSUEWS(:,(/14,15,16/),Gridiv),&! QH,QE,AH
+         SPREAD(metMask, dim=2, ncopies=nVar)),& ! replicate mask vector to 2D array
+         (/lenMetData,nVar/)) ! convert to target shape
+
+    ! re-allocate arrays as their sizes may change during passing
+    IF (ALLOCATED(xQH)) DEALLOCATE(xQH, STAT=err)
+    ALLOCATE(xQH(lenMetData))
+    IF (ALLOCATED(xQE)) DEALLOCATE(xQE, STAT=err)
+    ALLOCATE(xQE(lenMetData))
+    IF (ALLOCATED(xAH)) DEALLOCATE(xAH, STAT=err)
+    ALLOCATE(xAH(lenMetData))
+
+    xQH  = subMet(:,1)
+    xQE  = subMet(:,2)
+    mxQH = SUM(xQH(10:16))/7
+    mxQE = SUM(xQE(10:16))/7
+    ! handle extreme dry condition to prevent NAN
+    IF ( ABS(mxQE) < 0.1 ) mxQE = 0.1
+    xBo  = mxQH/mxQE
+
+    !   calculate daily mean AH
+    xAH  = subMet(:,3)
+    xmAH  = SUM(xAH(:))/24
+
+    ! xa1=a1
+    ! xa2=a2
+    ! xa3=a3
+
+  END SUBROUTINE update_AnOHM
+
+
+  SUBROUTINE update_Veg(&
+       id,&!input
+       LAImax,&
+       LAIMin,&
+       alBMax_DecTr,&
+       alBMax_EveTr,&
+       alBMax_Grass,&
+       AlbMin_DecTr,&
+       AlbMin_EveTr,&
+       AlbMin_Grass,&
+       CapMax_dec,&
+       CapMin_dec,&
+       PorMax_dec,&
+       PorMin_dec,&
+       DecidCap,&!inout
+       albDecTr,&
+       albEveTr,&
+       albGrass,&
+       porosity,&
+       LAI,&
+       deltaLAI)!output
+
+    IMPLICIT NONE
+
+    INTEGER,INTENT(IN)::id
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)::LAImax
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)::LAIMin
+
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_DecTr
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_EveTr
+    REAL(KIND(1d0)),INTENT(IN)::alBMax_Grass
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_DecTr
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_EveTr
+    REAL(KIND(1d0)),INTENT(IN)::AlbMin_Grass
+    REAL(KIND(1d0)),INTENT(IN)::CapMax_dec
+    REAL(KIND(1d0)),INTENT(IN)::CapMin_dec
+    REAL(KIND(1d0)),INTENT(IN)::PorMax_dec
+    REAL(KIND(1d0)),INTENT(IN)::PorMin_dec
+
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::DecidCap
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albDecTr
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albEveTr
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albGrass
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::porosity
+
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf),INTENT(INOUT)::LAI
+    REAL(KIND(1d0)),INTENT(OUT)::deltaLAI
+
+    INTEGER::iv
+
+    REAL(KIND(1d0))::albChangeDecTr
+    REAL(KIND(1d0))::albChangeEveTr
+    REAL(KIND(1d0))::albChangeGrass
+    REAL(KIND(1d0))::CapChange
+
+    REAL(KIND(1d0))::deltaLAIEveTr
+    REAL(KIND(1d0))::deltaLAIGrass
+    REAL(KIND(1d0))::porChange
+    !::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    ! Calculate the development of vegetation cover
+    ! Albedo changes with LAI for each vegetation type
+    ! Storage capacity and porosity are updated based on DecTr LAI only (seasonal variation in Grass and EveTr assumed small)
+    ! If only LUMPS is used, set deciduous capacities to 0
+    ! Assume porosity Change based on GO99- Heisler??
+    deltaLAI=0
+    deltaLAIEveTr=0
+    deltaLAIGrass=0
+    CapChange=0
+    porChange=0
+    albChangeDecTr=0
+    albChangeEveTr=0
+    albChangeGrass=0
+
+    iv=ivDecid
+    IF((LAI(ID,iv)-LAI(ID-1,iv))/=0) THEN
+       deltaLAI=(LAI(id,iv)-LAI(id-1,iv))/(LAImax(iv)-LAIMin(iv))
+       albChangeDecTr=(alBMax_DecTr-AlbMin_DecTr)* deltaLAI
+       CapChange=(CapMin_dec-CapMax_dec)* deltaLAI
+       porChange=(PorMin_dec-PorMax_dec)* deltaLAI
+    ENDIF
+
+    iv=ivConif
+    IF((LAI(ID,iv)-LAI(ID-1,iv))/=0) THEN
+       deltaLAIEveTr=(LAI(id,iv)-LAI(id-1,iv))/(LAImax(iv)-LAIMin(iv))
+       albChangeEveTr=(alBMax_EveTr-AlbMin_EveTr)* deltaLAIEveTr    !!N.B. Currently uses deltaLAI for deciduous trees only!!
+    ENDIF
+
+    iv=ivGrass
+    IF((LAI(ID,iv)-LAI(ID-1,iv))/=0) THEN
+       deltaLAIGrass=(LAI(id,iv)-LAI(id-1,iv))/(LAImax(iv)-LAIMin(iv))
+       albChangeGrass=(alBMax_Grass-AlbMin_Grass)* deltaLAIGrass    !!N.B. Currently uses deltaLAI for deciduous trees only!!
+    ENDIF
+
+    iv=ivDecid
+
+    !write(*,*) deltaLAI, deltaLAIEveTr, deltaLAIGrass
+
+    DecidCap(id) = DecidCap(id-1) - CapChange
+    albDecTr(id) = albDecTr(id-1) + albChangeDecTr
+    porosity(id) = porosity(id-1) + porChange !- changed to + by HCW 20 Aug 2015 (porosity greatest when LAI smallest)
+    !Also update albedo of EveTr and Grass surfaces
+    albEveTr(id) = albEveTr(id-1) + albChangeEveTr
+    albGrass(id) = albGrass(id-1) + albChangeGrass
+
+  END SUBROUTINE update_Veg
+
+
+
+  SUBROUTINE update_GDDLAI(&
+       id,LAICalcYes,& !input
+       lat,LAI_obs,&
+       BaseT,&
+       BaseTe,&
+       GDDFull,&
+       SDDFull,&
+       LAIMin,&
+       LAIMax,&
+       LAIPower,LAIType,&
+       GDD,LAI) !inout
+    IMPLICIT NONE
+
+    !------------------------------------------------------------------------------
+    ! Calculation of LAI from growing degree days
+    ! This was revised and checked on 16 Feb 2014 by LJ
+    !------------------------------------------------------------------------------
+    ! INTEGER, PARAMETER:: ndays = 366   !Max no. days in a year used to specify size of daily arrays
+    ! INTEGER, PARAMETER:: nsurf=7                !Total number of surfaces
+    ! INTEGER, PARAMETER:: NVegSurf=3             !Number of surfaces that are vegetated
+    ! INTEGER, PARAMETER:: nsurfIncSnow=nsurf+1   !Number of surfaces + snow
+    ! INTEGER, PARAMETER:: MaxNumberOfGrids=2000   !Max no. grids   !HCW changed to 2000 from 10000 so prog can run on windows (2GB lim)
+    ! INTEGER, PARAMETER:: MaxLinesMet=8640        !Max no. lines to read in one go (for all grids, ie MaxLinesMet/NumberOfGrids each)
+
+    INTEGER,INTENT(IN)::id
+    INTEGER,INTENT(IN)::LAICalcYes
+
+    REAL(KIND(1d0)),INTENT(IN)::lat
+    REAL(KIND(1d0)),INTENT(IN)::LAI_obs
+
+    ! --- Vegetation phenology ---------------------------------------------------------------------
+    ! Parameters provided in input information for each vegetation surface (SUEWS_Veg.txt)
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)  :: BaseT          !Base temperature for growing degree days [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)  :: BaseTe         !Base temperature for senescence degree days [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)  :: GDDFull        !Growing degree days needed for full capacity [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)  :: SDDFull        !Senescence degree days needed to initiate leaf off [degC]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)  :: LAIMin         !Min LAI [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(IN)  :: LAIMax         !Max LAI [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION(4,nvegsurf),INTENT(IN):: LAIPower       !Coeffs for LAI equation: 1,2 - leaf growth; 3,4 - leaf off
+    !! N.B. currently DecTr only, although input provided for all veg types
+    INTEGER,DIMENSION(nvegsurf),INTENT(IN):: LAIType                  !LAI equation to use: original (0) or new (1)
+
+    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5),INTENT(INOUT)       :: GDD !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf),INTENT(INOUT):: LAI !LAI for each veg surface [m2 m-2]
+
+    REAL(KIND(1d0)):: no   !Switches and checks for GDD
+    REAL(KIND(1d0))::yes   !Switches and checks for GDD
+    REAL(KIND(1d0))::indHelp   !Switches and checks for GDD
+
+    INTEGER:: critDays
+    INTEGER::iv
+
+
+    critDays=50   !Critical limit for GDD when GDD or SDD is set to zero
+
+    ! Loop through vegetation types (iv)
+    DO iv=1,NVegSurf
+       ! Calculate GDD for each day from the minimum and maximum air temperature
+       yes =((GDD(id,3)+GDD(id,4))/2-BaseT(iv))    !Leaf on
+       no  =((GDD(id,3)+GDD(id,4))/2-BaseTe(iv))   !Leaf off
+
+       indHelp = 0   !Help switch to allow GDD to go to zero in sprint-time !!What does this mean?? HCW
+
+       IF(yes<0) THEN   !GDD cannot be negative
+          indHelp=yes   !Amount of negative GDD
+          yes=0
+       ENDIF
+
+       IF(no>0) no=0    !SDD cannot be positive
+
+       ! Calculate cumulative growing and senescence degree days
+       GDD(id,1) = GDD(id-1,1)+yes
+       GDD(id,2) = GDD(id-1,2)+no
+
+       ! Possibility for cold spring
+       IF(GDD(id,2)<=SDDFull(iv).AND.indHelp<0) THEN
+          GDD(id,1)=0
+       ENDIF
+
+       IF(GDD(id,1)>=GDDFull(iv)) THEN   !Start senescence
+          GDD(id,1)=GDDFull(iv)          !Leaves should not grow so delete yes from earlier
+          IF(GDD(id,2)<-critDays) GDD(id,1)=0
+       ENDIF
+
+       IF (GDD(id,2)<=SDDFull(iv)) THEN   !After senescence now start growing leaves
+          GDD(id,2)=SDDFull(iv)           !Leaves off so add back earlier
+          IF(GDD(id,1)>critDays) GDD(id,2)=0
+       ENDIF
+
+       ! With these limits SDD, GDD is set to zero
+       IF(GDD(id,2)<-critDays.AND.GDD(id,2)>SDDFull(iv))  GDD(id,1)=0
+       IF(GDD(id,1)> critDays.AND.GDD(id,1)<GDDFull(iv))  GDD(id,2)=0
+
+       ! Now calculate LAI itself
+       IF(lat>=0) THEN   !Northern hemispere
+          IF (id==140.AND.GDD(id,2)/=0)  GDD(id,2)=0  !If SDD is not zero by mid May, this is forced
+          ! Set SDD to zero in summer time
+          IF (GDD(id,1)> critDays.AND.id<170) GDD(id,2)=0
+          ! Set GDD zero in winter time
+          IF (GDD(id,2)<-critDays.AND.id>170) GDD(id,1)=0
+
+          IF (LAItype(iv) < 0.5) THEN   !Original LAI type
+             IF(GDD(id,1)>0.AND.GDD(id,1)<GDDFull(iv)) THEN       !Leaves can still grow
+                LAI(id,iv)=(LAI(id-1,iv)**LAIPower(1,iv)*GDD(id,1)*LAIPower(2,iv))+LAI(id-1,iv)
+             ELSEIF(GDD(id,2)<0.AND.GDD(id,2)>SDDFull(iv)) THEN   !Start senescence
+                LAI(id,iv)=(LAI(id-1,iv)**LAIPower(3,iv)*GDD(id,2)*LAIPower(4,iv))+LAI(id-1,iv)
+             ELSE
+                LAI(id,iv)=LAI(id-1,iv)
+             ENDIF
+          ELSEIF (LAItype(iv)>=0.5) THEN
+             IF(GDD(id,1)>0.AND.GDD(id,1)<GDDFull(iv)) THEN        !Leaves can still grow
+                LAI(id,iv)=(LAI(id-1,iv)**LAIPower(1,iv)*GDD(id,1)*LAIPower(2,iv))+LAI(id-1,iv)
+                !! Use day length to start senescence at high latitudes (N hemisphere)
+             ELSEIF (GDD(id,5)<=12.AND.GDD(id,2)>SDDFull(iv)) THEN !Start senescence
+                LAI(id,iv)=(LAI(id-1,iv)*LAIPower(3,iv)*(1-GDD(id,2))*LAIPower(4,iv))+LAI(id-1,iv)
+             ELSE
+                LAI(id,iv)=LAI(id-1,iv)
+             ENDIF
+          ENDIF
+
+       ELSEIF (lat<0) THEN   !Southern hemisphere !! N.B. not identical to N hemisphere - return to later
+          IF (id==300.AND.GDD(id,2)/=0)  GDD(id,2)=0   !If SDD is not zero by late Oct, this is forced
+          ! Set SDD to zero in summer time
+          IF (GDD(id,1)> critDays.AND.id>250) GDD(id,2)=0
+          ! Set GDD zero in winter time
+          IF (GDD(id,2)<-critDays.AND.id<250) GDD(id,1)=0
+
+          IF (LAItype(iv) < 0.5) THEN   !Original LAI type
+             IF(GDD(id,1)>0.AND.GDD(id,1)<GDDFull(iv)) THEN
+                LAI(id,iv)=(LAI(id-1,iv)**LAIPower(1,iv)*GDD(id,1)*LAIPower(2,iv))+LAI(id-1,iv)
+             ELSEIF(GDD(id,2)<0.AND.GDD(id,2)>SDDFull(iv)) THEN
+                LAI(id,iv)=(LAI(id-1,iv)**LAIPower(3,iv)*GDD(id,2)*LAIPower(4,iv))+LAI(id-1,iv)
+             ELSE
+                LAI(id,iv)=LAI(id-1,iv)
+             ENDIF
+          ELSE
+             IF(GDD(id,1)>0.AND.GDD(id,1)<GDDFull(iv)) THEN
+                LAI(id,iv)=(LAI(id-1,iv)**LAIPower(1,iv)*GDD(id,1)*LAIPower(2,iv))+LAI(id-1,iv)
+                !! Day length not used to start senescence in S hemisphere (not much land)
+             ELSEIF(GDD(id,2)<0.AND.GDD(id,2)>SDDFull(iv)) THEN
+                LAI(id,iv)=(LAI(id-1,iv)*LAIPower(3,iv)*(1-GDD(id,2))*LAIPower(4,iv))+LAI(id-1,iv)
+             ELSE
+                LAI(id,iv)=LAI(id-1,iv)
+             ENDIF
+          ENDIF
+       ENDIF   !N or S hemisphere
+
+       ! Check LAI within limits; if not set to limiting value
+       IF(LAI(id,iv).GT.LAImax(iv))THEN
+          LAI(id,iv)=LAImax(iv)
+       ELSEIF(LAI(id,iv).LT.LAImin(iv))THEN
+          LAI(id,iv)=LAImin(iv)
+       ENDIF
+
+    ENDDO   !End of loop over veg surfaces
+
+    IF(LAICalcYes==0)THEN ! moved to SUEWS_cal_DailyState, TS 18 Sep 2017
+       LAI(id-1,:)=LAI_obs ! check -- this is going to be a problem as it is not for each vegetation class
+    ENDIF
+    !------------------------------------------------------------------------------
+
+  END SUBROUTINE update_GDDLAI
+
+
+  SUBROUTINE update_WaterUse(&
+       id,WaterUseMethod,DayofWeek_id,lat,Faut,HDD,&!input
+       Ie_a,Ie_m,Ie_start,Ie_end,DayWatPer,DayWat,&
+       WU_Day) !inout
+
+    IMPLICIT NONE
+    ! INTEGER,PARAMETER :: ndays=366
+
+    INTEGER,INTENT(IN) :: id
+    INTEGER,INTENT(IN) :: WaterUseMethod
+    INTEGER,INTENT(IN)::Ie_start   !Starting time of water use (DOY)
+    INTEGER,INTENT(IN)::Ie_end       !Ending time of water use (DOY)
+    INTEGER,DIMENSION(3),INTENT(IN)::DayofWeek_id
+
+    REAL(KIND(1d0)),INTENT(IN)::lat
+    REAL(KIND(1d0)),INTENT(IN)::Faut          !Fraction of irrigated area using automatic irrigation
+
+    REAL(KIND(1d0)),DIMENSION(-4:366,6),INTENT(IN)::HDD
+    REAL(KIND(1d0)),DIMENSION(3),INTENT(IN)::Ie_a
+    REAL(KIND(1d0)),DIMENSION(3),INTENT(IN)::Ie_m   !Coefficients for automatic and manual irrigation models
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(IN)::DayWatPer  !% of houses following daily water
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(IN)::DayWat       !Days of watering allowed
+
+    REAL(KIND(1d0)),DIMENSION(0:ndays,9),INTENT(INOUT):: WU_Day       !Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
+
+    INTEGER::wd        !Water use calculation is done when calc = 1
+    INTEGER::&
+         calc        !Water use calculation is done when calc = 1
+
+    IF (WaterUseMethod==0) THEN   !If water use is to be modelled (rather than observed)
+
+       wd=DayofWeek_id(1)
+
+       IF (DayWat(wd)==1.0) THEN      !1 indicates watering permitted on this day
+          calc=0
+          IF (lat>=0) THEN            !Northern Hemisphere
+             IF (id>=Ie_start-1.AND.id<=Ie_end+1) calc=1   !Day between irrigation period
+          ELSE                        !Southern Hemisphere
+             calc=1
+             IF (id>=Ie_end.AND.id<=Ie_start) calc=0       !Day between irrigation period
+          ENDIF
+
+          IF(calc==1) THEN
+             ! Model daily water use based on HDD(id,6)(days since rain) and HDD(id,3)(average temp)
+             ! WU_Day is the amount of water [mm] per day, applied to each of the irrigated areas
+             ! N.B. These are the same for each vegetation type at the moment
+
+             ! ---- Automatic irrigation (evergreen trees) ----
+             WU_day(id,2) = Faut*(Ie_a(1)+Ie_a(2)*HDD(id,3)+Ie_a(3)*HDD(id,6))*DayWatPer(wd)
+             IF (WU_Day(id,2)<0) WU_Day(id,2)=0   !If modelled WU is negative -> 0
+
+             ! ---- Manual irrigation (evergreen trees) ----
+             WU_day(id,3) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD(id,3)+Ie_m(3)*HDD(id,6))*DayWatPer(wd)
+             IF (WU_Day(id,3)<0) WU_Day(id,3)=0   !If modelled WU is negative -> 0
+
+             ! ---- Total evergreen trees water use (automatic + manual) ----
+             WU_Day(id,1)=(WU_day(id,2)+WU_day(id,3))
+
+             ! ---- Automatic irrigation (deciduous trees) ----
+             WU_day(id,5) = Faut*(Ie_a(1)+Ie_a(2)*HDD(id,3)+Ie_a(3)*HDD(id,6))*DayWatPer(wd)
+             IF (WU_Day(id,5)<0) WU_Day(id,5)=0   !If modelled WU is negative -> 0
+
+             ! ---- Manual irrigation (deciduous trees) ----
+             WU_day(id,6) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD(id,3)+Ie_m(3)*HDD(id,6))*DayWatPer(wd)
+             IF (WU_Day(id,6)<0) WU_Day(id,6)=0   !If modelled WU is negative -> 0
+
+             ! ---- Total deciduous trees water use (automatic + manual) ----
+             WU_Day(id,4)=(WU_day(id,5)+WU_day(id,6))
+
+             ! ---- Automatic irrigation (grass) ----
+             WU_day(id,8) = Faut*(Ie_a(1)+Ie_a(2)*HDD(id,3)+Ie_a(3)*HDD(id,6))*DayWatPer(wd)
+             IF (WU_Day(id,8)<0) WU_Day(id,8)=0   !If modelled WU is negative -> 0
+
+             ! ---- Manual irrigation (grass) ----
+             WU_day(id,9) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD(id,3)+Ie_m(3)*HDD(id,6))*DayWatPer(wd)
+             IF (WU_Day(id,9)<0) WU_Day(id,9)=0   !If modelled WU is negative -> 0
+
+             ! ---- Total grass water use (automatic + manual) ----
+             WU_Day(id,7)=(WU_day(id,8)+WU_day(id,9))
+
+          ELSE   !If no irrigation on this day
+             WU_Day(id,1)=0
+             WU_Day(id,2)=0
+             WU_Day(id,3)=0
+             WU_Day(id,4)=0
+             WU_Day(id,5)=0
+             WU_Day(id,6)=0
+             WU_Day(id,7)=0
+             WU_Day(id,8)=0
+             WU_Day(id,9)=0
+          ENDIF
+       ENDIF
+    ENDIF
+
+  END SUBROUTINE update_WaterUse
+
+
+  SUBROUTINE update_HDD(&
+       id,it,imin,tstep,& !input
+       HDD) !inout
+    IMPLICIT NONE
+    INTEGER,INTENT(IN)::id,it,imin,tstep
+
+    REAL(KIND(1d0)),DIMENSION(-4:366,6),INTENT(INOUT):: HDD
+
+    INTEGER:: jj
+    REAL(KIND(1d0))::tstepcount
+
+    ! count of timesteps performed during day `id`
+    tstepcount=(it*60+imin)*60/tstep*1.
+    ! Heating degree days (HDD) -------------
+    HDD(id,1)=HDD(id,1)/tstepcount   !Heating
+    HDD(id,2)=HDD(id,2)/tstepcount   !Cooling
+    HDD(id,3)=HDD(id,3)/tstepcount   !Average temp
+
+    ! Calculate 5-day running mean temp     !!Need to deal with the previous year - CHECK!!
+    DO jj=1,5
+       HDD(id,4)=HDD(id,4) + HDD(id-(jj-1),3)
+    ENDDO
+    HDD(id,4) = HDD(id,4)/5
+
+    ! Calculate number of days since rain
+    IF(HDD(id,5)>0) THEN        !Rain occurred
+       HDD(id,6)=0
+    ELSE
+       HDD(id,6)=HDD(id-1,6)+1  !Days since rain
+    ENDIF
+
+  END SUBROUTINE update_HDD
+
+
+  SUBROUTINE Cal_DailyStateStart(&
+       id,iy,lat,&!input
+       dayofWeek_id)!output
+    IMPLICIT NONE
+    INTEGER,INTENT(IN) :: id
+    INTEGER,INTENT(IN) ::iy
+    REAL(KIND(1d0)),INTENT(IN) ::lat
+
+    INTEGER,DIMENSION(3),INTENT(OUT) ::dayofWeek_id
+
+    INTEGER::wd
+    INTEGER::mb
+    INTEGER::date
+    INTEGER::seas
+
+    CALL day2month(id,mb,date,seas,iy,lat) !Calculate real date from doy
+    CALL Day_of_Week(date,mb,iy,wd)        !Calculate weekday (1=Sun, ..., 7=Sat)
+
+    dayofWeek_id(1)=wd      !Day of week
+    dayofWeek_id(2)=mb      !Month
+    dayofweek_id(3)=seas    !Season
+
+  END SUBROUTINE Cal_DailyStateStart
+
+  SUBROUTINE SUEWS_update_DailyState(&
+       iy,id,it,imin,dectime,&!input
+       Gridiv,NumberOfGrids,nsh_real,&
+       DailyStateLine,&
+       dataOutDailyState)!inout
+
+    IMPLICIT NONE
+
+    INTEGER,INTENT(IN) ::iy
+    INTEGER,INTENT(IN) ::id
+    INTEGER,INTENT(IN) ::it
+    INTEGER,INTENT(IN) ::imin
+    REAL(KIND(1d0)),INTENT(IN)::dectime
+
+  !
+    REAL(KIND(1d0)),INTENT(IN) ::nsh_real
+
+    INTEGER,INTENT(IN)::Gridiv
+    INTEGER,INTENT(IN)::NumberOfGrids
+    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutDailyState-5),INTENT(IN) :: DailyStateLine
+    ! INTEGER,DIMENSION(MaxNumberOfGrids),INTENT(IN):: GridIDmatrix         !Array containing GridIDs in SiteSelect after sorting
+
+    ! CHARACTER (LEN = 20),INTENT(IN) :: FileCode       !Set in RunControl
+    ! CHARACTER (LEN = 150),INTENT(IN):: FileOutputPath !Filepath for output files (set in RunControl)
+
+
+    REAL(KIND(1d0)),DIMENSION(ndays,ncolumnsDataOutDailyState,NumberOfGrids),INTENT(INOUT):: dataOutDailyState
+
+
+    ! write out to dataOutDailyState
+    dataOutDailyState(id,1:4,Gridiv)=[iy,id,it,imin]
+    dataOutDailyState(id,5,Gridiv)=dectime
+    ! DailyStateLine will be -999 unless realistic values are calculated at the last timestep of each day
+    dataOutDailyState(id,6:ncolumnsDataOutDailyState,Gridiv)=DailyStateLine
+
+  END SUBROUTINE SUEWS_update_DailyState
+
+
+  ! transfer results to a one-line output for SUEWS_cal_DailyState
+  SUBROUTINE update_DailyState(&
+       iy,id,it,imin,nsh_real,&!input
+       GDD,HDD,LAI,&
+       DecidCap,albDecTr,albEveTr,albGrass,porosity,&
+       WU_Day,&
+       deltaLAI,VegPhenLumps,&
+       SnowAlb,SnowDens,&
+       a1,a2,a3,&
+       DailyStateLine)!out
+
+    IMPLICIT NONE
+    ! INTEGER,PARAMETER::ndays=366
+    ! INTEGER,PARAMETER::nvegsurf=3
+
+    INTEGER,INTENT(IN) ::iy
+    INTEGER,INTENT(IN) ::id
+    INTEGER,INTENT(IN) ::it
+    INTEGER,INTENT(IN) ::imin
+    REAL(KIND(1d0)),INTENT(IN) ::nsh_real
+
+    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5),INTENT(IN):: GDD          !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6),INTENT(IN):: HDD          !Heating Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf),INTENT(IN):: LAI   !LAI for each veg surface [m2 m-2]
+
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(IN) ::DecidCap
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(IN) ::albDecTr
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(IN) ::albEveTr
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(IN) ::albGrass
+    REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(IN) ::porosity
+    REAL(KIND(1d0)),DIMENSION(0:ndays,9),INTENT(IN):: WU_Day !Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
+
+    REAL(KIND(1d0)),INTENT(IN) ::deltaLAI
+    REAL(KIND(1d0)),INTENT(IN) ::VegPhenLumps
+    REAL(KIND(1d0)),INTENT(IN) ::SnowAlb
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(IN)::SnowDens
+    REAL(KIND(1d0)),INTENT(IN) ::a1
+    REAL(KIND(1d0)),INTENT(IN) ::a2
+    REAL(KIND(1d0)),INTENT(IN) ::a3
+
+    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutDailyState-5),INTENT(OUT) :: DailyStateLine
+
+    ! initialise DailyStateLine
+    DailyStateLine=-999
+    IF (it==23 .AND. imin==(nsh_real-1)/nsh_real*60) THEN
+       ! Write actual data only at the last timesstep of each day
+       ! DailyStateLine(1:2)   = [iy,id]
+       DailyStateLine(1:6)   = HDD(id,1:6)
+       DailyStateLine(6+1:6+5)  = GDD(id,1:5)
+       DailyStateLine(11+1:11+3) = LAI(id,1:nvegsurf)
+       DailyStateLine(14+1:14+5) = [DecidCap(id),Porosity(id),AlbEveTr(id),AlbDecTr(id),AlbGrass(id)]
+       DailyStateLine(19+1:19+9) = WU_day(id-1,1:9)
+       DailyStateLine(28+1)    = deltaLAI
+       DailyStateLine(29+1)    = VegPhenLumps
+       DailyStateLine(30+1:30+8) = [SnowAlb,SnowDens(1:7)]
+       DailyStateLine(38+1:38+3) = [a1,a2,a3]
+
+    END IF
+
+
+  END SUBROUTINE update_DailyState
+
+
+END MODULE DailyState_module
