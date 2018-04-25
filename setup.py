@@ -7,8 +7,9 @@ import os
 
 
 def readme():
-    with open('README.rst') as f:
-        return f.read()
+    return 'ss'
+    # with open('README.rst') as f:
+        # return f.read()
 
 
 class BinaryDistribution(Distribution):
@@ -29,7 +30,7 @@ elif sysname == 'Linux':
     lib_name = 'SUEWS_driver.so'
 
 # load SUEWS Fortran source files
-dir_f95 = 'SUEWS-SourceCode'
+dir_f95 = 'SUEWS'
 target_f95 = [
     os.path.join(dir_f95, f)
     for f in
