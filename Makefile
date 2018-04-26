@@ -25,7 +25,7 @@ endif
 
 MODULE=SUEWS_driver
 
-SUEWS_dir = SUEWS-SourceCode
+SUEWS_dir = SUEWS
 
 PYTHON := $(if $(PYTHON_exe),$(PYTHON_exe),python)
 # All the files which include modules used by other modules (these therefore
