@@ -2329,14 +2329,12 @@ CONTAINS
        alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
        alt,avkdn,avRh,avU1,BaseT,BaseTe,&
        BaseTHDD,bldgH,CapMax_dec,CapMin_dec,&
-       CRWmax,CRWmin,DayWat,DayWatPer,&
        DecidCap,dectime,DecTreeH,DRAINRT,&
        emis,endDLS,EveTreeH,FAIBldg,&
-       FAIDecTree,FAIEveTree,Faut,FlowChange,&
+       FAIDecTree,FAIEveTree,FlowChange,&
        G1,G2,G3,G4,G5,G6,GDD,&
        GDDFull,HDD,&
-       id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
-       it,iy,Kmax,LAI,LAIMax,LAIMin,&
+       id,imin,it,iy,Kmax,LAI,LAIMax,LAIMin,&
        LAIPower,LAIType,lat,lng,MaxConductance,&
        OHM_coef,OHMIncQF,OHM_threshSW,&
        OHM_threshWD,PipeCapacity,PorMax_dec,PorMin_dec,porosity,&
@@ -2345,12 +2343,12 @@ CONTAINS
        RunoffToWater,S1,S2,&
        SDDFull,sfr,&
        soilmoist,soilstoreCap,startDLS,state,StateLimit,&
-       surf,SurfaceArea,tau_a,tau_f,tau_r,&
+       surf,SurfaceArea,&
        Temp_C,TH,&
        timezone,TL,&
        tstep,&
-       WaterDist,WetThresh,WU_Day,&
-       xsmd,Z,&
+       WaterDist,WetThresh,&
+       Z,&
        qh,qe)!output
 
     INTEGER::AerodynamicResistanceMethod
@@ -2398,8 +2396,8 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::bldgH
     REAL(KIND(1D0)),INTENT(IN)::CapMax_dec
     REAL(KIND(1D0)),INTENT(IN)::CapMin_dec
-    REAL(KIND(1D0)),INTENT(IN)::CRWmax
-    REAL(KIND(1D0)),INTENT(IN)::CRWmin
+    REAL(KIND(1D0))::CRWmax
+    REAL(KIND(1D0))::CRWmin
     REAL(KIND(1D0)),INTENT(IN)::dectime
     REAL(KIND(1D0)),INTENT(IN)::DecTreeH
     REAL(KIND(1D0)),INTENT(IN)::DRAINRT
@@ -2409,7 +2407,7 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::FAIBldg
     REAL(KIND(1D0)),INTENT(IN)::FAIDecTree
     REAL(KIND(1D0)),INTENT(IN)::FAIEveTree
-    REAL(KIND(1D0)),INTENT(IN)::Faut
+    REAL(KIND(1D0))::Faut
     REAL(KIND(1D0))::FcEF_v_kgkm
     REAL(KIND(1D0))::fcld_obs
     REAL(KIND(1D0)),INTENT(IN)::FlowChange
@@ -2460,16 +2458,16 @@ CONTAINS
     REAL(KIND(1D0))::SnowLimPaved
     REAL(KIND(1D0))::snow_obs
     REAL(KIND(1D0)),INTENT(IN)::SurfaceArea
-    REAL(KIND(1D0)),INTENT(IN)::tau_a
-    REAL(KIND(1D0)),INTENT(IN)::tau_f
-    REAL(KIND(1D0)),INTENT(IN)::tau_r
+    ! REAL(KIND(1D0)),INTENT(IN)::tau_a
+    ! REAL(KIND(1D0)),INTENT(IN)::tau_f
+    ! REAL(KIND(1D0)),INTENT(IN)::tau_r
     REAL(KIND(1D0)),INTENT(IN)::Temp_C
     REAL(KIND(1D0))::TempMeltFact
     REAL(KIND(1D0)),INTENT(IN)::TH
     REAL(KIND(1D0)),INTENT(IN)::timezone
     REAL(KIND(1D0)),INTENT(IN)::TL
     REAL(KIND(1D0))::TrafficUnits
-    REAL(KIND(1D0)),INTENT(IN)::xsmd
+    REAL(KIND(1D0))::xsmd
     REAL(KIND(1D0)),INTENT(IN)::Z
 
     INTEGER,DIMENSION(NVEGSURF),INTENT(IN)::LAIType
@@ -2493,8 +2491,8 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::TraffProf_tstep
     REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfA_tstep
     REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfM_tstep
-    REAL(KIND(1D0)),DIMENSION(7),INTENT(IN)               ::DayWat
-    REAL(KIND(1D0)),DIMENSION(7),INTENT(IN)               ::DayWatPer
+    REAL(KIND(1D0)),DIMENSION(7)             ::DayWat
+    REAL(KIND(1D0)),DIMENSION(7)           ::DayWatPer
     REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)         ::OHM_threshSW
     REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)         ::OHM_threshWD
     REAL(KIND(1D0)),DIMENSION(NSURF)           ::chAnOHM
@@ -2541,7 +2539,7 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::DecidCap
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::porosity
     REAL(KIND(1D0)),DIMENSION(0:NDAYS,5),INTENT(INOUT)        ::GDD
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS,9),INTENT(INOUT)        ::WU_Day
+    REAL(KIND(1D0)),DIMENSION(0:NDAYS,9)        ::WU_Day
     REAL(KIND(1D0)),DIMENSION(6,NSURF),INTENT(INOUT)          ::surf
     REAL(KIND(1D0)),DIMENSION(-4:NDAYS,6),INTENT(INOUT)       ::HDD
     REAL(KIND(1D0)),DIMENSION(-4:NDAYS,NVEGSURF),INTENT(INOUT)::LAI
@@ -2574,7 +2572,7 @@ CONTAINS
     snowUse=0
     DiagQN=0
     DiagQS=0
-    WaterUseMethod=0
+    WaterUseMethod=1 ! use observed, don't model it
     ity=2
     LAICalcYes=1
     RoughLenMomMethod=2
@@ -2591,6 +2589,7 @@ CONTAINS
     MeltWaterStore=0
 
     SnowAlb=0
+    WU_Day=0
 
     CALL SUEWS_cal_Main(&
          AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,& ! input&inout in alphabetical order
