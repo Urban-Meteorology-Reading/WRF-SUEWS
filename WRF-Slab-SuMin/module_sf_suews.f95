@@ -1,6 +1,7 @@
 !WRF:MODEL_LAYER:PHYSICS
 !
-! TS ZL, 25 Apr 2018: initial coupling version
+! TS, ZL, 25 Apr 2018: initial coupling version
+! TS, ZL, 27 Apr 2018: multiple modifications
 
 
 MODULE module_sf_SUEWS
