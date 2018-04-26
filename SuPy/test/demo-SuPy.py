@@ -31,7 +31,7 @@ idx = pd.IndexSlice
 # %% initialise SUEWS settings
 # dir_start: the path to the SUEWS simulaiton direcotry where RunControl
 # is placed
-dir_start = 'SampleRun'
+dir_start = '../../SampleRun'
 
 # init_SUEWS_pd initialise the SUEWS by pre-processing the input folder
 # and save all configuration info into two pandas data structures:

@@ -3,7 +3,8 @@
 MODULE module_surface_driver
 CONTAINS
 
-   SUBROUTINE surface_driver(                                         &
+! add date info needed in SUEWS by Zhenkun Li, 26/4/2018
+   SUBROUTINE surface_driver(year, day, hour, minute,                 &
      &           HYDRO_dt,sfcheadrt,INFXSRT,soldrain,                 &
      &           acgrdflx,achfx,aclhf                                 &
      &          ,acsnom,acsnow,snowfallac,akhs,akms,albedo,br,canwat  &
@@ -2412,16 +2413,23 @@ CONTAINS
               CALL wrf_error_fatal('SLAB scheme cannot be used with fractional seaice')
            ENDIF
         CALL wrf_debug(100,'in SLAB')
-          CALL SLAB(t_phy,qv_curr,p_phy,flhc,flqc,  &
-             psfc,xland,tmn,hfx,qfx,lh,tsk,qsfc,chklowq,          &
-             gsw,glw,capg,thc,snowc,emiss,mavail,                 &
-             dtbl,rcp,xlv,dtmin,ifsnow,                           &
-             svp1,svp2,svp3,svpt0,ep_2,karman,eomeg,stbolt,       &
-             tslb,zs,dzs,num_soil_layers,radiation,               &
-             p1000mb,                                             &
-             ids,ide, jds,jde, kds,kde,                           &
-             ims,ime, jms,jme, kms,kme,                           &
-             i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
+          !CALL SLAB(t_phy,qv_curr,p_phy,flhc,flqc,  &
+           !  psfc,xland,tmn,hfx,qfx,lh,tsk,qsfc,chklowq,          &
+           !  gsw,glw,capg,thc,snowc,emiss,mavail,                 &
+           !  dtbl,rcp,xlv,dtmin,ifsnow,                           &
+           !  svp1,svp2,svp3,svpt0,ep_2,karman,eomeg,stbolt,       &
+           !  tslb,zs,dzs,num_soil_layers,radiation,               &
+           !  p1000mb,                                             &
+           !  ids,ide, jds,jde, kds,kde,                           &
+           !  ims,ime, jms,jme, kms,kme,                           &
+           !  i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
+!use SUEWS land surface model to replace SLAB or convenience, Zhenkun Li, 26/4/2018
+           call suewsdrv(year, day, hour, minute,                         &
+                   t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,       &
+                   psfc, rainbl, NLCAT, LANDUSEF, ht, XLONG, XLAT         &
+                   ids,ide, jds,jde, kds,kde,                             &
+                   ims,ime, jms,jme, kms,kme,                             &
+                   i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts, kte)
 
            DO j=j_start(ij),j_end(ij)
            DO i=i_start(ij),i_end(ij)
