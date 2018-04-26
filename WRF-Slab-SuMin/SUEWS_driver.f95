@@ -268,7 +268,8 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(INOUT)                             ::SnowAlb
     ! INTEGER,DIMENSION(0:NDAYS,3),INTENT(INOUT)                ::DayofWeek
     REAL(KIND(1d0)),DIMENSION(24*3600/tstep),INTENT(inout)    ::Tair24HR
-    REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
+    ! REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
+    REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store
     REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_S_av_store
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
@@ -289,7 +290,8 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
     REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_S_store
-    REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
+    ! REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
+    REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store
 
     REAL(KIND(1D0)),DIMENSION(5),INTENT(OUT)                           ::datetimeLine
     REAL(KIND(1D0)),DIMENSION(ncolumnsDataOutSUEWS-5),INTENT(OUT)      ::dataOutLineSUEWS
@@ -1121,10 +1123,12 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(:),INTENT(in)::Ts5mindata_ir
 
     REAL(KIND(1d0)),DIMENSION(24*nsh),INTENT(inout):: Tair24HR
-    REAL(KIND(1d0)),DIMENSION(nsh),INTENT(inout) ::qn1_store
+    ! REAL(KIND(1d0)),DIMENSION(nsh),INTENT(inout) ::qn1_store
+    REAL(KIND(1d0)),DIMENSION(360),INTENT(inout) ::qn1_store
     REAL(KIND(1d0)),DIMENSION(nsh),INTENT(inout) ::qn1_S_store !< stored qn1 [W m-2]
 
-    REAL(KIND(1d0)),DIMENSION(2*nsh+1),INTENT(inout)::qn1_av_store
+    ! REAL(KIND(1d0)),DIMENSION(2*nsh+1),INTENT(inout)::qn1_av_store
+    REAL(KIND(1d0)),DIMENSION(2*360+1),INTENT(inout)::qn1_av_store
     REAL(KIND(1d0)),DIMENSION(2*nsh+1),INTENT(inout)::qn1_S_av_store !< average net radiation over previous hour [W m-2]
     REAL(KIND(1d0)),DIMENSION(6,nsurf),INTENT(inout)::surf
     ! REAL(KIND(1d0)),DIMENSION(ReadlinesMetdata,32,NumberOfGrids),INTENT(inout)::dataOutESTM
@@ -2531,7 +2535,8 @@ CONTAINS
     REAL(KIND(1D0))                             ::SnowAlb
     ! INTEGER,DIMENSION(0:NDAYS,3),INTENT(INOUT)                ::DayofWeek
     REAL(KIND(1d0)),DIMENSION(24*3600/tstep)  ::Tair24HR
-    REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
+    ! REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
+    REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store !NB:reduced size
     REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1)  ::qn1_S_av_store
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
@@ -2552,7 +2557,8 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
     REAL(KIND(1D0)),DIMENSION(3600/tstep)      ::qn1_S_store
-    REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
+    ! REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
+    REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store ! NB: reduced size
 
     REAL(KIND(1D0)),DIMENSION(5)                           ::datetimeLine
     REAL(KIND(1D0)),DIMENSION(ncolumnsDataOutSUEWS-5)      ::dataOutLineSUEWS
