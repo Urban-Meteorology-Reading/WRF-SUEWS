@@ -151,22 +151,22 @@ CONTAINS
     REAL, DIMENSION(nsurf) :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL :: qh_out, qe_out, qsfc_out
-    REAL :: timezone
+    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out
+    REAL(KIND(1d0)) :: timezone
 
-    REAL,DIMENSION(360)               :: qn1_store
-    REAL,DIMENSION(2*360+1)           :: qn1_av_store
-    REAL,DIMENSION(-4:ndays, nvegsurf):: LAI !LAI for each veg surface [m2 m-2]
-    REAL,DIMENSION( 0:ndays)          :: albDecTr !Albedo of deciduous trees [-]
-    REAL,DIMENSION( 0:ndays)          :: albEveTr !Albedo of evergreen trees [-]
-    REAL,DIMENSION( 0:ndays)          :: albGrass !Albedo of grass[-]
-    REAL,DIMENSION( 0:ndays)          :: DecidCap !Storage capacity of deciduous trees [mm]
-    REAL,DIMENSION( 0:ndays)          :: porosity !Porosity of deciduous trees [-]
-    REAL,DIMENSION( 0:ndays, 5)       :: GDD !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL,DIMENSION(-4:ndays, 6)       :: HDD !Heating Degree Days (see SUEWS_DailyState.f95)
-    REAL,DIMENSION(nsurf)             :: state
-    REAL,DIMENSION(nsurf)             :: soilmoist
-    REAL,DIMENSION(nsurf)             :: surf_var
+    REAL(KIND(1d0)),DIMENSION(360)               :: qn1_store
+    REAL(KIND(1d0)),DIMENSION(2*360+1)           :: qn1_av_store
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf):: LAI !LAI for each veg surface [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albDecTr !Albedo of deciduous trees [-]
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albEveTr !Albedo of evergreen trees [-]
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albGrass !Albedo of grass[-]
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: DecidCap !Storage capacity of deciduous trees [mm]
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: porosity !Porosity of deciduous trees [-]
+    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5)       :: GDD !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6)       :: HDD !Heating Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(nsurf)             :: state
+    REAL(KIND(1d0)),DIMENSION(nsurf)             :: soilmoist
+    REAL(KIND(1d0)),DIMENSION(nsurf)             :: surf_var
 
 
     INTEGER ::  I,J
@@ -189,19 +189,23 @@ CONTAINS
           PSFC1D = PSFC(i,j)
           PREC1D = PREC(i,j)
           ht1d = ht(i,j)
+          XLAT1D = XLAT(i,j)
           XLONG1D = XLONG(i,j)
           landusef_suews1d = landusef_suews(i, :, j)
 
           qn1_store(:)    = qn1_store_SUEWS(I,J,:)
           qn1_av_store(:) = qn1_av_store_SUEWS(I,J,:)
-          LAI          = LAI_SUEWS(I,J,:,:)
-          albDecTr     = albDecTr_SUEWS(I,J,:)
-          albEveTr     = albEveTr_SUEWS(I,J,:)
-          albGrass     = albGrass_SUEWS(I,J,:)
-          DecidCap     = DecidCap_SUEWS(I,J,:)
-          porosity     = porosity_SUEWS(I,J,:)
-          GDD          = GDD_SUEWS(I,J,:,:)
-          HDD          = HDD_SUEWS(I,J,:,:)
+          LAI             = LAI_SUEWS(I,J,:,:)
+          albDecTr        = albDecTr_SUEWS(I,J,:)
+          albEveTr        = albEveTr_SUEWS(I,J,:)
+          albGrass        = albGrass_SUEWS(I,J,:)
+          DecidCap        = DecidCap_SUEWS(I,J,:)
+          porosity        = porosity_SUEWS(I,J,:)
+          GDD             = GDD_SUEWS(I,J,:,:)
+          HDD             = HDD_SUEWS(I,J,:,:)
+          state           = state_SUEWS(i,j,:)
+          soilmoist       = soilmoist_SUEWS(i,j,:)
+          surf_var        = surf_var_SUEWS(i,j,:)
 
           ! the indices to the PSFC argument in the following call look
           ! wrong; however, it is correct to call with its (and not ims)
@@ -214,9 +218,9 @@ CONTAINS
                                 ! model configuration:
                I,J,DT,year, day, hour, minute,timezone,&
                                 ! forcing:
-               SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
+               SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC1D,PREC1D,&
                                 ! surface properties (temporally invariant):
-               landusef_suews1d,ht,XLAT,XLONG,DZ1D,DX,&
+               landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
                LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
                state,soilmoist,surf_var,&
@@ -467,10 +471,10 @@ CONTAINS
 
     ! 5. time-related:
     REAL(KIND(1d0))::dectime ! decimal time of year
-    REAL(KIND(1d0))::iy ! year
-    REAL(KIND(1d0))::id ! day of year
-    REAL(KIND(1d0))::it ! hour
-    REAL(KIND(1d0))::imin ! minute
+    INTEGER,INTENT(in)::iy ! year
+    INTEGER,INTENT(in)::id ! day of year
+    INTEGER,INTENT(in)::it ! hour
+    INTEGER,INTENT(in)::imin ! minute
     REAL(KIND(1d0))::timezone   !NB:Timezone (GMT=0), assuming ZERO, SHOULD BE ALTERED
 
     INTEGER::tstep    !Timestep [s] at which the model is run (set in RunControl)
@@ -489,15 +493,15 @@ CONTAINS
     ! REAL(KIND(1d0)):: a1,a2,a3   !OHM coefficients, a1 [-]; a2 [h]; a3 [W m-2]
     ! REAL(KIND(1d0)),DIMENSION(3600/tstep):: qn1_store   !Q* values for each timestep over previous hr
     ! REAL(KIND(1d0)),DIMENSION(3600/tstep):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
-    REAL(KIND(1d0)),DIMENSION(360), intent(inout):: qn1_store   !Q* values for each timestep over previous hr
-    REAL(KIND(1d0)),DIMENSION(2*360+1), intent(inout):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
+    REAL(KIND(1d0)),DIMENSION(360), INTENT(inout):: qn1_store   !Q* values for each timestep over previous hr
+    REAL(KIND(1d0)),DIMENSION(2*360+1), INTENT(inout):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
 
 
 
     ! 11. output
-    REAL(KIND(1d0)), intent(out) ::qh_out !QH for output
-    REAL(KIND(1d0)), intent(out) ::qe_out ! QE for output
-    REAL(KIND(1d0)), intent(out) ::qsfc_out ! QE for output
+    REAL(KIND(1d0)), INTENT(out) ::qh_out !QH for output
+    REAL(KIND(1d0)), INTENT(out) ::qe_out ! QE for output
+    REAL(KIND(1d0)), INTENT(out) ::qsfc_out ! QE for output
 
     ! processing variables for SuMin
     surf(1:5,:)=surf_attr(:,:)
@@ -526,7 +530,7 @@ CONTAINS
     Press_hPa=PSFC/100.
 
     ! estimate relative humidity
-    avRh=q2rh(QV1D,T1D,real(Press_hPa)) !TODO:convert to relative humidity
+    avRh=q2rh(QV1D,T1D,REAL(Press_hPa)) !TODO:convert to relative humidity
 
     ! convert data type from real to int
     tstep=INT(DT)
@@ -569,42 +573,42 @@ CONTAINS
   END SUBROUTINE SUEWS1D
 
   !================================================================
-  SUBROUTINE slabinit(TSK,TMN,                                 &
-       TSLB,ZS,DZS,num_soil_layers,             &
-       allowed_to_read, start_of_simulation,    &
-       ids,ide, jds,jde, kds,kde,               &
-       ims,ime, jms,jme, kms,kme,               &
-       its,ite, jts,jte, kts,kte                )
-    !----------------------------------------------------------------
-    IMPLICIT NONE
-    !----------------------------------------------------------------
-    LOGICAL , INTENT(IN)      ::      allowed_to_read
-    LOGICAL , INTENT(IN)      ::      start_of_simulation
-    INTEGER, INTENT(IN   )    ::      ids,ide, jds,jde, kds,kde, &
-         ims,ime, jms,jme, kms,kme, &
-         its,ite, jts,jte, kts,kte
-
-    INTEGER, INTENT(IN   )    ::      num_soil_layers
-    !
-    REAL,     DIMENSION( ims:ime , 1:num_soil_layers , jms:jme ), INTENT(INOUT) :: TSLB
-
-    REAL,     DIMENSION(1:num_soil_layers), INTENT(IN)  ::  ZS,DZS
-
-    REAL,    DIMENSION( ims:ime, jms:jme )                     , &
-         INTENT(IN)    ::                               TSK, &
-         TMN
-
-    !  LOCAR VAR
-
-    INTEGER                   ::      L,J,I,itf,jtf
-    CHARACTER*1024 message
-
-    !----------------------------------------------------------------
-
-    itf=min0(ite,ide-1)
-    jtf=min0(jte,jde-1)
-
-  END SUBROUTINE slabinit
+  ! SUBROUTINE slabinit(TSK,TMN,                                 &
+  !      TSLB,ZS,DZS,num_soil_layers,             &
+  !      allowed_to_read, start_of_simulation,    &
+  !      ids,ide, jds,jde, kds,kde,               &
+  !      ims,ime, jms,jme, kms,kme,               &
+  !      its,ite, jts,jte, kts,kte                )
+  !   !----------------------------------------------------------------
+  !   IMPLICIT NONE
+  !   !----------------------------------------------------------------
+  !   LOGICAL , INTENT(IN)      ::      allowed_to_read
+  !   LOGICAL , INTENT(IN)      ::      start_of_simulation
+  !   INTEGER, INTENT(IN   )    ::      ids,ide, jds,jde, kds,kde, &
+  !        ims,ime, jms,jme, kms,kme, &
+  !        its,ite, jts,jte, kts,kte
+  !
+  !   INTEGER, INTENT(IN   )    ::      num_soil_layers
+  !   !
+  !   REAL,     DIMENSION( ims:ime , 1:num_soil_layers , jms:jme ), INTENT(INOUT) :: TSLB
+  !
+  !   REAL,     DIMENSION(1:num_soil_layers), INTENT(IN)  ::  ZS,DZS
+  !
+  !   REAL,    DIMENSION( ims:ime, jms:jme )                     , &
+  !        INTENT(IN)    ::                               TSK, &
+  !        TMN
+  !
+  !   !  LOCAR VAR
+  !
+  !   INTEGER                   ::      L,J,I,itf,jtf
+  !   CHARACTER*1024 message
+  !
+  !   !----------------------------------------------------------------
+  !
+  !   itf=min0(ite,ide-1)
+  !   jtf=min0(jte,jde-1)
+  !
+  ! END SUBROUTINE slabinit
   !-------------------------------------------------------------------
 
   !----------------------------------------------------------------------
