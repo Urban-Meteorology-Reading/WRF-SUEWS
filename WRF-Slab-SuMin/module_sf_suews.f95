@@ -150,7 +150,7 @@ CONTAINS
     REAL, DIMENSION(nsurf) :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL :: qh_out,qe_out,qsfc_out
+    REAL :: qh_out, qe_out, qsfc_out
     REAL :: timezone
 
     REAL,DIMENSION(360)               :: qn1_store
@@ -248,7 +248,7 @@ CONTAINS
        LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
        state,soilmoist,surf_var,&
                                 ! modelled outout:
-       qh_out,qe_out,qn1_store,qn1_av_store,&
+       qh_out,qe_out,qsfc_out,qn1_store,qn1_av_store,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -488,14 +488,15 @@ CONTAINS
     ! REAL(KIND(1d0)):: a1,a2,a3   !OHM coefficients, a1 [-]; a2 [h]; a3 [W m-2]
     ! REAL(KIND(1d0)),DIMENSION(3600/tstep):: qn1_store   !Q* values for each timestep over previous hr
     ! REAL(KIND(1d0)),DIMENSION(3600/tstep):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
-    REAL(KIND(1d0)),DIMENSION(360):: qn1_store   !Q* values for each timestep over previous hr
-    REAL(KIND(1d0)),DIMENSION(2*360+1):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
+    REAL(KIND(1d0)),DIMENSION(360), intent(inout):: qn1_store   !Q* values for each timestep over previous hr
+    REAL(KIND(1d0)),DIMENSION(2*360+1), intent(inout):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
 
 
 
     ! 11. output
-    REAL(KIND(1d0))::qh_out !QH for output
-    REAL(KIND(1d0))::qe_out ! QE for output
+    REAL(KIND(1d0)), intent(out) ::qh_out !QH for output
+    REAL(KIND(1d0)), intent(out) ::qe_out ! QE for output
+    REAL(KIND(1d0)), intent(out) ::qsfc_out ! QE for output
 
     ! processing variables for SuMin
     surf(1:5,:)=surf_attr(:,:)
@@ -562,7 +563,7 @@ CONTAINS
          tstep,&
          WaterDist,WetThresh,&
          Z,&
-         qh_out,qe_out)!output
+         qh_out,qe_out,qsfc_out)!output
 
   END SUBROUTINE SUEWS1D
 

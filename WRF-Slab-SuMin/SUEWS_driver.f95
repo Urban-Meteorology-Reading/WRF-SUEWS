@@ -2353,7 +2353,7 @@ CONTAINS
        tstep,&
        WaterDist,WetThresh,&
        Z,&
-       qh,qe)!output
+       qh,qe,qsfc)!output
 
     INTEGER::AerodynamicResistanceMethod
     INTEGER::Diagnose
@@ -2571,6 +2571,7 @@ CONTAINS
 
     INTEGER,DIMENSION(NSURF)::snowCalcSwitch
     REAL(KIND(1D0)),INTENT(out)::qe
+    REAL(KIND(1D0)),INTENT(out)::qsfc
 
 
     Diagnose=0
@@ -2637,6 +2638,7 @@ CONTAINS
 
     qh=dataOutLineSUEWS(9)
     qe=dataOutLineSUEWS(10)
+    qsfc=dataOutLineSUEWS(16)
 
   END SUBROUTINE SuMin
 
