@@ -76,7 +76,7 @@ SUBROUTINE LUMPS_cal_QHQE(&
 
   sfrVeg=sfr(ivConif+2:ivGrass+2)
 
-  LAIDay= LAI(id-1,veg_type)
+  LAIDay= LAI(id-1,:)
 
   ! Calculate slope of the saturation vapour pressure vs air temp.
   s_hPa=slope_svp(Temp_C)
@@ -147,6 +147,10 @@ SUBROUTINE LUMPS_cal_QHQE(&
   ENDIF
 
   ! Calculate the actual heat fluxes
+  H_mod= (1-alpha_qhqe)
+  H_mod= ((1-alpha_qhqe)+psyc_s)
+  H_mod= ((1-alpha_qhqe)+psyc_s)/(1+psyc_s)
+  H_mod= (qn1+qf-qs-Qm)
   H_mod= ((1-alpha_qhqe)+psyc_s)/(1+psyc_s)*(qn1+qf-qs-Qm)-beta   !Eq 3, Grimmond & Oke (2002)
   E_mod= (alpha_qhqe/(1+psyc_s)*(qn1+qf-qs-Qm))+beta              !Eq 4, Grimmond & Oke (2002)
 
