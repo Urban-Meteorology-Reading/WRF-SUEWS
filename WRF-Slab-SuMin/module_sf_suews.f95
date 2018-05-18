@@ -452,7 +452,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: emis0=[0.95,0.91,0.98,0.98,0.988388,0.94,0.95]   !Emissivity of each surface type [-]
     REAL(KIND(1d0)),DIMENSION(nsurf)::alb,emis
     ! 2. site info:
-    REAL(KIND(1d0)),DIMENSION(nsurf):: sfr     !Surface fractions [-]
+    REAL(KIND(1d0)),DIMENSION(nsurf):: sfr   !Surface fractions [-]
 
     REAL (KIND(1d0)) :: alt         !Altitude [m]
     REAL (KIND(1d0)) :: lat         !Latitude
@@ -541,6 +541,8 @@ CONTAINS
     emis=emis0
 
     dectime=id-1+(it+imin/60.)/24
+
+    sfr=landusef_suews
 
 
     CALL SuMin(&

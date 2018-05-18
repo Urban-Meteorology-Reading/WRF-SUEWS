@@ -835,6 +835,13 @@ CONTAINS
     INTEGER,PARAMETER :: notUsedI=-999
     REAL(KIND(1D0)),PARAMETER::notUsed=-999
 
+    QF=0
+    QF_SAHP=0
+    Fc_anthro=0
+    Fc_metab=0
+    Fc_traff=0
+    Fc_build=0
+
 
     !ih=it-DLS           !Moved to subroutine AnthropogenicEmissions MH 29 June 2017
     !IF(ih<0) ih=23
@@ -2417,7 +2424,7 @@ CONTAINS
     INTEGER,INTENT(IN)::endDLS
     INTEGER::EmissionsMethod
     INTEGER::Gridiv
-    INTEGER::gsModel
+    INTEGER,parameter::gsModel=2
     INTEGER,INTENT(IN)::id
     INTEGER::id_prev_t
     INTEGER::Ie_end
@@ -2437,7 +2444,7 @@ CONTAINS
     INTEGER::StabilityMethod
     INTEGER::StorageHeatMethod
     INTEGER,INTENT(IN)::tstep
-    INTEGER::veg_type
+    INTEGER,PARAMETER::veg_type=1
     INTEGER::WaterUseMethod
 
     REAL(KIND(1D0)),INTENT(IN)::alBMax_DecTr
@@ -2560,7 +2567,7 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF)          ::SatHydraulicConduct
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::sfr
     REAL(KIND(1D0)),DIMENSION(NSURF)           ::snowD
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::SoilDepth
+    REAL(KIND(1D0)),DIMENSION(NSURF),parameter           ::SoilDepth=0.2
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::soilstoreCap
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::StateLimit
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::WetThresh
@@ -2636,6 +2643,7 @@ CONTAINS
     WaterUseMethod=1 ! use observed, don't model it
     ity=2
     LAICalcYes=1
+    RoughLenHeatMethod=2
     RoughLenMomMethod=2
     EmissionsMethod=0
     NetRadiationMethod=3

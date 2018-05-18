@@ -103,6 +103,12 @@
        TraffDorNorT,&     ! Traffic
        AHDorNorT          ! Anthropogenic heat
 
+QF_SAHP=0
+Fc_anthro=0
+Fc_metab=0
+Fc_traff=0
+Fc_build=0
+
 !-----------------------------------------------------------------------
   ! Account for Daylight saving
   ih=it-DLS
@@ -111,30 +117,34 @@
   ! Set weekday/weekend counter
   iu=1   !Set to 1=weekday
   IF(DayofWeek(id,1)==1 .OR. DayofWeek(id,1)==7) iu=2  !Set to 2=weekend
+  if ( EmissionsMethod > 0 ) then
+    ! Calculate energy emissions and CO2 from human metabolism -------------
+    ! Pop dens (cap ha-1 -> cap m-2) x activity level (W cap-1)
+    PopDorNorT   = PopProf_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)      ! 1=night, 2=day, 1-2=transition
+    ActDorNorT   = HumActivity_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)  ! 1=night, 2=day, 1-2=transition
+    TraffDorNorT = TraffProf_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)    ! normalise so the AVERAGE of the multipliers is equal to 1
+    AHDorNorT    = AHProf_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)       ! normalise so the AVERAGE of the multipliers is equal to 1
 
-  ! Calculate energy emissions and CO2 from human metabolism -------------
-  ! Pop dens (cap ha-1 -> cap m-2) x activity level (W cap-1)
-  PopDorNorT   = PopProf_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)      ! 1=night, 2=day, 1-2=transition
-  ActDorNorT   = HumActivity_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)  ! 1=night, 2=day, 1-2=transition
-  TraffDorNorT = TraffProf_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)    ! normalise so the AVERAGE of the multipliers is equal to 1
-  AHDorNorT    = AHProf_tstep((NSH*(ih+1-1)+imin*NSH/60+1),iu)       ! normalise so the AVERAGE of the multipliers is equal to 1
+    ! Diurnal profile times population density [cap ha-1]
+    DP_x_RhoPop = AHDorNorT * NumCapita
 
-  ! Diurnal profile times population density [cap ha-1]
-  DP_x_RhoPop = AHDorNorT * NumCapita
+    MinFcMetab = 8/5. * MinQFMetab
+    MaxFcMetab = 8/5. * MaxQFMetab ! Sailor & Lu (2004)
 
-  MinFcMetab = 8/5. * MinQFMetab
-  MaxFcMetab = 8/5. * MaxQFMetab ! Sailor & Lu (2004)
+    !QF_metab = (PopDensNighttime*(2-PopDorNorT) + PopDensDaytime*(PopDorNorT-1))/10000 * &
+    !              (MinQFMetab*(2-ActDorNorT) + MaxQFMetab*(ActDorNorT-1)) !W m-2
+    !Fc_metab = (PopDensNighttime*(2-PopDorNorT) + PopDensDaytime*(PopDorNorT-1))/10000 * &
+    !           (MinFcMetab*(2-ActDorNorT) + MinFcMetab*(ActDorNorT-1)) !umol m-2 s-1
 
-  !QF_metab = (PopDensNighttime*(2-PopDorNorT) + PopDensDaytime*(PopDorNorT-1))/10000 * &
-  !              (MinQFMetab*(2-ActDorNorT) + MaxQFMetab*(ActDorNorT-1)) !W m-2
-  !Fc_metab = (PopDensNighttime*(2-PopDorNorT) + PopDensDaytime*(PopDorNorT-1))/10000 * &
-  !           (MinFcMetab*(2-ActDorNorT) + MinFcMetab*(ActDorNorT-1)) !umol m-2 s-1
+    QF_metab = (PopDensNighttime*MinQFMetab*((2-ActDorNorT)+(2-PopDorNorT))/2 + &
+               PopDensDaytime*MaxQFMetab*((ActDorNorT-1)+(PopDorNorT-1))/2)/10000 !W m-2
 
-  QF_metab = (PopDensNighttime*MinQFMetab*((2-ActDorNorT)+(2-PopDorNorT))/2 + &
-             PopDensDaytime*MaxQFMetab*((ActDorNorT-1)+(PopDorNorT-1))/2)/10000 !W m-2
+    Fc_metab = (PopDensNighttime*MinFcMetab*((2-ActDorNorT)+(2-PopDorNorT))/2 + &
+               PopDensDaytime*MaxFcMetab*((ActDorNorT-1)+(PopDorNorT-1))/2)/10000 !umol m-2 s-1
 
-  Fc_metab = (PopDensNighttime*MinFcMetab*((2-ActDorNorT)+(2-PopDorNorT))/2 + &
-             PopDensDaytime*MaxFcMetab*((ActDorNorT-1)+(PopDorNorT-1))/2)/10000 !umol m-2 s-1
+  end if
+
+
 
   !----------------------------------------------------------------------------------------------------
   !Diffferent methods to calculate the anthopogenic heat and CO2 emissions.

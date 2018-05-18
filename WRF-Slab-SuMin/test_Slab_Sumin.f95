@@ -36,7 +36,7 @@ program test_Slab_Sumin
 
   do k = 1, 2
      call random_array2d(2, 2, QV3D(:, k, :), 0., 1.)
-     call random_array2d(2, 2, P3D(:, k, :), 900., 1000.)
+     call random_array2d(2, 2, P3D(:, k, :), 900.E2, 1000.E2)
      call random_array2d(2, 2, T3D(:, k, :), 280., 300.)
      call random_array2d(2, 2, U3D(:, k, :), 5., 10.)
      call random_array2d(2, 2, V3D(:, k, :), 5., 10.)
@@ -60,7 +60,7 @@ program test_Slab_Sumin
   call random_array2d(2, 2, HFX, 100., 200.)
   call random_array2d(2, 2, QFX, 100., 200.)
   call random_array2d(2, 2, LH, 100., 200.)
-  call random_array2d(2, 2, TSK, 100., 200.)
+  call random_array2d(2, 2, TSK, 300., 310.)
   call random_array2d(2, 2, QSFC, 100., 200.)
 
   do k = 1, 360
@@ -124,7 +124,14 @@ program test_Slab_Sumin
                 ids, ide, jds, jde, kds, kde,                             &
                 ims, ime, jms, jme, kms, kme,                             &
                 its, ite, jts, jte, kts, kte)
-   print*, qn1_store_SUEWS
+   print*, 'HFX'
+   print*, HFX
+   print*, ''
+   print*, 'LH'
+   print*, LH
+   print*, ''
+   print*, 'TSK'
+   print*, TSK
 
 end program test_Slab_Sumin
 
