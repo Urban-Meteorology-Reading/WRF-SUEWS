@@ -316,7 +316,7 @@
      ELSEIF(v4) THEN ! 2 real, 1 integer
         WRITE(WhichFile,'((a),2(f9.4),(i10))')' Values: ', VALUE, value2, valueI
      ELSEIF(v5) THEN ! 1 real 1 integer
-        WRITE(WhichFile,'((f9.4),(i10))')' Values: ', VALUE, valueI
+        WRITE(WhichFile,'((a),(f9.4),(i10))')' Values: ', VALUE, valueI
      ELSEIF(v6) THEN ! 2 integer
         valueI2=INT(VALUE)
         WRITE(WhichFile,'((a),2(i10))')' Values: ', valueI, valueI2

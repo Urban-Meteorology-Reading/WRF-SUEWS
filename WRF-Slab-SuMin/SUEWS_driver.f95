@@ -7,9 +7,9 @@
 MODULE SUEWS_Driver
   USE AtmMoist_module,ONLY:LUMPS_cal_AtmMoist,qsatf
   USE NARP_MODULE,ONLY:NARP_cal_SunPosition,RadMethod,NARP
-  ! USE AnOHM_module,ONLY:AnOHM
-  ! USE ESTM_module,ONLY:ESTM
-  ! USE Snow_module,ONLY:SnowCalc,Snow_cal_MeltHeat
+  USE AnOHM_module,ONLY:AnOHM
+  USE ESTM_module,ONLY:ESTM
+  USE Snow_module,ONLY:SnowCalc,Snow_cal_MeltHeat
   USE DailyState_module,ONLY:SUEWS_cal_DailyState,update_DailyState
   USE WaterDist_module,ONLY:&
        drainage,soilstore,SUEWS_cal_SoilMoist,&
@@ -2036,6 +2036,60 @@ CONTAINS
     !====================update output line end==============================
 
   END SUBROUTINE SUEWS_update_outputLine
+  !========================================================================
+
+  !added by Zhenkun Li, 18/5/2018
+  !==============Update output arrays=========================
+  SUBROUTINE SUEWS_update_output(&
+       SnowUse,storageheatmethod,&!input
+       ReadLinesMetdata,NumberOfGrids,&
+       ir,gridiv,datetimeLine,dataOutLineSUEWS,dataOutLineSnow,dataOutLineESTM,&!input
+       dataOutSUEWS,dataOutSnow,dataOutESTM)!inout
+    IMPLICIT NONE
+
+    ! INTEGER,PARAMETER::ndays    = 366
+    ! INTEGER,PARAMETER::nvegsurf = 3
+    ! INTEGER,PARAMETER::nsurf    = 7
+    ! REAL(KIND(1d0)),PARAMETER :: NAN=-999
+
+    INTEGER,INTENT(in) ::ReadLinesMetdata
+    ! INTEGER,INTENT(in) ::ncolumnsDataOutSUEWS
+    ! INTEGER,INTENT(in) ::ncolumnsDataOutSnow
+    ! INTEGER,INTENT(in) ::ncolumnsDataOutESTM
+    INTEGER,INTENT(in) ::NumberOfGrids
+    INTEGER,INTENT(in) ::Gridiv
+    INTEGER,INTENT(in) ::SnowUse
+    INTEGER,INTENT(in) ::storageheatmethod
+    INTEGER,INTENT(in) ::ir
+
+    REAL(KIND(1d0)),DIMENSION(5),INTENT(in) :: datetimeLine
+    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutSUEWS-5),INTENT(in) :: dataOutLineSUEWS
+    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutESTM-5),INTENT(in) :: dataOutLineESTM
+    REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutSnow-5),INTENT(in) :: dataOutLineSnow
+
+
+    REAL(KIND(1d0)),INTENT(inout) :: dataOutSUEWS(ReadLinesMetdata,ncolumnsDataOutSUEWS,NumberOfGrids)
+    REAL(KIND(1d0)),INTENT(inout) :: dataOutSnow(ReadLinesMetdata,ncolumnsDataOutSnow,NumberOfGrids)
+    REAL(KIND(1d0)),INTENT(inout) :: dataOutESTM(ReadLinesMetdata,ncolumnsDataOutESTM,NumberOfGrids)
+
+
+    !====================== update output arrays ==============================
+    !Define the overall output matrix to be printed out step by step
+    dataOutSUEWS(ir,1:ncolumnsDataOutSUEWS,Gridiv)=[datetimeLine,set_nan(dataOutLineSUEWS)]
+    ! ! set invalid values to NAN
+    ! dataOutSUEWS(ir,6:ncolumnsDataOutSUEWS,Gridiv)=set_nan(dataOutSUEWS(ir,6:ncolumnsDataOutSUEWS,Gridiv))
+
+    IF (snowUse==1) THEN
+       dataOutSnow(ir,1:ncolumnsDataOutSnow,Gridiv)=[datetimeLine,set_nan(dataOutLineSnow)]
+    END IF
+
+    IF (storageheatmethod==4) THEN
+       dataOutESTM(ir,1:ncolumnsDataOutESTM,Gridiv)=[datetimeLine,set_nan(dataOutLineESTM)]
+    END IF
+
+    !====================update output arrays end==============================
+
+  END SUBROUTINE SUEWS_update_output
   !========================================================================
 
   !========================================================================
