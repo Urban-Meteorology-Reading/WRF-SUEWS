@@ -1,30 +1,24 @@
-# SUEWS avariables
-#<Table>  <Dim> <Order> <How defined>   <Coord-axis>  <Dimname in Datasets>
-dimspec   nsurf    -     constant=7            x       CAT_landcover_SUEWS
-dimspec   nveg     -     constant=3            x       CAT_veg_SUEWS
-dimspec   ndays1   -     constant=360          x       360_days
-dimspec   ndays2   -     constant=366          x       366_days
-dimspec   ndays3   -     constant=367          x       from 0 to 366
-dimspec   ndays4   -     constant=371          x       from -4 to 366
-dimspec   ndays5   -     constant=721          x       360 * 2 + 1
-dimspec   lenth1   -     constant=5            c
-dimspec   lenth2   -     constant=6            c
+#<Table>  <Dim>  <Order> <How defined>         <Coord-axis>  <Dimname in Datasets>
+dimspec   nsurf    -     constant=7                  c       CAT_landcover_SUEWS
+dimspec   nveg     -     constant=3                  c       CAT_veg_SUEWS
+dimspec   ndays1   -     constant=360                c       360_days
+dimspec   ndays2   -     constant=366                c       366_days
+dimspec   ndays3   -     constant=367                c       367_days
+dimspec   ndays4   -     constant=371                c       371_days
+dimspec   ndays5   -     constant=721                c       721_days
+dimspec   lenth1   -     constant=5                  c       lenth1
+dimspec   lenth2   -     constant=6                  c       lenth2
 
-# <table>   <type>      <sym>               <dims>              <use>  <NumTlev>  <stagger>    <io>       <dname>                    <description>     <units>
-   state     real   qn1_store_SUEWS         i{ndays1}j           mics     1           -         ih    "qn1_store_SUEWS"           "qn1_store_SUEWS"     ""
-   state     real   qn1_av_store_SUEWS      i{ndays5}j           mics     1           -         ih    "qn1_av_store_SUEWS"        "qn1_av_store_SUEWS"  ""
-   state     real      LAI_SUEWS            i{ndays4}jb{3}       mics     1           -         ih      "LAI_SUEWS"                   "LAI_SUEWS"       ""
-   state     real    albEveTr_SUEWS         i{ndays3}j           mics     1           -         ih     "albEveTr_SUEWS"             "albEveTr_SUEWS"    ""
-   state     real    albGrass_SUEWS         i{ndays3}j           mics     1           -         ih     "albGrass_SUEWS"             "albGrass_SUEWS"    ""
-   state     real    DecidCap_SUEWS         i{ndays3}j           mics     1           -         ih     "DecidCap_SUEWS"             "DecidCap_SUEWS"    ""
-   state     real    porosity_SUEWS         i{ndays3}j           mics     1           -         ih     "porosity_SUEWS"             "porosity_SUEWS"    ""
-   state     real     GDD_SUEWS             i{ndays3}jb{lenth1}  mics     1           -         ih       "GDD_SUEWS"                   "GDD_SUEWS"      ""
-   state     real     HDD_SUEWS             i{ndays4}jb{lenth2}  mics     1           -         ih       "HDD_SUEWS"                   "HDD_SUEWS"      ""
-   state     real    state_SUEWS            i{nsurf}j            mics     1           -         ih       "state_SUEWS"                "state_SUEWS"     ""
-   state     real    soilmoist_SUEWS        i{nsurf}j            mics     1           -         ih      "soilmoist_SUEWS"            "soilmoist_SUEWS"  ""
-   state     real    surf_var_SUEWS         i{nsurf}j            mics     1           -         ih      "surf_var_SUEWS"            "surf_var_SUEWS"   ""
-
-# Namelist parameter
-# Package declarations
-package   no_SUEWS                         ==0                  -             -
-package   lsm_SUEWS                        ==1                  -             -
+#<Table> <Type>   <Sym>                    <Dims>            <Use>   <NumTLev> <Stagger>    <IO>     <DNAME>                       <DESCRIP>        <UNITS>
+state    real   qn1_store_SUEWS         ij{ndays1}            mics     1           -         ih    "qn1_store_SUEWS"           "qn1_store_SUEWS"     "W/m^2"
+state    real   qn1_av_store_SUEWS      ij{ndays5}            mics     1           -         ih    "qn1_av_store_SUEWS"        "qn1_av_store_SUEWS"  "W/m^2"
+state    real      LAI_SUEWS            ij{ndays4}{nsurf}     mics     1           -         ih      "LAI_SUEWS"                   "LAI_SUEWS"       ""
+state    real    albEveTr_SUEWS         ij{ndays3}            mics     1           -         ih     "albEveTr_SUEWS"             "albEveTr_SUEWS"    ""
+state    real    albGrass_SUEWS         ij{ndays3}            mics     1           -         ih     "albGrass_SUEWS"             "albGrass_SUEWS"    ""
+state    real    DecidCap_SUEWS         ij{ndays3}            mics     1           -         ih     "DecidCap_SUEWS"             "DecidCap_SUEWS"    ""
+state    real    porosity_SUEWS         ij{ndays3}            mics     1           -         ih     "porosity_SUEWS"             "porosity_SUEWS"    ""
+state    real     GDD_SUEWS             ij{ndays3}{lenth1}    mics     1           -         ih       "GDD_SUEWS"                   "GDD_SUEWS"      ""
+state    real     HDD_SUEWS             ij{ndays4}{lenth2}    mics     1           -         ih       "HDD_SUEWS"                   "HDD_SUEWS"      ""
+state    real    state_SUEWS            ij{nsurf}             mics     1           -         ih       "state_SUEWS"                "state_SUEWS"     ""
+state    real    soilmoist_SUEWS        ij{nsurf}             mics     1           -         ih      "soilmoist_SUEWS"            "soilmoist_SUEWS"  ""
+state    real    surf_var_SUEWS         ij{nsurf}             mics     1           -         ih      "surf_var_SUEWS"            "surf_var_SUEWS"    ""
