@@ -1,0 +1,16 @@
+
+
+SUBROUTINE wrf_shutdown
+
+   USE , INTRINSIC :: IEEE_EXCEPTIONS
+
+
+
+    CALL IEEE_SET_FLAG(IEEE_INEXACT,.false.)
+    STOP
+
+
+END SUBROUTINE wrf_shutdown
+
+
+
