@@ -4,9 +4,6 @@
 
 
 
-
-
-
 module module_cam_gffgch
 
   implicit none
@@ -15,7 +12,6 @@ module module_cam_gffgch
   public gffgch
 
 contains
-
 
 subroutine gffgch(t       ,es      ,itype   )
 
@@ -45,13 +41,8 @@ subroutine gffgch(t       ,es      ,itype   )
 
    use shr_kind_mod, only: r8 => shr_kind_r8
    use physconst,    only: tmelt
-
    use module_cam_support, only: endrun, &
                                  iulog
-
-
-
-
     
    implicit none
 
@@ -101,9 +92,7 @@ subroutine gffgch(t       ,es      ,itype   )
    end if
    if (tr > 40.0_r8) then
       write(iulog,900) tr
-
       call wrf_message(iulog)
-
       call endrun ('GFFGCH')                
    end if
 
@@ -152,7 +141,4 @@ subroutine gffgch(t       ,es      ,itype   )
            ' 40.0 DEGREES C',/, ' TR = ',f7.2)
 
 end subroutine gffgch
-
 end module module_cam_gffgch
-
-

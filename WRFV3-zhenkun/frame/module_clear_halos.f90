@@ -26,9 +26,7 @@ contains
 
     use module_domain, only: domain,get_ijk_from_grid,fieldlist
     use module_configure, only: PARAM_FIRST_SCALAR
-
     use,intrinsic :: ieee_arithmetic
-
     implicit none
 
     logical, intent(in), optional :: full_domain
@@ -42,11 +40,7 @@ contains
          ips, ipe, jps, jpe, kps, kpe
     logical :: fulldom
     real :: badR, badR_N,badR_NE,badR_NW,badR_S,badR_SW,badR_SE,badR_E,badR_W
-
     double precision :: badD, badD_N,badD_NE,badD_NW,badD_S,badD_SW,badD_SE,badD_E,badD_W
-
-
-
     integer :: badI, badI_N,badI_NE,badI_NW,badI_S,badI_SW,badI_SE,badI_E,badI_W
 
     select case(how)
@@ -59,26 +53,14 @@ contains
        badI = 0
     case(2)
        call wrf_message('Fill I and J halos with -maxint or quiet NaN.')
-
        badR = ieee_value(badR,ieee_quiet_nan)
        badD = ieee_value(badD,ieee_quiet_nan)
        badI = -huge(badI)
-
-
-
-
-
     case(3)
        call wrf_message('Fill I and J halos with -maxint or signalling NaN.')
-
        badR = ieee_value(badR,ieee_signaling_nan)
        badD = ieee_value(badD,ieee_signaling_nan)
        badI = -huge(badI)
-
-
-
-
-
     case default
        if(fulldom) then
           call wrf_message('Invalid value for clear_ij_full_domain/clear_ij_halos "how" parameter.  Will not clear domain.')
@@ -398,5 +380,3 @@ contains
     ENDDO
   end subroutine clear_ij_halos
 end module module_clear_halos
-
-

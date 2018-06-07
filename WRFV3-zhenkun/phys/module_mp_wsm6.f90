@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 MODULE module_mp_wsm6
 
    USE module_utility, ONLY: WRFU_Clock, WRFU_Alarm
@@ -76,9 +69,6 @@ CONTAINS
                  ,ids,ide, jds,jde, kds,kde                        &
                  ,ims,ime, jms,jme, kms,kme                        &
                  ,its,ite, jts,jte, kts,kte                        &
-
-
-
                                                                    )
 
   IMPLICIT NONE
@@ -147,7 +137,6 @@ CONTAINS
 
 
 
-
   REAL, DIMENSION( its:ite , kts:kte ) ::   t
   REAL, DIMENSION( its:ite , kts:kte, 2 ) ::   qci
   REAL, DIMENSION( its:ite , kts:kte, 3 ) ::   qrs
@@ -192,9 +181,6 @@ CONTAINS
                     ,its,ite, jts,jte, kts,kte                     &
                     ,snow,snowncv                                  &
                     ,graupel,graupelncv                            &
-
-
-
                                                                    )
          DO K=kts,kte
          DO I=its,ite
@@ -252,14 +238,6 @@ CONTAINS
           enddo   
         endif     
 
-
-
-
-
-
-
-
-
       ENDDO
   END SUBROUTINE wsm6
 
@@ -278,9 +256,6 @@ CONTAINS
                    ,its,ite, jts,jte, kts,kte                     &
                    ,snow,snowncv                                  &
                    ,graupel,graupelncv                            &
-
-
-
                                                                   )
 
   IMPLICIT NONE
@@ -372,11 +347,6 @@ CONTAINS
   REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL,                  &
         INTENT(INOUT) ::                                 graupel, &
                                                       graupelncv
-
-
-
-
-
 
 
 
@@ -1486,10 +1456,6 @@ CONTAINS
         enddo
       enddo
       enddo                  
-
-
-
-
 
 
   END SUBROUTINE wsm62d
@@ -2652,5 +2618,3 @@ CONTAINS
 
 
 END MODULE module_mp_wsm6
-
-

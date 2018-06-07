@@ -4,8 +4,6 @@
 
 
 
-
-
 module physconst
 
    
@@ -87,17 +85,6 @@ contains
 
    
    subroutine physconst_readnl(nlfile)
-
-
-
-
-
-
-
-
       character(len=*), intent(in) :: nlfile  
-
     end subroutine physconst_readnl
   end module physconst
-
-

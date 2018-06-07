@@ -1,6 +1,5 @@
 
 
-
 module module_fr_fire_model
 
 use module_fr_fire_core
@@ -305,11 +304,9 @@ elseif (ifun.eq.5) then
             ignited_tile(ignitions_done)=ignited
                 
 
-
             call write_array_m(ifts,ifte,jfts,jfte,ifms,ifme,jfms,jfme,lfn,'lfn_ig',id)
             call write_array_m(ifts,ifte,jfts,jfte,ifms,ifme,jfms,jfme,coord_xf,'coord_xf_ig',id)
             call write_array_m(ifts,ifte,jfts,jfte,ifms,ifme,jfms,jfme,coord_yf,'coord_yf_ig',id)
-
 
         
     enddo
@@ -442,5 +439,3 @@ end subroutine fire_model
 
             
 end module module_fr_fire_model
-
-

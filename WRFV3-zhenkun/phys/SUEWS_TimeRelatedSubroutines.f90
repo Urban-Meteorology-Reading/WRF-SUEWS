@@ -1,39 +1,39 @@
-! subroutines included:
-! day2month
-!
-! month2day
-! leapYearCalc
-!       returns -- number of days in actual year
-!    	used    -- LUMPS phenology (initalization)
-!
-! DayofWeek
-!       returns -- day of week
-!       used    -- for water use and anthropogenic heat
-!
-! dectime_to_timevec
-!       This subroutine converts dectime to individual
-!       hours, minutes and seconds
-!
-! daylen
-!       Computes solar day length
-!
-!sg feb 2012 - moved all time related subroutines together
-!===============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  subroutine day2month(b,mb,md,seas,year,latitude)
    IMPLICIT NONE
-   integer,intent(in) ::b  !b=doy   --IN
-   integer,intent(out) ::mb !month=mb  --OUT
-   integer,intent(out) ::md !date=md --OUT
+   integer,intent(in) ::b  
+   integer,intent(out) ::mb 
+   integer,intent(out) ::md 
    integer,intent(out) ::seas
    integer,intent(in) ::year
    integer::t1,t2,t3
-   integer::k ! k- accounts for leap year
+   integer::k 
 
    real (kind(1d0))::latitude
 
-   !Corrected and calculation of date added LJ (Jun 2010)
+   
 
    t1=4
    t2=100
@@ -45,7 +45,7 @@
       K=0
    endif
 
-   IF(B<=31) THEN !January
+   IF(B<=31) THEN 
      MB=1
      md=B
    ELSEIF(B>31 .AND. B<=59+K) THEN
@@ -83,23 +83,23 @@
      md=B-(334+K)
    ENDIF
 
-   !
-   if(latitude>0)then  ! Northern Hemisphere
-       IF (mb>3 .AND. mb<10) THEN !Summer is from Apr to Sep
+   
+   if(latitude>0)then  
+       IF (mb>3 .AND. mb<10) THEN 
          seas=1
        else
-         seas=2 !Winter rest of the months
+         seas=2 
        endif
-   else  ! southern hemisphere
-       IF (mb<4 .or. mb>9) THEN !Summer is from Oct to Mar
+   else  
+       IF (mb<4 .or. mb>9) THEN 
          seas=1
        else
-         seas=2 !Winter rest of the months
+         seas=2 
        endif
    endif
    return
  end  subroutine day2month
-!===============================================================================
+
  subroutine month2day(mon,ne,k,b)
   IMPLICIT NONE
   integer:: mon,ne,k,b
@@ -120,7 +120,7 @@
     NE=213+K-B
   ELSE IF(mon==8) THEN
     NE=244+K-B
-!**********PAGE 151 STARTS HERE**************
+
   ELSE IF(mon==9)THEN
     NE=274+K-B
   ELSE IF(mon==10) THEN
@@ -131,8 +131,8 @@
     NE=366+K-B
   END IF
  end subroutine month2day
-!===============================================================================
-!Defines the number or days in each year (defines the leap year)
+
+
  subroutine LeapYearCalc(year_int,nroDays)
 
   IMPLICIT NONE
@@ -148,12 +148,12 @@
   ENDIF
  end subroutine LeapYearCalc
 
-!===============================================================================
+
 
  subroutine Day_Of_Week(DATE, MONTH, YEAR, DOW)
- ! Calculate weekday from year, month and day information.
- ! DOW: Sunday=1,...Saturday=7
- ! YEAR fixed to integer, LJ March 2015
+ 
+ 
+ 
 
  IMPLICIT NONE
 
@@ -162,9 +162,9 @@
    YR = YEAR
    MN = MONTH
 
-!C
-!C       IF JANUARY OR FEBRUARY, ADJUST MONTH AND YEAR
-!C
+
+
+
         IF (MN.GT.2)GO TO 10
         MN = MN + 12
         YR = YR - 1
@@ -176,22 +176,22 @@
         RETURN
  END subroutine Day_Of_Week
 
-!===============================================================================
 
-!FL
+
+
 subroutine dectime_to_timevec(dectime,HOURS,MINS,SECS)
-    !This subroutine converts dectime to individual
-    !hours, minutes and seconds
+    
+    
     INTEGER :: HOURS, MINS, doy
     REAL(kind(1d0))    :: dectime,SECS,DH,DM,DS
-    !INTEGER :: year
+    
 
         doy=FLOOR(dectime)
 
-        DH=dectime-doy !Decimal hours
+        DH=dectime-doy 
         HOURS=int(24*DH)
 
-        DM=24*DH-HOURS !Decimal minutes
+        DM=24*DH-HOURS 
         MINS=int(60*DM)
 
         DS=60*DM-MINS
@@ -199,47 +199,47 @@ subroutine dectime_to_timevec(dectime,HOURS,MINS,SECS)
 
 end subroutine dectime_to_timevec
 
-!==============================================================================
 
-!FL
-!=======================================================================
-!  DAYLEN, Real Function, N.B. Pickering, 09/23/1993
-!  Computes solar day length (Spitters, 1986).
-!=======================================================================
+
+
+
+
+
+
 
 SUBROUTINE DAYLEN(DOY, XLAT,DAYL, DEC, SNDN, SNUP)
-!-----------------------------------------------------------------------
+
     IMPLICIT NONE
     INTEGER :: DOY
     REAL(kind(1d0)) :: DEC,DAYL,SOC,SNDN,SNUP,XLAT
     REAL(kind(1d0)),PARAMETER :: PI=3.14159, RAD=PI/180.0
 
-!-----------------------------------------------------------------------
-!     Calculation of declination of sun (Eqn. 16). Amplitude= +/-23.45
-!     deg. Minimum = DOY 355 (DEC 21), maximum = DOY 172.5 (JUN 21/22).
+
+
+
       DEC = -23.45 * COS(2.0*PI*(DOY+10.0)/365.0)
 
-!     Sun angles.  SOC limited for latitudes above polar circles.
+
       SOC = TAN(RAD*DEC) * TAN(RAD*XLAT)
       SOC = MIN(MAX(SOC,-1.0),1.0)
 
-!     Calculate daylength, sunrise and sunset (Eqn. 17)
+
       DAYL = 12.0 + 24.0*ASIN(SOC)/PI
       SNUP = 12.0 - DAYL/2.0
       SNDN = 12.0 + DAYL/2.0
 
 END SUBROUTINE DAYLEN
 
-!=======================================================================
-! DAYLEN Variables
-!-----------------------------------------------------------------------
-! DAYL  Day length on day of simulation (from sunrise to sunset)  (hr)
-! DEC   Solar declination or (90o - solar elevation at noon) (deg.)
-! DOY   Day of year (d)
-! PI    PI=3.14159 (rad)
-! RAD   RAD=PI/180. (rad./deg.)
-! SNDN  Time of sunset (hr)
-! SNUP  Time of sunrise (hr)
-! SOC   Sine over cosine (intermediate calculation)
-! XLAT  Latitude (deg.)
-!=======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+

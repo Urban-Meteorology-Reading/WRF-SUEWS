@@ -78,19 +78,9 @@ PROGRAM nup_em
 
 
 
-
-
-
    USE module_bc
    USE module_big_step_utilities_em
    USE module_get_file_names
-
-
-
-
-
-
-
 
    IMPLICIT NONE
  
@@ -159,12 +149,6 @@ PROGRAM nup_em
    CHARACTER (LEN=19) :: date_string
 
 
-
-
-
-
-
-
    INTEGER                 :: idsi, in_id, out_id
    INTEGER                 :: e_sn, e_we, pgr
    CHARACTER (LEN=80)      :: inpname , outname , bdyname
@@ -177,9 +161,7 @@ PROGRAM nup_em
    CHARACTER (LEN=80)      :: message
 integer :: ii
 
-
    CHARACTER (LEN=10) :: release_version = 'V3.9.1.1  '
-
 
    
    
@@ -204,20 +186,13 @@ integer :: ii
    program_name = "NUP_EM " // TRIM(release_version) // " PREPROCESSOR"
 
 
-
-
-
    
    
    
    
 
    CALL init_modules(1)   
-
-
-
    CALL WRFU_Initialize( defaultCalKind=WRFU_CAL_GREGORIAN, rc=rc )
-
    CALL init_modules(2)   
 
    
@@ -225,9 +200,7 @@ integer :: ii
    
    
 
-
    CALL initial_config
-
 
    
 
@@ -319,11 +292,6 @@ integer :: ii
 
    
    
-
-
-
-
-
 
 
    
@@ -484,10 +452,6 @@ SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened )
 
 
 
-
-
-
-
   
 
   ids = parent_grid%sd31
@@ -520,7 +484,6 @@ SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened )
   CALL med_feedback_domain ( parent_grid , nested_grid )
 
   parent_grid%ht_int = parent_grid%ht
-
 
 
 
@@ -676,7 +639,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                else if(sst(i,j).gt.170. .and. sst(i,j).lt.400.)then
                   tsk(i,j)=sst(i,j)
                else
-                  CALL wrf_error_fatal3("<stdin>",679,&
+                  CALL wrf_error_fatal3("<stdin>",642,&
 'TSK unreasonable' )
                end if
             END IF
@@ -697,7 +660,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                else if(sst(i,j).gt.170. .and. sst(i,j).lt.400.)then
                   tmn(i,j)=sst(i,j)
                else
-                  CALL wrf_error_fatal3("<stdin>",700,&
+                  CALL wrf_error_fatal3("<stdin>",663,&
 'TMN unreasonable' )
                endif
             END IF
@@ -734,7 +697,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                         tslb(i,l,j)=tmn(i,j)
                      END DO
                   else
-                     CALL wrf_error_fatal3("<stdin>",737,&
+                     CALL wrf_error_fatal3("<stdin>",700,&
 'TSLB unreasonable' )
                   endif
             END IF
@@ -770,7 +733,7 @@ oops2=oops2+1
                   print *,'iswater=', iswater
                   print *,'tslb=',tslb(i,:,j)
                   print *,'sst=',sst(i,j)
-                  CALL wrf_error_fatal3("<stdin>",773,&
+                  CALL wrf_error_fatal3("<stdin>",736,&
 'mismatch_landmask_ivgtyp' )
                END IF
             END IF
@@ -784,5 +747,3 @@ print *,'points artificially set to water: ',oops2
 endif
 
 END SUBROUTINE check_consistency2
-
-

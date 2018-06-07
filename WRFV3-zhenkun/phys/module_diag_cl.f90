@@ -1,13 +1,6 @@
 
 
 
-
-
-
-
-
-
-
 MODULE module_diag_cl
 CONTAINS
 
@@ -398,5 +391,3 @@ varstd=varstd+var*var
 END SUBROUTINE varstatistics
 
 END MODULE module_diag_cl
-
-

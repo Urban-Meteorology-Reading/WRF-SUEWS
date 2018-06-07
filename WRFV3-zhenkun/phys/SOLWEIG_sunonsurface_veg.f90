@@ -1,9 +1,9 @@
  subroutine sunonsurface_veg(iazimuthA, scale, first, second, psi)
- ! This m-file creates a boolean image of sunlit walls.
- ! Shadows from both buildings and vegetation is accounted for
- ! moving building in the direction of the sun
- ! Last modified:
- ! LJ 27 Jan 2016 - Removal of tabs and fixing real-int conversions
+ 
+ 
+ 
+ 
+ 
 
  use matsize
 
@@ -11,7 +11,7 @@
     real(kind(1d0))             :: iazimuthA,iazimuth,sinazimuth,cosazimuth,tanazimuth
     real(kind(1d0))             :: scale 
     integer                     :: index,xc1,xc2,yc1,yc2,xp1,xp2,yp1,yp2,n,first,second
-    real(kind(1d0))             :: dx,dy,ds,absdx,absdy,psi !,dz
+    real(kind(1d0))             :: dx,dy,ds,absdx,absdy,psi 
     real(kind(1d0))             :: pibyfour,threetimespibyfour,fivetimespibyfour
     real(kind(1d0))             :: seventimespibyfour
     real(kind(1d0))             :: signsinazimuth,signcosazimuth,dssin,dscos
@@ -34,11 +34,11 @@
     allocate(sh1(sizex,sizey))
  
     iazimuth=iazimuthA*(pi/180)
-    !special cases
+    
     if (iazimuth==0) then
         iazimuth=iazimuth+0.000001
     end if
-    ! loop parameters     
+    
     index=0
     f=buildings
     sh1=sh-(1-vegsh)*(1-psi)
@@ -50,14 +50,14 @@
     tempbu = 0.0D0
     tempbub = 0.0D0
     tempwallsun = 0.0D0
-    !sh = 0.0D0
+    
     weightsumsh = 0.0D0
     weightsumwall = 0.0D0
 
-    first=int(real(first,kind(1d0))*scale)  !Int added around the equation as first and second are both integers
+    first=int(real(first,kind(1d0))*scale)  
     second=int(real(second,kind(1d0))*scale)
 
-    ! other loop parameters
+    
     pibyfour=pi/4.
     threetimespibyfour=3.*pibyfour
     fivetimespibyfour=5.*pibyfour
@@ -67,12 +67,12 @@
     tanazimuth=tan(iazimuth)
     call issign(sinazimuth,maxpos,signsinazimuth)
     call issign(cosazimuth,maxpos,signcosazimuth)
-    !signsinazimuth=sinazimuth/abs(sinazimuth)
-    !signcosazimuth=cosazimuth/abs(cosazimuth)
+    
+    
     dssin=abs(1./sinazimuth)
     dscos=abs(1./cosazimuth)
     
-    !! The Shadow casting algorithm 
+    
     do n=1,second 
         IF ((pibyfour <= iazimuth .and. iazimuth < threetimespibyfour) .or. (fivetimespibyfour&
              & <= iazimuth .and. iazimuth < seventimespibyfour)) THEN
@@ -97,16 +97,16 @@
         yp1=-int((dy-absdy)/2)+1
         yp2=(sizey-int((dy+absdy)/2))
 
-        tempbu(xp1:xp2,yp1:yp2)=buildings(xc1:xc2,yc1:yc2) !moving building
+        tempbu(xp1:xp2,yp1:yp2)=buildings(xc1:xc2,yc1:yc2) 
 
-        tempsh(xp1:xp2,yp1:yp2)=sh1(xc1:xc2,yc1:yc2) !moving shadow image
-        f=min(f,tempbu) !utsmetning of buildings
+        tempsh(xp1:xp2,yp1:yp2)=sh1(xc1:xc2,yc1:yc2) 
+        f=min(f,tempbu) 
 
         weightsumsh=weightsumsh+tempsh*f
 
-        tempwallsun(xp1:xp2,yp1:yp2)=sunwall(xc1:xc2,yc1:yc2) !moving building wall in sun image
+        tempwallsun(xp1:xp2,yp1:yp2)=sunwall(xc1:xc2,yc1:yc2) 
         tempb=tempwallsun*f
-        where ((tempb+tempbub)>0) !tempbub=(tempb+tempbub)>0==1
+        where ((tempb+tempbub)>0) 
             tempbub=1.
         end where
         
@@ -126,7 +126,7 @@
         gvf2=1.
     end where
 
-    ! Weighting 
+    
     sos=(gvf1*0.5+gvf2*0.4)/0.9
     
     deallocate(weightsumwall)    

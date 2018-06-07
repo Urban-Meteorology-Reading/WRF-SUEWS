@@ -1,13 +1,6 @@
 
 
 
-
-
-
-
-
-
-
 MODULE module_diag_pld
 CONTAINS
 
@@ -291,5 +284,3 @@ CONTAINS
    END SUBROUTINE pld
 
 END MODULE module_diag_pld
-
-

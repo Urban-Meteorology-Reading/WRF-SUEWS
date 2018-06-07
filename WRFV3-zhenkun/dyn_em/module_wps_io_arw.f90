@@ -167,7 +167,6 @@ CONTAINS
       REAL :: pt
       INTEGER :: num_veg_cat , num_soil_top_cat , num_soil_bot_cat
 
-
      end subroutine read_wps
 
 
@@ -814,4 +813,3 @@ end subroutine retrieve_field
 
 
 END MODULE module_wps_io_arw
-

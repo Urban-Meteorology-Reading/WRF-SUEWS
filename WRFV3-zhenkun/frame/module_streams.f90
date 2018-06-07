@@ -10,7 +10,6 @@ MODULE module_streams
 
 
 
-
 INTEGER, PARAMETER :: history_only      = 1
 INTEGER, PARAMETER :: HISTORY_ALARM     = history_only
 INTEGER, PARAMETER :: input_only        = 26
@@ -113,13 +112,12 @@ INTEGER, PARAMETER :: auxinput24_only     = 50
 INTEGER, PARAMETER :: AUXINPUT24_ALARM    = 50
 
 
-
   INTEGER, PARAMETER :: first_history     = history_only
-  INTEGER, PARAMETER :: last_history      = history_only+25 -1
+  INTEGER, PARAMETER :: last_history      = history_only+25-1
   INTEGER, PARAMETER :: first_auxhist     = auxhist1_only
   INTEGER, PARAMETER :: last_auxhist      = last_history
   INTEGER, PARAMETER :: first_input       = input_only
-  INTEGER, PARAMETER :: last_input        = input_only+25 -1
+  INTEGER, PARAMETER :: last_input        = input_only+25-1
   INTEGER, PARAMETER :: first_auxinput    = auxinput1_only
   INTEGER, PARAMETER :: last_auxinput     = last_input
   INTEGER, PARAMETER :: first_stream      = first_history
@@ -143,5 +141,3 @@ INTEGER, PARAMETER :: AUXINPUT24_ALARM    = 50
     END SUBROUTINE init_module_streams
 
 END MODULE module_streams
-
-

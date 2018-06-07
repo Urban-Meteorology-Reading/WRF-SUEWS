@@ -1,19 +1,19 @@
 SUBROUTINE BoundaryLayerResistance(&
-     zzd,& ! input:    !Active measurement height (meas. height-displac. height)
-     z0M,&     !Aerodynamic roughness length
-     avU1,&    !Average wind speed
-     UStar,&! input/output:
-     rb)! output:
+     zzd,& 
+     z0M,&     
+     avU1,&    
+     UStar,&
+     rb)
 
   IMPLICIT NONE
 
-  REAL(KIND(1d0)),INTENT(in)::zzd     !Active measurement height (meas. height-displac. height)
-  REAL(KIND(1d0)),INTENT(in)::z0M     !Aerodynamic roughness length
-  REAL(KIND(1d0)),INTENT(in)::avU1    !Average wind speed
+  REAL(KIND(1d0)),INTENT(in)::zzd     
+  REAL(KIND(1d0)),INTENT(in)::z0M     
+  REAL(KIND(1d0)),INTENT(in)::avU1    
 
-  REAL(KIND(1d0)),INTENT(inout)::UStar!Friction velocity
+  REAL(KIND(1d0)),INTENT(inout)::UStar
 
-  REAL(KIND(1d0)),INTENT(out)::rb   !boundary layer resistance shuttleworth
+  REAL(KIND(1d0)),INTENT(out)::rb   
 
   REAL(KIND(1d0)),PARAMETER :: k=0.4
 
@@ -21,7 +21,7 @@ SUBROUTINE BoundaryLayerResistance(&
      UStar=avu1/LOG(zzd/z0m)*k
   END IF
 
-  rb=(1.1/UStar)+(5.6*(UStar**0.333333))!rb - boundary layer resistance shuttleworth
+  rb=(1.1/UStar)+(5.6*(UStar**0.333333))
 
   RETURN
 END SUBROUTINE BoundaryLayerResistance

@@ -17,14 +17,7 @@ CONTAINS
      &          ,ifndalbsi, ifndicedepth, ifndsnowsi                  &
      &          ,isltyp,itimestep,julian_in,ivgtyp,lowlyr,mavail,rmol &
      &          ,num_soil_layers,p8w,pblh,pi_phy,pshltr,fm,fhh,psih   &
-
-
-
-
-
-
      &          ,psim,p_phy,q10,q2,qfx,qsfc,qshltr,qz0                &
-
      &          ,raincv,rho,sfcevp,sfcexc,sfcrunoff ,acrunoff         &
      &          ,smois,smstav,smstot,snoalb,snow,snowc,snowh,stepbl   &
      &          ,smcrel                                               &
@@ -34,16 +27,9 @@ CONTAINS
      &          ,u_frame,u_phy,v10,vegfra,uoce,voce                   &
      &          ,vz0,v_frame,v_phy,warm_rain,wspd,xice,xland,z,znt    &
      &          ,max_edom,cplmask                                     &
-
-
-
      &          ,zs                                                   &
      &          ,albsi, icedepth,snowsi                               &
-
-
-
      &          ,xicem,isice,iswater,ct,tke_pbl                       &
-
      &          ,albbck,embck,lh,sh2o,shdmax,shdmin,z0                &
      &          ,flqc,flhc,psfc,sst,sst_input,sstsk,dtw,sst_update,sst_skin     &
      &          ,scm_force_skintemp,scm_force_flux,t2,emiss           &
@@ -77,21 +63,17 @@ CONTAINS
      &          ,opt_thcnd                                                 &
            
      &          ,ua_phys,flx4,fvb,fbur,fgsn                                  &
-
      &          ,ch,tsq,qsq,cov,Sh3d,el_pbl,bl_mynn_cloudpdf          & 
      &          ,icloud_bl,qc_bl,cldfra_bl                            & 
      &          ,fgdp,dfgdp,vdfg,grav_settling                        & 
-
      &          ,lakedepth2d,  savedtke12d,  snowdp2d,   h2osno2d       & 
      &          ,snl2d,        t_grnd2d,     t_lake3d,   lake_icefrac3d & 
      &          ,z_lake3d,     dz_lake3d,    t_soisno3d, h2osoi_ice3d   & 
      &          ,h2osoi_liq3d, h2osoi_vol3d, z3d,        dz3d           & 
      &          ,zi3d,         watsat3d,     csol3d,     tkmg3d         & 
      &          ,tkdry3d,      tksatu3d,     LakeModel,  lake_min_elev     & 
-
  
      &          ,lakemask                                  & 
-
             
                 ,OM_TMP,OM_S,OM_U,OM_V,OM_DEPTH,OM_ML,OM_LON          &
      &          ,OM_LAT,okms,okme,rdx,rdy,msfu,msfv,msft              &
@@ -126,9 +108,8 @@ CONTAINS
      &           ALBEDOsubgrid,LHsubgrid,HFXsubgrid,LWUPsubgrid,     &
      &           Q2subgrid,SABVsubgrid,SABGsubgrid,NRAsubgrid,       &
      &           SWUPsubgrid,LHsoi,LHveg,LHtran                      &
-
             
-     &          ,year, day, hour, minute                              & 
+     &          ,year, day_int, hour, minute                          & 
      &          ,slope_rad,topo_shading,shadowmask                    & 
      &          ,swnorm,slope,slp_azi,diffuse_frac                    & 
      &          ,declin,solcon,coszen,hrang,xlat_urb2d                & 
@@ -245,7 +226,6 @@ CONTAINS
      &          ,spp_pbl,pattern_spp_pbl                              &  
      &                                                             )
 
-
    USE module_state_description, ONLY : SFCLAYSCHEME              &
                                        ,SFCLAYREVSCHEME           &
                                        ,MYJSFCSCHEME              &
@@ -265,7 +245,6 @@ CONTAINS
                                        ,MYNNSFCSCHEME             &
                                        ,OMLSCHEME                 &
                                        ,PWP3DSCHEME
-
    USE module_model_constants
 
 
@@ -278,9 +257,7 @@ CONTAINS
    USE module_sf_noahmpdrv, only : noahmplsm, noahmp_urban
    USE module_sf_noahmp_groundwater
    USE module_sf_noah_seaice_drv
-
    USE module_sf_clm
-
    USE module_sf_ssib  
    USE module_sf_ruclsm
    USE module_sf_pxsfclay
@@ -288,17 +265,12 @@ CONTAINS
    USE module_sf_temfsfclay
    USE module_sf_sfclayrev
    USE module_sf_noah_seaice_drv
-
    USE module_sf_mynn
    USE module_sf_fogdes    
    USE module_sf_ocean_driver
    USE module_sf_idealscmsfclay
-
    USE module_sf_scmflux
    USE module_sf_scmskintemp
-
-
-
 
 
    USE module_sf_slab
@@ -558,7 +530,6 @@ CONTAINS
    real ::  HYDRO_dt
    REAL, DIMENSION( ims:ime , jms:jme ):: sfcheadrt,INFXSRT, soldrain
 
-
    REAL, DIMENSION( ims:ime , 1:num_soil_layers, jms:jme ), INTENT(INOUT)::   SMOIS
    REAL, DIMENSION( ims:ime , 1:num_soil_layers, jms:jme ), INTENT(INOUT)::   TSLB
    REAL, DIMENSION( ims:ime , 1:num_soil_layers, jms:jme ), INTENT(OUT)  ::   SMCREL
@@ -601,12 +572,6 @@ CONTAINS
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   PBLH
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   Q2
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   QFX
-
-
-
-
-
-
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   QSFC
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   QZ0
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   SFCRUNOFF
@@ -625,9 +590,6 @@ CONTAINS
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   VZ0
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   WSPD
    REAL, DIMENSION( ims:ime, jms:jme ) , INTENT(INOUT)::   ZNT
-
-
-
 
    REAL, DIMENSION( ims:ime, jms:jme ) , OPTIONAL, INTENT(OUT)::   SSIB_LHF 
    REAL, DIMENSION( ims:ime, jms:jme ) , OPTIONAL, INTENT(OUT)::   SSIB_SHF 
@@ -714,10 +676,6 @@ CONTAINS
    REAL, DIMENSION( ims:ime, jms:jme ) , OPTIONAL, INTENT(INOUT)::   BIO4    
    REAL, DIMENSION( ims:ime, jms:jme ) , OPTIONAL, INTENT(INOUT)::   BLO4    
    REAL, DIMENSION( ims:ime, jms:jme ) , OPTIONAL, INTENT(INOUT)::   HO4     
-
-
-
-
 
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(OUT)::   BR
    REAL, DIMENSION( ims:ime, jms:jme ), INTENT(OUT)::   CHKLOWQ
@@ -875,7 +833,6 @@ CONTAINS
 
    REAL, DIMENSION( ims:ime , jms:jme ), OPTIONAL, INTENT(INOUT )::   TSK_SAVE
 
-
    REAL, DIMENSION( ims:ime , jms:jme ), &
         &OPTIONAL, INTENT(INOUT   ):: ch
 
@@ -890,8 +847,7 @@ CONTAINS
                                                                    icloud_bl
 
 
-
-   INTEGER, OPTIONAL, INTENT(IN )::   year, day, hour, minute 
+   INTEGER, OPTIONAL, INTENT(IN )::   year, day_int, hour, minute 
    INTEGER, OPTIONAL, INTENT(IN )::   slope_rad, topo_shading
    INTEGER, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(IN):: shadowmask
    REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(INOUT):: swnorm
@@ -1018,7 +974,6 @@ CONTAINS
                 ALBEDOsubgrid,LHsubgrid,HFXsubgrid,LWUPsubgrid,     &
                 Q2subgrid,SABVsubgrid,SABGsubgrid,NRAsubgrid,SWUPsubgrid ,&
                 LHsoi,LHveg,LHtran
-
 
 
 
@@ -1210,9 +1165,7 @@ CONTAINS
                                                                                tkdry3d,        &
                                                                                tksatu3d
     real,    dimension(ims:ime,jms:jme ),intent(in)                         :: lakedepth2d
-
     real ,    dimension(ims:ime,jms:jme )  ::  lakemask
-
 
 
 
@@ -1256,7 +1209,7 @@ CONTAINS
 
   if(sf_surface_physics .eq. SSIBSCHEME .and. fractional_seaice .eq. 0) then
     WRITE( message,* ) 'Please activate fractional seaice option when using SSiB model'
-    CALL wrf_error_fatal3("<stdin>",1259,&
+    CALL wrf_error_fatal3("<stdin>",1212,&
 message )
   endif
 
@@ -1269,17 +1222,17 @@ message )
   endif
 
   if ( ( seaice_albedo_opt == 2 ) .and. ( ifndalbsi == 0 ) ) then
-      call wrf_error_fatal3("<stdin>",1272,&
+      call wrf_error_fatal3("<stdin>",1225,&
 "Field ALBSI not found in input.  Field ALBSI is required if SEAICE_ALBEDO_OPT=2")
   endif
 
   if ( ( seaice_thickness_opt == 1 ) .and. ( ifndicedepth == 0 ) ) then
-      call wrf_error_fatal3("<stdin>",1277,&
+      call wrf_error_fatal3("<stdin>",1230,&
 "Field ICEDEPTH not found in input.  Field ICEDEPTH is required if SEAICE_THICKNESS_OPT=1")
   endif
 
   if ( ( seaice_snowdepth_opt == 1 ) .and. ( ifndsnowsi == 0 ) ) then
-      call wrf_error_fatal3("<stdin>",1282,&
+      call wrf_error_fatal3("<stdin>",1235,&
 "Field SNOWSI not found in input.  Field SNOWSI is required if SEAICE_SNOWDEPTH_OPT=1")
   endif
 
@@ -1305,11 +1258,7 @@ message )
 
   END IF
 
-
      spp_lsm_loc = spp_lsm
-
-
-
 
 
 !$OMP PARALLEL DO &
@@ -1327,10 +1276,6 @@ message )
          CHS(i,j) = 0.
          CPM(i,j) = 0.
          CHS2(i,j) = 0.
-
-
-
-
       ENDDO
     ENDDO
   ENDDO
@@ -1375,7 +1320,6 @@ message )
       DO j=j_start(ij),j_end(ij)
       DO i=i_start(ij),i_end(ij)
  
-
           if ( lakemodel==1) then
             if(lakemask(i,j).eq.1.) then
               if ( xice(i,j).gt.xice_threshold) then   
@@ -1383,7 +1327,6 @@ message )
                endif
              endif
           endif
-
 
          XICE_save(I,J) = XICEM(I,J)
 
@@ -1394,7 +1337,7 @@ message )
                
                 IF ( SEAICE_ALBEDO_OPT ==2 ) THEN
                     IF ( ALBSI(I,J) < -1.E6 ) THEN
-                        call wrf_error_fatal3("<stdin>",1397,&
+                        call wrf_error_fatal3("<stdin>",1340,&
 "Field ALBSI not found in input.  Field ALBSI is required if SEAICE_ALBEDO_OPT=2")
                     ENDIF
                     ALBEDO(I,J) = 0.08 + XICE(I,J)/XICEM(I,J) * ( ALBSI(I,J) - 0.08 )
@@ -1430,7 +1373,7 @@ message )
           CASE ( 2 )
 
               IF ( ALBSI(I,J) < -1.E6 ) THEN
-                  call wrf_error_fatal3("<stdin>",1433,&
+                  call wrf_error_fatal3("<stdin>",1376,&
 "Field ALBSI not found in input.  Field ALBSI is required if SEAICE_ALBEDO_OPT=2")
               ENDIF
 
@@ -1470,21 +1413,12 @@ message )
 
 
 
-
          IF(XLAND(i,j) .GT. 1.5.AND.LAKEMASK(I,J).NE.1) THEN
            IF ( SST(i,j) .LT. 350. .and. SST(i,j) .GT. 250.) THEN
             TSK(i,j)   =SST(i,j)
             TSLB(i,1,j)=SST(i,j)
            ENDIF
           ENDIF
-
-
-
-
-
-
-
-
      ENDIF  
         IF ( XLAND(i,j) .LT. 1.5 .AND. XICEM(I,J) .GE. XICE_THRESHOLD .AND. XICE(I,J) .LT. XICE_THRESHOLD ) THEN
 
@@ -1632,9 +1566,7 @@ message )
             (sf_sfclay_physics .EQ. PXSFCSCHEME  ) .OR. &
             (sf_sfclay_physics .EQ. MYJSFCSCHEME ) .OR. &
             (sf_sfclay_physics .EQ. QNSESFCSCHEME ) .OR. &  
-
             (sf_sfclay_physics .EQ. MYNNSFCSCHEME ) .OR. &
-
             (sf_sfclay_physics .EQ. GFSSFCSCHEME ) )    &
            )
 
@@ -1795,17 +1727,15 @@ message )
                ims,ime, jms,jme, kms,kme,                          &
                i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte,    &
                ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,scm_force_flux  )
-
            DO j = j_start(ij),j_end(ij)
            DO i = i_start(ij),i_end(ij)
              ch(i,j) = chs (i,j)
 
            end do
            end do
-
          ENDIF
        ELSE
-         CALL wrf_error_fatal3("<stdin>",1808,&
+         CALL wrf_error_fatal3("<stdin>",1738,&
 'Lacking arguments for SFCLAY in surface driver')
        ENDIF
 
@@ -1848,22 +1778,19 @@ message )
                ims,ime, jms,jme, kms,kme,                          &
                i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte,    &
                ustm,ck,cka,cd,cda,isftcflx,iz0tlnd, scm_force_flux    )
-
            DO j = j_start(ij),j_end(ij)
            DO i = i_start(ij),i_end(ij)
              ch(i,j) = chs (i,j)
 
            end do
            end do
-
          ENDIF
        ELSE
-         CALL wrf_error_fatal3("<stdin>",1861,&
+         CALL wrf_error_fatal3("<stdin>",1789,&
 'Lacking arguments for SFCLAY in surface driver')
        ENDIF
 
      CASE (PXSFCSCHEME)
-
        IF (PRESENT(qv_curr)                            .AND.    &
            PRESENT(mol)        .AND.  PRESENT(regime)  .AND.    &
                                                       .TRUE. ) THEN
@@ -1895,12 +1822,9 @@ message )
                i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte    )
          ENDIF
        ELSE
-         CALL wrf_error_fatal3("<stdin>",1898,&
+         CALL wrf_error_fatal3("<stdin>",1825,&
 'Lacking arguments for PX Surface Layer in surface driver')
        ENDIF
-
-
-
 
       CASE (MYJSFCSCHEME)
        IF (PRESENT(qv_curr)    .AND.  PRESENT(qc_curr) .AND.    &
@@ -1948,7 +1872,6 @@ message )
               ids,ide, jds,jde, kds,kde,                           &
               ims,ime, jms,jme, kms,kme,                           &
               i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte    )
-
          DO j = j_start(ij),j_end(ij)
             DO i = i_start(ij),i_end(ij)
                wspd(i,j) = MAX(SQRT(u_phy(i,kts,j)**2+v_phy(i,kts,j)**2),0.001)
@@ -1957,10 +1880,9 @@ message )
             END DO
          END DO
 
-
         ENDIF
        ELSE
-         CALL wrf_error_fatal3("<stdin>",1963,&
+         CALL wrf_error_fatal3("<stdin>",1885,&
 'Lacking arguments for MYJSFC in surface driver')
        ENDIF
 
@@ -2032,7 +1954,6 @@ message )
               ims,ime, jms,jme, kms,kme,                           &
               i_start(ij),i_end(ij), j_start(ij),j_end(ij),     &
               kts,kte,scm_force_flux    )
-
          DO j = j_start(ij),j_end(ij)
             DO i = i_start(ij),i_end(ij)
                wspd(i,j) = MAX(SQRT(u_phy(i,kts,j)**2+v_phy(i,kts,j)**2),0.001)
@@ -2041,10 +1962,9 @@ message )
             END DO
          END DO
 
-
         ENDIF
         ELSE
-         CALL wrf_error_fatal3("<stdin>",2047,&
+         CALL wrf_error_fatal3("<stdin>",1967,&
 'Lacking arguments for QNSESFC in surface driver')
        ENDIF
 
@@ -2082,10 +2002,9 @@ message )
       ENDIF
         CALL wrf_debug(100,'in SFCDIAGS')
        ELSE
-         CALL wrf_error_fatal3("<stdin>",2085,&
+         CALL wrf_error_fatal3("<stdin>",2005,&
 'Lacking arguments for SF_GFS in surface driver')
       ENDIF
-
 
     CASE(MYNNSFCSCHEME)
 
@@ -2132,12 +2051,10 @@ message )
                ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,bl_mynn_cloudpdf)
          ENDIF
        ELSE
-          CALL wrf_error_fatal3("<stdin>",2135,&
+          CALL wrf_error_fatal3("<stdin>",2054,&
 'Lacking arguments for SFCLAY_mynn in surface driver')
 
        ENDIF
-
-
 
      CASE (TEMFSFCSCHEME)
        IF (PRESENT(qv_curr).and.PRESENT(hd_temf)) THEN
@@ -2165,7 +2082,7 @@ message )
                its=i_start(ij),ite=i_end(ij),                      &
                jts=j_start(ij),jte=j_end(ij), kts=kts,kte=kte )
        ELSE
-         CALL wrf_error_fatal3("<stdin>",2168,&
+         CALL wrf_error_fatal3("<stdin>",2085,&
 'Lacking arguments for TEMFSFCLAY in surface driver')
        ENDIF
 
@@ -2192,17 +2109,15 @@ message )
                its=i_start(ij),ite=i_end(ij),                      &
                jts=j_start(ij),jte=j_end(ij), kts=kts,kte=kte )
        ELSE
-         CALL wrf_error_fatal3("<stdin>",2195,&
+         CALL wrf_error_fatal3("<stdin>",2112,&
 'Lacking arguments for IDEALSCMSFCLAY in surface driver')
        ENDIF
-
-
 
      CASE DEFAULT
 
        WRITE( message , * )                                &
    'The sfclay option does not exist: sf_sfclay_physics = ', sf_sfclay_physics
-       CALL wrf_error_fatal3("<stdin>",2205,&
+       CALL wrf_error_fatal3("<stdin>",2120,&
 message )
 
      END SELECT sfclay_select
@@ -2227,7 +2142,6 @@ message )
         ENDDO
         ENDDO
      ENDIF
-
 
 
      IF ( grav_settling .EQ. 0 ) THEN
@@ -2263,11 +2177,10 @@ message )
            ENDDO
 
         ELSE
-          CALL wrf_error_fatal3("<stdin>",2266,&
+          CALL wrf_error_fatal3("<stdin>",2180,&
 'Missing args for FGDP in surface driver')
         ENDIF
      ENDIF
-
 
 
      ENDDO
@@ -2293,7 +2206,7 @@ message )
            ENDDO
 
            IF ( FRACTIONAL_SEAICE == 1 ) THEN
-              CALL wrf_error_fatal3("<stdin>",2296,&
+              CALL wrf_error_fatal3("<stdin>",2209,&
 'SLAB scheme cannot be used with fractional seaice')
            ENDIF
         CALL wrf_debug(100,'in SLAB')
@@ -2338,7 +2251,7 @@ message )
            ENDDO
 
            IF ( FRACTIONAL_SEAICE == 1 ) THEN
-              CALL wrf_error_fatal3("<stdin>",2341,&
+              CALL wrf_error_fatal3("<stdin>",2254,&
 'SUEWS scheme cannot be used with fractional seaice')
            ENDIF
         CALL wrf_debug(100,'in SUEWS')
@@ -2352,7 +2265,7 @@ message )
           
           
           
-          CALL suewsdrv(year, day, hour, minute,                   &
+          CALL suewsdrv(year, day_int, hour, minute,                   &
              t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
              psfc, rainbl, NLCAT, LANDUSEF, ht,                    &
              hfx, qfx, lh, tsk, qsfc,                              &
@@ -2453,9 +2366,6 @@ message )
 
 
 
-
-
-
          CALL wrf_debug(100,'in NOAH DRV')
 
          IF (sf_surface_mosaic == 1) THEN
@@ -2551,7 +2461,7 @@ message )
                 )
 
            ELSE
-               CALL wrf_error_fatal3("<stdin>",2554,&
+               CALL wrf_error_fatal3("<stdin>",2464,&
 'Lack arguments to call lsm_mosaic')
            ENDIF
 
@@ -2786,13 +2696,12 @@ message )
 
 
        ELSE
-         CALL wrf_error_fatal3("<stdin>",2789,&
+         CALL wrf_error_fatal3("<stdin>",2699,&
 'Lacking arguments for LSM in surface driver')
        ENDIF
 
      CASE (NOAHMPSCHEME)
        IF (PRESENT(qv_curr)    .AND.  PRESENT(rainbl)        .AND.    &
-
 
 
 
@@ -2826,7 +2735,6 @@ message )
            PRESENT(smoiseq)        .AND.                              &
            PRESENT(wtddt)          .AND.                              &
            PRESENT(stepwtd)        .AND.                              &
-
                                                       .TRUE. ) THEN
 
 
@@ -2868,9 +2776,6 @@ message )
          ENDIF
 
 
-
-
-
          CALL wrf_debug(100,'in NOAHMP DRV')
          CALL noahmplsm(ITIMESTEP,       YR, JULIAN_IN,   COSZEN, XLAT,XLONG, &
 	           DZ8W,     DTBL,      DZS,     NUM_SOIL_LAYERS,         DX, &
@@ -2901,9 +2806,6 @@ message )
 		  SHGXY,    SHCXY,    SHBXY,    EVGXY,     EVBXY,      GHVXY, &
 		  GHBXY,    IRGXY,    IRCXY,    IRBXY,      TRXY,      EVCXY, &
 	       CHLEAFXY,   CHUCXY,   CHV2XY,   CHB2XY,                        &
-
-
-
                 ids,ide, jds,jde, kds,kde,                      &
                 ims,ime, jms,jme, kms,kme,                      &
                 i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte,        &
@@ -3139,7 +3041,7 @@ message )
 
 
        ELSE
-         CALL wrf_error_fatal3("<stdin>",3142,&
+         CALL wrf_error_fatal3("<stdin>",3044,&
 'Lacking arguments for NOAHMPLSM in surface driver')
        ENDIF
 
@@ -3206,14 +3108,10 @@ message )
            ENDIF
 
            CALL LSMRUC( spp_lsm_loc,                            &
-
                 pattern_spp_lsm,field_sf,                       &
-
                 dtbl,itimestep,num_soil_layers,                 &
-
                 lakemodel,lakemask,                             &
                 graupelncv,snowncv,rainncv,                     &
-
                 zs,rainbl,snow,snowh,snowc,sr,frpcpn,           &
                 rhosnf,precipfr,                                &
                 dz8w,p_phy,t_phy,qv_curr,qc_curr,rho,           & 
@@ -3300,7 +3198,7 @@ message )
                      i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte   )
 
        ELSE
-         CALL wrf_error_fatal3("<stdin>",3303,&
+         CALL wrf_error_fatal3("<stdin>",3201,&
 'Lacking arguments for RUCLSM in surface driver')
        ENDIF
 
@@ -3401,17 +3299,16 @@ message )
            ENDDO
 
        ELSE
-         CALL wrf_error_fatal3("<stdin>",3404,&
+         CALL wrf_error_fatal3("<stdin>",3302,&
 'Lacking arguments for P-X LSM in surface driver')
        ENDIF
-
 
 
 
      CASE (CLMSCHEME)
      CALL wrf_debug(100,'in CLM')
 
-     IF (MYJ) call wrf_error_fatal3("<stdin>",3414,&
+     IF (MYJ) call wrf_error_fatal3("<stdin>",3311,&
 'CLM is not currently compatible with MYJ.  Please pick different PBL Schemes')
 
      IF (present(qv_curr) .and.  present(rainbl) .and.    &
@@ -3538,7 +3435,6 @@ message )
                 LHsoi,LHveg,LHtran, &
                 alswvisdir, alswvisdif, alswnirdir, alswnirdif,      & 
                 swvisdir, swvisdif, swnirdir, swnirdif               & 
-
                  )
 
          IF ( FRACTIONAL_SEAICE == 1 ) THEN
@@ -3611,10 +3507,9 @@ message )
            ENDDO
 
        ELSE
-         CALL wrf_error_fatal3("<stdin>",3614,&
+         CALL wrf_error_fatal3("<stdin>",3510,&
 'Lacking arguments for CLM in surface driver')
        ENDIF
-
 
 
 
@@ -3811,7 +3706,7 @@ message )
           ENDIF
        ENDIF
        ELSE
-         CALL wrf_error_fatal3("<stdin>",3814,&
+         CALL wrf_error_fatal3("<stdin>",3709,&
 'Lacking arguments for SSIB in surface driver')
        ENDIF
 
@@ -3831,7 +3726,6 @@ message )
      !$OMP END PARALLEL DO
 
  430 CONTINUE
-
 
    IF (sf_ocean_physics .EQ. OMLSCHEME .or. sf_ocean_physics .EQ. PWP3DSCHEME) THEN
 
@@ -3857,7 +3751,6 @@ message )
      !$OMP END PARALLEL DO
    ENDIF
 
-
    IF ( LakeModel == 1 ) THEN
 
       CALL wrf_debug( 100, 'Call LakeModel' )
@@ -3880,10 +3773,8 @@ message )
                      dz3d         ,zi3d           ,h2osoi_vol3d ,h2osoi_liq3d    ,&
                      h2osoi_ice3d ,t_grnd2d       ,t_soisno3d   ,t_lake3d        ,&
                      savedtke12d  ,lake_icefrac3d                                ,&
-
   
                      lakemask                                           ,&
-
                      hfx          ,lh             ,grdflx       ,tsk             ,&  
                      qfx          ,t2             ,th2          ,q2 )
 
@@ -6708,5 +6599,3 @@ HFX_SEA, LH_SEA, QFX_SEA, QGH_SEA, QSFC_SEA, TSK_SEA,  &
 
 
 END MODULE module_surface_driver
-
-

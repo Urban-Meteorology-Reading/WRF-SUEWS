@@ -27,18 +27,10 @@ CONTAINS
       LOGICAL                    :: grid_allowed
       TYPE (WRFU_Time)           :: nest_start, nest_stop
 
-
       nestid_ret = 0
       kid_ret = 0
       nests_to_open = .false.
       CALL nl_get_max_dom( 1, max_dom )
-
-
-
-
-
-
-
       DO nestid = 2, max_dom
         CALL nl_get_grid_allowed( nestid, grid_allowed )
         IF ( .NOT. active_domain( nestid ) .AND. grid_allowed ) THEN
@@ -67,11 +59,6 @@ CONTAINS
           END IF
         END IF
       END DO
-
-
-
-
-
       RETURN
    END FUNCTION nests_to_open
 
@@ -90,6 +77,4 @@ CONTAINS
    END SUBROUTINE init_module_nesting
 
 END MODULE module_nesting
-
-
 

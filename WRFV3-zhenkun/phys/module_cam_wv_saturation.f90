@@ -9,17 +9,10 @@
 
 
 
-
-
 module wv_saturation
   use shr_kind_mod, only: r8 => shr_kind_r8
-
-
-
-
   use module_cam_support, only: endrun, iulog
   use module_wrf_error
-
 
   implicit none
   private
@@ -30,23 +23,10 @@ module wv_saturation
   public gestbl   
   public estblf   
   public aqsat    
-
-
-
   public vqsatd   
   public fqsatd   
   public qsat_water  
-
-
-
-
-
   public vqsatd_water
-
-
-
-
-
   public vqsatd2
   public vqsatd2_single
   public polysvp
@@ -113,12 +93,8 @@ subroutine gestbl(tmn     ,tmx     ,trice   ,ip      ,epsil   , &
 
 
 
-
-
-
    use module_cam_support, only: masterproc
    use module_cam_gffgch
-
 
 
 
@@ -164,9 +140,7 @@ subroutine gestbl(tmn     ,tmx     ,trice   ,ip      ,epsil   , &
    lentbl = INT(tmax-tmin+2.000001_r8)
    if (lentbl .gt. plenest) then
       write(iulog,9000) tmax, tmin, plenest
-
       call wrf_message(iulog)
-
       call endrun ('GESTBL')    
    end if
 
@@ -218,9 +192,7 @@ subroutine gestbl(tmn     ,tmx     ,trice   ,ip      ,epsil   , &
 
    if (masterproc) then
       write(iulog,*)' *** SATURATION VAPOR PRESSURE TABLE COMPLETED ***'
-
       call wrf_message(iulog)
-
    end if
 
    return
@@ -296,7 +268,6 @@ subroutine aqsat(t       ,p       ,es      ,qs        ,ii      , &
 
    return
 end subroutine aqsat
-
 
 
 subroutine vqsatd(t       ,p       ,es      ,qs      ,gam      , &
@@ -590,7 +561,6 @@ real(r8) function qsat_water(t,p)
   if(qsat_water < 0.) qsat_water = 1.
 
 end function qsat_water
-
 subroutine vqsatd2(t       ,p       ,es      ,qs      ,dqsdt      , &
                    len     )
 
@@ -894,5 +864,3 @@ end subroutine vqsatd2_single
 
 
 end module wv_saturation 
-
-

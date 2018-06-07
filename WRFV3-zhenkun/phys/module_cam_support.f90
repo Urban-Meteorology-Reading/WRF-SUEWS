@@ -88,7 +88,6 @@ MODULE module_cam_support
   
   real(r8), parameter, public :: fillvalue = 1.e36_r8     
 
-
   
   
 CONTAINS
@@ -135,11 +134,11 @@ CONTAINS
     character(len=*), intent(in), optional :: msg
     
     if(present(msg)) then
-       call wrf_error_fatal3("<stdin>",138,&
+       call wrf_error_fatal3("<stdin>",137,&
 msg)
     else
        
-       call wrf_error_fatal3("<stdin>",142,&
+       call wrf_error_fatal3("<stdin>",141,&
 iulog)
     endif
     
@@ -234,5 +233,3 @@ iulog)
   END SUBROUTINE ADD_DEFAULT
   
 END MODULE module_cam_support
-
-

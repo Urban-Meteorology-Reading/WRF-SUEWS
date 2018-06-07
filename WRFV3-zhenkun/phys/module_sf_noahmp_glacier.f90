@@ -113,9 +113,6 @@ contains
                    TRAD    ,EDIR    ,RUNSRF  ,RUNSUB  ,SAG     ,ALBEDO  , & 
                    QSNBOT  ,PONDING ,PONDING1,PONDING2,T2M     ,Q2E     , & 
                    EMISSI,  FPICE,    CH2B                                & 
-
-
-
                    )
 
 
@@ -143,9 +140,6 @@ contains
   REAL                           , INTENT(IN)    :: ZLVL   
   REAL, DIMENSION(-NSNOW+1:    0), INTENT(IN)    :: FICEOLD
   REAL, DIMENSION(       1:NSOIL), INTENT(IN)    :: ZSOIL  
-
-
-
 
 
 
@@ -261,9 +255,6 @@ contains
                          ISNOW  ,SNOWH  ,SNEQV  ,SNICE  ,SNLIQ  ,STC    , & 
                          DZSNSO ,SH2O   ,SICE   ,PONDING,ZSNSO  ,FSH    , & 
                          RUNSRF ,RUNSUB ,QSNOW  ,PONDING1       ,PONDING2,QSNBOT,FPICE &  
-
-
-
                         )
 
      IF(OPT_GLA == 2) THEN
@@ -497,7 +488,7 @@ contains
 
     FIRE = LWDN + FIRA
 
-    IF(FIRE <=0.) call wrf_error_fatal3("<stdin>",500,&
+    IF(FIRE <=0.) call wrf_error_fatal3("<stdin>",491,&
 "STOP in Noah-MP: emitted longwave <0")
 
     
@@ -1229,7 +1220,7 @@ contains
   
     IF(ZLVL <= ZPD) THEN
        write(*,*) 'critical glacier problem: ZLVL <= ZPD; model stops', zlvl, zpd
-       call wrf_error_fatal3("<stdin>",1232,&
+       call wrf_error_fatal3("<stdin>",1223,&
 "STOP in Noah-MP glacier")
     ENDIF
 
@@ -1995,9 +1986,6 @@ END IF
                             ISNOW  ,SNOWH  ,SNEQV  ,SNICE  ,SNLIQ  ,STC    , & 
                             DZSNSO ,SH2O   ,SICE   ,PONDING,ZSNSO  ,FSH    , & 
                             RUNSRF ,RUNSUB ,QSNOW  ,PONDING1 ,PONDING2,QSNBOT,FPICE     &   
-
-
-
                             )  
 
 
@@ -2053,9 +2041,6 @@ END IF
   REAL, DIMENSION(       1:NSOIL)                :: SICE_SAVE  
   REAL, DIMENSION(       1:NSOIL)                :: SH2O_SAVE  
   INTEGER :: ILEV
-
-
-
 
 
 
@@ -2135,9 +2120,6 @@ END IF
     ELSE
       RUNSRF = RUNSRF + QSNBOT
     ENDIF
-
-
-
 
     
     IF(OPT_GLA == 1) THEN
@@ -3008,7 +2990,7 @@ END IF
      WRITE(*,*) "FSR    =",FSR
      WRITE(message,*) 'ERRSW =',ERRSW
      call wrf_message(trim(message))
-     call wrf_error_fatal3("<stdin>",3011,&
+     call wrf_error_fatal3("<stdin>",2993,&
 "Radiation budget problem in NOAHMP GLACIER")
    END IF
 
@@ -3018,13 +3000,12 @@ END IF
       call wrf_message(trim(message))
       WRITE(message,'(i6,1x,i6,1x,5F10.4)')ILOC,JLOC,SAG,FIRA,FSH,FGEV,SSOIL
       call wrf_message(trim(message))
-      call wrf_error_fatal3("<stdin>",3021,&
+      call wrf_error_fatal3("<stdin>",3003,&
 "Energy budget problem in NOAHMP GLACIER")
    END IF
 
    END_WB = SNEQV
    ERRWAT = END_WB-BEG_WB-(PRCP-EDIR-RUNSRF-RUNSUB)*DT
-
 
    IF(ABS(ERRWAT) > 0.1) THEN
       if (ERRWAT > 0) then
@@ -3039,10 +3020,9 @@ END IF
            WRITE(message,'(i6,1x,i6,1x,2f15.3,4f11.5)')ILOC,JLOC,END_WB,BEG_WB,PRCP*DT,&
                 EDIR*DT,RUNSRF*DT,RUNSUB*DT
            call wrf_message(trim(message))
-           call wrf_error_fatal3("<stdin>",3042,&
+           call wrf_error_fatal3("<stdin>",3023,&
 "Water budget problem in NOAHMP GLACIER")
         END IF
-
 
  END SUBROUTINE ERROR_GLACIER
 
@@ -3077,5 +3057,3 @@ MODULE MODULE_SF_NOAHMP_GLACIER
   USE NOAHMP_GLACIER_GLOBALS
 
 END MODULE MODULE_SF_NOAHMP_GLACIER
-
-

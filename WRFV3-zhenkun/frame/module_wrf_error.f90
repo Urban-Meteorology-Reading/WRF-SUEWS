@@ -11,12 +11,8 @@ MODULE module_wrf_error
   
   
   
-
-
-
   integer, PARAMETER :: silence=0 
 
-
   
   
   
@@ -26,25 +22,17 @@ MODULE module_wrf_error
   
   
   
-
-
-
 
   integer, PARAMETER :: buffered=0 
 
-
   
   
   
 
   
   
-
-
-
 
   integer :: stderrlog=0
-
 
   INTEGER, PARAMETER :: wrf_log_flush=0, wrf_log_set_buffer_size=1, &
                         wrf_log_write=2
@@ -78,9 +66,6 @@ CONTAINS
   SUBROUTINE init_module_wrf_error(on_io_server)
     IMPLICIT NONE
     LOGICAL,OPTIONAL,INTENT(IN) :: on_io_server
-
-
-
     LOGICAL :: compute_tasks_silent
     LOGICAL :: io_servers_silent
     INTEGER :: buffer_size,iostat,stderr_logging
@@ -98,49 +83,31 @@ CONTAINS
     
     
     
-
-
-
     stderr_logging=0
-
 500 format(A)
     
     
     OPEN(unit=27, file="namelist.input", form="formatted", status="old")
     READ(27,nml=logging,iostat=iostat)
     if(iostat /= 0) then
-
        CALL wrf_debug ( 1 , 'Namelist logging not found in namelist.input. ' )
        CALL wrf_debug ( 1 , ' --> Using registry defaults for variables in logging.' )
-
-
-
-
-
-
-
        close(27)
        return
     endif
     CLOSE(27)
-
 
     if(buffer_size>=min_allowed_buffer_size) then
        write(0,500) 'Forcing disabling of buffering due to compile-time configuration.'
        write(6,500) 'Forcing disabling of buffering due to compile-time configuration.'
     endif
 
-
     stderrlog=stderr_logging
     if(buffered/=0 .and. stderrlog/=0) then
        write(0,500) 'Disabling stderr logging since buffering is enabled.'
        write(6,500) 'Disabling stderr logging since buffering is enabled.'
-
-
-
        stderrlog=0
     endif
-
 
   END SUBROUTINE init_module_wrf_error
 
@@ -154,35 +121,22 @@ END MODULE module_wrf_error
 
 
 
-
 SUBROUTINE wrf_message( str )
-
-
-
   use module_wrf_error, only: silence, buffered, stderrlog, wrf_log_write
   IMPLICIT NONE
 
   CHARACTER*(*) str
   if(silence/=0) return
   if(buffered/=0) then
-
-
-
   else
 !$OMP MASTER
      if(stderrlog/=0) then
 300     format(A)
         write(0,300) trim(str)
-
-
-
      endif
      print 300,trim(str)
 !$OMP END MASTER
   endif
-
-
-
 
 END SUBROUTINE wrf_message
 
@@ -194,31 +148,18 @@ END SUBROUTINE wrf_message
 
 
 SUBROUTINE wrf_message2( str )
-
-
-
   IMPLICIT NONE
   CHARACTER*(*) str
 !$OMP MASTER
 400 format(A)
   write(0,400) str
-
-
-
 !$OMP END MASTER
-
-
-
 END SUBROUTINE wrf_message2
 
 
 
 SUBROUTINE wrf_error_fatal3( file_str, line, str )
   USE module_wrf_error
-
-
-
-
   IMPLICIT NONE
   CHARACTER*(*) file_str
   INTEGER , INTENT (IN) :: line  
@@ -250,17 +191,7 @@ SUBROUTINE wrf_error_fatal3( file_str, line, str )
 
   
   flush(6)
-
-
-
   flush(0)
-
-
-
-
-
-
-
 
 
   CALL wrf_abort
@@ -296,22 +227,6 @@ SUBROUTINE wrf_check_error( expected, actual, str, file_str, line )
     CALL wrf_error_fatal3 ( file_str, line, str_with_rc )
   ENDIF
 END SUBROUTINE wrf_check_error
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

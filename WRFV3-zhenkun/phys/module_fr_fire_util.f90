@@ -65,9 +65,6 @@ end subroutine crash
 
 subroutine message(s,level)
 use module_wrf_error
-
-
-
 implicit none
 
 character(len=*), intent(in)::s
@@ -86,13 +83,7 @@ endif
 if(fire_print_msg.ge.mlevel)then
       m=0
 !$OMP CRITICAL(FIRE_MESSAGE_CRIT)
-
-
-
-
-
       msg='FIRE:'//s
-
       call wrf_message(msg)
 
 
@@ -108,18 +99,10 @@ end subroutine message
 integer function open_text_file(filename,rw)
 implicit none
 character(len=*),intent(in):: filename,rw
-
-
-
 character(len=128):: msg
 character(len=1)::act
 integer::iounit,ierr
 logical::op
-
-
-
-
-
 
 
     do iounit=19,99
@@ -1225,9 +1208,6 @@ end subroutine read_array_2d_integer
         
 
 subroutine read_array_2d_real(filename,a,its,ite,jts,jte,ims,ime,jms,jme)
-
-
-
 implicit none
 
 
@@ -1246,9 +1226,6 @@ character(len=128)::fname,msg
 call wrf_get_nproc (nprocs)
 call wrf_get_myproc( myproc )
 mythread=0
-
-
-
 if(nprocs.ne.1.or.myproc.ne.0.or.mythread.ne.0) &
    call crash('read_array_2d: parallel execution not supported')
 
@@ -1327,9 +1304,6 @@ subroutine print_chsum( id, &
     a,name)                      
 
 
-
-
-
 integer, intent(in):: id, &
     ims,ime,kms,kme,jms,jme, &                
     ids,ide,kds,kde,jds,jde, &                
@@ -1337,10 +1311,6 @@ integer, intent(in):: id, &
     istag,kstag,jstag
 real, intent(in),dimension(ims:ime,kms:kme,jms:jme)::a
 character(len=*)::name
-
-
-
-
 
 
 
@@ -1372,9 +1342,6 @@ enddo
 
 
 thread=0
-
-
-
 if(thread.eq.0)psum=0
 !$OMP BARRIER
 !$OMP CRITICAL(CHSUM)
@@ -1384,11 +1351,7 @@ psum=ieor(psum,lsum)
 
 
 if(thread.eq.0)then
-
-
-
     gsum = psum
-
     write(msg,1)id,name,ids,ide+is,kds,kde+ks,jds,jde+js,gsum
 1   format(i6,1x,a10,' dims',6i5,' chsum ',z8.8)
     call message(msg)
@@ -1403,9 +1366,6 @@ real function fun_real(fun,  &
     ips,ipe,kps,kpe,jps,jpe, &                
     istag,kstag,jstag,       &                
     a,b)                      
-
-
-
 
 
 integer, intent(in)::  fun, &
@@ -1499,12 +1459,7 @@ if(domax)psum=max(psum,lsum)
 
 !$OMP SINGLE
 
-
-
-
-
     gsum = psum
-
 if(gsum.ne.gsum)call crash('fun_real: NaN detected')
 !$OMP END SINGLE
 
@@ -1516,5 +1471,3 @@ fun_real=gsum
 end function fun_real
 
 end module module_fr_fire_util
-
-

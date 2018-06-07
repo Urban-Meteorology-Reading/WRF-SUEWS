@@ -8,13 +8,9 @@ SUBROUTINE med_nest_move ( parent, nest )
    USE module_configure, ONLY : grid_config_rec_type, model_config_rec, model_to_grid_config_rec
    USE module_state_description
 
-
-
-
    IMPLICIT NONE
    TYPE(domain) , POINTER                     :: parent, nest, grid
    INTEGER dx, dy, origdy       
-
 END SUBROUTINE med_nest_move
 
 LOGICAL FUNCTION time_for_move2 ( parent , grid , move_cd_x, move_cd_y )
@@ -30,9 +26,7 @@ LOGICAL FUNCTION time_for_move2 ( parent , grid , move_cd_x, move_cd_y )
 
    TYPE(domain) , POINTER    :: parent, grid
    INTEGER, INTENT(OUT)      :: move_cd_x , move_cd_y
-
    time_for_move2 = .FALSE.
-
 END FUNCTION time_for_move2
 
 LOGICAL FUNCTION time_for_move ( parent , grid , move_cd_x, move_cd_y )
@@ -45,9 +39,7 @@ USE module_timing
 
    TYPE(domain) , POINTER    :: parent, grid, par, nst
    INTEGER, INTENT(OUT)      :: move_cd_x , move_cd_y
-
    time_for_move = .FALSE.
-
 END FUNCTION time_for_move
 
 
@@ -91,16 +83,13 @@ LOGICAL FUNCTION should_not_move ( id )
     retval = .TRUE.
   ENDIF
 
-
   CALL nl_get_obs_nudge_opt( id , obs_nudge_opt )
   IF ( obs_nudge_opt .EQ. 1 ) THEN
     CALL wrf_message('Observation nudging can not be specified with moving nests. Movement disabled.')
     retval = .TRUE.
   ENDIF
-
   should_not_move = retval
 END FUNCTION
-
 
 
 
@@ -110,8 +99,5 @@ SUBROUTINE reconcile_nest_positions_over_tasks ( grid )
    USE module_utility
    USE module_configure, ONLY : grid_config_rec_type, model_config_rec, model_to_grid_config_rec
    USE module_state_description
-
 END SUBROUTINE reconcile_nest_positions_over_tasks
-
-
 

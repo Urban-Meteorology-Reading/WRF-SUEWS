@@ -1,94 +1,94 @@
 subroutine chkder ( m, n, x, fvec, fjac, ldfjac, xp, fvecp, mode, err )
 
-!*****************************************************************************80
-!
-!! CHKDER checks the gradients of M functions of N variables.
-!
-!  Discussion:
-!
-!    CHKDER checks the gradients of M nonlinear functions in N variables,
-!    evaluated at a point X, for consistency with the functions themselves.
-!
-!    The user calls CHKDER twice, first with MODE = 1 and then with MODE = 2.
-!
-!    MODE = 1.
-!      On input,
-!        X contains the point of evaluation.
-!      On output,
-!        XP is set to a neighboring point.
-!
-!    Now the user must evaluate the function and gradients at X, and the
-!    function at XP.  Then the subroutine is called again:
-!
-!    MODE = 2.
-!      On input,
-!        FVEC contains the function values at X,
-!        FJAC contains the function gradients at X.
-!        FVECP contains the functions evaluated at XP.
-!      On output,
-!        ERR contains measures of correctness of the respective gradients.
-!
-!    The subroutine does not perform reliably if cancellation or
-!    rounding errors cause a severe loss of significance in the
-!    evaluation of a function.  Therefore, none of the components
-!    of X should be unusually small (in particular, zero) or any
-!    other value which may cause loss of significance.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) M, is the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, is the number of variables.
-!
-!    Input, real ( kind = 8 ) X(N), the point at which the jacobian is to be
-!    evaluated.
-!
-!    Input, real ( kind = 8 ) FVEC(M), is used only when MODE = 2.
-!    In that case, it should contain the function values at X.
-!
-!    Input, real ( kind = 8 ) FJAC(LDFJAC,N), an M by N array.  When MODE = 2,
-!    FJAC(I,J) should contain the value of dF(I)/dX(J).
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC.
-!    LDFJAC must be at least M.
-!
-!    Output, real ( kind = 8 ) XP(N), on output with MODE = 1, is a neighboring
-!    point of X, at which the function is to be evaluated.
-!
-!    Input, real ( kind = 8 ) FVECP(M), on input with MODE = 2, is the function
-!    value at XP.
-!
-!    Input, integer ( kind = 4 ) MODE, should be set to 1 on the first call, and
-!    2 on the second.
-!
-!    Output, real ( kind = 8 ) ERR(M).  On output when MODE = 2, ERR contains
-!    measures of correctness of the respective gradients.  If there is no
-!    severe loss of significance, then if ERR(I):
-!      = 1.0D+00, the I-th gradient is correct,
-!      = 0.0D+00, the I-th gradient is incorrect.
-!      > 0.5D+00, the I-th gradient is probably correct.
-!      < 0.5D+00, the I-th gradient is probably incorrect.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -112,9 +112,9 @@ subroutine chkder ( m, n, x, fvec, fjac, ldfjac, xp, fvecp, mode, err )
 
   epsmch = epsilon ( epsmch )
   eps = sqrt ( epsmch )
-!
-!  MODE = 1.
-!
+
+
+
   if ( mode == 1 ) then
 
     do j = 1, n
@@ -124,9 +124,9 @@ subroutine chkder ( m, n, x, fvec, fjac, ldfjac, xp, fvecp, mode, err )
       end if
       xp(j) = x(j) + temp
     end do
-!
-!  MODE = 2.
-!
+
+
+
   else if ( mode == 2 ) then
 
     epsf = 100.0D+00 * epsmch
@@ -170,66 +170,66 @@ subroutine chkder ( m, n, x, fvec, fjac, ldfjac, xp, fvecp, mode, err )
 end subroutine chkder
 subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
 
-!*****************************************************************************80
-!
-!! DOGLEG finds the minimizing combination of Gauss-Newton and gradient steps.
-!
-!  Discussion:
-!
-!    Given an M by N matrix A, an N by N nonsingular diagonal
-!    matrix D, an M-vector B, and a positive number DELTA, the
-!    problem is to determine the convex combination X of the
-!    Gauss-Newton and scaled gradient directions that minimizes
-!    (A*X - B) in the least squares sense, subject to the
-!    restriction that the euclidean norm of D*X be at most DELTA.
-!
-!    This subroutine completes the solution of the problem
-!    if it is provided with the necessary information from the
-!    QR factorization of A.  That is, if A = Q*R, where Q has
-!    orthogonal columns and R is an upper triangular matrix,
-!    then DOGLEG expects the full upper triangle of R and
-!    the first N components of Q'*B.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) N, the order of the matrix R.
-!
-!    Input, real ( kind = 8 ) R(LR), the upper triangular matrix R stored
-!    by rows.
-!
-!    Input, integer ( kind = 4 ) LR, the size of the R array, which must be
-!    no less than (N*(N+1))/2.
-!
-!    Input, real ( kind = 8 ) DIAG(N), the diagonal elements of the matrix D.
-!
-!    Input, real ( kind = 8 ) QTB(N), the first N elements of the vector Q'* B.
-!
-!    Input, real ( kind = 8 ) DELTA, is a positive upper bound on the
-!    euclidean norm of D*X(1:N).
-!
-!    Output, real ( kind = 8 ) X(N), the desired convex combination of the
-!    Gauss-Newton direction and the scaled gradient direction.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) lr
@@ -258,9 +258,9 @@ subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
   real ( kind = 8 ) x(n)
 
   epsmch = epsilon ( epsmch )
-!
-!  Calculate the Gauss-Newton direction.
-!
+
+
+
   jj = ( n * ( n + 1 ) ) / 2 + 1
 
   do k = 1, n
@@ -296,9 +296,9 @@ subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
      x(j) = ( qtb(j) - sum2 ) / temp
 
   end do
-!
-!  Test whether the Gauss-Newton direction is acceptable.
-!
+
+
+
   wa1(1:n) = 0.0D+00
   wa2(1:n) = diag(1:n) * x(1:n)
   qnorm = enorm ( n, wa2 )
@@ -306,10 +306,10 @@ subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
   if ( qnorm <= delta ) then
     return
   end if
-!
-!  The Gauss-Newton direction is not acceptable.
-!  Calculate the scaled gradient direction.
-!
+
+
+
+
   l = 1
   do j = 1, n
      temp = qtb(j)
@@ -319,18 +319,18 @@ subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
      end do
      wa1(j) = wa1(j) / diag(j)
   end do
-!
-!  Calculate the norm of the scaled gradient.
-!  Test for the special case in which the scaled gradient is zero.
-!
+
+
+
+
   gnorm = enorm ( n, wa1 )
   sgnorm = 0.0D+00
   alpha = delta / qnorm
 
   if ( gnorm /= 0.0D+00 ) then
-!
-!  Calculate the point along the scaled gradient which minimizes the quadratic.
-!
+
+
+
     wa1(1:n) = ( wa1(1:n) / gnorm ) / diag(1:n)
 
     l = 1
@@ -345,14 +345,14 @@ subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
 
     temp = enorm ( n, wa2 )
     sgnorm = ( gnorm / temp ) / temp
-!
-!  Test whether the scaled gradient direction is acceptable.
-!
+
+
+
     alpha = 0.0D+00
-!
-!  The scaled gradient direction is not acceptable.
-!  Calculate the point along the dogleg at which the quadratic is minimized.
-!
+
+
+
+
     if ( sgnorm < delta ) then
 
       bnorm = enorm ( n, qtb )
@@ -368,10 +368,10 @@ subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
     end if
 
   end if
-!
-!  Form appropriate convex combination of the Gauss-Newton
-!  direction and the scaled gradient direction.
-!
+
+
+
+
   temp = ( 1.0D+00 - alpha ) * min ( sgnorm, delta )
 
   x(1:n) = temp * wa1(1:n) + alpha * x(1:n)
@@ -380,43 +380,43 @@ subroutine dogleg ( n, r, lr, diag, qtb, delta, x )
 end subroutine dogleg
 function enorm ( n, x )
 
-!*****************************************************************************80
-!
-!! ENORM computes the Euclidean norm of a vector.
-!
-!  Discussion:
-!
-!    This is an extremely simplified version of the original ENORM
-!    routine, which has been renamed to "ENORM2".
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) N, is the length of the vector.
-!
-!    Input, real ( kind = 8 ) X(N), the vector whose norm is desired.
-!
-!    Output, real ( kind = 8 ) ENORM, the Euclidean norm of the vector.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) n
@@ -429,55 +429,55 @@ function enorm ( n, x )
 end function enorm
 function enorm2 ( n, x )
 
-!*****************************************************************************80
-!
-!! ENORM2 computes the Euclidean norm of a vector.
-!
-!  Discussion:
-!
-!    This routine was named ENORM.  It has been renamed "ENORM2",
-!    and a simplified routine has been substituted.
-!
-!    The Euclidean norm is computed by accumulating the sum of
-!    squares in three different sums.  The sums of squares for the
-!    small and large components are scaled so that no overflows
-!    occur.  Non-destructive underflows are permitted.  Underflows
-!    and overflows do not occur in the computation of the unscaled
-!    sum of squares for the intermediate components.
-!
-!    The definitions of small, intermediate and large components
-!    depend on two constants, RDWARF and RGIANT.  The main
-!    restrictions on these constants are that RDWARF^2 not
-!    underflow and RGIANT^2 not overflow.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1
-!    Argonne National Laboratory,
-!    Argonne, Illinois.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) N, is the length of the vector.
-!
-!    Input, real ( kind = 8 ) X(N), the vector whose norm is desired.
-!
-!    Output, real ( kind = 8 ) ENORM2, the Euclidean norm of the vector.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) n
@@ -534,9 +534,9 @@ function enorm2 ( n, x )
     end if
 
   end do
-!
-!  Calculation of norm.
-!
+
+
+
   if ( s1 /= 0.0D+00 ) then
 
     enorm2 = x1max * sqrt ( s1 + ( s2 / x1max ) / x1max )
@@ -559,81 +559,81 @@ function enorm2 ( n, x )
 end function enorm2
 subroutine fdjac1 ( fcn, n, x, fvec, fjac, ldfjac, iflag, ml, mu, epsfcn, m, prms )
 
-!*****************************************************************************80
-!
-!! FDJAC1 estimates an N by N jacobian matrix using forward differences.
-!
-!  Discussion:
-!
-!    This subroutine computes a forward-difference approximation
-!    to the N by N jacobian matrix associated with a specified
-!    problem of N functions in N variables. If the jacobian has
-!    a banded form, then function evaluations are saved by only
-!    approximating the nonzero terms.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!    30 Aug 2017: added `prms` to pass Parameters for constructing `FCN`
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions.  The routine should have the form:
-!      subroutine fcn ( n, x, fvec, iflag )
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fvec(n)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) N, the number of functions and variables.
-!
-!    Input, real ( kind = 8 ) X(N), the point where the jacobian is evaluated.
-!
-!    Input, real ( kind = 8 ) FVEC(N), the functions evaluated at X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), the N by N approximate
-!    jacobian matrix.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC, which
-!    must not be less than N.
-!
-!    Output, integer ( kind = 4 ) IFLAG, is an error flag returned by FCN.
-!    If FCN returns a nonzero value of IFLAG, then this routine returns
-!    immediately to the calling program, with the value of IFLAG.
-!
-!    Input, integer ( kind = 4 ) ML, MU, specify the number of subdiagonals and
-!    superdiagonals within the band of the jacobian matrix.  If the
-!    jacobian is not banded, set ML and MU to N-1.
-!
-!    Input, real ( kind = 8 ) EPSFCN, is used in determining a suitable step
-!    length for the forward-difference approximation.  This approximation
-!    assumes that the relative errors in the functions are of the order of
-!    EPSFCN.  If EPSFCN is less than the machine precision, it is assumed that
-!    the relative errors in the functions are of the order of the machine
-!    precision.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -664,9 +664,9 @@ subroutine fdjac1 ( fcn, n, x, fvec, fjac, ldfjac, iflag, ml, mu, epsfcn, m, prm
 
   eps = sqrt ( max ( epsfcn, epsmch ) )
   msum = ml + mu + 1
-!
-!  Computation of dense approximate jacobian.
-!
+
+
+
   if ( n <= msum ) then
 
      do j = 1, n
@@ -691,9 +691,9 @@ subroutine fdjac1 ( fcn, n, x, fvec, fjac, ldfjac, iflag, ml, mu, epsfcn, m, prm
      end do
 
   else
-!
-!  Computation of banded approximate jacobian.
-!
+
+
+
      do k = 1, msum
 
         do j = k, n, msum
@@ -739,78 +739,78 @@ subroutine fdjac1 ( fcn, n, x, fvec, fjac, ldfjac, iflag, ml, mu, epsfcn, m, prm
 end subroutine fdjac1
 subroutine fdjac2 ( fcn, m, n, x, xdat, ydat, fvec, fjac, ldfjac, iflag, epsfcn )
 
-!*****************************************************************************80
-!
-!! FDJAC2 estimates an M by N jacobian matrix using forward differences.
-!
-!  Discussion:
-!
-!    This subroutine computes a forward-difference approximation
-!    to the M by N jacobian matrix associated with a specified
-!    problem of M functions in N variables.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions.  The routine should have the form:
-!      subroutine fcn ( m, n, x, xdat, ydat, fvec, iflag ) ! xdat/ydat added for AnOHM, TS 20 Jul 2017
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fvec(m)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) M, is the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, is the number of variables.
-!    N must not exceed M.
-!
-!    Input, real ( kind = 8 ) X(N), the point where the jacobian is evaluated.
-!
-!    Input, real ( kind = 8 ) FVEC(M), the functions evaluated at X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), the M by N approximate
-!    jacobian matrix.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC,
-!    which must not be less than M.
-!
-!    Output, integer ( kind = 4 ) IFLAG, is an error flag returned by FCN.
-!    If FCN returns a nonzero value of IFLAG, then this routine returns
-!    immediately to the calling program, with the value of IFLAG.
-!
-!    Input, real ( kind = 8 ) EPSFCN, is used in determining a suitable
-!    step length for the forward-difference approximation.  This approximation
-!    assumes that the relative errors in the functions are of the order of
-!    EPSFCN.  If EPSFCN is less than the machine precision, it is assumed that
-!    the relative errors in the functions are of the order of the machine
-!    precision.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -824,7 +824,7 @@ subroutine fdjac2 ( fcn, m, n, x, xdat, ydat, fvec, fjac, ldfjac, iflag, epsfcn 
   real ( kind = 8 ) fjac(ldfjac,n)
   real ( kind = 8 ) fvec(m),xdat(m),ydat(m)
   real ( kind = 8 ) h
-  ! integer ( kind = 4 ) i
+  
   integer ( kind = 4 ) iflag
   integer ( kind = 4 ) j
   real ( kind = 8 ) temp
@@ -863,130 +863,130 @@ end subroutine fdjac2
 subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
   factor, nprint, info, nfev, fjac, ldfjac, r, lr, qtf, m, prms )
 
-!*****************************************************************************80
-!
-!! HYBRD seeks a zero of N nonlinear equations in N variables.
-!
-!  Discussion:
-!
-!    HYBRD finds a zero of a system of N nonlinear functions in N variables
-!    by a modification of the Powell hybrid method.  The user must provide a
-!    subroutine which calculates the functions.  The jacobian is
-!    then calculated by a forward-difference approximation.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions.  The routine should have the form:
-!      subroutine fcn ( n, x, fvec, iflag )
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fvec(n)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) N, the number of functions and variables.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Output, real ( kind = 8 ) FVEC(N), the functions evaluated at the output X.
-!
-!    Input, real ( kind = 8 ) XTOL.  Termination occurs when the relative error
-!    between two consecutive iterates is at most XTOL.  XTOL should be
-!    nonnegative.
-!
-!    Input, integer ( kind = 4 ) MAXFEV.  Termination occurs when the number of
-!    calls to FCN is at least MAXFEV by the end of an iteration.
-!
-!    Input, integer ( kind = 4 ) ML, MU, specify the number of subdiagonals and
-!    superdiagonals within the band of the jacobian matrix.  If the jacobian
-!    is not banded, set ML and MU to at least n - 1.
-!
-!    Input, real ( kind = 8 ) EPSFCN, is used in determining a suitable step
-!    length for the forward-difference approximation.  This approximation
-!    assumes that the relative errors in the functions are of the order of
-!    EPSFCN.  If EPSFCN is less than the machine precision, it is assumed that
-!    the relative errors in the functions are of the order of the machine
-!    precision.
-!
-!    Input/output, real ( kind = 8 ) DIAG(N).  If MODE = 1, then DIAG is set
-!    internally.  If MODE = 2, then DIAG must contain positive entries that
-!    serve as multiplicative scale factors for the variables.
-!
-!    Input, integer ( kind = 4 ) MODE, scaling option.
-!    1, variables will be scaled internally.
-!    2, scaling is specified by the input DIAG vector.
-!
-!    Input, real ( kind = 8 ) FACTOR, determines the initial step bound.  This
-!    bound is set to the product of FACTOR and the euclidean norm of DIAG*X if
-!    nonzero, or else to FACTOR itself.  In most cases, FACTOR should lie
-!    in the interval (0.1, 100) with 100 the recommended value.
-!
-!    Input, integer ( kind = 4 ) NPRINT, enables controlled printing of
-!    iterates if it is positive.  In this case, FCN is called with IFLAG = 0 at
-!    the beginning of the first iteration and every NPRINT iterations thereafter
-!    and immediately prior to return, with X and FVEC available
-!    for printing.  If NPRINT is not positive, no special calls
-!    of FCN with IFLAG = 0 are made.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG.
-!    See the description of FCN.
-!    Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, relative error between two consecutive iterates is at most XTOL.
-!    2, number of calls to FCN has reached or exceeded MAXFEV.
-!    3, XTOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!    4, iteration is not making good progress, as measured by the improvement
-!       from the last five jacobian evaluations.
-!    5, iteration is not making good progress, as measured by the improvement
-!       from the last ten iterations.
-!
-!    Output, integer ( kind = 4 ) NFEV, the number of calls to FCN.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an N by N array which contains
-!    the orthogonal matrix Q produced by the QR factorization of the final
-!    approximate jacobian.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC.
-!    LDFJAC must be at least N.
-!
-!    Output, real ( kind = 8 ) R(LR), the upper triangular matrix produced by
-!    the QR factorization of the final approximate jacobian, stored rowwise.
-!
-!    Input, integer ( kind = 4 ) LR, the size of the R array, which must be no
-!    less than (N*(N+1))/2.
-!
-!    Output, real ( kind = 8 ) QTF(N), contains the vector Q'*FVEC.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -1048,9 +1048,9 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
   info = 0
   iflag = 0
   nfev = 0
-!
-!  Check the input parameters for errors.
-!
+
+
+
   if ( n <= 0 ) then
     return
   else if ( xtol < 0.0D+00 ) then
@@ -1078,10 +1078,10 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
     end do
 
   end if
-!
-!  Evaluate the function at the starting point
-!  and calculate its norm.
-!
+
+
+
+
   iflag = 1
   call fcn ( n, x, fvec, iflag, m, prms )
   nfev = 1
@@ -1091,27 +1091,27 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
   end if
 
   fnorm = enorm ( n, fvec )
-!
-!  Determine the number of calls to FCN needed to compute the jacobian matrix.
-!
+
+
+
   msum = min ( ml + mu + 1, n )
-!
-!  Initialize iteration counter and monitors.
-!
+
+
+
   iter = 1
   ncsuc = 0
   ncfail = 0
   nslow1 = 0
   nslow2 = 0
-!
-!  Beginning of the outer loop.
-!
+
+
+
 30 continue
 
     jeval = .true.
-!
-!  Calculate the jacobian matrix.
-!
+
+
+
     iflag = 2
     call fdjac1 ( fcn, n, x, fvec, fjac, ldfjac, iflag, ml, mu, epsfcn, m, prms )
 
@@ -1120,15 +1120,15 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
     if ( iflag < 0 ) then
       go to 300
     end if
-!
-!  Compute the QR factorization of the jacobian.
-!
+
+
+
     pivot = .false.
     call qrfac ( n, n, fjac, ldfjac, pivot, iwa, 1, wa1, wa2 )
-!
-!  On the first iteration, if MODE is 1, scale according
-!  to the norms of the columns of the initial jacobian.
-!
+
+
+
+
     if ( iter == 1 ) then
 
       if ( mode /= 2 ) then
@@ -1141,10 +1141,10 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
         end do
 
       end if
-!
-!  On the first iteration, calculate the norm of the scaled X
-!  and initialize the step bound DELTA.
-!
+
+
+
+
       wa3(1:n) = diag(1:n) * x(1:n)
       xnorm = enorm ( n, wa3 )
       delta = factor * xnorm
@@ -1153,9 +1153,9 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
       end if
 
     end if
-!
-!  Form Q' * FVEC and store in QTF.
-!
+
+
+
      qtf(1:n) = fvec(1:n)
 
      do j = 1, n
@@ -1166,9 +1166,9 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
        end if
 
      end do
-!
-!  Copy the triangular factor of the QR factorization into R.
-!
+
+
+
      sing = .false.
 
      do j = 1, n
@@ -1182,25 +1182,25 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
           sing = .true.
         end if
      end do
-!
-!  Accumulate the orthogonal factor in FJAC.
-!
+
+
+
      call qform ( n, n, fjac, ldfjac )
-!
-!  Rescale if necessary.
-!
+
+
+
      if ( mode /= 2 ) then
        do j = 1, n
          diag(j) = max ( diag(j), wa2(j) )
        end do
      end if
-!
-!  Beginning of the inner loop.
-!
+
+
+
 180    continue
-!
-!  If requested, call FCN to enable printing of iterates.
-!
+
+
+
         if ( 0 < nprint ) then
           iflag = 0
           if ( mod ( iter - 1, nprint ) == 0 ) then
@@ -1210,28 +1210,28 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
             go to 300
           end if
         end if
-!
-!  Determine the direction P.
-!
+
+
+
         call dogleg ( n, r, lr, diag, qtf, delta, wa1 )
-!
-!  Store the direction P and X + P.
-!  Calculate the norm of P.
-!
+
+
+
+
         wa1(1:n) = - wa1(1:n)
         wa2(1:n) = x(1:n) + wa1(1:n)
         wa3(1:n) = diag(1:n) * wa1(1:n)
 
         pnorm = enorm ( n, wa3 )
-!
-!  On the first iteration, adjust the initial step bound.
-!
+
+
+
         if ( iter == 1 ) then
           delta = min ( delta, pnorm )
         end if
-!
-!  Evaluate the function at X + P and calculate its norm.
-!
+
+
+
         iflag = 1
         call fcn ( n, wa2, wa4, iflag, m, prms )
         nfev = nfev + 1
@@ -1241,16 +1241,16 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
         end if
 
         fnorm1 = enorm ( n, wa4 )
-!
-!  Compute the scaled actual reduction.
-!
+
+
+
         actred = -1.0D+00
         if ( fnorm1 < fnorm ) then
           actred = 1.0D+00 - ( fnorm1 / fnorm ) ** 2
         endif
-!
-!  Compute the scaled predicted reduction.
-!
+
+
+
         l = 1
         do i = 1, n
           sum2 = 0.0D+00
@@ -1266,16 +1266,16 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
         if ( temp < fnorm ) then
           prered = 1.0D+00 - ( temp / fnorm ) ** 2
         end if
-!
-!  Compute the ratio of the actual to the predicted reduction.
-!
+
+
+
         ratio = 0.0D+00
         if ( 0.0D+00 < prered ) then
           ratio = actred / prered
         end if
-!
-!  Update the step bound.
-!
+
+
+
         if ( ratio < 0.1D+00 ) then
 
           ncsuc = 0
@@ -1296,12 +1296,12 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
           end if
 
         end if
-!
-!  Test for successful iteration.
-!
-!  Successful iteration.
-!  Update X, FVEC, and their norms.
-!
+
+
+
+
+
+
         if ( 0.0001D+00 <= ratio ) then
           x(1:n) = wa2(1:n)
           wa2(1:n) = diag(1:n) * x(1:n)
@@ -1310,9 +1310,9 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
           fnorm = fnorm1
           iter = iter + 1
         end if
-!
-!  Determine the progress of the iteration.
-!
+
+
+
         nslow1 = nslow1 + 1
         if ( 0.001D+00 <= actred ) then
           nslow1 = 0
@@ -1325,9 +1325,9 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
         if ( 0.1D+00 <= actred ) then
           nslow2 = 0
         end if
-!
-!  Test for convergence.
-!
+
+
+
         if ( delta <= xtol * xnorm .or. fnorm == 0.0D+00 ) then
           info = 1
         end if
@@ -1335,9 +1335,9 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
         if ( info /= 0 ) then
           go to 300
         end if
-!
-!  Tests for termination and stringent tolerances.
-!
+
+
+
         if ( maxfev <= nfev ) then
           info = 2
         end if
@@ -1357,17 +1357,17 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
         if ( info /= 0 ) then
           go to 300
         end if
-!
-!  Criterion for recalculating jacobian approximation
-!  by forward differences.
-!
+
+
+
+
         if ( ncfail == 2 ) then
           go to 290
         end if
-!
-!  Calculate the rank one modification to the jacobian
-!  and update QTF if necessary.
-!
+
+
+
+
         do j = 1, n
           sum2 = dot_product ( wa4(1:n), fjac(1:n,j) )
           wa2(j) = ( sum2 - wa3(j) ) / pnorm
@@ -1376,28 +1376,28 @@ subroutine hybrd ( fcn, n, x, fvec, xtol, maxfev, ml, mu, epsfcn, diag, mode, &
             qtf(j) = sum2
           end if
         end do
-!
-!  Compute the QR factorization of the updated jacobian.
-!
+
+
+
         call r1updt ( n, n, r, lr, wa1, wa2, wa3, sing )
         call r1mpyq ( n, n, fjac, ldfjac, wa2, wa3 )
         call r1mpyq ( 1, n, qtf, 1, wa2, wa3 )
-!
-!  End of the inner loop.
-!
+
+
+
         jeval = .false.
         go to 180
 
   290   continue
-!
-!  End of the outer loop.
-!
+
+
+
      go to 30
 
   300 continue
-!
-!  Termination, either normal or user imposed.
-!
+
+
+
   if ( iflag < 0 ) then
     info = iflag
   end if
@@ -1414,87 +1414,87 @@ end subroutine hybrd
 
 subroutine hybrd1 ( fcn, n, x, fvec, tol, info, m, prms )
 
-!*****************************************************************************80
-!
-!! HYBRD1 seeks a zero of N nonlinear equations in N variables.
-!
-!  Discussion:
-!
-!    HYBRD1 finds a zero of a system of N nonlinear functions in N variables
-!    by a modification of the Powell hybrid method.  This is done by using the
-!    more general nonlinear equation solver HYBRD.  The user must provide a
-!    subroutine which calculates the functions.  The jacobian is then
-!    calculated by a forward-difference approximation.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    19 August 2016
-!    30 Aug 2017: added `prms` to pass paramters for constructing `fcn`
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions.  The routine should have the form:
-!      subroutine fcn ( n, x, fvec, iflag )
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fvec(n)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!      integer ( kind = 4 ) m
-!      real ( kind = 8 ) prm(m)
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) N, the number of functions and variables.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Input, real ( kind = 8 ) FVEC(N), the functions evaluated at the output X.
-!
-!    Input, integer ( kind = 4 ) M, the number of parameters for constructing FCN.
-!
-!    Input, real ( kind = 8 ) PRMS(M), static paramters for constructing FCN.
-!
-!    Input, real ( kind = 8 ) TOL.  Termination occurs when the algorithm
-!    estimates that the relative error between X and the solution is at
-!    most TOL.  TOL should be nonnegative.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See the
-!    description of FCN.
-!    Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, algorithm estimates that the relative error between X and the
-!       solution is at most TOL.
-!    2, number of calls to FCN has reached or exceeded 200*(N+1).
-!    3, TOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!    4, the iteration is not making good progress.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
-  ! integer ( kind = 4 ) lwa
+  
   integer ( kind = 4 ) n
   integer ( kind = 4 ) m
 
@@ -1505,7 +1505,7 @@ subroutine hybrd1 ( fcn, n, x, fvec, tol, info, m, prms )
   real ( kind = 8 ) fjac(n,n)
   real ( kind = 8 ) fvec(n)
   integer ( kind = 4 ) info
-  ! integer ( kind = 4 ) j
+  
   integer ( kind = 4 ) ldfjac
   integer ( kind = 4 ) lr
   integer ( kind = 4 ) maxfev
@@ -1560,126 +1560,126 @@ end subroutine hybrd1
 subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
   factor, nprint, info, nfev, njev, r, lr, qtf )
 
-!*****************************************************************************80
-!
-!! HYBRJ seeks a zero of N nonlinear equations in N variables.
-!
-!  Discussion:
-!
-!    HYBRJ finds a zero of a system of N nonlinear functions in N variables
-!    by a modification of the Powell hybrid method.  The user must provide a
-!    subroutine which calculates the functions and the jacobian.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions and the jacobian.  FCN should have the form:
-!
-!      subroutine fcn ( n, x, fvec, fjac, ldfjac, iflag )
-!      integer ( kind = 4 ) ldfjac
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fjac(ldfjac,n)
-!      real ( kind = 8 ) fvec(n)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    If IFLAG = 2 on input, FCN should calculate the jacobian at X and
-!    return this matrix in FJAC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) N, the number of functions and variables.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Output, real ( kind = 8 ) FVEC(N), the functions evaluated at the output X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an N by N matrix, containing
-!    the orthogonal matrix Q produced by the QR factorization
-!    of the final approximate jacobian.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of the
-!    array FJAC.  LDFJAC must be at least N.
-!
-!    Input, real ( kind = 8 ) XTOL.  Termination occurs when the relative error
-!    between two consecutive iterates is at most XTOL.  XTOL should be
-!    nonnegative.
-!
-!    Input, integer ( kind = 4 ) MAXFEV.  Termination occurs when the number of
-!    calls to FCN is at least MAXFEV by the end of an iteration.
-!
-!    Input/output, real ( kind = 8 ) DIAG(N).  If MODE = 1, then DIAG is set
-!    internally.  If MODE = 2, then DIAG must contain positive entries that
-!    serve as multiplicative scale factors for the variables.
-!
-!    Input, integer ( kind = 4 ) MODE, scaling option.
-!    1, variables will be scaled internally.
-!    2, scaling is specified by the input DIAG vector.
-!
-!    Input, real ( kind = 8 ) FACTOR, determines the initial step bound.  This
-!    bound is set to the product of FACTOR and the euclidean norm of DIAG*X if
-!    nonzero, or else to FACTOR itself.  In most cases, FACTOR should lie
-!    in the interval (0.1, 100) with 100 the recommended value.
-!
-!    Input, integer ( kind = 4 ) NPRINT, enables controlled printing of iterates
-!    if it is positive.  In this case, FCN is called with IFLAG = 0 at the
-!    beginning of the first iteration and every NPRINT iterations thereafter
-!    and immediately prior to return, with X and FVEC available
-!    for printing.  If NPRINT is not positive, no special calls
-!    of FCN with IFLAG = 0 are made.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG.
-!    See the description of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, relative error between two consecutive iterates is at most XTOL.
-!    2, number of calls to FCN with IFLAG = 1 has reached MAXFEV.
-!    3, XTOL is too small.  No further improvement in
-!       the approximate solution X is possible.
-!    4, iteration is not making good progress, as measured by the
-!       improvement from the last five jacobian evaluations.
-!    5, iteration is not making good progress, as measured by the
-!       improvement from the last ten iterations.
-!
-!    Output, integer ( kind = 4 ) NFEV, the number of calls to FCN
-!    with IFLAG = 1.
-!
-!    Output, integer ( kind = 4 ) NJEV, the number of calls to FCN
-!    with IFLAG = 2.
-!
-!    Output, real ( kind = 8 ) R(LR), the upper triangular matrix produced
-!    by the QR factorization of the final approximate jacobian, stored rowwise.
-!
-!    Input, integer ( kind = 4 ) LR, the size of the R array, which must
-!    be no less than (N*(N+1))/2.
-!
-!    Output, real ( kind = 8 ) QTF(N), contains the vector Q'*FVEC.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -1737,9 +1737,9 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
   iflag = 0
   nfev = 0
   njev = 0
-!
-!  Check the input parameters for errors.
-!
+
+
+
   if ( n <= 0 ) then
     if ( iflag < 0 ) then
       info = iflag
@@ -1780,9 +1780,9 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
       end if
     end do
   end if
-!
-!  Evaluate the function at the starting point and calculate its norm.
-!
+
+
+
   iflag = 1
   call fcn ( n, x, fvec, fjac, ldfjac, iflag )
   nfev = 1
@@ -1799,23 +1799,23 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
   end if
 
   fnorm = enorm ( n, fvec )
-!
-!  Initialize iteration counter and monitors.
-!
+
+
+
   iter = 1
   ncsuc = 0
   ncfail = 0
   nslow1 = 0
   nslow2 = 0
-!
-!  Beginning of the outer loop.
-!
+
+
+
   do
 
     jeval = .true.
-!
-!  Calculate the jacobian matrix.
-!
+
+
+
     iflag = 2
     call fcn ( n, x, fvec, fjac, ldfjac, iflag )
     njev = njev + 1
@@ -1828,15 +1828,15 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
       end if
       return
     end if
-!
-!  Compute the QR factorization of the jacobian.
-!
+
+
+
     pivot = .false.
     call qrfac ( n, n, fjac, ldfjac, pivot, iwa, 1, wa1, wa2 )
-!
-!  On the first iteration, if MODE is 1, scale according
-!  to the norms of the columns of the initial jacobian.
-!
+
+
+
+
     if ( iter == 1 ) then
 
       if ( mode /= 2 ) then
@@ -1847,10 +1847,10 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
           end if
         end do
       end if
-!
-!  On the first iteration, calculate the norm of the scaled X
-!  and initialize the step bound DELTA.
-!
+
+
+
+
       wa3(1:n) = diag(1:n) * x(1:n)
       xnorm = enorm ( n, wa3 )
       delta = factor * xnorm
@@ -1859,9 +1859,9 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
       end if
 
     end if
-!
-!  Form Q'*FVEC and store in QTF.
-!
+
+
+
     qtf(1:n) = fvec(1:n)
 
     do j = 1, n
@@ -1876,9 +1876,9 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
         end do
       end if
     end do
-!
-!  Copy the triangular factor of the QR factorization into R.
-!
+
+
+
     sing = .false.
 
     do j = 1, n
@@ -1892,25 +1892,25 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
         sing = .true.
       end if
     end do
-!
-!  Accumulate the orthogonal factor in FJAC.
-!
+
+
+
     call qform ( n, n, fjac, ldfjac )
-!
-!  Rescale if necessary.
-!
+
+
+
     if ( mode /= 2 ) then
       do j = 1, n
         diag(j) = max ( diag(j), wa2(j) )
       end do
     end if
-!
-!  Beginning of the inner loop.
-!
+
+
+
     do
-!
-!  If requested, call FCN to enable printing of iterates.
-!
+
+
+
       if ( 0 < nprint ) then
 
         iflag = 0
@@ -1928,27 +1928,27 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
         end if
 
       end if
-!
-!  Determine the direction P.
-!
+
+
+
       call dogleg ( n, r, lr, diag, qtf, delta, wa1 )
-!
-!  Store the direction P and X + P.
-!  Calculate the norm of P.
-!
+
+
+
+
       wa1(1:n) = - wa1(1:n)
       wa2(1:n) = x(1:n) + wa1(1:n)
       wa3(1:n) = diag(1:n) * wa1(1:n)
       pnorm = enorm ( n, wa3 )
-!
-!  On the first iteration, adjust the initial step bound.
-!
+
+
+
       if ( iter == 1 ) then
         delta = min ( delta, pnorm )
       end if
-!
-!  Evaluate the function at X + P and calculate its norm.
-!
+
+
+
       iflag = 1
       call fcn ( n, wa2, wa4, fjac, ldfjac, iflag )
       nfev = nfev + 1
@@ -1963,16 +1963,16 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
       end if
 
       fnorm1 = enorm ( n, wa4 )
-!
-!  Compute the scaled actual reduction.
-!
+
+
+
       actred = -1.0D+00
       if ( fnorm1 < fnorm ) then
         actred = 1.0D+00 - ( fnorm1 / fnorm ) ** 2
       end if
-!
-!  Compute the scaled predicted reduction.
-!
+
+
+
       l = 1
       do i = 1, n
         sum2 = 0.0D+00
@@ -1988,17 +1988,17 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
       if ( temp < fnorm ) then
         prered = 1.0D+00 - ( temp / fnorm ) ** 2
       end if
-!
-!  Compute the ratio of the actual to the predicted reduction.
-!
+
+
+
       if ( 0.0D+00 < prered ) then
         ratio = actred / prered
       else
         ratio = 0.0D+00
       end if
-!
-!  Update the step bound.
-!
+
+
+
       if ( ratio < 0.1D+00 ) then
 
         ncsuc = 0
@@ -2019,14 +2019,14 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
         end if
 
       end if
-!
-!  Test for successful iteration.
-!
 
-!
-!  Successful iteration.
-!  Update X, FVEC, and their norms.
-!
+
+
+
+
+
+
+
       if ( 0.0001D+00 <= ratio ) then
         x(1:n) = wa2(1:n)
         wa2(1:n) = diag(1:n) * x(1:n)
@@ -2035,9 +2035,9 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
         fnorm = fnorm1
         iter = iter + 1
       end if
-!
-!  Determine the progress of the iteration.
-!
+
+
+
       nslow1 = nslow1 + 1
       if ( 0.001D+00 <= actred ) then
         nslow1 = 0
@@ -2050,9 +2050,9 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
       if ( 0.1D+00 <= actred ) then
         nslow2 = 0
       end if
-!
-!  Test for convergence.
-!
+
+
+
       if ( delta <= xtol * xnorm .or. fnorm == 0.0D+00 ) then
         info = 1
       end if
@@ -2064,9 +2064,9 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
         end if
         return
       end if
-!
-!  Tests for termination and stringent tolerances.
-!
+
+
+
       if ( maxfev <= nfev ) then
         info = 2
       end if
@@ -2090,16 +2090,16 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
         end if
         return
       end if
-!
-!  Criterion for recalculating jacobian.
-!
+
+
+
       if ( ncfail == 2 ) then
         exit
       end if
-!
-!  Calculate the rank one modification to the jacobian
-!  and update QTF if necessary.
-!
+
+
+
+
       do j = 1, n
         sum2 = dot_product ( wa4(1:n), fjac(1:n,j) )
         wa2(j) = ( sum2 - wa3(j) ) / pnorm
@@ -2108,108 +2108,108 @@ subroutine hybrj ( fcn, n, x, fvec, fjac, ldfjac, xtol, maxfev, diag, mode, &
           qtf(j) = sum2
         end if
       end do
-!
-!  Compute the QR factorization of the updated jacobian.
-!
+
+
+
       call r1updt ( n, n, r, lr, wa1, wa2, wa3, sing )
       call r1mpyq ( n, n, fjac, ldfjac, wa2, wa3 )
       call r1mpyq ( 1, n, qtf, 1, wa2, wa3 )
-!
-!  End of the inner loop.
-!
+
+
+
       jeval = .false.
 
     end do
-!
-!  End of the outer loop.
-!
+
+
+
   end do
 
 end subroutine hybrj
 subroutine hybrj1 ( fcn, n, x, fvec, fjac, ldfjac, tol, info )
 
-!*****************************************************************************80
-!
-!! HYBRJ1 seeks a zero of N equations in N variables by Powell's method.
-!
-!  Discussion:
-!
-!    HYBRJ1 finds a zero of a system of N nonlinear functions in N variables
-!    by a modification of the Powell hybrid method.  This is done by using the
-!    more general nonlinear equation solver HYBRJ.  The user
-!    must provide a subroutine which calculates the functions
-!    and the jacobian.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions and the jacobian.  FCN should have the form:
-!      subroutine fcn ( n, x, fvec, fjac, ldfjac, iflag )
-!      integer ( kind = 4 ) ldfjac
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fjac(ldfjac,n)
-!      real ( kind = 8 ) fvec(n)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    If IFLAG = 2 on input, FCN should calculate the jacobian at X and
-!    return this matrix in FJAC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) N, the number of functions and variables.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Output, real ( kind = 8 ) FVEC(N), the functions evaluated at the output X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an N by N array which contains
-!    the orthogonal matrix Q produced by the QR factorization of the final
-!    approximate jacobian.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of  FJAC.
-!    LDFJAC must be at least N.
-!
-!    Input, real ( kind = 8 ) TOL.  Termination occurs when the algorithm
-!    estimates that the relative error between X and the solution is at most
-!    TOL.  TOL should be nonnegative.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See description
-!    of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, algorithm estimates that the relative error between X and the
-!       solution is at most TOL.
-!    2, number of calls to FCN with IFLAG = 1 has reached 100*(N+1).
-!    3, TOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!    4, iteration is not making good progress.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -2221,7 +2221,7 @@ subroutine hybrj1 ( fcn, n, x, fvec, fjac, ldfjac, tol, info )
   real ( kind = 8 ) fjac(ldfjac,n)
   real ( kind = 8 ) fvec(n)
   integer ( kind = 4 ) info
-  ! integer ( kind = 4 ) j
+  
   integer ( kind = 4 ) lr
   integer ( kind = 4 ) maxfev
   integer ( kind = 4 ) mode
@@ -2264,150 +2264,150 @@ end subroutine hybrj1
 subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
   diag, mode, factor, nprint, info, nfev, njev, ipvt, qtf )
 
-!*****************************************************************************80
-!
-!! LMDER minimizes M functions in N variables by the Levenberg-Marquardt method.
-!
-!  Discussion:
-!
-!    LMDER minimizes the sum of the squares of M nonlinear functions in
-!    N variables by a modification of the Levenberg-Marquardt algorithm.
-!    The user must provide a subroutine which calculates the functions
-!    and the jacobian.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions and the jacobian.  FCN should have the form:
-!      subroutine fcn ( m, n, x, fvec, fjac, ldfjac, iflag )
-!      integer ( kind = 4 ) ldfjac
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fjac(ldfjac,n)
-!      real ( kind = 8 ) fvec(m)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    If IFLAG = 2 on input, FCN should calculate the jacobian at X and
-!    return this matrix in FJAC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) M, is the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, is the number of variables.
-!    N must not exceed M.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Output, real ( kind = 8 ) FVEC(M), the functions evaluated at the output X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an M by N array.  The upper
-!    N by N submatrix of FJAC contains an upper triangular matrix R with
-!    diagonal elements of nonincreasing magnitude such that
-!      P' * ( JAC' * JAC ) * P = R' * R,
-!    where P is a permutation matrix and JAC is the final calculated jacobian.
-!    Column J of P is column IPVT(J) of the identity matrix.  The lower
-!    trapezoidal part of FJAC contains information generated during
-!    the computation of R.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC.
-!    LDFJAC must be at least M.
-!
-!    Input, real ( kind = 8 ) FTOL.  Termination occurs when both the actual
-!    and predicted relative reductions in the sum of squares are at most FTOL.
-!    Therefore, FTOL measures the relative error desired in the sum of
-!    squares.  FTOL should be nonnegative.
-!
-!    Input, real ( kind = 8 ) XTOL.  Termination occurs when the relative error
-!    between two consecutive iterates is at most XTOL.  XTOL should be
-!    nonnegative.
-!
-!    Input, real ( kind = 8 ) GTOL.  Termination occurs when the cosine of the
-!    angle between FVEC and any column of the jacobian is at most GTOL in
-!    absolute value.  Therefore, GTOL measures the orthogonality desired
-!    between the function vector and the columns of the jacobian.  GTOL should
-!    be nonnegative.
-!
-!    Input, integer ( kind = 4 ) MAXFEV.  Termination occurs when the number of
-!    calls to FCN with IFLAG = 1 is at least MAXFEV by the end of an iteration.
-!
-!    Input/output, real ( kind = 8 ) DIAG(N).  If MODE = 1, then DIAG is set
-!    internally.  If MODE = 2, then DIAG must contain positive entries that
-!    serve as multiplicative scale factors for the variables.
-!
-!    Input, integer ( kind = 4 ) MODE, scaling option.
-!    1, variables will be scaled internally.
-!    2, scaling is specified by the input DIAG vector.
-!
-!    Input, real ( kind = 8 ) FACTOR, determines the initial step bound.  This
-!    bound is set to the product of FACTOR and the euclidean norm of DIAG*X if
-!    nonzero, or else to FACTOR itself.  In most cases, FACTOR should lie
-!    in the interval (0.1, 100) with 100 the recommended value.
-!
-!    Input, integer ( kind = 4 ) NPRINT, enables controlled printing of iterates
-!    if it is positive.  In this case, FCN is called with IFLAG = 0 at the
-!    beginning of the first iteration and every NPRINT iterations thereafter
-!    and immediately prior to return, with X and FVEC available
-!    for printing.  If NPRINT is not positive, no special calls
-!    of FCN with IFLAG = 0 are made.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See description
-!    of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, both actual and predicted relative reductions in the sum of
-!       squares are at most FTOL.
-!    2, relative error between two consecutive iterates is at most XTOL.
-!    3, conditions for INFO = 1 and INFO = 2 both hold.
-!    4, the cosine of the angle between FVEC and any column of the jacobian
-!       is at most GTOL in absolute value.
-!    5, number of calls to FCN with IFLAG = 1 has reached MAXFEV.
-!    6, FTOL is too small.  No further reduction in the sum of squares
-!       is possible.
-!    7, XTOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!    8, GTOL is too small.  FVEC is orthogonal to the columns of the
-!       jacobian to machine precision.
-!
-!    Output, integer ( kind = 4 ) NFEV, the number of calls to FCN with
-!    IFLAG = 1.
-!
-!    Output, integer ( kind = 4 ) NJEV, the number of calls to FCN with
-!    IFLAG = 2.
-!
-!    Output, integer ( kind = 4 ) IPVT(N), defines a permutation matrix P
-!    such that JAC*P = Q*R, where JAC is the final calculated jacobian, Q is
-!    orthogonal (not stored), and R is upper triangular with diagonal
-!    elements of nonincreasing magnitude.  Column J of P is column
-!    IPVT(J) of the identity matrix.
-!
-!    Output, real ( kind = 8 ) QTF(N), contains the first N elements of Q'*FVEC.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -2429,7 +2429,7 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
   real ( kind = 8 ) fvec(m)
   real ( kind = 8 ) gnorm
   real ( kind = 8 ) gtol
-  ! integer ( kind = 4 ) i
+  
   integer ( kind = 4 ) iflag
   integer ( kind = 4 ) info
   integer ( kind = 4 ) ipvt(n)
@@ -2465,9 +2465,9 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
   iflag = 0
   nfev = 0
   njev = 0
-!
-!  Check the input parameters for errors.
-!
+
+
+
   if ( n <= 0 ) then
     go to 300
   end if
@@ -2489,9 +2489,9 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
       end if
     end do
   end if
-!
-!  Evaluate the function at the starting point and calculate its norm.
-!
+
+
+
   iflag = 1
   call fcn ( m, n, x, fvec, fjac, ldfjac, iflag )
   nfev = 1
@@ -2500,18 +2500,18 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
   end if
 
   fnorm = enorm ( m, fvec )
-!
-!  Initialize Levenberg-Marquardt parameter and iteration counter.
-!
+
+
+
   par = 0.0D+00
   iter = 1
-!
-!  Beginning of the outer loop.
-!
+
+
+
 30   continue
-!
-!  Calculate the jacobian matrix.
-!
+
+
+
     iflag = 2
     call fcn ( m, n, x, fvec, fjac, ldfjac, iflag )
 
@@ -2520,9 +2520,9 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
     if ( iflag < 0 ) then
       go to 300
     end if
-!
-!  If requested, call FCN to enable printing of iterates.
-!
+
+
+
     if ( 0 < nprint ) then
       iflag = 0
       if ( mod ( iter - 1, nprint ) == 0 ) then
@@ -2532,15 +2532,15 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
         go to 300
       end if
     end if
-!
-!  Compute the QR factorization of the jacobian.
-!
+
+
+
     pivot = .true.
     call qrfac ( m, n, fjac, ldfjac, pivot, ipvt, n, wa1, wa2 )
-!
-!  On the first iteration and if mode is 1, scale according
-!  to the norms of the columns of the initial jacobian.
-!
+
+
+
+
     if ( iter == 1 ) then
 
       if ( mode /= 2 ) then
@@ -2551,10 +2551,10 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
           end if
         end do
       end if
-!
-!  On the first iteration, calculate the norm of the scaled X
-!  and initialize the step bound DELTA.
-!
+
+
+
+
       wa3(1:n) = diag(1:n) * x(1:n)
 
       xnorm = enorm ( n, wa3 )
@@ -2564,9 +2564,9 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
       end if
 
     end if
-!
-!  Form Q'*FVEC and store the first N components in QTF.
-!
+
+
+
     wa4(1:m) = fvec(1:m)
 
     do j = 1, n
@@ -2581,9 +2581,9 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
       qtf(j) = wa4(j)
 
     end do
-!
-!  Compute the norm of the scaled gradient.
-!
+
+
+
     gnorm = 0.0D+00
 
     if ( fnorm /= 0.0D+00 ) then
@@ -2597,46 +2597,46 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
       end do
 
     end if
-!
-!  Test for convergence of the gradient norm.
-!
+
+
+
     if ( gnorm <= gtol ) then
       info = 4
       go to 300
     end if
-!
-!  Rescale if necessary.
-!
+
+
+
     if ( mode /= 2 ) then
       do j = 1, n
         diag(j) = max ( diag(j), wa2(j) )
       end do
     end if
-!
-!  Beginning of the inner loop.
-!
+
+
+
 200    continue
-!
-!  Determine the Levenberg-Marquardt parameter.
-!
+
+
+
     call lmpar ( n, fjac, ldfjac, ipvt, diag, qtf, delta, par, wa1, wa2 )
-!
-!  Store the direction p and x + p. calculate the norm of p.
-!
+
+
+
     wa1(1:n) = - wa1(1:n)
     wa2(1:n) = x(1:n) + wa1(1:n)
     wa3(1:n) = diag(1:n) * wa1(1:n)
 
     pnorm = enorm ( n, wa3 )
-!
-!  On the first iteration, adjust the initial step bound.
-!
+
+
+
     if ( iter == 1 ) then
       delta = min ( delta, pnorm )
     end if
-!
-!  Evaluate the function at x + p and calculate its norm.
-!
+
+
+
     iflag = 1
     call fcn ( m, n, wa2, wa4, fjac, ldfjac, iflag )
 
@@ -2647,17 +2647,17 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
     end if
 
     fnorm1 = enorm ( m, wa4 )
-!
-!  Compute the scaled actual reduction.
-!
+
+
+
     actred = -1.0D+00
     if ( 0.1D+00 * fnorm1 < fnorm ) then
       actred = 1.0D+00 - ( fnorm1 / fnorm ) ** 2
     end if
-!
-!  Compute the scaled predicted reduction and
-!  the scaled directional derivative.
-!
+
+
+
+
     do j = 1, n
       wa3(j) = 0.0D+00
       l = ipvt(j)
@@ -2669,17 +2669,17 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
     temp2 = ( sqrt ( par ) * pnorm ) / fnorm
     prered = temp1 ** 2 + temp2 ** 2 / 0.5D+00
     dirder = - ( temp1 ** 2 + temp2 ** 2 )
-!
-!  Compute the ratio of the actual to the predicted reduction.
-!
+
+
+
     if ( prered /= 0.0D+00 ) then
       ratio = actred / prered
     else
       ratio = 0.0D+00
     end if
-!
-!  Update the step bound.
-!
+
+
+
     if ( ratio <= 0.25D+00 ) then
 
       if ( 0.0D+00 <= actred ) then
@@ -2705,11 +2705,11 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
       end if
 
     end if
-!
-!  Successful iteration.
-!
-!  Update X, FVEC, and their norms.
-!
+
+
+
+
+
     if ( 0.0001D+00 <= ratio ) then
       x(1:n) = wa2(1:n)
       wa2(1:n) = diag(1:n) * x(1:n)
@@ -2718,9 +2718,9 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
       fnorm = fnorm1
       iter = iter + 1
     end if
-!
-!  Tests for convergence.
-!
+
+
+
     if ( abs ( actred) <= ftol .and. &
       prered <= ftol .and. &
       0.5D+00 * ratio <= 1.0D+00 ) then
@@ -2739,9 +2739,9 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
     if ( info /= 0 ) then
       go to 300
     end if
-!
-!  Tests for termination and stringent tolerances.
-!
+
+
+
     if ( nfev >= maxfev ) then
       info = 5
     end if
@@ -2762,21 +2762,21 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
     if ( info /= 0 ) then
       go to 300
     end if
-!
-!  End of the inner loop. repeat if iteration unsuccessful.
-!
+
+
+
     if ( ratio < 0.0001D+00 ) then
       go to 200
     end if
-!
-!  End of the outer loop.
-!
+
+
+
     go to 30
 
   300 continue
-!
-!  Termination, either normal or user imposed.
-!
+
+
+
   if ( iflag < 0 ) then
     info = iflag
   end if
@@ -2791,102 +2791,102 @@ subroutine lmder ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
 end subroutine lmder
 subroutine lmder1 ( fcn, m, n, x, fvec, fjac, ldfjac, tol, info )
 
-!*****************************************************************************80
-!
-!! LMDER1 minimizes M functions in N variables by Levenberg-Marquardt method.
-!
-!  Discussion:
-!
-!    LMDER1 minimizes the sum of the squares of M nonlinear functions in
-!    N variables by a modification of the Levenberg-Marquardt algorithm.
-!    This is done by using the more general least-squares solver LMDER.
-!    The user must provide a subroutine which calculates the functions
-!    and the jacobian.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions and the jacobian.  FCN should have the form:
-!      subroutine fcn ( m, n, x, fvec, fjac, ldfjac, iflag )
-!      integer ( kind = 4 ) ldfjac
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fjac(ldfjac,n)
-!      real ( kind = 8 ) fvec(m)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    If IFLAG = 2 on input, FCN should calculate the jacobian at X and
-!    return this matrix in FJAC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) M, the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, is the number of variables.
-!    N must not exceed M.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Output, real ( kind = 8 ) FVEC(M), the functions evaluated at the output X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an M by N array.  The upper
-!    N by N submatrix contains an upper triangular matrix R with
-!    diagonal elements of nonincreasing magnitude such that
-!      P' * ( JAC' * JAC ) * P = R' * R,
-!    where P is a permutation matrix and JAC is the final calculated
-!    jacobian.  Column J of P is column IPVT(J) of the identity matrix.
-!    The lower trapezoidal part of FJAC contains information generated during
-!    the computation of R.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, is the leading dimension of FJAC,
-!    which must be no less than M.
-!
-!    Input, real ( kind = 8 ) TOL.  Termination occurs when the algorithm
-!    estimates either that the relative error in the sum of squares is at
-!    most TOL or that the relative error between X and the solution is at
-!    most TOL.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See description
-!    of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, algorithm estimates that the relative error in the sum of squares
-!       is at most TOL.
-!    2, algorithm estimates that the relative error between X and the
-!       solution is at most TOL.
-!    3, conditions for INFO = 1 and INFO = 2 both hold.
-!    4, FVEC is orthogonal to the columns of the jacobian to machine precision.
-!    5, number of calls to FCN with IFLAG = 1 has reached 100*(N+1).
-!    6, TOL is too small.  No further reduction in the sum of squares is
-!       possible.
-!    7, TOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -2944,156 +2944,156 @@ end subroutine lmder1
 subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, epsfcn, &
   diag, mode, factor, nprint, info, nfev, fjac, ldfjac, ipvt, qtf )
 
-!*****************************************************************************80
-!
-!! LMDIF minimizes M functions in N variables by the Levenberg-Marquardt method.
-!
-!  Discussion:
-!
-!    LMDIF minimizes the sum of the squares of M nonlinear functions in
-!    N variables by a modification of the Levenberg-Marquardt algorithm.
-!    The user must provide a subroutine which calculates the functions.
-!    The jacobian is then calculated by a forward-difference approximation.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    20 Jul 2017
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!    adapted for AnOHM in SUEWS, Ting Sun, ting.sun@reading.ac.uk
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions.  The routine should have the form:
-!      subroutine fcn ( m, n, x, xdat, ydat, fvec, iflag ) ! xdat, ydat added for AnOHM, TS 20 Jul 2017
-!      integer ( kind = 4 ) m
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fvec(m),xdat(m),ydat(m)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) M, the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, the number of variables.
-!    N must not exceed M.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
 
-!    Input, real ( kind = 8 ) XDAT(M), YDAT(M).  On input, XDAT/YDAT must contain
-!    observations to construct FVEC(M). ! added for AnOHM, TS 20 Jul 2017
-!
-!    Output, real ( kind = 8 ) FVEC(M), the functions evaluated at the output X.
-!
-!    Input, real ( kind = 8 ) FTOL.  Termination occurs when both the actual
-!    and predicted relative reductions in the sum of squares are at most FTOL.
-!    Therefore, FTOL measures the relative error desired in the sum of
-!    squares.  FTOL should be nonnegative.
-!
-!    Input, real ( kind = 8 ) XTOL.  Termination occurs when the relative error
-!    between two consecutive iterates is at most XTOL.  Therefore, XTOL
-!    measures the relative error desired in the approximate solution.  XTOL
-!    should be nonnegative.
-!
-!    Input, real ( kind = 8 ) GTOL. termination occurs when the cosine of the
-!    angle between FVEC and any column of the jacobian is at most GTOL in
-!    absolute value.  Therefore, GTOL measures the orthogonality desired
-!    between the function vector and the columns of the jacobian.  GTOL should
-!    be nonnegative.
-!
-!    Input, integer ( kind = 4 ) MAXFEV.  Termination occurs when the number of
-!    calls to FCN is at least MAXFEV by the end of an iteration.
-!
-!    Input, real ( kind = 8 ) EPSFCN, is used in determining a suitable step
-!    length for the forward-difference approximation.  This approximation
-!    assumes that the relative errors in the functions are of the order of
-!    EPSFCN.  If EPSFCN is less than the machine precision, it is assumed that
-!    the relative errors in the functions are of the order of the machine
-!    precision.
-!
-!    Input/output, real ( kind = 8 ) DIAG(N).  If MODE = 1, then DIAG is set
-!    internally.  If MODE = 2, then DIAG must contain positive entries that
-!    serve as multiplicative scale factors for the variables.
-!
-!    Input, integer ( kind = 4 ) MODE, scaling option.
-!    1, variables will be scaled internally.
-!    2, scaling is specified by the input DIAG vector.
-!
-!    Input, real ( kind = 8 ) FACTOR, determines the initial step bound.
-!    This bound is set to the product of FACTOR and the euclidean norm of
-!    DIAG*X if nonzero, or else to FACTOR itself.  In most cases, FACTOR should
-!    lie in the interval (0.1, 100) with 100 the recommended value.
-!
-!    Input, integer ( kind = 4 ) NPRINT, enables controlled printing of iterates
-!    if it is positive.  In this case, FCN is called with IFLAG = 0 at the
-!    beginning of the first iteration and every NPRINT iterations thereafter
-!    and immediately prior to return, with X and FVEC available
-!    for printing.  If NPRINT is not positive, no special calls
-!    of FCN with IFLAG = 0 are made.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See description
-!    of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, both actual and predicted relative reductions in the sum of squares
-!       are at most FTOL.
-!    2, relative error between two consecutive iterates is at most XTOL.
-!    3, conditions for INFO = 1 and INFO = 2 both hold.
-!    4, the cosine of the angle between FVEC and any column of the jacobian
-!       is at most GTOL in absolute value.
-!    5, number of calls to FCN has reached or exceeded MAXFEV.
-!    6, FTOL is too small.  No further reduction in the sum of squares
-!       is possible.
-!    7, XTOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!    8, GTOL is too small.  FVEC is orthogonal to the columns of the
-!       jacobian to machine precision.
-!
-!    Output, integer ( kind = 4 ) NFEV, the number of calls to FCN.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an M by N array.  The upper
-!    N by N submatrix of FJAC contains an upper triangular matrix R with
-!    diagonal elements of nonincreasing magnitude such that
-!
-!      P' * ( JAC' * JAC ) * P = R' * R,
-!
-!    where P is a permutation matrix and JAC is the final calculated jacobian.
-!    Column J of P is column IPVT(J) of the identity matrix.  The lower
-!    trapezoidal part of FJAC contains information generated during
-!    the computation of R.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC.
-!    LDFJAC must be at least M.
-!
-!    Output, integer ( kind = 4 ) IPVT(N), defines a permutation matrix P such
-!    that JAC * P = Q * R, where JAC is the final calculated jacobian, Q is
-!    orthogonal (not stored), and R is upper triangular with diagonal
-!    elements of nonincreasing magnitude.  Column J of P is column IPVT(J)
-!    of the identity matrix.
-!
-!    Output, real ( kind = 8 ) QTF(N), the first N elements of Q'*FVEC.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -3176,9 +3176,9 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
       end if
     end do
   end if
-!
-!  Evaluate the function at the starting point and calculate its norm.
-!
+
+
+
   iflag = 1
   call fcn ( m, n, x, xdat, ydat, fvec, iflag )
   nfev = 1
@@ -3188,18 +3188,18 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
   end if
 
   fnorm = enorm ( m, fvec )
-!
-!  Initialize Levenberg-Marquardt parameter and iteration counter.
-!
+
+
+
   par = 0.0D+00
   iter = 1
-!
-!  Beginning of the outer loop.
-!
+
+
+
 30 continue
-!
-!  Calculate the jacobian matrix.
-!
+
+
+
   iflag = 2
   call fdjac2 ( fcn, m, n, x, xdat, ydat, fvec, fjac, ldfjac, iflag, epsfcn )
   nfev = nfev + n
@@ -3207,9 +3207,9 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
   if ( iflag < 0 ) then
     go to 300
   end if
-!
-!  If requested, call FCN to enable printing of iterates.
-!
+
+
+
   if ( 0 < nprint ) then
     iflag = 0
     if ( mod ( iter - 1, nprint ) == 0 ) then
@@ -3219,15 +3219,15 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
       go to 300
     end if
   end if
-!
-!  Compute the QR factorization of the jacobian.
-!
+
+
+
   pivot = .true.
   call qrfac ( m, n, fjac, ldfjac, pivot, ipvt, n, wa1, wa2 )
-!
-!  On the first iteration and if MODE is 1, scale according
-!  to the norms of the columns of the initial jacobian.
-!
+
+
+
+
      if ( iter == 1 ) then
 
        if ( mode /= 2 ) then
@@ -3238,10 +3238,10 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
            end if
          end do
        end if
-!
-!  On the first iteration, calculate the norm of the scaled X
-!  and initialize the step bound DELTA.
-!
+
+
+
+
        wa3(1:n) = diag(1:n) * x(1:n)
        xnorm = enorm ( n, wa3 )
        delta = factor * xnorm
@@ -3249,9 +3249,9 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
          delta = factor
        end if
      end if
-!
-!  Form Q' * FVEC and store the first N components in QTF.
-!
+
+
+
      wa4(1:m) = fvec(1:m)
 
      do j = 1, n
@@ -3266,9 +3266,9 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
        qtf(j) = wa4(j)
 
      end do
-!
-!  Compute the norm of the scaled gradient.
-!
+
+
+
      gnorm = 0.0D+00
 
      if ( fnorm /= 0.0D+00 ) then
@@ -3288,47 +3288,47 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
        end do
 
      end if
-!
-!  Test for convergence of the gradient norm.
-!
+
+
+
      if ( gnorm <= gtol ) then
        info = 4
        go to 300
      end if
-!
-!  Rescale if necessary.
-!
+
+
+
      if ( mode /= 2 ) then
        do j = 1, n
          diag(j) = max ( diag(j), wa2(j) )
        end do
      end if
-!
-!  Beginning of the inner loop.
-!
+
+
+
 200  continue
-!
-!  Determine the Levenberg-Marquardt parameter.
-!
+
+
+
         call lmpar ( n, fjac, ldfjac, ipvt, diag, qtf, delta, par, wa1, wa2 )
-!
-!  Store the direction P and X + P.
-!  Calculate the norm of P.
-!
+
+
+
+
         wa1(1:n) = -wa1(1:n)
         wa2(1:n) = x(1:n) + wa1(1:n)
         wa3(1:n) = diag(1:n) * wa1(1:n)
 
         pnorm = enorm ( n, wa3 )
-!
-!  On the first iteration, adjust the initial step bound.
-!
+
+
+
         if ( iter == 1 ) then
           delta = min ( delta, pnorm )
         end if
-!
-!  Evaluate the function at X + P and calculate its norm.
-!
+
+
+
         iflag = 1
         call fcn ( m, n, wa2, xdat, ydat, wa4, iflag )
         nfev = nfev + 1
@@ -3336,17 +3336,17 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
           go to 300
         end if
         fnorm1 = enorm ( m, wa4 )
-!
-!  Compute the scaled actual reduction.
-!
+
+
+
         if ( 0.1D+00 * fnorm1 < fnorm ) then
           actred = 1.0D+00 - ( fnorm1 / fnorm ) ** 2
         else
           actred = -1.0D+00
         end if
-!
-!  Compute the scaled predicted reduction and the scaled directional derivative.
-!
+
+
+
         do j = 1, n
           wa3(j) = 0.0D+00
           l = ipvt(j)
@@ -3358,16 +3358,16 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
         temp2 = ( sqrt ( par ) * pnorm ) / fnorm
         prered = temp1 ** 2 + temp2 ** 2 / 0.5D+00
         dirder = - ( temp1 ** 2 + temp2 ** 2 )
-!
-!  Compute the ratio of the actual to the predicted reduction.
-!
+
+
+
         ratio = 0.0D+00
         if ( prered /= 0.0D+00 ) then
           ratio = actred / prered
         end if
-!
-!  Update the step bound.
-!
+
+
+
         if ( ratio <= 0.25D+00 ) then
 
            if ( actred >= 0.0D+00 ) then
@@ -3393,13 +3393,13 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
            end if
 
         end if
-!
-!  Test for successful iteration.
-!
 
-!
-!  Successful iteration. update X, FVEC, and their norms.
-!
+
+
+
+
+
+
         if ( 0.0001D+00 <= ratio ) then
           x(1:n) = wa2(1:n)
           wa2(1:n) = diag(1:n) * x(1:n)
@@ -3408,9 +3408,9 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
           fnorm = fnorm1
           iter = iter + 1
         end if
-!
-!  Tests for convergence.
-!
+
+
+
         if ( abs ( actred) <= ftol .and. prered <= ftol &
           .and. 0.5D+00 * ratio <= 1.0D+00 ) then
           info = 1
@@ -3426,9 +3426,9 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
         if ( info /= 0 ) then
           go to 300
         end if
-!
-!  Tests for termination and stringent tolerances.
-!
+
+
+
         if ( maxfev <= nfev ) then
           info = 5
         end if
@@ -3449,21 +3449,21 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
         if ( info /= 0 ) then
           go to 300
         end if
-!
-!  End of the inner loop.  Repeat if iteration unsuccessful.
-!
+
+
+
         if ( ratio < 0.0001D+00 ) then
           go to 200
         end if
-!
-!  End of the outer loop.
-!
+
+
+
      go to 30
 
 300 continue
-!
-!  Termination, either normal or user imposed.
-!
+
+
+
   if ( iflag < 0 ) then
     info = iflag
   end if
@@ -3478,90 +3478,90 @@ subroutine lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, eps
 end subroutine lmdif
 subroutine lmdif1 ( fcn, m, n, x, xdat, ydat, fvec, tol, info )
 
-!*****************************************************************************80
-!
-!! LMDIF1 minimizes M functions in N variables using Levenberg-Marquardt method.
-!
-!  Discussion:
-!
-!    LMDIF1 minimizes the sum of the squares of M nonlinear functions in
-!    N variables by a modification of the Levenberg-Marquardt algorithm.
-!    This is done by using the more general least-squares solver LMDIF.
-!    The user must provide a subroutine which calculates the functions.
-!    The jacobian is then calculated by a forward-difference approximation.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    20 Jul 2017
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!    adapted for AnOHM in SUEWS, Ting Sun, ting.sun@reading.ac.uk
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions.  The routine should have the form:
-!      subroutine fcn ( m, n, x, xdat, ydat, fvec, iflag ) ! xdat, ydat added for AnOHM, TS 20 Jul 2017
-!      integer ( kind = 4 ) m
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fvec(m),xdat(m),ydat(m)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    To terminate the algorithm, FCN may set IFLAG negative on return.
-!
-!    Input, integer ( kind = 4 ) M, the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, the number of variables.
-!    N must not exceed M.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
 
-!    Input, real ( kind = 8 ) XDAT(M), YDAT(M).  On input, XDAT/YDAT must contain
-!    observations to construct FVEC(M). ! added for AnOHM, TS 20 Jul 2017
-!
-!    Output, real ( kind = 8 ) FVEC(M), the functions evaluated at the output X.
-!
-!    Input, real ( kind = 8 ) TOL.  Termination occurs when the algorithm
-!    estimates either that the relative error in the sum of squares is at
-!    most TOL or that the relative error between X and the solution is at
-!    most TOL.  TOL should be nonnegative.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See description
-!    of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, algorithm estimates that the relative error in the sum of squares
-!       is at most TOL.
-!    2, algorithm estimates that the relative error between X and the
-!       solution is at most TOL.
-!    3, conditions for INFO = 1 and INFO = 2 both hold.
-!    4, FVEC is orthogonal to the columns of the jacobian to machine precision.
-!    5, number of calls to FCN has reached or exceeded 200*(N+1).
-!    6, TOL is too small.  No further reduction in the sum of squares
-!       is possible.
-!    7, TOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) m
@@ -3606,7 +3606,7 @@ subroutine lmdif1 ( fcn, m, n, x, xdat, ydat, fvec, tol, info )
   mode = 1
   nprint = 0
   ldfjac = m
-! print*, 'x in limdif1',x
+
   call lmdif ( fcn, m, n, x, xdat, ydat, fvec, ftol, xtol, gtol, maxfev, epsfcn, &
     diag, mode, factor, nprint, info, nfev, fjac, ldfjac, ipvt, qtf )
 
@@ -3618,102 +3618,102 @@ subroutine lmdif1 ( fcn, m, n, x, xdat, ydat, fvec, tol, info )
 end subroutine lmdif1
 subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
 
-!*****************************************************************************80
-!
-!! LMPAR computes a parameter for the Levenberg-Marquardt method.
-!
-!  Discussion:
-!
-!    Given an M by N matrix A, an N by N nonsingular diagonal
-!    matrix D, an M-vector B, and a positive number DELTA,
-!    the problem is to determine a value for the parameter
-!    PAR such that if X solves the system
-!
-!      A*X = B,
-!      sqrt ( PAR ) * D * X = 0,
-!
-!    in the least squares sense, and DXNORM is the euclidean
-!    norm of D*X, then either PAR is zero and
-!
-!      ( DXNORM - DELTA ) <= 0.1 * DELTA,
-!
-!    or PAR is positive and
-!
-!      abs ( DXNORM - DELTA) <= 0.1 * DELTA.
-!
-!    This subroutine completes the solution of the problem
-!    if it is provided with the necessary information from the
-!    QR factorization, with column pivoting, of A.  That is, if
-!    A*P = Q*R, where P is a permutation matrix, Q has orthogonal
-!    columns, and R is an upper triangular matrix with diagonal
-!    elements of nonincreasing magnitude, then LMPAR expects
-!    the full upper triangle of R, the permutation matrix P,
-!    and the first N components of Q'*B.  On output
-!    LMPAR also provides an upper triangular matrix S such that
-!
-!      P' * ( A' * A + PAR * D * D ) * P = S'* S.
-!
-!    S is employed within LMPAR and may be of separate interest.
-!
-!    Only a few iterations are generally needed for convergence
-!    of the algorithm.  If, however, the limit of 10 iterations
-!    is reached, then the output PAR will contain the best
-!    value obtained so far.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    24 January 2014
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) N, the order of R.
-!
-!    Input/output, real ( kind = 8 ) R(LDR,N),the N by N matrix.  The full
-!    upper triangle must contain the full upper triangle of the matrix R.
-!    On output the full upper triangle is unaltered, and the strict lower
-!    triangle contains the strict upper triangle (transposed) of the upper
-!    triangular matrix S.
-!
-!    Input, integer ( kind = 4 ) LDR, the leading dimension of R.  LDR must be
-!    no less than N.
-!
-!    Input, integer ( kind = 4 ) IPVT(N), defines the permutation matrix P
-!    such that A*P = Q*R.  Column J of P is column IPVT(J) of the
-!    identity matrix.
-!
-!    Input, real ( kind = 8 ) DIAG(N), the diagonal elements of the matrix D.
-!
-!    Input, real ( kind = 8 ) QTB(N), the first N elements of the vector Q'*B.
-!
-!    Input, real ( kind = 8 ) DELTA, an upper bound on the euclidean norm
-!    of D*X.  DELTA should be positive.
-!
-!    Input/output, real ( kind = 8 ) PAR.  On input an initial estimate of the
-!    Levenberg-Marquardt parameter.  On output the final estimate.
-!    PAR should be nonnegative.
-!
-!    Output, real ( kind = 8 ) X(N), the least squares solution of the system
-!    A*X = B, sqrt(PAR)*D*X = 0, for the output value of PAR.
-!
-!    Output, real ( kind = 8 ) SDIAG(N), the diagonal elements of the upper
-!    triangular matrix S.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldr
@@ -3726,7 +3726,7 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
   real ( kind = 8 ) enorm
   real ( kind = 8 ) gnorm
   real ( kind = 8 ) fp
-  ! integer ( kind = 4 ) i
+  
   integer ( kind = 4 ) ipvt(n)
   integer ( kind = 4 ) iter
   integer ( kind = 4 ) j
@@ -3737,7 +3737,7 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
   real ( kind = 8 ) parc
   real ( kind = 8 ) parl
   real ( kind = 8 ) paru
-  ! real ( kind = 8 ) qnorm
+  
   real ( kind = 8 ) qtb(n)
   real ( kind = 8 ) r(ldr,n)
   real ( kind = 8 ) sdiag(n)
@@ -3746,15 +3746,15 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
   real ( kind = 8 ) wa1(n)
   real ( kind = 8 ) wa2(n)
   real ( kind = 8 ) x(n)
-!
-!  DWARF is the smallest positive magnitude.
-!
+
+
+
   dwarf = tiny ( dwarf )
-!
-!  Compute and store in X the Gauss-Newton direction.
-!
-!  If the jacobian is rank-deficient, obtain a least squares solution.
-!
+
+
+
+
+
   nsing = n
 
   do j = 1, n
@@ -3778,11 +3778,11 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
     l = ipvt(j)
     x(l) = wa1(j)
   end do
-!
-!  Initialize the iteration counter.
-!  Evaluate the function at the origin, and test
-!  for acceptance of the Gauss-Newton direction.
-!
+
+
+
+
+
   iter = 0
   wa2(1:n) = diag(1:n) * x(1:n)
   dxnorm = enorm ( n, wa2 )
@@ -3794,13 +3794,13 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
     end if
     return
   end if
-!
-!  If the jacobian is not rank deficient, the Newton
-!  step provides a lower bound, PARL, for the zero of
-!  the function.
-!
-!  Otherwise set this bound to zero.
-!
+
+
+
+
+
+
+
   parl = 0.0D+00
 
   if ( n <= nsing ) then
@@ -3819,9 +3819,9 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
     parl = ( ( fp / delta ) / temp ) / temp
 
   end if
-!
-!  Calculate an upper bound, PARU, for the zero of the function.
-!
+
+
+
   do j = 1, n
     sum2 = dot_product ( qtb(1:j), r(1:j,j) )
     l = ipvt(j)
@@ -3834,24 +3834,24 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
   if ( paru == 0.0D+00 ) then
     paru = dwarf / min ( delta, 0.1D+00 )
   end if
-!
-!  If the input PAR lies outside of the interval (PARL, PARU),
-!  set PAR to the closer endpoint.
-!
+
+
+
+
   par = max ( par, parl )
   par = min ( par, paru )
   if ( par == 0.0D+00 ) then
     par = gnorm / dxnorm
   end if
-!
-!  Beginning of an iteration.
-!
+
+
+
   do
 
     iter = iter + 1
-!
-!  Evaluate the function at the current value of PAR.
-!
+
+
+
     if ( par == 0.0D+00 ) then
       par = max ( dwarf, 0.001D+00 * paru )
     end if
@@ -3864,24 +3864,24 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
     dxnorm = enorm ( n, wa2 )
     temp = fp
     fp = dxnorm - delta
-!
-!  If the function is small enough, accept the current value of PAR.
-!
+
+
+
     if ( abs ( fp ) <= 0.1D+00 * delta ) then
       exit
     end if
-!
-!  Test for the exceptional cases where PARL
-!  is zero or the number of iterations has reached 10.
-!
+
+
+
+
     if ( parl == 0.0D+00 .and. fp <= temp .and. temp < 0.0D+00 ) then
       exit
     else if ( iter == 10 ) then
       exit
     end if
-!
-!  Compute the Newton correction.
-!
+
+
+
     do j = 1, n
       l = ipvt(j)
       wa1(j) = diag(l) * ( wa2(l) / dxnorm )
@@ -3895,25 +3895,25 @@ subroutine lmpar ( n, r, ldr, ipvt, diag, qtb, delta, par, x, sdiag )
 
     temp = enorm ( n, wa1 )
     parc = ( ( fp / delta ) / temp ) / temp
-!
-!  Depending on the sign of the function, update PARL or PARU.
-!
+
+
+
     if ( 0.0D+00 < fp ) then
       parl = max ( parl, par )
     else if ( fp < 0.0D+00 ) then
       paru = min ( paru, par )
     end if
-!
-!  Compute an improved estimate for PAR.
-!
+
+
+
     par = max ( parl, par + parc )
-!
-!  End of an iteration.
-!
+
+
+
   end do
-!
-!  Termination.
-!
+
+
+
   if ( iter == 0 ) then
     par = 0.0D+00
   end if
@@ -3923,153 +3923,153 @@ end subroutine lmpar
 subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
   diag, mode, factor, nprint, info, nfev, njev, ipvt, qtf )
 
-!*****************************************************************************80
-!
-!! LMSTR minimizes M functions in N variables using Levenberg-Marquardt method.
-!
-!  Discussion:
-!
-!    LMSTR minimizes the sum of the squares of M nonlinear functions in
-!    N variables by a modification of the Levenberg-Marquardt algorithm
-!    which uses minimal storage.
-!
-!    The user must provide a subroutine which calculates the functions and
-!    the rows of the jacobian.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions and the rows of the jacobian.
-!    FCN should have the form:
-!      subroutine fcn ( m, n, x, fvec, fjrow, iflag )
-!      integer ( kind = 4 ) m
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fjrow(n)
-!      real ( kind = 8 ) fvec(m)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    If the input value of IFLAG is I > 1, calculate the (I-1)-st row of
-!    the jacobian at X, and return this vector in FJROW.
-!    To terminate the algorithm, set the output value of IFLAG negative.
-!
-!    Input, integer ( kind = 4 ) M, the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, the number of variables.
-!    N must not exceed M.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Output, real ( kind = 8 ) FVEC(M), the functions evaluated at the output X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an N by N array.  The upper
-!    triangle of FJAC contains an upper triangular matrix R such that
-!
-!      P' * ( JAC' * JAC ) * P = R' * R,
-!
-!    where P is a permutation matrix and JAC is the final calculated jacobian.
-!    Column J of P is column IPVT(J) of the identity matrix.  The lower
-!    triangular part of FJAC contains information generated during
-!    the computation of R.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC.
-!    LDFJAC must be at least N.
-!
-!    Input, real ( kind = 8 ) FTOL.  Termination occurs when both the actual and
-!    predicted relative reductions in the sum of squares are at most FTOL.
-!    Therefore, FTOL measures the relative error desired in the sum of
-!    squares.  FTOL should be nonnegative.
-!
-!    Input, real ( kind = 8 ) XTOL.  Termination occurs when the relative error
-!    between two consecutive iterates is at most XTOL.  XTOL should be
-!    nonnegative.
-!
-!    Input, real ( kind = 8 ) GTOL. termination occurs when the cosine of the
-!    angle between FVEC and any column of the jacobian is at most GTOL in
-!    absolute value.  Therefore, GTOL measures the orthogonality desired
-!    between the function vector and the columns of the jacobian.  GTOL should
-!    be nonnegative.
-!
-!    Input, integer ( kind = 4 ) MAXFEV.  Termination occurs when the number
-!    of calls to FCN with IFLAG = 1 is at least MAXFEV by the end of
-!    an iteration.
-!
-!    Input/output, real ( kind = 8 ) DIAG(N).  If MODE = 1, then DIAG is set
-!    internally.  If MODE = 2, then DIAG must contain positive entries that
-!    serve as multiplicative scale factors for the variables.
-!
-!    Input, integer ( kind = 4 ) MODE, scaling option.
-!    1, variables will be scaled internally.
-!    2, scaling is specified by the input DIAG vector.
-!
-!    Input, real ( kind = 8 ) FACTOR, determines the initial step bound.  This
-!    bound is set to the product of FACTOR and the euclidean norm of DIAG*X if
-!    nonzero, or else to FACTOR itself.  In most cases, FACTOR should lie
-!    in the interval (0.1, 100) with 100 the recommended value.
-!
-!    Input, integer ( kind = 4 ) NPRINT, enables controlled printing of iterates
-!    if it is positive.  In this case, FCN is called with IFLAG = 0 at the
-!    beginning of the first iteration and every NPRINT iterations thereafter
-!    and immediately prior to return, with X and FVEC available
-!    for printing.  If NPRINT is not positive, no special calls
-!    of FCN with IFLAG = 0 are made.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See the
-!    description of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, both actual and predicted relative reductions in the sum of squares
-!       are at most FTOL.
-!    2, relative error between two consecutive iterates is at most XTOL.
-!    3, conditions for INFO = 1 and INFO = 2 both hold.
-!    4, the cosine of the angle between FVEC and any column of the jacobian
-!       is at most GTOL in absolute value.
-!    5, number of calls to FCN with IFLAG = 1 has reached MAXFEV.
-!    6, FTOL is too small.  No further reduction in the sum of squares is
-!       possible.
-!    7, XTOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!    8, GTOL is too small.  FVEC is orthogonal to the columns of the
-!       jacobian to machine precision.
-!
-!    Output, integer ( kind = 4 ) NFEV, the number of calls to FCN
-!    with IFLAG = 1.
-!
-!    Output, integer ( kind = 4 ) NJEV, the number of calls to FCN
-!    with IFLAG = 2.
-!
-!    Output, integer ( kind = 4 ) IPVT(N), defines a permutation matrix P such
-!    that JAC * P = Q * R, where JAC is the final calculated jacobian, Q is
-!    orthogonal (not stored), and R is upper triangular.
-!    Column J of P is column IPVT(J) of the identity matrix.
-!
-!    Output, real ( kind = 8 ) QTF(N), contains the first N elements of Q'*FVEC.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -4128,9 +4128,9 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
   iflag = 0
   nfev = 0
   njev = 0
-!
-!  Check the input parameters for errors.
-!
+
+
+
   if ( n <= 0 ) then
     go to 340
   else if ( m < n ) then
@@ -4156,9 +4156,9 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
       end if
     end do
   end if
-!
-!  Evaluate the function at the starting point and calculate its norm.
-!
+
+
+
   iflag = 1
   call fcn ( m, n, x, fvec, wa3, iflag )
   nfev = 1
@@ -4168,18 +4168,18 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
   end if
 
   fnorm = enorm ( m, fvec )
-!
-!  Initialize Levenberg-Marquardt parameter and iteration counter.
-!
+
+
+
   par = 0.0D+00
   iter = 1
-!
-!  Beginning of the outer loop.
-!
+
+
+
    30 continue
-!
-!  If requested, call FCN to enable printing of iterates.
-!
+
+
+
      if ( 0 < nprint ) then
        iflag = 0
        if ( mod ( iter-1, nprint ) == 0 ) then
@@ -4189,11 +4189,11 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
          go to 340
        end if
      end if
-!
-!  Compute the QR factorization of the jacobian matrix calculated one row
-!  at a time, while simultaneously forming Q'* FVEC and storing
-!  the first N components in QTF.
-!
+
+
+
+
+
      qtf(1:n) = 0.0D+00
      fjac(1:n,1:n) = 0.0D+00
      iflag = 2
@@ -4209,10 +4209,10 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
      end do
 
      njev = njev + 1
-!
-!  If the jacobian is rank deficient, call QRFAC to
-!  reorder its columns and update the components of QTF.
-!
+
+
+
+
      sing = .false.
      do j = 1, n
        if ( fjac(j,j) == 0.0D+00 ) then
@@ -4242,13 +4242,13 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
        end do
 
      end if
-!
-!  On the first iteration
-!    if mode is 1,
-!      scale according to the norms of the columns of the initial jacobian.
-!    calculate the norm of the scaled X,
-!    initialize the step bound delta.
-!
+
+
+
+
+
+
+
      if ( iter == 1 ) then
 
        if ( mode /= 2 ) then
@@ -4270,9 +4270,9 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
        end if
 
      end if
-!
-!  Compute the norm of the scaled gradient.
-!
+
+
+
      gnorm = 0.0D+00
 
      if ( fnorm /= 0.0D+00 ) then
@@ -4286,46 +4286,46 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
        end do
 
      end if
-!
-!  Test for convergence of the gradient norm.
-!
+
+
+
      if ( gnorm <= gtol ) then
        info = 4
        go to 340
      end if
-!
-!  Rescale if necessary.
-!
+
+
+
      if ( mode /= 2 ) then
        do j = 1, n
          diag(j) = max ( diag(j), wa2(j) )
        end do
      end if
-!
-!  Beginning of the inner loop.
-!
+
+
+
 240    continue
-!
-!  Determine the Levenberg-Marquardt parameter.
-!
+
+
+
         call lmpar ( n, fjac, ldfjac, ipvt, diag, qtf, delta, par, wa1, wa2 )
-!
-!  Store the direction P and X + P.
-!  Calculate the norm of P.
-!
+
+
+
+
         wa1(1:n) = -wa1(1:n)
         wa2(1:n) = x(1:n) + wa1(1:n)
         wa3(1:n) = diag(1:n) * wa1(1:n)
         pnorm = enorm ( n, wa3 )
-!
-!  On the first iteration, adjust the initial step bound.
-!
+
+
+
         if ( iter == 1 ) then
           delta = min ( delta, pnorm )
         end if
-!
-!  Evaluate the function at X + P and calculate its norm.
-!
+
+
+
         iflag = 1
         call fcn ( m, n, wa2, wa4, wa3, iflag )
         nfev = nfev + 1
@@ -4333,18 +4333,18 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
           go to 340
         end if
         fnorm1 = enorm ( m, wa4 )
-!
-!  Compute the scaled actual reduction.
-!
+
+
+
         if ( 0.1D+00 * fnorm1 < fnorm ) then
           actred = 1.0D+00 - ( fnorm1 / fnorm ) ** 2
         else
           actred = -1.0D+00
         end if
-!
-!  Compute the scaled predicted reduction and
-!  the scaled directional derivative.
-!
+
+
+
+
         do j = 1, n
           wa3(j) = 0.0D+00
           l = ipvt(j)
@@ -4356,17 +4356,17 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
         temp2 = ( sqrt(par) * pnorm ) / fnorm
         prered = temp1 ** 2 + temp2 ** 2 / 0.5D+00
         dirder = - ( temp1 ** 2 + temp2 ** 2 )
-!
-!  Compute the ratio of the actual to the predicted reduction.
-!
+
+
+
         if ( prered /= 0.0D+00 ) then
           ratio = actred / prered
         else
           ratio = 0.0D+00
         end if
-!
-!  Update the step bound.
-!
+
+
+
         if ( ratio <= 0.25D+00 ) then
 
           if ( actred >= 0.0D+00 ) then
@@ -4390,9 +4390,9 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
           end if
 
         end if
-!
-!  Test for successful iteration.
-!
+
+
+
         if ( ratio >= 0.0001D+00 ) then
           x(1:n) = wa2(1:n)
           wa2(1:n) = diag(1:n) * x(1:n)
@@ -4401,9 +4401,9 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
           fnorm = fnorm1
           iter = iter + 1
         end if
-!
-!  Tests for convergence, termination and stringent tolerances.
-!
+
+
+
         if ( abs ( actred ) <= ftol .and. prered <= ftol &
           .and. 0.5D+00 * ratio <= 1.0D+00 ) then
           info = 1
@@ -4442,21 +4442,21 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
         if ( info /= 0 ) then
           go to 340
         end if
-!
-!  End of the inner loop.  Repeat if iteration unsuccessful.
-!
+
+
+
         if ( ratio < 0.0001D+00 ) then
           go to 240
         end if
-!
-!  End of the outer loop.
-!
+
+
+
      go to 30
 
   340 continue
-!
-!  Termination, either normal or user imposed.
-!
+
+
+
   if ( iflag < 0 ) then
     info = iflag
   end if
@@ -4471,105 +4471,105 @@ subroutine lmstr ( fcn, m, n, x, fvec, fjac, ldfjac, ftol, xtol, gtol, maxfev, &
 end subroutine lmstr
 subroutine lmstr1 ( fcn, m, n, x, fvec, fjac, ldfjac, tol, info )
 
-!*****************************************************************************80
-!
-!! LMSTR1 minimizes M functions in N variables using Levenberg-Marquardt method.
-!
-!  Discussion:
-!
-!    LMSTR1 minimizes the sum of the squares of M nonlinear functions in
-!    N variables by a modification of the Levenberg-Marquardt algorithm
-!    which uses minimal storage.
-!
-!    This is done by using the more general least-squares solver
-!    LMSTR.  The user must provide a subroutine which calculates
-!    the functions and the rows of the jacobian.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    19 August 2016
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, external FCN, the name of the user-supplied subroutine which
-!    calculates the functions and the rows of the jacobian.
-!    FCN should have the form:
-!      subroutine fcn ( m, n, x, fvec, fjrow, iflag )
-!      integer ( kind = 4 ) m
-!      integer ( kind = 4 ) n
-!      real ( kind = 8 ) fjrow(n)
-!      real ( kind = 8 ) fvec(m)
-!      integer ( kind = 4 ) iflag
-!      real ( kind = 8 ) x(n)
-!    If IFLAG = 0 on input, then FCN is only being called to allow the user
-!    to print out the current iterate.
-!    If IFLAG = 1 on input, FCN should calculate the functions at X and
-!    return this vector in FVEC.
-!    If the input value of IFLAG is I > 1, calculate the (I-1)-st row of
-!    the jacobian at X, and return this vector in FJROW.
-!    To terminate the algorithm, set the output value of IFLAG negative.
-!
-!    Input, integer ( kind = 4 ) M, the number of functions.
-!
-!    Input, integer ( kind = 4 ) N, the number of variables.
-!    N must not exceed M.
-!
-!    Input/output, real ( kind = 8 ) X(N).  On input, X must contain an initial
-!    estimate of the solution vector.  On output X contains the final
-!    estimate of the solution vector.
-!
-!    Output, real ( kind = 8 ) FVEC(M), the functions evaluated at the output X.
-!
-!    Output, real ( kind = 8 ) FJAC(LDFJAC,N), an N by N array.  The upper
-!    triangle contains an upper triangular matrix R such that
-!
-!      P' * ( JAC' * JAC ) * P = R' * R,
-!
-!    where P is a permutation matrix and JAC is the final calculated
-!    jacobian.  Column J of P is column IPVT(J) of the identity matrix.
-!    The lower triangular part of FJAC contains information generated
-!    during the computation of R.
-!
-!    Input, integer ( kind = 4 ) LDFJAC, the leading dimension of FJAC.
-!    LDFJAC must be at least N.
-!
-!    Input, real ( kind = 8 ) TOL. Termination occurs when the algorithm
-!    estimates either that the relative error in the sum of squares is at
-!    most TOL or that the relative error between X and the solution is at
-!    most TOL.  TOL should be nonnegative.
-!
-!    Output, integer ( kind = 4 ) INFO, error flag.  If the user has terminated
-!    execution, INFO is set to the (negative) value of IFLAG. See description
-!    of FCN.  Otherwise, INFO is set as follows:
-!    0, improper input parameters.
-!    1, algorithm estimates that the relative error in the sum of squares
-!       is at most TOL.
-!    2, algorithm estimates that the relative error between X and the
-!       solution is at most TOL.
-!    3, conditions for INFO = 1 and INFO = 2 both hold.
-!    4, FVEC is orthogonal to the columns of the jacobian to machine precision.
-!    5, number of calls to FCN with IFLAG = 1 has reached 100*(N+1).
-!    6, TOL is too small.  No further reduction in the sum of squares
-!       is possible.
-!    7, TOL is too small.  No further improvement in the approximate
-!       solution X is possible.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldfjac
@@ -4642,53 +4642,53 @@ subroutine lmstr1 ( fcn, m, n, x, fvec, fjac, ldfjac, tol, info )
 end subroutine lmstr1
 subroutine qform ( m, n, q, ldq )
 
-!*****************************************************************************80
-!
-!! QFORM produces the explicit QR factorization of a matrix.
-!
-!  Discussion:
-!
-!    The QR factorization of a matrix is usually accumulated in implicit
-!    form, that is, as a series of orthogonal transformations of the
-!    original matrix.  This routine carries out those transformations,
-!    to explicitly exhibit the factorization constructed by QRFAC.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) M, is a positive integer input variable set
-!    to the number of rows of A and the order of Q.
-!
-!    Input, integer ( kind = 4 ) N, is a positive integer input variable set
-!    to the number of columns of A.
-!
-!    Input/output, real ( kind = 8 ) Q(LDQ,M).  Q is an M by M array.
-!    On input the full lower trapezoid in the first min(M,N) columns of Q
-!    contains the factored form.
-!    On output, Q has been accumulated into a square matrix.
-!
-!    Input, integer ( kind = 4 ) LDQ, is a positive integer input variable
-!    not less than M which specifies the leading dimension of the array Q.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldq
@@ -4708,17 +4708,17 @@ subroutine qform ( m, n, q, ldq )
   do j = 2, minmn
     q(1:j-1,j) = 0.0D+00
   end do
-!
-!  Initialize remaining columns to those of the identity matrix.
-!
+
+
+
   q(1:m,n+1:m) = 0.0D+00
 
   do j = n+1, m
     q(j,j) = 1.0D+00
   end do
-!
-!  Accumulate Q from its factored form.
-!
+
+
+
   do l = 1, minmn
 
     k = minmn - l + 1
@@ -4743,77 +4743,77 @@ subroutine qform ( m, n, q, ldq )
 end subroutine qform
 subroutine qrfac ( m, n, a, lda, pivot, ipvt, lipvt, rdiag, acnorm )
 
-!*****************************************************************************80
-!
-!! QRFAC computes a QR factorization using Householder transformations.
-!
-!  Discussion:
-!
-!    This subroutine uses Householder transformations with column
-!    pivoting (optional) to compute a QR factorization of the
-!    M by N matrix A.  That is, QRFAC determines an orthogonal
-!    matrix Q, a permutation matrix P, and an upper trapezoidal
-!    matrix R with diagonal elements of nonincreasing magnitude,
-!    such that A*P = Q*R.  The Householder transformation for
-!    column K, K = 1,2,...,min(M,N), is of the form
-!
-!      I - ( 1 / U(K) ) * U * U'
-!
-!    where U has zeros in the first K-1 positions.  The form of
-!    this transformation and the method of pivoting first
-!    appeared in the corresponding LINPACK subroutine.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) M, the number of rows of A.
-!
-!    Input, integer ( kind = 4 ) N, the number of columns of A.
-!
-!    Input/output, real ( kind = 8 ) A(LDA,N), the M by N array.
-!    On input, A contains the matrix for which the QR factorization is to
-!    be computed.  On output, the strict upper trapezoidal part of A contains
-!    the strict upper trapezoidal part of R, and the lower trapezoidal
-!    part of A contains a factored form of Q (the non-trivial elements of
-!    the U vectors described above).
-!
-!    Input, integer ( kind = 4 ) LDA, the leading dimension of A, which must
-!    be no less than M.
-!
-!    Input, logical PIVOT, is TRUE if column pivoting is to be carried out.
-!
-!    Output, integer ( kind = 4 ) IPVT(LIPVT), defines the permutation matrix P
-!    such that A*P = Q*R.  Column J of P is column IPVT(J) of the identity
-!    matrix.  If PIVOT is false, IPVT is not referenced.
-!
-!    Input, integer ( kind = 4 ) LIPVT, the dimension of IPVT, which should
-!    be N if pivoting is used.
-!
-!    Output, real ( kind = 8 ) RDIAG(N), contains the diagonal elements of R.
-!
-!    Output, real ( kind = 8 ) ACNORM(N), the norms of the corresponding
-!    columns of the input matrix A.  If this information is not needed,
-!    then ACNORM can coincide with RDIAG.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) lda
@@ -4826,7 +4826,7 @@ subroutine qrfac ( m, n, a, lda, pivot, ipvt, lipvt, rdiag, acnorm )
   real ( kind = 8 ) ajnorm
   real ( kind = 8 ) enorm
   real ( kind = 8 ) epsmch
-  ! integer ( kind = 4 ) i
+  
   integer ( kind = 4 ) i4_temp
   integer ( kind = 4 ) ipvt(lipvt)
   integer ( kind = 4 ) j
@@ -4840,9 +4840,9 @@ subroutine qrfac ( m, n, a, lda, pivot, ipvt, lipvt, rdiag, acnorm )
   real ( kind = 8 ) wa(n)
 
   epsmch = epsilon ( epsmch )
-!
-!  Compute the initial column norms and initialize several arrays.
-!
+
+
+
   do j = 1, n
     acnorm(j) = enorm ( m, a(1:m,j) )
   end do
@@ -4855,15 +4855,15 @@ subroutine qrfac ( m, n, a, lda, pivot, ipvt, lipvt, rdiag, acnorm )
       ipvt(j) = j
     end do
   end if
-!
-!  Reduce A to R with Householder transformations.
-!
+
+
+
   minmn = min ( m, n )
 
   do j = 1, minmn
-!
-!  Bring the column of largest norm into the pivot position.
-!
+
+
+
     if ( pivot ) then
 
       kmax = j
@@ -4890,10 +4890,10 @@ subroutine qrfac ( m, n, a, lda, pivot, ipvt, lipvt, rdiag, acnorm )
       end if
 
     end if
-!
-!  Compute the Householder transformation to reduce the
-!  J-th column of A to a multiple of the J-th unit vector.
-!
+
+
+
+
     ajnorm = enorm ( m-j+1, a(j,j) )
 
     if ( ajnorm /= 0.0D+00 ) then
@@ -4904,9 +4904,9 @@ subroutine qrfac ( m, n, a, lda, pivot, ipvt, lipvt, rdiag, acnorm )
 
       a(j:m,j) = a(j:m,j) / ajnorm
       a(j,j) = a(j,j) + 1.0D+00
-!
-!  Apply the transformation to the remaining columns and update the norms.
-!
+
+
+
       do k = j + 1, n
 
         temp = dot_product ( a(j:m,j), a(j:m,k) ) / a(j,j)
@@ -4937,88 +4937,88 @@ subroutine qrfac ( m, n, a, lda, pivot, ipvt, lipvt, rdiag, acnorm )
 end subroutine qrfac
 subroutine qrsolv ( n, r, ldr, ipvt, diag, qtb, x, sdiag )
 
-!*****************************************************************************80
-!
-!! QRSOLV solves a rectangular linear system A*x=b in the least squares sense.
-!
-!  Discussion:
-!
-!    Given an M by N matrix A, an N by N diagonal matrix D,
-!    and an M-vector B, the problem is to determine an X which
-!    solves the system
-!
-!      A*X = B
-!      D*X = 0
-!
-!    in the least squares sense.
-!
-!    This subroutine completes the solution of the problem
-!    if it is provided with the necessary information from the
-!    QR factorization, with column pivoting, of A.  That is, if
-!    Q*P = Q*R, where P is a permutation matrix, Q has orthogonal
-!    columns, and R is an upper triangular matrix with diagonal
-!    elements of nonincreasing magnitude, then QRSOLV expects
-!    the full upper triangle of R, the permutation matrix p,
-!    and the first N components of Q'*B.
-!
-!    The system is then equivalent to
-!
-!      R*Z = Q'*B
-!      P'*D*P*Z = 0
-!
-!    where X = P*Z.  If this system does not have full rank,
-!    then a least squares solution is obtained.  On output QRSOLV
-!    also provides an upper triangular matrix S such that
-!
-!      P'*(A'*A + D*D)*P = S'*S.
-!
-!    S is computed within QRSOLV and may be of separate interest.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) N, the order of R.
-!
-!    Input/output, real ( kind = 8 ) R(LDR,N), the N by N matrix.
-!    On input the full upper triangle must contain the full upper triangle
-!    of the matrix R.  On output the full upper triangle is unaltered, and
-!    the strict lower triangle contains the strict upper triangle
-!    (transposed) of the upper triangular matrix S.
-!
-!    Input, integer ( kind = 4 ) LDR, the leading dimension of R, which must be
-!    at least N.
-!
-!    Input, integer ( kind = 4 ) IPVT(N), defines the permutation matrix P such
-!    that A*P = Q*R.  Column J of P is column IPVT(J) of the identity matrix.
-!
-!    Input, real ( kind = 8 ) DIAG(N), the diagonal elements of the matrix D.
-!
-!    Input, real ( kind = 8 ) QTB(N), the first N elements of the vector Q'*B.
-!
-!    Output, real ( kind = 8 ) X(N), the least squares solution.
-!
-!    Output, real ( kind = 8 ) SDIAG(N), the diagonal elements of the upper
-!    triangular matrix S.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldr
@@ -5043,43 +5043,43 @@ subroutine qrsolv ( n, r, ldr, ipvt, diag, qtb, x, sdiag )
   real ( kind = 8 ) temp
   real ( kind = 8 ) wa(n)
   real ( kind = 8 ) x(n)
-!
-!  Copy R and Q'*B to preserve input and initialize S.
-!
-!  In particular, save the diagonal elements of R in X.
-!
+
+
+
+
+
   do j = 1, n
     r(j:n,j) = r(j,j:n)
     x(j) = r(j,j)
   end do
 
   wa(1:n) = qtb(1:n)
-!
-!  Eliminate the diagonal matrix D using a Givens rotation.
-!
+
+
+
   do j = 1, n
-!
-!  Prepare the row of D to be eliminated, locating the
-!  diagonal element using P from the QR factorization.
-!
+
+
+
+
     l = ipvt(j)
 
     if ( diag(l) /= 0.0D+00 ) then
 
       sdiag(j:n) = 0.0D+00
       sdiag(j) = diag(l)
-!
-!  The transformations to eliminate the row of D
-!  modify only a single element of Q'*B
-!  beyond the first N, which is initially zero.
-!
+
+
+
+
+
       qtbpj = 0.0D+00
 
       do k = j, n
-!
-!  Determine a Givens rotation which eliminates the
-!  appropriate element in the current row of D.
-!
+
+
+
+
         if ( sdiag(k) /= 0.0D+00 ) then
 
           if ( abs ( r(k,k) ) < abs ( sdiag(k) ) ) then
@@ -5091,17 +5091,17 @@ subroutine qrsolv ( n, r, ldr, ipvt, diag, qtb, x, sdiag )
             c = 0.5D+00 / sqrt ( 0.25D+00 + 0.25D+00 * t ** 2 )
             s = c * t
           end if
-!
-!  Compute the modified diagonal element of R and
-!  the modified element of (Q'*B,0).
-!
+
+
+
+
           r(k,k) = c * r(k,k) + s * sdiag(k)
           temp = c * wa(k) + s * qtbpj
           qtbpj = - s * wa(k) + c * qtbpj
           wa(k) = temp
-!
-!  Accumulate the tranformation in the row of S.
-!
+
+
+
           do i = k+1, n
             temp = c * r(i,k) + s * sdiag(i)
             sdiag(i) = - s * r(i,k) + c * sdiag(i)
@@ -5113,18 +5113,18 @@ subroutine qrsolv ( n, r, ldr, ipvt, diag, qtb, x, sdiag )
       end do
 
     end if
-!
-!  Store the diagonal element of S and restore
-!  the corresponding diagonal element of R.
-!
+
+
+
+
     sdiag(j) = r(j,j)
     r(j,j) = x(j)
 
   end do
-!
-!  Solve the triangular system for Z.  If the system is
-!  singular, then obtain a least squares solution.
-!
+
+
+
+
   nsing = n
 
   do j = 1, n
@@ -5143,9 +5143,9 @@ subroutine qrsolv ( n, r, ldr, ipvt, diag, qtb, x, sdiag )
     sum2 = dot_product ( wa(j+1:nsing), r(j+1:nsing,j) )
     wa(j) = ( wa(j) - sum2 ) / sdiag(j)
   end do
-!
-!  Permute the components of Z back to components of X.
-!
+
+
+
   do j = 1, n
     l = ipvt(j)
     x(l) = wa(j)
@@ -5155,58 +5155,58 @@ subroutine qrsolv ( n, r, ldr, ipvt, diag, qtb, x, sdiag )
 end subroutine qrsolv
 subroutine r1mpyq ( m, n, a, lda, v, w )
 
-!*****************************************************************************80
-!
-!! R1MPYQ computes A*Q, where Q is the product of Householder transformations.
-!
-!  Discussion:
-!
-!    Given an M by N matrix A, this subroutine computes A*Q where
-!    Q is the product of 2*(N - 1) transformations
-!
-!      GV(N-1)*...*GV(1)*GW(1)*...*GW(N-1)
-!
-!    and GV(I), GW(I) are Givens rotations in the (I,N) plane which
-!    eliminate elements in the I-th and N-th planes, respectively.
-!    Q itself is not given, rather the information to recover the
-!    GV, GW rotations is supplied.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) M, the number of rows of A.
-!
-!    Input, integer ( kind = 4 ) N, the number of columns of A.
-!
-!    Input/output, real ( kind = 8 ) A(LDA,N), the M by N array.
-!    On input, the matrix A to be postmultiplied by the orthogonal matrix Q.
-!    On output, the value of A*Q.
-!
-!    Input, integer ( kind = 4 ) LDA, the leading dimension of A, which must not
-!    be less than M.
-!
-!    Input, real ( kind = 8 ) V(N), W(N), contain the information necessary
-!    to recover the Givens rotations GV and GW.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) lda
@@ -5221,9 +5221,9 @@ subroutine r1mpyq ( m, n, a, lda, v, w )
   real ( kind = 8 ) temp
   real ( kind = 8 ) v(n)
   real ( kind = 8 ) w(n)
-!
-!  Apply the first set of Givens rotations to A.
-!
+
+
+
   do j = n - 1, 1, -1
 
      if ( 1.0D+00 < abs ( v(j) ) ) then
@@ -5241,9 +5241,9 @@ subroutine r1mpyq ( m, n, a, lda, v, w )
      end do
 
   end do
-!
-!  Apply the second set of Givens rotations to A.
-!
+
+
+
   do j = 1, n - 1
 
      if ( abs ( w(j) ) > 1.0D+00 ) then
@@ -5266,75 +5266,75 @@ subroutine r1mpyq ( m, n, a, lda, v, w )
 end subroutine r1mpyq
 subroutine r1updt ( m, n, s, ls, u, v, w, sing )
 
-!*****************************************************************************80
-!
-!! R1UPDT re-triangularizes a matrix after a rank one update.
-!
-!  Discussion:
-!
-!    Given an M by N lower trapezoidal matrix S, an M-vector U, and an
-!    N-vector V, the problem is to determine an orthogonal matrix Q such that
-!
-!      (S + U * V' ) * Q
-!
-!    is again lower trapezoidal.
-!
-!    This subroutine determines Q as the product of 2 * (N - 1)
-!    transformations
-!
-!      GV(N-1)*...*GV(1)*GW(1)*...*GW(N-1)
-!
-!    where GV(I), GW(I) are Givens rotations in the (I,N) plane
-!    which eliminate elements in the I-th and N-th planes,
-!    respectively.  Q itself is not accumulated, rather the
-!    information to recover the GV and GW rotations is returned.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) M, the number of rows of S.
-!
-!    Input, integer ( kind = 4 ) N, the number of columns of S.
-!    N must not exceed M.
-!
-!    Input/output, real ( kind = 8 ) S(LS).  On input, the lower trapezoidal
-!    matrix S stored by columns.  On output S contains the lower trapezoidal
-!    matrix produced as described above.
-!
-!    Input, integer ( kind = 4 ) LS, the length of the S array.  LS must be at
-!    least (N*(2*M-N+1))/2.
-!
-!    Input, real ( kind = 8 ) U(M), the U vector.
-!
-!    Input/output, real ( kind = 8 ) V(N).  On input, V must contain the
-!    vector V.  On output V contains the information necessary to recover the
-!    Givens rotations GV described above.
-!
-!    Output, real ( kind = 8 ) W(M), contains information necessary to
-!    recover the Givens rotations GW described above.
-!
-!    Output, logical SING, is set to TRUE if any of the diagonal elements
-!    of the output S are zero.  Otherwise SING is set FALSE.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ls
@@ -5357,36 +5357,36 @@ subroutine r1updt ( m, n, s, ls, u, v, w, sing )
   real ( kind = 8 ) u(m)
   real ( kind = 8 ) v(n)
   real ( kind = 8 ) w(m)
-!
-!  GIANT is the largest magnitude.
-!
+
+
+
   giant = huge ( giant )
-!
-!  Initialize the diagonal element pointer.
-!
+
+
+
   jj = ( n * ( 2 * m - n + 1 ) ) / 2 - ( m - n )
-!
-!  Move the nontrivial part of the last column of S into W.
-!
+
+
+
   l = jj
   do i = n, m
     w(i) = s(l)
     l = l + 1
   end do
-!
-!  Rotate the vector V into a multiple of the N-th unit vector
-!  in such a way that a spike is introduced into W.
-!
+
+
+
+
   do j = n - 1, 1, -1
 
     jj = jj - ( m - j + 1 )
     w(j) = 0.0D+00
 
     if ( v(j) /= 0.0D+00 ) then
-!
-!  Determine a Givens rotation which eliminates the
-!  J-th element of V.
-!
+
+
+
+
       if ( abs ( v(n) ) < abs ( v(j) ) ) then
         cotan = v(n) / v(j)
         sin = 0.5D+00 / sqrt ( 0.25D+00 + 0.25D+00 * cotan ** 2 )
@@ -5401,15 +5401,15 @@ subroutine r1updt ( m, n, s, ls, u, v, w, sing )
         sin = cos * tan
         tau = sin
       end if
-!
-!  Apply the transformation to V and store the information
-!  necessary to recover the Givens rotation.
-!
+
+
+
+
       v(n) = sin * v(j) + cos * v(n)
       v(j) = tau
-!
-!  Apply the transformation to S and extend the spike in W.
-!
+
+
+
       l = jj
       do i = j, m
         temp = cos * s(l) - sin * w(i)
@@ -5421,22 +5421,22 @@ subroutine r1updt ( m, n, s, ls, u, v, w, sing )
     end if
 
   end do
-!
-!  Add the spike from the rank 1 update to W.
-!
+
+
+
    w(1:m) = w(1:m) + v(n) * u(1:m)
-!
-!  Eliminate the spike.
-!
+
+
+
   sing = .false.
 
   do j = 1, n-1
 
     if ( w(j) /= 0.0D+00 ) then
-!
-!  Determine a Givens rotation which eliminates the
-!  J-th element of the spike.
-!
+
+
+
+
       if ( abs ( s(jj) ) < abs ( w(j) ) ) then
 
         cotan = s(jj) / w(j)
@@ -5457,9 +5457,9 @@ subroutine r1updt ( m, n, s, ls, u, v, w, sing )
         tau = sin
 
       end if
-!
-!  Apply the transformation to S and reduce the spike in W.
-!
+
+
+
       l = jj
       do i = j, m
         temp = cos * s(l) + sin * w(i)
@@ -5467,15 +5467,15 @@ subroutine r1updt ( m, n, s, ls, u, v, w, sing )
         s(l) = temp
         l = l + 1
       end do
-!
-!  Store the information necessary to recover the Givens rotation.
-!
+
+
+
       w(j) = tau
 
     end if
-!
-!  Test for zero diagonal elements in the output S.
-!
+
+
+
     if ( s(jj) == 0.0D+00 ) then
       sing = .true.
     end if
@@ -5483,9 +5483,9 @@ subroutine r1updt ( m, n, s, ls, u, v, w, sing )
     jj = jj + ( m - j + 1 )
 
   end do
-!
-!  Move W back into the last column of the output S.
-!
+
+
+
   l = jj
   do i = n, m
     s(l) = w(i)
@@ -5500,34 +5500,34 @@ subroutine r1updt ( m, n, s, ls, u, v, w, sing )
 end subroutine r1updt
 subroutine r8vec_print ( n, a, title )
 
-!*****************************************************************************80
-!
-!! R8VEC_PRINT prints an R8VEC.
-!
-!  Discussion:
-!
-!    An R8VEC is a vector of R8's.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    22 August 2000
-!
-!  Author:
-!
-!    John Burkardt
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) N, the number of components of the vector.
-!
-!    Input, real ( kind = 8 ) A(N), the vector to be printed.
-!
-!    Input, character ( len = * ) TITLE, a title.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) n
@@ -5547,70 +5547,70 @@ subroutine r8vec_print ( n, a, title )
 end subroutine r8vec_print
 subroutine rwupdt ( n, r, ldr, w, b, alpha, c, s )
 
-!*****************************************************************************80
-!
-!! RWUPDT computes the decomposition of triangular matrix augmented by one row.
-!
-!  Discussion:
-!
-!    Given an N by N upper triangular matrix R, this subroutine
-!    computes the QR decomposition of the matrix formed when a row
-!    is added to R.  If the row is specified by the vector W, then
-!    RWUPDT determines an orthogonal matrix Q such that when the
-!    N+1 by N matrix composed of R augmented by W is premultiplied
-!    by Q', the resulting matrix is upper trapezoidal.
-!    The matrix Q' is the product of N transformations
-!
-!      G(N)*G(N-1)* ... *G(1)
-!
-!    where G(I) is a Givens rotation in the (I,N+1) plane which eliminates
-!    elements in the (N+1)-st plane.  RWUPDT also computes the product
-!    Q'*C where C is the (N+1)-vector (B,ALPHA).  Q itself is not
-!    accumulated, rather the information to recover the G rotations is
-!    supplied.
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    06 April 2010
-!
-!  Author:
-!
-!    Original FORTRAN77 version by Jorge More, Burton Garbow, Kenneth Hillstrom.
-!    FORTRAN90 version by John Burkardt.
-!
-!  Reference:
-!
-!    Jorge More, Burton Garbow, Kenneth Hillstrom,
-!    User Guide for MINPACK-1,
-!    Technical Report ANL-80-74,
-!    Argonne National Laboratory, 1980.
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) N, the order of R.
-!
-!    Input/output, real ( kind = 8 ) R(LDR,N).  On input the upper triangular
-!    part of R must contain the matrix to be updated.  On output R contains the
-!    updated triangular matrix.
-!
-!    Input, integer ( kind = 4 ) LDR, the leading dimension of the array R.
-!    LDR must not be less than N.
-!
-!    Input, real ( kind = 8 ) W(N), the row vector to be added to R.
-!
-!    Input/output, real ( kind = 8 ) B(N).  On input, the first N elements
-!    of the vector C.  On output the first N elements of the vector Q'*C.
-!
-!    Input/output, real ( kind = 8 ) ALPHA.  On input, the (N+1)-st element
-!    of the vector C.  On output the (N+1)-st element of the vector Q'*C.
-!
-!    Output, real ( kind = 8 ) C(N), S(N), the cosines and sines of the
-!    transforming Givens rotations.
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   integer ( kind = 4 ) ldr
@@ -5632,17 +5632,17 @@ subroutine rwupdt ( n, r, ldr, w, b, alpha, c, s )
   do j = 1, n
 
     rowj = w(j)
-!
-!  Apply the previous transformations to R(I,J), I=1,2,...,J-1, and to W(J).
-!
+
+
+
     do i = 1, j - 1
       temp =   c(i) * r(i,j) + s(i) * rowj
       rowj = - s(i) * r(i,j) + c(i) * rowj
       r(i,j) = temp
     end do
-!
-!  Determine a Givens rotation which eliminates W(J).
-!
+
+
+
     c(j) = 1.0D+00
     s(j) = 0.0D+00
 
@@ -5657,9 +5657,9 @@ subroutine rwupdt ( n, r, ldr, w, b, alpha, c, s )
         c(j) = 0.5D+00 / sqrt ( 0.25D+00 + 0.25D+00 * tan ** 2 )
         s(j) = c(j) * tan
       end if
-!
-!  Apply the current transformation to R(J,J), B(J), and ALPHA.
-!
+
+
+
       r(j,j) =  c(j) * r(j,j) + s(j) * rowj
       temp =    c(j) * b(j)   + s(j) * alpha
       alpha = - s(j) * b(j)   + c(j) * alpha
@@ -5673,30 +5673,30 @@ subroutine rwupdt ( n, r, ldr, w, b, alpha, c, s )
 end subroutine rwupdt
 subroutine timestamp ( )
 
-!*****************************************************************************80
-!
-!! TIMESTAMP prints the current YMDHMS date as a time stamp.
-!
-!  Example:
-!
-!    31 May 2001   9:45:54.872 AM
-!
-!  Licensing:
-!
-!    This code is distributed under the GNU LGPL license.
-!
-!  Modified:
-!
-!    18 May 2013
-!
-!  Author:
-!
-!    John Burkardt
-!
-!  Parameters:
-!
-!    None
-!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   implicit none
 
   character ( len = 8 ) ampm

@@ -1,11 +1,11 @@
-! Subroutines for matching codes in the input files
-!  could re-write as a generic function later...
+
+
 
  SUBROUTINE CodeMatchOHM(Gridiv,is,SWWD) 
-! Matches OHM coefficients a1, a2, a3 via OHM codes 
-! for summer/winter wet/dry conditions 
-! HCW 03 Nov 2014
-! ---------------------------------------------------------
+
+
+
+
 
   use allocateArray
   use Initial
@@ -18,7 +18,7 @@
   integer:: is
   character(len=4):: SWWD
  
-  iv5=0 ! Reset iv5 to zero 
+  iv5=0 
  
   if(SWWD == 'SWet') then
     
@@ -76,14 +76,14 @@
    
   return
 ENDSUBROUTINE CodeMatchOHM
-! ---------------------------------------------------------
+
     
  SUBROUTINE CodeMatchESTM(Gridiv,is) 
-! Matches ESTM coefficients via ESTM code 
-! Modified HCW 16 Jun 2016 - for SUEWS surface types
-!                          - removed summer/winter wet/dry option   
-! S.O. 04 Feb 2016
-! ---------------------------------------------------------
+
+
+
+
+
 
   use allocateArray
   use Initial
@@ -95,7 +95,7 @@ ENDSUBROUTINE CodeMatchOHM
   integer:: gridiv
   integer:: is
    
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
   
   do iv5=1,nlinesESTMCoefficients
      if (ESTMCoefficients_Coeff(iv5,cE_Code)==SurfaceChar(gridiv,c_ESTMCode(is))) then
@@ -109,12 +109,12 @@ ENDSUBROUTINE CodeMatchOHM
            
   return
  ENDSUBROUTINE CodeMatchESTM
-! ---------------------------------------------------------    
+
 
  SUBROUTINE CodeMatchESTM_Class(Gridiv,is,ii) 
-! Matches ESTM coefficients via ESTM codes in SiteSelect for Paved and Bldgs ESTM classes
-! HCW 16 Jun 2016
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -126,7 +126,7 @@ ENDSUBROUTINE CodeMatchOHM
   integer:: gridiv
   integer:: is, ii
    
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
   
   if(is == BldgSurf) then      
      do iv5=1,nlinesESTMCoefficients
@@ -155,13 +155,13 @@ ENDSUBROUTINE CodeMatchOHM
   endif   
   return
  ENDSUBROUTINE CodeMatchESTM_Class
-! ---------------------------------------------------------    
+
 
 SUBROUTINE CodeMatchProf(Gridiv,SurfaceCharCodeCol)
-! Matches Soil characteristics via codes in *SurfaceChar*
- ! for energy use/water use/snow clearing
-! HCW 20 Nov 2014
- ! ---------------------------------------------------------
+
+ 
+
+ 
 
   use allocateArray
   use Initial
@@ -173,7 +173,7 @@ SUBROUTINE CodeMatchProf(Gridiv,SurfaceCharCodeCol)
   integer:: Gridiv
   integer:: SurfaceCharCodeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesProfiles
      if (Profiles_Coeff(iv5,cPr_Code)==SurfaceChar(Gridiv,SurfaceCharCodeCol)) then
@@ -186,14 +186,14 @@ SUBROUTINE CodeMatchProf(Gridiv,SurfaceCharCodeCol)
   
   return
 ENDSUBROUTINE CodeMatchProf 
-! ---------------------------------------------------------
+
 
 SUBROUTINE CodeMatchDist(rr,CodeCol,codeColSameSurf)
-! Matches within-grid water distribution via codes 
-! Checks water cannot flow from one surface to the same surface
-! Checks water distribution fractions sum to 1.
-! HCW 10 Nov 2014
-! ---------------------------------------------------------
+
+
+
+
+
 
   use allocateArray
   use Initial
@@ -205,7 +205,7 @@ SUBROUTINE CodeMatchDist(rr,CodeCol,codeColSameSurf)
   integer:: rr
   integer:: codeCol, codeColSameSurf
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesWGWaterDist
      if (WGWaterDist_Coeff(iv5,cWG_Code)==SiteSelect(rr,codeCol)) then
@@ -217,25 +217,25 @@ SUBROUTINE CodeMatchDist(rr,CodeCol,codeColSameSurf)
      endif
   enddo   
   
-  ! Check water flow to same surface is zero (previously in RunControlByGridByYear in SUEWS_Initial.f95)
+  
   if(WGWaterDist_Coeff(iv5,codeColSameSurf) /= 0) then
      call ErrorHint(8,'Diagonal elements should be zero as water cannot move from one surface to the same surface.', &
                     WGWaterDist_Coeff(iv5,codeColSameSurf),notUsed,notUsedI)
   endif 
   
-  !! MODIFY THIS??
-  ! Check water either moves to runoff or soilstore, but not to both
-  ! Model returns an error if both ToRunoff and ToSoilStore are non-zero. 
-  !! - Probably should remove this...
-  !! - Also look at SUEWS_translate, as the non-zero value goes into WaterDist
+  
+  
+  
+  
+  
   if(WGWaterDist_Coeff(iv5,cWG_ToRunoff)/=0.and.WGWaterDist_Coeff(iv5,cWG_ToSoilStore)/=0) then
      call ErrorHint(9,'One of these (ToRunoff,ToSoilStore) should be zero.', &
                     WGWaterDist_Coeff(iv5,cWG_ToRunoff),WGWaterDist_Coeff(iv5,cWG_ToSoilStore),notUsedI)
   endif
   
-  !! Also do for water surface once implemented
-  if(codeCol /= c_WGWaterCode) then   ! Except for Water surface
-     ! Check total water distribution from each surface adds up to 1
+  
+  if(codeCol /= c_WGWaterCode) then   
+     
      if(sum(WGWaterDist_Coeff(iv5,cWG_ToPaved:cWG_ToSoilStore)) > 1.0000001.or.sum(WGWaterDist_Coeff(iv5,&
              cWG_ToPaved:cWG_ToSoilStore)) < 0.9999999 ) then
         call ErrorHint(8,'Total water distribution from each surface should add up to 1.',&
@@ -245,13 +245,13 @@ SUBROUTINE CodeMatchDist(rr,CodeCol,codeColSameSurf)
   
   return
 ENDSUBROUTINE CodeMatchDist 
-! ---------------------------------------------------------
+
 
 
  SUBROUTINE CodeMatchNonVeg(rr,CodeCol)
-! Matches Impervious characteristics via codes in SiteSelect
-! HCW 20 Nov 2014
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -263,7 +263,7 @@ ENDSUBROUTINE CodeMatchDist
   integer:: rr
   integer:: codeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
 
   do iv5=1,nlinesNonVeg
      if (NonVeg_Coeff(iv5,ci_Code)==SiteSelect(rr,codeCol)) then
@@ -276,13 +276,13 @@ ENDSUBROUTINE CodeMatchDist
   
   return
  ENDSUBROUTINE CodeMatchNonVeg
-! ---------------------------------------------------------   
+
 
 
  SUBROUTINE CodeMatchVeg(rr,CodeCol)
-  ! Matches Pervious characteristics via codes in SiteSelect
-  ! HCW 20 Nov 2014
-  ! ---------------------------------------------------------
+  
+  
+  
 
   use allocateArray
   use Initial
@@ -294,7 +294,7 @@ ENDSUBROUTINE CodeMatchDist
   integer:: rr
   integer:: codeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesVeg
      if (Veg_Coeff(iv5,cp_Code)==SiteSelect(rr,codeCol)) then
@@ -307,13 +307,13 @@ ENDSUBROUTINE CodeMatchDist
   
   return
 ENDSUBROUTINE CodeMatchVeg 
-! --------------------------------------------------------- 
+
 
 
 SUBROUTINE CodeMatchWater(rr,CodeCol)
-! Matches Water characteristics via codes in SiteSelect
-! HCW 20 Nov 2014
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -325,7 +325,7 @@ SUBROUTINE CodeMatchWater(rr,CodeCol)
   integer:: rr
   integer:: codeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesWater
      if (Water_Coeff(iv5,cw_Code)==SiteSelect(rr,codeCol)) then
@@ -338,13 +338,13 @@ SUBROUTINE CodeMatchWater(rr,CodeCol)
   
   return
 ENDSUBROUTINE CodeMatchWater 
-! --------------------------------------------------------- 
+
 
 
 SUBROUTINE CodeMatchSnow(rr,CodeCol)
-! Matches Snow characteristics via codes in SiteSelect
-! HCW 20 Nov 2014
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -356,7 +356,7 @@ SUBROUTINE CodeMatchSnow(rr,CodeCol)
   integer:: rr
   integer:: codeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesSnow
      if (Snow_Coeff(iv5,cs_Code)==SiteSelect(rr,codeCol)) then
@@ -369,12 +369,12 @@ SUBROUTINE CodeMatchSnow(rr,CodeCol)
   
   return
 ENDSUBROUTINE CodeMatchSnow
-! --------------------------------------------------------- 
+
 
 SUBROUTINE CodeMatchConductance(rr,CodeCol)
-! Matches Conductance characteristics via codes in SiteSelect
-! HCW 20 Nov 2014
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -386,7 +386,7 @@ SUBROUTINE CodeMatchConductance(rr,CodeCol)
   integer:: rr
   integer:: codeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesConductance
      if (Conductance_Coeff(iv5,cc_Code)==SiteSelect(rr,codeCol)) then
@@ -399,14 +399,14 @@ SUBROUTINE CodeMatchConductance(rr,CodeCol)
   
   return
 ENDSUBROUTINE CodeMatchConductance
-! --------------------------------------------------------- 
+
  
  
 SUBROUTINE CodeMatchAnthropogenic(rr,CodeCol)
-! Matches AnthropogenicHeat characteristics via codes in SiteSelect
-! HCW 20 Nov 2014
-! MH 21 Jun 2017
-! ---------------------------------------------------------
+
+
+
+
 
   use allocateArray
   use Initial
@@ -418,7 +418,7 @@ SUBROUTINE CodeMatchAnthropogenic(rr,CodeCol)
   integer:: rr
   integer:: codeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesAnthropogenic
      if (Anthropogenic_Coeff(iv5,cA_Code)==SiteSelect(rr,codeCol)) then
@@ -431,13 +431,13 @@ SUBROUTINE CodeMatchAnthropogenic(rr,CodeCol)
   
   return
 ENDSUBROUTINE CodeMatchAnthropogenic
-! --------------------------------------------------------- 
+
 
 
 SUBROUTINE CodeMatchIrrigation(rr,CodeCol)
-! Matches Irrigation characteristics via codes in SiteSelect
-! HCW 20 Nov 2014
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -449,7 +449,7 @@ SUBROUTINE CodeMatchIrrigation(rr,CodeCol)
   integer:: rr
   integer:: codeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesIrrigation
      if (Irrigation_Coeff(iv5,cIr_Code)==SiteSelect(rr,codeCol)) then
@@ -462,12 +462,12 @@ SUBROUTINE CodeMatchIrrigation(rr,CodeCol)
   
   return
 ENDSUBROUTINE CodeMatchIrrigation
-! --------------------------------------------------------- 
+
 
 SUBROUTINE CodeMatchSoil(Gridiv,SurfaceCharCodeCol)
-! Matches Soil characteristics via codes in *SurfaceChar*
-! HCW 20 Nov 2014
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -479,7 +479,7 @@ SUBROUTINE CodeMatchSoil(Gridiv,SurfaceCharCodeCol)
   integer:: Gridiv
   integer:: SurfaceCharCodeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesSoil
      if (Soil_Coeff(iv5,cSo_Code)==SurfaceChar(Gridiv,SurfaceCharCodeCol)) then
@@ -492,12 +492,12 @@ SUBROUTINE CodeMatchSoil(Gridiv,SurfaceCharCodeCol)
   
   return
 ENDSUBROUTINE CodeMatchSoil
-! --------------------------------------------------------- 
+
 	
 SUBROUTINE CodeMatchBiogen(Gridiv,SurfaceCharCodeCol)
-! Matches Biogen characteristics via codes in *SuraceChar*
-! MH 16 Jun 2017
-! ---------------------------------------------------------
+
+
+
 
   use allocateArray
   use Initial
@@ -509,7 +509,7 @@ SUBROUTINE CodeMatchBiogen(Gridiv,SurfaceCharCodeCol)
   integer:: Gridiv
   integer:: SurfaceCharCodeCol
  
-  iv5=0 ! Reset iv5 to zero
+  iv5=0 
  
   do iv5=1,nlinesBiogen
      if (Biogen_Coeff(iv5,cB_Code)==SurfaceChar(Gridiv,SurfaceCharCodeCol)) then
@@ -527,4 +527,4 @@ ENDSUBROUTINE CodeMatchBiogen
 
 
 
-! --------------------------------------------------------- 
+

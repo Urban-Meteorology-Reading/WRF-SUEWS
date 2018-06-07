@@ -255,15 +255,7 @@ CONTAINS
       if(present(shalconv)) then
          shalconv_use=shalconv
       else
-
-
-
-
          shalconv_use=1
-
-
-
-
       endif
 
       if(present(pgcon)) then
@@ -389,7 +381,6 @@ CONTAINS
       ENDDO
 
 
-
       DO i=its,ite
         PRSI(i,kts)=PS(i)
       ENDDO
@@ -457,16 +448,11 @@ CONTAINS
 
 
       if_shallow_conv: if(shalconv_use==1) then
-
         
 
         
        
       
-
-
-
-
      endif if_shallow_conv
 
 
@@ -491,7 +477,6 @@ CONTAINS
           RQVCUTEN(I,K,J)=(Q1(I,K)/(1.-q1(i,k))-QV3D(I,K,J))*RDELT
         ENDDO
       ENDDO
-
 
 
 
@@ -554,13 +539,7 @@ CONTAINS
    ktf=min0(kte,kde-1)
    itf=min0(ite,ide-1)
 
-
-
-
-
-
    IF(.not.restart)THEN
-
      DO j=jts,jtf
      DO k=kts,ktf
      DO i=its,itf
@@ -4437,6 +4416,4 @@ CONTAINS
 
 
       END MODULE module_cu_scalesas
-
-
 

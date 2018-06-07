@@ -15,11 +15,8 @@ SUBROUTINE start_domain ( grid , allowed_to_read )
    INTEGER :: idum1, idum2
 
    INTERFACE
-
-
       SUBROUTINE start_domain_em ( grid, allowed_to_read  &
 !
-
 !STARTOFREGISTRYGENERATEDINCLUDE 'inc/dummy_new_args.inc'
 !
 ! WARNING This file is generated automatically by use_registry
@@ -33,14 +30,12 @@ dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,a
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
 !ENDOFREGISTRYGENERATEDINCLUDE
-
 !
                                  )
          USE module_domain
          USE module_driver_constants
          TYPE(domain) , INTENT(INOUT)  :: grid
          LOGICAL      , INTENT(IN)     :: allowed_to_read
-
 !STARTOFREGISTRYGENERATEDINCLUDE 'inc/dummy_new_decl.inc'
 !
 ! WARNING This file is generated automatically by use_registry
@@ -103,17 +98,8 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btxe
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
-
-
 !ENDOFREGISTRYGENERATEDINCLUDE
-
       END SUBROUTINE start_domain_em
-
-
-
-
-
-
 
       SUBROUTINE calc_ts_locations( grid )
          USE module_domain
@@ -124,14 +110,11 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
          USE module_domain
          TYPE (domain) :: grid
       END SUBROUTINE calc_track_locations
-
    END INTERFACE
 
    CALL set_scalar_indices_from_config ( head_grid%id , idum1, idum2 )
 
-
    CALL start_domain_em( grid, allowed_to_read  &
-
 
 !STARTOFREGISTRYGENERATEDINCLUDE 'inc/actual_new_args.inc'
 !
@@ -149,15 +132,10 @@ grid%nba_mij,grid%nba_rij,grid%chem,grid%tracer,grid%tracer_bxs,grid%tracer_bxe,
 grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 !ENDOFREGISTRYGENERATEDINCLUDE
 
-
                          )
-
-
 
    CALL calc_ts_locations( grid )
    CALL calc_track_locations( grid )
 
-
 END SUBROUTINE start_domain
-
 

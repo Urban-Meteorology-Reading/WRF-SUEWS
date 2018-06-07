@@ -1,11 +1,11 @@
-subroutine Lside_veg_v2(altitude,Ta,Tw,SBC,ewall,esky,t,CI)!azimuth,
-! This m-file is the current one that estimates L from the four cardinal points 20100414
+subroutine Lside_veg_v2(altitude,Ta,Tw,SBC,ewall,esky,t,CI)
+
 use matsize
 use data_in
 
     implicit none 
     real(kind(1D0))                             :: vikttot,aziE,aziN,aziS,aziW
-    real(kind(1D0))                             :: altitude,Ta,Tw,SBC,ewall,esky,t,CI,c!azimuth,
+    real(kind(1D0))                             :: altitude,Ta,Tw,SBC,ewall,esky,t,CI,c
     real(kind(1d0)),allocatable,dimension(:,:)  :: svfalfaE,svfalfaS,svfalfaW,svfalfaN
     real(kind(1d0)),allocatable,dimension(:,:)  :: alfaB,betaB,betasun
     real(kind(1d0)),allocatable,dimension(:,:)  :: Lground,Lrefl,Lsky,Lsky_allsky,Lveg,Lwallsh,Lwallsun
@@ -40,11 +40,11 @@ use data_in
     if (allocated(viktveg)) deallocate(viktveg); allocate(viktveg(sizey,sizex))
     if (allocated(viktrefl)) deallocate(viktrefl); allocate(viktrefl(sizey,sizex))
     
-    !Building height angle from svf
-    oneminussvfE=1.-svfE; where (oneminussvfE<=0) oneminussvfE=0.000000001 ! avoiding log(0)
-    oneminussvfS=1.-svfS; where (oneminussvfS<=0) oneminussvfS=0.000000001 ! avoiding log(0)
-    oneminussvfW=1.-svfW; where (oneminussvfW<=0) oneminussvfW=0.000000001 ! avoiding log(0)
-    oneminussvfN=1.-svfN; where (oneminussvfN<=0) oneminussvfN=0.000000001 ! avoiding log(0)
+    
+    oneminussvfE=1.-svfE; where (oneminussvfE<=0) oneminussvfE=0.000000001 
+    oneminussvfS=1.-svfS; where (oneminussvfS<=0) oneminussvfS=0.000000001 
+    oneminussvfW=1.-svfW; where (oneminussvfW<=0) oneminussvfW=0.000000001 
+    oneminussvfN=1.-svfN; where (oneminussvfN<=0) oneminussvfN=0.000000001 
     svfalfaE=asin(exp((log(oneminussvfE))/2))
     svfalfaS=asin(exp((log(oneminussvfS))/2))
     svfalfaW=asin(exp((log(oneminussvfW))/2))
@@ -56,9 +56,9 @@ use data_in
     aziE=azimuth-180+t
     aziS=azimuth-270+t
    
-    ! F_sh=cylindric_wedge(zen,svfalfa);!Fraction shadow on building walls based on sun altitude and svf 
-    ! F_sh(isnan(F_sh))=0.5; 
-    F_sh=2.*F_sh-1. !(cylindric_wedge scaled 0-1)
+    
+    
+    F_sh=2.*F_sh-1. 
     
      if (SOLWEIG_ldown==1) then 
         c=1-CI
@@ -67,10 +67,10 @@ use data_in
         Lsky_allsky=ldown
     end if
     
-    !! Least 
+    
     call Lvikt_veg(svfE,svfEveg,svfEaveg,vikttot) 
    
-    if (altitude>0) then ! daytime
+    if (altitude>0) then 
         alfaB=atan(svfalfaE)
         betaB=atan(tan((svfalfaE)*F_sh))
         betasun=((alfaB-betaB)/2)+betaB
@@ -82,7 +82,7 @@ use data_in
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
         end if 
-        else !nighttime
+        else 
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
     end if 
@@ -92,10 +92,10 @@ use data_in
     Lrefl=(Ldown2d+Lup2d)*(viktrefl)*(1-ewall)*0.5
     Least=Lsky+Lwallsun+Lwallsh+Lveg+Lground+Lrefl
    
-    !! Lsouth 
+    
     call Lvikt_veg(svfS,svfSveg,svfSaveg,vikttot) 
    
-    if (altitude>0) then ! daytime
+    if (altitude>0) then 
         alfaB=atan(svfalfaS)
         betaB=atan(tan((svfalfaS)*F_sh))
         betasun=((alfaB-betaB)/2)+betaB
@@ -107,7 +107,7 @@ use data_in
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
         end if 
-        else !nighttime
+        else 
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
     end if 
@@ -117,10 +117,10 @@ use data_in
     Lrefl=(Ldown2d+Lup2d)*(viktrefl)*(1-ewall)*0.5
     Lsouth=Lsky+Lwallsun+Lwallsh+Lveg+Lground+Lrefl
    
-    !! Lwest 
+    
     call Lvikt_veg(svfW,svfWveg,svfWaveg,vikttot) 
    
-    if (altitude>0) then ! daytime
+    if (altitude>0) then 
         alfaB=atan(svfalfaW)
         betaB=atan(tan((svfalfaW)*F_sh))
         betasun=((alfaB-betaB)/2)+betaB
@@ -132,7 +132,7 @@ use data_in
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
         end if 
-        else !nighttime
+        else 
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
     end if 
@@ -142,10 +142,10 @@ use data_in
     Lrefl=(Ldown2d+Lup2d)*(viktrefl)*(1-ewall)*0.5
     Lwest=Lsky+Lwallsun+Lwallsh+Lveg+Lground+Lrefl
    
-    !! Lnorth 
+    
     call Lvikt_veg(svfN,svfNveg,svfNaveg,vikttot) 
    
-    if (altitude>0) then ! daytime
+    if (altitude>0) then 
         alfaB=atan(svfalfaN)
         betaB=atan(tan((svfalfaN)*F_sh))
         betasun=((alfaB-betaB)/2)+betaB
@@ -157,7 +157,7 @@ use data_in
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
         end if 
-        else !nighttime
+        else 
             Lwallsun=0
             Lwallsh=SBC*ewall*((Ta+273.15)**4)*viktwall*0.5
     end if 

@@ -156,7 +156,9 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(nsurf)             :: surf_var
 
 
-    INTEGER ::  I,J,K
+    INTEGER ::  I,J,K,l
+
+    print *, 'year = ', year, 'day = ', day, 'hour = ', hour, 'minute = ', minute
 
     do k = 1, 360
        call random_array2d(2, 2, qn1_store_SUEWS(:,:,k), 100., 200.)

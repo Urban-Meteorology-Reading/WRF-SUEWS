@@ -13,7 +13,6 @@ CONTAINS
                   UST,PBL,PSIM,PSIH,                               &
                   HFX,QFX,TSK,GZ1OZ0,WSPD,BR,                      &
                   DT,KPBL2D,EP1,KARMAN,                            &
-
                   ids,ide, jds,jde, kds,kde,                       &
                   ims,ime, jms,jme, kms,kme,                       &
                   its,ite, jts,jte, kts,kte                        )
@@ -21,10 +20,6 @@ CONTAINS
       USE MODULE_GFS_MACHINE , ONLY : kind_phys
 
       IMPLICIT NONE
-
-
-
-
 
 
 
@@ -167,9 +162,6 @@ CONTAINS
                                         T1,                             &
                                         TAU,                            &
                                         dishx,                          &
-
-
-
                                         U1,                             &
                                         V1
 
@@ -210,14 +202,7 @@ CONTAINS
                                         FMTMP,                          &
                                         RRHOX
 
-
-
-
       REAL, PARAMETER:: ALPHA=1.0
-
-
-
-
 
       INTEGER, DIMENSION( its:ite ) ::                                  &
                                         KPBL 
@@ -258,23 +243,12 @@ CONTAINS
         EVAP(i)=QFX(i,j)*RRHOX
         XLAND1(i) = 0.0        
 
-
-
-
-
-
-
-
         STRESS(i)=KARMAN*KARMAN*WSPD(i,j)*WSPD(i,j)/(FMTMP*FMTMP)
         SPD1(i)=WSPD(i,j)
         PRSI(i,kts)=PSFC(i,j)*.001
         PHII(I,kts)=0.
         RCL(i)=1.
         RBSOIL(I)=BR(i,j)
-
-
-
-
       ENDDO
 
       DO k=kts,kte
@@ -282,10 +256,8 @@ CONTAINS
           DV(I,K) = 0.
           DU(I,K) = 0.
           TAU(I,K) = 0.
-
           U1(I,K) = U3D(i,k,j)
           V1(I,K) = V3D(i,k,j)
-
           T1(I,K) = T3D(i,k,j)
           Q1(I,K,1) = QV3D(i,k,j)/(1.+QV3D(i,k,j))
           Q1(I,K,2) = QC3D(i,k,j)/(1.+QC3D(i,k,j))
@@ -337,12 +309,7 @@ CONTAINS
                   PSK,RBSOIL,FM,FH,TSEA,QSS,HEAT,EVAP,STRESS,           &
                   SPD1,KPBL,PRSI,DEL,PRSL,PRSLK,PHII,PHIL,RCL,          &
                   DELTIM,DUSFC,DVSFC,DTSFC,DQSFC,HPBL,HGAMT,            &
-
-
-
-
                 RBCR,HGAMQ,ALPHA)
-
 
 
 
@@ -376,14 +343,8 @@ CONTAINS
                        V3D(I,KTS,J)*V3D(I,KTS,J))+1.E-9
         PBL(i,j)=HPBL(i)
 
-
-
-
-
-
         KPBL2D(i,j)=kpbl(i)
       ENDDO
-
 
 
 
@@ -467,10 +428,6 @@ CONTAINS
      &     PSK,RBSOIL,FM,FH,TSEA,QSS,HEAT,EVAP,STRESS,SPD1,KPBL,        &
      &     PRSI,DEL,PRSL,PRSLK,PHII,PHIL,RCL,DELTIM,                    &
      &     DUSFC,DVSFC,DTSFC,DQSFC,HPBL,HGAMT,                     &
-
-
-
-
            RBCR,HGAMQ,ALPHA)
 
       USE MODULE_GFS_MACHINE, ONLY : kind_phys
@@ -489,12 +446,6 @@ CONTAINS
       real(kind=kind_phys) DELTIM
       real :: ALPHA
 
-
-
-
-
-
-
       real(kind=kind_phys) DV(IM,KM),     DU(IM,KM),                    &
      &                     TAU(IM,KM),    RTG(IM,KM,ntrac),             &
      &                     U1(IX,KM),     V1(IX,KM),                    &
@@ -512,9 +463,6 @@ CONTAINS
      &                     dvsfc(IM),     dtsfc(IM),                    & 
      &                     DQSFC(IM),     HPBL(IM),                     &
      &                     HGAMT(IM),     hgamq(IM), RBCR(IM)
-
-
-
 
 
 
@@ -571,7 +519,6 @@ CONTAINS
 
 
 
-
  601  FORMAT(1X,' MONINP LAT LON STEP HOUR ',3I6,F6.1)
  602      FORMAT(1X,'    K','        Z','        T','       TH',        &
      &     '      TVH','        Q','        U','        V',             &
@@ -609,14 +556,6 @@ CONTAINS
 
      do i=1,im
      RBCR(I) = 0.25
-
-
-
-
-
-
-
-
      enddo
 
       gravi = 1.0 / grav
@@ -804,19 +743,10 @@ CONTAINS
                RBINT = (RBCR(I)-RBDN(I))/(RBUP(I)-RBDN(I))
             ENDIF
             HPBL(I) = ZL(I,K-1) + RBINT*(ZL(I,k)-ZL(I,K-1))
-
-
-
-
-
-
-
-
             IF(HPBL(I).LT.ZI(I,KPBL(I))) KPBL(I) = KPBL(I) - 1
             IF(KPBL(I).LE.1) PBLFLG(I) = .FALSE.
          ENDIF
       ENDDO
-
 
 
 
@@ -860,7 +790,6 @@ CONTAINS
                DKO(i,k) = MAX(RZERO, MIN(DKMAX, DKO(i,k)))
               endif 
         ENDDO 
-
 
 
       ENDDO 
@@ -1259,5 +1188,3 @@ CONTAINS
 
 
       END MODULE module_bl_gfs
-
-

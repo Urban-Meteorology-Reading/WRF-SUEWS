@@ -1,7 +1,5 @@
 
 
-
-
 module error_function
 
 
@@ -648,5 +646,3 @@ END FUNCTION ERFCX_R4
 
 
 end module error_function
-
-

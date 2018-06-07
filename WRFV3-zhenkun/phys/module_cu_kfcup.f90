@@ -140,7 +140,6 @@ CONTAINS
    USE module_state_description, only:  num_chem
 
 
-
    IMPLICIT NONE
 
    INTEGER,      INTENT(IN   ) :: grid_id,                   & 
@@ -404,7 +403,6 @@ CONTAINS
 
 
    flag_chem = .FALSE.
-
 
    idiagff = 0 ; idiagee = 0  
    if ((ide-ids <= 3) .and. (jde-jds <= 3)) then
@@ -715,10 +713,8 @@ PERTLOOPS:     do jpert = 1,numBins
                        wact, qndrop1d, qc1d, qi1d,          & 
                        fcvt_qc_to_qi, fcvt_qc_to_pr,        & 
                        fcvt_qi_to_pr, chem1d,               & 
-
                        1, 1,                                & 
                        1, 1                                 ) 
-
 
                   if (idiagee>0) then  
                      if (ishall==0 .or. ishall==1) then
@@ -1123,10 +1119,8 @@ main_test_on_deep_shall_freq: &
                     wact, qndrop1d, qc1d, qi1d,          & 
                     fcvt_qc_to_qi, fcvt_qc_to_pr,        & 
                     fcvt_qi_to_pr, chem1d,               & 
-
                     1, 1,                                & 
                     1, 1                                 ) 
-
 
                
                
@@ -2898,7 +2892,7 @@ iter:     DO NCOUNT=1,10
             IF(NK.EQ.1)THEN                             
 
 
-              CALL wrf_error_fatal3("<stdin>",2901,&
+              CALL wrf_error_fatal3("<stdin>",2895,&
 'QG, QG(NK).LT.0') 
             ENDIF                                       
             NK1=NK+1
@@ -3357,7 +3351,7 @@ iter:     DO NCOUNT=1,10
 
  310        CONTINUE
             IF(ISTOP.EQ.1)THEN
-              CALL wrf_error_fatal3("<stdin>",3360,&
+              CALL wrf_error_fatal3("<stdin>",3354,&
 'KAIN-FRITSCH, istop=1, diags' )
             ENDIF
 
@@ -3497,7 +3491,7 @@ iter:     DO NCOUNT=1,10
             ENDIF
           ELSE
 
-              CALL wrf_error_fatal3("<stdin>",3500,&
+              CALL wrf_error_fatal3("<stdin>",3494,&
 'KAIN-FRITSCH, THIS MICROPHYSICS CHOICE IS NOT ALLOWED' )
           ENDIF
           DTDT(K)=(TG(K)-T0(K))/TIMEC
@@ -4424,7 +4418,7 @@ SUBROUTINE cupCloudFraction(qlg, qig, qv1d, t1d, z1d, p1d,     &
 
    else
       
-      call wrf_error_fatal3("<stdin>",4427,&
+      call wrf_error_fatal3("<stdin>",4421,&
 "Bad ishall value in kfcup.")
    end if
 
@@ -4600,8 +4594,6 @@ SUBROUTINE cupSlopeSigma(dx, psfc, p, rho, dz8w, z, ht,                 &
 
 
 
-
-
   integer, intent(in) :: kpbl, sf_sfclay_physics, &
                          kms, kme, kts, kte
 
@@ -4751,7 +4743,7 @@ SUBROUTINE cupSlopeSigma(dx, psfc, p, rho, dz8w, z, ht,                 &
 
 
 
-   if( kpbl == 0 ) call wrf_error_fatal3("<stdin>",4754,&
+   if( kpbl == 0 ) call wrf_error_fatal3("<stdin>",4746,&
 "CuP ERROR: kpbl==0")
 
    
@@ -4800,7 +4792,6 @@ SUBROUTINE cupSlopeSigma(dx, psfc, p, rho, dz8w, z, ht,                 &
 
    sigmaSfc = flux/wStar * &
         ( 2.3 + 1.1e-2*(zagl(kpblmid)/pblh)**(-1.6) )
-
 
 END SUBROUTINE cupSlopeSigma
 
@@ -5435,5 +5426,3 @@ check_umf: &
 
 
 END MODULE module_cu_kfcup
-
-

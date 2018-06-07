@@ -1,7 +1,4 @@
 
-
-
-
 module cldwat
 
 
@@ -21,21 +18,12 @@ module cldwat
 
 
    use shr_kind_mod,  only: r8 => shr_kind_r8
-
-
-
-
    use wv_saturation, only: estblf, hlatv, tmin, hlatf, rgasv, pcf, &
                             cp, epsqs, ttrice
-
-
-
-
    use module_cam_support, only: masterproc, &
         pcols, pver, pverp, &
         endrun, &
         iulog
-
 
    implicit none
 
@@ -44,9 +32,6 @@ module cldwat
 
    private
    save
-
-
-
    public cldwat_fice          
    public cldwat_readnl
    integer, public::  ktop      
@@ -54,18 +39,9 @@ module cldwat
 
 
 
-
-
-
-
-
-
-
-
    real(r8),public :: icritw = 2.0e-4
    real(r8),public :: icritc = 45.0e-6
    real(r8),public :: conke  = 5.0e-6
-
 
 
 
@@ -118,13 +94,6 @@ module cldwat
    real(r8) :: critpr               
    real(r8) :: ciautb               
 
-
-
-
-
-
-
-
   
   real(r8), parameter :: unset_r8 = huge(1.0_r8)
 
@@ -132,13 +101,7 @@ contains
 
   subroutine cldwat_readnl(nlfile)
 
-
-
-
-
-
    character(len=*), intent(in) :: nlfile  
-
 end subroutine cldwat_readnl
 
 
@@ -211,7 +174,4 @@ end subroutine cldwat_readnl
 
     return
   end subroutine cldwat_fice
-
 end module cldwat
-
-

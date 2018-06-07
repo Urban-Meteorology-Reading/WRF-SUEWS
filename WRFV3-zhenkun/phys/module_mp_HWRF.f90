@@ -2709,5 +2709,3 @@ errmess)
       END FUNCTION FPVSX0
 
       END MODULE module_mp_HWRF
-
-

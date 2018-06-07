@@ -1,18 +1,18 @@
  SUBROUTINE ErrorHint(errh,ProblemFile,VALUE,value2,valueI)
-  !errh        -- Create a numbered code for the situation so get a unique message to help solve the problem
-  !ProblemFile -- Filename where the problem occurs/error message
-  !value       -- Error value (real number with correct type)
-  !value2      -- Second error value (real number with correct type)
-  !valueI      -- Error value (integer)
-  ! Last modified -----------------------------------------------------
-  ! MH  12 Apr 2017: Error code for stability added
-  ! HCW 17 Feb 2017: Write (serious) errors to problems.txt; write warnings to warnings.txt (program continues)
-  ! HCW 13 Dec 2016: Tidied up and improved error hints
-  ! HCW 25 May 2016: Added warning/error labels to distinguish serious errors (that stop program)
-  ! LJ  02 Oct 2014: addition of comments
-  ! sg  29 Jul 2014: close (500)
-  ! LJ  08 Feb 2013
-  !--------------------------------------------------------------------
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   USE data_in
   USE defaultNotUsed
@@ -22,19 +22,19 @@
 
   REAL(KIND(1d0)):: VALUE,value2
 
-  CHARACTER (len=*)::ProblemFile                 ! Name of the problem file
-  CHARACTER (len=150)::text1='unknown problem'   ! Initialization of text
-  INTEGER:: errh,ValueI,ValueI2                  ! v7,v8 initialised as false, HCW 28/10/2014
-  INTEGER,DIMENSION(80):: ErrhCount = 0             ! Counts each time a error hint is called. Initialise to zero
-  INTEGER:: WhichFile                            ! Used to switch between 500 for error file, 501 for warnings file
+  CHARACTER (len=*)::ProblemFile                 
+  CHARACTER (len=150)::text1='unknown problem'   
+  INTEGER:: errh,ValueI,ValueI2                  
+  INTEGER,DIMENSION(80):: ErrhCount = 0             
+  INTEGER:: WhichFile                            
   LOGICAL:: v1=.FALSE.,v2=.FALSE.,v3=.FALSE.,v4=.FALSE.,v5=.FALSE.,v6=.FALSE.,v7=.FALSE.,v8=.FALSE.
   LOGICAL:: returnTrue=.FALSE.
 
-  ! Initialise returnTrue as false (HCW 29/10/2014)
-  ! - need to do this in Fortran as values assigned in declarations are not applied
-  ! on subsequent calling of the subroutine
+  
+  
+  
   returnTrue=.FALSE.
-  ! Initialise v1-v8 as false
+  
   v1=.FALSE.
   v2=.FALSE.
   v3=.FALSE.
@@ -45,12 +45,12 @@
   v8=.FALSE.
 
 
-  !CALL gen_ProblemsText(ProblemFile)   !Call the subroutine that opens the problem.txt file !Moved below, HCW 17 Feb 2017
+  
 
-  !The list of knows possible problems of the code:
-  !  text1 is the error message written to the ProblemFile.
-  !  v1 -v7 are different possibilities for what numbers will be written out
-  !  ReturnTrue is true if the model run can continue. (Comment modified by HCW 17/10/2014)
+  
+  
+  
+  
   IF(errh==1)THEN
      text1='Check value in SUEWS_SiteSelect.txt.'
      v5=.TRUE.
@@ -64,7 +64,7 @@
      text1='Rainfall in original met forcing file exceeds intensity threshold.'
      v2=.TRUE.
      returnTrue=.TRUE.
-  !5
+  
   ELSEIF(errh==6) THEN
      text1='Value obtained exceeds permitted range, setting to +/-9999 in output file.'
      v1=.TRUE.
@@ -85,7 +85,7 @@
   ELSEIF(errh==11) THEN
      text1='File not found.'
      v3=.TRUE.
-  ! 12
+  
   ELSEIF(errh==13) THEN
      text1='Check met forcing file.'
      v8=.TRUE.
@@ -96,7 +96,7 @@
      text1= 'Check H_Bldgs, H_EveTr and H_DecTr in SUEWS_SiteSelect.txt'
      v2=.TRUE.
      returnTrue=.TRUE.
-  ! 16
+  
   ELSEIF(errh==17) THEN
      text1= 'Problem with (z-zd) and/or z0.'
      v2=.TRUE.
@@ -130,60 +130,60 @@
      v8=.TRUE.
   ELSEIF(errh==27)THEN
      text1='Problems with Met data -forcing data: variable value, dectime'
-     v2=.TRUE.  ! 2 real
+     v2=.TRUE.  
   ELSEIF(errh==28) THEN
      text1='Processing in subroutine indicated has a problem, variables'
      returntrue=.TRUE.
-     v3=.TRUE.  ! 1 integer
+     v3=.TRUE.  
   ELSEIF(errh==29) THEN
      text1='Processing in subroutine indicated has a problem, time, variables'
      returntrue=.TRUE.
-     v7=.TRUE.  ! 1 real, 2 integers
+     v7=.TRUE.  
   ELSEIF(errh==30) THEN
      text1='Processing in subroutine indicated has a problem, time, variables'
      returntrue=.TRUE.
-     v2=.TRUE.  ! 2 real
+     v2=.TRUE.  
   ELSEIF(errh==31) THEN
      text1='Processing in subroutine indicated has a problem, time, variables'
      returntrue=.TRUE.
-     v1=.TRUE.  ! 1 real
+     v1=.TRUE.  
   ELSEIF(errh==32) THEN
      text1='Model applicable to local scale, z<z0d'
-     v2=.TRUE.  ! 2 real
+     v2=.TRUE.  
   ELSEIF(errh==33) THEN
      text1 = 'Number of snow layers too large.'
-     v1=.TRUE.  ! 1 real
+     v1=.TRUE.  
   ELSEIF(errh==34) THEN
      text1= 'Air temperature > 55 C -- will keep running'
-     v1=.TRUE.  ! 1 real
+     v1=.TRUE.  
      returntrue=.TRUE.
   ELSEIF(errh==35) THEN
      text1 = 'Problems with Met data -forcing data: doy, dectime'
-     v2 = .TRUE.  ! 2 real
+     v2 = .TRUE.  
   ELSEIF(errh==36) THEN
      text1 = 'Problem found in InitialConditions file!'
      v8 = .TRUE.
   ELSEIF(errh==37) THEN
      text1 = 'Check inputs in InitialConditions file!'
      returntrue=.TRUE.
-     v2 = .TRUE.  !2 real
+     v2 = .TRUE.  
   ELSEIF(errh==38) THEN
      text1 = 'H=(qn*0.2)/(avdens*avcp)'
      returntrue=.TRUE.
-     v1 = .TRUE.  !2 real
+     v1 = .TRUE.  
   ELSEIF(errh==39) THEN
      text1 = 'Different value of TSTEP needed (300 s recommended). Resolution of forcing data must match TSTEP set in RunControl.'
-     v4 = .TRUE.  !2 real, 1 int
+     v4 = .TRUE.  
   ELSEIF(errh==40) THEN
      text1='SOLWEIG file problem - opening'
      v8=.TRUE.
   ELSEIF(errh==41) THEN
      text1= ' addwaterbody= Error1-- but watersurf=  Error 2'
-     v2=.TRUE. !2 real
+     v2=.TRUE. 
   ELSEIF(errh==42)THEN
      text1= 'abs(rho_d)<0.001000.OR.abs(rho_v)<0.001000.OR.abs(rho_d+rho_v)<0.001000) rho_v,rho_d, T'
      returntrue=.TRUE.
-     v4=.TRUE. !2 real, temperature as an integer
+     v4=.TRUE. 
   ELSEIF(errh==43) THEN
      text1='Switching Years - will keep running'
      returntrue=.TRUE.
@@ -202,10 +202,10 @@
      v1 = .TRUE.
   ELSEIF(errh==47)THEN
      text1 = 'File missing'
-     !returntrue = .TRUE.
+     
   ELSEIF(errh==48)THEN
      text1 = 'Something wrong in the rows of the file'
-     !returntrue = .TRUE.
+     
   ELSEIF(errh==49)THEN
      text1 = 'Problems in saving to InitialConditionsYYYY.nml'
   ELSEIF(errh==50)THEN
@@ -259,7 +259,7 @@
   ELSEIF(errh==65) THEN
      text1='Negative gs calculated! Check suitability of parameters in SUEWS_Conductance.txt.'
      returntrue=.TRUE.
-     v7=.TRUE.  ! 1 real, 2 integers
+     v7=.TRUE.  
   ELSEIF(errh==66)THEN
      text1 = 'Different number of lines in ESTM forcing and Met forcing files.'
      v6 = .TRUE.
@@ -289,76 +289,76 @@
      returnTrue=.TRUE.
      v2=.TRUE.
   ENDIF
-  !---------------------------------------------------------------------
+  
 
-  ! Write errors (that stop the program) to problems.txt; warnings to warnings.txt
+  
   IF(returnTrue) THEN
      IF(SuppressWarnings==0) THEN
-        CALL gen_WarningsText(ProblemFile)   !Call the subroutine that opens the problem.txt file !Moved from above, HCW 17 Feb 2017
+        CALL gen_WarningsText(ProblemFile)   
         WRITE(501,*) TRIM(text1)
         WhichFile = 501
      ENDIF
   ELSE
-     CALL gen_ProblemsText(ProblemFile)   !Call the subroutine that opens the problem.txt file !Moved from above, HCW 17 Feb 2017
+     CALL gen_ProblemsText(ProblemFile)   
      WRITE(500,*) 'ERROR! Program stopped: ',TRIM(text1)
      WhichFile = 500
   ENDIF
 
-  ! Write out error message or warning message only if warnings are not suppressed
+  
   IF(WhichFile == 500 .or. (WhichFile == 501 .and. SuppressWarnings==0)) THEN
-     !This part of the code determines how the error/warning message is written out
-     IF(v1) THEN ! 1 real
+     
+     IF(v1) THEN 
         WRITE(WhichFile,'((a),(f9.4))')' Value: ', VALUE
-     ELSEIF(v2) THEN ! 2 real
+     ELSEIF(v2) THEN 
         WRITE(WhichFile,'((a),2(f9.4))')' Values: ', VALUE, value2
-     ELSEIF(v3) THEN ! 1 integer
+     ELSEIF(v3) THEN 
         WRITE(WhichFile,'((a),(i10))')' Value: ', valueI
-     ELSEIF(v4) THEN ! 2 real, 1 integer
+     ELSEIF(v4) THEN 
         WRITE(WhichFile,'((a),2(f9.4),(i10))')' Values: ', VALUE, value2, valueI
-     ELSEIF(v5) THEN ! 1 real 1 integer
+     ELSEIF(v5) THEN 
         WRITE(WhichFile,'((a),(f9.4),(i10))')' Values: ', VALUE, valueI
-     ELSEIF(v6) THEN ! 2 integer
+     ELSEIF(v6) THEN 
         valueI2=INT(VALUE)
         WRITE(WhichFile,'((a),2(i10))')' Values: ', valueI, valueI2
-     ELSEIF(v7) THEN ! 1 real, 2 integer
+     ELSEIF(v7) THEN 
         valueI2=INT(value2)
         WRITE(WhichFile,'((a),(f9.4),2(i10))')' Values: ', VALUE, valueI2, valueI
      ELSEIF(v8) THEN
-        ! no error values
+        
      ENDIF
   ENDIF
 
-  ErrhCount(errh) = ErrhCount(errh) + 1   ! Increase error count by 1
+  ErrhCount(errh) = ErrhCount(errh) + 1   
 
-  ! Write errors (that stop the program) to problems.txt; warnings to warnings.txt
+  
   IF(returnTrue) THEN
      IF(SuppressWarnings==0) THEN
-        WRITE(501,'(4(a))') ' Grid: ',TRIM(ADJUSTL(GridID_text)),'   DateTime: ',datetime  !Add grid and datetime to warnings.txt
+        WRITE(501,'(4(a))') ' Grid: ',TRIM(ADJUSTL(GridID_text)),'   DateTime: ',datetime  
         WRITE(501,'((a),(i14))') ' Count: ',ErrhCount(errh)
         CLOSE(501)
      ENDIF
   ELSE
-     WRITE(500,'(4(a))') ' Grid: ',TRIM(ADJUSTL(GridID_text)),'   DateTime: ',datetime  !Add grid and datetime to problems.txt
-     WRITE(500,'(i3)') errh  !Add error code to problems.txt
-     WRITE(*,*) 'ERROR! SUEWS run stopped.'   !Print message to screen if program stopped
+     WRITE(500,'(4(a))') ' Grid: ',TRIM(ADJUSTL(GridID_text)),'   DateTime: ',datetime  
+     WRITE(500,'(i3)') errh  
+     WRITE(*,*) 'ERROR! SUEWS run stopped.'   
      CLOSE(500)
   ENDIF
 
 
-  !When returnTrue=true, then the program can continue despite the warnings
+  
   IF(returnTrue) THEN
-     !write(*,*)'Problems.txt has been closed and overwritten if other errors occur'
-     RETURN  !Continue program
+
+     RETURN  
   ENDIF
 
-  CALL PauseStop(ProblemFile)        !Stop the program
+  CALL PauseStop(ProblemFile)        
 
   RETURN
 END SUBROUTINE ErrorHint
 
-!=============================================================
 
-! --------------------------------------------------------------------
+
+
  SUBROUTINE gen_WarningsText(ProblemFile)
 
     USE defaultNotUsed
@@ -366,8 +366,8 @@ END SUBROUTINE ErrorHint
 
     CHARACTER (len=*):: ProblemFile
 
-    !Opening warnings.txt file: First option is selected if the file is opened for the first time
-    !Second option for later points
+    
+    
     IF (warningChoice==0) THEN
         OPEN(501,file='warnings.txt')
         WRITE(*,*) '>>> See warnings.txt for possible issues in the run <<<'
@@ -376,13 +376,13 @@ END SUBROUTINE ErrorHint
         OPEN(501,file='warnings.txt',position="append")
     ENDIF
 
-    !Writing of the warnings file
+    
     WRITE(501,*)'Warning: ',TRIM(ProblemFile)
 
     RETURN
  END SUBROUTINE gen_WarningsText
 
- ! --------------------------------------------------------------------
+ 
  SUBROUTINE gen_ProblemsText(ProblemFile)
 
     USE defaultNotUsed
@@ -390,8 +390,8 @@ END SUBROUTINE ErrorHint
 
     CHARACTER (len=*):: ProblemFile
 
-    !Opening problems.txt file: First option is selected if the file is opened for the first time
-    !Second option for later points
+    
+    
     IF (errorChoice==0) THEN
         OPEN(500,file='problems.txt')
         WRITE(*,*) '>>> See problems.txt for serious issues in the run <<<'
@@ -400,12 +400,12 @@ END SUBROUTINE ErrorHint
         OPEN(500,file='problems.txt',position="append")
     ENDIF
 
-    !Writing of the problem file
+    
     WRITE(500,*)'Problem: ',TRIM(ProblemFile)
 
     RETURN
  END SUBROUTINE gen_ProblemsText
- ! --------------------------------------------------------------------
+ 
 
  SUBROUTINE PauseStop(ProblemFile)
 
@@ -415,6 +415,6 @@ END SUBROUTINE ErrorHint
    WRITE(*,*)'problem: ',TRIM(ProblemFile)
    WRITE(*,*)'See problems.txt for more info.'
 
-   !pause
+   
    STOP
  END SUBROUTINE PauseStop

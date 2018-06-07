@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 module module_stoch
 
 
@@ -117,10 +110,6 @@ contains
 
     USE module_configure
     USE module_domain, ONLY : domain
-
-
-
-
 
       IMPLICIT NONE
 
@@ -933,10 +922,6 @@ IF (grid%sppt_on==1) then
     USE module_domain, ONLY : domain
 
 
-
-
-
-
       IMPLICIT NONE
 
       TYPE ( domain ), INTENT(INOUT) :: grid
@@ -1051,7 +1036,6 @@ IF (grid%sppt_on==1) then
 
 
           
-
         call do_fftback_along_x(grid%RAND_REAL,grid%RAND_IMAG,                          &
                               ids,ide,jds,jde,                                          & 
                               ims,ime,jms,jme,kms,min(kme,grid%num_stoch_levels),       & 
@@ -1060,7 +1044,6 @@ IF (grid%sppt_on==1) then
                               ids,ide,jds,jde,                                          & 
                               ims,ime,jms,jme,kms,min(kme,grid%num_stoch_levels),       & 
                               ips,ipe,jps,jpe,kps,min(kpe,grid%num_stoch_levels))
-
 
 
       thresh=thresh_fact*gridpt_stddev
@@ -1275,5 +1258,3 @@ IF (grid%sppt_on==1) then
       end SUBROUTINE rand_seed
 
       end module module_stoch
-
-

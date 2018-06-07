@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 MODULE module_diag_hailcast
 
 CONTAINS
@@ -25,9 +18,6 @@ CONTAINS
     USE module_model_constants
     USE module_utility
     USE module_streams, ONLY: history_alarm, auxhist2_alarm
-
-
-
 
     IMPLICIT NONE
 
@@ -1343,6 +1333,4 @@ CONTAINS
 
   
 END MODULE module_diag_hailcast
-
-
 

@@ -71,14 +71,6 @@ SUBROUTINE sfs_driver( grid, config_flags, &
 
   USE module_sfs_nba
 
-
-
-
-
-
-
-
-
   IMPLICIT NONE
 
 
@@ -183,10 +175,6 @@ SUBROUTINE sfs_driver( grid, config_flags, &
 
     ENDDO 
     !$OMP END PARALLEL DO
-
-
-
-
 
 
 
@@ -366,10 +354,6 @@ SUBROUTINE sfs_driver( grid, config_flags, &
 
 
 
-
-
-
-
     !$OMP PARALLEL DO   &
     !$OMP PRIVATE ( ij )
     DO ij = 1 , grid%num_tiles 
@@ -442,5 +426,3 @@ SUBROUTINE sfs_driver( grid, config_flags, &
 END SUBROUTINE sfs_driver
 
 END MODULE module_sfs_driver
-
-

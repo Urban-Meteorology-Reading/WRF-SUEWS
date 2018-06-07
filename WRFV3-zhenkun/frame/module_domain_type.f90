@@ -12,8 +12,6 @@ MODULE module_domain_type
 
 
 
-
-
    CHARACTER (LEN=80) program_name
 
    
@@ -122,7 +120,6 @@ MODULE module_domain_type
 
 
 
-
 TYPE fdob_type
 integer                                  :: domain_tot
 integer                                  :: ieodi
@@ -179,12 +176,10 @@ real      ,DIMENSION(:)       ,POINTER   :: base_state
 END TYPE fdob_type
 
 
-
    TYPE domain
 
       TYPE ( fieldlist ), POINTER :: head_statevars
       TYPE ( fieldlist ), POINTER :: tail_statevars
-
 
 
 
@@ -4500,7 +4495,6 @@ real      ,DIMENSION(:,:,:,:) ,POINTER   :: tracer_btys
 real      ,DIMENSION(:,:,:,:) ,POINTER   :: tracer_btye
 
 
-
       INTEGER                                             :: comms( max_comms ), shift_x, shift_y
 
       INTEGER                                             :: id
@@ -4631,5 +4625,3 @@ real      ,DIMENSION(:,:,:,:) ,POINTER   :: tracer_btye
 
    END TYPE domain
 END MODULE module_domain_type
-
-

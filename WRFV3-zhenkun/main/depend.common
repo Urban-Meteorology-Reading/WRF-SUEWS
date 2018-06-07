@@ -6,7 +6,7 @@ module_configure.o: \
 		module_domain_type.o \
 		module_state_description.o \
                 module_wrf_error.o \
-		module_driver_constants.o 
+		module_driver_constants.o
 
 module_dm.o: module_machine.o module_state_description.o module_wrf_error.o \
 		module_domain.o \
@@ -65,7 +65,7 @@ module_alloc_space_8.o : module_domain_type.o module_configure.o
 module_alloc_space_9.o : module_domain_type.o module_configure.o
 
 module_streams.o : \
-		module_state_description.o 
+		module_state_description.o
 
 module_driver_constants.o: \
 		module_state_description.o \
@@ -95,7 +95,7 @@ module_io.o :	md_calls.inc \
 		module_state_description.o \
 		module_configure.o  \
                 module_streams.o \
-		module_driver_constants.o 
+		module_driver_constants.o
 
 module_io_quilt.o: \
 		module_state_description.o \
@@ -104,7 +104,7 @@ module_io_quilt.o: \
 		module_internal_header_util.o \
 		module_quilt_outbuf_ops.o \
 		module_wrf_error.o  \
-                module_cpl.o 
+                module_cpl.o
 
 module_machine.o: \
 		module_driver_constants.o
@@ -114,7 +114,7 @@ module_nesting.o: \
 		module_driver_constants.o \
 		module_configure.o \
 		$(ESMF_MOD_DEPENDENCE) \
-		module_domain.o 
+		module_domain.o
 
 module_quilt_outbuf_ops.o: \
 		module_state_description.o module_timing.o
@@ -124,7 +124,7 @@ module_tiles.o: module_domain.o \
 		module_machine.o  \
 		module_configure.o  \
                 module_wrf_error.o
- 
+
 module_timing.o: \
 		module_state_description.o \
                 module_wrf_error.o
@@ -166,7 +166,7 @@ module_bl_boulac.o: ../share/module_model_constants.o
 
 module_bl_qnsepbl.o: ../share/module_model_constants.o
 
-module_progtm.o: module_gfs_machine.o 
+module_progtm.o: module_gfs_machine.o
 
 module_bl_gfs.o: module_gfs_machine.o \
 		 module_gfs_physcons.o
@@ -182,14 +182,14 @@ module_cam_upper_bc.o: module_cam_shr_kind_mod.o \
 module_cam_constituents.o: module_cam_shr_kind_mod.o \
 		module_cam_physconst.o \
 		module_cam_support.o \
-		../frame/module_wrf_error.o 
+		../frame/module_wrf_error.o
 
 module_cam_trb_mtn_stress.o: module_cam_shr_kind_mod.o \
 		module_cam_support.o
 
 module_cam_molec_diff.o: module_cam_support.o \
 		module_cam_constituents.o \
-		module_cam_upper_bc.o 
+		module_cam_upper_bc.o
 
 module_data_cam_mam_aero.o : module_cam_shr_kind_mod.o \
 		module_cam_support.o \
@@ -198,10 +198,10 @@ module_data_cam_mam_aero.o : module_cam_shr_kind_mod.o \
 module_data_cam_mam_asect.o : module_cam_shr_kind_mod.o \
 		module_data_cam_mam_aero.o
 
-module_cam_bl_diffusion_solver.o: module_cam_support.o 
+module_cam_bl_diffusion_solver.o: module_cam_support.o
 
 module_cam_bl_eddy_diff.o:module_cam_bl_diffusion_solver.o \
-		module_cam_support.o 
+		module_cam_support.o
 
 module_bl_camuwpbl_driver.o: module_cam_shr_kind_mod.o \
 		module_cam_support.o \
@@ -214,7 +214,7 @@ module_bl_camuwpbl_driver.o: module_cam_shr_kind_mod.o \
 		module_cam_molec_diff.o \
 		module_data_cam_mam_aero.o \
 		../share/module_model_constants.o \
-		module_cam_esinti.o 
+		module_cam_esinti.o
 
 module_sf_mynn.o: module_sf_sfclay.o module_bl_mynn.o \
                 ../share/module_model_constants.o \
@@ -262,7 +262,7 @@ module_cu_camzm.o: module_cam_shr_kind_mod.o \
                 module_cam_wv_saturation.o \
                 module_cam_cldwat.o
 
-module_cam_error_function.o: 
+module_cam_error_function.o:
 
 module_cam_cldwat.o: module_cam_shr_kind_mod.o \
                 module_cam_support.o \
@@ -378,7 +378,7 @@ module_mp_cammgmp_driver.o : module_cam_mp_microp_aero.o \
 		module_cam_wv_saturation.o \
 		module_cam_mp_ndrop.o \
 		module_cam_mp_conv_water.o \
-		../frame/module_state_description.o 
+		../frame/module_state_description.o
 
 module_cam_mp_microp_aero.o : module_cam_shr_kind_mod.o \
 		module_cam_support.o \
@@ -386,12 +386,12 @@ module_cam_mp_microp_aero.o : module_cam_shr_kind_mod.o \
 		module_cam_error_function.o \
 		module_cam_wv_saturation.o \
 		module_cam_mp_ndrop.o \
-		module_data_cam_mam_aero.o 
+		module_data_cam_mam_aero.o
 module_cam_mp_cldwat2m_micro.o : module_cam_shr_kind_mod.o \
 		module_cam_support.o \
 		module_cam_physconst.o \
 		module_cam_error_function.o \
-		module_cam_wv_saturation.o 
+		module_cam_wv_saturation.o
 
 module_cam_mp_ndrop.o : module_cam_shr_kind_mod.o \
 		module_data_cam_mam_aero.o \
@@ -399,18 +399,18 @@ module_cam_mp_ndrop.o : module_cam_shr_kind_mod.o \
 		module_cam_physconst.o \
 		module_cam_constituents.o \
 		module_cam_error_function.o \
-		module_cam_wv_saturation.o 
+		module_cam_wv_saturation.o
 
 module_cam_mp_modal_aero_initialize_data_phys.o : module_data_cam_mam_aero.o
 module_cam_mp_conv_water.o: module_cam_shr_kind_mod.o \
 		module_cam_support.o \
-		module_cam_physconst.o 
+		module_cam_physconst.o
 
 module_cam_mp_qneg3.o: module_cam_shr_kind_mod.o \
-		module_cam_support.o 
+		module_cam_support.o
 
 module_cam_mp_radconstants.o : module_cam_shr_kind_mod.o \
-		module_cam_support.o 
+		module_cam_support.o
 module_cam_infnan.o: module_cam_shr_kind_mod.o
 
 module_ra_goddard.o : ../frame/module_wrf_error.o
@@ -418,9 +418,9 @@ module_ra_goddard.o : ../frame/module_wrf_error.o
 module_mp_gsfcgce.o : ../frame/module_wrf_error.o \
 		module_mp_radar.o
 
-module_sf_myjsfc.o: ../share/module_model_constants.o 
+module_sf_myjsfc.o: ../share/module_model_constants.o
 
-module_sf_qnsesfc.o: ../share/module_model_constants.o 
+module_sf_qnsesfc.o: ../share/module_model_constants.o
 
 module_sf_gfs.o: module_gfs_machine.o \
 		 module_gfs_funcphys.o \
@@ -430,7 +430,7 @@ module_sf_gfs.o: module_gfs_machine.o \
 module_sf_noahdrv.o: module_sf_noahlsm.o \
                      module_sf_noahlsm_glacial_only.o \
                      module_data_gocart_dust.o \
-                     module_sf_urban.o module_sf_bep.o module_sf_bep_bem.o 
+                     module_sf_urban.o module_sf_bep.o module_sf_bep_bem.o
 
 module_sf_noahlsm.o: ../share/module_model_constants.o
 
@@ -444,7 +444,7 @@ module_sf_clm.o: module_cam_shr_kind_mod.o \
 		 ../frame/module_wrf_error.o  \
 		../frame/module_configure.o
 
-module_sf_ssib.o: ../share/module_model_constants.o  
+module_sf_ssib.o: ../share/module_model_constants.o
 
 module_sf_noah_seaice_drv.o:	module_sf_noah_seaice.o
 
@@ -469,7 +469,7 @@ module_sf_bep_bem.o: ../share/module_model_constants.o module_sf_bem.o module_sf
 
 module_sf_bem.o: ../share/module_model_constants.o
 
-module_sf_ruclsm.o: ../frame/module_wrf_error.o module_data_gocart_dust.o 
+module_sf_ruclsm.o: ../frame/module_wrf_error.o module_data_gocart_dust.o
 
 module_sf_pxlsm.o: ../share/module_model_constants.o module_sf_pxlsm_data.o
 
@@ -477,9 +477,9 @@ module_ra_rrtmg_sw.o: module_ra_rrtmg_lw.o
 module_ra_rrtmg_swf.o: module_ra_rrtmg_lwf.o
 
 module_ra_rrtmg_lw.o: ../share/module_model_constants.o \
-		 module_ra_clWRF_support.o 
+		 module_ra_clWRF_support.o
 module_ra_rrtmg_lwf.o: ../share/module_model_constants.o \
-		 module_ra_clWRF_support.o 
+		 module_ra_clWRF_support.o
 
 module_physics_addtendc.o: \
 		module_cu_kf.o			\
@@ -505,6 +505,7 @@ module_physics_init.o : \
 		module_sf_sfclay.o		\
 		module_sf_sfclayrev.o		\
 		module_sf_slab.o		\
+    module_sf_suews.o   \
 		module_sf_myjsfc.o		\
 		module_sf_mynn.o                \
 		module_sf_fogdes.o              \
@@ -579,7 +580,7 @@ module_physics_init.o : \
 		../frame/module_wrf_error.o \
 		../frame/module_dm.o \
 		../share/module_llxy.o \
-		../share/module_model_constants.o 
+		../share/module_model_constants.o
 
 module_microphysics_driver.o: \
 		module_mixactivate.o \
@@ -598,7 +599,7 @@ module_microphysics_driver.o: \
 		../frame/module_state_description.o \
 		../frame/module_wrf_error.o \
 		../frame/module_configure.o \
-		../share/module_model_constants.o 
+		../share/module_model_constants.o
 
 module_shallowcu_driver.o: \
 		module_shcu_camuwshcu_driver.o \
@@ -652,9 +653,9 @@ module_pbl_driver.o:  \
 		module_wind_fitch.o \
 		../frame/module_state_description.o \
 		../frame/module_configure.o \
-		../share/module_model_constants.o 
+		../share/module_model_constants.o
 
-module_data_gocart_dust.o: 
+module_data_gocart_dust.o:
 
 module_mixactivate.o: \
 		module_radiation_driver.o
@@ -683,12 +684,13 @@ module_radiation_driver.o: \
 		../frame/module_wrf_error.o \
 		../frame/module_configure.o \
 		../share/module_bc.o  \
-		../share/module_model_constants.o 
+		../share/module_model_constants.o
 
 module_surface_driver.o: \
 		module_sf_sfclay.o		\
 		module_sf_sfclayrev.o		\
 		module_sf_slab.o		\
+    module_sf_suews.o   \
 		module_sf_myjsfc.o		\
 		module_sf_qnsesfc.o		\
 		module_sf_pxsfclay.o		\
@@ -716,12 +718,12 @@ module_surface_driver.o: \
 		../frame/module_state_description.o \
 		../frame/module_configure.o \
 		../frame/module_cpl.o \
-		../share/module_model_constants.o  
+		../share/module_model_constants.o
 
 module_sf_ocean_driver.o : \
 		module_sf_oml.o \
 		module_sf_3dpwp.o \
-		../frame/module_state_description.o 
+		../frame/module_state_description.o
 
 module_diagnostics_driver.o: \
 		module_lightning_driver.o 		\
@@ -795,38 +797,38 @@ module_fddaobs_driver.o: \
 
 module_sf_lake.o : \
              ../share/module_model_constants.o
- 
+
 
 module_fr_fire_driver.o: \
 		../share/module_model_constants.o  \
                 ../frame/module_comm_dm.o \
 		module_fr_fire_phys.o \
 		module_fr_fire_model.o \
-		module_fr_fire_util.o 
+		module_fr_fire_util.o
 
 module_fr_fire_driver_wrf.o: \
 		../share/module_model_constants.o  \
                 ../frame/module_comm_dm.o \
 		module_fr_fire_driver.o \
 		module_fr_fire_atm.o \
-		module_fr_fire_util.o 
+		module_fr_fire_util.o
 
 module_fr_fire_atm.o: \
 		../share/module_model_constants.o  \
-		module_fr_fire_util.o 
+		module_fr_fire_util.o
 
 module_fr_fire_model.o: \
 	        module_fr_fire_core.o \
                 module_fr_fire_phys.o \
-		module_fr_fire_util.o 
+		module_fr_fire_util.o
 
 module_fr_fire_core.o: \
 		module_fr_fire_util.o \
-	        module_fr_fire_phys.o 
+	        module_fr_fire_phys.o
 
 module_fr_fire_phys.o: \
 		../share/module_model_constants.o  \
-		module_fr_fire_util.o 
+		module_fr_fire_util.o
 
 module_fire_debug_output.o: \
 	        ../frame/module_domain.o \
@@ -1015,7 +1017,7 @@ set_timekeeping.o: ../frame/module_domain.o ../frame/module_configure.o \
                    $(ESMF_MOD_DEPENDENCE)
 
 wrf_inputout.o                  : ../frame/module_domain.o \
-				../frame/module_configure.o ../frame/module_io.o module_io_wrf.o module_bc_time_utilities.o 
+				../frame/module_configure.o ../frame/module_io.o module_io_wrf.o module_bc_time_utilities.o
 wrf_auxinput1out.o              : ../frame/module_domain.o \
                                 ../frame/module_configure.o ../frame/module_io.o module_io_wrf.o module_bc_time_utilities.o
 wrf_auxinput2out.o              : ../frame/module_domain.o \
@@ -1166,7 +1168,7 @@ ideal_nmm.o: \
 	../dyn_$(SOLVER)/$(CASE_MODULE) \
 	../share/module_optional_input.o \
 	../share/module_io_domain.o \
-	../share/input_wrf.o 
+	../share/input_wrf.o
 
 ndown_em.o: \
 	../frame/module_machine.o \
@@ -1258,4 +1260,3 @@ module_wrf_top.o: ../frame/module_machine.o \
                   $(ESMF_MOD_DEPENDENCE)
 
 # End of DEPENDENCIES for main
-

@@ -1,10 +1,10 @@
-! Recursive Fortran 95 quicksort routine
-! sorts real numbers into ascending numerical order
-! Author: Juli Rew, SCD Consulting (juliana@ucar.edu), 9/03
-! Based on algorithm from Cormen et al., Introduction to Algorithms,
-! 1997 printing
 
-! Made F conformant by Walt Brainerd
+
+
+
+
+
+
 
 
 MODULE qsort_c_module
@@ -31,7 +31,7 @@ CONTAINS
     INTEGER, INTENT(out) :: marker
     INTEGER :: i, j
     REAL :: temp
-    REAL :: x      ! pivot point
+    REAL :: x      
     x = A(1)
     i= 0
     j= SIZE(A) + 1
@@ -48,7 +48,7 @@ CONTAINS
           i = i+1
        END DO
        IF (i < j) THEN
-          ! exchange A(i) and A(j)
+          
           temp = A(i)
           A(i) = A(j)
           A(j) = temp

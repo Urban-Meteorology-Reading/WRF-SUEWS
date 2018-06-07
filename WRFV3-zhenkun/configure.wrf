@@ -1,7 +1,7 @@
 # configure.wrf
 #
 # Original configure options used:
-# ./configure
+# ./configure 
 # Compiler choice: 15
 # Nesting option: 0
 #
@@ -47,29 +47,29 @@ DWORDSIZE = 8
 LWORDSIZE = 4
 
 ##############################################################################
-#### The settings in this section are defaults that may be overridden by the
-#### architecture-specific settings in the next section.
+#### The settings in this section are defaults that may be overridden by the 
+#### architecture-specific settings in the next section.  
 ##############################################################################
 
 ##############################################################################
-#### NOTE:  Do not modify these default values here.  To override these
-####        values, make changes after "Architecture specific settings".
+#### NOTE:  Do not modify these default values here.  To override these 
+####        values, make changes after "Architecture specific settings".  
 ##############################################################################
 
 #### Native size (in bytes) of Fortran REAL data type on this architecture ####
-#### Note:  to change real wordsize (for example, to promote REALs from
-####        4-byte to 8-byte), modify the definition of RWORDSIZE in the
-####        section following "Architecture specific settings".  Do not
-####        change NATIVE_RWORDSIZE as is it architecture-specific.
+#### Note:  to change real wordsize (for example, to promote REALs from 
+####        4-byte to 8-byte), modify the definition of RWORDSIZE in the 
+####        section following "Architecture specific settings".  Do not 
+####        change NATIVE_RWORDSIZE as is it architecture-specific.  
 NATIVE_RWORDSIZE = 4
 
 #### Default sed command and script for Fortran source files ####
 #SED_FTN = sed -f $(WRF_SRC_ROOT_DIR)/arch/standard.sed
 SED_FTN = $(WRF_SRC_ROOT_DIR)/tools/standard.exe
 
-# Hack to work around $(PWD) not changing during OSF1 build.
-# $(IO_GRIB_SHARE_DIR) is reset during the OSF1 build only.
-IO_GRIB_SHARE_DIR =
+# Hack to work around $(PWD) not changing during OSF1 build.  
+# $(IO_GRIB_SHARE_DIR) is reset during the OSF1 build only.  
+IO_GRIB_SHARE_DIR = 
 
 #### ESMF switches                 ####
 #### These are set up by Config.pl ####
@@ -82,7 +82,7 @@ ESMF_IO_INC         = -I$(WRF_SRC_ROOT_DIR)/external/esmf_time_f90
 # select -I options for separately installed ESMF library, if present
 ESMF_MOD_INC        =  $(ESMF_IO_INC)
 # select cpp token for external/io_esmf vs. external/esmf_time_f90
-ESMF_IO_DEFS        =
+ESMF_IO_DEFS        = 
 # select build target for external/io_esmf vs. external/esmf_time_f90
 ESMF_TARGET         = esmf_time
 
@@ -96,7 +96,7 @@ GPFS            =
 CURL            =
 HDF5            =
 ZLIB            =
-DEP_LIB_PATH    =
+DEP_LIB_PATH    = 
 NETCDF4_DEP_LIB = $(DEP_LIB_PATH) $(HDF5) $(ZLIB) $(GPFS) $(CURL)
 
 # NETCDF4INCLUDEGOESHERE
@@ -122,22 +122,22 @@ CCOMP           =       gcc
 DM_FC           =       mpif90 -f90=$(SFC)
 DM_CC           =       mpicc -cc=$(SCC)
 FC              =       time $(SFC)
-CC              =       $(SCC) -DFSEEKO_OK
+CC              =       $(SCC) -DFSEEKO_OK 
 LD              =       $(FC)
 RWORDSIZE       =       $(NATIVE_RWORDSIZE)
 PROMOTION       =       #-fdefault-real-8
 ARCH_LOCAL      =       -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM
 CFLAGS_LOCAL    =       -w -O3 -c  -DMACOS
 LDFLAGS_LOCAL   =
-CPLUSPLUSLIB    =
+CPLUSPLUSLIB    =       
 ESMF_LDFLAG     =       $(CPLUSPLUSLIB)
 FCOPTIM         =       -O2 -ftree-vectorize -funroll-loops
 FCREDUCEDOPT	=       $(FCOPTIM)
 FCNOOPT         =       -O0
-FCDEBUG         =        -cpp # -g $(FCNOOPT) # -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow
+FCDEBUG         =       -cpp # -g $(FCNOOPT) # -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow
 FORMAT_FIXED    =       -ffixed-form
 FORMAT_FREE     =       -ffree-form -ffree-line-length-none
-FCSUFFIX        =
+FCSUFFIX        =       
 BYTESWAPIO      =       -fconvert=big-endian -frecord-marker=4
 FCBASEOPTS_NO_G =       -w $(FORMAT_FREE) $(BYTESWAPIO)
 FCBASEOPTS      =       $(FCBASEOPTS_NO_G) $(FCDEBUG)
@@ -149,7 +149,7 @@ ARFLAGS         =      ru
 M4              =      m4 -B 14000
 RANLIB          =      ranlib
 RLFLAGS		=	-c
-CC_TOOLS        =      $(SCC)
+CC_TOOLS        =      $(SCC) 
 
 ###########################################################
 ######################
@@ -168,7 +168,7 @@ ARCHFLAGS       =    $(COREDEFS) -DIWORDSIZE=$(IWORDSIZE) -DDWORDSIZE=$(DWORDSIZ
                        \
                        \
                        \
-                       \
+                      -DHDF5 \
                        \
                        \
                        \
@@ -185,7 +185,7 @@ ARCHFLAGS       =    $(COREDEFS) -DIWORDSIZE=$(IWORDSIZE) -DDWORDSIZE=$(DWORDSIZ
 CFLAGS          =    $(CFLAGS_LOCAL)   \
                       -DMAX_HISTORY=$(MAX_HISTORY) -DNMM_CORE=$(WRF_NMM_CORE)
 FCFLAGS         =    $(FCOPTIM) $(FCBASEOPTS)
-ESMF_LIB_FLAGS  =
+ESMF_LIB_FLAGS  =    
 # ESMF 5 -- these are defined in esmf.mk, included above
  ESMF_IO_LIB     =    -L$(WRF_SRC_ROOT_DIR)/external/esmf_time_f90 -lesmf_time
 ESMF_IO_LIB_EXT =    -L$(WRF_SRC_ROOT_DIR)/external/esmf_time_f90 -lesmf_time
@@ -199,7 +199,7 @@ INCLUDE_MODULES =    $(MODULE_SRCH_FLAG) \
                       -I$(WRF_SRC_ROOT_DIR)/phys \
                       -I$(WRF_SRC_ROOT_DIR)/chem -I$(WRF_SRC_ROOT_DIR)/inc \
                       -I$(NETCDFPATH)/include \
-
+                      
 REGISTRY        =    Registry
 CC_TOOLS_CFLAGS = -DNMM_CORE=$(WRF_NMM_CORE)
 
@@ -211,23 +211,23 @@ CC_TOOLS_CFLAGS = -DNMM_CORE=$(WRF_NMM_CORE)
                       $(ESMF_IO_LIB) \
                        \
                       $(WRF_SRC_ROOT_DIR)/frame/module_internal_header_util.o \
-                      $(WRF_SRC_ROOT_DIR)/frame/pack_utils.o
+                      $(WRF_SRC_ROOT_DIR)/frame/pack_utils.o 
 
  LIB_EXTERNAL    = \
-                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-zhenkun/netcdf_links/lib -lnetcdff -lnetcdf
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/opt/starman/software/netcdf/4.4.1.1/05114116c0a42f57c6488fd08309929aea269654/lib -lnetcdff -lnetcdf     -L/opt/starman/software/hdf5/1.8.18/0e9d3cd055fde2c7eac311d50b7d6cc694a66cc6/lib -lhdf5_fortran -lhdf5 -lm -lz
 
 LIB             =    $(LIB_BUNDLED) $(LIB_EXTERNAL) $(LIB_LOCAL) $(LIB_WRF_HYDRO)
-LDFLAGS         =    $(OMP) $(FCFLAGS) $(LDFLAGS_LOCAL)
-ENVCOMPDEFS     =
-WRF_CHEM	=	0
-CPPFLAGS        =    $(ARCHFLAGS) $(ENVCOMPDEFS) -I$(LIBINCLUDE) $(TRADFLAG)
-NETCDFPATH      =    /Users/sunt05/Documents/WRF-SUEWS/WRFV3-zhenkun/netcdf_links
-HDF5PATH        =
-WRFPLUSPATH     =
-RTTOVPATH       =
-PNETCDFPATH     =
+LDFLAGS         =    $(OMP) $(FCFLAGS) $(LDFLAGS_LOCAL) 
+ENVCOMPDEFS     =    
+WRF_CHEM	=	0 
+CPPFLAGS        =    $(ARCHFLAGS) $(ENVCOMPDEFS) -I$(LIBINCLUDE) $(TRADFLAG) 
+NETCDFPATH      =    /opt/starman/software/netcdf/4.4.1.1/05114116c0a42f57c6488fd08309929aea269654
+HDF5PATH        =    /opt/starman/software/hdf5/1.8.18/0e9d3cd055fde2c7eac311d50b7d6cc694a66cc6
+WRFPLUSPATH     =    
+RTTOVPATH       =    
+PNETCDFPATH     =    
 
-bundled:  io_only
+bundled:  io_only 
 external: io_only gen_comms_serial module_dm_serial $(ESMF_TARGET)
 io_only:  esmf_time wrfio_nf   \
 	  wrf_ioapi_includes wrfio_grib_share wrfio_grib1 wrfio_int fftpack
@@ -251,13 +251,13 @@ module_dm_rsllite :
 	( if [ ! -e module_dm.F ] ; then /bin/cp module_dm_warning module_dm.F ; \
           cat $(WRF_SRC_ROOT_DIR)/external/RSL_LITE/module_dm.F >> module_dm.F ; fi )
 
-wrfio_nf :
+wrfio_nf : 
 	( cd $(WRF_SRC_ROOT_DIR)/external/io_netcdf ; \
           make $(J) NETCDFPATH="$(NETCDFPATH)" RANLIB="$(RANLIB)" CPP="$(CPP)" \
           CC="$(SCC)" CFLAGS="$(CFLAGS)" \
           FC="$(SFC) $(PROMOTION) $(OMP) $(FCFLAGS)" TRADFLAG="$(TRADFLAG)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" )
 
-wrfio_pnf :
+wrfio_pnf : 
 	( cd $(WRF_SRC_ROOT_DIR)/external/io_pnetcdf ; \
           make $(J) NETCDFPATH="$(PNETCDFPATH)" RANLIB="$(RANLIB)" CPP="$(CPP) $(ARCHFLAGS)" \
           FC="$(FC) $(PROMOTION) $(OMP) $(FCFLAGS)" TRADFLAG="$(TRADFLAG)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" )
@@ -265,7 +265,7 @@ wrfio_pnf :
 wrfio_grib_share :
 	( cd $(WRF_SRC_ROOT_DIR)/external/io_grib_share ; \
           make $(J) CC="$(SCC)" CFLAGS="$(CFLAGS)" RM="$(RM)" RANLIB="$(RANLIB)" CPP="$(CPP)" \
-          FC="$(SFC) $(PROMOTION) -I. $(FCDEBUG) $(FCBASEOPTS) $(FCSUFFIX)" TRADFLAG="$(TRADFLAG)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" archive)
+          FC="$(SFC) $(PROMOTION) -I. $(FCDEBUG) $(FCBASEOPTS) $(FCSUFFIX)" TRADFLAG="$(TRADFLAG)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" archive) 
 
 wrfio_grib1 :
 	( cd $(WRF_SRC_ROOT_DIR)/external/io_grib1 ; \
@@ -279,13 +279,13 @@ wrfio_grib2 :
           FC="$(SFC) $(PROMOTION) -I. $(FCDEBUG) $(FCBASEOPTS) $(FCSUFFIX)" TRADFLAG="-traditional" AR="$(AR)" ARFLAGS="$(ARFLAGS)" \
           FIXED="$(FORMAT_FIXED)" archive)
 
-wrfio_int :
+wrfio_int : 
 	( cd $(WRF_SRC_ROOT_DIR)/external/io_int ; \
           make $(J) CC="$(CC)" CFLAGS_LOCAL="$(CFLAGS_LOCAL)" RM="$(RM)" RANLIB="$(RANLIB)" CPP="$(CPP)" \
           FC="$(FC) $(PROMOTION) $(FCDEBUG) $(FCBASEOPTS) $(OMP)" FGREP="$(FGREP)" \
           TRADFLAG="$(TRADFLAG)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" ARCHFLAGS="$(ARCHFLAGS)" all )
 
-esmf_time :
+esmf_time : 
 	( cd $(WRF_SRC_ROOT_DIR)/external/esmf_time_f90 ; \
           make $(J) FC="$(SFC) $(PROMOTION) $(FCDEBUG) $(FCBASEOPTS)" RANLIB="$(RANLIB)" \
           CPP="$(CPP) -I$(WRF_SRC_ROOT_DIR)/inc -I. $(ARCHFLAGS) $(TRADFLAG)" AR="$(AR)" ARFLAGS="$(ARFLAGS)" )
@@ -350,12 +350,12 @@ wrfio_esmf :
           mv $*.f90.tmp $*.f90 ; \
         fi
 	$(FC) -o $@ -c $(FCFLAGS) $(OMP) $(MODULE_DIRS) $(PROMOTION) $(FCSUFFIX) $*.f90
-
+        
 
 .F.f90:
 	$(RM) $@
 	sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" $*.F > $*.G
-	$(SED_FTN) $*.G > $*.H
+	$(SED_FTN) $*.G > $*.H 
 	$(CPP) -I$(WRF_SRC_ROOT_DIR)/inc $(CPPFLAGS) $*.H  > $*.I
 	sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" $*.I > $@
 	$(RM) $*.G $*.H $*.I
@@ -363,10 +363,6 @@ wrfio_esmf :
 .f90.o:
 	$(RM) $@
 	$(FC) -o $@ -c $(FCFLAGS) $(PROMOTION) $(FCSUFFIX) $*.f90
-
-.f95.o:
-	$(RM) $@
-	$(FC) -o $@ -c $(FCFLAGS) $(PROMOTION) $(FCSUFFIX) $*.f95
 
 setfeenv.o : setfeenv.c
 	$(RM) $@
@@ -376,7 +372,7 @@ setfeenv.o : setfeenv.c
 	$(RM) $@
 	$(CC) -o $@ -c $(CFLAGS) $*.c
 
-# A little more adventurous.  Allow full opt on
+# A little more adventurous.  Allow full opt on 
 # mediation_integrate.o \
 # shift_domain_em.o \
 # solve_em.o  <-- gets a little kick from SOLVE_EM_SPECIAL too, if defined
@@ -411,7 +407,7 @@ module_alloc_space_8.o : module_alloc_space_8.F
 module_alloc_space_9.o : module_alloc_space_9.F
 module_tiles.o : module_tiles.F
 module_initialize.o : module_initialize.F
-module_physics_init.o : module_physics_init.F
+module_physics_init.o : module_physics_init.F 
 module_initialize_squall2d_x.o : module_initialize_squall2d_x.F
 module_initialize_squall2d_y.o : module_initialize_squall2d_y.F
 module_initialize_scm_xy.o : module_initialize_scm_xy.F
@@ -420,7 +416,7 @@ module_io_mm5.o : module_io_mm5.F
 module_io_wrf.o : module_io_wrf.F
 module_si_io.o : module_si_io.F
 module_wps_io_arw.o : module_wps_io_arw.F
-module_state_description.o : module_state_description.F
+module_state_description.o : module_state_description.F 
 output_wrf.o : output_wrf.F
 solve_interface.o : solve_interface.F
 start_domain.o : start_domain.F
@@ -460,7 +456,7 @@ start_domain.o \
 wrf_fddaobs_in.o \
 wrf_tsin.o :
 	$(RM) $@
-	$(SED_FTN) $*.F > $*.b
+	$(SED_FTN) $*.F > $*.b 
 	$(CPP) -I$(WRF_SRC_ROOT_DIR)/inc $(CPPFLAGS) $(OMPCPP) $*.b  > $*.f90
 	$(RM) $*.b
 	@ if echo $(ARCHFLAGS) | $(FGREP) 'DVAR4D'; then \
@@ -478,7 +474,7 @@ wrf_tsin.o :
 
 #solve_em.o :
 #	$(RM) $@
-#	$(SED_FTN) $*.F > $*.b
+#	$(SED_FTN) $*.F > $*.b 
 #	$(CPP) -I$(WRF_SRC_ROOT_DIR)/inc $(CPPFLAGS) $*.b  > $*.f90
 #	$(RM) $*.b
 #	$(FC) -o $@ -c $(FCFLAGS) $(MODULE_DIRS) $(PROMOTION) $(FCSUFFIX) $(SOLVE_EM_SPECIAL) $(OMP) $*.f90
@@ -487,7 +483,7 @@ module_sf_ruclsm.o : module_sf_ruclsm.F
 
 module_sf_ruclsm.o :
 	$(RM) $@
-	$(SED_FTN) $*.F > $*.b
+	$(SED_FTN) $*.F > $*.b 
 	$(CPP) -I$(WRF_SRC_ROOT_DIR)/inc $(CPPFLAGS) $(OMPCPP) $*.b  > $*.f90
 	$(RM) $*.b
 	if $(FGREP) '!$$OMP' $*.f90 ; then \

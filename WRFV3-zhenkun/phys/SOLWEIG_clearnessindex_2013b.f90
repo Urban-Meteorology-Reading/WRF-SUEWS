@@ -1,10 +1,10 @@
-!> 
+
  subroutine clearnessindex_2013b(zen,jday,Ta,RH,radG,lat,P,I0,CI,Kt,I0et,CIuncorr)
- !Last modified:
- !LJ 27 Jan 2016 - Removal of tabs
+ 
+ 
 
  implicit none
-    ! Use somemodule 
+    
 
     real(kind(1d0))                 :: CI,CIuncorr,I0,I0et,Kt
     integer                         :: jday 
@@ -12,35 +12,35 @@
     real(kind(1d0)), dimension(4)   :: G 
     real(kind(1d0)), parameter          :: pi=3.141592653589793
     
-    ! Variable declarations 
-    real*8 :: a2      !>  
-    !logical :: b      !>  
-    real*8 :: b2      !>  
-    real*8 :: corr      !>  
-    real*8 :: D      !> 
-    real*8 :: m      !>  
-    real*8 :: Tar      !>  
-    real*8 :: Td      !>  
-    real*8 :: Trpg      !>  
-    real*8 :: Tw      !>  
-    real*8 :: u      !>  
-    ! 
+    
+    real*8 :: a2      
+    
+    real*8 :: b2      
+    real*8 :: corr      
+    real*8 :: D      
+    real*8 :: m      
+    real*8 :: Tar      
+    real*8 :: Td      
+    real*8 :: Trpg      
+    real*8 :: Tw      
+    real*8 :: u      
+    
 
-    ! Clearness Index at the Earth's surface calculated from Crawford and Duchon 1999 
+
 
     if (P==-999) then 
-        p=1013 !Pressure in millibars
+        p=1013 
     else
-        p=P*10 !Convert from hPa to millibars
+        p=P*10 
     end if 
-    Itoa=1370 !Effective solar constant
-    !call solar_ESdist(jday,D)
+    Itoa=1370 
+    
     call sun_distance(jday,D)
-    !D=sun_distance(jday) !irradiance differences due to Sun-Earth distances
-    m=35.*cos(zen)*((1224.*(cos(zen)**2)+1.)**(-1./2.)) !optical air mass at p=1013
-    Trpg=1.021-0.084*(m*(0.000949*p+0.051))**0.5 !Transmission coefficient for Rayliegh scattering and permanent gases
+    
+    m=35.*cos(zen)*((1224.*(cos(zen)**2)+1.)**(-1./2.)) 
+    Trpg=1.021-0.084*(m*(0.000949*p+0.051))**0.5 
 
-    ! empirical constant depending on latitude 
+    
     if (lat<10) then 
     G=(/3.37,2.85,2.80,2.64/) 
     else if (lat>=10 .and. lat<20) then 
@@ -69,45 +69,45 @@
     else if (jday > 244 .and. jday <= 335) then 
         iG=G(4)
     end if 
-    !dewpoint calculation 
+    
     a2=17.27
     b2=237.7
     Td=(b2*(((a2*Ta)/(b2+Ta))+log(RH)))/(a2-(((a2*Ta)/(b2+Ta))+log(RH)))
-    Td=(Td*1.8)+32 !Dewpoint (�F)
-    u=exp(0.1133-log(iG+1)+0.0393*Td) !Precipitable water
-    Tw=1-0.077*((u*m)**0.3) !Transmission coefficient for water vapor
-    Tar=0.935**m !Transmission coefficient for aerosols
+    Td=(Td*1.8)+32 
+    u=exp(0.1133-log(iG+1)+0.0393*Td) 
+    Tw=1-0.077*((u*m)**0.3) 
+    Tar=0.935**m 
 
     I0=Itoa*cos(zen)*Trpg*Tw*D*Tar
     
-    !!! This needs to be checked !!!
-    !b=I0==abs(zen)>pi/2
-    !I0(b==1)=0
-    !clear b
-    !if (not(isreal(I0))) then 
-    !    I0=0
-    !end if 
     
-    corr=0.1473*log(90-(zen/pi*180))+0.3454 ! 20070329
+    
+    
+    
+    
+    
+    
+    
+    corr=0.1473*log(90-(zen/pi*180))+0.3454 
 
     CIuncorr=radG/I0
     CI=CIuncorr+(1-corr)
-    I0et=Itoa*cos(zen)*D !extra terrestial solar radiation
+    I0et=Itoa*cos(zen)*D 
     Kt=radG/I0et
     
-    !!!! This needs to be checked !!!
-    !if (isnan(CI)) then
-    !    CI=NaN
-    !end if 
+    
+    
+    
+    
     end subroutine clearnessindex_2013b 
     
-    !===============================================================================
+    
 
  subroutine sun_distance(jday,D)
  
- ! Calculates solar irradiance variation based on mean earth sun distance
- ! with day of year as input.
- ! Partridge and Platt, 1975
+ 
+ 
+ 
 
     INTEGER          ::jday
     REAL(KIND(1d0))  ::b,D

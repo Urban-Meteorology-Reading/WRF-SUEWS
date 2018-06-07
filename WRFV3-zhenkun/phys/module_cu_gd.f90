@@ -215,14 +215,12 @@ CONTAINS
         massfln(i,j,k)=0.
      ENDDO
      ENDDO
-
      DO k= kts,ktf
      DO I= its,itf
         RTHFTEN(i,k,j)=(RTHFTEN(i,k,j)+RTHRATEN(i,k,j)+RTHBLTEN(i,k,j))*pi(i,k,j)
         RQVFTEN(i,k,j)=RQVFTEN(i,k,j)+RQVBLTEN(i,k,j)
      ENDDO
      ENDDO
-
      
      DO K=kts,ktf
      DO I=ITS,ITF
@@ -4559,5 +4557,3 @@ CONTAINS
 
 
 END MODULE module_cu_gd
-
-

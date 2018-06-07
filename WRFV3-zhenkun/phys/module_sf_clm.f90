@@ -2,7 +2,6 @@
    call abort
    return
    end
-
 module TridiagonalMod
 
 
@@ -188,21 +187,9 @@ module nanMod
 
   implicit none
   save
-
-
-
-
-
-
   real(r8), parameter :: inf = 1.e19
   real(r8), parameter :: nan = 1.e21
   integer,  parameter :: bigint = O'17777777777'
-
-
-
-
-
-
 
 
 
@@ -367,21 +354,11 @@ module clm_varpar
 
 
 
-
-
-
-
-
   integer, parameter :: numpft         = 16     
   integer, parameter :: numcft         =  2     
   integer, parameter :: numveg         = numpft 
-
   integer, parameter :: maxpatch_urb   = 1  
-
-
-
   integer, parameter :: maxpatch_cft   = 2
-
 
   integer, parameter :: maxpatch_pft   = 4
   integer, parameter :: npatch_urban   = maxpatch_pft + 1
@@ -392,11 +369,7 @@ module clm_varpar
   integer, parameter :: maxpatch       = npatch_crop
 
 
-
-
-
   integer, parameter :: max_pft_per_gcell = numpft+1 + 3 + maxpatch_urb + numcft
-
  integer, parameter :: max_pft_per_lu    = max(numpft+1, numcft, maxpatch_urb)
   integer, parameter :: max_pft_per_col   = max(numpft+1, numcft, maxpatch_urb)
   integer  :: num_landcover_types 
@@ -519,13 +492,6 @@ module clm_varcon
   real(r8), parameter :: maxwattabfract = 1.0 
 
 
-
-
-
-
-
-
-
   real(r8), parameter :: ht_efficiency_factor = 0.75_r8 
   real(r8), parameter :: ac_efficiency_factor = 0.25_r8 
   real(r8) :: ht_wasteheat_factor = 1.0_r8/ht_efficiency_factor  
@@ -550,9 +516,6 @@ module clm_varcon
   integer,parameter :: istslak = 4  
   integer,parameter :: istwet  = 5  
   integer,parameter :: isturb  = 6  
-
-
-
 
   integer,parameter :: icol_roof        = 61
   integer,parameter :: icol_sunwall     = 62
@@ -1511,7 +1474,6 @@ type, public :: pft_pstate_type
    real(r8), pointer :: forc_hgt_u_pft(:)       
    real(r8), pointer :: forc_hgt_t_pft(:)       
    real(r8), pointer :: forc_hgt_q_pft(:)       
-
    real(r8), pointer :: vds(:) 		        
    
    real(r8), pointer :: slasun(:)     
@@ -1532,10 +1494,6 @@ type, public :: pft_pstate_type
    
    real(r8), pointer :: cisun(:)       
    real(r8), pointer :: cisha(:)       
-
-
-
-
    
    real(r8), pointer :: sandfrac(:)    
    real(r8), pointer :: clayfrac(:)    
@@ -1545,7 +1503,6 @@ type, public :: pft_pstate_type
    real(r8), pointer :: annlai(:,:)    
 
    
-
 end type pft_pstate_type
 
 
@@ -1584,9 +1541,6 @@ type, public :: pft_epc_type
    real(r8), pointer :: frootcn(:)      
    real(r8), pointer :: livewdcn(:)     
    real(r8), pointer :: deadwdcn(:)     
-
-
-
    real(r8), pointer :: froot_leaf(:)   
    real(r8), pointer :: stem_leaf(:)    
    real(r8), pointer :: croot_stem(:)   
@@ -1607,7 +1561,6 @@ type, public :: pft_epc_type
    
    real(r8), pointer :: resist(:)       
 end type pft_epc_type
-
 
 
 
@@ -1636,9 +1589,6 @@ type, public :: pft_epv_type
    real(r8), pointer :: gpp(:)                  
    real(r8), pointer :: availc(:)               
    real(r8), pointer :: xsmrpool_recover(:)     
-
-
-
    real(r8), pointer :: alloc_pnow(:)           
    real(r8), pointer :: c_allometry(:)          
    real(r8), pointer :: n_allometry(:)          
@@ -1656,7 +1606,6 @@ type, public :: pft_epv_type
    real(r8), pointer :: prev_frootc_to_litter(:)
    real(r8), pointer :: tempsum_npp(:)          
    real(r8), pointer :: annsum_npp(:)           
-
 end type pft_epv_type                        
 
 
@@ -1698,11 +1647,6 @@ end type pft_wstate_type
 
 type, public :: pft_cstate_type
    real(r8), pointer :: leafcmax(:)           
-
-
-
-
-
    real(r8), pointer :: leafc(:)              
    real(r8), pointer :: leafc_storage(:)      
    real(r8), pointer :: leafc_xfer(:)         
@@ -1731,21 +1675,12 @@ type, public :: pft_cstate_type
    real(r8), pointer :: storvegc(:)           
    real(r8), pointer :: totvegc(:)            
    real(r8), pointer :: totpftc(:)            
-
-
-
-
 end type pft_cstate_type
 
 
 
 
 type, public :: pft_nstate_type
-
-
-
-
-
    real(r8), pointer :: leafn(:)              
    real(r8), pointer :: leafn_storage(:)      
    real(r8), pointer :: leafn_xfer(:)         
@@ -1788,7 +1723,6 @@ type, public :: pft_vstate_type
    real(r8), pointer :: fsun240(:)             
    real(r8), pointer :: elai_p(:)              
 end type pft_vstate_type
-
 
 
 
@@ -1982,9 +1916,6 @@ type, public :: pft_cflux_type
    real(r8), pointer :: m_gresp_storage_to_fire(:)           
    real(r8), pointer :: m_gresp_xfer_to_fire(:)              
    
-
-
-
    real(r8), pointer :: leafc_xfer_to_leafc(:)               
    real(r8), pointer :: frootc_xfer_to_frootc(:)             
    real(r8), pointer :: livestemc_xfer_to_livestemc(:)       
@@ -1994,10 +1925,6 @@ type, public :: pft_cflux_type
    
    real(r8), pointer :: leafc_to_litter(:)                   
    real(r8), pointer :: frootc_to_litter(:)                  
-
-
-
-
    
    real(r8), pointer :: leaf_mr(:)                           
    real(r8), pointer :: froot_mr(:)                          
@@ -2016,10 +1943,6 @@ type, public :: pft_cflux_type
    real(r8), pointer :: psnshade_to_cpool(:)                 
    
    real(r8), pointer :: cpool_to_xsmrpool(:)                 
-
-
-
-
    real(r8), pointer :: cpool_to_leafc(:)                    
    real(r8), pointer :: cpool_to_leafc_storage(:)            
    real(r8), pointer :: cpool_to_frootc(:)                   
@@ -2034,12 +1957,6 @@ type, public :: pft_cflux_type
    real(r8), pointer :: cpool_to_deadcrootc_storage(:)       
    real(r8), pointer :: cpool_to_gresp_storage(:)            
    
-
-
-
-
-
-
    real(r8), pointer :: cpool_leaf_gr(:)                     
    real(r8), pointer :: cpool_leaf_storage_gr(:)             
    real(r8), pointer :: transfer_leaf_gr(:)                  
@@ -2059,9 +1976,6 @@ type, public :: pft_cflux_type
    real(r8), pointer :: cpool_deadcroot_storage_gr(:)        
    real(r8), pointer :: transfer_deadcroot_gr(:)             
    
-
-
-
    real(r8), pointer :: leafc_storage_to_xfer(:)             
    real(r8), pointer :: frootc_storage_to_xfer(:)            
    real(r8), pointer :: livestemc_storage_to_xfer(:)         
@@ -2089,7 +2003,6 @@ type, public :: pft_cflux_type
    real(r8), pointer :: wood_harvestc(:)  
    real(r8), pointer :: pft_cinputs(:)    
    real(r8), pointer :: pft_coutputs(:)   
-
    
    real(r8), pointer :: pft_fire_closs(:) 
 end type pft_cflux_type
@@ -2163,9 +2076,6 @@ type, public :: pft_nflux_type
    real(r8), pointer :: m_deadcrootn_xfer_to_fire(:)        
    real(r8), pointer :: m_retransn_to_fire(:)               
    
-
-
-
    real(r8), pointer :: leafn_xfer_to_leafn(:)              
    real(r8), pointer :: frootn_xfer_to_frootn(:)            
    real(r8), pointer :: livestemn_xfer_to_livestemn(:)      
@@ -2173,20 +2083,12 @@ type, public :: pft_nflux_type
    real(r8), pointer :: livecrootn_xfer_to_livecrootn(:)    
    real(r8), pointer :: deadcrootn_xfer_to_deadcrootn(:)    
    
-
-
-
-
    real(r8), pointer :: leafn_to_litter(:)                  
    real(r8), pointer :: leafn_to_retransn(:)                
    real(r8), pointer :: frootn_to_litter(:)                 
    
    real(r8), pointer :: retransn_to_npool(:)                
    real(r8), pointer :: sminn_to_npool(:)                   
-
-
-
-
    real(r8), pointer :: npool_to_leafn(:)                   
    real(r8), pointer :: npool_to_leafn_storage(:)           
    real(r8), pointer :: npool_to_frootn(:)                  
@@ -2200,9 +2102,6 @@ type, public :: pft_nflux_type
    real(r8), pointer :: npool_to_deadcrootn(:)              
    real(r8), pointer :: npool_to_deadcrootn_storage(:)      
    
-
-
-
    real(r8), pointer :: leafn_storage_to_xfer(:)            
    real(r8), pointer :: frootn_storage_to_xfer(:)           
    real(r8), pointer :: livestemn_storage_to_xfer(:)        
@@ -2514,14 +2413,6 @@ end type column_vstate_type
 
 
 
-
-
-
-
-
-
-
-
 type, public :: column_dstate_type
    real(r8), pointer :: dummy_entry(:)
 end type column_dstate_type
@@ -2653,14 +2544,6 @@ type, public :: column_cflux_type
    real(r8), pointer :: m_litr3c_to_fire(:)               
    real(r8), pointer :: m_cwdc_to_fire(:)                 
    
-
-
-
-
-
-
-
-
    real(r8), pointer :: leafc_to_litr1c(:)                
    real(r8), pointer :: leafc_to_litr2c(:)                
    real(r8), pointer :: leafc_to_litr3c(:)                
@@ -2684,7 +2567,6 @@ type, public :: column_cflux_type
    real(r8), pointer :: soil3c_to_soil4c(:)   
    real(r8), pointer :: soil4_hr(:)           
    
-
    
    real(r8), pointer :: lithr(:)         
    real(r8), pointer :: somhr(:)         
@@ -2699,12 +2581,6 @@ type, public :: column_cflux_type
    real(r8), pointer :: nee(:)           
    real(r8), pointer :: col_cinputs(:)   
    real(r8), pointer :: col_coutputs(:)  
-
-
-
-
-
-
 
 
    
@@ -2777,14 +2653,6 @@ type, public :: column_nflux_type
    real(r8), pointer :: m_litr3n_to_fire(:)                
    real(r8), pointer :: m_cwdn_to_fire(:)                  
    
-
-
-
-
-
-
-
-
    real(r8), pointer :: leafn_to_litr1n(:)       
    real(r8), pointer :: leafn_to_litr2n(:)       
    real(r8), pointer :: leafn_to_litr3n(:)       
@@ -3088,7 +2956,6 @@ end type gridcell_dstate_type
 
 
 
-
 type, public :: gridcell_eflux_type
    type(column_eflux_type):: cef_a             
    real(r8), pointer :: eflx_sh_totg(:)   
@@ -3282,10 +3149,6 @@ type, public :: pft_type
    type(carbon_balance_type)   :: pcbal 
    type(nitrogen_balance_type) :: pnbal 
    
-
-
-
-
    
    
    type(pft_epv_type)    :: pepv        
@@ -3308,12 +3171,6 @@ type, public :: pft_type
    type(pft_dflux_type)  :: pdf         
    type(pft_depvd_type)  :: pdd         
    
-
-
-
-
-
-
    
 end type pft_type
 
@@ -3361,17 +3218,7 @@ type, public :: column_type
    type(column_vflux_type) :: cvf       
    type(column_dflux_type) :: cdf       
 
-
-
-
-
    
-
-
-
-
-
-
    
 end type column_type
 
@@ -3474,10 +3321,6 @@ type, public :: gridcell_type
    type(carbon_balance_type)   :: gcbal 
    type(nitrogen_balance_type) :: gnbal 
 
-
-
-
-
    
    
    type(gridcell_pstate_type) :: gps    
@@ -3560,11 +3403,6 @@ type atm2lnd_type
   real(r8), pointer :: forc_snow(:)    
   real(r8), pointer :: forc_ndep(:)    
   real(r8), pointer :: rainf(:)        
-
-
-
-
-
   real(r8), pointer :: forc_po2(:)     
   real(r8), pointer :: forc_aer(:,:)   
 end type atm2lnd_type
@@ -3586,12 +3424,6 @@ type(model_type)    , public, target     , save :: clm3
 
 
 type(pft_epc_type), public, target, save :: pftcon
-
-
-
-
-
-
 
 
 character(len=8), parameter, public :: gratm  = 'atmgrid'   
@@ -3695,7 +3527,6 @@ CONTAINS
                 LHsoi,LHveg,LHtran,&
                 alswvisdir, alswvisdif, alswnirdir, alswnirdif,      & 
                 swvisdir, swvisdif, swnirdir, swnirdif               & 
-
                  )
 
 
@@ -3771,7 +3602,6 @@ CONTAINS
                 SWUPsubgrid,LHsoi,LHveg,LHtran
 
  real(r8) :: gti_buf
-
 
 
 
@@ -3869,7 +3699,6 @@ CONTAINS
                 albedosubgrid_buf, lhsubgrid_buf, hfxsubgrid_buf, lwupsubgrid_buf, &
                 q2subgrid_buf,sabgsubgrid_buf,sabvsubgrid_buf,nrasubgrid_buf,swupsubgrid_buf,&
                 lhsoi_buf,lhveg_buf,lhtran_buf,tlai_buf,tsai_buf,htop_buf,hbot_buf
-
 
 
 
@@ -4297,18 +4126,10 @@ CONTAINS
      lhtran_buf(m) = lhtran(i,m,j) 
 
 
-
-
-
-
-
-
-
      organic_buf(m) = organic(m)
 
       t_ref2m_buf(m)    = t_ref2m(i,m,j)
       q_ref2m_buf(m)    = q_ref2m(i,m,j)
-
     end do 
        
    
@@ -4343,7 +4164,6 @@ CONTAINS
                   ,lhsoi_buf          ,lhveg_buf               ,lhtran_buf      &
                   ,organic_buf        ,efisop_buf              ,gti_buf         &
                   ,alswnirdir_buf  ,alswnirdif_buf,alswvisdir_buf,alswvisdif_buf&
-
                   )
                  
                  if(albxy_buf ==  1) albxy_buf = 0.991
@@ -4519,7 +4339,6 @@ CONTAINS
                   lhsoi(i,m,j)       = lhsoi_buf(m)
                   lhveg(i,m,j)       = lhveg_buf(m)
                   lhtran(i,m,j)      = lhtran_buf(m)
-
 
 
               end do 
@@ -4906,9 +4725,6 @@ end subroutine clmdrv
                 LHsoi,LHveg,LHtran
 
 
-
-
-
    INTEGER                   :: L
    REAL                      :: BX, SMCMAX, PSISAT, FREE
    INTEGER                   :: errflag
@@ -5030,7 +4846,7 @@ END IF
      ENDDO
    ENDDO
    IF ( errflag .EQ. 1 ) THEN
-      CALL wrf_error_fatal3("<stdin>",5033,&
+      CALL wrf_error_fatal3("<stdin>",4849,&
 "CLM: clminit: out of range value "// &
                             "of ISLTYP. Is this field in the input?" )
    ENDIF
@@ -5116,12 +4932,6 @@ END IF
          nump(i,j) = 0
          wtc(i,:,j) = 0.0
          wtp(i,:,j) = 0.0
-
-
-
-
-
-
        end do
        end do
 
@@ -5696,11 +5506,7 @@ contains
         end if
      end do
      if (nvegl > 0) ilunits = ilunits + 1
-
-
-
      if (nvegl > 0) icols = icols + 1     
-
 
      
 
@@ -5828,10 +5634,6 @@ subroutine CLMDebug( str )
   CHARACTER*(*), str
 
 
-
-
-
-
 end subroutine CLMDebug
 
 module clmtypeInitMod
@@ -5871,14 +5673,8 @@ module clmtypeInitMod
   private :: init_energy_balance_type
   private :: init_water_balance_type
   private :: init_pft_ecophys_constants
-
-
-
   private :: init_pft_pstate_type
   private :: init_pft_epv_type
-
-
-
   private :: init_pft_vstate_type
   private :: init_pft_estate_type
   private :: init_pft_wstate_type
@@ -5921,14 +5717,8 @@ module clmtypeInitMod
   private :: dealloc_energy_balance_type
   private :: dealloc_water_balance_type
   private :: dealloc_pft_ecophys_constants
-
-
-
   private :: dealloc_pft_pstate_type
   private :: dealloc_pft_epv_type
-
-
-
   private :: dealloc_pft_vstate_type
   private :: dealloc_pft_estate_type
   private :: dealloc_pft_wstate_type
@@ -6018,11 +5808,6 @@ contains
     call init_pft_ecophys_constants()
 
 
-
-
-
-
-
     
 
     call init_energy_balance_type(begp, endp, clm3%g%l%c%p%pebal)
@@ -6057,14 +5842,6 @@ contains
     
     call init_pft_epv_type(begp, endp, clm3%g%l%c%p%pepv)
 
-
-
-
-
-
-
-
-
     call init_pft_vstate_type(begp, endp, clm3%g%l%c%p%pvs)
 
     
@@ -6081,12 +5858,6 @@ contains
 
     call init_pft_cstate_type(begp, endp, clm3%g%l%c%p%pcs)
     call init_pft_cstate_type(begc, endc, clm3%g%l%c%ccs%pcs_a)
-
-
-
-
-
-
 
     
 
@@ -6112,12 +5883,6 @@ contains
 
     call init_pft_cflux_type(begp, endp, clm3%g%l%c%p%pcf)
     call init_pft_cflux_type(begc, endc, clm3%g%l%c%ccf%pcf_a)
-
-
-
-
-
-
 
     
 
@@ -6174,11 +5939,6 @@ contains
     call init_column_cstate_type(begg, endg, clm3%g%gcs%ccs_a)
     call init_column_cstate_type(1,       1, clm3%mcs%ccs_a)
 
-
-
-
-
-
     
     
 
@@ -6207,11 +5967,6 @@ contains
 
     call init_column_cflux_type(begc, endc, clm3%g%l%c%ccf)
 
-
-
-
-
-
     
 
     call init_column_nflux_type(begc, endc, clm3%g%l%c%cnf)
@@ -6223,11 +5978,6 @@ contains
     
 
     call init_landunit_eflux_type(begl, endl, clm3%g%l%lef)
-
-
-
-
-
 
 
     
@@ -6592,9 +6342,6 @@ contains
     allocate(pftcon%frootcn(0:numpft))
     allocate(pftcon%livewdcn(0:numpft))
     allocate(pftcon%deadwdcn(0:numpft))
-
-
-
     allocate(pftcon%froot_leaf(0:numpft))
     allocate(pftcon%stem_leaf(0:numpft))
     allocate(pftcon%croot_stem(0:numpft))
@@ -6645,9 +6392,6 @@ contains
     pftcon%frootcn(:) = nan
     pftcon%livewdcn(:) = nan
     pftcon%deadwdcn(:) = nan
-
-
-
     pftcon%froot_leaf(:) = nan
     pftcon%stem_leaf(:) = nan
     pftcon%croot_stem(:) = nan
@@ -6677,7 +6421,6 @@ contains
 
 
 
-
   subroutine init_pft_pstate_type(beg, end, pps)
 
 
@@ -6685,9 +6428,6 @@ contains
 
 
     use clm_varcon, only : spval
-
-
-
 
     implicit none
     integer, intent(in) :: beg, end
@@ -6736,7 +6476,6 @@ contains
     allocate(pps%u10(beg:end))
     allocate(pps%fv(beg:end))
     allocate(pps%ram1(beg:end))
-
     allocate(pps%vds(beg:end))
     allocate(pps%slasun(beg:end))
     allocate(pps%slasha(beg:end))
@@ -6759,10 +6498,6 @@ contains
     
     allocate(pps%cisun(beg:end))
     allocate(pps%cisha(beg:end))
-
-
-
-
     
     allocate(pps%sandfrac(beg:end))
     allocate(pps%clayfrac(beg:end))
@@ -6776,7 +6511,6 @@ contains
     pps%annlai(:,:) = nan
 
     
-
 
     pps%frac_veg_nosno(beg:end) = bigint
     pps%frac_veg_nosno_alb(beg:end) = 0
@@ -6815,7 +6549,6 @@ contains
     pps%u10(beg:end) = nan
     pps%fv(beg:end) = nan
     pps%ram1(beg:end) = nan
-
     pps%vds(beg:end) = nan
     pps%slasun(beg:end) = nan
     pps%slasha(beg:end) = nan
@@ -6838,11 +6571,6 @@ contains
     
     pps%cisun(beg:end) = nan
     pps%cisha(beg:end) = nan
-
-
-
-
-
 
 
   end subroutine init_pft_pstate_type
@@ -6891,9 +6619,6 @@ contains
     allocate(pepv%gpp(beg:end))
     allocate(pepv%availc(beg:end))
     allocate(pepv%xsmrpool_recover(beg:end))
-
-
-
     allocate(pepv%alloc_pnow(beg:end))
     allocate(pepv%c_allometry(beg:end))
     allocate(pepv%n_allometry(beg:end))
@@ -6911,7 +6636,6 @@ contains
     allocate(pepv%prev_frootc_to_litter(beg:end))
     allocate(pepv%tempsum_npp(beg:end))
     allocate(pepv%annsum_npp(beg:end))
-
 
     pepv%dormant_flag(beg:end) = nan
     pepv%days_active(beg:end) = nan
@@ -6935,9 +6659,6 @@ contains
     pepv%gpp(beg:end) = nan
     pepv%availc(beg:end) = nan
     pepv%xsmrpool_recover(beg:end) = nan
-
-
-
     pepv%alloc_pnow(beg:end) = nan
     pepv%c_allometry(beg:end) = nan
     pepv%n_allometry(beg:end) = nan
@@ -6955,10 +6676,8 @@ contains
     pepv%prev_frootc_to_litter(beg:end) = nan
     pepv%tempsum_npp(beg:end) = nan
     pepv%annsum_npp(beg:end) = nan
-
     
   end subroutine init_pft_epv_type
-
 
 
 
@@ -7152,7 +6871,6 @@ contains
     allocate(pcs%totpftc(beg:end))
     allocate(pcs%leafcmax(beg:end))
 
-
     pcs%leafc(beg:end) = nan
     pcs%leafc_storage(beg:end) = nan
     pcs%leafc_xfer(beg:end) = nan
@@ -7182,7 +6900,6 @@ contains
     pcs%totpftc(beg:end) = nan
     pcs%leafcmax(beg:end) = nan
 
-
   end subroutine init_pft_cstate_type
 
 
@@ -7200,11 +6917,6 @@ contains
     implicit none
     integer, intent(in) :: beg, end
     type (pft_nstate_type), intent(inout):: pns 
-
-
-
-
-
 
 
 
@@ -7237,11 +6949,6 @@ contains
     allocate(pns%storvegn(beg:end))
     allocate(pns%totvegn(beg:end))
     allocate(pns%totpftn(beg:end))
-
-
-
-
-
 
     pns%leafn(beg:end) = nan
     pns%leafn_storage(beg:end) = nan
@@ -7711,7 +7418,6 @@ contains
     allocate(pcf%pft_coutputs(beg:end))
     allocate(pcf%pft_fire_closs(beg:end))
 
-
     pcf%psnsun(beg:end) = nan
     pcf%psnsha(beg:end) = nan
     pcf%fpsn(beg:end) = nan
@@ -7862,7 +7568,6 @@ contains
     pcf%pft_coutputs(beg:end) = nan
     pcf%pft_fire_closs(beg:end) = nan
 
-
   end subroutine init_pft_cflux_type
 
 
@@ -7986,14 +7691,6 @@ contains
     allocate(pnf%wood_harvestn(beg:end))
     allocate(pnf%pft_fire_nloss(beg:end))
 
-
-
-
-
-
-
-
-
     pnf%m_leafn_to_litter(beg:end) = nan
     pnf%m_frootn_to_litter(beg:end) = nan
     pnf%m_leafn_storage_to_litter(beg:end) = nan
@@ -8092,14 +7789,6 @@ contains
     pnf%pft_noutputs(beg:end) = nan
     pnf%wood_harvestn(beg:end) = nan
     pnf%pft_fire_nloss(beg:end) = nan
-
-
-
-
-
-
-
-
 
   end subroutine init_pft_nflux_type
 
@@ -8944,14 +8633,6 @@ contains
     allocate(ccf%m_litr2c_to_fire(beg:end))
     allocate(ccf%m_litr3c_to_fire(beg:end))
     allocate(ccf%m_cwdc_to_fire(beg:end))
-
-
-
-
-
-
-
-
     allocate(ccf%leafc_to_litr1c(beg:end))
     allocate(ccf%leafc_to_litr2c(beg:end))
     allocate(ccf%leafc_to_litr3c(beg:end))
@@ -8973,7 +8654,6 @@ contains
     allocate(ccf%soil3_hr(beg:end))
     allocate(ccf%soil3c_to_soil4c(beg:end))
     allocate(ccf%soil4_hr(beg:end))
-
     allocate(ccf%lithr(beg:end))
     allocate(ccf%somhr(beg:end))
     allocate(ccf%hr(beg:end))
@@ -8988,12 +8668,6 @@ contains
     allocate(ccf%col_cinputs(beg:end))
     allocate(ccf%col_coutputs(beg:end))
     allocate(ccf%col_fire_closs(beg:end))
-
-
-
-
-
-
 
 
     ccf%m_leafc_to_litr1c(beg:end)                = nan
@@ -9039,14 +8713,6 @@ contains
     ccf%hrv_deadstemc_storage_to_litr1c(beg:end)  = nan 
     ccf%hrv_livecrootc_storage_to_litr1c(beg:end) = nan
     ccf%hrv_deadcrootc_storage_to_litr1c(beg:end) = nan
-
-
-
-
-
-
-
-
     ccf%hrv_gresp_storage_to_litr1c(beg:end)      = nan     
     ccf%hrv_leafc_xfer_to_litr1c(beg:end)         = nan        
     ccf%hrv_frootc_xfer_to_litr1c(beg:end)        = nan       
@@ -9080,7 +8746,6 @@ contains
     ccf%soil3_hr(beg:end)                         = nan
     ccf%soil3c_to_soil4c(beg:end)                 = nan
     ccf%soil4_hr(beg:end)                         = nan
-
     ccf%lithr(beg:end)                            = nan
     ccf%somhr(beg:end)                            = nan
     ccf%hr(beg:end)                               = nan
@@ -9095,12 +8760,6 @@ contains
     ccf%col_cinputs(beg:end)                      = nan
     ccf%col_coutputs(beg:end)                     = nan
     ccf%col_fire_closs(beg:end)                   = nan
-
-
-
-
-
-
 
 
   end subroutine init_column_cflux_type
@@ -9182,14 +8841,6 @@ contains
     allocate(cnf%m_litr2n_to_fire(beg:end))
     allocate(cnf%m_litr3n_to_fire(beg:end))
     allocate(cnf%m_cwdn_to_fire(beg:end))
-
-
-
-
-
-
-
-
     allocate(cnf%leafn_to_litr1n(beg:end))
     allocate(cnf%leafn_to_litr2n(beg:end))
     allocate(cnf%leafn_to_litr3n(beg:end))
@@ -9300,14 +8951,6 @@ contains
     cnf%m_litr2n_to_fire(beg:end) = nan
     cnf%m_litr3n_to_fire(beg:end) = nan
     cnf%m_cwdn_to_fire(beg:end) = nan
-
-
-
-
-
-
-
-
     cnf%leafn_to_litr1n(beg:end) = nan
     cnf%leafn_to_litr2n(beg:end) = nan
     cnf%leafn_to_litr3n(beg:end) = nan
@@ -9483,7 +9126,6 @@ contains
     lef%eflx_heat_from_ac(beg:end) = nan
 
   end subroutine init_landunit_eflux_type
-
 
 
 
@@ -9740,11 +9382,6 @@ contains
   allocate(a2l%forc_snow(beg:end))
   allocate(a2l%forc_ndep(beg:end))
   allocate(a2l%rainf(beg:end))
-
-
-
-
-
   allocate(a2l%forc_po2(beg:end))
   allocate(a2l%forc_aer(beg:end,14))
 
@@ -9775,11 +9412,6 @@ contains
   a2l%forc_snow(beg:end) = ival
   a2l%forc_ndep(beg:end) = ival
   a2l%rainf(beg:end) = nan
-
-
-
-
-
   a2l%forc_po2(beg:end) = ival
   a2l%forc_aer(beg:end,:) = ival
 
@@ -9802,11 +9434,6 @@ end subroutine init_atm2lnd_type
   
     call dealloc_pft_ecophys_constants()
   
-
-
-
-
-
   
     
 
@@ -9842,14 +9469,6 @@ end subroutine init_atm2lnd_type
     
     call dealloc_pft_epv_type(    clm3%g%l%c%p%pepv)
 
-
-
-
-
-
-
-
-
     call dealloc_pft_vstate_type(    clm3%g%l%c%p%pvs)
     
     
@@ -9866,12 +9485,6 @@ end subroutine init_atm2lnd_type
 
     call dealloc_pft_cstate_type(    clm3%g%l%c%p%pcs)
     call dealloc_pft_cstate_type(    clm3%g%l%c%ccs%pcs_a)
-
-
-
-
-
-
 
     
 
@@ -9897,12 +9510,6 @@ end subroutine init_atm2lnd_type
 
     call dealloc_pft_cflux_type(    clm3%g%l%c%p%pcf)
     call dealloc_pft_cflux_type(    clm3%g%l%c%ccf%pcf_a)
-
-
-
-
-
-
 
     
 
@@ -9959,11 +9566,6 @@ end subroutine init_atm2lnd_type
     call dealloc_column_cstate_type(    clm3%g%gcs%ccs_a)
     call dealloc_column_cstate_type(          clm3%mcs%ccs_a)
 
-
-
-
-
-
     
     
     
@@ -9992,11 +9594,6 @@ end subroutine init_atm2lnd_type
 
     call dealloc_column_cflux_type(    clm3%g%l%c%ccf)
 
-
-
-
-
-
     
 
     call dealloc_column_nflux_type(    clm3%g%l%c%cnf)
@@ -10008,11 +9605,6 @@ end subroutine init_atm2lnd_type
     
 
     call dealloc_landunit_eflux_type(    clm3%g%l%lef)
-
-
-
-
-
 
 
     
@@ -10336,9 +9928,6 @@ end subroutine clmtype_dealloc
     deallocate(pftcon%frootcn )
     deallocate(pftcon%livewdcn ) 
     deallocate(pftcon%deadwdcn )
-
-
-
     deallocate(pftcon%froot_leaf )
     deallocate(pftcon%stem_leaf )
     deallocate(pftcon%croot_stem )
@@ -10369,7 +9958,6 @@ end subroutine clmtype_dealloc
 
 
 
-
   subroutine dealloc_pft_pstate_type(    pps)
 
 
@@ -10377,9 +9965,6 @@ end subroutine clmtype_dealloc
 
 
     use clm_varcon, only : spval
-
-
-
 
     implicit none
     type (pft_pstate_type), intent(inout):: pps
@@ -10427,7 +10012,6 @@ end subroutine clmtype_dealloc
     deallocate(pps%u10 )
     deallocate(pps%fv )
     deallocate(pps%ram1 )
-
     deallocate(pps%vds )
     deallocate(pps%slasun )
     deallocate(pps%slasha )
@@ -10450,10 +10034,6 @@ end subroutine clmtype_dealloc
     
     deallocate(pps%cisun )
     deallocate(pps%cisha )
-
-
-
-
     
     deallocate(pps%sandfrac )
     deallocate(pps%clayfrac )
@@ -10462,7 +10042,6 @@ end subroutine clmtype_dealloc
     deallocate(pps%annlai)
     
     
-
   end subroutine dealloc_pft_pstate_type
     
 
@@ -10508,9 +10087,6 @@ end subroutine clmtype_dealloc
     deallocate(pepv%gpp ) 
     deallocate(pepv%availc )
     deallocate(pepv%xsmrpool_recover )
-
-
-
     deallocate(pepv%alloc_pnow )
     deallocate(pepv%c_allometry )
     deallocate(pepv%n_allometry )
@@ -10529,11 +10105,9 @@ end subroutine clmtype_dealloc
     deallocate(pepv%tempsum_npp )
     deallocate(pepv%annsum_npp )
 
-
     
   end subroutine dealloc_pft_epv_type
     
-
 
 
 
@@ -10682,7 +10256,6 @@ end subroutine clmtype_dealloc
     deallocate(pcs%totpftc )
     deallocate(pcs%leafcmax )
 
-
     
   end subroutine dealloc_pft_cstate_type
     
@@ -10700,11 +10273,6 @@ end subroutine clmtype_dealloc
 
     implicit none
     type (pft_nstate_type), intent(inout):: pns 
-
-
-
-
-
 
 
 
@@ -11064,7 +10632,6 @@ end subroutine clmtype_dealloc
     deallocate(pcf%pft_cinputs )
     deallocate(pcf%pft_coutputs )
     deallocate(pcf%pft_fire_closs )
-
   end subroutine dealloc_pft_cflux_type
 
 
@@ -11186,14 +10753,6 @@ end subroutine clmtype_dealloc
     deallocate(pnf%pft_noutputs )
     deallocate(pnf%wood_harvestn )
     deallocate(pnf%pft_fire_nloss )
-
-
-
-
-
-
-
-
   end subroutine dealloc_pft_nflux_type
 
 
@@ -11758,14 +11317,6 @@ end subroutine clmtype_dealloc
     deallocate(ccf%m_litr2c_to_fire )
     deallocate(ccf%m_litr3c_to_fire )
     deallocate(ccf%m_cwdc_to_fire )
-
-
-
-
-
-
-
-
     deallocate(ccf%leafc_to_litr1c )
     deallocate(ccf%leafc_to_litr2c )
     deallocate(ccf%leafc_to_litr3c )
@@ -11787,7 +11338,6 @@ end subroutine clmtype_dealloc
     deallocate(ccf%soil3_hr )
     deallocate(ccf%soil3c_to_soil4c )
     deallocate(ccf%soil4_hr )
-
     deallocate(ccf%lithr )
     deallocate(ccf%somhr )
     deallocate(ccf%hr )
@@ -11803,12 +11353,6 @@ end subroutine clmtype_dealloc
     deallocate(ccf%col_coutputs )
     deallocate(ccf%col_fire_closs )
     
-
-
-
-
-
-
     
  end subroutine dealloc_column_cflux_type
 
@@ -11885,14 +11429,6 @@ end subroutine clmtype_dealloc
     deallocate(cnf%m_litr2n_to_fire )
     deallocate(cnf%m_litr3n_to_fire )
     deallocate(cnf%m_cwdn_to_fire )
-
-
-
-
-
-
-
-
     deallocate(cnf%leafn_to_litr1n )
     deallocate(cnf%leafn_to_litr2n )
     deallocate(cnf%leafn_to_litr3n )
@@ -12027,7 +11563,6 @@ end subroutine clmtype_dealloc
     
     
   end subroutine dealloc_landunit_eflux_type
-
 
 
 
@@ -12222,11 +11757,6 @@ end subroutine clmtype_dealloc
   deallocate(a2l%forc_snow)
   deallocate(a2l%forc_ndep)
   deallocate(a2l%rainf)
-
-
-
-
-
   deallocate(a2l%forc_po2)
   deallocate(a2l%forc_aer)
 
@@ -12280,7 +11810,6 @@ module pftvarcon
   integer,parameter :: nc4_grass              = 14 
   integer,parameter :: nc3crop                = 15 
   integer,parameter :: nc4crop                = 16 
-
 
   real(r8):: crop(0:numpft)        
 
@@ -12377,12 +11906,6 @@ module pftvarcon
                , 'c4_grass                           '  &
                , 'c3_crop                            '  &
                , 'c4_crop                            '  &
-
-
-
-
-
-
     /
 
 
@@ -12403,455 +11926,233 @@ data (pftname(i),i=1,numpft)/'needleleaf_evergreen_temperate_tree'&
                , 'c4_grass                           '  &
                , 'c3_crop                            '  &
                , 'c4_crop                            '  &
-
-
-
-
-
-
     /
 
   data (z0mr(i),i=1,numpft)/ 0.055,0.055,0.055,0.075,0.075,&
          0.055,0.055,0.055,0.120,0.120,0.120,0.120,0.120,&
          0.120,0.120,0.120&
-
-
-
          /
-
 
   data (displar(i),i=1,numpft)/0.67,0.67,0.67,0.67,0.67,0.67,&
          0.67,0.67,0.68,0.68,0.68,0.68,0.68,0.68,0.68,0.68&
-
-
-
          /
-
 
   data (dleaf(i),i=1,numpft)/ 0.04,0.04,0.04,0.04,0.04,0.04,&
          0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04,0.04&
-
-
-
          /
-
 
   data (c3psn(i),i=1,numpft)/1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1&
-
-
-
          /
-
 
   data (vcmx25(i),i=1,numpft)/51,43,51,75,69,40,51,51,17,17,&
          33,43,43,24,50,50&
-
-
-
          /
-
 
   data (mp(i),i=1,numpft)/6,6,6,9,9,9,9,9,9,9,9,9,9,5,9,9&
-
-
-
          /
-
 
   data (qe25(i),i=1,numpft)/ 0.06,0.06,0.06,0.06,0.06,0.06,&
        0.06,0.06,0.06,0.06,0.06,0.06,0.06,0.04,0.06,0.06&
-
-
-
          /
-
 
   data (rhol(i,1),i=1,numpft)/0.07,0.07,0.07,0.10,0.10,0.10,&
        0.10,0.10,0.07,0.10,0.10,0.11,0.11,0.11,0.11,0.11&
-
-
-
          /
-
 
 
   data (rhol(i,2),i=1,numpft)/ 0.35,0.35,0.35,0.45,0.45,0.45,&
         0.45,0.45,0.35,0.45,0.45,0.35,0.35,0.35,0.35,0.35&
-
-
-
          /
-
 
   data (rhos(i,1),i=1,numpft) /0.16,0.16,0.16,0.16,0.16,0.16,&
        0.16,0.16,0.16,0.16,0.16,0.31,0.31,0.31,0.31,0.31&
-
-
-
          /
-
 
 
   data (rhos(i,2),i=1,numpft)/0.39,0.39,0.39,0.39,0.39,0.39,&
        0.39,0.39,0.39,0.39,0.39,0.53,0.53,0.53,0.53,0.53&
-
-
-
          /
-
 
   data (taul(i,1),i=1,numpft)/0.05,0.05,0.05,0.05,0.05,0.05,&
        0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05&
-
-
-
          /
-
 
 
   data (taul(i,2),i=1,numpft)/0.10,0.10,0.10,0.25,0.25,0.25,&
       0.25,0.25,0.10,0.25,0.25,0.34,0.34,0.34,0.34,0.34&
-
-
-
          /
-
 
 
   data (taus(i,1),i=1,numpft)/0.001,0.001,0.001,0.001,0.001,&
       0.001,0.001,0.001,0.001,0.001,0.001,0.120,0.120,0.120,0.120,0.120&
-
-
-
          /
-
 
 
   data (taus(i,2),i=1,numpft)/ 0.001,0.001,0.001,0.001,0.001,0.001,&
      0.001,0.001,0.001,0.001,0.001,0.250,0.250,0.250,0.250,0.250&
-
-
-
          /
-
 
   data (xl(i),i=1,numpft)/0.01, 0.01, 0.01, 0.10, 0.10, 0.01,&
      0.25, 0.25, 0.01, 0.25, 0.25,-0.30,-0.30,-0.30,-0.30,-0.30&
-
-
-
          /
-
 
   data (roota_par(i),i=1,numpft)/ 7, 7, 7, 7, 7, 6, 6, 6, 7,&
        7, 7,11,11,11, 6, 6&
-
-
-
          /
-
 
   data (rootb_par(i),i=1,numpft)/ 2.0,2.0,2.0,1.0,1.0,2.0,2.0,&
        2.0,1.5,1.5,1.5,2.0,2.0,2.0,3.0,3.0&
-
-
-
          /
-
 
   data (slatop(i),i=1,numpft)/0.010,0.008,0.024,0.012,0.012,0.030,&
        0.030,0.030,0.012,0.030,0.030,0.030,0.030,0.030,0.030,0.030&
-
-
-
          /
-
 
   data (dsladlai(i),i=1,numpft)/0.00125,0.00100,0.00300,0.00150,0.00150,&
        0.00400,0.00400,0.00400,0.00000,0.00000,0.00000,0.00000,0.00000,&
        0.00000,0.00000,0.00000&
-
-
-
          /
-
 
   data (leafcn(i),i=1,numpft)/35,40,25,30,30,25,25,25,30,25,25,&
        25,25,25,25,25&
-
-
-
          /
-
 
  data (flnr(i),i=1,numpft)/0.05,0.04,0.08,0.06,0.06,0.09,0.09,0.09,&
       0.06,0.09,0.09,0.09,0.09,0.09,0.10,0.10&
-
-
-
          /
-
 
  data (smpso(i),i=1,numpft)/-66000,-66000,-66000,-66000,-66000,-35000,&
      -35000,-35000,-83000,-83000,-83000,-74000,-74000,-74000,-74000,-74000&
-
-
-
          /
-
 
  data (smpsc(i),i=1,numpft)/-255000,-255000,-255000,-255000,-255000,-224000,&
      -224000,-224000,-428000,-428000,-428000,-275000,-275000,-275000,-275000,-275000&
-
-
-
          /
-
 
  data(fnitr(i),i=1,numpft)/0.72,0.78,0.79,0.83,0.71,0.66,0.64,0.70,0.62,&
      0.60,0.76,0.68,0.61,0.64,0.61,0.61&
-
-
-
          /
-
 
 
  data(woody(i),i=1,numpft)/1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0&
-
-
-
          /
-
 
 
  data(lflitcn(i),i=1,numpft)/70,80,50,60,60,50,50,50,60,50,50,50,50,50,50,50&
-
-
-
          /
-
 
 
  data(frootcn(i),i=1,numpft)/42,42,42,42,42,42,42,42,42,42,42,42,42,42,42,42&
-
-
-
          /
-
 
  data(livewdcn(i),i=1,numpft)/50,50,50,50,50,50,50,50,50,50,50, 50, 50, 50, 50, 50&
-
-
-
          /
-
 
  data(deadwdcn(i),i=1,numpft)/500,500,500,500,500,500,500,500,500,500,500,&
        500,  500,  500,  500,  500&
-
-
-
          /
-
 
 
  data(froot_leaf(i),i=1,numpft)/1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2&
-
-
-
          /
-
 
  data(stem_leaf(i),i=1,numpft)/-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,-1.0,&
        0.2, 0.2, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0&
-
-
-
          /
-
 
 
  data(croot_stem(i),i=1,numpft)/0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,&
        0.3,0.0,0.0,0.0,0.0,0.0&
-
-
-
          /
-
 
  data(flivewd(i),i=1,numpft)/0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.5,0.5,0.1,&
        0.0,0.0,0.0,0.0,0.0&
-
-
-
          /
-
 
 
  data(fcur(i),i=1,numpft)/1,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0&
-
-
-
          /
-
 
  data(lf_flab(i),i=1,numpft)/0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,&
       0.25,0.25,0.25,0.25,0.25,0.25,0.25&
-
-
-
          /
-
 
  data(lf_fcel(i),i=1,numpft)/0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,&
       0.5,0.5,0.5,0.5,0.5&
-
-
-
          /
-
 
  data(lf_flig(i),i=1,numpft)/0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,&
       0.25,0.25,0.25,0.25,0.25,0.25,0.25&
-
-
-
          /
-
 
  data(fr_flab(i),i=1,numpft)/0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,&
       0.25,0.25,0.25,0.25,0.25,0.25,0.25&
-
-
-
          /
-
 
  data(fr_fcel(i),i=1,numpft)/0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,&
       0.5,0.5,0.5,0.5,0.5&
-
-
-
          /
-
 
  data(fr_flig(i),i=1,numpft)/0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,&
       0.25,0.25,0.25,0.25,0.25,0.25,0.25&
-
-
-
          /
-
 
  data(dw_fcel(i),i=1,numpft)/0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,0.75,&
       0.75,0.75,0.75,0.75,0.75,0.75,0.75&
-
-
-
          /
-
 
 
  data(dw_flig(i),i=1,numpft)/0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,&
       0.25,0.25,0.25,0.25,0.25,0.25,0.25&
-
-
-
          /
-
 
 
  data(leaf_long(i),i=1,numpft)/3.0,6.0,1.0,1.5,1.5,1.0,1.0,1.0,1.5,1.0,1.0,&
        1.0,1.0,1.0,1.0,1.0&
-
-
-
          /
-
 
  
  data(evergreen(i),i=1,numpft)/1,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0&
-
-
-
          /
-
 
  
  data(stress_decid(i),i=1,numpft)/0,0,0,0,0,1,0,0,0,1,1,1,1,1,1,1&
-
-
-
          /
-
 
  
  data(season_decid(i),i=1,numpft)/0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0&
-
-
-
          /
-
 
  data(resist(i),i=1,numpft)/0.12,0.12,0.12,0.12,0.12,0.12,0.12,0.12,&
      0.12,0.12,0.12,0.12,0.12,0.12,1.00,1.00&
-
-
-
          /
-
 
 
  data(pftpar20(i),i=1,numpft)/15,15,15,15,15,15,15,15, 5, 5, 5, 0, 0, 0, 0, 0&
-
-
-
          /
-
 
 
  data(pftpar28(i),i=1,numpft)/ -2.0,  -32.5, 9999.9,   15.5,    3.0,   15.5,&
        -17.0,-1000.0, 9999.9,  -17.0,-1000.0,-1000.0,  -17.0,15.5, 9999.9, 9999.9&
-
-
-
          /
-
 
 
  data(pftpar29(i),i=1,numpft)/ 22.0,  -2.0,  -2.0,1000.0,  18.8,1000.0,  15.5,&
       -2.0,1000.0,1000.0,  -2.0, -17.0,  15.5,1000.0,1000.0,1000.0&
-
-
-
          /
-
 
  data(pftpar30(i),i=1,numpft)/900, 600, 350,   0,1200,   0,1200, 350,   0,1200,&
        350,   0,   0,   0,   0,   0&
-
-
-
          /
-
 
 
  data(pftpar31(i),i=1,numpft)/1000,  23,  23,1000,1000,1000,1000,  23,1000,1000,&
        23,1000,1000,1000,1000,1000&
-
-
-
          /
-
 
 
  data(graincn(i),i=1,numpft)/0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0&
-
-
-
          /
-
 
 
 
@@ -12912,10 +12213,6 @@ contains
 
 
 
-
-
-
-
     
 
     
@@ -12923,7 +12220,6 @@ contains
     crop(:)  = 0
     crop(nc3crop:numpft) = 1
   
-
 
 
 
@@ -12962,7 +12258,6 @@ contains
        frootcn(noveg)      = 1._r8
        livewdcn(noveg)     = 1._r8
        deadwdcn(noveg)     = 1._r8
-
        froot_leaf(noveg)   = 0._r8
        stem_leaf(noveg)    = 0._r8
        croot_stem(noveg)   = 0._r8
@@ -13027,7 +12322,6 @@ module pftdynMod
 
 
 
-
   real(r8), parameter :: days_per_year = 365._r8
   integer , pointer   :: yearspft(:)
   real(r8), pointer   :: wtpft1(:,:)   
@@ -13044,7 +12338,6 @@ module pftdynMod
 contains
   
   
-
 
 
 
@@ -13811,7 +13104,6 @@ module filterMod
 
   type clumpfilter
 
-
      integer, pointer :: lakep(:)        
      integer :: num_lakep                
      integer, pointer :: nolakep(:)      
@@ -13920,9 +13212,6 @@ contains
        allocate(filter%nosnowc(endc-begc+1))
 
 
-
-
-
        allocate(filter%hydrologyc(endc-begc+1))
 
        allocate(filter%urbanp(endp-begp+1))
@@ -13933,10 +13222,6 @@ contains
 
        allocate(filter%urbanl(endl-begl+1))
        allocate(filter%nourbanl(endl-begl+1))
-
-
-
-
 
 
   end subroutine allocFilters
@@ -13955,13 +13240,7 @@ contains
 
     use clmtype
     use decompMod , only : get_proc_bounds
-
-
-
     use clm_varcon, only : istsoil, isturb, icol_road_perv
-
-
-
 
 
     implicit none
@@ -14043,11 +13322,7 @@ contains
        fs = 0
        do c = begc,endc
           l = clm3%g%l%c%landunit(c)
-
           if (clm3%g%l%itype(l) == istsoil) then
-
-
-
              fs = fs + 1
              filter%soilc(fs) = c
           end if
@@ -14061,11 +13336,7 @@ contains
        do p = begp,endp
           if (clm3%g%l%c%p%wtgcell(p) > 0._r8) then
              l = clm3%g%l%c%p%landunit(p)
-
              if (clm3%g%l%itype(l) == istsoil) then
-
-
-
                 fs = fs + 1
                 filter%soilp(fs) = p
              end if
@@ -14074,17 +13345,12 @@ contains
        filter%num_soilp = fs
 
 
-
        
 
        f = 0
        do c = begc,endc
           l = clm3%g%l%c%landunit(c)
-
           if (clm3%g%l%itype(l) == istsoil .or. ctype(c) == icol_road_perv ) then
-
-
-
              f = f + 1
              filter%hydrologyc(f) = c
           end if
@@ -14167,9 +13433,6 @@ contains
        deallocate(filter%nosnowc)
 
 
-
-
-
        deallocate(filter%hydrologyc)
 
        deallocate(filter%urbanp)
@@ -14180,10 +13443,6 @@ contains
 
        deallocate(filter%urbanl)
        deallocate(filter%nourbanl)
-
-
-
-
 
 
   call CLMDebug('done  filters_dealloc')
@@ -14227,9 +13486,6 @@ subroutine iniTimeConst
                            allom1s, allom2s, &
                            allom1 , allom2 , allom3  , reinickerp, dwood
   use module_cam_support, only: endrun
-
-
-
   use globals     , only : nstep
   use clm_varsur  , only : gti,soic2d,efisop2d,sand3d,clay3d,organic3d
 
@@ -14472,9 +13728,6 @@ subroutine iniTimeConst
       pftcon%frootcn(m) = frootcn(m)
       pftcon%livewdcn(m) = livewdcn(m)
       pftcon%deadwdcn(m) = deadwdcn(m)
-
-
-
       pftcon%froot_leaf(m) = froot_leaf(m)
       pftcon%stem_leaf(m) = stem_leaf(m)
       pftcon%croot_stem(m) = croot_stem(m)
@@ -14495,7 +13748,6 @@ subroutine iniTimeConst
       pftcon%resist(m) = resist(m)
       pftcon%dwood(m) = dwood
    end do
-
 
 
    
@@ -14847,10 +14099,6 @@ subroutine iniTimeConst
 
    end do 
    
-
-
-
-
 
 
 
@@ -15218,11 +14466,7 @@ contains
 
        
 
-
-
-
        if (nveg > 0) call landunit_veg_compete(nveg, wtveg, i, j, gi, li, ci, pi)
-
 
        
 
@@ -15650,9 +14894,6 @@ contains
 
     use clm_varcon, only : istsoil
 
-
-
-
     use clm_varpar, only : npatch_crop
 
 
@@ -15699,11 +14940,7 @@ contains
     lptr%ifspecial(li) = .false.
     lptr%lakpoi(li) = .false.
     lptr%urbpoi(li)    = .false.
-
-
-
     lptr%itype(li) = istsoil
-
     
     
     
@@ -15886,10 +15123,6 @@ contains
              fwet(p) = 0._r8
           end if
           fdry(p) = (1._r8-fwet(p))*elai(p)/(elai(p)+esai(p))
-
-
-
-
        else
           fwet(p) = 0._r8
           fdry(p) = 0._r8
@@ -16016,12 +15249,6 @@ contains
    integer :: pp                           
    real(r8):: zldis(lbn:ubn)               
    real(r8):: zeta(lbn:ubn)                
-
-
-
-
-
-
    real(r8) :: vds_tmp                     
 
 
@@ -16049,7 +15276,6 @@ contains
    forc_hgt_q_pft => clm3%g%l%c%p%pps%forc_hgt_q_pft
 
    
-
 
 
 !dir$ concurrent
@@ -16211,10 +15437,7 @@ contains
       end if
 
 
-
    end do
-
-
 
 
 
@@ -16352,9 +15575,6 @@ contains
     endif
 
     rib=grav*zldis*dthv/(thv*um*um)
-
-
-
 
     if (rib >= 0._r8) then      
        zeta = rib*log(zldis/z0m)/(1._r8-5._r8*min(rib,0.19_r8))
@@ -17107,9 +16327,6 @@ contains
 
 
    use clm_varcon, only : istsoil,istice,istwet, istdlak,istslak,isturb
-
-
-
    use clm_varcon, only : icol_road_perv,icol_road_imperv,icol_roof
    use clm_varcon, only : icol_sunwall,icol_shadewall
    use clm_varcon, only : cpice,  cpliq
@@ -17215,11 +16432,7 @@ contains
             heat  = 0.0_r8
 
             
-
             if ( (ltype(l) == istsoil                                  )  &
-
-
-
             .or. (ltype(l) == istwet                                   )  &
             .or. (ltype(l) == istice                                   )  &
             .or. (ltype(l) == isturb .and. ctype(c) == icol_roof       )  &
@@ -17237,11 +16450,7 @@ contains
             end if
 
             
-
             if ( (ltype(l) == istsoil                                  )  &
-
-
-
             .or. (ltype(l) == istwet                                   )  &
             .or. (ltype(l) == istice                                   )  &
             .or. (ltype(l) == isturb .and. ctype(c) == icol_road_perv  )) then
@@ -17252,11 +16461,7 @@ contains
             end if
 
             
-
             if ( (ltype(l) == istsoil                                  )  &
-
-
-
             .or. (ltype(l) == istwet                                   )  &
             .or. (ltype(l) == istice                                   )  &
             .or. (ltype(l) == isturb .and. ctype(c) == icol_road_perv  )) then
@@ -17264,11 +16469,7 @@ contains
             end if
 
             
-
             if (ltype(l) == istsoil                         ) then
-
-
-
                pi = cptr%pfti(c)
                pf = cptr%pftf(c)
                do p = pi,pf 
@@ -17444,7 +16645,6 @@ contains
 
     carr(lbc:ubc) = spval
     sumwt(lbc:ubc) = 0._r8
-
     do p = lbp,ubp
        if (wtcol(p) /= 0._r8) then
           if (parr(p) /= spval) then
@@ -17455,7 +16655,6 @@ contains
           end if
        end if
     end do
-
     found = .false.
     do c = lbc,ubc
        if (sumwt(c) > 1.0_r8 + 1.e-6_r8) then
@@ -17529,7 +16728,6 @@ contains
     carr(:,:) = spval
     do j = 1,num2d
        sumwt(:) = 0._r8
-
        do p = lbp,ubp
           if (wtcol(p) /= 0._r8) then
              if (parr(p,j) /= spval) then
@@ -17540,7 +16738,6 @@ contains
              end if
           end if
        end do
-
        found = .false.
        do c = lbc,ubc
           if (sumwt(c) > 1.0_r8 + 1.e-6_r8) then
@@ -17598,7 +16795,6 @@ contains
     wtcol   => clm3%g%l%c%p%wtcol
     wtgcell => clm3%g%l%c%p%wtgcell
 
-
     do fc = 1,numfc
        c = filterc(fc)
        colarr(c) = 0._r8
@@ -17606,7 +16802,6 @@ contains
           if (wtgcell(p) > 0._r8) colarr(c) = colarr(c) + pftarr(p) * wtcol(p)
        end do
     end do
-
 
   end subroutine p2c_1d_filter
 
@@ -17650,7 +16845,6 @@ contains
     pftf  => clm3%g%l%c%pftf
     wtcol => clm3%g%l%c%p%wtcol
 
-
     do j = 1,lev
        do fc = 1,numfc
           c = filterc(fc)
@@ -17660,7 +16854,6 @@ contains
           end do
        end do
     end do
-
 
   end subroutine p2c_2d_filter
 
@@ -17793,7 +16986,6 @@ contains
 
     larr(:) = spval
     sumwt(:) = 0._r8
-
     do p = lbp,ubp
        if (wtlunit(p) /= 0._r8) then
           c = pcolumn(p)
@@ -17805,7 +16997,6 @@ contains
           end if
        end if
     end do
-
     found = .false.
     do l = lbl,ubl
        if (sumwt(l) > 1.0_r8 + 1.e-6_r8) then
@@ -17953,7 +17144,6 @@ contains
     larr(:,:) = spval
     do j = 1,num2d
        sumwt(:) = 0._r8
-
        do p = lbp,ubp
           if (wtlunit(p) /= 0._r8) then
              c = pcolumn(p)
@@ -17965,7 +17155,6 @@ contains
              end if
           end if
        end do
-
        found = .false.
        do l = lbl,ubl
           if (sumwt(l) > 1.0_r8 + 1.e-6_r8) then
@@ -18125,7 +17314,6 @@ contains
 
     garr(:) = spval
     sumwt(:) = 0._r8
-
     do p = lbp,ubp
        if (wtgcell(p) /= 0._r8) then
           c = pcolumn(p)
@@ -18138,7 +17326,6 @@ contains
           end if
        end if
     end do
-
     found = .false.
     do g = lbg, ubg
        if (sumwt(g) > 1.0_r8 + 1.e-6_r8) then
@@ -18300,7 +17487,6 @@ contains
     garr(:,:) = spval
     do j = 1,num2d
        sumwt(:) = 0._r8
-
        do p = lbp,ubp
           if (wtgcell(p) /= 0._r8) then
              c = pcolumn(p)
@@ -18313,7 +17499,6 @@ contains
              end if
           end if
        end do
-
        found = .false.
        do g = lbg, ubg
           if (sumwt(g) > 1.0_r8 + 1.e-6_r8) then
@@ -18441,7 +17626,6 @@ contains
 
     larr(:) = spval
     sumwt(:) = 0._r8
-
     do c = lbc,ubc
        if (wtlunit(c) /= 0._r8) then
           if (carr(c) /= spval .and. scale_c2l(c) /= spval) then
@@ -18452,7 +17636,6 @@ contains
           end if
        end if
     end do
-
     found = .false.
     do l = lbl,ubl
        if (sumwt(l) > 1.0_r8 + 1.e-6_r8) then
@@ -18579,16 +17762,9 @@ contains
     end if
 
 
-
-
-
-
-
-
     larr(:,:) = spval
     do j = 1,num2d
        sumwt(:) = 0._r8
-
        do c = lbc,ubc
           if (wtlunit(c) /= 0._r8) then
              if (carr(c,j) /= spval .and. scale_c2l(c) /= spval) then
@@ -18599,7 +17775,6 @@ contains
              end if
           end if
        end do
-
        found = .false.
        do l = lbl,ubl
           if (sumwt(l) > 1.0_r8 + 1.e-6_r8) then
@@ -18742,7 +17917,6 @@ contains
 
     garr(:) = spval
     sumwt(:) = 0._r8
-
     do c = lbc,ubc
        if ( wtgcell(c) /= 0._r8) then
           if (carr(c) /= spval .and. scale_c2l(c) /= spval) then
@@ -18754,7 +17928,6 @@ contains
           end if
        end if
     end do
-
     found = .false.
     do g = lbg, ubg
        if (sumwt(g) > 1.0_r8 + 1.e-6_r8) then
@@ -18895,16 +18068,9 @@ contains
     end if
 
 
-
-
-
-
-
-
     garr(:,:) = spval
     do j = 1,num2d
        sumwt(:) = 0._r8
-
        do c = lbc,ubc
           if (wtgcell(c) /= 0._r8) then
              if (carr(c,j) /= spval .and. scale_c2l(c) /= spval) then
@@ -18916,7 +18082,6 @@ contains
              end if
           end if
        end do
-
        found = .false.
        do g = lbg, ubg
           if (sumwt(g) > 1.0_r8 + 1.e-6_r8) then
@@ -18987,7 +18152,6 @@ contains
 
     garr(:) = spval
     sumwt(:) = 0._r8
-
     do l = lbl,ubl
        if (wtgcell(l) /= 0._r8) then
           if (larr(l) /= spval) then
@@ -18998,7 +18162,6 @@ contains
           end if
        end if
     end do
-
     found = .false.
     do g = lbg, ubg
        if (sumwt(g) > 1.0_r8 + 1.e-6_r8) then
@@ -19068,16 +18231,9 @@ contains
     end if
 
 
-
-
-
-
-
-
     garr(:,:) = spval
     do j = 1,num2d
        sumwt(:) = 0._r8
-
        do l = lbl,ubl
           if (wtgcell(l) /= 0._r8) then
              if (larr(l,j) /= spval) then
@@ -19088,7 +18244,6 @@ contains
              end if
           end if
        end do
-
        found = .false.
        do g = lbg,ubg
           if (sumwt(g) > 1.0_r8 + 1.e-6_r8) then
@@ -20075,7 +19230,6 @@ contains
            call CLMDebug('surfrd--mark3')
        
 
-
        sumvec(:) = abs(sum(pctpft,dim=2)-100.)
           do g=begg,endg
              do m = 1, maxpatch_pft
@@ -20094,7 +19248,6 @@ contains
                 call endrun
              end if
           end do
-
           call CLMDebug('surfrd--mark4')
           
           
@@ -20284,7 +19437,6 @@ contains
 
        
 
-
        found = .false.
           do g=begg,endg
              if (pcturb(g) /= 0.) then
@@ -20300,7 +19452,6 @@ contains
           call endrun()
        end if
 
-
     
     
     
@@ -20315,10 +19466,8 @@ contains
              sumscl = pcturb(g)+pctlak(g)+pctwet(g)+pctgla(g)
              do m = 1, maxpatch_pft
 
-
                 vegxy(g,m) = pft(g,m)
                 wtxy(g,m) = pctpft_lunit(g,m) * (100.-sumscl)/10000.
-
              end do
              vegxy(g,npatch_urban) = noveg
              wtxy(g,npatch_urban) = pcturb(g)/100.
@@ -20330,13 +19479,8 @@ contains
              wtxy(g,npatch_glacier) = pctgla(g)/100.
 
              do m = 1,maxpatch_cft
-
-
-
-
                    vegxy(g,npatch_glacier+m) = cft(g,m)
                    wtxy(g,npatch_glacier+m)= pctcft_lunit(g,m) * (100.-sumscl)/10000.
-
             end do
           end if
     end do
@@ -21354,7 +20498,6 @@ contains
 
           
 
-
        
        elseif ( (coszen(c_idx) > 0._r8) .and. (h2osno_lcl < min_snw) .and. (h2osno_lcl > 0._r8) ) then
           albout(c_idx,1) = albsfc(c_idx,1)
@@ -21684,9 +20827,6 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
                   ziclmx    ,h2osnox ,h2osoi_liqx,h2osoi_icex,t_grndx,&
                   t_soisnox ,t_lakex ,t_vegx    ,h2ocanx ,h2ocan_colx,&
                   h2osoi_volx,t_ref2mx,snw_rdsx &
-
-
-
 )
 
 
@@ -21757,12 +20897,6 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
   real(r8), pointer :: h2ocan_pft(:)     
   real(r8), pointer :: h2osno(:)         
   real(r8), pointer :: snowdp(:)         
-
-
-
-
-
-
    real(r8), pointer :: t_ref2m(:)     
     real(r8) :: t_ref2mx(maxpatch)
 
@@ -21793,12 +20927,6 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
     real(r8)  :: zclmx(maxpatch,-nlevsno+1:nlevgrnd)
     real(r8)  :: ziclmx(maxpatch,-nlevsno:nlevgrnd)
     real(r8)  :: h2osoi_volx(maxpatch,nlevgrnd)
-
-
-
-
-
-
 
 
     real(r8), pointer :: snw_rds(:,:)       
@@ -21909,12 +21037,6 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
 
 
   t_ref2m        => clm3%g%l%c%p%pes%t_ref2m
-
-
-
-
-
-
   
   
   pcolumn => clm3%g%l%c%p%column
@@ -21937,13 +21059,6 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
   do p = begp, endp
      h2ocan_pft(p) = h2ocanx(p)
      t_ref2m(p) = t_ref2mx(p)
-
-
-
-
-
-
-
   end do
     
     
@@ -22140,19 +21255,10 @@ subroutine mkarbinit(snlx   ,snowdpx ,   dzclmx  ,zclmx      ,&
 
 
 
-
     
         end if
      end do
   end do
-
-
-
-
-
-
-
-
 
    call CLMDebug('done mkarbinit')
 
@@ -23422,8 +22528,6 @@ contains
 
 
 
-
-
     
 
 
@@ -23451,10 +22555,6 @@ contains
     use accumulMod   , only : update_accum_field, extract_accum_field
 
 
-
-
-
-
     implicit none
 
 
@@ -23475,7 +22575,6 @@ contains
     logical , pointer :: urbpoi(:)           
    logical , pointer :: ifspecial(:)        
     integer , pointer :: plandunit(:)        
-
 
 
 
@@ -23510,7 +22609,6 @@ contains
     real(r8), pointer :: t_ref2m_min_inst_r(:) 
     real(r8), pointer :: t_ref2m_max_inst_u(:) 
     real(r8), pointer :: t_ref2m_max_inst_r(:) 
-
 
 
 
@@ -23572,7 +22670,6 @@ contains
     t_ref2m_min_inst_u => clm3%g%l%c%p%pes%t_ref2m_min_inst_u
     t_ref2m_min_inst_r => clm3%g%l%c%p%pes%t_ref2m_min_inst_r
     plandunit        => clm3%g%l%c%p%landunit
-
     t_veg24          => clm3%g%l%c%p%pvs%t_veg24           
     t_veg240         => clm3%g%l%c%p%pvs%t_veg240          
     fsd24            => clm3%g%l%c%p%pvs%fsd24             
@@ -23744,8 +22841,6 @@ contains
 
 
 
-
-
     
 
     deallocate(rbufslp)
@@ -23800,7 +22895,6 @@ contains
     real(r8), pointer :: t_ref2m_min_inst_r(:) 
     real(r8), pointer :: t_ref2m_max_inst_u(:) 
     real(r8), pointer :: t_ref2m_max_inst_r(:) 
-
     
     real(r8), pointer :: t_veg24(:)          
     real(r8), pointer :: t_veg240(:)         
@@ -23843,7 +22937,6 @@ contains
     t_ref2m_max_r      => clm3%g%l%c%p%pes%t_ref2m_max_r
     t_ref2m_min_u      => clm3%g%l%c%p%pes%t_ref2m_min_u
     t_ref2m_min_r      => clm3%g%l%c%p%pes%t_ref2m_min_r
-
     
     t_veg24          => clm3%g%l%c%p%pvs%t_veg24
     t_veg240         => clm3%g%l%c%p%pvs%t_veg240
@@ -23934,8 +23027,6 @@ contains
     end do
 
 
-
-
     deallocate(rbufslp)
 
 
@@ -24006,9 +23097,6 @@ contains
      use clmtype
      use clm_varpar      , only : numrad
      use clm_varcon      , only : spval, istsoil
-
-
-
      use clm_varpar      , only : nlevsno
      use SNICARMod       , only : DO_SNO_OC
      use globals         , only : dtime, secs
@@ -24326,11 +23414,7 @@ contains
            sabv(p)       = 0._r8
            fsa(p)        = 0._r8
            l = plandunit(p)
-
            if (ityplun(l)==istsoil) then
-
-
-
              fsa_r(p)      = 0._r8
            end if
            sabg_lyr(p,:) = 0._r8
@@ -24412,11 +23496,7 @@ contains
               sabv(p) = sabv(p) + cad(p,ib) + cai(p,ib)
               fsa(p)  = fsa(p)  + cad(p,ib) + cai(p,ib)
               l = plandunit(p)
-
               if (ityplun(l)==istsoil) then
-
-
-
                 fsa_r(p)  = fsa_r(p)  + cad(p,ib) + cai(p,ib)
               end if
               
@@ -24430,14 +23510,9 @@ contains
               absrad  = trd(p,ib)*(1._r8-albgrd(c,ib)) + tri(p,ib)*(1._r8-albgri(c,ib))
               sabg(p) = sabg(p) + absrad
               fsa(p)  = fsa(p)  + absrad
-
               if (ityplun(l)==istsoil) then
-
-
-
                 fsa_r(p)  = fsa_r(p)  + absrad
               end if
-
 
 
 
@@ -24622,7 +23697,6 @@ contains
            endif
 
  
-
         endif
      enddo
 
@@ -24715,9 +23789,6 @@ module SurfaceAlbedoMod
 
 
   use clm_varcon , only : istsoil
-
-
-
   use shr_kind_mod, only : r8 => shr_kind_r8
   use clm_varpar  , only : nlevsno
   use SNICARMod   , only : sno_nbr_aer, SNICAR_RT, DO_SNO_AER, DO_SNO_OC
@@ -25110,7 +24181,6 @@ contains
 
 
 
-
     
     flg_slr = 1; 
     call SNICAR_RT(flg_snw_ice, lbc, ubc, num_nourbanc, filter_nourbanc,    &
@@ -25133,7 +24203,6 @@ contains
              albgri(c,ib) = albsoi(c,ib)*(1._r8-frac_sno(c)) + albsni(c,ib)*frac_sno(c)
 
              
-
 
              
              
@@ -25182,16 +24251,9 @@ contains
 
 
          if (coszen_pft(p) > 0._r8) then
-
              if (itypelun(plandunit(p)) == istsoil  &
                  .and. (elai(p) + esai(p)) > 0._r8        &
                  .and. pwtgcell(p) > 0._r8) then
-
-
-
-
-
-
                 num_vegsol = num_vegsol + 1
                 filter_vegsol(num_vegsol) = p
              else
@@ -25338,11 +24400,7 @@ contains
           if (coszen(c) > 0._r8) then
              l = clandunit(c)
 
-
              if (ltype(l) == istsoil)  then 
-
-
-
                 inc    = max(0.11_r8-0.40_r8*h2osoi_vol(c,1), 0._r8)
                 soilcol = isoicol(c)
                 
@@ -26575,9 +25633,6 @@ contains
     use shr_kind_mod , only : r8 => shr_kind_r8
     use clmtype
     use clm_varcon  , only : tfrz, hfus, grav, istsoil, isturb, icol_road_perv
-
-
-
     use clm_varpar  , only : nlevsno, nlevgrnd
     use globals     , only : dtime
 
@@ -26755,11 +25810,7 @@ contains
 
           
           supercool(c,j) = 0.0_r8
-
           if (ltype(l) == istsoil .or. ctype(c) == icol_road_perv) then
-
-
-
              if(t_soisno(c,j) < tfrz) then
                 smp = hfus*(tfrz-t_soisno(c,j))/(grav*t_soisno(c,j)) * 1000._r8  
                 supercool(c,j) = watsat(c,j)*(smp/sucsat(c,j))**(-1._r8/bsw(c,j))
@@ -26904,11 +25955,7 @@ contains
        l = clandunit(c)
        if (ltype(l) == isturb) then
          eflx_snomelt_u(c) = eflx_snomelt(c)
-
        else if (ltype(l) == istsoil) then
-
-
-
          eflx_snomelt_r(c) = eflx_snomelt(c)
        end if
     end do
@@ -28857,9 +27904,6 @@ contains
     use clm_varcon, only : istsoil, isturb
 
 
-
-
-
     implicit none
     integer, intent(in)    :: lbc, ubc                    
     integer, intent(inout) :: num_snowc                   
@@ -28966,11 +28010,7 @@ contains
        l = clandunit(c)
        do j = msn_old(c)+1,0
           if (h2osoi_ice(c,j) <= .1_r8) then
-
              if (ltype(l) == istsoil .or. ltype(l)==isturb) then
-
-
-
                 h2osoi_liq(c,j+1) = h2osoi_liq(c,j+1) + h2osoi_liq(c,j)
                 h2osoi_ice(c,j+1) = h2osoi_ice(c,j+1) + h2osoi_ice(c,j)
                 
@@ -28990,11 +28030,7 @@ contains
                    mss_dst4(c,j+1)  = mss_dst4(c,j+1) + mss_dst4(c,j)
                 end if
 
-
              else if (ltype(l) /= istsoil .and. ltype(l) /= isturb .and. j /= 0) then
-
-
-
                 h2osoi_liq(c,j+1) = h2osoi_liq(c,j+1) + h2osoi_liq(c,j)
                 h2osoi_ice(c,j+1) = h2osoi_ice(c,j+1) + h2osoi_ice(c,j)
                 
@@ -29080,11 +28116,7 @@ contains
           mss_dst4(c,:)  = 0._r8
 
           if (h2osno(c) <= 0._r8) snowdp(c) = 0._r8
-
           if (ltype(l) == istsoil .or. ltype(l) == isturb) then
-
-
-
              h2osoi_liq(c,1) = h2osoi_liq(c,1) + zwliq(c)
           end if
        end if
@@ -29859,7 +28891,6 @@ module STATICEcosysdynMOD
 
 
 
-
   use shr_kind_mod, only: r8 => shr_kind_r8
   use decompMod    , only : get_proc_bounds
   use module_cam_support, only: endrun
@@ -30274,7 +29305,6 @@ contains
   end subroutine EcosystemDyn_dealloc
 
 
-
 end module STATICEcosysDynMod
 
 module HydrologyLakeMod
@@ -30482,11 +29512,7 @@ contains
        end if
        h2osno(c) = max(h2osno(c), 0._r8)
 
-
-
-
        h2osno(c) = max(h2osno(c), 0._r8)
-
 
        
 
@@ -30588,9 +29614,6 @@ contains
     use clmtype
     use clm_varcon   , only : tfrz, istice, istwet, istsoil, isturb, &
                               icol_roof, icol_sunwall, icol_shadewall
-
-
-
     use FracWetMod   , only : FracWet
     use subgridAveMod, only : p2c
     use SNICARMod    , only : snw_rds_min
@@ -30791,12 +29814,7 @@ contains
        
        
 
-
        if (ltype(l)==istsoil .or. ltype(l)==istwet .or. ltype(l)==isturb)then
-
-
-
-
 
           qflx_candrip(p) = 0._r8      
           qflx_through_snow(p) = 0._r8 
@@ -31060,9 +30078,6 @@ contains
                                  istice, istwet, istsoil, isturb, &
                                  icol_roof, icol_road_imperv, icol_road_perv, icol_sunwall, &
                                  icol_shadewall
-
-
-
     use clm_varpar      , only : nlevgrnd, nlevsno, nlevsoi
     use SnowHydrologyMod, only : SnowCompaction, CombineSnowLayers, DivideSnowLayers, &
                                  SnowWater, BuildSnowFilter
@@ -31198,14 +30213,6 @@ contains
     real(r8) :: hk(lbc:ubc,1:nlevgrnd)     
     real(r8) :: dhkdw(lbc:ubc,1:nlevgrnd)  
     real(r8) :: psi,vwc,fsattmp            
-
-
-
-
-
-
-
-
     real(r8) :: snowmass                   
     real(r8) :: snowcap_scl_fct            
     real(r8) :: fracl                      
@@ -31467,11 +30474,7 @@ contains
        if (ityplun(l)==isturb) then
          t_grnd_u(c) = t_soisno(c,snl(c)+1)
        end if
-
        if (ityplun(l)==istsoil) then
-
-
-
          t_grnd_r(c) = t_soisno(c,snl(c)+1)
        end if
        if (ctype(c) == icol_roof .or. ctype(c) == icol_sunwall &
@@ -31517,16 +30520,10 @@ contains
        qflx_runoff(c) = qflx_drain(c) + qflx_surf(c) + qflx_qrgwl(c)
        if (ityplun(l)==isturb) then
          qflx_runoff_u(c) = qflx_drain(c) + qflx_surf(c)
-
        else if (ityplun(l)==istsoil) then
-
-
-
          qflx_runoff_r(c) = qflx_drain(c) + qflx_surf(c) + qflx_qrgwl(c)
        end if
     end do
-
-
 
 
 
@@ -31940,11 +30937,6 @@ contains
    real(r8), pointer :: emg(:)         
    real(r8), pointer :: forc_pbot(:)   
    real(r8), pointer :: forc_pco2(:)   
-
-
-
-
-
    
    real(r8), pointer :: forc_po2(:)    
    real(r8), pointer :: forc_q(:)      
@@ -32009,7 +31001,6 @@ contains
    real(r8), pointer :: rssha(:)           
    real(r8), pointer :: psnsun(:)          
    real(r8), pointer :: psnsha(:)          
-
    
    real(r8), pointer :: qflx_tran_veg(:)   
    real(r8), pointer :: dt_veg(:)          
@@ -32110,11 +31101,6 @@ contains
    real(r8) :: err(lbp:ubp)          
    real(r8) :: erre                  
    real(r8) :: co2(lbp:ubp)          
-
-
-
-
-
    
    real(r8) :: o2(lbp:ubp)           
    real(r8) :: svpts(lbp:ubp)        
@@ -32167,9 +31153,6 @@ contains
 
    forc_lwrad     => clm_a2l%forc_lwrad
    forc_pco2      => clm_a2l%forc_pco2
-
-
-
    forc_po2       => clm_a2l%forc_po2
    forc_q         => clm_a2l%forc_q
    forc_pbot      => clm_a2l%forc_pbot
@@ -32229,7 +31212,6 @@ contains
    cisha          => clm3%g%l%c%p%pps%cisha
    psnsun         => clm3%g%l%c%p%pcf%psnsun
    psnsha         => clm3%g%l%c%p%pcf%psnsha
-
    
    elai           => clm3%g%l%c%p%pps%elai
    esai           => clm3%g%l%c%p%pps%esai
@@ -32306,9 +31288,6 @@ contains
       
       
       dayl_factor(p)=min(1._r8,max(0.01_r8,(dayl*dayl)/(max_dayl(c)*max_dayl(c))))
-
-
-
    end do
 
    rb1(lbp:ubp) = 0._r8
@@ -32397,11 +31376,6 @@ contains
       co2(p) = forc_pco2(g)
       o2(p)  = forc_po2(g)
       
-
-
-
-
-
       
       
 
@@ -32803,7 +31777,6 @@ contains
 
       fpsn(p) = psnsun(p)*laisun(p) + psnsha(p)*laisha(p)
       
-
       
    end do
 
@@ -32854,9 +31827,6 @@ contains
      use pftvarcon    , only : nbrdlf_dcd_tmp_shrub
 
 
-
-
-
      implicit none
      integer , intent(in)    :: fn                 
      integer , intent(in)    :: filterp(fn)        
@@ -32899,9 +31869,6 @@ contains
      real(r8), pointer :: rs(:)          
      real(r8), pointer :: psn(:)         
      real(r8), pointer :: ci(:)          
-
-
-
 
 
 
@@ -32970,9 +31937,6 @@ contains
         rs     => clm3%g%l%c%p%pps%rssun
         psn    => clm3%g%l%c%p%pcf%psnsun
         ci     => clm3%g%l%c%p%pps%cisun
-
-
-
         sla    => clm3%g%l%c%p%pps%slasun
         lnc    => clm3%g%l%c%p%pps%lncsun   
         vcmx   => clm3%g%l%c%p%pps%vcmxsun   
@@ -32982,9 +31946,6 @@ contains
         psn    => clm3%g%l%c%p%pcf%psnsha
         ci     => clm3%g%l%c%p%pps%cisha
         sla    => clm3%g%l%c%p%pps%slasha   
-
-
-
         lnc    => clm3%g%l%c%p%pps%lncsha   
         vcmx   => clm3%g%l%c%p%pps%vcmxsha
      end if
@@ -33045,9 +32006,6 @@ contains
            psn(p) = 0._r8
            lnc(p) = 0._r8
            vcmx(p) = 0._r8
-
-
-
         else                             
            tc = tl(p) - SHR_CONST_TKFRZ
            ppf = 4.6_r8 * apar(p)                  
@@ -33061,21 +32019,11 @@ contains
            
            
            
-
-
-
-
-
-
            
            
            lnc(p) = 1._r8 / (sla(p) * leafcn(ivt(p)))
 		   act = act25 * f1(q10act,tc)
-
-
-
            vcmx(p) = lnc(p) * flnr(ivt(p)) * fnr * act / f2(tc) * btran(p) * dayl_factor(p) * fnitr(ivt(p))
-
            
            
 
@@ -33088,7 +32036,6 @@ contains
            
 
            cea = max(0.25_r8*ei(p)*c3psn(ivt(p))+0.40_r8*ei(p)*(1._r8-c3psn(ivt(p))), min(ea(p),ei(p)) ) 
-
 
 
 
@@ -33112,18 +32059,11 @@ contains
               ci(p) = max( cs-psn(p)*forc_pbot(g)*1.65_r8*rs(p), 0._r8 )
            end do
 
-
            
 
            rs(p) = min(rsmax0, rs(p)*cf)
            rb(p) = rb(p) * cf 
            
-
-
-
-
-
-
            
         end if
 
@@ -33162,7 +32102,6 @@ end module CanopyFluxesMod
                 ,dwt_frootn_to_litr1n_buf,dwt_frootn_to_litr2n_buf, dwt_frootn_to_litr3n_buf &
                 , dwt_livecrootn_to_cwdn_buf,dwt_deadcrootn_to_cwdn_buf,retransn_buf &
                  )
-
 
   end subroutine biochem_to_wrf
 
@@ -34102,9 +33041,6 @@ contains
     use clmtype
     use clm_varpar         , only : nlevgrnd
     use clm_varcon         , only : cpair, vkc, grav, denice, denh2o, istsoil
-
-
-
     use shr_const_mod      , only : SHR_CONST_RGAS
     use FrictionVelocityMod, only : FrictionVelocity, MoninObukIni
     use QSatMod            , only : QSat
@@ -34466,11 +33402,7 @@ contains
        call QSat(t_ref2m(p), forc_pbot(g), e_ref2m, de2mdT, qsat_ref2m, dqsat2mdT)
        rh_ref2m(p) = min(100._r8, q_ref2m(p) / qsat_ref2m * 100._r8)
 
-
        if (ltype(l) == istsoil) then
-
-
-
          rh_ref2m_r(p) = rh_ref2m(p)
          t_ref2m_r(p) = t_ref2m(p)
        end if
@@ -34495,7 +33427,6 @@ contains
        
        clm3%g%l%c%p%pps%cisun(p) = 0._r8
        clm3%g%l%c%p%pps%cisha(p) = 0._r8
-
 
     end do
 
@@ -34573,9 +33504,6 @@ contains
                                     zlnd, zsno, tfrz, &
                                     icol_roof, icol_sunwall, icol_shadewall,     &
                                     icol_road_imperv, icol_road_perv, tfrz, spval, istdlak
-
-
-
     use clm_varpar         , only : nlevgrnd, nlevurb, nlevsno, max_pft_per_gcell, nlevsoi
     use QSatMod            , only : QSat
     use shr_const_mod      , only : SHR_CONST_PI
@@ -34838,11 +33766,7 @@ contains
 
        qred = 1._r8
        if (ityplun(l)/=istwet .AND. ityplun(l)/=istice) then
-
           if (ityplun(l) == istsoil) then
-
-
-
              wx   = (h2osoi_liq(c,1)/denh2o+h2osoi_ice(c,1)/denice)/dz(c,1)
              fac  = min(1._r8, wx/watsat(c,1))
              fac  = max( fac, 0.01_r8 )
@@ -34933,9 +33857,6 @@ contains
        
 
 
-
-
-
        
        
 
@@ -34967,21 +33888,13 @@ contains
        l = plandunit(p)
        if (ityplun(l) == isturb) then
          eflx_sh_tot_u(p) = 0._r8
-
        else if (ityplun(l) == istsoil) then
-
-
-
          eflx_sh_tot_r(p) = 0._r8
        end if
        eflx_lh_tot(p) = 0._r8
        if (ityplun(l) == isturb) then
          eflx_lh_tot_u(p) = 0._r8
-
        else if (ityplun(l) == istsoil) then
-
-
-
          eflx_lh_tot_r(p) = 0._r8
        end if
        eflx_sh_veg(p) = 0._r8
@@ -35019,11 +33932,7 @@ contains
             if (pwtgcell(p) > 0._r8) then 
               l = plandunit(p)
               c = pcolumn(p)
-
               if (ityplun(l) == istsoil) then
-
-
-
                 if (frac_veg_nosno(p) == 0) then
                   forc_hgt_u_pft(p) = forc_hgt_u(g) + z0mg(c) + displa(p)
                   forc_hgt_t_pft(p) = forc_hgt_t(g) + z0mg(c) + displa(p)
@@ -35146,9 +34055,6 @@ contains
     use clmtype
     use clm_varcon        , only : hvap, cpair, grav, vkc, tfrz, sb, &
                                    isturb, icol_roof, icol_sunwall, icol_shadewall, istsoil
-
-
-
     use clm_varpar        , only : nlevsno, nlevgrnd, max_pft_per_col
     use SoilTemperatureMod, only : SoilTemperature
     use subgridAveMod     , only : p2c
@@ -35445,11 +34351,7 @@ contains
 
 
 
-
           if (ltype(l) == istsoil) then
-
-
-
             eflx_soil_grnd_r(p) = eflx_soil_grnd(p)
           end if
        else
@@ -35475,11 +34377,7 @@ contains
 
        qflx_evap_tot(p) = qflx_evap_veg(p) + qflx_evap_soi(p)
        eflx_lh_tot(p)= hvap*qflx_evap_veg(p) + htvp(c)*qflx_evap_soi(p)
-
        if (ltype(l) == istsoil) then
-
-
-
          eflx_lh_tot_r(p)= eflx_lh_tot(p)
          eflx_sh_tot_r(p)= eflx_sh_tot(p)
        else if (ltype(l) == isturb) then
@@ -35572,11 +34470,7 @@ contains
                               + (1-frac_veg_nosno(p))*emg(c)*sb*tssbef(c,j)**4 &
                               + 4.*emg(c)*sb*tssbef(c,j)**3*tinc(c)
           eflx_lwrad_net(p) = eflx_lwrad_out(p) - forc_lwrad(g)
-
           if (ltype(l) == istsoil) then
-
-
-
             eflx_lwrad_net_r(p) = eflx_lwrad_out(p) - forc_lwrad(g)
           end if
        else
@@ -35968,15 +34862,11 @@ contains
 
        
 
-
-
-
        if (forc_t(g) > tfrz) then
           htvp(c) = hvap
        else
           htvp(c) = hsub
        end if
-
 
        
 
@@ -36363,90 +35253,69 @@ end module BiogeophysicsLakeMod
 
 module CNAllocationMod
 
-
 end module CNAllocationMod
 module CNAnnualUpdateMod
-
 
 end module CNAnnualUpdateMod
 module CNBalanceCheckMod
 
-
 end module CNBalanceCheckMod
 module CNCStateUpdate1Mod
-
 
 end module CNCStateUpdate1Mod
 module CNCStateUpdate2Mod
 
-
 end module CNCStateUpdate2Mod
 module CNCStateUpdate3Mod
 
-
 end module CNCStateUpdate3Mod
 module CNDecompMod
-
 
 end module CNDecompMod
 module CNSetValueMod
 
 
-
 end module CNSetValueMod
 module CNFireMod
-
 
 end module CNFireMod
 module CNGRespMod
 
-
 end module CNGRespMod
 module CNGapMortalityMod
-
 
 end module CNGapMortalityMod
 module CNMRespMod
 
-
 end module CNMRespMod
 module CNNDynamicsMod
-
 
 end module CNNDynamicsMod
 module CNNStateUpdate1Mod
 
-
 end module CNNStateUpdate1Mod
 module CNNStateUpdate2Mod
-
 
 end module CNNStateUpdate2Mod
 module CNNStateUpdate3Mod
 
-
 end module CNNStateUpdate3Mod
 module CNPhenologyMod
 
-
 end module CNPhenologyMod
 module CNPrecisionControlMod
-
 
 
 end module CNPrecisionControlMod
 module CNSummaryMod
 
 
-
 end module CNSummaryMod
 module CNVegStructUpdateMod
 
 
-
 end module CNVegStructUpdateMod
 module CNWoodProductsMod
-
 
 end module CNWoodProductsMod
 
@@ -36459,7 +35328,6 @@ end module CNWoodProductsMod
 
 
 subroutine CNiniSpecial ()
-
 
 
 end subroutine CNiniSpecial
@@ -36501,10 +35369,8 @@ subroutine CNiniTimeVar(htmx_buf,croplive_buf,gdd1020_buf,gdd820_buf,gdd020_buf,
                         )
 
 
-
 end subroutine CNiniTimeVar
 module CNEcosystemDynMod
-
 
 end  module CNEcosystemDynMod
 
@@ -36539,12 +35405,7 @@ subroutine iniTimeVar(snlx     ,snowdpx ,dzclmx  ,zclmx      ,&
   use SurfaceAlbedoMod     , only : SurfaceAlbedo
   use globals              , only : month, day, calday
 
-
-
-
-
   use STATICEcosysDynMod, only : EcosystemDyn, interpMonthlyVeg
-
   use shr_const_mod, only : SHR_CONST_PI
 
 
@@ -36631,7 +35492,6 @@ subroutine iniTimeVar(snlx     ,snowdpx ,dzclmx  ,zclmx      ,&
 
 
 
-
   
 
   lakpoi              => clm3%g%l%lakpoi
@@ -36692,11 +35552,9 @@ subroutine iniTimeVar(snlx     ,snowdpx ,dzclmx  ,zclmx      ,&
   call CLMDebug('iniTimeVar mark0')
 
 
-
   
   call CLMDebug('call interpMonthlyVeg')
   call interpMonthlyVeg(month, day)
-
 
 
      call get_proc_bounds(begg, endg, begl, endl, begc, endc, begp, endp)
@@ -36730,10 +35588,8 @@ subroutine iniTimeVar(snlx     ,snowdpx ,dzclmx  ,zclmx      ,&
      end do
     call CLMDebug('iniTimeVar mark1')
 
-
      call EcosystemDyn(begp, endp, filter%num_nolakep, filter%nolakep, &
                        doalb=.true.)
-
 
 !dir$ concurrent
 
@@ -36829,7 +35685,6 @@ contains
                   ,isl         ,lndmsk     &
                   ,t_ref2m ,ilx    ,jlx,calday,declin,declinp1 &
                   ,  organicxy, efisopxy,gtixy ,snw_rdsx    &
-
                                                          )
 
 
@@ -36859,9 +35714,6 @@ contains
 
     use surfFileMod     , only : surfrd
     use pftvarcon       , only : pftconrd
-
-
-
     use decompMod        , only: get_proc_bounds
 
 
@@ -36876,12 +35728,7 @@ contains
 
 
 
-
-
-
-
     use STATICEcosysDynMod , only : EcosystemDynini
-
 
  use clm_varcon      , only : var_par
  use aerdepMOD          , only : aerdepini
@@ -36930,12 +35777,6 @@ contains
 
 
 
-
-
-
-
-
-
     real(r8)  :: t_lake(maxpatch,nlevlak)
     real(r8)  :: t_soisno(maxpatch,-nlevsno+1:nlevgrnd)
     real(r8)  :: h2osoi_liq(maxpatch,-nlevsno+1:nlevgrnd)
@@ -36957,7 +35798,6 @@ contains
 
 
     real(r8) :: t_ref2m(maxpatch)
-
 
 
 
@@ -37014,10 +35854,6 @@ contains
 
 
 
-
-
-
-
     
 
     call CLMDebug('call iniTimeConst')
@@ -37028,9 +35864,6 @@ contains
                   ziclm    ,h2osno ,h2osoi_liq,h2osoi_ice,t_grnd,&
                   t_soisno ,t_lake ,t_veg    ,h2ocan ,h2ocan_col,&
                   h2osoi_vol,t_ref2m ,snw_rdsx &
-
-
-
                  )
 
 
@@ -37042,7 +35875,6 @@ contains
      
 
 
-
     call CLMDebug('init_ecosys') 
     call EcosystemDynini()       
 
@@ -37052,15 +35884,8 @@ contains
 
 
 
-
-
     
     
-
-
-
-
-
 
 
      call aerdepini()
@@ -37170,7 +35995,6 @@ end module initializeMod
                   ,Q2subgrid,SABVsubgrid,SABGsubgrid,NRAsubgrid     &
                   ,SWUPsubgrid ,LHsoi,LHveg,LHtran,organicxy,efisopxy,gtixy &
                   ,alswnirdir  ,alswnirdif, alswvisdir,alswvisdif &
-
                                                             )
 
 
@@ -37266,7 +36090,6 @@ end module initializeMod
 
 
 
-
   integer   :: snl(maxpatch)
   real(r8)  :: snowdp(maxpatch)
 
@@ -37299,7 +36122,6 @@ end module initializeMod
                 Q2subgrid,SABVsubgrid,SABGsubgrid,NRAsubgrid,SWUPsubgrid,LHsoi,LHveg,LHtran
   real(r8)  :: znt(maxpatch),organicxy(maxpatch)
   real(r8)  :: q_ref2m(maxpatch)
-
 
 
   logical doalb     
@@ -37435,7 +36257,6 @@ end module initializeMod
                   ,isl         ,lndmsk     &
                   ,t_ref2m ,ilx,jlx,calday,declin,declinp1&
                   ,organicxy, efisopxy,gtixy, snw_rdsxy   &
-
                                                                       )
     call CLMDebug('initialize done. Back in clm3')
 
@@ -37486,11 +36307,6 @@ end module initializeMod
 
           clm_a2l%forc_pco2(g) = pco2 * clm_a2l%forc_pbot(g)
           clm_a2l%forc_po2(g)  = po2 * clm_a2l%forc_pbot(g)
-
-
-
-
-
           
 
           clm_a2l%forc_lwrad(g) = flwdsxy
@@ -37570,7 +36386,6 @@ end module initializeMod
  
 
 
-
       call CLMDebug('start accumulate in clm3.F')
 
     albxy = 0._r8
@@ -37634,12 +36449,6 @@ end module initializeMod
           lhsoi(p)      = clm3%g%l%c%p%pef%eflx_lh_grnd(p)
           lhveg(p)      = clm3%g%l%c%p%pef%eflx_lh_vege(p)
           lhtran(p)     = clm3%g%l%c%p%pef%eflx_lh_vegt(p)
-
-
-
-
-
-
        endif
 
     end do
@@ -37763,14 +36572,7 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
 
   use decompMod           , only : get_proc_bounds
   use filterMod           , only : filter
-
-
-
-
   use pftdynMod           , only : pftdyn_interp, pftdyn_wbal_init, pftdyn_wbal
-
-
-
   use dynlandMod          , only : dynland_hwcontent
   use clm_varcon          , only : set_caerdep_from_file,set_dustdep_from_file,zlnd, isturb, fpftdyn, fndepdyn 
   use DriverInitMod       , only : DriverInit
@@ -37789,21 +36591,10 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
 
 
 
-
   use STATICEcosysDynMod  , only : EcosystemDyn, interpMonthlyVeg, EcosystemDyn_dealloc
 
 
-
-
-
-
   use VOCEmissionMod      , only : VOCEmission
-
-
-
-
-
-
 
 
   use SNICARMod           , only : SnowAge_grain
@@ -37872,7 +36663,6 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
   
   
 
-
   
   
   
@@ -37883,7 +36673,6 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
   
 
   if (doalb) call interpMonthlyVeg (monp1,dayp1)  
-
 
   
   
@@ -37956,17 +36745,8 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
 
 
 
-
-
-
-
-
-
-
-
   call CLMDebug('pftdyn_wbal_init')
   call pftdyn_wbal_init()                                            
-
 
   
   
@@ -37980,13 +36760,8 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
 
 
    if (fpftdyn /= ' ') then
-
-
-
-
                    
    end if
-
 
 
 
@@ -38103,14 +36878,6 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
      call BiogeophysicsLake(begc, endc, begp, endp, &
                             filter%num_lakec, filter%lakec, &
                             filter%num_lakep, filter%lakep)
-
-
-
-
-
-
-
-
 
 
 
@@ -38265,7 +37032,6 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
      
      
 
-
      
      
      
@@ -38273,7 +37039,6 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
      call EcosystemDyn(begp, endp, &                         
                        filter%num_nolakep, filter%nolakep, &
                        doalb)
-
 
 
      
@@ -38290,7 +37055,6 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
 
      call CLMDebug('BalanceCheck')   
      call BalanceCheck(begp, endp, begc, endc, begl, endl, begg, endg)
-
 
 
 
@@ -38329,13 +37093,9 @@ subroutine driver (doalb,ilx,jlx,nextsw_cday, declinp1, declin)
 
 
 
-
   call EcosystemDyn_dealloc
 
 
 
-
 end subroutine driver
-
-
 

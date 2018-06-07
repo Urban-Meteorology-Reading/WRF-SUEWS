@@ -51,10 +51,6 @@ CONTAINS
               ,RQVFTEN,RTHFTEN,RTHCUTEN,RTHRATEN                &
               ,rqvblten,rthblten                                &
               ,dudt_phy,dvdt_phy                                &
-
-
-
-
                                                                 )
 
    IMPLICIT NONE
@@ -150,7 +146,6 @@ CONTAINS
 
 
    INTEGER                                 :: spp_conv
-
 
 
      real,    dimension (its:ite,kts:kte) ::                    &
@@ -397,7 +392,6 @@ CONTAINS
      ENDDO
 
 
-
      DO K=kts,ktf
      DO I=ITS,ITF
          omeg(I,K)= -g*rho(i,k,j)*w(i,k,j)
@@ -422,13 +416,6 @@ CONTAINS
       DO I = its,itf
         if(mconv(i).lt.0.)mconv(i)=0.
       ENDDO
-
-
-
-
-
-
-
 
 
 
@@ -519,9 +506,6 @@ CONTAINS
                                
                                
                                
-
-
-
               ,k22m          &
               ,jminm)
 
@@ -533,13 +517,6 @@ CONTAINS
       CALL neg_check('mid',ipr,dt,qcheck,outqm,outtm,outum,outvm,   &
                      outqcm,pretm,its,ite,kts,kte,itf,ktf)
     endif
-
-
-
-
-
-
-
 
    if(ideep.eq.1)then
       call cup_gf(        &
@@ -604,9 +581,6 @@ CONTAINS
                                
                                
                                
-
-
-
               ,k22          &
               ,jmin)
         jpr=0
@@ -710,5 +684,3 @@ CONTAINS
 
    END SUBROUTINE GFDRV
 END MODULE MODULE_CU_GF_WRFDRV
-
-

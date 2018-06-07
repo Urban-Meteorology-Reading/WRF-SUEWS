@@ -19,7 +19,6 @@
 MODULE module_physics_addtendc
 
 
-
    USE module_state_description
    USE module_configure
 
@@ -2272,7 +2271,4 @@ SUBROUTINE add_c2c_v(lvar,rvar,config_flags,                &
 END SUBROUTINE add_c2c_v
 
 
-
 END MODULE module_physics_addtendc
-
-

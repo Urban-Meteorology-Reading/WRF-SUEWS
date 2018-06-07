@@ -1457,5 +1457,3 @@ end function rsat
    end subroutine temfinit
 
 end module module_bl_temf
-
-

@@ -78,7 +78,6 @@ CONTAINS
     INTEGER :: i, j
     DO i = 1, tabsize
 
-
       outbuf_table(i)%VarName = ""
       outbuf_table(i)%DateStr = ""
       outbuf_table(i)%MemoryOrder = ""
@@ -90,12 +89,10 @@ CONTAINS
       NULLIFY( outbuf_table(i)%rptr )
       NULLIFY( outbuf_table(i)%iptr )
 
-
     ENDDO
 
     num_entries = 0
   END SUBROUTINE init_outbuf
-
 
 
   SUBROUTINE write_outbuf ( DataHandle , io_form_arg )
@@ -110,18 +107,13 @@ CONTAINS
 
     USE module_state_description
     IMPLICIT NONE
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -130,7 +122,6 @@ CONTAINS
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
-
     INTEGER , INTENT(IN)  :: DataHandle, io_form_arg
     INTEGER               :: ii,ds1,de1,ds2,de2,ds3,de3
     INTEGER               :: Comm, IOComm, DomainDesc 
@@ -148,7 +139,6 @@ CONTAINS
       ds3 = outbuf_table(ii)%DomainStart(3) ; de3 = outbuf_table(ii)%DomainEnd(3)
 
       SELECT CASE ( io_form_arg )
-
 
         CASE ( IO_NETCDF   )
 
@@ -189,7 +179,6 @@ CONTAINS
                                  outbuf_table(ii)%DomainEnd,                          &
                                  Status )
           ENDIF
-
       CASE ( IO_GRIB1   )
 
           IF ( outbuf_table(ii)%FieldType .EQ. WRF_FLOAT ) THEN
@@ -229,7 +218,6 @@ CONTAINS
                                  outbuf_table(ii)%DomainEnd,                          &
                                  Status )
           ENDIF
-
         CASE ( IO_INTIO  )
           IF ( outbuf_table(ii)%FieldType .EQ. WRF_FLOAT ) THEN
 
@@ -270,7 +258,6 @@ CONTAINS
                                  Status )
 
           ENDIF
-
         CASE DEFAULT
       END SELECT
 
@@ -296,18 +283,13 @@ CONTAINS
 
 
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -316,7 +298,6 @@ CONTAINS
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
-
     INTEGER                              :: ipatch, jpatch, ii
     INTEGER                              :: ierr
     INTEGER                              :: npatches
@@ -352,7 +333,7 @@ integer i,j
           END DO
 
       ELSE
-         CALL wrf_error_fatal3("<stdin>",355,&
+         CALL wrf_error_fatal3("<stdin>",336,&
 "stitch_outbuf_patches: unrecognised Field Type")
       END IF
 
@@ -634,7 +615,7 @@ integer i,j
                    Stat=ierr)
        END IF
        IF(ierr /= 0)THEN
-          CALL wrf_error_fatal3("<stdin>",637,&
+          CALL wrf_error_fatal3("<stdin>",618,&
 'stitch_outbuf_patches: unable to stitch patches as allocate for merge buffer failed.')
           RETURN
        END IF
@@ -769,18 +750,13 @@ END MODULE module_quilt_outbuf_ops
 
     USE module_quilt_outbuf_ops
     IMPLICIT NONE
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -789,7 +765,6 @@ END MODULE module_quilt_outbuf_ops
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
-
     INTEGER ,                INTENT(IN) :: FieldType
     REAL    , DIMENSION(*) , INTENT(IN) :: inbuf_r
     INTEGER , DIMENSION(*) , INTENT(IN) :: inbuf_i
@@ -810,11 +785,11 @@ END MODULE module_quilt_outbuf_ops
           IF ( TRIM(MemoryOrder) .EQ. TRIM(outbuf_table(ii)%MemoryOrder) ) THEN
             found = .true.
           ELSE
-            CALL wrf_error_fatal3("<stdin>",813,&
+            CALL wrf_error_fatal3("<stdin>",788,&
 "store_patch_in_outbuf: memory order disagreement")
           ENDIF
         ELSE
-          CALL wrf_error_fatal3("<stdin>",817,&
+          CALL wrf_error_fatal3("<stdin>",792,&
 "store_patch_in_outbuf: multiple dates in buffer")
         ENDIF
       ELSE
@@ -831,7 +806,7 @@ END MODULE module_quilt_outbuf_ops
                                                  DomainStart(2):DomainEnd(2),DomainStart(3):DomainEnd(3)) )
       ELSE
         write(mess,*)"store_patch_in_outbuf: unsupported type ", FieldType
-        CALL wrf_error_fatal3("<stdin>",834,&
+        CALL wrf_error_fatal3("<stdin>",809,&
 mess)
       ENDIF
       outbuf_table(num_entries)%VarName = TRIM(VarName)
@@ -896,18 +871,13 @@ mess)
     USE module_quilt_outbuf_ops, Only: outpatch_table, tabsize, num_entries
     USE module_timing
     IMPLICIT NONE
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -916,7 +886,6 @@ mess)
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
-
     INTEGER ,               INTENT(IN) :: FieldType
     REAL    , DIMENSION(*), INTENT(IN) :: inbuf_r
     INTEGER , DIMENSION(*), INTENT(IN) :: inbuf_i
@@ -943,11 +912,11 @@ mess)
           IF ( TRIM(MemoryOrder) .EQ. TRIM(outpatch_table(ii)%MemoryOrder) ) THEN
             found = .true.
           ELSE
-            CALL wrf_error_fatal3("<stdin>",946,&
+            CALL wrf_error_fatal3("<stdin>",915,&
 "store_patch_in_outbuf_pnc: memory order disagreement")
           ENDIF
         ELSE
-          CALL wrf_error_fatal3("<stdin>",950,&
+          CALL wrf_error_fatal3("<stdin>",919,&
 "store_patch_in_outbuf_pnc: multiple dates in buffer")
         ENDIF
       ELSE
@@ -959,7 +928,7 @@ mess)
       IF(num_entries > tabsize)THEN
          WRITE(mess,*) 'Number of entries in outpatch_table has exceeded tabsize (',&
          tabsize,') in module_quilt_outbuf_ops::store_patch_in_outbuf_pnc'
-         CALL wrf_error_fatal3("<stdin>",962,&
+         CALL wrf_error_fatal3("<stdin>",931,&
 mess)
       END IF
       outpatch_table(num_entries)%npatch = 0
@@ -985,7 +954,7 @@ mess)
          CALL wrf_message(mess)
          WRITE(mess,*)'Allocation for ',ntasks, &
                       ' patches in store_patch_in_outbuf_pnc() failed.'
-         CALL wrf_error_fatal3("<stdin>",988,&
+         CALL wrf_error_fatal3("<stdin>",957,&
 mess )
       ENDIF
       
@@ -1042,13 +1011,13 @@ mess )
                                                  Stat=ierr)
        ELSE
           WRITE(mess,*)"store_patch_in_outbuf_pnc: unsupported type ", FieldType
-          CALL wrf_error_fatal3("<stdin>",1045,&
+          CALL wrf_error_fatal3("<stdin>",1014,&
 mess)
        ENDIF
 
        IF(ierr /= 0)THEN
           WRITE(mess,*)"store_patch_in_outbuf_pnc: failed to allocate memory to hold patch for var. ", TRIM(VarName)
-          CALL wrf_error_fatal3("<stdin>",1051,&
+          CALL wrf_error_fatal3("<stdin>",1020,&
 mess)
        END IF
 
@@ -1144,7 +1113,7 @@ mess)
       VarNameAsInts( i ) = ICHAR( VarName(i-1:i-1) )
     ENDDO
     CALL store_piece_of_field_c ( inbuf, VarNameAsInts, Nbytes, ierr )
-    IF ( ierr .NE. 0 ) CALL wrf_error_fatal3("<stdin>",1147,&
+    IF ( ierr .NE. 0 ) CALL wrf_error_fatal3("<stdin>",1116,&
 "store_piece_of_field" )
     RETURN
   END SUBROUTINE store_piece_of_field
@@ -1187,6 +1156,4 @@ mess)
     ENDIF
     RETURN
   END SUBROUTINE retrieve_pieces_of_field
-
-
 

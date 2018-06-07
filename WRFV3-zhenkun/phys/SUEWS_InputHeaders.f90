@@ -1,15 +1,15 @@
-!-------------------------------------------------------------------------
+
 SUBROUTINE InputHeaderCheck(FileName)
-  ! Checks columns in input files match the columns expected by model code
-  ! Model code columns are defined here
-  ! Latest update:
-  !   MH 21 Jun 2017 - Added parameters to SUEWS_AnthropogenicEmissions.txt
-  !   MH 16 Jun 2017 - Added SUEWS_BiogenCO2.txt
-  !   TS 02 Mar 2016  - AnOHM related variables added
-  !   LJ 27 Jan 2016  - Removal of tabs
-  !   LJ 07 July 2015 - snow albedo removed
-  !   HCW 12 Nov 2014
-  !-------------------------------------------------------------------------
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   USE allocateArray
   USE ColNamesInputFiles
@@ -19,10 +19,10 @@ SUBROUTINE InputHeaderCheck(FileName)
 
   CHARACTER (len=50):: FileName
 
-  ! ========== Define expected column names here ==========
-  ! =======================================================
+  
+  
 
-  ! ========== SUEWS_NonVeg.txt =============
+  
   HeaderNonVeg_Reqd(ci_Code)         = "Code"
   HeaderNonVeg_Reqd(ci_AlbMin)       = "AlbedoMin"
   HeaderNonVeg_Reqd(ci_AlbMax)       = "AlbedoMax"
@@ -44,12 +44,12 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderNonVeg_Reqd(ci_OHMThresh_SW) = "OHMThresh_SW"
   HeaderNonVeg_Reqd(ci_OHMThresh_WD) = "OHMThresh_WD"
   HeaderNonVeg_Reqd(ci_ESTMCode)     = "ESTMCode"
-  HeaderNonVeg_Reqd(ci_cpAnOHM)      = "AnOHM_Cp" ! AnOHM TS
-  HeaderNonVeg_Reqd(ci_kkAnOHM)      = "AnOHM_Kk" ! AnOHM TS
-  HeaderNonVeg_Reqd(ci_chAnOHM)      = "AnOHM_Ch" ! AnOHM TS
+  HeaderNonVeg_Reqd(ci_cpAnOHM)      = "AnOHM_Cp" 
+  HeaderNonVeg_Reqd(ci_kkAnOHM)      = "AnOHM_Kk" 
+  HeaderNonVeg_Reqd(ci_chAnOHM)      = "AnOHM_Ch" 
 
 
-  ! ========== SUEWS_Veg.txt ===============
+  
   HeaderVeg_Reqd(cp_Code)          = "Code"
   HeaderVeg_Reqd(cp_AlbMin)        = "AlbedoMin"
   HeaderVeg_Reqd(cp_AlbMax)        = "AlbedoMax"
@@ -84,12 +84,12 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderVeg_Reqd(cp_OHMThresh_SW)  = "OHMThresh_SW"
   HeaderVeg_Reqd(cp_OHMThresh_WD)  = "OHMThresh_WD"
   HeaderVeg_Reqd(cp_ESTMCode)      = "ESTMCode"
-  HeaderVeg_Reqd(cp_cpAnOHM)       = "AnOHM_Cp" ! AnOHM TS
-  HeaderVeg_Reqd(cp_kkAnOHM)       = "AnOHM_Kk" ! AnOHM TS
-  HeaderVeg_Reqd(cp_chAnOHM)       = "AnOHM_Ch" ! AnOHM TS
+  HeaderVeg_Reqd(cp_cpAnOHM)       = "AnOHM_Cp" 
+  HeaderVeg_Reqd(cp_kkAnOHM)       = "AnOHM_Kk" 
+  HeaderVeg_Reqd(cp_chAnOHM)       = "AnOHM_Ch" 
   HeaderVeg_Reqd(cp_BiogenCO2Code) = "BiogenCO2Code"
 
-  ! ========== SUEWS_Water.txt ==================
+  
   HeaderWater_Reqd(cw_Code)         = "Code"
   HeaderWater_Reqd(cw_AlbMin)       = "AlbedoMin"
   HeaderWater_Reqd(cw_AlbMax)       = "AlbedoMax"
@@ -109,11 +109,11 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderWater_Reqd(cw_OHMThresh_SW) = "OHMThresh_SW"
   HeaderWater_Reqd(cw_OHMThresh_WD) = "OHMThresh_WD"
   HeaderWater_Reqd(cw_ESTMCode)     = "ESTMCode"
-  HeaderWater_Reqd(cw_cpAnOHM)      = "AnOHM_Cp" ! AnOHM TS
-  HeaderWater_Reqd(cw_kkAnOHM)      = "AnOHM_Kk" ! AnOHM TS
-  HeaderWater_Reqd(cw_chAnOHM)      = "AnOHM_Ch" ! AnOHM TS
+  HeaderWater_Reqd(cw_cpAnOHM)      = "AnOHM_Cp" 
+  HeaderWater_Reqd(cw_kkAnOHM)      = "AnOHM_Kk" 
+  HeaderWater_Reqd(cw_chAnOHM)      = "AnOHM_Ch" 
 
-  ! ========== SUEWS_Snow.txt ===================
+  
   HeaderSnow_Reqd(cs_Code)         = "Code"
   HeaderSnow_Reqd(cs_SnowRMFactor) = "RadMeltFactor"
   HeaderSnow_Reqd(cs_SnowTMFactor) = "TempMeltFactor"
@@ -136,12 +136,12 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderSnow_Reqd(cs_OHMThresh_SW) = "OHMThresh_SW"
   HeaderSnow_Reqd(cs_OHMThresh_WD) = "OHMThresh_WD"
   HeaderSnow_Reqd(cs_ESTMCode)     = "ESTMCode"
-  HeaderSnow_Reqd(cs_cpAnOHM)      = "AnOHM_Cp"    ! AnOHM TS
-  HeaderSnow_Reqd(cs_kkAnOHM)      = "AnOHM_Kk"    ! AnOHM TS
-  HeaderSnow_Reqd(cs_chAnOHM)      = "AnOHM_Ch"    ! AnOHM TS
+  HeaderSnow_Reqd(cs_cpAnOHM)      = "AnOHM_Cp"    
+  HeaderSnow_Reqd(cs_kkAnOHM)      = "AnOHM_Kk"    
+  HeaderSnow_Reqd(cs_chAnOHM)      = "AnOHM_Ch"    
 
 
-  ! ========== SUEWS_Soil.txt ===================
+  
   HeaderSoil_Reqd(cSo_Code)        = "Code"
   HeaderSoil_Reqd(cSo_SoilDepth)   = "SoilDepth"
   HeaderSoil_Reqd(cSo_SoilStCap)   = "SoilStoreCap"
@@ -152,7 +152,7 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderSoil_Reqd(cSo_ObsSMMax)    = "OBS_SMCap"
   HeaderSoil_Reqd(cSo_ObsSNRFrac)  = "OBS_SoilNotRocks"
 
-  ! ========== SUEWS_Conductance.txt ============
+  
   HeaderCond_Reqd(cc_Code)         = "Code"
   HeaderCond_Reqd(cc_GsG1)         = "G1"
   HeaderCond_Reqd(cc_GsG2)         = "G2"
@@ -167,13 +167,13 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderCond_Reqd(cc_GsKmax)       = "Kmax"
   HeaderCond_Reqd(cc_gsModel)       = "gsModel"
 
-  ! ========== SUEWS_OHMCoefficients.txt ========
+  
   HeaderOHMCoefficients_Reqd(cO_Code) = "Code"
   HeaderOHMCoefficients_Reqd(cO_a1)   = "a1"
   HeaderOHMCoefficients_Reqd(cO_a2)   = "a2"
   HeaderOHMCoefficients_Reqd(cO_a3)   = "a3"
 
-  ! ========== SUEWS_ESTMCoefficients.txt ========
+  
   HeaderESTMCoefficients_Reqd(cE_Code)       = "Code"
   HeaderESTMCoefficients_Reqd(cE_Surf_thick1)   = "Surf_thick1"
   HeaderESTMCoefficients_Reqd(cE_Surf_k1)       = "Surf_k1"
@@ -227,7 +227,7 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderESTMCoefficients_Reqd(cE_CH_iroof)   = "Internal_CHroof"
   HeaderESTMCoefficients_Reqd(cE_CH_ibld)    = "Internal_CHbld"
 
-  ! ========== SUEWS_AnthropogenicHeat.txt ======
+  
   HeaderAnthropogenic_Reqd(cA_Code)     = "Code"
   HeaderAnthropogenic_Reqd(cA_BaseTHDD) = "BaseTHDD"
   HeaderAnthropogenic_Reqd(cA_QF_A1)    = "QF_A_WD"
@@ -263,7 +263,7 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderAnthropogenic_Reqd(cA_FcEF_v_kgkm)    = "FcEF_v_kgkm"
   HeaderAnthropogenic_Reqd(cA_TrafficUnits)   = "TrafficUnits"
 
-  ! ========== SUEWS_Irrigation.txt =============
+  
   HeaderIrrigation_Reqd(cIr_Code)         = "Code"
   HeaderIrrigation_Reqd(cIr_IeStart)      = "Ie_start"
   HeaderIrrigation_Reqd(cIr_IeEnd)        = "Ie_end"
@@ -290,7 +290,7 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderIrrigation_Reqd(cIr_DayWatPer6)   = "DayWatPer(6)"
   HeaderIrrigation_Reqd(cIr_DayWatPer7)   = "DayWatPer(7)"
 
-  ! ========== SUEWS_Profiles.txt ===============
+  
   HeaderProfiles_Reqd(cPr_Code)      = "Code"
   HeaderProfiles_Reqd(cPr_Hours( 1)) = "0"
   HeaderProfiles_Reqd(cPr_Hours( 2)) = "1"
@@ -317,7 +317,7 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderProfiles_Reqd(cPr_Hours(23)) = "22"
   HeaderProfiles_Reqd(cPr_Hours(24)) = "23"
 
-  ! ========== SUEWS_WithinGridWaterDist.txt ====
+  
   HeaderWGWaterDist_Reqd(cWG_Code)        = "Code"
   HeaderWGWaterDist_Reqd(cWG_ToPaved)     = "ToPaved"
   HeaderWGWaterDist_Reqd(cWG_ToBldgs)     = "ToBldgs"
@@ -330,7 +330,7 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderWGWaterDist_Reqd(cWG_ToSoilStore) = "ToSoilStore"
   
   
-  ! ========== SUEWS_BiogenCO2.txt ======
+  
   HeaderBiogen_Reqd(cB_Code)            = "Code"
   HeaderBiogen_Reqd(cB_alpha)           = "alpha"
   HeaderBiogen_Reqd(cB_beta)            = "beta"
@@ -341,11 +341,11 @@ SUBROUTINE InputHeaderCheck(FileName)
   HeaderBiogen_Reqd(cB_resp_b)          = "resp_b"
   HeaderBiogen_Reqd(cB_min_r)           = "min_respi"
 
-  ! =======================================================
+  
 
 
-  !write(*,*) 'Checking header for ', FileName
-  ! Check columns in input files match model code
+
+  
 
   IF(FileName == 'SUEWS_NonVeg.txt') THEN
      IF(ANY(HeaderNonVeg_File /= HeaderNonVeg_Reqd)) THEN
@@ -446,4 +446,4 @@ SUBROUTINE InputHeaderCheck(FileName)
 
 ENDSUBROUTINE InputHeaderCheck
 
-!-------------------------------------------------------------------------
+

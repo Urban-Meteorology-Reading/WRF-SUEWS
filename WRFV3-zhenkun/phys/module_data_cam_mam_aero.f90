@@ -2,24 +2,13 @@
 
 
 
-
-
-
-
-
-
-
       module modal_aero_data
 
 
 
 
       use shr_kind_mod,  only: r8 => shr_kind_r8
-
-
-
       use module_cam_support, only : pcnst => pcnst_runtime
-
       use radconstants,  only: nswbands, nlwbands
 
       implicit none
@@ -28,11 +17,7 @@
      integer, parameter ::  maxd_aspectype = 14
     
     
-
-
-
     integer, parameter :: ntot_amode = 3
-
 
     
     
@@ -45,64 +30,34 @@
     
 
     
-
     
     real(r8) :: specmw_amode(ntot_aspectype)   = (/ 115.0, 115.0,  62.0,   12.0,   12.0,   12.0,  58.5, 135.0 /)
 
 
-
-
     
-
     character(len=*), parameter :: modename_amode(ntot_amode) = (/'accum           ', &
          'aitken          ', &
          'coarse          '/)
 
-
-
     integer :: nspec_amode(ntot_amode) = (/ 6, 3, 3 /)
-
-
     integer, parameter :: nspec_amode_max = 6
     
-
-
-
-
-
-
     integer, parameter ::     mprognum_amode(ntot_amode)   = (/ 1, 1, 1/)
     integer, parameter ::     mdiagnum_amode(ntot_amode)   = (/ 0, 0, 0/)
     integer, parameter ::     mprogsfc_amode(ntot_amode)   = (/ 0, 0, 0/)
     integer, parameter ::     mcalcwater_amode(ntot_amode) = (/ 0, 0, 0/)
 
-
     
-
-
-
-
-
     real(r8), parameter ::     dgnum_amode(ntot_amode)   = (/ 0.1100e-6, 0.0260e-6, 2.000e-6 /)
     real(r8), parameter ::     dgnumlo_amode(ntot_amode) = (/ 0.0535e-6, 0.0087e-6, 1.000e-6 /)
     real(r8), parameter ::     dgnumhi_amode(ntot_amode) = (/ 0.4400e-6, 0.0520e-6, 4.000e-6 /)
 
-
     
-
-
-
     real(r8), parameter ::     sigmag_amode(ntot_amode)   = (/ 1.800, 1.600, 1.800 /)
 
-
     
-
-
-
-
     real(r8), parameter ::     rhcrystal_amode(ntot_amode)  = (/ 0.350, 0.350, 0.350 /)
     real(r8), parameter ::     rhdeliques_amode(ntot_amode) = (/ 0.800, 0.800, 0.800 /)
-
 
 
     integer :: msectional = -1
@@ -132,11 +87,7 @@
           specrefndxsw( nswbands, maxd_aspectype ),           &   
           specrefndxlw( nlwbands, maxd_aspectype )
 
-
-
-
       character(len=16), allocatable :: cnst_name_cw( : )
-
 
       character(len=8) :: aodvisname(ntot_amode ),       &
                           ssavisname(ntot_amode )
@@ -175,13 +126,8 @@
           specmw_bc_amode,      specdens_bc_amode,        &
           specmw_dust_amode,    specdens_dust_amode,      &
           specmw_seasalt_amode, specdens_seasalt_amode
-
-
-
-
       integer, allocatable:: species_class(:)	
 				
-
 
 	integer     spec_class_undefined
 	parameter ( spec_class_undefined = 0 )
@@ -196,12 +142,7 @@
 
 
 
-
-
-
       real(r8), allocatable :: qneg3_worst_thresh_amode(:)
-
-
 
       
       
@@ -218,11 +159,7 @@
       integer  :: lptr_dust_a_amode_mp(ntot_amode)
       integer  :: lptr_nacl_a_amode_mp(ntot_amode)
       integer  :: numptr_amode_mp(ntot_amode) 	 
-
-
-
       integer  :: nspec_amode_mp(ntot_amode)  = (/ 6, 3, 3 /)
-
       integer  :: lmassptr_amode_mp(maxd_aspectype, ntot_amode) 
       integer  :: lspectype_amode_mp(maxd_aspectype, ntot_amode)       
       integer  :: lmassptrcw_amode_mp(maxd_aspectype, ntot_amode)
@@ -241,11 +178,7 @@
 
 
 
-
-
       end module modal_aero_data
-
-
 
 
 

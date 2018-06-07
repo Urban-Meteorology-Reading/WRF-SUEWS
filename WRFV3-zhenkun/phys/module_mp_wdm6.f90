@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 MODULE module_mp_wdm6
 
 
@@ -3098,5 +3091,3 @@ CONTAINS
 
 
 END MODULE module_mp_wdm6
-
-

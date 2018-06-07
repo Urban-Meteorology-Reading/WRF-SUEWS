@@ -1,5 +1,5 @@
-!  FUNCTION TO RETURN 0 IF IX=0, 1 IF 0<IX<MAXPOS+1,-1 OTHERWISE. 
-!  MAXPOS is given as the maximum positive Integer. 
+
+
 subroutine issign(IX,MAXPOS,ISIGNM)
       real(kind(1d0)) IX,MAXPOS,ISIGNM 
       ISIGNM=1.0 
@@ -9,8 +9,8 @@ subroutine issign(IX,MAXPOS,ISIGNM)
 end subroutine issign
 
 
-!=====================================================
-! fuction to convert interger to string
+
+
 character(len=20) function str(k)
     integer, intent(in) :: k
     write (str, *) k
@@ -28,7 +28,7 @@ use time
 implicit none
 character(len=100)       :: GridPath,GridName,GridPath2
 character(len=4)       ::doy,hour
-!real(kind(1d0)), allocatable, dimension(:,:):: savegrid
+
 
     allocate(savegrid(sizey,sizex))
 

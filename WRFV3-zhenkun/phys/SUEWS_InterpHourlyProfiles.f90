@@ -1,7 +1,7 @@
-!Interpolates hourly profiles provided in SUEWS_Profiles.txt
-! to resolution of the model timestep
-! HCW 06 Feb 2015
-!===================================================================================
+
+
+
+
 subroutine SUEWS_InterpHourlyProfiles(Gridiv,TstepP_ID,SurfChar_HrProf)
 
   use allocateArray
@@ -10,16 +10,16 @@ subroutine SUEWS_InterpHourlyProfiles(Gridiv,TstepP_ID,SurfChar_HrProf)
 
   IMPLICIT NONE
 
-  integer:: i,j, ii   !Used to count over hours and sub-hourly timesteps
+  integer:: i,j, ii   
   integer:: Gridiv, TstepP_ID
   integer,dimension(24):: SurfChar_HrProf
-  real(kind(1d0)):: deltaProf   !Change in hourly profiles per model timestep               
+  real(kind(1d0)):: deltaProf   
 
-  ! Copy value for first hour
+  
   TstepProfiles(Gridiv,TstepP_ID,1) = SurfaceChar(Gridiv,SurfChar_HrProf(1))
   do i=1,24
       j = (i+1)  
-      if(i == 24) j = 1   !If last hour of day, loop round to first hour of day for interpolation
+      if(i == 24) j = 1   
       deltaProf = ((SurfaceChar(Gridiv,SurfChar_HrProf(j)) - SurfaceChar(Gridiv,SurfChar_HrProf(i))))/nsh_real
       do ii=1,nsh
          if((nsh*(i-1)+ii+1) < (23*nsh+nsh+1))  then
@@ -29,4 +29,4 @@ subroutine SUEWS_InterpHourlyProfiles(Gridiv,TstepP_ID,SurfChar_HrProf)
    enddo
    
 endsubroutine SUEWS_InterpHourlyProfiles
-!===================================================================================
+

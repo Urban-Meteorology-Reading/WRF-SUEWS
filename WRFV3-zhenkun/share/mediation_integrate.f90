@@ -2,7 +2,6 @@
 
 
 
-
 SUBROUTINE med_calc_model_time ( grid , config_flags )
   
    USE module_domain    , ONLY : domain, domain_clock_get
@@ -45,10 +44,6 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
    INTEGER                                    :: rc
    TYPE(WRFU_Time) :: currTime, startTime
 
-
-
-
-
    CHARACTER*256          :: message
 
 
@@ -59,10 +54,6 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
      IF       ( ( config_flags%restart )                    .AND. &
                 ( config_flags%write_hist_at_0h_rst )       .AND. &
                 ( currTime .EQ. startTime )                       ) THEN
-
-
-
-
 
 
        
@@ -113,12 +104,10 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
    DO ialarm = first_auxinput, last_auxinput
      IF ( .FALSE.) THEN
        rc = 1  
-
      ELSE IF( ialarm .EQ. AUXINPUT11_ALARM ) THEN
        IF( config_flags%obs_nudge_opt .EQ. 1) THEN
          CALL med_fddaobs_in ( grid , config_flags )
        ENDIF
-
      ELSE IF( WRFU_AlarmIsRinging( grid%alarms( ialarm ), rc=rc ) ) THEN
        CALL med_auxinput_in ( grid, ialarm, config_flags )
        WRITE ( message , FMT='(A,i3,A,i3)' )  'Input data processed for aux input ' , &
@@ -132,14 +121,6 @@ SUBROUTINE med_before_solve_io ( grid , config_flags )
    CALL WRFU_ClockGet( grid%domain_clock, CurrTime=currTime, StartTime=startTime )
    IF ( ( WRFU_AlarmIsRinging( grid%alarms( RESTART_ALARM ), rc=rc ) ) .AND. &
         ( currTime .NE. startTime ) ) THEN
-
-
-
-
-
-
-
-
      IF ( grid%id .EQ. 1 ) THEN
        
        
@@ -181,16 +162,8 @@ END SUBROUTINE med_after_solve_io
 
 SUBROUTINE med_pre_nest_initial ( parent , newid , config_flags )
   
-
-
-
    USE module_domain    , ONLY : domain
-
-
-
-
    USE module_utility   , ONLY : WRFU_Time, WRFU_TimeEQ
-
    USE module_timing
    USE module_io_domain
    USE module_configure , ONLY : grid_config_rec_type
@@ -211,7 +184,6 @@ SUBROUTINE med_pre_nest_initial ( parent , newid , config_flags )
    TYPE(WRFU_Time)        :: strt_time, cur_time
 
 
-
 END SUBROUTINE med_pre_nest_initial
 
 
@@ -222,10 +194,6 @@ SUBROUTINE med_nest_initial ( parent , nest , config_flags )
    USE module_io_domain
    USE module_configure , ONLY : grid_config_rec_type
    USE module_utility
-
-
-
-
   
 
    IMPLICIT NONE
@@ -246,11 +214,6 @@ SUBROUTINE med_nest_initial ( parent , nest , config_flags )
    INTEGER                :: ids , ide , jds , jde , kds , kde , &
                              ims , ime , jms , jme , kms , kme , &
                              ips , ipe , jps , jpe , kps , kpe
-
-
-
-
-
 
    INTEGER                :: save_itimestep 
                                             
@@ -364,10 +327,6 @@ SUBROUTINE med_nest_initial ( parent , nest , config_flags )
 
 
 
-
-
-
-
      CALL init_domain_constants ( parent, nest )
 
      if (nest%e_vert /= parent%e_vert) then
@@ -468,7 +427,6 @@ SUBROUTINE med_nest_initial ( parent , nest , config_flags )
                                      '. ***'
        CALL wrf_debug ( 0 , message )
 
-
        
        
        IF ( nest%active_this_task) THEN
@@ -476,7 +434,6 @@ SUBROUTINE med_nest_initial ( parent , nest , config_flags )
           CALL wrf_tsin( nest , ierr )
           CALL pop_communicators_for_domain
        ENDIF
-
      END IF
 
 
@@ -505,11 +462,6 @@ SUBROUTINE med_nest_initial ( parent , nest , config_flags )
        CALL start_domain ( nest , .TRUE. )
        CALL pop_communicators_for_domain
      ENDIF
-
-
-
-
-
 
 
      IF ( parent%active_this_task ) THEN
@@ -581,7 +533,7 @@ SUBROUTINE med_nest_initial ( parent , nest , config_flags )
      CALL open_r_dataset ( fid , TRIM(rstname) , nest , nest_config_flags , "DATASET=RESTART", ierr )
      IF ( ierr .NE. 0 ) THEN
        WRITE( message , '("program wrf: error opening ",A32," for reading")') TRIM(rstname)
-       CALL wrf_error_fatal3("<stdin>",584,&
+       CALL wrf_error_fatal3("<stdin>",536,&
 message )
      ENDIF
      CALL input_restart ( fid,   nest , nest_config_flags , ierr )
@@ -599,13 +551,9 @@ message )
      nest%press_adj = .FALSE.
      CALL start_domain ( nest , .TRUE. )
 
-
      parent%ht_coarse = parent%ht
 
-
   ENDIF
-
-
 
 
   RETURN
@@ -615,9 +563,7 @@ SUBROUTINE init_domain_constants ( parent , nest )
    USE module_domain    , ONLY : domain
    IMPLICIT NONE
    TYPE(domain) :: parent , nest
-
    CALL init_domain_constants_em ( parent, nest )
-
 END SUBROUTINE init_domain_constants
 
 
@@ -638,11 +584,6 @@ SUBROUTINE med_nest_force ( parent , nest )
    INTEGER                                    :: idum1 , idum2 , fid, rc
 
 
-
-
-
-
-
    INTERFACE
      SUBROUTINE med_force_domain ( parent , nest )
         USE module_domain       , ONLY : domain
@@ -652,9 +593,7 @@ SUBROUTINE med_nest_force ( parent , nest )
         USE module_domain       , ONLY : domain
         TYPE(domain) , POINTER                 :: parent , nest
      END SUBROUTINE med_interp_domain
-
    END INTERFACE
-
 
 
    IF ( .NOT. WRFU_ClockIsStopTime(nest%domain_clock ,rc=rc) ) THEN
@@ -704,7 +643,6 @@ SUBROUTINE med_nest_feedback ( parent , nest , config_flags )
 
     IF ( config_flags%feedback .NE. 0 ) THEN
       CALL med_feedback_domain( parent, nest )
-
     END IF
 
    RETURN
@@ -728,13 +666,6 @@ SUBROUTINE med_last_solve_io ( grid , config_flags )
    INTEGER                                    :: rc
 
 
-
-
-
-
-
-
-
    IF( WRFU_AlarmIsRinging( grid%alarms( HISTORY_ALARM ), rc=rc ) .AND. &
        (grid%dfi_write_dfi_history .OR. grid%dfi_stage == DFI_FST .OR. grid%dfi_opt == DFI_NODFI) ) THEN
 
@@ -752,7 +683,6 @@ SUBROUTINE med_last_solve_io ( grid , config_flags )
 
 
    IF ( grid%dfi_stage == DFI_FST .OR. grid%dfi_opt == DFI_NODFI ) THEN
-
 
 
 
@@ -832,12 +762,10 @@ SUBROUTINE med_last_solve_io ( grid , config_flags )
    CALL med_hist_out ( grid , AUXHIST24_ALARM , config_flags )
  ENDIF
 
-
    END IF
 
 
    IF( WRFU_AlarmIsRinging( grid%alarms( RESTART_ALARM ), rc=rc ) ) THEN
-
      IF ( grid%id .EQ. 1 ) THEN
        CALL med_restart_out ( grid , config_flags )
      ENDIF
@@ -848,8 +776,6 @@ SUBROUTINE med_last_solve_io ( grid , config_flags )
 
    RETURN
 END SUBROUTINE med_last_solve_io
-
-
 
 
 
@@ -922,8 +848,6 @@ END SUBROUTINE med_restart_out
 
 
 
-
-
 SUBROUTINE med_hist_out ( grid , stream, config_flags )
   
    USE module_domain    , ONLY : domain
@@ -953,10 +877,9 @@ SUBROUTINE med_hist_out ( grid , stream, config_flags )
 
    IF ( stream .LT. first_history .OR. stream .GT. last_auxhist ) THEN
      WRITE(message,*)'med_hist_out: invalid history stream ',stream
-     CALL wrf_error_fatal3("<stdin>",956,&
+     CALL wrf_error_fatal3("<stdin>",880,&
 message )
    ENDIF
-
 
 
    SELECT CASE( stream )
@@ -965,7 +888,6 @@ message )
                          config_flags%history_outname, grid%oid,    &
                          output_history, fname, n2, ierr )
        CALL output_history ( grid%oid, grid , config_flags , ierr )
-
 
 
 
@@ -1096,7 +1018,6 @@ message )
    CALL output_auxhist24 ( grid%auxhist24_oid, grid , config_flags , ierr )
 
 
-
    END SELECT
 
    WRITE(message,*)'med_hist_out: opened ',TRIM(fname),' as ',TRIM(n2)
@@ -1113,7 +1034,6 @@ write(0,*)"mediation_integrate.G",1729,' grid%id ',grid%id,' grid%oid ',grid%oid
          grid%oid = 0
          grid%nframes(stream) = 0
        ENDIF
-
 
 
 
@@ -1267,7 +1187,6 @@ write(0,*)"mediation_integrate.G",1729,' grid%id ',grid%id,' grid%oid ',grid%oid
      ENDIF
 
 
-
    END SELECT
    IF ( wrf_dm_on_monitor() ) THEN
      WRITE ( message , FMT = '("Writing ",A," for domain ",I8)' )TRIM(fname),grid%id
@@ -1275,13 +1194,8 @@ write(0,*)"mediation_integrate.G",1729,' grid%id ',grid%id,' grid%oid ',grid%oid
    END IF
 
 
-
-
-
-
    RETURN
 END SUBROUTINE med_hist_out
-
 
 SUBROUTINE med_fddaobs_in ( grid , config_flags )
    USE module_domain    , ONLY : domain
@@ -1292,7 +1206,6 @@ SUBROUTINE med_fddaobs_in ( grid , config_flags )
    CALL wrf_fddaobs_in( grid, config_flags )
    RETURN
 END SUBROUTINE med_fddaobs_in
-
 
 SUBROUTINE med_auxinput_in ( grid , stream, config_flags )
   
@@ -1314,14 +1227,13 @@ SUBROUTINE med_auxinput_in ( grid , stream, config_flags )
 
    IF ( stream .LT. first_auxinput .OR. stream .GT. last_auxinput ) THEN
      WRITE(message,*)'med_auxinput_in: invalid input stream ',stream
-     CALL wrf_error_fatal3("<stdin>",1317,&
+     CALL wrf_error_fatal3("<stdin>",1230,&
 message )
    ENDIF
 
    grid%nframes(stream) = grid%nframes(stream) + 1
 
    SELECT CASE( stream )
-
 
 
 
@@ -1455,11 +1367,9 @@ message )
                     input_auxinput24, ierr )
    CALL input_auxinput24 ( grid%auxinput24_oid, grid , config_flags , ierr )
 
-
    END SELECT
 
    SELECT CASE( stream )
-
 
 
 
@@ -1612,7 +1522,6 @@ message )
        grid%nframes(stream) = 0
      ENDIF
 
-
    END SELECT
 
    RETURN
@@ -1656,12 +1565,12 @@ SUBROUTINE med_filter_out ( grid , config_flags )
      CALL open_w_dataset ( fid, TRIM(outname), grid ,  &
                            config_flags , output_input , "DATASET=INPUT", ierr )
      IF ( ierr .NE. 0 ) THEN
-       CALL wrf_error_fatal3("<stdin>",1659,&
+       CALL wrf_error_fatal3("<stdin>",1568,&
 message )
      ENDIF
 
      IF ( ierr .NE. 0 ) THEN
-       CALL wrf_error_fatal3("<stdin>",1664,&
+       CALL wrf_error_fatal3("<stdin>",1573,&
 message )
      ENDIF
 
@@ -1688,7 +1597,6 @@ SUBROUTINE med_latbound_in ( grid , config_flags )
    USE module_utility
 
    IMPLICIT NONE
-
 
   
 
@@ -1824,7 +1732,6 @@ SUBROUTINE med_latbound_in ( grid , config_flags )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
-
   
    TYPE(domain)                               :: grid
    TYPE (grid_config_rec_type) , INTENT(IN)   :: config_flags
@@ -1840,21 +1747,13 @@ SUBROUTINE med_latbound_in ( grid , config_flags )
    Type (WRFU_TimeInterval )              :: stepTime
 integer myproc,i,j,k
 
-
-
-
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -1863,7 +1762,6 @@ integer myproc,i,j,k
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
-
 
    CALL wrf_debug ( 200 , 'in med_latbound_in' )
 
@@ -1898,13 +1796,7 @@ integer myproc,i,j,k
        IF ( wrf_dm_on_monitor() ) CALL start_timing
 
 
-
-
-
-
-
        CALL construct_filename2a ( bdyname , config_flags%bdy_inname , grid%id , 2 , " " )
-
 
        CALL wrf_inquire_opened(grid%lbc_fid , TRIM(bdyname) , open_status , ierr ) 
        IF ( open_status .EQ. WRF_FILE_OPENED_FOR_READ ) THEN
@@ -1914,17 +1806,13 @@ integer myproc,i,j,k
        ENDIF
        CALL wrf_dm_bcast_bytes ( lbc_opened , 4 )
        IF ( .NOT. lbc_opened ) THEN
-
-
-
          CALL construct_filename2a ( bdyname , config_flags%bdy_inname , grid%id , 2 , " " )
-
           WRITE(message,*)'Opening: ',TRIM(bdyname)
           CALL wrf_debug(100,TRIM(message))
           CALL open_r_dataset ( grid%lbc_fid, TRIM(bdyname) , grid , config_flags , "DATASET=BOUNDARY", ierr )
           IF ( ierr .NE. 0 ) THEN
             WRITE( message, * ) 'med_latbound_in: error opening ',TRIM(bdyname), ' for reading. IERR = ',ierr
-            CALL wrf_error_fatal3("<stdin>",1927,&
+            CALL wrf_error_fatal3("<stdin>",1815,&
 message )
           ENDIF
        ELSE
@@ -1945,15 +1833,11 @@ message )
          CALL wrf_debug( 100 , 'med_latbound_in: calling input_boundary ' )
          CALL input_boundary ( grid%lbc_fid, grid , config_flags , ierr )
        ENDDO
-
-
-
-
        CALL WRFU_AlarmSet( grid%alarms( BOUNDARY_ALARM ), RingTime=grid%next_bdy_time, rc=rc )
 
        IF ( ierr .NE. 0 .and. ierr .NE. WRF_WARN_NETCDF ) THEN
          WRITE( message, * ) 'med_latbound_in: error reading ',TRIM(bdyname), ' IERR = ',ierr
-         CALL wrf_error_fatal3("<stdin>",1956,&
+         CALL wrf_error_fatal3("<stdin>",1840,&
 message )
        ENDIF
        IF ( currentTime .EQ. grid%this_bdy_time ) grid%dtbc = 0.
@@ -2063,7 +1947,7 @@ SUBROUTINE open_aux_u ( grid , config_flags, stream, alarm_id, &
 
    IF ( stream .LT. first_stream .OR. stream .GT. last_stream ) THEN
      WRITE(message,*)'open_aux_u: invalid input stream ',stream
-     CALL wrf_error_fatal3("<stdin>",2066,&
+     CALL wrf_error_fatal3("<stdin>",1950,&
 message )
    ENDIF
 
@@ -2135,7 +2019,7 @@ SUBROUTINE open_hist_w ( grid , config_flags, stream, alarm_id, &
 
    IF ( stream .LT. first_history .OR. stream .GT. last_history ) THEN
      WRITE(message,*)'open_hist_w: invalid history stream ',stream
-     CALL wrf_error_fatal3("<stdin>",2138,&
+     CALL wrf_error_fatal3("<stdin>",2022,&
 message )
    ENDIF
 
@@ -2152,7 +2036,6 @@ message )
 
 
 
-
    IF( alarm_id .EQ. AUXHIST5_ALARM .AND. config_flags%mean_diag .EQ. 1 ) THEN
       WRITE(message, *) "RASM STATS: MEAN AUXHIST5 oid=", oid, " fname=", trim(fname), " alarmI_id=", alarm_id, " Time_outNow=", timestr
       CALL wrf_debug(200,  message )
@@ -2166,7 +2049,6 @@ message )
       CALL wrf_debug(200,  message )
       timestr = grid%OUTDATE_DIURN 
    ENDIF
-
 
 
 
@@ -2204,9 +2086,6 @@ message )
 END SUBROUTINE open_hist_w
 
  
-
-
-
 
 
 

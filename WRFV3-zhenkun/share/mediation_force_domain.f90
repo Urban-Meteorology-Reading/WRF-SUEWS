@@ -2,39 +2,22 @@
 
 
 SUBROUTINE med_force_domain ( parent_grid , nested_grid )
-
-
-
    USE module_domain
    USE module_configure
    USE module_intermediate_nmm
-
-
-
-
    USE module_dm, ONLY : intercomm_active
-
 
    IMPLICIT NONE
    TYPE(domain), POINTER :: parent_grid , nested_grid
    TYPE(domain), POINTER :: grid
    INTEGER nlev, msize
-
-
-
-
-
-
    TYPE (grid_config_rec_type)            :: config_flags
 
 
 
 
 
-
    INTERFACE
-
-
 
 
 
@@ -50,14 +33,12 @@ SUBROUTINE med_force_domain ( parent_grid , nested_grid )
 
 
 
-
 ,moist,moist_bxs,moist_bxe,moist_bys,moist_bye,moist_btxs,moist_btxe,moist_btys,moist_btye,dfi_moist,dfi_moist_bxs,dfi_moist_bxe, &
 dfi_moist_bys,dfi_moist_bye,dfi_moist_btxs,dfi_moist_btxe,dfi_moist_btys,dfi_moist_btye,scalar,scalar_bxs,scalar_bxe,scalar_bys, &
 scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar_bxs,dfi_scalar_bxe,dfi_scalar_bys, &
 dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,aerod,ozmixm,aerosolc_1,aerosolc_2,fdda3d,fdda2d, &
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
-
 
 
                  )
@@ -73,7 +54,6 @@ tracer_btye &
 
 
 
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist)           :: moist
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_moist)           :: moist_bxs
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_moist)           :: moist_bxe
@@ -131,13 +111,9 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
-
-
-
       END SUBROUTINE interp_domain_em_part1
 
       SUBROUTINE force_domain_em_part2 ( grid, nested_grid, parent_grid, config_flags   &
-
 
 
 
@@ -151,7 +127,6 @@ scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar
 dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,aerod,ozmixm,aerosolc_1,aerosolc_2,fdda3d,fdda2d, &
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
-
 
 
                  )
@@ -167,7 +142,6 @@ tracer_btye &
 
 
 
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist)           :: moist
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_moist)           :: moist_bxs
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_moist)           :: moist_bxe
@@ -225,16 +199,12 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
-
-
-
       END SUBROUTINE force_domain_em_part2
 
 
 
 
       SUBROUTINE couple_or_uncouple_em ( grid, config_flags , couple  &
-
 
 
 
@@ -250,14 +220,12 @@ advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,trace
 tracer_btye &
 
 
-
                  )
          USE module_domain
          USE module_configure
          TYPE(domain), INTENT(INOUT)            :: grid
          TYPE (grid_config_rec_type)            :: config_flags
          LOGICAL, INTENT(   IN) :: couple
-
 
 
 
@@ -321,13 +289,7 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
-
-
-
       END SUBROUTINE couple_or_uncouple_em
-
-
-
 
 
 
@@ -362,13 +324,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 
 
 
-
-
-
-
    RETURN
 END SUBROUTINE med_force_domain
-
-
 
 

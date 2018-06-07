@@ -169,5 +169,3 @@ SUBROUTINE wrf_sizeof_logical( retval )
   RETURN
 END SUBROUTINE wrf_sizeof_logical
 
-
-

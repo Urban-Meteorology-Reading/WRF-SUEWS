@@ -374,10 +374,6 @@ SUBROUTINE wrf_global_to_patch_LOGICAL (globbuf,buf,domdesc,ndim,&
 END SUBROUTINE wrf_global_to_patch_LOGICAL
 
 
-
-
-
-
    SUBROUTINE push_communicators_for_domain( id )
       IMPLICIT NONE
       INTEGER, OPTIONAL, INTENT(IN) :: id   
@@ -392,6 +388,4 @@ END SUBROUTINE wrf_global_to_patch_LOGICAL
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: id
    END SUBROUTINE store_communicators_for_domain
-
-
 

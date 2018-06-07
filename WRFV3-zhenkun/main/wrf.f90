@@ -18,9 +18,6 @@ PROGRAM wrf
    IMPLICIT NONE
 
 
-
-
-
   
   CALL wrf_init
 
@@ -34,7 +31,5 @@ PROGRAM wrf
   CALL wrf_finalize
 
 END PROGRAM wrf
-
-
 
 

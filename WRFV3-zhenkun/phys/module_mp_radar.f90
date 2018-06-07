@@ -627,5 +627,3 @@ CONTAINS
 
 END MODULE module_mp_radar
 
-
-

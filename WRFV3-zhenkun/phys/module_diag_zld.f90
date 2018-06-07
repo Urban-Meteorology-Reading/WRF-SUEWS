@@ -1,13 +1,6 @@
 
 
 
-
-
-
-
-
-
-
 MODULE module_diag_zld
 CONTAINS
 
@@ -211,5 +204,3 @@ CONTAINS
    END SUBROUTINE zld
 
 END MODULE module_diag_zld
-
-

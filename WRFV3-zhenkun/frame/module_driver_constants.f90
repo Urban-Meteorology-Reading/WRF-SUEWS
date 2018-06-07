@@ -24,9 +24,7 @@ MODULE module_driver_constants
 
 
 
-
 INTEGER , PARAMETER :: model_data_order   = DATA_ORDER_XZY
-
 
 
    
@@ -106,11 +104,7 @@ INTEGER , PARAMETER :: model_data_order   = DATA_ORDER_XZY
 
    
 
-
-
-
    INTEGER , PARAMETER :: max_comms       =   1
-
 
    
 
@@ -137,16 +131,8 @@ INTEGER , PARAMETER :: model_data_order   = DATA_ORDER_XZY
    
    
    
-
-
-
-
-
-
-
    
    REAL , PARAMETER :: P2SI = 1.0
-
  CONTAINS
    SUBROUTINE init_module_driver_constants
    END SUBROUTINE init_module_driver_constants
@@ -180,6 +166,4 @@ INTEGER , PARAMETER :: model_data_order   = DATA_ORDER_XZY
    INTEGER, INTENT(OUT) :: rwordsz
    rwordsz = 4
  END SUBROUTINE inquire_of_wrf_rwordsize
-
-
 

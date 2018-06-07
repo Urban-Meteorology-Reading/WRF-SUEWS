@@ -1,14 +1,8 @@
 
-
-
   module trb_mtn_stress
 
   use shr_kind_mod,  only : r8 => shr_kind_r8
-
-
-
   use module_cam_support,   only: iulog
-
 
   implicit none
   private      
@@ -181,5 +175,3 @@
   end subroutine compute_tms
 
   end module trb_mtn_stress
-
-

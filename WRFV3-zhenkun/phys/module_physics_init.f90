@@ -35,13 +35,11 @@ CONTAINS
                          RUBLTEN,RVBLTEN,RTHBLTEN,               &
                          RQVBLTEN,RQCBLTEN,RQIBLTEN,             &
                          RTHRATEN,RTHRATENLW,RTHRATENSW,         &
-
                          
                          cupflag,cldfra_cup,cldfratend_cup,      & 
                          shall,                                  & 
                          tcloud_cup,                             & 
                          
-
                          STEPBL,STEPRA,STEPCU,                   &
                          W0AVG, RAINNC, RAINC, RAINCV, RAINNCV,  &
                          SNOWNC, SNOWNCV, GRAUPELNC, GRAUPELNCV, &
@@ -146,9 +144,7 @@ CONTAINS
                          zi3d,         watsat3d,     csol3d,     tkmg3d,         & 
                          tkdry3d,      tksatu3d,     lake2d,     lakedepth_default, & 
                          lake_min_elev,   lake_depth,                               & 
-
                          lakemask,   lakeflag,                                   & 
-
                          lake_depth_flag, use_lakedepth,                         & 
                          sf_surface_mosaic, mosaic_cat, NLCAT,               & 
 
@@ -185,9 +181,7 @@ CONTAINS
 
                          TSK_SAVE,                               & 
                          itimestep,                              & 
-
                          fdob,                                   & 
-
                          t00, p00, tlp,                          & 
                          TYR,TYRA,TDLY,TLAG,NYEAR,NDAY,tmn_update,   &
                          ACHFX,ACLHF,ACGRDFLX,                   &
@@ -231,9 +225,6 @@ CONTAINS
    USE module_domain
    USE module_wrf_error
    use module_sf_lake, only : nlevsoil,nlevsnow,nlevlake
-
-
-
    USE module_wind_fitch
    IMPLICIT NONE
 
@@ -313,13 +304,11 @@ CONTAINS
                                                         ISLTYP
 
    INTEGER                             ::             HAIL_OPT
-
    
    REAL, DIMENSION( ims:ime, jms:jme )                        , &
         INTENT(INOUT)    ::                          shall, & 
                                                     tcloud_cup    
    
-
 
 
 
@@ -353,14 +342,12 @@ CONTAINS
              RQSCUTEN, RQICUTEN,                                       &
              RUSHTEN, RVSHTEN, RTHSHTEN, RQVSHTEN, RQRSHTEN, RQCSHTEN, &
              RQSSHTEN, RQISHTEN, RQGSHTEN
-
    
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) :: &
         cldfra_cup,cldfratend_cup                              
 
    LOGICAL,  DIMENSION( ims:ime , jms:jme ) , INTENT(OUT) :: cupflag 
    
-
 
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: RQCNCUTEN, RQINCUTEN
 
@@ -637,10 +624,8 @@ CONTAINS
 
   REAL, OPTIONAL,    DIMENSION( ims:ime, jms:jme ), INTENT(IN)    ::  lake_depth
   real, intent(in)      ::      lakedepth_default, lake_min_elev
-
   REAL,              dimension(ims:ime,jms:jme )      ::  lakemask
   INTEGER, INTENT(IN)      ::  lakeflag
-
   INTEGER, INTENT(INOUT)      ::   lake_depth_flag
   INTEGER, INTENT(IN)      ::   use_lakedepth
 
@@ -681,9 +666,7 @@ CONTAINS
 
 
    INTEGER, OPTIONAL, INTENT(IN) :: itimestep
-
    TYPE(fdob_type), OPTIONAL, INTENT(INOUT) :: fdob
-
    REAL, OPTIONAL, INTENT(IN) :: p00, t00, tlp   
    REAL, INTENT(IN) :: nssl_cccn, nssl_alphah, nssl_alphahl, &
                          nssl_cnoh, nssl_cnohl,                  &
@@ -765,16 +748,10 @@ integer myproc
    ELSE
       iopt_run=-1
    END IF
-
    obs_twindo_cg=model_config_rec%obs_twindo(1)
    obs_twindo=config_flags%obs_twindo
    oml_hml0=config_flags%oml_hml0
    sf_ocean_physics=config_flags%sf_ocean_physics
-
-
-
-
-
 
 
 
@@ -832,9 +809,6 @@ integer myproc
    XMAVA=0.3
 
 
-
-
-
    CALL nl_get_cen_lat(id,cen_lat)
    CALL wrf_debug(100,'calling nl_get_iswater, nl_get_isice, nl_get_mminlu_loc')
    CALL nl_get_iswater(id,iswater)
@@ -842,12 +816,6 @@ integer myproc
    CALL nl_get_isurban(id,isurban)
 
    CALL nl_get_mminlu( id, mminlu_loc )
-
-
-
-
-
-
    CALL wrf_debug(100,'after nl_get_iswater, nl_get_isice, nl_get_mminlu_loc')
 
    landuse_ISICE = isice
@@ -864,11 +832,9 @@ integer myproc
          icloud_cu = 1
       END IF
    END IF
-
    IF ( config_flags%cu_physics == mskfscheme ) THEN
         icloud_cu = 2
    END IF
-
    CALL nl_set_icloud_cu ( id , icloud_cu )
 
   IF(.not.restart)THEN 
@@ -939,9 +905,7 @@ integer myproc
        EMISS(i,j)=EMBCK(i,j)
        THC(i,j)=THINLD
        ZNT(i,j)=ZZLND
-
        Z0(i,j)=ZZLND
-
        MAVAIL(i,j)=XMAVA
      ELSE
        IF(mminlu_loc .EQ. '    ') ALBBCK(i,j)=0.08
@@ -950,9 +914,7 @@ integer myproc
        EMISS(i,j)=EMBCK(i,j)
        THC(i,j)=THINLD
        ZNT(i,j)=ZZWTR
-
        Z0(i,j)=ZZWTR
-
        MAVAIL(i,j)=1.0
      ENDIF
 
@@ -1043,29 +1005,13 @@ integer myproc
 
    
    is_CAMMGMP_used = .FALSE.
-
    if(config_flags%mp_physics == CAMMGMPSCHEME) is_CAMMGMP_used = .TRUE.
-
-
-
-
-
-
-
-
 
 
 
    if(       config_flags%bl_pbl_physics == CAMUWPBLSCHEME     .OR. config_flags%cu_physics == CAMZMSCHEME      &
         .OR. config_flags%shcu_physics   == CAMUWSHCUSCHEME                                                     &
-
         .OR. config_flags%mp_physics == CAMMGMPSCHEME                                                           &
-
-
-
-
-
-
       ) THEN
       CALL CAM_INIT(ixcldliq, ixcldice, ixnumliq, ixnumice, config_flags)
    ENDIF
@@ -1116,13 +1062,8 @@ integer myproc
                 SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,ACSNOM,       &
                 IVGTYP,ISLTYP,ISURBAN,SMOIS,SMFR3D,MAVAIL,      &
                 SNOWH,SH2O,SNOALB,FNDSOILW,FNDSNOWH,RDMAXALB,   &
-
-
-
-
                 ZNT,XLAND,XICE,                                 &
                 DX, DY, MSFTX, MSFTY,                           &
-
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -1150,9 +1091,7 @@ integer myproc
                 zi3d,         watsat3d,     csol3d,     tkmg3d,         & 
                 tkdry3d,      tksatu3d,     LakeModel,  lake2d,           & 
                 lakedepth_default,            lake_min_elev, lake_depth,       & 
-
                 lakemask, lakeflag,                                    & 
-
                 lake_depth_flag, use_lakedepth,                        & 
                 te_temf,cf3d_temf,wm_temf,                      & 
                 DZR, DZB, DZG,                                  & 
@@ -1249,13 +1188,11 @@ integer myproc
                 NCA,RAINC,RAINCV,W0AVG,config_flags,restart,    &
                 CLDEFI,LOWLYR,MASS_FLUX,                        &
                 RTHFTEN, RQVFTEN,                               &
-
                 
                 cupflag,cldfra_cup,cldfratend_cup,              & 
                 shall,                                          & 
                 tcloud_cup,                                     & 
                 
-
                 APR_GR,APR_W,APR_MC,APR_ST,APR_AS,              &
                 APR_CAPMA,APR_CAPME,APR_CAPMI,                  &
                 cugd_tten,cugd_ttens,cugd_qvten,                &
@@ -1298,7 +1235,6 @@ integer myproc
                 ids, ide, jds, jde, kds, kde,                   &
                 ims, ime, jms, jme, kms, kme,                   &
                 its, ite, jts, jte, kts, kte                    )
-
 
    CALL wrf_debug ( 200 , 'module_start: phy_init: Before call to fg_init' )
 
@@ -1372,7 +1308,6 @@ integer myproc
                   ids, ide, jds, jde, kds, kde,                 &
                   ims, ime, jms, jme, kms, kme,                 &
                   its, ite, jts, jte, kts, kte                  )
-
 
 
    END SUBROUTINE phy_init
@@ -1468,7 +1403,7 @@ integer myproc
         IF ( ierr .NE. OPEN_OK ) THEN
           WRITE(message,FMT='(A)') &
           'module_physics_init.F: LANDUSE_INIT: open failure for LANDUSE.TBL'
-          CALL wrf_error_fatal3("<stdin>",1471,&
+          CALL wrf_error_fatal3("<stdin>",1406,&
 message )
         END IF
         REWIND(landuse_unit)
@@ -1536,7 +1471,7 @@ message )
                            SFZ0(LC,LS),THERIN(LC,LS),SCFX(LC),SFHC(LC,LS)
               ENDIF
               CALL wrf_dm_bcast_bytes (LI,  4 )
-              IF(LC.NE.LI)CALL wrf_error_fatal3("<stdin>",1539,&
+              IF(LC.NE.LI)CALL wrf_error_fatal3("<stdin>",1474,&
 'module_start: MISSING LANDUSE UNIT ' )
             ELSE
               IF ( wrf_dm_on_monitor() ) THEN
@@ -1577,7 +1512,7 @@ message )
           IF(allowed_to_read)THEN
              IF(IS.LT.0.OR.IS.GT.LUN)THEN
                WRITE ( wrf_err_message , * ) 'ERROR: LANDUSE OUTSIDE RANGE =',IS,' AT ',I,J,' LUN= ',LUN
-               CALL wrf_error_fatal3("<stdin>",1580,&
+               CALL wrf_error_fatal3("<stdin>",1515,&
 TRIM ( wrf_err_message ) )
              ENDIF
           ENDIF
@@ -1687,9 +1622,6 @@ TRIM ( wrf_err_message ) )
    USE module_ra_sw        , ONLY : swinit
    USE module_ra_gsfcsw    , ONLY : gsfc_swinit
    USE module_ra_gfdleta   , ONLY : gfdletainit
-
-
-
    USE module_ra_hs        , ONLY : hsinit
    USE module_domain
 
@@ -1810,11 +1742,7 @@ TRIM ( wrf_err_message ) )
 
 
 
-
    IF ( config_flags%o3input .EQ. 2 .AND. id .EQ. 1 ) THEN
-
-
-
       CALL oznini(ozmixm,pin,levsiz,n_ozmixm,XLAT,                &
                      ids, ide, jds, jde, kds, kde,                  &
                      ims, ime, jms, jme, kms, kme,                  &
@@ -1849,9 +1777,6 @@ TRIM ( wrf_err_message ) )
                            its, ite, jts, jte, kts, kte     )
 
         CASE (CAMLWSCHEME)
-
-
-
              IF ( PRESENT( OZMIXM ) .AND. PRESENT( PIN ) .AND. &
                   PRESENT(M_PS_1) .AND. PRESENT(M_PS_2) .AND.  &
                   PRESENT(M_HYBI) .AND. PRESENT(AEROSOLC_1)    &
@@ -1865,7 +1790,7 @@ TRIM ( wrf_err_message ) )
                          ims, ime, jms, jme, kms, kme,     &
                          its, ite, jts, jte, kts, kte      )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1868,&
+                CALL wrf_error_fatal3("<stdin>",1793,&
 'arguments not present for calling cam radiation' )
              ENDIF
 
@@ -1901,7 +1826,6 @@ TRIM ( wrf_err_message ) )
                               ims, ime, jms, jme, kms, kme, &
                               its, ite, jts, jte, kts, kte  )
              etalw = .true.
-
         CASE (HELDSUAREZ)
              CALL hsinit(RTHRATEN,restart,             &
                          ids, ide, jds, jde, kds, kde, &
@@ -1926,9 +1850,6 @@ TRIM ( wrf_err_message ) )
                          its, ite, jts, jte, kts, kte      )
 
         CASE (CAMSWSCHEME)
-
-
-
              IF(.not.camlw)THEN
              CALL camradinit(                              &
                          R_D,R_V,CP,G,STBOLT,EP_2,shalf,pptop,               &
@@ -1974,23 +1895,20 @@ TRIM ( wrf_err_message ) )
                               ims, ime, jms, jme, kms, kme, &
                               its, ite, jts, jte, kts, kte  )
              ENDIF
-
         CASE (FLGSWSCHEME)
 
         CASE DEFAULT
 
    END SELECT swrad_select
 
-
    
 
    IF(config_flags%bucket_J .gt. 0.0)THEN
      IF(.not. (acswalloc .and. aclwalloc))THEN
-           CALL wrf_error_fatal3("<stdin>",1989,&
+           CALL wrf_error_fatal3("<stdin>",1908,&
 'Need CAM or RRTMG radiation for bucket_J option')
      ENDIF
    ENDIF
-
 
    END SUBROUTINE ra_init
 
@@ -2007,11 +1925,7 @@ TRIM ( wrf_err_message ) )
                 SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,ACSNOM,       &
                 IVGTYP,ISLTYP,ISURBAN,SMOIS,SMFR3D,mavail,      &
                 SNOWH,SH2O,SNOALB,FNDSOILW,FNDSNOWH,RDMAXALB,   &
-
-
-
                 ZNT,XLAND,XICE,DX, DY, MSFTX, MSFTY,            &
-
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 ISNOWXY, ZSNSOXY, TSNOXY,                       &
@@ -2038,9 +1952,7 @@ TRIM ( wrf_err_message ) )
                 zi3d,         watsat3d,     csol3d,     tkmg3d,         & 
                 tkdry3d,      tksatu3d,     LakeModel,  lake2d,           & 
                 lakedepth_default,            lake_min_elev, lake_depth,       & 
-
                 lakemask, lakeflag,                                      & 
-
                 lake_depth_flag, use_lakedepth,                          & 
                 te_temf,cf3d_temf,wm_temf,                      & 
 
@@ -2140,9 +2052,6 @@ TRIM ( wrf_err_message ) )
    USE module_bl_shinhong
    USE module_bl_mrf
    USE module_bl_gfs
-
-
-
    USE module_bl_acm
    USE module_sf_myjsfc
    USE module_sf_qnsesfc
@@ -2150,9 +2059,7 @@ TRIM ( wrf_err_message ) )
    USE module_sf_noahlsm, only : LOW_DENSITY_RESIDENTIAL, HIGH_DENSITY_RESIDENTIAL, HIGH_INTENSITY_INDUSTRIAL
    USE module_sf_noahmpdrv
    USE noahmp_tables, ONLY: LOW_DENSITY_RESIDENTIAL_TABLE, HIGH_DENSITY_RESIDENTIAL_TABLE, HIGH_INTENSITY_INDUSTRIAL_TABLE
-
    USE module_sf_clm, only : clminit
-
    USE module_sf_urban
    USE module_sf_bep                                  
    USE module_sf_bep_bem
@@ -2167,15 +2074,10 @@ TRIM ( wrf_err_message ) )
    USE module_sf_lake
    USE module_bl_mfshconvpbl
    USE module_bl_gbmpbl
-
    USE module_bl_mynn
    USE module_bl_temf
    USE module_sf_temfsfclay
    USE module_sf_mynn
-
-
-
-
 
 
    IMPLICIT NONE
@@ -2198,9 +2100,7 @@ TRIM ( wrf_err_message ) )
    real, intent(in)            ::      lakedepth_default,lake_min_elev
    REAL ,    INTENT(IN)        ::     DT, BLDT
    REAL ,    INTENT(IN)        ::     DX, DY
-
    REAL,    DIMENSION( ims:ime, jms:jme ) ,  INTENT(IN) :: MSFTX,MSFTY
-
    INTEGER , INTENT(INOUT)     ::     STEPBL
 
    REAL,     DIMENSION( ims:ime , 1:num_soil_layers , jms:jme ),    &
@@ -2226,11 +2126,7 @@ TRIM ( wrf_err_message ) )
                                                         SFCEVP, &
                                                         GRDFLX, &
                                                            UST, &
-
-
-
                                                            ZNT, &
-
                                                          XLAND, &
                                                          XICE
 
@@ -2441,10 +2337,8 @@ TRIM ( wrf_err_message ) )
 
   logical,    dimension(ims:ime,jms:jme ),intent(out)                        :: lake2d
   REAL, OPTIONAL,    DIMENSION( ims:ime, jms:jme ), INTENT(IN)    ::  lake_depth
-
   REAL,              dimension(ims:ime,jms:jme ),intent(inout)      ::  lakemask
   INTEGER, INTENT(IN)      ::  lakeflag
-
   INTEGER, INTENT(IN)      ::   use_lakedepth
   INTEGER, INTENT(INOUT)      ::   lake_depth_flag
 
@@ -2528,9 +2422,7 @@ TRIM ( wrf_err_message ) )
 
 
 
-
    INTEGER :: mynn_closure_level
-
 
   if ( config_flags%fractional_seaice == 0 ) then
      xice_threshold = 0.5
@@ -2582,11 +2474,7 @@ TRIM ( wrf_err_message ) )
            isfc = 7
       CASE (MYJSFCSCHEME)
            CALL myjsfcinit(LOWLYR,UST,                         &
-
-
-
                                       ZNT,                     &
-
                                           XLAND,XICE,          &
                          IVGTYP,restart,                       &
                          allowed_to_read ,                     &
@@ -2597,11 +2485,7 @@ TRIM ( wrf_err_message ) )
 
       CASE (QNSESFCSCHEME)
            CALL qnsesfcinit(LOWLYR,UST,                         &
-
-
-
                                       ZNT,                     &
-
                                           XLAND,XICE,          &
                          IVGTYP,restart,                       &
                          allowed_to_read ,                     &
@@ -2612,11 +2496,7 @@ TRIM ( wrf_err_message ) )
 
       CASE (GFSSFCSCHEME)
            CALL myjsfcinit(LOWLYR,UST,                         &
-
-
-
                                       ZNT,                     &
-
                                           XLAND,XICE,          &
                          IVGTYP,restart,                       &
                          allowed_to_read ,                     &
@@ -2624,8 +2504,6 @@ TRIM ( wrf_err_message ) )
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )
            isfc = 2
-
-
 
 
 
@@ -2642,7 +2520,6 @@ TRIM ( wrf_err_message ) )
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )
-
 
       CASE DEFAULT
 
@@ -2668,7 +2545,6 @@ TRIM ( wrf_err_message ) )
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )
-
 
 
       CASE (LSMSCHEME)
@@ -2738,7 +2614,7 @@ TRIM ( wrf_err_message ) )
                               DL_U_BEP,SF_BEP,VL_BEP,                          & 
                               FRC_URB2D, UTYPE_URB2D)                            
              ELSE
-                CALL wrf_error_fatal3("<stdin>",2741,&
+                CALL wrf_error_fatal3("<stdin>",2617,&
 'arguments not present for calling urban model' )
              ENDIF
           ENDIF
@@ -2759,11 +2635,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                   ,CANWAT_mosaic,SNOW_mosaic                      &
                   ,SNOWH_mosaic,SNOWC_mosaic                      &
                   ,ALBEDO,ALBBCK, EMISS, EMBCK,                    &         
-
-
-
                                                            ZNT, &
-
                   ALBEDO_mosaic,ALBBCK_mosaic, EMISS_mosaic, EMBCK_mosaic, ZNT_mosaic, Z0_mosaic   &         
                  ,TR_URB2D_mosaic,TB_URB2D_mosaic                &  
                  ,TG_URB2D_mosaic,TC_URB2D_mosaic                &  
@@ -2782,7 +2654,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
 
       CASE (NOAHMPSCHEME)
           IF ( TRIM(mminlu) .EQ. 'NLCD40' ) THEN
-             CALL wrf_error_fatal3("<stdin>",2785,&
+             CALL wrf_error_fatal3("<stdin>",2657,&
 'NoahMP does not work with NLCD data. Stop.' )
           ENDIF
 
@@ -2802,12 +2674,10 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                      ids,ide, jds,jde, kds,kde,                &
                      ims,ime, jms,jme, kms,kme,                &
                      its,ite, jts,jte, kts,kte                 &
-
                      ,smoiseq  ,smcwtdxy ,rechxy   ,deeprechxy, areaxy ,dx, dy, msftx, msfty,&
                      wtddt    ,stepwtd  ,dt  ,qrfsxy ,qspringsxy  ,qslatxy,                  &
                      fdepthxy ,ht       ,riverbedxy ,eqzwt ,rivercondxy ,pexpxy,              &
                      rechclim                  &
-
                      )
 
           IF ((SF_URBAN_PHYSICS.eq.1).OR.(SF_URBAN_PHYSICS.EQ.2).OR.(SF_URBAN_PHYSICS.EQ.3)) THEN
@@ -2846,7 +2716,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                               DL_U_BEP,SF_BEP,VL_BEP,                          & 
                               FRC_URB2D, UTYPE_URB2D)                            
              ELSE
-                CALL wrf_error_fatal3("<stdin>",2849,&
+                CALL wrf_error_fatal3("<stdin>",2719,&
 'arguments not present for calling urban model' )
              ENDIF
           ENDIF
@@ -2856,11 +2726,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
 
            CALL ruclsminit( SH2O,SMFR3D,TSLB,SMOIS,ISLTYP,IVGTYP,MMINLU,XICE,  &
                      mavail,num_soil_layers, config_flags%iswater,      &
-
-
-
                      config_flags%isice, znt, restart,                  &
-
                      allowed_to_read ,                             &
                      ids,ide, jds,jde, kds,kde,                    &
                      ims,ime, jms,jme, kms,kme,                    &
@@ -2870,7 +2736,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
           if(config_flags%num_land_cat .ne. 20 .and. config_flags%num_land_cat .ne. 21 .and. & 
              config_flags%num_land_cat .ne. 24 .and. config_flags%num_land_cat .ne. 28 .and. & 
              config_flags%num_land_cat .ne. 40 .and. config_flags%num_land_cat .ne. 50 )     & 
-          CALL wrf_error_fatal3("<stdin>",2873,&
+          CALL wrf_error_fatal3("<stdin>",2739,&
 'module_physics_init: PX LSM option requires USGS, MODIS, or NLCD' )
           CALL LSMINIT(VEGFRA,SNOW,SNOWC,SNOWH,CANWAT,SMSTAV,  &
                      SMSTOT, SFCRUNOFF,UDRUNOFF,ACSNOW,        &
@@ -2897,21 +2763,20 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
            ( 'module_physics_init: SSiB only works with rrtm, cam scheme or rrtmg scheme (sw_phys=1,3,4)' )
 
           IF ( TRIM(mminlu) .EQ. 'NLCD40' ) THEN
-             CALL wrf_error_fatal3("<stdin>",2900,&
+             CALL wrf_error_fatal3("<stdin>",2766,&
 'SSIB does not work with NLCD data. Stop.' )
           ENDIF
 
 
       CASE (CLMSCHEME)
         IF ((SF_URBAN_PHYSICS.eq.1).OR.(SF_URBAN_PHYSICS.EQ.2).OR.(SF_URBAN_PHYSICS.EQ.3)) THEN
-                CALL wrf_error_fatal3("<stdin>",2907,&
+                CALL wrf_error_fatal3("<stdin>",2773,&
 'CLM DOES NOT WORK WITH URBAN SCHEME' )
         ENDIF
         IF ( TRIM(mminlu) .EQ. 'NLCD40' ) THEN
-           CALL wrf_error_fatal3("<stdin>",2911,&
+           CALL wrf_error_fatal3("<stdin>",2777,&
 'CLM does not work with NLCD input. Stop' )
         ENDIF
-
 
         IF(PRESENT(numc))THEN
         
@@ -2962,17 +2827,13 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                      SWUPsubgrid,lhsoi,lhveg,lhtran                      &
                     )
         ELSE
-                CALL wrf_error_fatal3("<stdin>",2965,&
+                CALL wrf_error_fatal3("<stdin>",2830,&
 'arguments not present for calling CLM' )
         ENDIF
-
-
-
 
       CASE DEFAULT
 
    END SELECT sfc_select
-
 
    IF(PRESENT(SF_OCEAN_PHYSICS))THEN
      IF ( ( sf_ocean_physics .EQ. OMLSCHEME   ) .OR. &
@@ -2986,7 +2847,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
      ENDIF
    ENDIF
 
-
      IF ( LakeModel == 1 ) THEN
 
              call  lakeini(IVGTYP,         ISLTYP,          HT,              SNOW,           & 
@@ -2997,9 +2857,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                            h2osoi_liq3d,   h2osoi_vol3d,    z3d,             dz3d,           &
                            zi3d,           watsat3d,        csol3d,          tkmg3d,         &
                            config_flags%ISWATER,  xice,     xice_threshold,  xland,  tsk,    &
-
                            lakemask,  lakeflag,                                              &
-
                            lake_depth_flag, use_lakedepth,              &
                            tkdry3d,        tksatu3d,        lake2d,          its, ite, jts, jte, &
                            ims,ime, jms,jme)
@@ -3074,7 +2932,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                         ids, ide, jds, jde, kds, kde,         &
                         ims, ime, jms, jme, kms, kme,         &
                         its, ite, jts, jte, kts, kte          )
-
       CASE (MYJPBLSCHEME)
            if(isfc .ne. 2)CALL wrf_error_fatal &
             ( 'module_physics_init: use myjsfc scheme for this pbl option' )
@@ -3118,7 +2975,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                                     its, ite, jts, jte, kts, kte   )
 
 
-
       CASE (BOULACSCHEME)
            if(isfc .ne. 1 .and. isfc .ne. 2)CALL wrf_error_fatal &
             ( 'module_physics_init: use sfclay or myjsfc scheme for this pbl option' )
@@ -3136,8 +2992,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                 ids, ide, jds, jde, kds, kde,                          &
                 ims, ime, jms, jme, kms, kme,                          &
                 its, ite, jts, jte, kts, kte                           )
-
-
 
 
 
@@ -3187,10 +3041,9 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                         ims, ime, jms, jme, kms, kme,         &
                         its, ite, jts, jte, kts, kte          )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",3190,&
+                CALL wrf_error_fatal3("<stdin>",3044,&
 'arguments not present for calling TEMF scheme' )
          ENDIF
-
 
 
       CASE (GBMPBLSCHEME)
@@ -3219,13 +3072,11 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       NCA,RAINC,RAINCV,W0AVG,config_flags,restart, &
                       CLDEFI,LOWLYR,MASS_FLUX,                     &
                       RTHFTEN, RQVFTEN,                            &
-
                       
                       cupflag,cldfra_cup,cldfratend_cup,          & 
                       shall,                                      & 
                       tcloud_cup,                                 & 
                       
-
                       APR_GR,APR_W,APR_MC,APR_ST,APR_AS,           &
                       APR_CAPMA,APR_CAPME,APR_CAPMI,               &
                       cugd_tten,cugd_ttens,cugd_qvten,             &
@@ -3249,9 +3100,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
    USE module_cu_nsas
    USE module_cu_tiedtke
    USE module_cu_ntiedtke
-
    USE module_cu_kfcup 
-
 
    IMPLICIT NONE
 
@@ -3271,12 +3120,10 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
    REAL ,   DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) ::    &
             RUCUTEN, RVCUTEN, RTHCUTEN, &
             RQVCUTEN, RQCCUTEN, RQRCUTEN, RQICUTEN, RQSCUTEN
-
    
    REAL ,   DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) ::    &
         cldfra_cup,cldfratend_cup                               
    
-
 
 
    REAL ,   DIMENSION( ims:ime , kms:kme , jms:jme ) , OPTIONAL, INTENT(INOUT) ::    &
@@ -3291,13 +3138,11 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
    REAL ,   DIMENSION( ims:ime , jms:jme ), INTENT(OUT):: RAINC, RAINCV
 
    REAL ,   DIMENSION( ims:ime , jms:jme ), INTENT(OUT):: CLDEFI
-
    
    REAL ,   DIMENSION( ims:ime , jms:jme ), INTENT(OUT):: shall, & 
                                                      tcloud_cup    
    LOGICAL, DIMENSION( ims:ime , jms:jme ), INTENT(OUT):: cupflag  
    
-
 
    REAL ,   DIMENSION( ims:ime , jms:jme ), INTENT(INOUT):: NCA
 
@@ -3361,7 +3206,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       ims, ime, jms, jme, kms, kme,               &
                       its, ite, jts, jte, kts, kte                )
 
-
      CASE (MSKFSCHEME)
           CALL mskf_init(RTHCUTEN,RQVCUTEN,RQCCUTEN,RQRCUTEN,     &
                       RQICUTEN,RQSCUTEN,NCA,W0AVG,P_QI,P_QS,      &
@@ -3371,7 +3215,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       ids, ide, jds, jde, kds, kde,               &
                       ims, ime, jms, jme, kms, kme,               &
                       its, ite, jts, jte, kts, kte                )
-
 
      CASE (GDSCHEME)
           CALL gdinit(RTHCUTEN,RQVCUTEN,RQCCUTEN,RQICUTEN,        &
@@ -3393,7 +3236,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       ims, ime, jms, jme, kms, kme,               &
                       its, ite, jts, jte, kts, kte                )
 
-
      CASE (G3SCHEME,GFSCHEME)
           CALL g3init(RTHCUTEN,RQVCUTEN,RQCCUTEN,RQICUTEN,        &
                       MASS_FLUX,cp,restart,                       &
@@ -3407,7 +3249,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       ids, ide, jds, jde, kds, kde,               &
                       ims, ime, jms, jme, kms, kme,               &
                       its, ite, jts, jte, kts, kte                )
-
      CASE (SASSCHEME)
           CALL sasinit(RTHCUTEN,RQVCUTEN,RQCCUTEN,RQICUTEN,       &
                       RUCUTEN,RVCUTEN,                            &   
@@ -3426,7 +3267,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       ims, ime, jms, jme, kms, kme,               &
                       its, ite, jts, jte, kts, kte                )
 
-
           
     CASE (KFCUPSCHEME)  
        CALL kf_cup_init(RTHCUTEN,RQVCUTEN,RQCCUTEN,RQRCUTEN,   &
@@ -3442,7 +3282,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       its, ite, jts, jte, kts, kte                )
 
     
-
 
      CASE (OSASSCHEME)
           CALL osasinit(RTHCUTEN,RQVCUTEN,RQCCUTEN,RQICUTEN,      &
@@ -3463,7 +3302,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                       ims, ime, jms, jme, kms, kme,                     &
                       its, ite, jts, jte, kts, kte                      )
           ELSE
-          CALL wrf_error_fatal3("<stdin>",3466,&
+          CALL wrf_error_fatal3("<stdin>",3305,&
 'arguments not present for calling camzmscheme' )
           ENDIF
 
@@ -3614,9 +3453,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
    USE module_mp_wsm6
    USE module_mp_etanew
    USE module_mp_fer_hires
-
-
-
    USE module_mp_thompson
    USE module_mp_full_sbm
    USE module_mp_fast_sbm
@@ -3627,9 +3463,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
    USE module_mp_wdm5
    USE module_mp_wdm6
    USE module_mp_nssl_2mom
-
    USE module_mp_cammgmp_driver, ONLY:CAMMGMP_INIT 
-
 
    IMPLICIT NONE
 
@@ -3737,7 +3571,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
                             ims, ime, jms, jme, kms, kme,           &
                             its, ite, jts, jte, kts, kte,           &
                             F_ICE_PHY,F_RAIN_PHY,F_RIMEF_PHY)
-
      CASE (THOMPSON)
          IF(start_of_simulation.or.restart.or.config_flags%cycling)     &
             CALL thompson_init(HGT=z_at_q,                              &
@@ -3774,7 +3607,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
      CASE (WDM6SCHEME)
           CALL wdm6init(rhoair0,rhowater,rhosnow,cliq,cpv,ccn_conc, &
                         config_flags%hail_opt, allowed_to_read )
-
     CASE (FULL_KHAIN_LYNN)
      IF(start_of_simulation.or.restart)THEN
           CALL full_hucminit(dt)
@@ -3783,7 +3615,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
      IF(start_of_simulation.or.restart)THEN
           CALL fast_hucminit(dt)
      END IF
-
      CASE (NSSL_1MOMLFO)
          CALL nssl_2mom_init(ims,ime, jms,jme, kms,kme,nssl_params,ipctmp=0,mixphase=0,ihvol=-1) 
      CASE (NSSL_1MOM)
@@ -3795,7 +3626,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
      CASE (NSSL_2MOMCCN)
          ccn_conc = nssl_cccn/1.225 
          CALL nssl_2mom_init(ims,ime, jms,jme, kms,kme,nssl_params,ipctmp=5,mixphase=0,ihvol=1)
-
      CASE (CAMMGMPSCHEME) 
           CALL CAMMGMP_INIT(ixcldliq, ixcldice, ixnumliq, ixnumice &
              ,config_flags%chem_opt                          &
@@ -3803,13 +3633,11 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
              ,ims, ime, jms, jme, kms, kme                   &
              ,its, ite, jts, jte, kts, kte                   )
 
-
      CASE DEFAULT
 
    END SELECT mp_select
 
    END SUBROUTINE mp_init
-
 
 
    SUBROUTINE fg_init(STEPFG,FGDT,DT,id,RUNDGDTEN,RVNDGDTEN,    &
@@ -4071,7 +3899,6 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
    END SUBROUTINE fdob_init
 
 
-
    SUBROUTINE z2sigma(zf,zh,sf,sh,p_top,pptop,config_flags, &
                 allowed_to_read , &
                 kds,kde,kms,kme,kts,kte)
@@ -4179,13 +4006,10 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
 
      
      pcnst = 5                                               
-
      IF(config_flags%mp_physics == CAMMGMPSCHEME) pcnst = 12 
-
 
      
      pcnst_mp = pcnst
-
 
 
      
@@ -4219,11 +4043,7 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
              longname='Grid box averaged cloud ice number'   )
 
         
-
         IF(config_flags%mp_physics .EQ. CAMMGMPSCHEME &
-
-
-
              )THEN
            one = 1.0_r8
            call cnst_add('ACCUM_MASS', one, cpair, 0._r8, dumind, &
@@ -4243,22 +4063,13 @@ CALL lsm_mosaic_init(IVGTYP,config_flags%ISWATER,config_flags%ISURBAN,config_fla
 
         ENDIF
 
-
         CAM_INITIALIZED = .TRUE.
      ENDIF
 
-
      IF(config_flags%mp_physics == CAMMGMPSCHEME)THEN
-
         
         CALL modal_aero_initialize_phys
-
-
-
-
-
      ENDIF
-
    END SUBROUTINE CAM_INIT
 
 
@@ -4550,5 +4361,3 @@ END SUBROUTINE aerosol_in
   end subroutine interp_vec
 
 END MODULE module_physics_init
-
-

@@ -1,5 +1,3 @@
-
-
 subroutine qneg3 (subnam  ,idx     ,ncol    ,ncold   ,lver    ,lconst_beg  , &
                   lconst_end       ,qmin    ,q       )
 
@@ -17,11 +15,7 @@ subroutine qneg3 (subnam  ,idx     ,ncol    ,ncold   ,lver    ,lconst_beg  , &
 
 
    use shr_kind_mod, only: r8 => shr_kind_r8
-
-
-
    use module_cam_support, only: iulog
-
    implicit none
 
 
@@ -109,9 +103,7 @@ subroutine qneg3 (subnam  ,idx     ,ncol    ,ncold   ,lver    ,lconst_beg  , &
       end do
       if (found .and. abs(worst)>1.e-12_r8) then
          write(iulog,9000)subnam,m,idx,nvals,qmin(m),worst,iw,kw
-
          call wrf_debug(400,iulog)
-
       end if
    end do
 
@@ -120,7 +112,6 @@ subroutine qneg3 (subnam  ,idx     ,ncol    ,ncold   ,lver    ,lconst_beg  , &
             ' Min. mixing ratio violated at ',i4,' points.  Reset to ', &
             1p,e8.1,' Worst =',e8.1,' at i,k=',i4,i3)
 end subroutine qneg3
-
 
 
 
@@ -141,11 +132,7 @@ subroutine qneg3_modalx1 (subnam  ,idx     ,ncol    ,ncold   ,lver    ,lconst_be
 
 
    use shr_kind_mod, only: r8 => shr_kind_r8
-
-
-
    use module_cam_support, only: iulog
-
    implicit none
 
 
@@ -241,9 +228,7 @@ subroutine qneg3_modalx1 (subnam  ,idx     ,ncol    ,ncold   ,lver    ,lconst_be
 
       if (found .and. abs(worst)>tmp_worst_thresh) then
          write(iulog,9000)subnam,m,idx,nvals,qmin(m),worst,iw,kw
-
          call wrf_debug(400,iulog)
-
       end if
    end do
 
@@ -252,9 +237,6 @@ subroutine qneg3_modalx1 (subnam  ,idx     ,ncol    ,ncold   ,lver    ,lconst_be
             ' Min. mixing ratio violated at ',i4,' points.  Reset to ', &
             1p,e8.1,' Worst =',e8.1,' at i,k=',i4,i3)
 end subroutine qneg3_modalx1
-
-
-
 
 
 

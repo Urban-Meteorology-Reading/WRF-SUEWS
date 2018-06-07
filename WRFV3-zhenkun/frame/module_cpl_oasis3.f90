@@ -1,5 +1,4 @@
  MODULE module_cpl_oasis3
-
    
    
    
@@ -82,7 +81,4 @@ CONTAINS
       IF (.FALSE.) WRITE(*,*) cdroutine, cdtxt   
    END SUBROUTINE cpl_oasis_abort
 
-
 END MODULE module_cpl_oasis3
-
-

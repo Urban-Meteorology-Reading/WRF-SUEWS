@@ -12,14 +12,7 @@ PROGRAM tc_data
         initial_config, get_config_as_buffer, set_config_as_buffer
    USE module_timing
    USE module_state_description, ONLY: tconly
-
-
-
-
-
-
    USE module_symbols_util, ONLY: wrfu_cal_gregorian
-
    USE module_utility, ONLY : WRFU_finalize
 
    IMPLICIT NONE
@@ -39,12 +32,6 @@ PROGRAM tc_data
    INTEGER :: max_dom, domain_id , grid_id , parent_id , parent_id1 , id
    INTEGER :: e_we , e_sn , i_parent_start , j_parent_start
    INTEGER :: idum1, idum2 
-
-
-
-
-
-
    LOGICAL found_the_id
 
    INTEGER :: ids , ide , jds , jde , kds , kde
@@ -70,21 +57,11 @@ PROGRAM tc_data
      END SUBROUTINE Setup_Timekeeping
    END INTERFACE
 
-
    CHARACTER (LEN=10) :: release_version = 'V3.9.1.1  '
-
 
    
 
    program_name = "TC_EM " // TRIM(release_version) // " PREPROCESSOR"
-
-
-
-
-
-
-
-
 
 
 
@@ -99,18 +76,12 @@ PROGRAM tc_data
 
    CALL       wrf_debug ( 100 , 'real_em: calling init_modules ' )
    CALL init_modules(1)   
-
-
-
    CALL WRFU_Initialize( defaultCalKind=WRFU_CAL_GREGORIAN, rc=rc )
-
    CALL init_modules(2)   
 
    
 
-
    CALL initial_config
-
 
 
    CALL nl_get_debug_level ( 1, debug_level )
@@ -137,7 +108,7 @@ PROGRAM tc_data
    CALL nl_get_max_dom ( 1 , max_dom )
 
    IF ( model_config_rec%interval_seconds .LE. 0 ) THEN
-     CALL wrf_error_fatal3("<stdin>",140,&
+     CALL wrf_error_fatal3("<stdin>",111,&
 'namelist value for interval_seconds must be > 0')
    END IF
 
@@ -192,12 +163,6 @@ PROGRAM tc_data
 
          
          
-
-
-
-
-
-
 
 
          
@@ -290,7 +255,7 @@ SUBROUTINE tc_med_sidata_input ( grid , config_flags, latc_loc, lonc_loc, &
 
    end_date_char = start_date_char
    IF ( end_date_char .LT. start_date_char ) THEN
-      CALL wrf_error_fatal3("<stdin>",293,&
+      CALL wrf_error_fatal3("<stdin>",258,&
 'Ending date in namelist ' // end_date_char // ' prior to beginning date ' // start_date_char )
    END IF
    print *,"the start date char ",start_date_char
@@ -359,7 +324,7 @@ SUBROUTINE tc_med_sidata_input ( grid , config_flags, latc_loc, lonc_loc, &
       END IF
       CALL open_r_dataset ( idsi, TRIM(si_inpname) , grid , config_flags , "DATASET=AUXINPUT1", ierr )
       IF ( ierr .NE. 0 ) THEN
-         CALL wrf_error_fatal3("<stdin>",362,&
+         CALL wrf_error_fatal3("<stdin>",327,&
 'error opening ' // TRIM(si_inpname) // &
                                ' for input; bad date in namelist or file not in directory' )
       END IF
@@ -494,13 +459,8 @@ SUBROUTINE tc_compute_si_start(  &
 
    CHARACTER(LEN=19) :: current_date_char , start_date_char , end_date_char , next_date_char
 
-
-
-
-
    WRITE ( start_date_char , FMT = '(I4.4,"-",I2.2,"-",I2.2,"_",I2.2,":",I2.2,":",I2.2)' ) &
            start_year,start_month,start_day,start_hour,start_minute,start_second
-
 
 
 END SUBROUTINE tc_compute_si_start
@@ -579,7 +539,7 @@ real::t1,t2,truelat1,truelat2
    print *,"outfile name from construct filename ",tcoutname
    CALL open_w_dataset ( id1, TRIM(tcoutname) , grid , config_flags ,output_auxinput1,"DATASET=AUXINPUT1",ierr )
    IF ( ierr .NE. 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",582,&
+        CALL wrf_error_fatal3("<stdin>",542,&
 'tc_em: error opening tc bogus file for writing' )
    END IF
    CALL output_auxinput1( id1, grid , config_flags , ierr )
@@ -2504,8 +2464,6 @@ subroutine final_RH(rh2,rh0,rhmx,strmci,strmcj,rmax_nstrm,ew,ns,nz,k00, &
  
 
     end subroutine final_RH
-
-
 
 
 

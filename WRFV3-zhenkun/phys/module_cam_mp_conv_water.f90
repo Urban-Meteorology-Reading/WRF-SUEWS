@@ -1,5 +1,3 @@
-
-
   module conv_water
 
    
@@ -18,20 +16,9 @@
    
 
   use shr_kind_mod,  only: r8=>shr_kind_r8
-
-
-
   use module_cam_support, only: pcols, pver, pverp
-
   use physconst,     only: gravit, latvap, latice
-
-
-
-
-
-
   use module_cam_support, only: endrun, iulog
-
 
   implicit none
   private
@@ -56,7 +43,6 @@
   
   
 
-
   end subroutine conv_water_register
 
 
@@ -69,22 +55,13 @@
    
    
    
-
-
-
    implicit none
-
    end subroutine conv_water_init
-
-
-
-
      
    subroutine conv_water_4rad( lchnk, ncol, ast, sh_icwmr, dp_icwmr, &
         fice, sh_frac, dp_frac, conv_water_mode, rei, pdel, ls_liq,  &
         ls_ice, totg_liq, totg_ice )
 
-
    
    
    
@@ -99,23 +76,13 @@
    
    
    
-
-
-
-
-
-
    use module_cam_support, only: outfld
-
    
    implicit none
 
    
    
    
-
-
-
    integer,  intent(in) :: lchnk
    integer,  intent(in) :: ncol
    integer,  intent(in) :: conv_water_mode
@@ -123,14 +90,12 @@
    real(r8), intent(in) :: pdel(pcols,pver)       
    real(r8), intent(in) :: ls_liq(pcols,pver)     
    real(r8), intent(in) :: ls_ice(pcols,pver)     
-
    real(r8), intent(in) :: ast(pcols,pver)
    real(r8), intent(in) :: sh_icwmr(pcols,pver)
    real(r8), intent(in) :: dp_icwmr(pcols,pver)
    real(r8), intent(in) :: fice(pcols,pver)
    real(r8), intent(in) :: sh_frac(pcols,pver)
    real(r8), intent(in) :: dp_frac(pcols,pver)
-
    real(r8), intent(out):: totg_ice(pcols,pver)   
    real(r8), intent(out):: totg_liq(pcols,pver)   
 
@@ -139,10 +104,8 @@
    
 
    
-
    real(r8), dimension(pcols,pver) ::  sh_cldliq 
    real(r8), dimension(pcols,pver) ::  sh_cldice 
-
 
    
 
@@ -169,14 +132,9 @@
  
 
    character(len=16) :: microp_scheme 
-
-
-
    microp_scheme = 'MG'
 
-
  
-
 
    
    
@@ -281,10 +239,6 @@
    end do
 
 
-
-
-
-
    sh_cldliq(:ncol,:pver)= sh_icwmr(:ncol,:pver)*(1-fice(:ncol,:pver))*sh_frac(:ncol,:pver)
    sh_cldice(:ncol,:pver)=sh_icwmr(:ncol,:pver)*fice(:ncol,:pver)*sh_frac(:ncol,:pver)
 
@@ -302,5 +256,3 @@
   end subroutine conv_water_4rad
 
 end module conv_water
-
-

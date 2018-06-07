@@ -48,9 +48,7 @@ SUBROUTINE fddaobs_driver( inest, domid, parid, restart,         &
                parent_grid_ratio, maxdom, itimestep,             &
                xtime,                                            &
                dt, gmt, julday,                                  &
-
                fdob,                                             &
-
                max_obs, nobs_ndg_vars,                           &
                nobs_err_flds, nstat, varobs, errf, dx,           &
                KPBL, HT, mut, muu, muv, c1h, c2h,                &
@@ -156,9 +154,7 @@ SUBROUTINE fddaobs_driver( inest, domid, parid, restart,         &
   REAL, INTENT(IN) :: z_at_w( ims:ime, kms:kme, jms:jme ) 
   REAL, INTENT(IN) :: z( ims:ime, kms:kme, jms:jme )  
 
-
   TYPE(fdob_type), intent(inout)  :: fdob
-
 
   REAL,   INTENT(IN) :: ub( ims:ime, kms:kme, jms:jme )
   REAL,   INTENT(IN) :: vb( ims:ime, kms:kme, jms:jme )
@@ -194,11 +190,7 @@ SUBROUTINE fddaobs_driver( inest, domid, parid, restart,         &
   integer :: vik_t (its:ite,jts:jte,2) 
   integer :: vik_q (its:ite,jts:jte,2) 
   real    :: z_at_p( kms:kme )       
-
-
-
   character(len=200) :: msg  
-
 
   nudge_flag = (nudge_opt  .eq. 1)
 
@@ -321,13 +313,6 @@ SUBROUTINE fddaobs_driver( inest, domid, parid, restart,         &
          fdob%TFACI
     ENDIF
   ENDIF
-
-
-
-
-
-
-
 
 
 
@@ -482,7 +467,6 @@ SUBROUTINE fddaobs_driver( inest, domid, parid, restart,         &
 
 
   RETURN
-
   END SUBROUTINE fddaobs_driver
 
   SUBROUTINE compute_VIH(vif, hmax, fullmin, rampmin,       &
@@ -539,7 +523,7 @@ SUBROUTINE fddaobs_driver( inest, domid, parid, restart,         &
         write(msg,'(a,f5.1,2(a,i4))') 'Unknown regime type ', regime(i,j),    &
                                  ' at grid coordinate i = ',i,' j = ',j
         call wrf_message(msg)
-        call wrf_error_fatal3("<stdin>",542,&
+        call wrf_error_fatal3("<stdin>",526,&
 'fddaobs_driver: compute_VIH STOP' )
         
       endif
@@ -655,5 +639,3 @@ SUBROUTINE fddaobs_driver( inest, domid, parid, restart,         &
   END FUNCTION ht_to_k
 
 END MODULE module_fddaobs_driver
-
-

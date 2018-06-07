@@ -1,9 +1,9 @@
-!Last modified: LJ 27 Jan 2016 - Removal of tabs 
+
  module matsize
     
     IMPLICIT NONE
     
-    integer    :: sizex,sizey ! number of rows and cols of grid
+    integer    :: sizex,sizey 
     real(kind(1d0)), allocatable, dimension(:,:)  :: a,sh,vbshvegsh,vegsh
     real(kind(1d0)), allocatable, dimension(:,:)  :: bush,vegdem,vegdem2,tempgrid
     real(kind(1d0)), allocatable, dimension(:,:)  :: buildings,svf,svfE,svfS,svfW,svfN
@@ -17,24 +17,24 @@
     
  end module matsize
 
-!svfvegbu,,viktaveg,viktonlywall,svfalfaE,svfalfaN,svfalfaS,svfalfaW,alfaB,betaB,betasun,Lground,Lrefl,Lsky,Lveg,Lwallsh,Lwallsun
-! alfa,xa,ha,hkil,Ai,phi,qa,Za,tempsh,tempbu,tempbub,tempwallsun,weightsumwall,weightsumsh,gvf1,gvf2
-!!,svfbuveg
-!Lnight,,tempvegdem,tempvegdem2,fabovea,gabovea,tempbush,firstvegdem,vegsh2,tempgrid
-!svfviktbuveg
-!,stopbuild,stopveg,g,bushplant,Tgmap
-!,temp,f,tmp,Knight,,tempb
-!Tgmapgvf
+
+
+
+
+
+
+
+
     
 module solweig_module
     IMPLICIT NONE
     
-    real(kind(1d0)) :: timestepdec,& !time step in decimal time
+    real(kind(1d0)) :: timestepdec,& 
                        CIlatenight,&
                        timeadd,&
-                       firstdaytime,& ! if new day starts, =1 else =0
-                       Fside,& ! fraction of a person seen from each cardinal point
-                       Fup,& ! fraction of a person seen from down and up
+                       firstdaytime,& 
+                       Fside,& 
+                       Fup,& 
                        scale,&
                        amaxvalue,&
                        trans,&

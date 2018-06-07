@@ -28,9 +28,6 @@ CONTAINS
                      ,qv_curr, qc_curr, qr_curr                       &
                      ,qi_curr, qs_curr, qg_curr                       & 
                      ,qnc_curr,qni_curr                               &
-
-
-
                  
                      ,dlf, rliq, rliq2,dlf2  &
                      ,cmfmc, cmfmc2       &
@@ -54,9 +51,7 @@ CONTAINS
 
    USE module_model_constants
    USE module_state_description, ONLY: CAMUWSHCUSCHEME    &
-
                                        , CAMMGMPSCHEME    & 
-
                                        , G3SHCUSCHEME     & 
                                        , GRIMSSHCUSCHEME 
 
@@ -65,9 +60,6 @@ CONTAINS
    USE module_shcu_grims
    USE module_dm
    USE module_domain, ONLY: domain
-
-
-
 
    
    
@@ -226,9 +218,6 @@ CONTAINS
                                                         kts,kte, &
                                       itimestep, num_tiles
 
-
-
-
    INTEGER, DIMENSION(num_tiles), INTENT(IN) ::                       &
      &           i_start,i_end,j_start,j_end
 
@@ -240,11 +229,6 @@ CONTAINS
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme, num_moist ),      &
          INTENT(INOUT)  ::                                       &
                                                           moist
-
-
-
-
-
    
 
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                 &
@@ -411,7 +395,7 @@ CONTAINS
       CALL wrf_debug(100,'in camuw_scps')
       IF(.not.f_qi)THEN
          WRITE( message , * ) 'This shallow cumulus option requires ice microphysics option: f_qi = ', f_qi
-         CALL wrf_error_fatal3("<stdin>",414,&
+         CALL wrf_error_fatal3("<stdin>",398,&
 message )
       ENDIF
       CALL camuwshcu_driver(                                             &
@@ -424,9 +408,6 @@ message )
            ,T_PHY=t, U_PHY=u, V_PHY=v                                    &
            ,MOIST=moist, QV=qv_curr, QC=qc_curr, QI=qi_curr              &
            ,QNC=qnc_curr, QNI=qni_curr                                   & 
-
-
-
            ,PBLH_IN=pblh, TKE_PBL=tke_pbl                                &
            ,CLDFRA=cldfra, CLDFRA_OLD=cldfra_old                         &
            ,CLDFRA_OLD_MP=cldfra_old_mp                                  &
@@ -465,7 +446,7 @@ message )
 
    CASE DEFAULT 
       WRITE( message , * ) 'The shallow cumulus option does not exist: shcu_physics = ', shcu_physics
-      CALL wrf_error_fatal3("<stdin>",468,&
+      CALL wrf_error_fatal3("<stdin>",449,&
 message )
 
    END SELECT scps_select
@@ -486,5 +467,3 @@ message )
    END SUBROUTINE shallowcu_driver
 
 END MODULE module_shallowcu_driver
-
-

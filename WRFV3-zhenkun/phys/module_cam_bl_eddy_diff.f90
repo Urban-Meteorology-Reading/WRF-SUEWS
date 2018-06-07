@@ -1,7 +1,5 @@
 
 
-
-
   module eddy_diff
 
   
@@ -29,13 +27,7 @@
   
 
   use diffusion_solver, only : vdiff_selector
-
-
-
-
-
   use module_cam_support,   only: iulog, pver,outfld, addfld, phys_decomp  
-
 
   implicit none
   private
@@ -91,12 +83,7 @@
 
   real(r8),         parameter :: ustar_min      =   0.01_r8     
   real(r8),         parameter :: onet           =   1._r8/3._r8 
-
-
-
-
   integer                     :: ncvmax  
-
   real(r8),         parameter :: qmin           =   1.e-5_r8    
   real(r8),         parameter :: ntzero         =   1.e-12_r8   
   real(r8),         parameter :: b1             =   5.8_r8      
@@ -178,11 +165,7 @@
     
     
     use diffusion_solver, only: init_vdiff, vdiff_select
-
-
-
     use module_cam_support,   only: outfld, addfld, phys_decomp  
-
     implicit none
     
     
@@ -202,15 +185,11 @@
 
     character(128)       :: errstring  
     integer              :: k          
-
     
     ncvmax = pver        
-
     if( kind .ne. r8 ) then
         write(iulog,*) 'wrong KIND of reals passed to init_diffusvity -- exiting.'
-
         call wrf_message(iulog)
-
         stop 'init_eddy_diff'
     endif
 
@@ -233,7 +212,6 @@
 
     
     
-
     
     
 
@@ -242,21 +220,13 @@
     
 
     if(vdiff_select(fieldlist_wet,'s').ne.'')   write(iulog,*) 'error: ', vdiff_select(fieldlist_wet,'s')
-
         call wrf_message(iulog)
-
     if(vdiff_select(fieldlist_wet,'q',1).ne.'') write(iulog,*) 'error: ', vdiff_select(fieldlist_wet,'q',1)
-
         call wrf_message(iulog)
-
     if(vdiff_select(fieldlist_wet,'u').ne.'')   write(iulog,*) 'error: ', vdiff_select(fieldlist_wet,'u')
-
         call wrf_message(iulog)
-
     if(vdiff_select(fieldlist_wet,'v').ne.'')   write(iulog,*) 'error: ', vdiff_select(fieldlist_wet,'v')
-
         call wrf_message(iulog)
-
 
     
     
@@ -354,14 +324,7 @@
     
     
     use diffusion_solver, only: compute_vdiff
-
-
-
-
-
-
     use module_cam_support,   only: outfld, addfld, phys_decomp 
-
 
     implicit none
 
@@ -579,11 +542,7 @@
        endif
 
 
-
-
-
        if(use_kvf)call austausch_atm( pcols, pver, ncol, ri, s2, kvf )
-
 
      
 
@@ -1655,9 +1614,7 @@
         ghmin    = -1.e10_r8
     else
         write(iulog,*) 'Error : ricrit should be larger than 0.19 in UW PBL'       
-
         call wrf_message(iulog)
-
         stop
     endif
 
@@ -2004,26 +1961,16 @@
                              wbrk(i,ncvnew) = tkes(i) / b1    
         
                              write(iulog,*) 'Major mistake in SRCL: bflxs > 0 for surface-based SRCL'
-
                              call wrf_message(iulog)
-
                              write(iulog,*) 'bflxs = ', bflxs(i)
-
                              call wrf_message(iulog)
-
                              write(iulog,*) 'ncvfin_o = ', ncvfin_o(i)
-
                              call wrf_message(iulog)
-
                              write(iulog,*) 'ncvfin_mg = ', ncvfin_mg(i)
-
                              call wrf_message(iulog)
-
                              do ks = 1, ncvmax
                                 write(iulog,*) 'ncv =', ks, ' ', kbase_o(i,ks), ktop_o(i,ks), kbase_mg(i,ks), ktop_mg(i,ks)
-
                                 call wrf_message(iulog)
-
                              end do
                              stop
 
@@ -2558,9 +2505,7 @@
 
           if( ebrk(i,ncv) .le. 0._r8 ) then
               write(iulog,*) 'CALEDDY: Warning, CL with zero TKE, i, kt, kb ', i, kt, kb
-
               call wrf_message(iulog)
-
               belongcv(i,kt) = .false.
               belongcv(i,kb) = .false. 
           end if
@@ -2851,9 +2796,7 @@
               
               if( det .lt. 0._r8 ) then
                   write(iulog,*) 'The det < 0. for the STL in UW eddy_diff'             
-
                   call wrf_message(iulog)
-
                   stop
               end if                  
               gh = (-trmb + sqrt(det))/(2._r8*trma)
@@ -3549,11 +3492,7 @@
  
      
      
-
-
-
        do while ( -dl2n2 .gt. (-rinc*l2n2/(1._r8-rinc)) .and. kt-1 .gt. ntop_turb )                     
-
 
           
 
@@ -3576,9 +3515,7 @@
           extend_up = .true.
           if( kt .eq. ntop_turb ) then
               write(iulog,*) 'zisocl: Error: Tried to extend CL to the model top'
-
               call wrf_message(iulog)
-
               stop
           end if
 
@@ -3844,9 +3781,7 @@
 
           if( (kb.eq.pver+1) .and. (ncv.ne.1) ) then 
                write(iulog,*) 'Major mistake zisocl: the CL based at surface is not indexed 1'
-
                call wrf_message(iulog)
-
                stop
           end if
 
@@ -4057,5 +3992,3 @@
     end function compute_cubic
 
 END MODULE eddy_diff
-
-

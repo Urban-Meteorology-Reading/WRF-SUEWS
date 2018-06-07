@@ -70,13 +70,7 @@
 
 
    count_fatal_error = 0
-
-
-
    model_config_rec % wrf_hydro = 0
-
-
-
 
 
 
@@ -145,8 +139,6 @@
          CALL wrf_debug ( 0, TRIM( wrf_err_message ) )
          count_fatal_error = count_fatal_error + 1
       END IF
-
-
 
 
 
@@ -283,7 +275,6 @@
 
 
 
-
       IF ( ( model_config_rec%fractional_seaice .EQ. 0 ).AND. &
               ( model_config_rec%tice2tsk_if2cold ) ) THEN
             wrf_err_message = '--- WARNING: You set tice2tsk_if2cold = .true.,  but fractional_seaice = 0'
@@ -306,7 +297,6 @@
          count_fatal_error = count_fatal_error + 1
          END IF
       ENDDO
-
 
 
 
@@ -355,9 +345,6 @@
          END DO
 
       END IF
-
-
-
 
 
 
@@ -482,25 +469,15 @@
 
    IF ( model_config_rec % perturb_chem_bdy .EQ. 1 ) then
 
-
       wrf_err_message = '--- ERROR: This option is only for WRF_CHEM.'
          CALL wrf_debug ( 0, TRIM( wrf_err_message ) )
          count_fatal_error = count_fatal_error + 1
-
 
       model_config_rec % rand_perturb_on=1
       wrf_err_message = '--- WARNING: perturb_chem_bdy=1 option uses RAND pattern and may'
       CALL wrf_message ( wrf_err_message )
       wrf_err_message = '             increase computation time.'
       CALL wrf_message ( wrf_err_message )
-
-
-
-
-
-
-
-
 
 
    ENDIF
@@ -521,8 +498,6 @@
 
 
 
-
-
       IF ( model_config_rec%hypsometric_opt .EQ. 2 &
            .AND. model_config_rec%adjust_heights ) THEN
            WRITE (wrf_err_message, FMT='(A,A)') '--- NOTE: hypsometric_opt is 2, ', &
@@ -530,8 +505,6 @@
             CALL wrf_message ( wrf_err_message )
             model_config_rec%adjust_heights = .false.
       ENDIF
-
-
 
 
 
@@ -561,7 +534,6 @@
             model_config_rec%icloud = 1
          END IF
       ENDDO
-
 
 
 
@@ -626,17 +598,12 @@
 
 
 
-
       model_config_rec%alloc_qndropsource = 0
       DO i = 1, model_config_rec % max_dom
          IF ( model_config_rec%progn(i) .EQ. 1 ) THEN
             model_config_rec%alloc_qndropsource = 1
          END IF
       END DO
-
-
-
-
 
 
 
@@ -1247,9 +1214,6 @@
 
 
 
-
-
-
       DO i = 1, model_config_rec % max_dom
          IF ( ( model_config_rec%cu_physics(i) .EQ. GDSCHEME ) .OR. &
               ( model_config_rec%cu_physics(i) .EQ. GFSCHEME ) .OR. &
@@ -1320,7 +1284,6 @@
 
 
 
-
       oops = 0
       DO i = 1, model_config_rec % max_dom
          IF ( model_config_rec%mp_physics(i) .EQ. THOMPSONAERO ) THEN
@@ -1370,8 +1333,6 @@
 
 
 
-
-
      IF (model_config_rec%hybrid_opt .NE. 0) THEN
         WRITE(wrf_err_message,'(A)') '--- ERROR: The code was not built with hybrid vertical coordinate enabled'
         CALL wrf_message( wrf_err_message )
@@ -1383,7 +1344,6 @@
         CALL wrf_message( wrf_err_message )
         count_fatal_error = count_fatal_error + 1
      ENDIF
-
 
 
 
@@ -1503,7 +1463,6 @@
 
 
 
-
       model_config_rec%auxinput10_begin_d     =       model_config_rec%gfdda_begin_d
       model_config_rec%auxinput10_begin_h     =       model_config_rec%gfdda_begin_h
       model_config_rec%auxinput10_begin_m     =       model_config_rec%gfdda_begin_m
@@ -1554,10 +1513,6 @@
 
 
 
-
-
-
-
       IF ( model_config_rec % use_wps_input .EQ. 1 ) THEN
          IF ( ( .NOT. model_config_rec % use_surface )  .AND. &
               ( model_config_rec % force_sfc_in_vinterp .GT. 0 ) ) THEN
@@ -1582,7 +1537,6 @@
 
 
 
-
       IF ( ( model_config_rec % ra_lw_physics(1) .EQ. RRTMG_LWSCHEME )  .OR. &
            ( model_config_rec % ra_sw_physics(1) .EQ. RRTMG_SWSCHEME )  .OR. &
            ( model_config_rec % ra_lw_physics(1) .EQ. RRTMG_LWSCHEME_FAST )  .OR. &
@@ -1600,7 +1554,7 @@
       IF ( count_fatal_error .GT. 0 ) THEN
          WRITE (wrf_err_message, FMT='(A,I6, A)') 'NOTE:  ', count_fatal_error, &
                                             ' namelist settings are wrong. Please check and reset these options'
-         CALL wrf_error_fatal3("<stdin>",1603,&
+         CALL wrf_error_fatal3("<stdin>",1557,&
 wrf_err_message  )
       END IF
 
@@ -1622,7 +1576,6 @@ wrf_err_message  )
       USE module_domain, ONLY : change_to_lower_case
 
       IMPLICIT NONE
-
 
       INTEGER :: i
       INTEGER :: max_dom
@@ -1716,7 +1669,7 @@ wrf_err_message  )
          END DO
 
       CASE DEFAULT
-         CALL wrf_error_fatal3("<stdin>",1719,&
+         CALL wrf_error_fatal3("<stdin>",1672,&
 'Unrecognized physics suite' )
 
       END SELECT
@@ -1800,7 +1753,6 @@ wrf_err_message  )
       CALL wrf_message ('*************************************')
 
 
-
    END SUBROUTINE setup_physics_suite
 
 
@@ -1844,13 +1796,11 @@ wrf_err_message  )
 
 
 
-
       model_config_rec % fft_used = 0
       IF ( ( model_config_rec % polar(1) ) .AND. &
            ( model_config_rec % fft_filter_lat .LT. 90. ) ) THEN
          model_config_rec % fft_used = 1
       END IF
-
 
 
 
@@ -1865,10 +1815,6 @@ wrf_err_message  )
             model_config_rec % cam_used = 1
          END IF
       ENDDO
-
-
-
-
 
 
       
@@ -1898,13 +1844,11 @@ wrf_err_message  )
 
       DO i = 1, model_config_rec % max_dom
          IF ( ( model_config_rec % mp_physics(i) .EQ. MILBRANDT2MOM ) .OR. &
-
               ( model_config_rec % mp_physics(i) .EQ. NSSL_2MOM     ) .OR. &
               ( model_config_rec % mp_physics(i) .EQ. NSSL_2MOMG    ) .OR. &
               ( model_config_rec % mp_physics(i) .EQ. NSSL_2MOMCCN  ) .OR. &
               ( model_config_rec % mp_physics(i) .EQ. NSSL_1MOM     ) .OR. &
               ( model_config_rec % mp_physics(i) .EQ. NSSL_1MOMLFO  ) .OR. &
-
               ( model_config_rec % do_radar_ref  .EQ. 1             ) ) THEN
             model_config_rec % compute_radar_ref = 1
          END IF
@@ -1960,7 +1904,5 @@ wrf_err_message  )
 
 
    END MODULE module_check_a_mundo
-
-
 
 

@@ -1852,13 +1852,9 @@ CONTAINS
 
 
 
-
-
-
    co2vmr = 379.e-6
    n2ovmr = 319.e-9
    ch4vmr = 1774.e-9
-
  
   IF ( wrf_dm_on_monitor() ) THEN
      WRITE(message,*)'CAM-CLWRF interpolated values______ year:',yr,' julian day:',julian
@@ -6828,7 +6824,7 @@ IMPLICIT NONE
       ENDIF
       CALL wrf_dm_bcast_bytes ( rrtm_unit , 4 )
       IF ( rrtm_unit < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",6831,&
+        CALL wrf_error_fatal3("<stdin>",6827,&
 'module_ra_rrtm: rrtm_lookuptable: Can not '// &
                                'find unused fortran unit to read in lookup table.' )
       ENDIF
@@ -6881,7 +6877,6 @@ IMPLICIT NONE
 
 
                                                                                  
-
 
 
 
@@ -7621,17 +7616,15 @@ IMPLICIT NONE
       RETURN
 9009 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtm: error opening RRTM_DATA on unit ',rrtm_unit
-     CALL wrf_error_fatal3("<stdin>",7624,&
+     CALL wrf_error_fatal3("<stdin>",7619,&
 errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtm: error reading RRTM_DATA on unit ',rrtm_unit
-     CALL wrf_error_fatal3("<stdin>",7629,&
+     CALL wrf_error_fatal3("<stdin>",7624,&
 errmess)
       END SUBROUTINE rrtm_lookuptable
 
 
 
 END MODULE module_ra_rrtm
-
-
