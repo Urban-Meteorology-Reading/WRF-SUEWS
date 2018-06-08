@@ -2414,7 +2414,7 @@ CONTAINS
        tstep,&
        WaterDist,WetThresh,&
        Z,&
-       qh,qe,qsfc)
+       qh,qe,qsfc,tsurf_K)
 
     INTEGER::AerodynamicResistanceMethod
     INTEGER::Diagnose
@@ -2633,6 +2633,7 @@ CONTAINS
     INTEGER,DIMENSION(NSURF)::snowCalcSwitch
     REAL(KIND(1D0)),INTENT(out)::qe
     REAL(KIND(1D0)),INTENT(out)::qsfc
+    REAL(KIND(1D0)),INTENT(out)::tsurf_K
 
 
     Diagnose=0
@@ -2701,6 +2702,7 @@ CONTAINS
     qh=dataOutLineSUEWS(9)
     qe=dataOutLineSUEWS(10)
     qsfc=dataOutLineSUEWS(16)
+    tsurf_K=dataOutLineSUEWS(5)+273.15
     print*, 'avkdn,kup,ldown,lup,tsurf'
     print*, dataOutLineSUEWS(1:5)
     print*,',qn1,qf,qs,qh,qeOut'
