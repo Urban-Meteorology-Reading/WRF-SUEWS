@@ -235,9 +235,11 @@ CONTAINS
                 ids,ide, jds,jde, kds,kde,                         &
                 ims,ime, jms,jme, kms,kme,                         &
                 its,ite, jts,jte, kts,kte                          &
+
                 ,isftcflx,iz0tlnd,scm_force_flux,                  &
                 USTM(ims,j),CK(ims,j),CKA(ims,j),                  &
                 CD(ims,j),CDA(ims,j)                               &
+
                                                                    )
       ENDDO
 
@@ -947,3 +949,5 @@ CONTAINS
 
 
 END MODULE module_sf_sfclay
+
+

@@ -41,3 +41,5 @@ subroutine diffusefraction(radG,altitude,Kt,Ta,RH,radI,radD)
     radD=radG
     end if 
 end subroutine diffusefraction 
+
+

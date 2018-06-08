@@ -4,6 +4,9 @@ MODULE module_sf_noahmpdrv
 
 
 
+
+
+
 CONTAINS
 
   SUBROUTINE noahmplsm(ITIMESTEP,        YR,   JULIAN,   COSZIN,XLAT,XLONG, & 
@@ -35,6 +38,9 @@ CONTAINS
 		 SHGXY,    SHCXY,    SHBXY,     EVGXY,    EVBXY,     GHVXY, & 
 		 GHBXY,    IRGXY,    IRCXY,     IRBXY,     TRXY,     EVCXY, & 
               CHLEAFXY,   CHUCXY,   CHV2XY,    CHB2XY,                      & 
+
+
+
 
 
 
@@ -117,6 +123,9 @@ CONTAINS
     REAL,    DIMENSION( ims:ime,          jms:jme ), INTENT(INOUT) ::  GRAINXY   
     REAL,    DIMENSION( ims:ime,          jms:jme ), INTENT(INOUT) ::  GDDXY     
  INTEGER,    DIMENSION( ims:ime,          jms:jme ), INTENT(INOUT) ::  PGSXY
+
+
+
 
 
 
@@ -691,6 +700,9 @@ CONTAINS
                                TRAD,   ESOIL,   RUNSF,   RUNSB,     SAG,    SALB, & 
                               QSNBOT,PONDING,PONDING1,PONDING2,    T2MB,    Q2MB, & 
 			      EMISSI,  FPICE,    CHB2 &                             
+
+
+
                               )
 
          FSNO   = 1.0       
@@ -787,12 +799,21 @@ CONTAINS
 	    GHB     , IRG     , IRC     , IRB     , TR      , EVC     , & 
 	    CHLEAF  , CHUC    , CHV2    , CHB2    , FPICE   , PAHV    , & 
             PAHG    , PAHB    , PAH                                     &
+
+
+
             )            
                   
             QFX(I,J) = ECAN + ESOIL + ETRAN
             LH       (I,J)                = FCEV + FGEV + FCTR
 
    ENDIF 
+
+
+
+
+
+
 
 
 
@@ -1318,7 +1339,7 @@ SUBROUTINE TRANSFER_MP_PARAMETERS(VEGTYPE,SOILTYPE,SLOPETYPE,SOILCOLOR,CROPTYPE,
           ENDDO
        ENDDO
        IF ( errflag .EQ. 1 ) THEN
-          CALL wrf_error_fatal3("<stdin>",1321,&
+          CALL wrf_error_fatal3("<stdin>",1342,&
 "module_sf_noahlsm.F: lsminit: out of range value "// &
                "of ISLTYP. Is this field in the input?" )
        ENDIF
@@ -1536,7 +1557,7 @@ SUBROUTINE TRANSFER_MP_PARAMETERS(VEGTYPE,SOILTYPE,SLOPETYPE,SOILCOLOR,CROPTYPE,
       &       its,ite, jts,jte, kts,kte                     )
 
           ELSE
-             CALL wrf_error_fatal3("<stdin>",1539,&
+             CALL wrf_error_fatal3("<stdin>",1560,&
 'Not enough fields to use groundwater option in Noah-MP')
           END IF
        endif
@@ -1614,7 +1635,7 @@ SUBROUTINE TRANSFER_MP_PARAMETERS(VEGTYPE,SOILTYPE,SLOPETYPE,SOILCOLOR,CROPTYPE,
                 DZSNO(-1) = 0.20
                 DZSNO( 0) = SNODEP(I,J) - DZSNO(-1) - DZSNO(-2)
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1617,&
+                CALL wrf_error_fatal3("<stdin>",1638,&
 "Problem with the logic assigning snow layers.")
              END IF
           END IF
@@ -2703,3 +2724,5 @@ END SUBROUTINE noahmp_urban
 
 
 END MODULE module_sf_noahmpdrv
+
+

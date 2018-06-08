@@ -364,6 +364,9 @@ contains
 		   GHB     , IRG     , IRC     , IRB     , TR      , EVC     , & 
 		   CHLEAF  , CHUC    , CHV2    , CHB2    , FPICE   , PAHV    , &
                    PAHG    , PAHB    , PAH                                     &
+
+
+
                    )
 
 
@@ -415,6 +418,9 @@ contains
   REAL                           , INTENT(IN)    :: DZ8W   
   REAL                           , INTENT(IN)    :: DX
   REAL                           , INTENT(IN)    :: SHDMAX  
+
+
+
 
 
 
@@ -670,7 +676,7 @@ contains
         IF(FVEG <= 0.05) FVEG = 0.05
      ELSE
         WRITE(*,*) "-------- FATAL CALLED IN SFLX -----------"
-        CALL wrf_error_fatal3("<stdin>",673,&
+        CALL wrf_error_fatal3("<stdin>",679,&
 "Namelist parameter DVEG unknown") 
      ENDIF
      IF(parameters%urban_flag .OR. VEGTYP == parameters%ISBARREN) FVEG = 0.0
@@ -735,6 +741,9 @@ contains
                  CMC    ,ECAN   ,ETRAN  ,FWET   ,RUNSRF ,RUNSUB , & 
                  QIN    ,QDIS   ,PONDING1       ,PONDING2,&
                  QSNBOT                             &
+
+
+
                  )  
 
 
@@ -1356,7 +1365,7 @@ contains
 
       WRITE(message,*) 'ERRSW =',ERRSW
       call wrf_message(trim(message))
-      call wrf_error_fatal3("<stdin>",1359,&
+      call wrf_error_fatal3("<stdin>",1368,&
 "Stop in Noah-MP")
    END IF
 
@@ -1386,7 +1395,7 @@ contains
       call wrf_message(trim(message))
       WRITE(message,'(a17,F10.4)') "Veg fraction: ",FVEG
       call wrf_message(trim(message))
-      call wrf_error_fatal3("<stdin>",1389,&
+      call wrf_error_fatal3("<stdin>",1398,&
 "Energy budget problem in NOAHMP LSM")
    END IF
 
@@ -1396,6 +1405,7 @@ contains
           END_WB = END_WB + SMC(IZ) * DZSNSO(IZ) * 1000.
         END DO
         ERRWAT = END_WB-BEG_WB-(PRCP-ECAN-ETRAN-EDIR-RUNSRF-RUNSUB)*DT
+
 
         IF(ABS(ERRWAT) > 0.1) THEN
            if (ERRWAT > 0) then
@@ -1411,9 +1421,10 @@ contains
            WRITE(message,'(i6,1x,i6,1x,2f15.3,9f11.5)')ILOC,JLOC,END_WB,BEG_WB,PRCP*DT,ECAN*DT,&
                 EDIR*DT,ETRAN*DT,RUNSRF*DT,RUNSUB*DT,ZWT
            call wrf_message(trim(message))
-           call wrf_error_fatal3("<stdin>",1414,&
+           call wrf_error_fatal3("<stdin>",1424,&
 "Water budget problem in NOAHMP LSM")
         END IF
+
    ELSE                 
       ERRWAT = 0.0      
    ENDIF
@@ -1988,7 +1999,7 @@ contains
        WRITE(6,*) 'input of SHDFAC with LAI'
        WRITE(6,*) ILOC, JLOC, 'SHDFAC=',FVEG,'VAI=',VAI,'TV=',TV,'TG=',TG
        WRITE(6,*) 'LWDN=',LWDN,'FIRA=',FIRA,'SNOWH=',SNOWH
-       call wrf_error_fatal3("<stdin>",1991,&
+       call wrf_error_fatal3("<stdin>",2002,&
 "STOP in Noah-MP")
     END IF
 
@@ -3514,7 +3525,7 @@ contains
           call wrf_message ( message )
           write (message, *) 'SNOWH =',SNOWH
           call wrf_message ( message )
-          call wrf_error_fatal3("<stdin>",3517,&
+          call wrf_error_fatal3("<stdin>",3528,&
 "CRITICAL PROBLEM IN MODULE_SF_NOAHMPLSM:VEGEFLUX" )
         END IF
 
@@ -4234,7 +4245,7 @@ contains
   
     IF(ZLVL <= ZPD) THEN
        write(*,*) 'critical problem: ZLVL <= ZPD; model stops'
-       call wrf_error_fatal3("<stdin>",4237,&
+       call wrf_error_fatal3("<stdin>",4248,&
 "STOP in Noah-MP")
     ENDIF
 
@@ -5543,6 +5554,9 @@ contains
                     CMC    ,ECAN   ,ETRAN  ,FWET   ,RUNSRF ,RUNSUB , & 
                     QIN    ,QDIS   ,PONDING1       ,PONDING2,        &
                     QSNBOT                                           &
+
+
+
                     )  
 
 
@@ -5648,6 +5662,9 @@ contains
 
 
 
+
+
+
    ETRANI(1:NSOIL) = 0.
    SNOFLOW         = 0.
    RUNSUB          = 0.
@@ -5711,6 +5728,9 @@ contains
     DO IZ = 1, parameters%NROOT
        ETRANI(IZ) = ETRAN * BTRANI(IZ) * 0.001
     ENDDO
+
+
+
 
 
 
@@ -9216,7 +9236,7 @@ CONTAINS
        write(*,'("Cannot find file MPTABLE.TBL")')
        write(*,'("STOP")')
        write(*,'("*******************************************************************")')
-       call wrf_error_fatal3("<stdin>",9219,&
+       call wrf_error_fatal3("<stdin>",9239,&
 "STOP in Noah-MP read_mp_veg_parameters")
     endif
 
@@ -9229,7 +9249,7 @@ CONTAINS
     else
        write(*,'("Unrecognized DATASET_IDENTIFIER in subroutine READ_MP_VEG_PARAMETERS")')
        write(*,'("DATASET_IDENTIFIER = ''", A, "''")') trim(DATASET_IDENTIFIER)
-       call wrf_error_fatal3("<stdin>",9232,&
+       call wrf_error_fatal3("<stdin>",9252,&
 "STOP in Noah-MP read_mp_veg_parameters")
     endif
     close(15)
@@ -9360,7 +9380,7 @@ CONTAINS
     OPEN(19, FILE='SOILPARM.TBL',FORM='FORMATTED',STATUS='OLD',IOSTAT=ierr)
     IF(ierr .NE. 0 ) THEN
       WRITE(message,FMT='(A)') 'module_sf_noahmpdrv.F: read_mp_soil_parameters: failure opening SOILPARM.TBL'
-      CALL wrf_error_fatal3("<stdin>",9363,&
+      CALL wrf_error_fatal3("<stdin>",9383,&
 message )
     END IF
 
@@ -9385,7 +9405,7 @@ message )
     OPEN(19, FILE='GENPARM.TBL',FORM='FORMATTED',STATUS='OLD',IOSTAT=ierr)
     IF(ierr .NE. 0 ) THEN
       WRITE(message,FMT='(A)') 'module_sf_noahlsm.F: read_mp_soil_parameters: failure opening GENPARM.TBL'
-      CALL wrf_error_fatal3("<stdin>",9388,&
+      CALL wrf_error_fatal3("<stdin>",9408,&
 message )
     END IF
 
@@ -9453,7 +9473,7 @@ message )
        write(*,'("Cannot find file MPTABLE.TBL")')
        write(*,'("STOP")')
        write(*,'("*******************************************************************")')
-       call wrf_error_fatal3("<stdin>",9456,&
+       call wrf_error_fatal3("<stdin>",9476,&
 "STOP in Noah-MP read_mp_rad_parameters")
     endif
 
@@ -9498,7 +9518,7 @@ RSURF_SNOW_TABLE     = -1.E36
        write(*,'("Cannot find file MPTABLE.TBL")')
        write(*,'("STOP")')
        write(*,'("*******************************************************************")')
-       call wrf_error_fatal3("<stdin>",9501,&
+       call wrf_error_fatal3("<stdin>",9521,&
 "STOP in Noah-MP read_mp_global_parameters")
     endif
 
@@ -9626,7 +9646,7 @@ RSURF_SNOW_TABLE     = RSURF_SNOW
        write(*,'("Cannot find file MPTABLE.TBL")')
        write(*,'("STOP")')
        write(*,'("*******************************************************************")')
-       call wrf_error_fatal3("<stdin>",9629,&
+       call wrf_error_fatal3("<stdin>",9649,&
 "STOP in Noah-MP read_mp_crop_parameters")
     endif
 
@@ -9739,4 +9759,6 @@ RSURF_SNOW_TABLE     = RSURF_SNOW
   end subroutine read_mp_crop_parameters
 
 END MODULE NOAHMP_TABLES
+
+
 

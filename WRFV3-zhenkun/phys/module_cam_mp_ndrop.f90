@@ -1,8 +1,17 @@
 
+
+
       module ndrop
+
       use shr_kind_mod,  only: r8 => shr_kind_r8
+
+
+
+
+
       use module_cam_support, only: endrun, iulog
       use modal_aero_data, only: ntot_amode
+
 
 
       implicit none
@@ -33,17 +42,35 @@ contains
       subroutine dropmixnuc(lchnk, ncol, ncldwtr,tendnd, temp,omega,  &
                     pmid,pint,pdel,rpdel,zm,kvh,wsub,cldn,cldo,     &
                     raer, cflx, raertend, dtmicro                   &
+
                     , qqcw_inout                                    &
+
                                                                     ) 
 
 
 
 
+
+
+
       use module_cam_support, only: pcols, pver, pverp
+
       use physconst,     only: gravit, rhoh2o, latvap, cpair, epsilo, rair, mwh2o, r_universal
+
+
+
+
       use module_cam_support, only: pcnst => pcnst_mp
       use constituents,  only: cnst_get_ind, cnst_name 
+
       use error_function, only: erf
+
+
+
+
+
+
+
 
 
 
@@ -52,6 +79,7 @@ contains
            numptr_amode => numptr_amode_mp  , lmassptr_amode   => lmassptr_amode_mp, &
            cnst_name_cw => cnst_name_cw_mp
       use module_cam_support, only: fieldname_len, outfld
+
 
       implicit none
 
@@ -81,7 +109,9 @@ contains
       real(r8), intent(in) :: raer(pcols,pver,pcnst) 
       real(r8), intent(in) :: cflx(pcols,pcnst) 
       real(r8), intent(out) :: raertend(pcols,pver,pcnst) 
+
       real(r8), target, intent(inout) :: qqcw_inout(pcols,pver,pcnst) 
+
 
 
 
@@ -198,15 +228,21 @@ contains
     arg = 1.0_r8
     if (abs(0.8427_r8-erf(arg))/0.8427_r8>0.001_r8) then
        write (iulog,*) 'erf(1.0) = ',ERF(arg)
+
        call wrf_message(iulog)
+
        call endrun('dropmixnuc: Error function error')
     endif
     arg = 0.0
     if (erf(arg) /= 0.0) then
        write (iulog,*) 'erf(0.0) = ',erf(arg)
+
        call wrf_message(iulog)
+
        write (iulog,*) 'dropmixnuc: Error function error'
+
        call wrf_message(iulog)
+
        call endrun('dropmixnuc: Error function error')
     endif
      zero=0._r8
@@ -218,6 +254,9 @@ contains
 
 
 
+
+
+
        call cnst_get_ind('NUMLIQ', ixndrop)
        depvel(:,:) = 0.0_r8        
 
@@ -225,9 +264,17 @@ contains
 
 
        do m=1,ntot_amode
+
+
+
           QQCW(numptrcw_amode(m))%fldcw => qqcw_inout(:,:,numptrcw_amode(m))
+
           do l=1,nspec_amode(m)
+
+
+
              QQCW(lmassptrcw_amode(l,m))%fldcw => qqcw_inout(:,:,lmassptrcw_amode(l,m))
+
           end do
        end do
 
@@ -974,11 +1021,20 @@ old_cloud_nsubmix_loop: &
    end subroutine explmix
 
    subroutine activate_init
+
+
+
       use module_cam_support, only: pver
+
+
+
+
+
       use modal_aero_data, only:sigmag_amode => sigmag_amode_mp, &
            numptr_amode   => numptr_amode_mp, nspec_amode => nspec_amode_mp, &
            lmassptr_amode => lmassptr_amode_mp, dgnum_amode => dgnum_amode_mp
       use module_cam_support, only: addfld, add_default, phys_decomp
+
       use physconst, only: rhoh2o, mwh2o, r_universal
       use error_function, only: erf
 
@@ -1019,7 +1075,9 @@ old_cloud_nsubmix_loop: &
                lmass=lmassptr_amode(l,m)
                if(lmass.le.0)then
                   write(iulog,*)'lmassptr_amode(',l,m,')=',lmass
+
                   call wrf_message(iulog)
+
                   call endrun
                endif
           enddo
@@ -1149,7 +1207,9 @@ old_cloud_nsubmix_loop: &
 
       if(ntot_amode<pmode)then
          write(iulog,*)'ntot_amode,pmode in activate =',ntot_amode,pmode
+
          call wrf_message(iulog)
+
 	 call endrun('activate')
       endif
 
@@ -1321,33 +1381,59 @@ old_cloud_nsubmix_loop: &
             w=w+dw
          enddo
          write(iulog,*)'do loop is too short in activate'
+
          call wrf_message(iulog)
+
          write(iulog,*)'wmin=',wmin,' w=',w,' wmax=',wmax,' dw=',dw
+
          call wrf_message(iulog)
+
          write(iulog,*)'wbar=',wbar,' sigw=',sigw,' wdiab=',wdiab
+
          call wrf_message(iulog)
+
          write(iulog,*)'wnuc=',wnuc
+
          call wrf_message(iulog)
+
          write(iulog,*)'na=',(na(m),m=1,nmode)
+
          call wrf_message(iulog)
+
          write(iulog,*)'fn=',(fn(m),m=1,nmode)
+
          call wrf_message(iulog)
+
 
 
          write(iulog,*)'wbar,sigw,wdiab,tair,rhoair,nmode='
+
          call wrf_message(iulog)
+
          write(iulog,*) wbar,sigw,wdiab,tair,rhoair,nmode
+
          call wrf_message(iulog)
+
          write(iulog,*)'na=',na
+
          call wrf_message(iulog)
+
          write(iulog,*)'volume=', (volume(m),m=1,nmode)
+
          call wrf_message(iulog)
+
          write(iulog,*)'sigman=',sigman
+
          call wrf_message(iulog)
+
          write(iulog,*)'hydro='
+
          call wrf_message(iulog)
+
          write(iulog,*) hygro
+
          call wrf_message(iulog)
+
 
          call endrun
    20    continue
@@ -1389,11 +1475,17 @@ old_cloud_nsubmix_loop: &
 
             if(fn(m).gt.1.01)then
                write(iulog,*)'fn=',fn(m),' > 1 in activate'
+
                call wrf_message(iulog)
+
 	       write(iulog,*)'w,m,na,amcube=',w,m,na(m),amcube(m)
+
                call wrf_message(iulog)
+
 	       write(iulog,*)'integ,sumfn,sigw=',integ,sumfn(m),sigw
+
                call wrf_message(iulog)
+
 	       call endrun('activate')
             endif
             fluxn(m)=sumflxn(m)/(sq2*sqpi*sigw)
@@ -1401,7 +1493,9 @@ old_cloud_nsubmix_loop: &
 
             if(fm(m).gt.1.01)then
                write(iulog,*)'fm=',fm(m),' > 1 in activate'
+
                call wrf_message(iulog)
+
             endif
             fluxm(m)=sumflxm(m)/(sq2*sqpi*sigw)
          enddo
@@ -1512,7 +1606,13 @@ old_cloud_nsubmix_loop: &
 
 
       use shr_kind_mod,  only: r8 => shr_kind_r8
+
+
+
+
+
       use module_cam_support, only: pcols, pver, pverp, pcnst =>pcnst_mp
+
       use physconst,     only: rhoh2o, mwh2o, r_universal
       use modal_aero_data, only:
       use error_function, only: erf
@@ -1606,6 +1706,11 @@ old_cloud_nsubmix_loop: &
                          naerosol, vaerosol,  hygro )
 
       use shr_kind_mod,  only: r8 => shr_kind_r8
+
+
+
+
+
       use module_cam_support, only: pcols, pver, endrun, pcnst =>pcnst_mp
       use modal_aero_data,   only: nspec_amode => nspec_amode_mp, &
            lmassptr_amode    => lmassptr_amode_mp , lmassptrcw_amode  => lmassptrcw_amode_mp, &
@@ -1613,6 +1718,7 @@ old_cloud_nsubmix_loop: &
            spechygro         => spechygro_mp      , numptr_amode      => numptr_amode_mp,     &
            numptrcw_amode    => numptrcw_amode_mp , voltonumbhi_amode => voltonumbhi_amode_mp,&
            voltonumblo_amode => voltonumblo_amode_mp 
+
      
 
       implicit none
@@ -1661,7 +1767,9 @@ old_cloud_nsubmix_loop: &
 		end do
              else
 	        write(iulog,*)'phase=',phase,' in loadaer'
+
                call wrf_message(iulog)
+
 	        call endrun('phase error in loadaer')
 	     endif
 	     do i=istart,istop
@@ -1712,7 +1820,10 @@ old_cloud_nsubmix_loop: &
 
        return
        end subroutine loadaer
+
       end module ndrop
+
+
 
 
 

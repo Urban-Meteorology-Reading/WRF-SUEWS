@@ -1357,8 +1357,10 @@ CONTAINS
 
       IF (ETP1 > 0.0) THEN
          IF (SHDFAC <  1.) THEN
+
              CALL DEVAP (EDIR,ETP1,SMC (1),ZSOIL (1),SHDFAC,SMCMAX,      &
                          BEXP,DKSAT,DWSAT,SMCDRY,SMCREF,SMCWLT,FXEXP)
+
          END IF
 
 
@@ -2405,15 +2407,15 @@ CONTAINS
 
 
                IF (SOILTYP .gt. SLCATS) THEN
-                        CALL wrf_error_fatal3("<stdin>",2408,&
+                        CALL wrf_error_fatal3("<stdin>",2410,&
 'Warning: too many input soil types' )
                END IF
                IF (VEGTYP .gt. LUCATS) THEN
-                     CALL wrf_error_fatal3("<stdin>",2412,&
+                     CALL wrf_error_fatal3("<stdin>",2414,&
 'Warning: too many input landuse types' )
                END IF
                IF (SLOPETYP .gt. SLPCATS) THEN
-                     CALL wrf_error_fatal3("<stdin>",2416,&
+                     CALL wrf_error_fatal3("<stdin>",2418,&
 'Warning: too many input slope types' )
                END IF
 
@@ -2481,7 +2483,7 @@ CONTAINS
                IF (NROOT .gt. NSOIL) THEN
                   WRITE (err_message,*) 'Error: too many root layers ',  &
                                                  NSOIL,NROOT
-                  CALL wrf_error_fatal3("<stdin>",2484,&
+                  CALL wrf_error_fatal3("<stdin>",2486,&
 err_message )
 
 
@@ -2739,6 +2741,10 @@ err_message )
          FAC2=MAX(FAC2,SH2O(I)/SMCMAX)
       ENDDO
       CALL FAC2MIT(SMCMAX,FLIMIT)
+
+
+
+
 
 
 
@@ -3685,6 +3691,7 @@ err_message )
 
       END DO
 
+
       PDDUM = PCPDRP
       RUNOFF1 = 0.0
 
@@ -3695,7 +3702,14 @@ err_message )
 
 
 
+
+
+
+
+
+
      IF (PCPDRP /=  0.0) THEN
+
          DT1 = DT /86400.
          SMCAV = SMCMAX - SMCWLT
 
@@ -3727,7 +3741,13 @@ err_message )
          END DO
          VAL = (1. - EXP ( - KDT * DT1))
          DDT = DD * VAL
+
+
+
+
+
          PX = PCPDRP * DT
+
          IF (PX <  0.0) PX = 0.0
 
 
@@ -3766,8 +3786,16 @@ err_message )
          INFMAX = MAX (INFMAX,WCND)
 
          INFMAX = MIN (INFMAX,PX/DT)
+
+
+
+
+
+
+
          IF (PCPDRP >  INFMAX) THEN
             RUNOFF1 = PCPDRP - INFMAX
+
           INFXS1RT = RUNOFF1*DT*1000.
           PDDUM = INFMAX
          END IF
@@ -3965,6 +3993,7 @@ err_message )
          SMC (K) = MAX ( MIN (STOT,SMCMAX),0.02 )
          SH2OOUT (K) = MAX ( (SMC (K) - SICE (K)),0.0)
       END DO
+
 
 
 
@@ -4660,3 +4689,5 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 
 
 END MODULE module_sf_noahlsm
+
+

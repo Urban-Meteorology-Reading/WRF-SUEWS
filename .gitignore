@@ -34,3 +34,8 @@
 *.out
 *.app
 wrfinput_d01.nc
+WRFV3-zhenkun/run/freezeH2O.dat
+WRFV3-zhenkun/run/qr_acr_qg.dat
+WRFV3-zhenkun/run/qr_acr_qs.dat
+WRFV3-zhenkun/netcdf_links/include
+WRFV3-zhenkun/netcdf_links/lib

@@ -1,9 +1,12 @@
 
 
+
 MODULE MODULE_RA_GFDLETA
       USE MODULE_CONFIGURE,ONLY : GRID_CONFIG_REC_TYPE
       USE MODULE_MODEL_CONSTANTS
+
       USE MODULE_MP_ETANEW, ONLY : FPVS,GPVS
+
       INTEGER,PARAMETER :: NL=81
       INTEGER,PARAMETER :: NBLY=15
       REAL,PARAMETER :: RTHRESH=1.E-15,RTD=1./DEGRAD
@@ -866,7 +869,11 @@ CONTAINS
     
     
     
+
             ESAT=1000.*FPVS(TMID(I,LL))         
+
+
+
             QSAT=EP_2*ESAT/(PMID(I,LL)-ESAT)    
             RHUM=WV/QSAT                        
     
@@ -7641,7 +7648,11 @@ CONTAINS
 
 
 
+
+
+
       DO 303 IA=2,2
+
       ANU=CENT+HAF*(IA-2)*DEL
       C1=(H37412M5)*ANU*ANU*ANU+H1M20
 
@@ -8162,7 +8173,7 @@ CONTAINS
         WRITE(errmess,360)I,LL,CHECK
         WRITE(errmess,*)' xx=',xx,' patha=',patha
   360   FORMAT(' ERROR,I=',I3,'LL=',I3,'CHECK=',F20.10)
-        CALL wrf_error_fatal3("<stdin>",8165,&
+        CALL wrf_error_fatal3("<stdin>",8176,&
 errmess )
       ENDIF
  1010 CONTINUE
@@ -8706,7 +8717,7 @@ errmess )
 
 
       IF (RATIO.EQ.1.0) GO TO 621
-      CALL wrf_error_fatal3("<stdin>",8709,&
+      CALL wrf_error_fatal3("<stdin>",8720,&
 'SUBROUTINE CO2INT: 8746' )
 
 621   ITAP1=ITAPE
@@ -9547,17 +9558,17 @@ errmess )
       ENDIF
       CALL wrf_dm_bcast_bytes ( etarad_unit61 , 4 )
       IF ( etarad_unit61 < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",9550,&
+        CALL wrf_error_fatal3("<stdin>",9561,&
 'module_ra_gfdleta: co2o3: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
       CALL wrf_dm_bcast_bytes ( etarad_unit62 , 4 )
       IF ( etarad_unit62 < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",9555,&
+        CALL wrf_error_fatal3("<stdin>",9566,&
 'module_ra_gfdleta: co2o3: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
       CALL wrf_dm_bcast_bytes ( etarad_unit63 , 4 )
       IF ( etarad_unit63 < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",9560,&
+        CALL wrf_error_fatal3("<stdin>",9571,&
 'module_ra_gfdleta: co2o3: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
         IF ( wrf_dm_on_monitor() ) THEN
@@ -9737,17 +9748,17 @@ errmess )
 9061 CONTINUE
      WRITE( errmess , '(A49,I4)' ) 'module_ra_gfdleta: error reading tr49t85 on unit ',etarad_unit61
      write(0,*)' IERROR=',IERROR
-     CALL wrf_error_fatal3("<stdin>",9740,&
+     CALL wrf_error_fatal3("<stdin>",9751,&
 errmess)
 9062 CONTINUE
      WRITE( errmess , '(A49,I4)' ) 'module_ra_gfdleta: error reading tr49t67 on unit ',etarad_unit62
      write(0,*)' IERROR=',IERROR
-     CALL wrf_error_fatal3("<stdin>",9745,&
+     CALL wrf_error_fatal3("<stdin>",9756,&
 errmess)
 9063 CONTINUE
      WRITE( errmess , '(A49,I4)' ) 'module_ra_gfdleta: error reading tr67t85 on unit ',etarad_unit63
      write(0,*)' IERROR=',IERROR
-     CALL wrf_error_fatal3("<stdin>",9750,&
+     CALL wrf_error_fatal3("<stdin>",9761,&
 errmess)
       END SUBROUTINE CO2O3
 
@@ -10074,7 +10085,7 @@ errmess)
 
 9014 CONTINUE
      WRITE(errmess,'(A51,I4)')'module_ra_gfdleta: error reading co2_trans on unit ',nunit_co2
-     CALL wrf_error_fatal3("<stdin>",10077,&
+     CALL wrf_error_fatal3("<stdin>",10088,&
 errmess)
 
       END SUBROUTINE CONRAD
@@ -10156,6 +10167,8 @@ errmess)
 
 
       END MODULE module_RA_GFDLETA
+
+
 
 
 

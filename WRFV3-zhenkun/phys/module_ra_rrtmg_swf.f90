@@ -55,6 +55,34 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       module parrrsw_f
 
 
@@ -1510,9 +1538,16 @@
 
 
 
+
+
+
      
       real, dimension(8, nlay, nsubcol)  :: CDF       
+
+
+
       integer, dimension(8) :: seed1, seed2, seed3, seed4  
+
     
       integer  :: iseed                        
 
@@ -1521,6 +1556,7 @@
 
 
       integer  :: ilev, isubcol, i, n, ngbm, iplon   
+
       integer :: m, k
 
       m(k, n) = ieor (k, ishft (k, n) )
@@ -1537,17 +1573,21 @@
 
 
 
+
       if (icld==1) then
 !$acc kernels 
            
-         CALL wrf_error_fatal3("<stdin>",1543,&
+
+         CALL wrf_error_fatal3("<stdin>",1581,&
 "icld == 1 not supported in module_ra_rrtmg_swf.F")
+
 
 !$acc end kernels      
       endif
 
 
       if (icld==2) then
+
 
 
 
@@ -1589,14 +1629,17 @@
                   end do
                end do
             end do
+
       endif
 
 
       if (icld==3) then
 !$acc kernels 
            
-         CALL wrf_error_fatal3("<stdin>",1598,&
+
+         CALL wrf_error_fatal3("<stdin>",1640,&
 "icld == 3 not supported in module_ra_rrtmg_swf.F")
+
 
 !$acc end kernels      
       endif
@@ -1631,6 +1674,9 @@
          enddo
       enddo
 !$acc end kernels
+
+
+
 
       end subroutine mcica_sw
 
@@ -1743,6 +1789,9 @@
       taormc   = taucmc
   
 !$acc end kernels    
+
+
+
 
 
 
@@ -2046,6 +2095,9 @@
       enddo
 !$acc end kernels
 
+
+
+
       end subroutine cldprmc_sw
 
       end module rrtmg_sw_cldprmc_f
@@ -2163,6 +2215,9 @@
       real  :: factor
       real  :: co2reg
       real  :: compfp
+
+
+
 
 
 
@@ -2339,6 +2394,9 @@
 
       end do
 !$acc end kernels
+
+
+
 
 end subroutine setcoef_sw
 
@@ -2625,6 +2683,7 @@ end subroutine setcoef_sw
 
 
 
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                        fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -2638,7 +2697,9 @@ end subroutine setcoef_sw
 
 
 !$acc kernels 
+
 do lay = 1, nlayers ; do iplon = 1, 8
+
          if (lay <= laytrop(iplon)) then
          speccomb = colh2o(iplon,lay)  + strrat1*colch4(iplon,lay)
          specparm = colh2o(iplon,lay) /speccomb
@@ -2681,8 +2742,10 @@ do lay = 1, nlayers ; do iplon = 1, 8
             taur(iplon,lay,ig)  = tauray
          enddo
          end if
+
 enddo;enddo
 do lay=2,nlayers;do iplon=1,8;if(lay>laytrop(iplon))then;laysolfr=nlayers
+
 
 
 
@@ -2715,8 +2778,14 @@ do lay=2,nlayers;do iplon=1,8;if(lay>laytrop(iplon))then;laysolfr=nlayers
             if (laysolfr == lay) sfluxzen(iplon,ig)  = sfluxref(ig) 
             taur(iplon,lay,ig)  = tauray  
          enddo
+
+
+
+
 endif;enddo;enddo
+
 !$acc end kernels
+
  end subroutine taumol16
 
 
@@ -2781,6 +2850,9 @@ endif;enddo;enddo
 
 
 
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                        fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -2795,7 +2867,9 @@ endif;enddo;enddo
 
 
     
+
 do lay = 1, nlayers ; do iplon = 1, 8
+
         if (lay <= laytrop(iplon)) then
           
          speccomb = colh2o(iplon,lay)  + strrat*colco2(iplon,lay) 
@@ -2884,7 +2958,15 @@ do lay = 1, nlayers ; do iplon = 1, 8
 !$acc end kernels
 
 !$acc kernels
+
+
+
+
+
+
+
 do lay=2,nlayers;do iplon=1,8;if(lay>laytrop(iplon))then;laysolfr=nlayers
+
           
         if ((jp(iplon,lay-1)  .lt. layreffr) .and. (jp(iplon,lay)  .ge. layreffr)) then
             laysolfr = lay
@@ -2903,8 +2985,15 @@ do lay=2,nlayers;do iplon=1,8;if(lay>laytrop(iplon))then;laysolfr=nlayers
                + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
           end do
         end if
+
+
+
+
+
 endif;enddo;enddo
+
 !$acc end kernels      
+
       end subroutine taumol17
 
 
@@ -2969,7 +3058,14 @@ endif;enddo;enddo
 
 
 
+
+
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                        fac110, fac111, fs, speccomb, specmult, specparm, &
                        tauray
@@ -2985,10 +3081,17 @@ endif;enddo;enddo
 
 !$acc kernels      
 
+
+
+
+
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
               speccomb = colh2o(iplon,lay)  + strrat*colch4(iplon,lay) 
               specparm = colh2o(iplon,lay) /speccomb 
               if (specparm .ge. oneminus) specparm = oneminus
@@ -3001,7 +3104,11 @@ endif;enddo;enddo
                 if (lay .eq. LAYSOLFR(iplon)) sfluxzen(iplon,ngs17+ig)  = sfluxref(ig,js) &
                   + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
               end do
+
+
+
          endif
+
           end do
       end do
 !$acc end kernels
@@ -3075,6 +3182,7 @@ do lay = 1, nlayers ; do iplon = 1, 8
 enddo;enddo       
 
 !$acc end kernels
+
       end subroutine taumol18
 
 
@@ -3139,7 +3247,15 @@ enddo;enddo
 
 
 
+
+
+
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
                   tauray
@@ -3154,10 +3270,13 @@ enddo;enddo
       strrat = 5.49281 
       layreffr = 3      
       
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
             
         if (jp(iplon,lay)  .lt. layreffr .and. jp(iplon,lay+1)  .ge. layreffr) &
             LAYSOLFR(iplon) = min(lay+1,laytrop(iplon) )
@@ -3175,7 +3294,11 @@ enddo;enddo
                + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
          end do
          endif
+
+
+
          endif
+
 
       end do
       end do
@@ -3252,6 +3375,7 @@ do lay = 1, nlayers ; do iplon = 1, 8
         end if
 enddo;enddo       
 !$acc end kernels
+
       end subroutine taumol19
 
 
@@ -3317,7 +3441,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
 
 
@@ -3328,10 +3457,18 @@ enddo;enddo
 
 
 
+
+
+
+
+
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
 
          if (jp(iplon,lay)  .lt. layreffr .and. jp(iplon,lay+1)  .ge. layreffr) &
             LAYSOLFR(iplon) = min(lay+1,laytrop(iplon) )
@@ -3340,7 +3477,11 @@ enddo;enddo
                  sfluxzen(iplon,ngs19+ig)  = sfluxref(ig) 
              end do
          end if
+
+
+
          endif
+
       end do
       end do
 !$acc end kernels
@@ -3398,6 +3539,7 @@ do lay = 1, nlayers ; do iplon = 1, 8
 enddo;enddo
 
 !$acc end kernels
+
       end subroutine taumol20
 
 
@@ -3461,7 +3603,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -3476,10 +3623,18 @@ enddo;enddo
 
 
      
+
+
+
+
+
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
 
          if (jp(iplon,lay)  .lt. layreffr .and. jp(iplon,lay+1)  .ge. layreffr) &
             LAYSOLFR(iplon) = min(lay+1,laytrop(iplon) )
@@ -3496,7 +3651,11 @@ enddo;enddo
                end do
           end if
 
+
+
+
          endif
+
       end do
       end do        
 !$acc end kernels
@@ -3595,6 +3754,7 @@ do lay = 1, nlayers ; do iplon = 1, 8
 enddo;enddo
       
 !$acc end kernels
+
       end subroutine taumol21
 
 
@@ -3658,7 +3818,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -3682,10 +3847,13 @@ enddo;enddo
 
 
       
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
 
             if (jp(iplon,lay)  .lt. layreffr .and. jp(iplon,lay+1)  .ge. layreffr) &
             LAYSOLFR(iplon) = min(lay+1,laytrop(iplon) )
@@ -3704,7 +3872,11 @@ enddo;enddo
                 + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
             end do
             end if
+
+
+
          endif
+
          end do
       end do
  !$acc end kernels
@@ -3783,6 +3955,7 @@ do lay = 1, nlayers ; do iplon = 1, 8
 enddo;enddo
       
 !$acc end kernels
+
       end subroutine taumol22
 
 
@@ -3846,7 +4019,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -3868,10 +4046,13 @@ enddo;enddo
 
 
       
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
 
           if (jp(iplon,lay)  .lt. layreffr .and. jp(iplon,lay+1)  .ge. layreffr) &
             LAYSOLFR(iplon) = min(lay+1,laytrop(iplon) )
@@ -3881,7 +4062,11 @@ enddo;enddo
               sfluxzen(iplon,ngs22+ig)  = sfluxref(ig) 
             end do
           end if
+
+
+
          endif
+
       end do
       end do      
 !$acc end kernels   
@@ -3931,6 +4116,7 @@ do lay = 1, nlayers ; do iplon = 1, 8
 enddo;enddo
       
 !$acc end kernels
+
       end subroutine taumol23
 
 
@@ -3995,7 +4181,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -4010,10 +4201,13 @@ enddo;enddo
 
 
         
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
 
           if (jp(iplon,lay)  .lt. layreffr .and. jp(iplon,lay+1)  .ge. layreffr) &
             LAYSOLFR(iplon) = min(lay+1,laytrop(iplon) )
@@ -4029,7 +4223,11 @@ enddo;enddo
                + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
           end do
           end if
+
+
+
          endif
+
       end do
       end do
 !$acc end kernels
@@ -4110,6 +4308,7 @@ do lay = 1, nlayers ; do iplon = 1, 8
 enddo;enddo
       
 !$acc end kernels
+
       end subroutine taumol24
 
 
@@ -4173,7 +4372,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
 
 
@@ -4183,10 +4387,13 @@ enddo;enddo
                   tauray
       integer :: iplon
 
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
          if (jp(iplon,lay)  .lt. layreffr .and. jp(iplon,lay+1)  .ge. layreffr) &
             LAYSOLFR(iplon) = min(lay+1,laytrop(iplon) )
          ind0 = ((jp(iplon,lay) -1)*5+(jt(iplon,lay) -1))*nspa(25) + 1
@@ -4204,7 +4411,13 @@ enddo;enddo
             if (lay .eq. LAYSOLFR(iplon)) sfluxzen(iplon,ngs24+ig)  = sfluxref(ig) 
             taur(iplon,lay,ngs24+ig)  = tauray
          enddo
+
+
+
+
+
       else 
+
 
          do ig = 1, ng25
             tauray = colmol(iplon,lay)  * rayl(ig)
@@ -4212,11 +4425,16 @@ enddo;enddo
 
             taur(iplon,lay,ngs24+ig)  = tauray
          enddo
+
+
+
       endif
+
       enddo
       enddo
       
 !$acc end kernels
+
       end subroutine taumol25
 
 
@@ -4277,17 +4495,25 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
                   tauray
       integer :: iplon
 
+
       laysolfr = laytrop
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
          do ig = 1, ng26 
 
 
@@ -4295,7 +4521,12 @@ enddo;enddo
             taug(iplon,lay,ngs25+ig)  = 0. 
             taur(iplon,lay,ngs25+ig)  = colmol(iplon,lay)  * rayl(ig) 
          enddo
+
+
+
+
       else
+
 
 
          do ig = 1, ng26
@@ -4304,11 +4535,16 @@ enddo;enddo
             taug(iplon,lay,ngs25+ig)  = 0. 
             taur(iplon,lay,ngs25+ig)  = colmol(iplon,lay)  * rayl(ig) 
          enddo
+
+
+
       endif
+
       enddo
       enddo
       
 !$acc end kernels
+
       end subroutine taumol26
 
 
@@ -4371,7 +4607,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -4383,10 +4624,13 @@ enddo;enddo
 
       integer :: iplon
        
+
       laysolfr = nlayers
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
          ind0 = ((jp(iplon,lay) -1)*5+(jt(iplon,lay) -1))*nspa(27) + 1
          ind1 = (jp(iplon,lay) *5+(jt1(iplon,lay) -1))*nspa(27) + 1
 
@@ -4400,7 +4644,16 @@ enddo;enddo
 
             taur(iplon,lay,ngs26+ig)  = tauray
          enddo
+
+
+
+
+
+
+
+
       else
+
          if (jp(iplon,lay-1)  .lt. layreffr .and. jp(iplon,lay)  .ge. layreffr) &
             LAYSOLFR(iplon) = lay
          ind0 = ((jp(iplon,lay) -13)*5+(jt(iplon,lay) -1))*nspb(27) + 1
@@ -4417,11 +4670,16 @@ enddo;enddo
             if (lay.eq.LAYSOLFR(iplon)) sfluxzen(iplon,ngs26+ig)  = scalekur * sfluxref(ig) 
             taur(iplon,lay,ngs26+ig)  = tauray
          enddo
+
+
+
       endif
+
       enddo
       enddo
       
 !$acc end kernels
+
       end subroutine taumol27
 
 
@@ -4484,7 +4742,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
       real  :: fac000, fac001, fac010, fac011, fac100, fac101, &
                   fac110, fac111, fs, speccomb, specmult, specparm, &
@@ -4496,10 +4759,13 @@ enddo;enddo
 
       integer :: iplon
 
+
       laysolfr = nlayers
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay <= laytrop(iplon)) then
+
          speccomb = colo3(iplon,lay)  + strrat*colo2(iplon,lay) 
          specparm = colo3(iplon,lay) /speccomb 
          if (specparm .ge. oneminus) specparm = oneminus
@@ -4531,7 +4797,16 @@ enddo;enddo
 
             taur(iplon,lay,ngs27+ig)  = tauray
          enddo
+
+
+
+
+
+
+
+
       else
+
          if (jp(iplon,lay-1)  .lt. layreffr .and. jp(iplon,lay)  .ge. layreffr) &
             LAYSOLFR(iplon) = lay
          speccomb = colo3(iplon,lay)  + strrat*colo2(iplon,lay) 
@@ -4567,11 +4842,16 @@ enddo;enddo
                + fs * (sfluxref(ig,js+1) - sfluxref(ig,js))
             taur(iplon,lay,ngs27+ig)  = tauray
          enddo
+
+
+
       endif
+
       enddo
       enddo
       
 !$acc end kernels
+
       end subroutine taumol28
 
 
@@ -4635,7 +4915,12 @@ enddo;enddo
                                                          
 
 
+
+
+
+
       integer  :: ig, ind0, ind1, inds, indf, js, lay, laysolfr(8)
+
 
 
 
@@ -4646,10 +4931,20 @@ enddo;enddo
 
 
         
+
+
+
+
+
+
+
+
       laysolfr = nlayers
+
       do lay = 1, nlayers
         do iplon = 1, 8
           if (lay > laytrop(iplon)) then
+
          if (jp(iplon,lay-1)  .lt. layreffr .and. jp(iplon,lay)  .ge. layreffr) &
             LAYSOLFR(iplon) = lay
 
@@ -4658,13 +4953,19 @@ enddo;enddo
                 sfluxzen(iplon,ngs28+ig)  = sfluxref(ig) 
                 end do
             end if
+
+
+
          endif
+
         end do
       end do
 !$acc end kernels
        
+
     do lay = 1, nlayers 
       do iplon=1,8
+
          if (lay <= laytrop(iplon)) then
          ind0 = ((jp(iplon,lay) -1)*5+(jt(iplon,lay) -1))*nspa(29) + 1
          ind1 = (jp(iplon,lay) *5+(jt1(iplon,lay) -1))*nspa(29) + 1
@@ -4713,7 +5014,12 @@ enddo;enddo
       enddo
       
 !$acc end kernels
+
       end subroutine taumol29
+
+
+
+
 
 
       end module rrtmg_sw_taumol_f
@@ -8292,6 +8598,9 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 !$acc end kernels      
 
 
+
+
+
          
 
       call taumol_sw(8,nlayers, &
@@ -8305,6 +8614,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
       
       repclc = 1.e-12 
+
 
 
    
@@ -8370,6 +8680,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
 
+
                zclear = 1.0  - pCLDFMC(iplon,iw,ikl)
                zcloud =  pCLDFMC(iplon,iw,ikl)
 
@@ -8397,6 +8708,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
                zdbt_nodel(iplon,iw,jk) = zclear*zdbtmc + zcloud*zdbtmo
                ztdbt_nodel(iplon,iw,jk+1) = zdbt_nodel(iplon,iw,jk) * ztdbt_nodel(iplon,iw,jk)
+
 
 
                zomco(iplon,iw,jk)   = ztaur(iplon,ikl,iw) + pTAUA(iplon,ibm,ikl) * pOMGA(iplon,ibm,ikl)
@@ -8442,6 +8754,9 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
                ze1 = (ztauo(iplon,iw,jk))  / prmu0(iplon)      
+
+
+
                ze1 = ztauo(iplon,iw,jk) / prmu0(iplon)
                if (ze1 .le. od_lo) then
                   zdbtmc = 1. - ze1 + 0.5 * ze1 * ze1
@@ -8450,6 +8765,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
                   itind = tblint * tblind + 0.5
                   zdbtmc = exp_tbl(itind)
                endif
+
                zdbt(iplon,iw,jk)   = zdbtmc
                ztdbt(iplon,iw,jk+1)   = zdbt(iplon,iw,jk)  *ztdbt(iplon,iw,jk)  
 
@@ -8609,6 +8925,9 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
                ze1 = ztauo(iplon,iw,jk )   / prmu0(iplon)   
+
+
+
               if (ze1 .le. od_lo) then
                   zdbtmo = 1. - ze1 + 0.5 * ze1 * ze1
                else
@@ -8616,7 +8935,11 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
                   itind = tblint * tblind + 0.5
                   zdbtmo = exp_tbl(itind)
                endif
+
                ze1 = (ztauo(iplon,iw,jk) - pTAUCMC(iplon,iw,ikl))  / prmu0(iplon)           
+
+
+
                if (ze1 .le. od_lo) then
                   zdbtmc = 1. - ze1 + 0.5 * ze1 * ze1
                else
@@ -8624,6 +8947,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
                   itind = tblint * tblind + 0.5
                   zdbtmc = exp_tbl(itind)
                endif
+
             
                zdbt(iplon,iw,jk)   = zclear*zdbtmc + zcloud*zdbtmo
                ztdbt(iplon,iw,jk+1)   = zdbt(iplon,iw,jk)  *ztdbt(iplon,iw,jk)  
@@ -8747,6 +9071,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 !$acc end kernels
 
 !!$acc end data
+
          
 
 
@@ -9024,6 +9349,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
       integer , intent (in) :: ncol
     
 
+
       real , intent(in) :: pref(8,112,klev+1)             
       real , intent(in) :: prefd(8,112,klev+1)            
       real , intent(in) :: ptra(8,112,klev+1)             
@@ -9045,11 +9371,23 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
 
+
       integer  :: ikp, ikx, jk, iplon, iw
 
 
 
+
       real  :: zreflect, zreflectj
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9087,6 +9425,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 !DIR$ ASSUME_ALIGNED pref:64,prefd:64,ptra:64,ptrad:64
 !DIR$ ASSUME_ALIGNED pdbt:64,ptdbt:64,prdnd:64,prup:64,prupd:64,ztdn:64,pfd:64,pfu:64
+
 
 
 
@@ -9209,6 +9548,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
       end module rrtmg_sw_spcvmc_f
 
+
       module rrtmg_sw_rad_f
 
 
@@ -9293,6 +9633,9 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
                            abari, bbari, cbari, dbari, ebari, fbari
       use rrsw_wvn_f, only : wavenum2, ngb
       use rrsw_ref_f, only : preflog, tref
+
+
+
 
 
 
@@ -9429,14 +9772,22 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
       real :: t1, t2
       
 
+
+
+
+
+
+
       if (rpart > 0) then
          pncol = rpart
       else
+
 
       pncol = 2
       pncol = 4
 
       
+
           
       end if
 
@@ -9702,6 +10053,9 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
 
+
+
+
       real  :: coldry(8,nlay+1)            
       real  :: wkl(8,mxmol,nlay)           
 
@@ -9829,6 +10183,9 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
       real  :: zfd(8,ngptsw,nlay+1)   , zfu(8,ngptsw,nlay+1)  
       real  :: zsflxzen(8,ngptsw)
       real  :: ztaur(8,nlay,ngptsw)   , ztaug(8,nlay,ngptsw) 
+
+
+
 
       integer :: npartc, npart, npartb, cldflag(gncol), profic(gncol), profi(gncol)
 
@@ -10215,6 +10572,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
 
+
       IF ( colr < 8 ) THEN
 
         DO jj = 1,ngptsw
@@ -10292,6 +10650,10 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
       ENDIF
 
 
+
+
+
+
           if (cc==2) then   
             call mcica_sw(8, nlay, 112, icld, irng, play, &
                           cld, ciwp, clwp, cswp, tauc, ssac, asmc, fsfc, &
@@ -10327,6 +10689,9 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
                          zbbfddir, zbbcddir, zuvfddir, zuvcddir, znifddir, znicddir,&
                          zgco,zomco,zrdnd,zref,zrefo,zrefd,zrefdo,ztauo,zdbt,ztdbt,&
                          ztra,ztrao,ztrad,ztrado,zfd,zfu,ztaug, ztaur, zsflxzen)
+
+
+
 
    
 
@@ -10866,7 +11231,12 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
 
+
+
+
+
       rpart = 8
+
 
 
 
@@ -11528,6 +11898,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 
 
 
+
       iaer = 0
       do na = 1, naerec
          do k = kts, kte+1
@@ -11606,7 +11977,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
             coszr(i,j)=xcoszen(i,j)
             coszrs=xcoszen(i,j)
          else
-            call wrf_error_fatal3("<stdin>",11609,&
+            call wrf_error_fatal3("<stdin>",11980,&
 'xcoszen must be passed into RRTMG_SWRAD_FAST')
          endif
 
@@ -11754,7 +12125,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
       ENDIF
       CALL wrf_dm_bcast_bytes ( rrtmg_unit , 4 )
       IF ( rrtmg_unit < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",11757,&
+        CALL wrf_error_fatal3("<stdin>",12128,&
 'module_ra_rrtmg_swf: rrtm_swlookuptable: Can not '// &
                                'find unused fortran unit to read in lookup table.' )
       ENDIF
@@ -11785,7 +12156,7 @@ real   :: zcd(tncol,ngptsw,nlayers+1)  , zcu(tncol,ngptsw,nlayers+1)
 9009  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error opening '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",11788,&
+      CALL wrf_error_fatal3("<stdin>",12159,&
 errmess)
 
       END SUBROUTINE rrtmg_swlookuptable
@@ -11871,6 +12242,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat1, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11886,7 +12260,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",11889,&
+      CALL wrf_error_fatal3("<stdin>",12263,&
 errmess)
 
       end subroutine sw_kgb16
@@ -11955,6 +12329,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11970,7 +12347,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",11973,&
+      CALL wrf_error_fatal3("<stdin>",12350,&
 errmess)
 
       end subroutine sw_kgb17
@@ -12039,6 +12416,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12054,7 +12434,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12057,&
+      CALL wrf_error_fatal3("<stdin>",12437,&
 errmess)
 
       end subroutine sw_kgb18 
@@ -12123,6 +12503,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12138,7 +12521,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12141,&
+      CALL wrf_error_fatal3("<stdin>",12524,&
 errmess)
 
       end subroutine sw_kgb19
@@ -12210,6 +12593,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, layreffr, absch4o, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12225,7 +12611,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12228,&
+      CALL wrf_error_fatal3("<stdin>",12614,&
 errmess)
 
       end subroutine sw_kgb20
@@ -12294,6 +12680,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12309,7 +12698,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12312,&
+      CALL wrf_error_fatal3("<stdin>",12701,&
 errmess)
 
       end subroutine sw_kgb21
@@ -12378,6 +12767,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12393,7 +12785,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12396,&
+      CALL wrf_error_fatal3("<stdin>",12788,&
 errmess)
 
       end subroutine sw_kgb22
@@ -12452,6 +12844,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, givfac, layreffr, kao, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -12466,7 +12861,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12469,&
+      CALL wrf_error_fatal3("<stdin>",12864,&
 errmess)
 
       end subroutine sw_kgb23
@@ -12540,6 +12935,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylao, raylbo, strrat, layreffr, abso3ao, abso3bo, kao, kbo, selfrefo, &
          forrefo, sfluxrefo
@@ -12559,7 +12957,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12562,&
+      CALL wrf_error_fatal3("<stdin>",12960,&
 errmess)
 
       end subroutine sw_kgb24
@@ -12607,6 +13005,8 @@ errmess)
 
 
 
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, layreffr, abso3ao, abso3bo, kao, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -12620,7 +13020,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12623,&
+      CALL wrf_error_fatal3("<stdin>",13023,&
 errmess)
 
       end subroutine sw_kgb25
@@ -12646,6 +13046,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -12655,7 +13056,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12658,&
+      CALL wrf_error_fatal3("<stdin>",13059,&
 errmess)
 
       end subroutine sw_kgb26
@@ -12717,6 +13118,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, scalekur, layreffr, kao, kbo, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -12730,7 +13134,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12733,&
+      CALL wrf_error_fatal3("<stdin>",13137,&
 errmess)
 
       end subroutine sw_kgb27
@@ -12787,6 +13191,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12800,7 +13207,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12803,&
+      CALL wrf_error_fatal3("<stdin>",13210,&
 errmess)
 
       end subroutine sw_kgb28
@@ -12874,6 +13281,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, layreffr, absh2oo, absco2o, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12890,7 +13300,7 @@ errmess)
 9010  CONTINUE
       WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_swf: error reading '// &
                                   'RRTMG_SW_DATA on unit ',rrtmg_unit
-      CALL wrf_error_fatal3("<stdin>",12893,&
+      CALL wrf_error_fatal3("<stdin>",13303,&
 errmess)
 
       end subroutine sw_kgb29
@@ -12898,3 +13308,5 @@ errmess)
 
 
       END MODULE module_ra_rrtmg_swf
+
+

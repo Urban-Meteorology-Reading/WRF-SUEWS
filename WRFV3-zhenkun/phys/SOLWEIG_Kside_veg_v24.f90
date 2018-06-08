@@ -77,3 +77,5 @@ use matsize
          &-0.4863*svfvegbu))/vikttot
     viktveg=viktveg-viktwall
 end subroutine Kvikt_veg
+
+

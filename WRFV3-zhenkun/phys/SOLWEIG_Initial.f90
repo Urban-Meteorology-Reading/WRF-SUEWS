@@ -201,3 +201,5 @@ namelist/SOLWEIGinput/Posture,&
 274 call ErrorHint(40,trim("SOLWEIGinput.nml FileCode is missing"),notUsed,notUsed,notUsedI) 
     
 end subroutine SOLWEIG_Initial
+
+

@@ -1,6 +1,10 @@
 
 
 
+
+
+
+
 MODULE module_fddaobs_rtfdda
 
 
@@ -64,7 +68,9 @@ CONTAINS
                           start_hour, start_minute, start_second,      &
                           p00, t00, tlp,                               &
                           znu, p_top,                                  &
+
                           fdob,                                        &
+
                           iprt,                                        &
                           ids,ide, jds,jde, kds,kde,                   &
                           ims,ime, jms,jme, kms,kme,                   &
@@ -143,7 +149,9 @@ CONTAINS
   REAL, INTENT(IN)     :: tlp          
   REAL, INTENT(IN)     :: p_top        
   REAL, INTENT(IN)     :: znu( kms:kme )      
+
   TYPE(fdob_type), intent(inout)  :: fdob
+
   LOGICAL, intent(in)  :: iprt         
 
 
@@ -161,6 +169,7 @@ CONTAINS
   character(len=200) :: msg             
   real               :: z_at_p( kms:kme )  
   integer            :: i,j,k           
+
 
 
 
@@ -223,7 +232,7 @@ CONTAINS
      write(msg,fmt='(a,i3)') 'Unknown h-spreading scheme for surface obs: ',sfc_scheme_horiz
      call wrf_message(msg)
      call wrf_message("Valid selections: 0=WRF scheme, 1=Original MM5 scheme")
-     call wrf_error_fatal3("<stdin>",226,&
+     call wrf_error_fatal3("<stdin>",235,&
 'fddaobs_init: module_fddaobs_rtfdda STOP' )
   endif
 
@@ -235,7 +244,7 @@ CONTAINS
      write(msg,fmt='(a,i3)') 'Unknown v-spreading scheme for surface obs: ',sfc_scheme_vert
      call wrf_message(msg)
      call wrf_message("Valid selections: 0=Regime-based VIF scheme, 1=Original simple scheme")
-     call wrf_error_fatal3("<stdin>",238,&
+     call wrf_error_fatal3("<stdin>",247,&
 'fddaobs_init: module_fddaobs_rtfdda STOP' )
   endif
   fdob%sfc_scheme_horiz = sfc_scheme_horiz 
@@ -293,7 +302,7 @@ CONTAINS
        fdob%dpsmx = dpsmx
        fdob%dcon = 1.0/fdob%dpsmx
   else 
-       call wrf_error_fatal3("<stdin>",296,&
+       call wrf_error_fatal3("<stdin>",305,&
 'fddaobs_init: Namelist variable dpsmx must be greater than zero!')
   endif
 
@@ -359,7 +368,7 @@ CONTAINS
       call wrf_message(msg)
       write(msg,*) 'THE NAMELIST VALUE IS',nudgezmax
       call wrf_message(msg)
-      call wrf_error_fatal3("<stdin>",362,&
+      call wrf_error_fatal3("<stdin>",371,&
 'fddaobs_init: STOP on bad obs_nudgemax value' )
     endif
     if(nudgezfullmin.lt.0.) then
@@ -367,7 +376,7 @@ CONTAINS
       call wrf_message(msg)
       write(msg,*) 'THE NAMELIST VALUE IS',nudgezfullmin
       call wrf_message(msg)
-      call wrf_error_fatal3("<stdin>",370,&
+      call wrf_error_fatal3("<stdin>",379,&
 'fddaobs_init: STOP on bad obs_nudgefullmin value' )
     endif
     if(nudgezrampmin.lt.0.) then
@@ -375,7 +384,7 @@ CONTAINS
       call wrf_message(msg)
       write(msg,*) 'THE NAMELIST VALUE IS',nudgezrampmin
       call wrf_message(msg)
-      call wrf_error_fatal3("<stdin>",378,&
+      call wrf_error_fatal3("<stdin>",387,&
 'fddaobs_init: STOP on bad obs_nudgerampmin value' )
     endif
     if(nudgezmax.lt.nudgezfullmin+nudgezrampmin) then
@@ -387,7 +396,7 @@ CONTAINS
       call wrf_message(msg)
       write(msg,*) 'REQUIRE NUDGEZMAX >= NUDGEZFULLMIN + NUDGEZRAMPMIN'
       call wrf_message(msg)
-      call wrf_error_fatal3("<stdin>",390,&
+      call wrf_error_fatal3("<stdin>",399,&
 'fddaobs_init: STOP on inconsistent namelist values' )
     endif
  
@@ -511,7 +520,9 @@ CONTAINS
 
 
   RETURN
+
   END SUBROUTINE fddaobs_init
+
 
 
 SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
@@ -531,7 +542,11 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
                  its,ite, jts,jte, kts,kte  )
 
 
+
+
+
   USE module_dm, ONLY :                      wrf_dm_sum_real
+
   USE module_model_constants, ONLY : rcp
 
 
@@ -674,6 +689,12 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
 
 
+
+
+
+
+
+
   NSTA=NSTAT
 
 
@@ -759,6 +780,12 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
 
 
+
+
+
+
+
+
           do k = kds, kde
             pbbo(k) = .001*(                                            &
                (1.-DYOB_MS)*( (1.-DXOB_MS)*pbase(IOB_MS,K,JOB_MS) +     &
@@ -811,6 +838,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
 
 
+
+
+
         if(varobs(5,n) .eq. -888888. .and. varobs(6,n) .gt. -800000.) then
            varobs(5,n) = wrf_dm_sum_real ( pob )
         endif
@@ -854,6 +884,12 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
 
         pob = 0.0
+
+
+
+
+
+
 
 
 
@@ -906,6 +942,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
               rko(n)=max(rko(n),1.0)
             endif
           endif
+
+
+
 
 
 
@@ -977,6 +1016,10 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
         IOB=MIN0(IOB,ide-1)
         JOB=MAX0(1,IB(N))
         JOB=MIN0(JOB,jde-1)
+
+
+
+
       ENDDO
     endif
     if(ityp.eq.2) then
@@ -985,6 +1028,10 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
         IOB=MIN0(IOB,ide-1)
         JOB=MAX0(1,IB(N))
         JOB=MIN0(JOB,jde-1)
+
+
+
+
       ENDDO
     endif
     if(ityp.eq.3) then
@@ -993,6 +1040,10 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
         IOB=MIN0(IOB,ide-1)
         JOB=MAX0(1,IB(N))
         JOB=MIN0(JOB,jde-1)
+
+
+
+
       ENDDO
     endif
 
@@ -1000,6 +1051,13 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
 
     IF(ITYP.EQ.1) THEN
+
+
+
+
+
+
+
       IF(ISWIND.EQ.1) THEN
         DO N=1,NSTA
           IOB=MAX0(2,IA(N))
@@ -1011,6 +1069,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
           JOBM=MAX0(1,JOB-1)
           JOBP=MIN0(jde-1,JOB+1)
           KOB=MIN0(K_END,IC(N))
+
+
+
 
             KOBP=MIN0(KOB+1,k_end)
             DXOB=RA(N)
@@ -1073,6 +1134,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
             ERRF(7,N)=.001*( (1.-DXOB)*PUG1 + DXOB*PUG2 )
   
+
+
+
         ENDDO    
 
       ENDIF    
@@ -1095,6 +1159,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
           JOBM=MAX0(1,JOB-1)
           JOBP=MIN0(jde-1,JOB+1)
           KOB=MIN0(K_END,IC(N))
+
+
+
 
             KOBP=MIN0(KOB+1,k_end)
             DXOB=RA(N)
@@ -1149,6 +1216,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
             ERRF(8,N)=.001*( (1.-DYOB)*PVG1 + DYOB*PVG2 )
   
+
+
+
         ENDDO    
 
       ENDIF    
@@ -1166,6 +1236,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
           IOB=MIN0(IOB,ide-1)
           JOB=MAX0(1,IB(N))
           JOB=MIN0(JOB,jde-1)
+
+
+
             KOB=MIN0(k_end,IC(N))
             KOBP=MIN0(KOB+1,K_END)
             DXOB=RA(N)
@@ -1252,6 +1325,9 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
                       pbase(IOB+1,1,JOB))+DyOB*((1.-DxOB)*              &
                       pbase(IOB,1,JOB+1)+DxOB*pbase(IOB+1,1,JOB+1) ))
 
+
+
+
         ENDDO     
 
       ENDIF   
@@ -1264,15 +1340,22 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
         IOB=MIN0(IOB,ide-1)
         JOB=MAX0(1,IB(N))
         JOB=MIN0(JOB,jde-1)
+
+
+
           DXOB=RA(N)
           DYOB=RB(N)
           ERRF(5,N) = kpbl(iob+nint(dxob),job+nint(dyob))
+
+
+
 
       ENDDO
 
     ENDIF   
 
   ENDDO   
+
 
 
 
@@ -1636,7 +1719,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
         write(msg,*) 'SAVWT must be resized for NSCAN=1'
         call wrf_message(msg)
     ENDIF
-    call wrf_error_fatal3("<stdin>",1639,&
+    call wrf_error_fatal3("<stdin>",1722,&
 'wrf_fddaobs_in: in4dob' )
   endif
   IPLO=0  + NSCAN*4
@@ -1807,6 +1890,10 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
 
 
+
+
+
+
       KOB=nint(RKO(N)+0.45)
       KOB=MIN0(kte,KOB)
       KOB=MAX0(1,KOB)
@@ -1945,7 +2032,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
                       write(msg,*) 'Unknown value of obs_scl_neg_qv_innov = ',obs_scl_neg_qv_innov
                       call wrf_message(msg)
                      ENDIF
-                     call wrf_error_fatal3("<stdin>",1948,&
+                     call wrf_error_fatal3("<stdin>",2035,&
 'module_fddaobs_rtfdda: nudob: Unknown value of obs_scl_neg_qv_innov' )
                     ENDIF
                     
@@ -2024,7 +2111,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
                        write(msg,*) 'Unknown value of obs_scl_neg_qv_innov = ',obs_scl_neg_qv_innov
                        call wrf_message(msg)
                       ENDIF
-                      call wrf_error_fatal3("<stdin>",2027,&
+                      call wrf_error_fatal3("<stdin>",2114,&
 'module_fddaobs_rtfdda: nudob: Unknown value of obs_scl_neg_qv_innov' )
                      ENDIF
                      
@@ -2248,7 +2335,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
                       write(msg,*) 'Unknown value of obs_scl_neg_qv_innov = ',obs_scl_neg_qv_innov
                       call wrf_message(msg)
                      ENDIF
-                     call wrf_error_fatal3("<stdin>",2251,&
+                     call wrf_error_fatal3("<stdin>",2338,&
 'module_fddaobs_rtfdda: nudob: Unknown value of obs_scl_neg_qv_innov' )
                     ENDIF
                     reserf(k) = reserf(k)*SCALE_FACTOR_NEG_QV_INNOV
@@ -2278,7 +2365,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
                   call wrf_message(msg)
                   call wrf_message("in nudobs.F: sounding level messed up, stopping")
                 ENDIF
-                call wrf_error_fatal3("<stdin>",2281,&
+                call wrf_error_fatal3("<stdin>",2368,&
 'wrf_fddaobs_in: in4dob' )
              endif       
 
@@ -2436,7 +2523,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
                     write(msg,*) 'Unknown value of obs_scl_neg_qv_innov = ',obs_scl_neg_qv_innov
                     call wrf_message(msg)
                    ENDIF
-                   call wrf_error_fatal3("<stdin>",2439,&
+                   call wrf_error_fatal3("<stdin>",2526,&
 'module_fddaobs_rtfdda: nudob: Unknown value of obs_scl_neg_qv_innov' )
                   ENDIF
                   reserf(k) = reserf(k)*SCALE_FACTOR_NEG_QV_INNOV
@@ -3018,7 +3105,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
   else
     write(msg1,fmt='(a,a4)') 'Unknown variable type: ',var
     call wrf_message(msg1)
-    call wrf_error_fatal3("<stdin>",3021,&
+    call wrf_error_fatal3("<stdin>",3108,&
 'print_vif_var: module_fddaobs_rtfdda STOP' )
   endif
       
@@ -3057,7 +3144,7 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
   else
      write(msg1,fmt='(a,i3)') 'Unknown regime number: ',reg
      call wrf_message(msg1)
-     call wrf_error_fatal3("<stdin>",3060,&
+     call wrf_error_fatal3("<stdin>",3147,&
 'print_vif_regime: module_fddaobs_rtfdda STOP' )
   endif
 
@@ -3096,5 +3183,8 @@ SUBROUTINE errob(inest, ub, vb, tb, t0, qvb, pbase, pp, rovcp,  &
 
   END SUBROUTINE print_vif_regime
 
+
 END MODULE module_fddaobs_rtfdda
+
+
 

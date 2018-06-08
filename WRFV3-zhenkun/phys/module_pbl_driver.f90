@@ -11,6 +11,10 @@ CONTAINS
                  ,bldtacttime                                      & 
                  ,rublten,rvblten,rthblten                         &
                  ,tsk,xland,znt                                    &
+
+
+
+
                  ,ht                                               &   
                  ,ust,pblh,hfx,qfx,grdflx                          &
                  ,u_phy,v_phy,w,th_phy,rho                         &
@@ -49,6 +53,7 @@ CONTAINS
                  ,edmf_qt,edmf_ent,edmf_qc                         &
                  ,vdfg                                             &
                  ,spp_pbl,pattern_spp_pbl                          &
+
                  ,ids,ide, jds,jde, kds,kde                        &
                  ,ims,ime, jms,jme, kms,kme                        &
                  ,i_start,i_end, j_start,j_end, kts,kte, num_tiles &
@@ -74,7 +79,9 @@ CONTAINS
                ,sf_bep,vl_bep                              &
                ,sf_sfclay_physics,sf_urban_physics         &
                ,tke_pbl,el_pbl                             &
+
                ,wu_tur,wv_tur,wt_tur,wq_tur &
+
 
                ,exch_tke, rthraten                         &
                ,a_e_bep,b_e_bep,dlg_bep,dl_u_bep           &
@@ -101,12 +108,16 @@ CONTAINS
 
 
 
+
+
+
               ,QNORM, fasdas           &
 
 
 
                                                                      )
        
+
 
    USE module_state_description, ONLY :                            &
                    YSUSCHEME,MRFSCHEME,GFSSCHEME,MYJPBLSCHEME,ACMPBLSCHEME,&
@@ -115,6 +126,7 @@ CONTAINS
                    FITCHSCHEME,SHINHONGSCHEME,                       &
                    TEMFPBLSCHEME,GBMPBLSCHEME,                       &
                    CAMMGMPSCHEME,p_qi,p_qni,p_qnc,param_first_scalar  
+
 
    USE module_model_constants
 
@@ -126,6 +138,9 @@ CONTAINS
    USE module_bl_shinhong
    USE module_bl_mrf
    USE module_bl_gfs
+
+
+
    USE module_bl_acm
    USE module_bl_gwdo
    USE module_bl_myjurb
@@ -134,9 +149,11 @@ CONTAINS
    USE module_bl_temf
    USE module_bl_mfshconvpbl
    USE module_bl_gbmpbl
+
    USE module_bl_mynn
    USE module_bl_fogdes
    USE module_wind_fitch
+
 
    
    
@@ -353,6 +370,7 @@ CONTAINS
    LOGICAL,      INTENT(IN   )    ::   is_CAMMGMP_used 
 
 
+
    REAL,       DIMENSION( kms:kme ),                              &
                OPTIONAL, INTENT(IN   )    ::               znu,   &
                                                            znw
@@ -430,6 +448,12 @@ CONTAINS
                                                          CHKLOWQ
 
 
+
+
+
+
+
+
    REAL,       DIMENSION( ims:ime, jms:jme )                    , &
                INTENT(INOUT)    ::                           TSK, &
                                                              UST, &
@@ -437,6 +461,9 @@ CONTAINS
                                                              HFX, &
                                                              QFX, &
                                                              ZNT, &
+
+
+
                                                             QSFC, &
                                                             AKHS, &
                                                             AKMS, &
@@ -462,8 +489,10 @@ CONTAINS
                                                         RTHBLTEN, &
                                            EXCH_H,EXCH_M,TKE_PBL, &
                                                         RTHRATEN  
+
  REAL,       DIMENSION( ims:ime, kms:kme, jms:jme ),            &
                INTENT(OUT)    ::                       WU_TUR,WV_TUR,WT_TUR,WQ_TUR
+
 
 
 
@@ -650,6 +679,12 @@ CONTAINS
 
 
 
+
+
+
+
+
+
    REAL,       DIMENSION( ims:ime, kms:kme, jms:jme ) ::v_phytmp
    REAL,       DIMENSION( ims:ime, kms:kme, jms:jme ) ::u_phytmp
 
@@ -710,10 +745,12 @@ CONTAINS
 
 
     SELECT CASE(sf_urban_physics)
+
       CASE (BEPSCHEME)
         flag_bep=.true.
       CASE (BEP_BEMSCHEME)
         flag_bep=.true.
+
       CASE DEFAULT
         flag_bep=.false.
     END SELECT
@@ -848,7 +885,12 @@ CONTAINS
 
 
 
+
        idiff=0
+
+
+
+
 
    IF ( idiff .EQ. 1 ) THEN
      ALLOCATE (a_u(ims:ime,kms:kme,jms:jme))       
@@ -921,6 +963,7 @@ CONTAINS
            ENDDO
            ENDDO
       ENDIF
+
 
       IF ( idiff.eq.1 ) THEN
 
@@ -999,6 +1042,7 @@ CONTAINS
 
 
  
+
       
    ENDDO
    !$OMP END PARALLEL DO
@@ -1059,7 +1103,7 @@ CONTAINS
               ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte      &
                                                                     )
            ELSE
-               CALL wrf_error_fatal3("<stdin>",1062,&
+               CALL wrf_error_fatal3("<stdin>",1106,&
 'Lack arguments to call TEMF pbl')
            ENDIF
 
@@ -1137,7 +1181,7 @@ CONTAINS
                   PRESENT( rqiblten ) ,                             &
                   PRESENT( hol      )
                CALL wrf_debug(0,message)
-               CALL wrf_error_fatal3("<stdin>",1140,&
+               CALL wrf_error_fatal3("<stdin>",1184,&
 'Lack arguments to call YSU pbl')
            ENDIF
 
@@ -1196,7 +1240,7 @@ CONTAINS
                   PRESENT( rqiblten ) ,                             &
                   PRESENT( hol      )
                CALL wrf_debug(0,message)
-               CALL wrf_error_fatal3("<stdin>",1199,&
+               CALL wrf_error_fatal3("<stdin>",1243,&
 'Lack arguments to call SHINHONG pbl')
            ENDIF
 
@@ -1246,7 +1290,7 @@ CONTAINS
                   PRESENT( rqcblten ) ,                             &
                   PRESENT( hol      )
                CALL wrf_debug(0,message)
-               CALL wrf_error_fatal3("<stdin>",1249,&
+               CALL wrf_error_fatal3("<stdin>",1293,&
 'Lack arguments to call MRF pbl')
            ENDIF
 
@@ -1269,6 +1313,7 @@ CONTAINS
               ,HFX=hfx,QFX=qfx,TSK=tskold,GZ1OZ0=gz1oz0             &
               ,WSPD=wspd,BR=br                                      &
               ,DT=dtbl,KPBL2D=kpbl,EP1=ep_1,KARMAN=karman           &
+
               ,P_QI=p_qi,P_FIRST_SCALAR=param_first_scalar          &
               ,IDS=ids,IDE=ide,JDS=jds,JDE=jde,KDS=kds,KDE=kde      &
               ,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme      &
@@ -1286,9 +1331,10 @@ CONTAINS
                   PRESENT( rqvblten ) ,                             &
                   PRESENT( rqcblten )
                CALL wrf_debug(0,message)
-               CALL wrf_error_fatal3("<stdin>",1289,&
+               CALL wrf_error_fatal3("<stdin>",1334,&
 'Lack arguments to call GFS pbl')
            ENDIF
+
 
       CASE (MYJPBLSCHEME)
            IF ( PRESENT( qv_curr )  .AND. PRESENT( qc_curr )  .AND. &
@@ -1362,7 +1408,7 @@ CONTAINS
                   PRESENT( rqvblten ) ,                             &
                   PRESENT( rqcblten )
                CALL wrf_debug(0,message)
-               CALL wrf_error_fatal3("<stdin>",1365,&
+               CALL wrf_error_fatal3("<stdin>",1411,&
 'Lack arguments to call MYJ pbl')
            ENDIF
  
@@ -1433,7 +1479,7 @@ CONTAINS
                   PRESENT( rqvblten ) ,                             &
                   PRESENT( rqcblten )
                CALL wrf_debug(0,message)
-               CALL wrf_error_fatal3("<stdin>",1436,&
+               CALL wrf_error_fatal3("<stdin>",1482,&
 'Lack arguments to call QNSE pbl')
            ENDIF
 
@@ -1449,6 +1495,10 @@ CONTAINS
                XTIME=itimestep, DTPBL=dtbl, ZNW=znw, SIGMAH=znu               &
               ,U3D=u_phytmp, V3D=v_phytmp, PP3D=p_phy, DZ8W=dz8w, TH3D=th_phy, T3D=t_phy            &
               ,QV3D=qv_curr, QC3D=qc_curr, QI3D=qi_curr, RR3D=rho                &
+
+
+
+
               ,UST=UST, HFX=HFX, QFX=QFX, TSK=tsk                               &
               ,PSFC=PSFC, EP1=EP_1, G=g, ROVCP=rcp,RD=r_D,CPD=cp                 &
               ,PBLH=pblh, KPBL2D=kpbl, EXCH_H=exch_h, REGIME=regime              &
@@ -1471,9 +1521,10 @@ CONTAINS
                   PRESENT( rqvblten ) ,                             &
                   PRESENT( rqcblten )
                CALL wrf_debug(0,message)
-               CALL wrf_error_fatal3("<stdin>",1474,&
+               CALL wrf_error_fatal3("<stdin>",1524,&
 'Lack arguments to call ACM2 pbl')
            ENDIF
+
 
 
         CASE (MYNNPBLSCHEME2, MYNNPBLSCHEME3)
@@ -1514,6 +1565,10 @@ CONTAINS
                    &Qke=qke,TKE_PBL=tke_pbl,                             &
                    &Sh3d=Sh3d,                                           &
                    &qke_adv=qke_adv,bl_mynn_tkeadvect=bl_mynn_tkeadvect, &
+
+
+
+
                    &Tsq=tsq,Qsq=qsq,Cov=cov,                             &
                    &RUBLTEN=rublten,RVBLTEN=rvblten,RTHBLTEN=rthblten,   &
                    &RQVBLTEN=rqvblten,RQCBLTEN=rqcblten,RQIBLTEN=rqiblten,&
@@ -1588,7 +1643,7 @@ CONTAINS
                   PRESENT( bl_mynn_tkeadvect) ,                     &
                   PRESENT( vdfg )
                CALL wrf_debug(0,message)
-              CALL wrf_error_fatal3("<stdin>",1591,&
+              CALL wrf_error_fatal3("<stdin>",1646,&
 'Lack arguments to call MYNN pbl')
            ENDIF
 
@@ -1668,10 +1723,11 @@ CONTAINS
                       PRESENT( rqniblten ) 
 
                  CALL wrf_debug(0,message)
-                 CALL wrf_error_fatal3("<stdin>",1671,&
+                 CALL wrf_error_fatal3("<stdin>",1726,&
 'Lack arguments to call CAMUWPBL pbl')
               ENDIF
               
+
 
            CASE (GBMPBLSCHEME)
                CALL wrf_debug(100,'in gbmpbl') 
@@ -1701,17 +1757,18 @@ CONTAINS
               ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte      &
                                                                     )
               ELSE
-               CALL wrf_error_fatal3("<stdin>",1704,&
+               CALL wrf_error_fatal3("<stdin>",1760,&
 'Lack arguments to call GBM pbl')
               ENDIF
 
      CASE DEFAULT
 
        WRITE( message , * ) 'The pbl option does not exist: bl_pbl_physics = ', bl_pbl_physics
-       CALL wrf_error_fatal3("<stdin>",1711,&
+       CALL wrf_error_fatal3("<stdin>",1767,&
 message )
 
    END SELECT pbl_select
+
 
 
 
@@ -1747,11 +1804,12 @@ message )
                       PRESENT( id ) ,                                   &
                       PRESENT( z_at_w ) 
                      CALL wrf_debug(0,message)
-                     CALL wrf_error_fatal3("<stdin>",1750,&
+                     CALL wrf_error_fatal3("<stdin>",1807,&
 'Lack arguments to call turbine_drag')
                   ENDIF
 
    END SELECT windfarm_select
+
 
 
    
@@ -1778,6 +1836,7 @@ message )
    ENDIF
 
 
+
    IF (grav_settling .GE. 1) THEN
       IF ( PRESENT(vdfg) .AND. PRESENT(qc_curr)) THEN
          
@@ -1790,10 +1849,12 @@ message )
                i_start(ij),i_end(ij),                            &
                j_start(ij),j_end(ij),kts,kte                     )
       ELSE
-          CALL wrf_error_fatal3("<stdin>",1793,&
+          CALL wrf_error_fatal3("<stdin>",1852,&
 'Missing args for bl_fogdes in pbl driver')
       ENDIF
    ENDIF
+
+
 
 
 
@@ -1855,6 +1916,7 @@ message )
               ,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme        &
               ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte)
           ENDIF
+
 
       
    ENDDO
@@ -2068,6 +2130,7 @@ message )
         
       END SUBROUTINE diff3d
 
+
           SUBROUTINE diff4d(DT,DZ,SCALAR,IS_SCALAR,RHO              &
               ,EXCH_H,EXCH_M  &  
               ,SCALAR_TEND    &
@@ -2199,6 +2262,7 @@ message )
       END SUBROUTINE diff4d
 
 
+
        subroutine diff(kms,kme,kts,kte,dt,co,da,daz,cd,aa,bb,sf,vl,dz,fc)
 
 
@@ -2325,3 +2389,5 @@ message )
 
 
 END MODULE module_pbl_driver
+
+

@@ -29,6 +29,7 @@ CONTAINS
                      ,htop,hbot,kpbl,ht                               &
                      ,ensdim,maxiens,maxens,maxens2,maxens3           &
                      ,shall                                           & 
+
                      
                      ,akpbl, br,regime,t2,q2                            & 
                      ,slopeSfc, slopeEZ, sigmaSfc, sigmaEZ            & 
@@ -55,15 +56,18 @@ CONTAINS
                      ,updfra_cup                                      & 
                      ,tcloud_cup                                      & 
                      
+
                      ,periodic_x,periodic_y                           &
                      ,is_CAMMGMP_used                                 & 
                      ,evapcdp3d,icwmrdp3d,rprddp3d                    & 
                  
                      ,cu_physics, bl_pbl_physics, sf_sfclay_physics   &
+
                      
                      ,shcu_aerosols_opt                               & 
                      ,chem_opt                                        & 
                      
+
                  
                      ,qv_curr, qc_curr, qr_curr                       &
                      ,qi_curr, qs_curr, qg_curr                       & 
@@ -117,6 +121,10 @@ CONTAINS
                  
                      ,kfeta_trigger                                   &
                      ,nsas_dx_factor                                  &
+
+
+
+
                                                                       )
 
    USE module_model_constants
@@ -129,10 +137,12 @@ CONTAINS
                                           ,SCALESASSCHEME             &  
 
                                           ,NSASSCHEME                 &
+
                                           ,MSKFSCHEME                 &
                                           ,CAMMGMPSCHEME              &
                                           ,KFCUPSCHEME                & 
                                           ,num_chem                   & 
+
                                           ,TIEDTKESCHEME              &
                                           ,NTIEDTKESCHEME             
 
@@ -141,16 +151,26 @@ CONTAINS
 
    USE module_cu_kf     ,  ONLY : kfcps
    USE module_cu_bmj    ,  ONLY : bmjdrv
+
+
+
+
+
+
    USE module_domain    , ONLY: domain
    USE module_cu_kfeta  , ONLY : kf_eta_cps
+
    USE module_cu_mskf   , ONLY : mskf_cps
+
    USE module_cu_gd     , ONLY : grelldrv
    USE module_cu_gf_wrfdrv     , ONLY : gfdrv
    USE module_cu_g3     , ONLY : g3drv,conv_grell_spread3d
    USE module_cu_sas    , ONLY : cu_sas
    USE module_cu_scalesas    , ONLY : cu_scalesas
 
+
    USE module_cu_kfcup  , ONLY : KF_CUP_CPS 
+
    USE module_cu_osas   , ONLY : cu_osas
    USE module_cu_camzm_driver, ONLY : camzm_driver
    USE module_cu_tiedtke, ONLY : cu_tiedtke
@@ -344,10 +364,12 @@ CONTAINS
    INTEGER, OPTIONAL,     INTENT(IN   )    ::                    &
                    cugd_avedx,clos_choice,bl_pbl_physics,sf_sfclay_physics
 
+
    
    INTEGER, OPTIONAL,     INTENT(IN   )    ::                    &
         shcu_aerosols_opt    
    
+
 
 
    INTEGER,      INTENT(IN   )    ::                 cu_physics  
@@ -367,6 +389,7 @@ CONTAINS
    
    REAL,DIMENSION( ims:ime, jms:jme ),                           &
            INTENT(INOUT) ::                               shall    
+
    
    REAL,DIMENSION( ims:ime, jms:jme ),                           &
            INTENT(INOUT) ::                            taucloud, & 
@@ -374,6 +397,7 @@ CONTAINS
                                                      activeFrac, & 
                                                      wCloudBase    
    
+
 
 
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                 &
@@ -425,6 +449,7 @@ CONTAINS
 
    REAL, DIMENSION( ims:ime , jms:jme ), INTENT(IN) ::           &
           GSW,HT,XLAND
+
    
    REAL, DIMENSION( ims:ime , jms:jme ), INTENT(IN) ::           &
                                                              br, & 
@@ -435,6 +460,7 @@ CONTAINS
    
 
 
+
    REAL, DIMENSION( ims:ime , jms:jme ),                         &
           INTENT(INOUT) ::                                RAINC  &
                                                     ,    RAINCV  &
@@ -442,7 +468,9 @@ CONTAINS
                                                     ,      HTOP  & 
                                                     ,      HBOT  &
                                                     ,    CLDEFI
+
    REAL, DIMENSION( ims:ime , jms:jme ), INTENT(INOUT) :: akpbl    
+
  
    REAL, DIMENSION( kms:kme ), OPTIONAL, INTENT(IN   ) ::        &
                                                             znu
@@ -552,6 +580,7 @@ CONTAINS
 
 
 
+
   REAL, DIMENSION( ims:ime , jms:jme ),                         &
          INTENT(OUT) ::                       slopeSfc, slopeEZ, & 
                                               sigmaSfc, SigmaEZ, & 
@@ -595,6 +624,7 @@ CONTAINS
 
 
 
+
    REAL, DIMENSION( ims:ime , kms:kme , jms:jme ),              &
          OPTIONAL,                                              &
          INTENT(INOUT) ::                                       &
@@ -629,6 +659,7 @@ CONTAINS
      REAL, DIMENSION( ims:ime, kms:kme, jms:jme ) :: &
            pattern_spp_conv,field_conv
      INTEGER  :: spp_conv
+
 
 
 
@@ -753,6 +784,7 @@ CONTAINS
       RETURN
    END IF
 
+
       if(cu_physics == G3SCHEME .or. cu_physics == NTIEDTKESCHEME) then
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij,i,j,k,its,ite,jts,jte )
@@ -777,7 +809,11 @@ CONTAINS
 
       IF ( cu_physics == G3SCHEME .OR.  cu_physics == GFSCHEME .OR.     &
            cu_physics == KFETASCHEME .OR. cu_physics == MSKFSCHEME ) THEN
+
+
+
       ENDIF
+
 
 
 
@@ -793,6 +829,7 @@ CONTAINS
         jts = j_start(ij)
         jte = j_end(ij)
         
+
         
 
         do j=jts,jte
@@ -802,6 +839,7 @@ CONTAINS
         end do
         
         
+
 
 
    cps_select: SELECT CASE(cu_physics)
@@ -896,6 +934,7 @@ CONTAINS
                ,UER_KF=uer_kf,DER_KF=der_kf                     & 
                ,TIMEC_KF=timec_kf,KF_EDRATES=kf_edrates         ) 
 
+
      CASE (MSKFSCHEME)
           CALL wrf_debug(100,'in mskf_cps')
           CALL MSKF_CPS(                                        &
@@ -933,6 +972,7 @@ CONTAINS
                ,TIMEC_KF=timec_kf,KF_EDRATES=kf_edrates         & 
                ,ZOL=zol,WSTAR=wstar,UST=ust,PBLH=pblh           )  
 
+
      CASE (GDSCHEME)
           CALL wrf_debug(100,'in grelldrv')
           CALL GRELLDRV(                                        &
@@ -958,8 +998,13 @@ CONTAINS
                ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte &
                ,PERIODIC_X=periodic_x,PERIODIC_Y=periodic_y     &
               
+
+
+
+
                ,RTHCUTEN=RTHCUTEN ,RTHFTEN=RTHFTEN              &
                ,RQICUTEN=RQICUTEN ,RQVFTEN=RQVFTEN              &
+
                ,RTHRATEN=RTHRATEN,RTHBLTEN=RTHBLTEN             &
                ,RQVCUTEN=RQVCUTEN,RQCCUTEN=RQCCUTEN             &
                ,RQVBLTEN=RQVBLTEN                               &
@@ -973,7 +1018,7 @@ CONTAINS
                                                                                                                                            
           IF ( adapt_step_flag_pass ) THEN
             WRITE( wrf_err_message , * ) 'The SAS cumulus option will not work properly with an adaptive time step'
-            CALL wrf_error_fatal3("<stdin>",976,&
+            CALL wrf_error_fatal3("<stdin>",1021,&
 wrf_err_message )
           END IF
           CALL wrf_debug(100,'in cu_sas')
@@ -1004,7 +1049,7 @@ wrf_err_message )
 
           IF ( adapt_step_flag_pass ) THEN
             WRITE( wrf_err_message , * ) 'The SCALE-AWARE SAS cumulus option will not work properly with an adaptive time step'
-            CALL wrf_error_fatal3("<stdin>",1007,&
+            CALL wrf_error_fatal3("<stdin>",1052,&
 wrf_err_message )
           END IF
           CALL wrf_debug(100,'in cu_scalesas')
@@ -1036,7 +1081,7 @@ wrf_err_message )
                                                                                                                                            
           IF ( adapt_step_flag_pass ) THEN
             WRITE( wrf_err_message , * ) 'The SAS cumulus option will not work properly with an adaptive time step'
-            CALL wrf_error_fatal3("<stdin>",1039,&
+            CALL wrf_error_fatal3("<stdin>",1084,&
 wrf_err_message )
           END IF
           CALL wrf_debug(100,'in cu_osas')
@@ -1061,6 +1106,7 @@ wrf_err_message )
                                                                 )
      CASE (G3SCHEME)
           CALL wrf_debug(100,'in grelldrv')
+
           CALL G3DRV(                                           &
                 DT=dt, ITIMESTEP=itimestep, DX=dx               &
                ,U=u,V=v,T=t,W=w ,RHO=rho                        &
@@ -1092,15 +1138,26 @@ wrf_err_message )
                ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte &
                ,PERIODIC_X=periodic_x,PERIODIC_Y=periodic_y     &
               
+
+
+
+
                ,RTHCUTEN=RTHCUTEN ,RTHFTEN=RTHFTEN              &
                ,RQICUTEN=RQICUTEN ,RQVFTEN=RQVFTEN              &
                ,rqvblten=rqvblten,rthblten=rthblten             &
+
                ,RQVCUTEN=RQVCUTEN,RQCCUTEN=RQCCUTEN             &
                ,F_QV=f_qv,F_QC=f_qc,F_QR=f_qr                   &
                ,F_QI=f_qi,F_QS=f_qs                             &
+
+
+
+
+
                                                                 )
      CASE (GFSCHEME)
           CALL wrf_debug(100,'in grelldrv')
+
 
          CALL GFDRV(spp_conv,pattern_spp_conv,field_conv,       &
                 DT=dt,DX=dx                                     &
@@ -1121,12 +1178,23 @@ wrf_err_message )
                ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte &
                ,PERIODIC_X=periodic_x,PERIODIC_Y=periodic_y     &
               
+
+
+
+
+
                ,RTHCUTEN=RTHCUTEN ,RTHFTEN=RTHFTEN              &
                ,RTHRATEN=RTHRATEN                               &
                ,RQICUTEN=RQICUTEN ,RQVFTEN=RQVFTEN              &
                ,rqvblten=rqvblten,rthblten=rthblten             &
+
                ,RQVCUTEN=RQVCUTEN,RQCCUTEN=RQCCUTEN             &
                ,dudt_phy=rucuten, dvdt_phy=rvcuten              &
+
+
+
+
+
                                                                 )
      CASE (CAMZMSCHEME)
           IF (PRESENT(z_at_w) .AND. PRESENT(mavail)                 &
@@ -1134,7 +1202,7 @@ wrf_err_message )
           CALL wrf_debug(100,'in camzm_cps')
       IF(.not.f_qi)THEN
          WRITE( wrf_err_message , * ) 'This cumulus option requires ice microphysics option: f_qi = ', f_qi
-         CALL wrf_error_fatal3("<stdin>",1137,&
+         CALL wrf_error_fatal3("<stdin>",1205,&
 wrf_err_message )
       ENDIF
           CALL CAMZM_DRIVER(                                        &
@@ -1183,7 +1251,7 @@ wrf_err_message )
                ,LENGATH2D=lengath2d                                 )
         ELSE
              WRITE( wrf_err_message , * ) 'Insufficient arguments to call CAMZM cu scheme'
-             CALL wrf_error_fatal3("<stdin>",1186,&
+             CALL wrf_error_fatal3("<stdin>",1254,&
 wrf_err_message )
           ENDIF
 
@@ -1205,7 +1273,11 @@ wrf_err_message )
                ,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme &
                ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte &
               
+
+
+
                ,QVFTEN=RQVFTEN                                  &
+
                ,RTHCUTEN=RTHCUTEN,RQVCUTEN=RQVCUTEN             &
                ,RQCCUTEN=RQCCUTEN,RQICUTEN=RQICUTEN             &
                ,RUCUTEN = RUCUTEN,RVCUTEN = RVCUTEN             &
@@ -1213,7 +1285,7 @@ wrf_err_message )
                ,F_QI=f_qi,F_QS=f_qs                             &
                                                              )
         ELSE
-          CALL wrf_error_fatal3("<stdin>",1216,&
+          CALL wrf_error_fatal3("<stdin>",1288,&
 'Lacking arguments for CU_TIEDTKE in cumulus driver')
         ENDIF
 
@@ -1234,7 +1306,11 @@ wrf_err_message )
                ,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme &
                ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte &
               
+
+
+
                ,QVFTEN=RQVFTEN,THFTEN=RTHFTEN                   &
+
                ,RTHCUTEN=RTHCUTEN,RQVCUTEN=RQVCUTEN             &
                ,RQCCUTEN=RQCCUTEN,RQICUTEN=RQICUTEN             &
                ,RUCUTEN = RUCUTEN,RVCUTEN = RVCUTEN             &
@@ -1242,7 +1318,7 @@ wrf_err_message )
                ,F_QI=f_qi,F_QS=f_qs                             &
                                                              )
         ELSE
-          CALL wrf_error_fatal3("<stdin>",1245,&
+          CALL wrf_error_fatal3("<stdin>",1321,&
 'Lacking arguments for CU_NTIEDTKE in cumulus driver')
         ENDIF
 
@@ -1277,9 +1353,10 @@ wrf_err_message )
                ,ITS=its,ITE=ite,JTS=jts,JTE=jte,KTS=kts,KTE=kte &
                                                                 )
         ELSE
-          CALL wrf_error_fatal3("<stdin>",1280,&
+          CALL wrf_error_fatal3("<stdin>",1356,&
 'Lacking arguments for CU_NSAS in cumulus driver')
         ENDIF
+
         
      CASE (KFCUPSCHEME)
         
@@ -1332,6 +1409,10 @@ wrf_err_message )
              ,UPDFRA_CUP=updfra_cup                             & 
              ,TCLOUD_CUP=tcloud_cup                             & 
              ,SHCU_AEROSOLS_OPT=shcu_aerosols_opt               & 
+
+
+
+
              
              ,RTHCUTEN=rthcuten                                 &
              ,RQVCUTEN=rqvcuten ,RQCCUTEN=rqccuten              &
@@ -1349,17 +1430,22 @@ wrf_err_message )
         end do
         
 
+
      CASE DEFAULT 
 
          WRITE( wrf_err_message , * ) 'The cumulus option does not exist: cu_physics = ', cu_physics
-         CALL wrf_error_fatal3("<stdin>",1355,&
+         CALL wrf_error_fatal3("<stdin>",1437,&
 wrf_err_message )
 
    END SELECT cps_select
 
       ENDDO
       !$OMP END PARALLEL DO
+
    IF(cu_physics .eq. 5 )then
+
+
+
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij ,its,ite,jts,jte, i,j,k)
       DO ij = 1 , num_tiles
@@ -1385,6 +1471,7 @@ wrf_err_message )
    endif
 
 
+
    
 
    if (PRESENT(PRATEC)) then
@@ -1402,3 +1489,5 @@ wrf_err_message )
    END SUBROUTINE cumulus_driver
 
 END MODULE module_cumulus_driver
+
+

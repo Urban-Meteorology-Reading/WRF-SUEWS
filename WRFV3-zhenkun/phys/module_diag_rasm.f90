@@ -1,6 +1,13 @@
 
 
 
+
+
+
+
+
+
+
 MODULE module_diag_rasm
 
 
@@ -1226,10 +1233,12 @@ CONTAINS
        WRITE (message, * )"RASM Statistics:: DIURNAL ERROR -- error -- ERROR -- error : Did not find valid diurnal cycle"
        CALL wrf_debug(0, message) 
        WRITE (message, * )"RASM Statistics:: DIURNAL ERROR -- Valid diurnal cycles (0,3,6,9,12,15,18 or 21) ... reported ",  diurn_cycle
-       CALL wrf_error_fatal3("<stdin>",1229,&
+       CALL wrf_error_fatal3("<stdin>",1236,&
 TRIM(message) )  
     endif
 
   END SUBROUTINE  get_diurn_cycle
 
 END MODULE module_diag_rasm
+
+

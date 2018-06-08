@@ -396,7 +396,11 @@ CONTAINS
   SUBROUTINE SUEWS_Output(irMax,iv,Gridiv)
     IMPLICIT NONE
     INTEGER,INTENT(in) :: irMax
+
+
+
     INTEGER,INTENT(in) ::iv,Gridiv
+
 
     INTEGER :: xx,err,outLevel,i
     TYPE(varAttr),DIMENSION(:),ALLOCATABLE::varListX
@@ -458,16 +462,40 @@ CONTAINS
           
           
           IF ( ResolutionFilesOut == Tstep .OR. KeepTstepFilesOut == 1 ) THEN
+
+
+
                 CALL SUEWS_Output_txt_grp(iv,irMax,varListX,Gridiv,outLevel,Tstep)
+
+
+
+
+
 
           ENDIF
           
           IF ( ResolutionFilesOut /= Tstep ) THEN
+
+
+
                 CALL SUEWS_Output_txt_grp(iv,irMax,varListX,Gridiv,outLevel,ResolutionFilesOut)
+
+
+
+
+
           ENDIF
        ELSE
           
+
+
+
              CALL SUEWS_Output_txt_grp(iv,irMax,varListX,Gridiv,outLevel,Tstep)
+
+
+
+
+
        ENDIF
 
        IF (ALLOCATED(varListX)) DEALLOCATE(varListX, stat=err)
@@ -973,6 +1001,10 @@ CONTAINS
     str_date='_'//TRIM(ADJUSTL(str_year))
 
 
+
+
+
+
     
     IF ( varList(6)%group == 'DailyState' ) THEN
        str_out_min='' 
@@ -992,8 +1024,14 @@ CONTAINS
     
     WRITE(str_grid,'(i10)') GridIDmatrix(Gridiv)
 
+
+
+
     
     str_sfx='.txt'
+
+
+
 
     
     FileOut=TRIM(FileOutputPath)//&
@@ -1077,4 +1115,7 @@ CONTAINS
   
 
 
+
 END MODULE ctrl_output
+
+

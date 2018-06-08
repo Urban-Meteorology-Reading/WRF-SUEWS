@@ -821,6 +821,9 @@ SUBROUTINE MP_MORR_TWO_MOMENT(ITIMESTEP,                       &
 
                                   QGSTEN,QRSTEN,QISTEN,QNISTEN,QCSTEN, &
                                   nc1d, nc_tend1d, iinum, C2PREC,CSED,ISED,SSED,GSED,RSED & 
+
+
+
                        )
 
    
@@ -876,6 +879,10 @@ SUBROUTINE MP_MORR_TWO_MOMENT(ITIMESTEP,                       &
 
 
 
+
+
+
+
       end do
 
 
@@ -918,6 +925,9 @@ END SUBROUTINE MP_MORR_TWO_MOMENT
                         QGSTEN,QRSTEN,QISTEN,QNISTEN,QCSTEN, &
                         nc3d,nc3dten,iinum, & 
 				c2prec,CSED,ISED,SSED,GSED,RSED  &  
+
+
+
                         )
 
 
@@ -1229,6 +1239,9 @@ END SUBROUTINE MP_MORR_TWO_MOMENT
 
 
 	REAL, DIMENSION(KTS:KTE)::C2PREC,CSED,ISED,SSED,GSED,RSED
+
+
+
     REAL, DIMENSION(KTS:KTE)                :: tqimelt 
 
 
@@ -1254,6 +1267,13 @@ END SUBROUTINE MP_MORR_TWO_MOMENT
 		SSED(K)=0.
 		GSED(K)=0.
 		RSED(K)=0.
+
+
+
+
+
+
+
 
 
 
@@ -2030,6 +2050,10 @@ END SUBROUTINE MP_MORR_TWO_MOMENT
       QV3DTEN(K) = QV3DTEN(K)-PCC(K)
       T3DTEN(K) = T3DTEN(K)+PCC(K)*XXLV(K)/CPM(K)
       QC3DTEN(K) = QC3DTEN(K)+PCC(K)
+
+
+
+
 
 
 
@@ -3272,6 +3296,12 @@ END SUBROUTINE MP_MORR_TWO_MOMENT
          NR3DTEN(K) = NR3DTEN(K)+NSUBR(K)
 
 
+
+
+
+
+
+
          END IF 
 
 
@@ -3751,6 +3781,9 @@ END SUBROUTINE MP_MORR_TWO_MOMENT
         IF (QI3D(K).GE.QSMALL.AND.T3D(K).GE.273.15) THEN
            QR3D(K) = QR3D(K)+QI3D(K)
            T3D(K) = T3D(K)-QI3D(K)*XLF(K)/CPM(K)
+
+
+
            QI3D(K) = 0.
            NR3D(K) = NR3D(K)+NI3D(K)
            NI3D(K) = 0.
@@ -4605,5 +4638,7 @@ END SUBROUTINE MP_MORR_TWO_MOMENT
 
 
 END MODULE module_mp_morr_two_moment
+
+
 
 

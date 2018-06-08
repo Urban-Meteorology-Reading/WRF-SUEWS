@@ -17,27 +17,27 @@ MODULE SUEWS_Driver
 
 
   IMPLICIT NONE
-  INTEGER, PARAMETER:: ndays = 366   
-  
-  INTEGER, PARAMETER:: nsurf=7                
-  INTEGER, PARAMETER:: NVegSurf=3             
-  INTEGER, PARAMETER:: nsurfIncSnow=nsurf+1   
+  INTEGER, PARAMETER:: ndays = 366
 
-  INTEGER,PARAMETER:: PavSurf   = 1,&   
+  INTEGER, PARAMETER:: nsurf=7
+  INTEGER, PARAMETER:: NVegSurf=3
+  INTEGER, PARAMETER:: nsurfIncSnow=nsurf+1
+
+  INTEGER,PARAMETER:: PavSurf   = 1,&
        BldgSurf  = 2,&
        ConifSurf = 3,&
        DecidSurf = 4,&
-       GrassSurf = 5,&   
-       BSoilSurf = 6,&   
+       GrassSurf = 5,&
+       BSoilSurf = 6,&
        WaterSurf = 7,&
-       ExcessSurf= 8,&   
-       NSurfDoNotReceiveDrainage=0,&   
-       ivConif = 1,&     
+       ExcessSurf= 8,&
+       NSurfDoNotReceiveDrainage=0,&
+       ivConif = 1,&
        ivDecid = 2,&
        ivGrass = 3
 
-  
-  INTEGER, PARAMETER:: ncolumnsDataOutSUEWS=84,&    
+
+  INTEGER, PARAMETER:: ncolumnsDataOutSUEWS=84,&
        ncolumnsDataOutSnow=102,&
        ncolumnsdataOutSOL=31,&
        ncolumnsdataOutBL=22,&
@@ -47,9 +47,9 @@ MODULE SUEWS_Driver
 
 
 CONTAINS
-  
+
   SUBROUTINE SUEWS_cal_Main(&
-       AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,& 
+       AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,&
        AH_SLOPE_Heating,alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&
        alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
        alpha_bioCO2,alpha_enh_bioCO2,alt,avkdn,avRh,avU1,BaseT,BaseTe,&
@@ -266,9 +266,9 @@ CONTAINS
 
     REAL(KIND(1D0)),INTENT(INOUT) ::SnowfallCum
     REAL(KIND(1D0)),INTENT(INOUT)                             ::SnowAlb
-    
+
     REAL(KIND(1d0)),DIMENSION(24*3600/tstep),INTENT(inout)    ::Tair24HR
-    
+
     REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store
     REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_S_av_store
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
@@ -290,7 +290,7 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
     REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_S_store
-    
+
     REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store
 
     REAL(KIND(1D0)),DIMENSION(5),INTENT(OUT)                           ::datetimeLine
@@ -445,9 +445,9 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF)::stateOld
     REAL(KIND(1D0)),DIMENSION(NSURF)::tsurf_ind
 
-    
-    
-    
+
+
+
     REAL(KIND(1D0))::addImpervious=0
     REAL(KIND(1D0))::addPipes=0
     REAL(KIND(1D0))::addVeg=0
@@ -455,41 +455,41 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF)::AddWater=0
     REAL(KIND(1D0)),DIMENSION(NSURF)::AddWaterRunoff=0
 
-    
-    INTEGER::nsh 
-    REAL(KIND(1D0))::nsh_real 
-    REAL(KIND(1D0))::tstep_real 
 
-    
+    INTEGER::nsh
+    REAL(KIND(1D0))::nsh_real
+    REAL(KIND(1D0))::tstep_real
+
+
     REAL(KIND(1D0))::VegFraction
     REAL(KIND(1D0))::ImpervFraction
     REAL(KIND(1D0))::PervFraction
     REAL(KIND(1D0))::NonWaterFraction
 
-    
+
     CALL SUEWS_cal_tstep(&
-         tstep,& 
-         nsh, nsh_real, tstep_real) 
+         tstep,&
+         nsh, nsh_real, tstep_real)
 
-    
+
     CALL SUEWS_cal_surf(&
-         sfr,& 
-         VegFraction,ImpervFraction,PervFraction,NonWaterFraction) 
+         sfr,&
+         VegFraction,ImpervFraction,PervFraction,NonWaterFraction)
 
-    
+
     CALL SUEWS_cal_weekday(&
-         iy,id,lat,& 
-         dayofWeek_id) 
+         iy,id,lat,&
+         dayofWeek_id)
 
-    
+
     CALL SUEWS_cal_DLS(&
-         id,startDLS,endDLS,& 
-         DLS) 
+         id,startDLS,endDLS,&
+         DLS)
 
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_RoughnessParameters...'
-    
+
     CALL SUEWS_cal_RoughnessParameters(&
          RoughLenMomMethod,sfr,&
          bldgH,EveTreeH,DecTreeH,&
@@ -497,7 +497,7 @@ CONTAINS
          planF,&
          Zh,Z0m,Zdm,ZZD)
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling NARP_cal_SunPosition...'
     CALL NARP_cal_SunPosition(&
          REAL(iy,KIND(1d0)),&
@@ -506,7 +506,7 @@ CONTAINS
          azimuth,zenith_deg)
 
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_DailyState...'
     CALL SUEWS_cal_DailyState(&
          iy,id,it,imin,tstep,DayofWeek_id,&
@@ -525,7 +525,7 @@ CONTAINS
          deltaLAI)
 
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling LUMPS_cal_AtmMoist...'
     CALL LUMPS_cal_AtmMoist(&
          Temp_C,Press_hPa,avRh,dectime,&
@@ -533,7 +533,7 @@ CONTAINS
          es_hPa,Ea_hPa,VPd_hpa,VPD_Pa,dq,dens_dry,avcp,avdens)
 
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_update_SoilMoist...'
     CALL SUEWS_update_SoilMoist(&
          NonWaterFraction,&
@@ -542,7 +542,7 @@ CONTAINS
          vsmd,smd)
 
 
-    
+
     CALL SUEWS_cal_Qn(&
          NetRadiationMethod,snowUse,id,&
          Diagnose,snow_obs,ldown_obs,fcld_obs,&
@@ -555,7 +555,7 @@ CONTAINS
          qn1_ind_snow,kup_ind_snow,Tsurf_ind_snow,Tsurf_ind)
 
 
-    
+
     CALL SUEWS_cal_AnthropogenicEmission(&
          AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,AH_SLOPE_Heating,alpha_bioCO2,&
          alpha_enh_bioCO2,avkdn,beta_bioCO2,beta_enh_bioCO2,DayofWeek_id,&
@@ -568,7 +568,7 @@ CONTAINS
          theta_bioCO2,TrafficRate,TrafficUnits,TraffProf_tstep)
 
 
-    
+
     CALL SUEWS_cal_Qs(&
          StorageHeatMethod,OHMIncQF,Gridiv,&
          id,tstep,Diagnose,sfr,&
@@ -583,7 +583,7 @@ CONTAINS
          deltaQi,a1,a2,a3)
 
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling MeltHeat'
     CALL Snow_cal_MeltHeat(&
          snowUse,&
@@ -599,11 +599,11 @@ CONTAINS
 
 
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling LUMPS_cal_QHQE...'
-    
+
     CALL LUMPS_cal_QHQE(&
-         veg_type,& 
+         veg_type,&
          snowUse,id,qn1,qf,qs,Qm,Temp_C,Veg_Fr,avcp,Press_hPa,lv_J_kg,&
          tstep_real,DRAINRT,nsh_real,&
          Precip,RainMaxRes,RAINCOVER,sfr,LAI,LAImax,LAImin,&
@@ -611,20 +611,20 @@ CONTAINS
 
 
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_WaterUse...'
-    
+
     CALL SUEWS_cal_WaterUse(&
-         nsh_real,& 
+         nsh_real,&
          SurfaceArea,sfr,&
          IrrFracConif,IrrFracDecid,IrrFracGrass,&
          dayofWeek_id,WUProfA_tstep,WUProfM_tstep,&
          InternalWaterUse_h,HDD(id-1,:),WU_Day(id-1,:),&
          WaterUseMethod,NSH,it,imin,DLS,&
-         WUAreaEveTr_m2,WUAreaDecTr_m2,& 
+         WUAreaEveTr_m2,WUAreaDecTr_m2,&
          WUAreaGrass_m2,WUAreaTotal_m2,&
          wu_EveTr,wu_DecTr,wu_Grass,wu_m3,int_wu,ext_wu)
 
 
-    
+
     CALL SUEWS_cal_Resistance(&
          StabilityMethod,&
          Diagnose,AerodynamicResistanceMethod,RoughLenHeatMethod,snowUse,&
@@ -640,18 +640,18 @@ CONTAINS
          psim,gsc,ResistSurf,RA,RAsnow,rb)
 
 
-    
+
     CALL SUEWS_cal_Water(&
          Diagnose,&
          snowUse,NonWaterFraction,addPipes,addImpervious,addVeg,addWaterBody,&
          state,soilmoist,sfr,surf,WaterDist,nsh_real,&
-         drain_per_tstep,&  
+         drain_per_tstep,&
          drain,AddWaterRunoff,&
          AdditionalWater,runoffPipes,runoff_per_interval,&
          AddWater,stateOld,soilmoistOld)
-    
 
-    
+
+
     CALL SUEWS_cal_QE(&
          Diagnose,&
          id,tstep,imin,it,ity,snowCalcSwitch,DayofWeek_id,CRWmin,CRWmax,&
@@ -665,25 +665,25 @@ CONTAINS
          StateLimit,AddWater,addwaterrunoff,surf,snowD,&
          runoff_per_interval,state,soilmoist,SnowPack,snowFrac,MeltWaterStore,&
          iceFrac,SnowDens,&
-         snowProf,& 
+         snowProf,&
          runoffSnow,runoff,runoffSoil,chang,changSnow,&
          snowDepth,SnowToSurf,ev_snow,SnowRemoval,&
          evap,rss_nsurf,p_mm,rss,qe,state_per_tstep,NWstate_per_tstep,qeOut,&
          swe,ev,chSnow_per_interval,ev_per_tstep,qe_per_tstep,runoff_per_tstep,&
          surf_chang_per_tstep,runoffPipes,mwstore,runoffwaterbody,&
          runoffAGveg,runoffAGimpervious,runoffWaterBody_m3,runoffPipes_m3)
-    
 
-    
+
+
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_QH...'
     CALL SUEWS_cal_QH(&
          1,&
          qn1,qf,QmRain,qeOut,qs,QmFreez,qm,avdens,avcp,tsurf,Temp_C,ra,&
          qh,qh_r)
-    
 
-    
-    
+
+
+
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_HorizontalSoilWater...'
     CALL SUEWS_cal_HorizontalSoilWater(&
          sfr,&
@@ -692,13 +692,13 @@ CONTAINS
          SatHydraulicConduct,&
          SurfaceArea,&
          NonWaterFraction,&
-         tstep_real,& 
+         tstep_real,&
          SoilMoist,&
          runoffSoil,&
          runoffSoil_per_tstep&
          )
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_SoilMoist...'
     CALL SUEWS_cal_SoilMoist(&
          SMDMethod,xsmd,NonWaterFraction,SoilMoistCap,&
@@ -707,7 +707,7 @@ CONTAINS
          smd,smd_nsurf,tot_chang_per_tstep,SoilState)
 
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_Diagnostics...'
     CALL SUEWS_cal_Diagnostics(&
          tsurf,qh,&
@@ -715,12 +715,12 @@ CONTAINS
          UStar,veg_fr,z0m,L_mod,avdens,avcp,lv_J_kg,tstep_real,&
          RoughLenHeatMethod,StabilityMethod,&
          avU10_ms,t2_C,q2_gkg)
-    
 
 
-    
 
-    
+
+
+
     CALL SUEWS_update_outputLine(&
          AdditionalWater,alb,avkdn,avU10_ms,azimuth,&
          chSnow_per_interval,dectime,&
@@ -739,9 +739,9 @@ CONTAINS
          wu_EveTr,wu_Grass,z0m,zdm,zenith_deg,&
          datetimeLine,dataOutLineSUEWS)
 
-    
 
-    
+
+
     CALL update_DailyState(&
          iy,id,it,imin,nsh_real,&
          GDD,HDD,LAI,&
@@ -752,12 +752,12 @@ CONTAINS
          a1,a2,a3,&
          DailyStateLine)
 
-    
+
 
   END SUBROUTINE SUEWS_cal_Main
-  
 
-  
+
+
   SUBROUTINE SUEWS_cal_AnthropogenicEmission(&
        AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,AH_SLOPE_Heating,alpha_bioCO2,&
        alpha_enh_bioCO2,avkdn,beta_bioCO2,beta_enh_bioCO2,dayofWeek_id,&
@@ -778,7 +778,7 @@ CONTAINS
     INTEGER,INTENT(in)::imin
     INTEGER,INTENT(in)::DLS
     INTEGER,INTENT(in)::nsh
-    
+
     INTEGER,DIMENSION(3),INTENT(in)::dayofWeek_id
     REAL(KIND(1d0)),DIMENSION(-4:ndays, 6),INTENT(in)::HDD
     REAL(KIND(1d0)),DIMENSION(2),INTENT(in)::Qf_A
@@ -843,8 +843,8 @@ CONTAINS
     Fc_build=0
 
 
-    
-    
+
+
 
     IF(EmissionsMethod>0 .AND. EmissionsMethod<=6)THEN
        IF(Diagnose==1) WRITE(*,*) 'Calling AnthropogenicEmissions...'
@@ -864,7 +864,7 @@ CONTAINS
             AHProf_tstep,HumActivity_tstep,TraffProf_tstep,PopProf_tstep,&
             notUsed,notUsedI)
 
-       
+
        Fc_anthro=0
        Fc_metab=0
        Fc_traff=0
@@ -890,7 +890,7 @@ CONTAINS
             AHProf_tstep,HumActivity_tstep,TraffProf_tstep,PopProf_tstep,&
             notUsed,notUsedI)
 
-       
+
     ELSEIF(EmissionsMethod==0)THEN
        IF(Diagnose==1) WRITE(*,*) 'Calling AnthropogenicEmissions...'
        CALL AnthropogenicEmissions(&
@@ -909,17 +909,17 @@ CONTAINS
             AHProf_tstep,HumActivity_tstep,TraffProf_tstep,PopProf_tstep,&
             notUsed,notUsedI)
 
-       
-       
+
+
     ELSE
        CALL ErrorHint(73,'RunControl.nml:EmissionsMethod unusable',notUsed,notUsed,EmissionsMethod)
     ENDIF
-    
-    
+
+
     IF(EmissionsMethod>=1) qf = QF_SAHP
 
     IF(EmissionsMethod>=11) THEN
-       
+
        IF(Diagnose==1) WRITE(*,*) 'Calling CO2_biogen...'
        CALL CO2_biogen(EmissionsMethod,id,ndays,ivConif,ivDecid,ivGrass,ConifSurf,DecidSurf,GrassSurf,BSoilSurf,&
             snowFrac,nsurf,NVegSurf,avkdn,Temp_C,sfr,LAI,LaiMin,LaiMax,&
@@ -927,15 +927,15 @@ CONTAINS
             resp_a,resp_b,min_res_bioCO2,Fc_biogen,Fc_respi,Fc_photo,&
             notUsed,notUsedI)
     ENDIF
-    
+
     Fc = Fc_anthro + Fc_biogen
 
-    
+
 
   END SUBROUTINE SUEWS_cal_AnthropogenicEmission
-  
 
-  
+
+
   SUBROUTINE SUEWS_cal_Qn(&
        NetRadiationMethod,snowUse,id,&
        Diagnose,snow_obs,ldown_obs,fcld_obs,&
@@ -949,10 +949,10 @@ CONTAINS
 
 
     IMPLICIT NONE
-    
-    
-    
-    
+
+
+
+
 
     INTEGER,INTENT(in)::NetRadiationMethod
     INTEGER,INTENT(in)::snowUse
@@ -1020,25 +1020,25 @@ CONTAINS
 
     IF(NetRadiationMethodX>0)THEN
 
-       
+
        IF (snowUse==0) snowFrac=0
 
-       IF(ldown_option==1) THEN 
+       IF(ldown_option==1) THEN
           ldown=ldown_obs
        ELSE
-          ldown=-9              
+          ldown=-9
        ENDIF
 
-       IF(ldown_option==2) THEN 
+       IF(ldown_option==2) THEN
           fcld=fcld_obs
        ENDIF
 
 
 
-       
-       alb(DecidSurf)    = albDecTr(id) 
-       surf(6,DecidSurf) = DecidCap(id) 
-       
+
+       alb(DecidSurf)    = albDecTr(id)
+       surf(6,DecidSurf) = DecidCap(id)
+
        alb(ConifSurf) = albEveTr(id)
        alb(GrassSurf) = albGrass(id)
 
@@ -1054,7 +1054,7 @@ CONTAINS
             qn1,qn1_SF,qn1_S,kclear,kup,LDown,lup,fcld,tsurf,&
             qn1_ind_snow,kup_ind_snow,Tsurf_ind_snow,Tsurf_ind)
 
-    ELSE 
+    ELSE
        snowFrac  = snow_obs
        qn1       = qn1_obs
        qn1_sf    = qn1_obs
@@ -1075,9 +1075,9 @@ CONTAINS
     ENDIF
 
   END SUBROUTINE SUEWS_cal_Qn
-  
 
-  
+
+
   SUBROUTINE SUEWS_cal_Qs(&
        StorageHeatMethod,OHMIncQF,Gridiv,&
        id,tstep,Diagnose,sfr,&
@@ -1098,18 +1098,18 @@ CONTAINS
     INTEGER,INTENT(in)::id
     INTEGER,INTENT(in)::tstep
     INTEGER,INTENT(in)::Diagnose
-    INTEGER,INTENT(in)::nsh                
-    INTEGER,INTENT(in)::SnowUse            
-    INTEGER,INTENT(in)::DiagQS             
-    INTEGER,INTENT(in):: EmissionsMethod 
+    INTEGER,INTENT(in)::nsh
+    INTEGER,INTENT(in)::SnowUse
+    INTEGER,INTENT(in)::DiagQS
+    INTEGER,INTENT(in):: EmissionsMethod
 
 
-    REAL(KIND(1d0)),INTENT(in)::OHM_coef(nsurf+1,4,3)                 
-    REAL(KIND(1d0)),INTENT(in)::OHM_threshSW(nsurf+1) 
-    REAL(KIND(1d0)),INTENT(in)::OHM_threshWD(nsurf+1) 
-    REAL(KIND(1d0)),INTENT(in)::soilmoist(nsurf)                
-    REAL(KIND(1d0)),INTENT(in)::soilstoreCap(nsurf)             
-    REAL(KIND(1d0)),INTENT(in)::state(nsurf) 
+    REAL(KIND(1d0)),INTENT(in)::OHM_coef(nsurf+1,4,3)
+    REAL(KIND(1d0)),INTENT(in)::OHM_threshSW(nsurf+1)
+    REAL(KIND(1d0)),INTENT(in)::OHM_threshWD(nsurf+1)
+    REAL(KIND(1d0)),INTENT(in)::soilmoist(nsurf)
+    REAL(KIND(1d0)),INTENT(in)::soilstoreCap(nsurf)
+    REAL(KIND(1d0)),INTENT(in)::state(nsurf)
 
 
     REAL(KIND(1d0)),DIMENSION(-4:ndays, 6),INTENT(in)::HDD
@@ -1119,42 +1119,42 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::bldgh
 
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::sfr
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::alb  
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::emis 
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::cpAnOHM   
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::kkAnOHM   
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::chAnOHM   
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::alb
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::emis
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::cpAnOHM
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::kkAnOHM
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::chAnOHM
 
-    REAL(KIND(1d0)),DIMENSION(:,:),INTENT(in)::MetForcingData_grid 
+    REAL(KIND(1d0)),DIMENSION(:,:),INTENT(in)::MetForcingData_grid
 
     REAL(KIND(1d0)),DIMENSION(:),INTENT(in)::Ts5mindata_ir
 
     REAL(KIND(1d0)),DIMENSION(24*nsh),INTENT(inout):: Tair24HR
-    
+
     REAL(KIND(1d0)),DIMENSION(360),INTENT(inout) ::qn1_store
-    REAL(KIND(1d0)),DIMENSION(nsh),INTENT(inout) ::qn1_S_store 
+    REAL(KIND(1d0)),DIMENSION(nsh),INTENT(inout) ::qn1_S_store
 
-    
+
     REAL(KIND(1d0)),DIMENSION(2*360+1),INTENT(inout)::qn1_av_store
-    REAL(KIND(1d0)),DIMENSION(2*nsh+1),INTENT(inout)::qn1_S_av_store 
+    REAL(KIND(1d0)),DIMENSION(2*nsh+1),INTENT(inout)::qn1_S_av_store
     REAL(KIND(1d0)),DIMENSION(6,nsurf),INTENT(inout)::surf
-    
 
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::deltaQi 
+
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::deltaQi
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::snowFrac
 
     REAL(KIND(1d0)),DIMENSION(27),INTENT(out):: dataOutLineESTM
     REAL(KIND(1d0)),INTENT(out)::qn1_S
-    REAL(KIND(1d0)),INTENT(out):: qs 
-    REAL(KIND(1d0)),INTENT(out):: a1 
-    REAL(KIND(1d0)),INTENT(out):: a2 
-    REAL(KIND(1d0)),INTENT(out):: a3 
+    REAL(KIND(1d0)),INTENT(out):: qs
+    REAL(KIND(1d0)),INTENT(out):: a1
+    REAL(KIND(1d0)),INTENT(out):: a2
+    REAL(KIND(1d0)),INTENT(out):: a3
 
 
-    REAL(KIND(1d0))::HDDday 
-    REAL(KIND(1d0))::qn1_use 
+    REAL(KIND(1d0))::HDDday
+    REAL(KIND(1d0))::qn1_use
 
-    
+
     deltaQi=0
     snowFrac=0
     qn1_S=0
@@ -1165,14 +1165,14 @@ CONTAINS
     a3=-999
 
 
-    
+
     IF(OHMIncQF == 1) THEN
        qn1_use= qf+qn1
     ELSEIF(OHMIncQF == 0) THEN
        qn1_use= qn1
     ENDIF
 
-    IF(StorageHeatMethod==1) THEN           
+    IF(StorageHeatMethod==1) THEN
        HDDday=HDD(id-1,4)
        IF(Diagnose==1) WRITE(*,*) 'Calling OHM...'
        CALL OHM(qn1_use,qn1_store,qn1_av_store,&
@@ -1190,7 +1190,7 @@ CONTAINS
 
     ENDIF
 
-    
+
     IF (StorageHeatMethod==3) THEN
        IF(Diagnose==1) WRITE(*,*) 'Calling AnOHM...'
        CALL AnOHM(qn1_use,qn1_store,qn1_av_store,qf,&
@@ -1202,9 +1202,9 @@ CONTAINS
     END IF
 
 
-    
+
     IF(StorageHeatMethod==4 .OR. StorageHeatMethod==14) THEN
-       
+
        IF(Diagnose==1) WRITE(*,*) 'Calling ESTM...'
        CALL ESTM(&
             Gridiv,&
@@ -1213,26 +1213,26 @@ CONTAINS
             bldgh,Ts5mindata_ir,&
             Tair24HR,&
             dataOutLineESTM,QS)
-       
-       
+
+
     ENDIF
 
   END SUBROUTINE SUEWS_cal_Qs
-  
 
-  
+
+
   SUBROUTINE SUEWS_cal_Water(&
        Diagnose,&
        snowUse,NonWaterFraction,addPipes,addImpervious,addVeg,addWaterBody,&
        state,soilmoist,sfr,surf,WaterDist,nsh_real,&
-       drain_per_tstep,&  
+       drain_per_tstep,&
        drain,AddWaterRunoff,&
        AdditionalWater,runoffPipes,runoff_per_interval,&
        AddWater,stateOld,soilmoistOld)
 
     IMPLICIT NONE
-    
-    
+
+
     INTEGER,INTENT(in) ::Diagnose
     INTEGER,INTENT(in) ::snowUse
 
@@ -1241,7 +1241,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::addImpervious
     REAL(KIND(1d0)),INTENT(in)::addVeg
     REAL(KIND(1d0)),INTENT(in)::addWaterBody
-    REAL(KIND(1d0)),INTENT(in)::nsh_real 
+    REAL(KIND(1d0)),INTENT(in)::nsh_real
 
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)          ::state
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)          ::soilmoist
@@ -1249,9 +1249,9 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(6,nsurf),INTENT(in)        ::surf
     REAL(KIND(1d0)),DIMENSION(nsurf+1,nsurf-1),INTENT(in)::WaterDist
 
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out):: drain         
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out):: drain
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out):: AddWaterRunoff
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out):: AddWater      
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out):: AddWater
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out):: stateOld
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out):: soilmoistOld
 
@@ -1261,30 +1261,30 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(out)::runoff_per_interval
     INTEGER:: is
 
-    
-    stateOld     = state     
-    soilmoistOld = soilmoist 
+
+    stateOld     = state
+    soilmoistOld = soilmoist
 
 
-    
-    
-    
-    
-
-    
-    AdditionalWater = addPipes+addImpervious+addVeg+addWaterBody  
-
-    
-    runoffPipes         = addPipes 
-    
-    runoff_per_interval = addPipes 
 
 
-    
-    
+
+
+
+
+    AdditionalWater = addPipes+addImpervious+addVeg+addWaterBody
+
+
+    runoffPipes         = addPipes
+
+    runoff_per_interval = addPipes
+
+
+
+
     IF(Diagnose==1) WRITE(*,*) 'Calling Drainage...'
 
-    IF (NonWaterFraction/=0) THEN 
+    IF (NonWaterFraction/=0) THEN
        DO is=1,nsurf-1
 
           CALL drainage(&
@@ -1297,31 +1297,31 @@ CONTAINS
                nsh_real,&
                drain(is))
 
-          
-          
+
+
        ENDDO
-       drain_per_tstep=DOT_PRODUCT(drain(1:nsurf-1),sfr(1:nsurf-1))/NonWaterFraction 
+       drain_per_tstep=DOT_PRODUCT(drain(1:nsurf-1),sfr(1:nsurf-1))/NonWaterFraction
     ELSE
        drain(1:nsurf-1)=0
        drain_per_tstep=0
     ENDIF
 
-    drain(WaterSurf) = 0  
+    drain(WaterSurf) = 0
 
-    
+
     IF(Diagnose==1) WRITE(*,*) 'Calling ReDistributeWater...'
-    
-    
+
+
     CALL ReDistributeWater(&
-         nsurf,& 
+         nsurf,&
          WaterSurf, snowUse, WaterDist,  sfr,   Drain,&
-         AddWaterRunoff,&  
+         AddWaterRunoff,&
          AddWater)
 
   END SUBROUTINE SUEWS_cal_Water
-  
 
-  
+
+
   SUBROUTINE SUEWS_init_QH(&
        qh_obs,avdens,avcp,h_mod,qn1,dectime,&
        H_init)
@@ -1340,22 +1340,22 @@ CONTAINS
     INTEGER,PARAMETER::notUsedI=-999
 
 
-    IF(qh_obs/=NAN) THEN   
-       H_init=qh_obs/(avdens*avcp)  
+    IF(qh_obs/=NAN) THEN
+       H_init=qh_obs/(avdens*avcp)
     ELSE
        IF(h_mod/=NAN) THEN
-          H_init = h_mod/(avdens*avcp)   
+          H_init = h_mod/(avdens*avcp)
        ELSE
-          H_init=(qn1*0.2)/(avdens*avcp)   
+          H_init=(qn1*0.2)/(avdens*avcp)
           CALL ErrorHint(38,'LUMPS unable to calculate realistic value for H_mod.',h_mod, dectime, notUsedI)
        ENDIF
     ENDIF
 
   END SUBROUTINE SUEWS_init_QH
-  
 
-  
-  
+
+
+
   SUBROUTINE SUEWS_cal_QE(&
        Diagnose,&
        id,tstep,imin,it,ity,snowCalcSwitch,dayofWeek_id,CRWmin,CRWmax,&
@@ -1369,7 +1369,7 @@ CONTAINS
        StateLimit,AddWater,addwaterrunoff,surf,snowD,&
        runoff_per_interval,state,soilmoist,SnowPack,snowFrac,MeltWaterStore,&
        iceFrac,SnowDens,&
-       snowProf,& 
+       snowProf,&
        runoffSnow,runoff,runoffSoil,chang,changSnow,&
        snowDepth,SnowToSurf,ev_snow,SnowRemoval,&
        evap,rss_nsurf,p_mm,rss,qe,state_per_tstep,NWstate_per_tstep,qeOut,&
@@ -1384,8 +1384,8 @@ CONTAINS
     INTEGER,INTENT(in) ::tstep
     INTEGER,INTENT(in) ::imin
     INTEGER,INTENT(in) ::it
-    INTEGER,INTENT(in) ::ity 
-    
+    INTEGER,INTENT(in) ::ity
+
 
     INTEGER,DIMENSION(nsurf),INTENT(in)::snowCalcSwitch
     INTEGER,DIMENSION(3),INTENT(in)::dayofWeek_id
@@ -1445,13 +1445,13 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::Tsurf_ind
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::sfr
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::snowD
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::StateLimit 
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::StateLimit
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::AddWater
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::addwaterrunoff
     REAL(KIND(1d0)),DIMENSION(6,nsurf),INTENT(in)::surf
     REAL(KIND(1d0)), DIMENSION(0:23,2),INTENT(in):: snowProf
 
-    
+
     REAL(KIND(1d0)),INTENT(inout)::runoff_per_interval
 
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::state
@@ -1462,11 +1462,11 @@ CONTAINS
 
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::iceFrac
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::SnowDens
-    REAL(KIND(1d0)),DIMENSION(2)    ::SurplusEvap        
+    REAL(KIND(1d0)),DIMENSION(2)    ::SurplusEvap
 
 
-    
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::runoffSnow 
+
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::runoffSnow
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::runoff
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::runoffSoil
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::chang
@@ -1480,7 +1480,7 @@ CONTAINS
 
     REAL(KIND(1d0)),INTENT(out)::p_mm
     REAL(KIND(1d0)),INTENT(out)::rss
-    REAL(KIND(1d0)),INTENT(out)::qe 
+    REAL(KIND(1d0)),INTENT(out)::qe
     REAL(KIND(1d0)),INTENT(out)::state_per_tstep
     REAL(KIND(1d0)),INTENT(out)::NWstate_per_tstep
     REAL(KIND(1d0)),INTENT(out)::qeOut
@@ -1500,7 +1500,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(out)::runoffAGimpervious
 
 
-    
+
     INTEGER:: is
 
     REAL(KIND(1d0))::surplusWaterBody
@@ -1514,12 +1514,12 @@ CONTAINS
     REAL(KIND(1d0))::runoffAGveg_m3
 
 
-    tlv=lv_J_kg/tstep_real 
+    tlv=lv_J_kg/tstep_real
 
     pin=MAX(0.,Precip)
 
 
-    
+
     qe                   = 0
     ev                   = 0
     swe                  = 0
@@ -1542,21 +1542,21 @@ CONTAINS
     SurplusEvap          = 0
     SnowRemoval          = 0
 
-    
-    sae   = s_hPa*(qn1_SF+qf-qs)    
+
+    sae   = s_hPa*(qn1_SF+qf-qs)
     vdrc  = vpd_hPa*avdens*avcp
     sp    = s_hPa/psyc_hPa
     numPM = sae+vdrc/ra
-    
-    
+
+
 
     IF(Diagnose==1) WRITE(*,*) 'Calling evap_SUEWS and SoilStore...'
-    DO is=1,nsurf   
+    DO is=1,nsurf
        IF (snowCalcSwitch(is)==1) THEN
           IF (sfr(is)/=0) THEN
              IF(Diagnose==1) WRITE(*,*) 'Calling SnowCalc...'
              CALL SnowCalc(&
-                  id,& 
+                  id,&
                   tstep,imin,it,dectime,is,&
                   ity,CRWmin,CRWmax,nsh_real,lvS_J_kg,lv_j_kg,avdens,&
                   avRh,Press_hPa,Temp_C,RAsnow,psyc_hPa,avcp,sIce_hPa,&
@@ -1570,7 +1570,7 @@ CONTAINS
                   AddWater,addwaterrunoff,&
                   SnowPack,SurplusEvap,&
                   snowFrac,MeltWaterStore,iceFrac,SnowDens,&
-                  runoffSnow,& 
+                  runoffSnow,&
                   runoff,runoffSoil,chang,changSnow,SnowToSurf,state,ev_snow,soilmoist,&
                   SnowDepth,SnowRemoval,swe,ev,chSnow_per_interval,&
                   ev_per_tstep,qe_per_tstep,runoff_per_tstep,surf_chang_per_tstep,&
@@ -1582,12 +1582,12 @@ CONTAINS
           ENDIF
        ELSE
 
-          
+
           CALL Evap_SUEWS(&
                ity,&
-               state(is),& 
+               state(is),&
                WetThresh(is),&
-               surf(6,is),& 
+               surf(6,is),&
                numPM,&
                s_hPa,&
                psyc_hPa,&
@@ -1598,14 +1598,14 @@ CONTAINS
                tlv,&
                rss,&
                ev,&
-               qe) 
+               qe)
 
 
-          rss_nsurf(is) = rss 
-          
-          
+          rss_nsurf(is) = rss
+
+
           CALL soilstore(&
-               is,& 
+               is,&
                sfr,&
                PipeCapacity,&
                RunoffToWater,&
@@ -1640,18 +1640,18 @@ CONTAINS
                state&
                )
 
-          evap(is)     = ev 
+          evap(is)     = ev
 
-          
+
           ev_per_tstep = ev_per_tstep+evap(is)*sfr(is)
 
-          
+
           surf_chang_per_tstep = surf_chang_per_tstep+(state(is)-stateOld(is))*sfr(is)
-          
+
           runoff_per_tstep     = runoff_per_tstep+runoff(is)*sfr(is)
-          
+
           state_per_tstep      = state_per_tstep+(state(is)*sfr(is))
-          
+
 
           IF (NonWaterFraction/=0 .AND. is.NE.WaterSurf) THEN
              NWstate_per_tstep=NWstate_per_tstep+(state(is)*sfr(is)/NonWaterFraction)
@@ -1661,32 +1661,32 @@ CONTAINS
           runoffSnow(is) = 0
 
        ENDIF
-    ENDDO  
+    ENDDO
 
 
-    
+
     qe_per_tstep = ev_per_tstep*tlv
     qeOut        = qe_per_tstep
 
-    
-    
-    
+
+
+
     runoffAGimpervious_m3 = runoffAGimpervious/1000 *SurfaceArea
     runoffAGveg_m3        = runoffAGveg/1000 *SurfaceArea
     runoffWaterBody_m3    = runoffWaterBody/1000 *SurfaceArea
     runoffPipes_m3        = runoffPipes/1000 *SurfaceArea
 
   END SUBROUTINE SUEWS_cal_QE
-  
 
-  
+
+
   SUBROUTINE SUEWS_cal_QH(&
        QHMethod,&
        qn1,qf,QmRain,qeOut,qs,QmFreez,qm,avdens,avcp,tsurf,Temp_C,ra,&
        qh,qh_r)
     IMPLICIT NONE
 
-    INTEGER,INTENT(in) :: QHMethod 
+    INTEGER,INTENT(in) :: QHMethod
 
     REAL(KIND(1d0)),INTENT(in)::qn1
     REAL(KIND(1d0)),INTENT(in)::qf
@@ -1707,15 +1707,15 @@ CONTAINS
 
     REAL(KIND(1d0)),PARAMETER::NAN=-999
 
-    
+
 
     SELECT CASE (QHMethod)
     CASE (1)
-       
-       qh=(qn1+qf+QmRain)-(qeOut+qs+Qm+QmFreez)     
+
+       qh=(qn1+qf+QmRain)-(qeOut+qs+Qm+QmFreez)
 
     CASE (2)
-       
+
        IF(ra/=0) THEN
           qh = avdens*avcp*(tsurf-Temp_C)/ra
        ELSE
@@ -1726,9 +1726,9 @@ CONTAINS
     QH_R=qh
 
   END SUBROUTINE SUEWS_cal_QH
-  
 
-  
+
+
   SUBROUTINE SUEWS_cal_Resistance(&
        StabilityMethod,&
        Diagnose,AerodynamicResistanceMethod,RoughLenHeatMethod,snowUse,&
@@ -1748,8 +1748,8 @@ CONTAINS
     INTEGER,INTENT(in)::RoughLenHeatMethod
     INTEGER,INTENT(in)::snowUse
     INTEGER,INTENT(in)::id
-    INTEGER,INTENT(in)::it       
-    INTEGER,INTENT(in)::gsModel  
+    INTEGER,INTENT(in)::it
+    INTEGER,INTENT(in)::gsModel
     INTEGER,INTENT(in)::SMDMethod
 
     REAL(KIND(1d0)),INTENT(in)::qh_obs
@@ -1757,67 +1757,67 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::avcp
     REAL(KIND(1d0)),INTENT(in)::h_mod
     REAL(KIND(1d0)),INTENT(in)::qn1
-    REAL(KIND(1d0)),INTENT(in)::dectime    
-    REAL(KIND(1d0)),INTENT(in)::zzd        
-    REAL(KIND(1d0)),INTENT(in)::z0M        
-    REAL(KIND(1d0)),INTENT(in)::zdm        
-    REAL(KIND(1d0)),INTENT(in)::avU1       
-    REAL(KIND(1d0)),INTENT(in)::Temp_C     
+    REAL(KIND(1d0)),INTENT(in)::dectime
+    REAL(KIND(1d0)),INTENT(in)::zzd
+    REAL(KIND(1d0)),INTENT(in)::z0M
+    REAL(KIND(1d0)),INTENT(in)::zdm
+    REAL(KIND(1d0)),INTENT(in)::avU1
+    REAL(KIND(1d0)),INTENT(in)::Temp_C
     REAL(KIND(1d0)),INTENT(in)::VegFraction
-    REAL(KIND(1d0)),INTENT(in)::avkdn      
-    REAL(KIND(1d0)),INTENT(in)::Kmax       
-    REAL(KIND(1d0)),INTENT(in)::G1         
-    REAL(KIND(1d0)),INTENT(in)::G2         
-    REAL(KIND(1d0)),INTENT(in)::G3         
-    REAL(KIND(1d0)),INTENT(in)::G4         
-    REAL(KIND(1d0)),INTENT(in)::G5         
-    REAL(KIND(1d0)),INTENT(in)::G6         
-    REAL(KIND(1d0)),INTENT(in)::S1         
-    REAL(KIND(1d0)),INTENT(in)::S2         
-    REAL(KIND(1d0)),INTENT(in)::TH         
-    REAL(KIND(1d0)),INTENT(in)::TL         
-    REAL(KIND(1d0)),INTENT(in)::dq         
-    REAL(KIND(1d0)),INTENT(in)::xsmd       
-    REAL(KIND(1d0)),INTENT(in)::vsmd       
+    REAL(KIND(1d0)),INTENT(in)::avkdn
+    REAL(KIND(1d0)),INTENT(in)::Kmax
+    REAL(KIND(1d0)),INTENT(in)::G1
+    REAL(KIND(1d0)),INTENT(in)::G2
+    REAL(KIND(1d0)),INTENT(in)::G3
+    REAL(KIND(1d0)),INTENT(in)::G4
+    REAL(KIND(1d0)),INTENT(in)::G5
+    REAL(KIND(1d0)),INTENT(in)::G6
+    REAL(KIND(1d0)),INTENT(in)::S1
+    REAL(KIND(1d0)),INTENT(in)::S2
+    REAL(KIND(1d0)),INTENT(in)::TH
+    REAL(KIND(1d0)),INTENT(in)::TL
+    REAL(KIND(1d0)),INTENT(in)::dq
+    REAL(KIND(1d0)),INTENT(in)::xsmd
+    REAL(KIND(1d0)),INTENT(in)::vsmd
 
     REAL(KIND(1d0)),DIMENSION(3),INTENT(in) ::MaxConductance
-    REAL(KIND(1d0)),DIMENSION(3),INTENT(in) ::LAIMax        
-    REAL(KIND(1d0)),DIMENSION(3),INTENT(in) ::LAI_id        
+    REAL(KIND(1d0)),DIMENSION(3),INTENT(in) ::LAIMax
+    REAL(KIND(1d0)),DIMENSION(3),INTENT(in) ::LAI_id
 
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::snowFrac      
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::sfr           
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::snowFrac
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::sfr
 
-    REAL(KIND(1d0)),INTENT(out)::Tstar     
-    REAL(KIND(1d0)),INTENT(out)::UStar     
-    REAL(KIND(1d0)),INTENT(out)::psim      
-    REAL(KIND(1d0)),INTENT(out)::gsc       
+    REAL(KIND(1d0)),INTENT(out)::Tstar
+    REAL(KIND(1d0)),INTENT(out)::UStar
+    REAL(KIND(1d0)),INTENT(out)::psim
+    REAL(KIND(1d0)),INTENT(out)::gsc
     REAL(KIND(1d0)),INTENT(out)::ResistSurf
-    REAL(KIND(1d0)),INTENT(out)::RA        
-    REAL(KIND(1d0)),INTENT(out)::RAsnow    
-    REAL(KIND(1d0)),INTENT(out)::rb        
-    REAL(KIND(1d0)),INTENT(out)::L_mod  
-    REAL(KIND(1d0))::H_init 
+    REAL(KIND(1d0)),INTENT(out)::RA
+    REAL(KIND(1d0)),INTENT(out)::RAsnow
+    REAL(KIND(1d0)),INTENT(out)::rb
+    REAL(KIND(1d0)),INTENT(out)::L_mod
+    REAL(KIND(1d0))::H_init
 
 
-    
+
     CALL SUEWS_init_QH(&
          qh_obs,avdens,avcp,h_mod,qn1,dectime,&
          H_init)
 
     IF(Diagnose==1) WRITE(*,*) 'Calling STAB_lumps...'
-    
+
     CALL STAB_lumps(&
-         StabilityMethod,&  
-         dectime,& 
-         zzd,&     
-         z0M,&     
-         zdm,&     
-         avU1,&    
-         Temp_C,&  
-         H_init,& 
+         StabilityMethod,&
+         dectime,&
+         zzd,&
+         z0M,&
+         zdm,&
+         avU1,&
+         Temp_C,&
+         H_init,&
          L_mod,&
-         Tstar,& 
-         UStar,& 
+         Tstar,&
+         UStar,&
          psim)
 
     IF(Diagnose==1) WRITE(*,*) 'Calling AerodynamicResistance...'
@@ -1831,7 +1831,7 @@ CONTAINS
          AerodynamicResistanceMethod,&
          StabilityMethod,&
          RoughLenHeatMethod,&
-         RA) 
+         RA)
 
     IF (snowUse==1) THEN
        IF(Diagnose==1) WRITE(*,*) 'Calling AerodynamicResistance for snow...'
@@ -1845,11 +1845,11 @@ CONTAINS
             AerodynamicResistanceMethod,&
             StabilityMethod,&
             3,&
-            RAsnow)     
+            RAsnow)
     ENDIF
 
     IF(Diagnose==1) WRITE(*,*) 'Calling SurfaceResistance...'
-    
+
     CALL SurfaceResistance(&
          id,it,&
          SMDMethod,snowFrac,sfr,avkdn,Temp_C,dq,xsmd,vsmd,MaxConductance,&
@@ -1860,15 +1860,15 @@ CONTAINS
     IF(Diagnose==1) WRITE(*,*) 'Calling BoundaryLayerResistance...'
     CALL BoundaryLayerResistance(&
          zzd,&
-         z0M,&     
-         avU1,&    
-         UStar,&  
-         rb)  
+         z0M,&
+         avU1,&
+         UStar,&
+         rb)
 
   END SUBROUTINE SUEWS_cal_Resistance
-  
 
-  
+
+
   SUBROUTINE SUEWS_update_outputLine(&
        AdditionalWater,alb,avkdn,avU10_ms,azimuth,&
        chSnow_per_interval,dectime,&
@@ -1972,7 +1972,7 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(5),INTENT(OUT)::datetimeLine
     REAL(KIND(1d0)),DIMENSION(ncolumnsDataOutSUEWS-5),INTENT(out) :: dataOutLineSUEWS
 
-    
+
     REAL(KIND(1d0)):: LAI_wt
 
 
@@ -1982,39 +1982,39 @@ CONTAINS
     REAL(KIND(1d0))::smd_nsurf_x(nsurf)
     REAL(KIND(1d0))::state_x(nsurf)
 
-    
 
-    
+
+
     state_x=UNPACK(SPREAD(NAN, dim=1, ncopies=SIZE(sfr)), mask=(sfr<0.00001), field=state)
     smd_nsurf_x=UNPACK(SPREAD(NAN, dim=1, ncopies=SIZE(sfr)), mask=(sfr<0.00001), field=smd_nsurf)
 
     ResistSurf_x=MIN(9999.,ResistSurf)
     l_mod_x=MAX(MIN(9999.,l_mod), -9999.)
 
-    
-    IF(iy == (iy_prev_t+1) .AND. (id-1) == 0) THEN   
-       
-       
-       
-       
+
+    IF(iy == (iy_prev_t+1) .AND. (id-1) == 0) THEN
+
+
+
+
        LAI_wt=DOT_PRODUCT(LAI(id_prev_t,:),sfr(1+2:nvegsurf+2))
     ELSE
-       
-       
-       
-       
+
+
+
+
        LAI_wt=DOT_PRODUCT(LAI(id-1,:),sfr(1+2:nvegsurf+2))
     ENDIF
 
-    
+
     bulkalbedo=DOT_PRODUCT(alb,sfr)
 
-    
-    
+
+
     datetimeLine=[&
          REAL(iy,KIND(1D0)),REAL(id,KIND(1D0)),&
          REAL(it,KIND(1D0)),REAL(imin,KIND(1D0)),dectime]
-    
+
     dataOutLineSUEWS=[&
          avkdn,kup,ldown,lup,tsurf,&
          qn1,qf,qs,qh,qeOut,&
@@ -2034,19 +2034,19 @@ CONTAINS
          qn1_SF,qn1_S,SnowAlb,&
          Qm,QmFreez,QmRain,swe,mwh,MwStore,chSnow_per_interval,&
          SnowRemoval(1:2),&
-         t2_C,q2_gkg,avU10_ms& 
+         t2_C,q2_gkg,avU10_ms&
          ]
-    
-    
 
 
-    
+
+
+
 
   END SUBROUTINE SUEWS_update_outputLine
-  
 
-  
-  
+
+
+
   SUBROUTINE SUEWS_update_output(&
        SnowUse,storageheatmethod,&
        ReadLinesMetdata,NumberOfGrids,&
@@ -2054,15 +2054,15 @@ CONTAINS
        dataOutSUEWS,dataOutSnow,dataOutESTM)
     IMPLICIT NONE
 
-    
-    
-    
-    
+
+
+
+
 
     INTEGER,INTENT(in) ::ReadLinesMetdata
-    
-    
-    
+
+
+
     INTEGER,INTENT(in) ::NumberOfGrids
     INTEGER,INTENT(in) ::Gridiv
     INTEGER,INTENT(in) ::SnowUse
@@ -2080,11 +2080,11 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(inout) :: dataOutESTM(ReadLinesMetdata,ncolumnsDataOutESTM,NumberOfGrids)
 
 
-    
-    
+
+
     dataOutSUEWS(ir,1:ncolumnsDataOutSUEWS,Gridiv)=[datetimeLine,set_nan(dataOutLineSUEWS)]
-    
-    
+
+
 
     IF (snowUse==1) THEN
        dataOutSnow(ir,1:ncolumnsDataOutSnow,Gridiv)=[datetimeLine,set_nan(dataOutLineSnow)]
@@ -2094,12 +2094,12 @@ CONTAINS
        dataOutESTM(ir,1:ncolumnsDataOutESTM,Gridiv)=[datetimeLine,set_nan(dataOutLineESTM)]
     END IF
 
-    
+
 
   END SUBROUTINE SUEWS_update_output
-  
 
-  
+
+
   SUBROUTINE SUEWS_cal_Diagnostics(&
        tsurf,qh,&
        Press_hPa,qe,&
@@ -2107,40 +2107,40 @@ CONTAINS
        RoughLenHeatMethod,StabilityMethod,&
        avU10_ms,t2_C,q2_gkg)
     IMPLICIT NONE
-    
+
     REAL(KIND(1d0)),INTENT(in) ::tsurf,qh
     REAL(KIND(1d0)),INTENT(in) ::Press_hPa,qe
     REAL(KIND(1d0)),INTENT(in) :: UStar,veg_fr,z0m,L_mod,avdens,avcp,lv_J_kg,tstep_real
 
-    
+
     INTEGER,INTENT(in)         :: RoughLenHeatMethod,StabilityMethod
 
     REAL(KIND(1d0)),INTENT(out):: avU10_ms,t2_C,q2_gkg
     REAL(KIND(1d0))::tlv
     REAL(KIND(1d0)),PARAMETER::k=0.4
 
-    tlv=lv_J_kg/tstep_real 
-    
+    tlv=lv_J_kg/tstep_real
+
     CALL diagSfc(0d0,0d0,UStar,veg_fr,z0m,L_mod,k,avdens,avcp,tlv,avU10_ms,0,RoughLenHeatMethod,StabilityMethod)
-    
+
     CALL diagSfc(tsurf,qh,UStar,veg_fr,z0m,L_mod,k,avdens,avcp,tlv,t2_C,1,RoughLenHeatMethod,StabilityMethod)
-    
-    CALL diagSfc(qsatf(tsurf,Press_hPa)*1000,& 
+
+    CALL diagSfc(qsatf(tsurf,Press_hPa)*1000,&
          qe,UStar,veg_fr,z0m,L_mod,k,avdens,avcp,tlv,q2_gkg,2,RoughLenHeatMethod,StabilityMethod)
 
   END SUBROUTINE SUEWS_cal_Diagnostics
 
 
-  
+
   SUBROUTINE SUEWS_cal_tstep(&
-       tstep,& 
-       nsh, nsh_real, tstep_real) 
+       tstep,&
+       nsh, nsh_real, tstep_real)
     IMPLICIT NONE
-    INTEGER,INTENT(in)::tstep 
-    
-    INTEGER,INTENT(out)::nsh 
-    REAL(KIND(1D0)),INTENT(out)::nsh_real 
-    REAL(KIND(1D0)),INTENT(out)::tstep_real 
+    INTEGER,INTENT(in)::tstep
+
+    INTEGER,INTENT(out)::nsh
+    REAL(KIND(1D0)),INTENT(out)::nsh_real
+    REAL(KIND(1D0)),INTENT(out)::tstep_real
     nsh=3600/tstep
     nsh_real=nsh*1.0
     tstep_real=tstep*1.0
@@ -2148,8 +2148,8 @@ CONTAINS
   END SUBROUTINE SUEWS_cal_tstep
 
   SUBROUTINE SUEWS_cal_surf(&
-       sfr,& 
-       vegfraction,ImpervFraction,PervFraction,NonWaterFraction) 
+       sfr,&
+       vegfraction,ImpervFraction,PervFraction,NonWaterFraction)
     IMPLICIT NONE
 
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)::sfr
@@ -2168,12 +2168,12 @@ CONTAINS
 
 
   SUBROUTINE SUEWS_cal_weekday(&
-       iy,id,lat,& 
-       dayofWeek_id) 
+       iy,id,lat,&
+       dayofWeek_id)
     IMPLICIT NONE
 
-    INTEGER,INTENT(in) :: iy  
-    INTEGER,INTENT(in) :: id  
+    INTEGER,INTENT(in) :: iy
+    INTEGER,INTENT(in) :: id
     REAL(KIND(1d0)),INTENT(in):: lat
 
     INTEGER,DIMENSION(3),INTENT(OUT) ::dayofWeek_id
@@ -2185,19 +2185,19 @@ CONTAINS
 
 
 
-    CALL day2month(id,mb,date,seas,iy,lat) 
-    CALL Day_of_Week(date,mb,iy,wd)        
+    CALL day2month(id,mb,date,seas,iy,lat)
+    CALL Day_of_Week(date,mb,iy,wd)
 
-    dayofWeek_id(1)=wd      
-    dayofWeek_id(2)=mb      
-    dayofweek_id(3)=seas    
+    dayofWeek_id(1)=wd
+    dayofWeek_id(2)=mb
+    dayofweek_id(3)=seas
 
   END SUBROUTINE SUEWS_cal_weekday
 
 
   SUBROUTINE SUEWS_cal_DLS(&
-       id,startDLS,endDLS,& 
-       DLS) 
+       id,startDLS,endDLS,&
+       DLS)
     IMPLICIT NONE
 
     INTEGER, INTENT(in) :: id,startDLS,endDLS
@@ -2211,73 +2211,73 @@ CONTAINS
   SUBROUTINE diagSfc(&
        xSurf,xFlux,us,VegFraction,z0m,L_mod,k,avdens,avcp,tlv,&
        xDiag,opt,RoughLenHeatMethod,StabilityMethod)
-    
-    
+
+
 
 
     IMPLICIT NONE
 
     REAL(KIND(1d0)),INTENT(in) :: xSurf,xFlux,us,VegFraction,z0m,L_mod,k,avdens,avcp,tlv
     REAL(KIND(1d0)),INTENT(out):: xDiag
-    INTEGER,INTENT(in)         :: opt 
+    INTEGER,INTENT(in)         :: opt
     INTEGER,INTENT(in)         :: RoughLenHeatMethod,StabilityMethod
 
     REAL(KIND(1d0))            :: &
-         psymz2,psymz10,psymz0,psyhz2,psyhz0,& 
-         z0h,& 
+         psymz2,psymz10,psymz0,psyhz2,psyhz0,&
+         z0h,&
          z2zd,z10zd,&
-         stab_fn_mom,stab_fn_heat 
-    REAL(KIND(1d0)),PARAMETER :: muu=1.46e-5 
+         stab_fn_mom,stab_fn_heat
+    REAL(KIND(1d0)),PARAMETER :: muu=1.46e-5
     REAL(KIND(1d0)),PARAMETER :: nan=-999
 
 
 
-    
-    
-    
-    IF (RoughLenHeatMethod==1) THEN 
+
+
+
+    IF (RoughLenHeatMethod==1) THEN
        z0h=z0m/10
-    ELSEIF (RoughLenHeatMethod==2) THEN 
-       
-       
+    ELSEIF (RoughLenHeatMethod==2) THEN
+
+
        z0h=z0m*EXP(2-(1.2-0.9*VegFraction**0.29)*(us*z0m/muu)**0.25)
     ELSEIF (RoughLenHeatMethod==3) THEN
-       z0h=z0m*EXP(-20.) 
+       z0h=z0m*EXP(-20.)
     ELSEIF (RoughLenHeatMethod==4) THEN
-       z0h=z0m*EXP(2-1.29*(us*z0m/muu)**0.25) 
+       z0h=z0m*EXP(2-1.29*(us*z0m/muu)**0.25)
     ENDIF
 
-    
 
 
-    
-    z2zd=2+z0h   
-    z10zd=10+z0m 
 
-    
-    
+
+    z2zd=2+z0h
+    z10zd=10+z0m
+
+
+
     psymz10=stab_fn_mom(StabilityMethod,z10zd/L_mod,z10zd/L_mod)
     psymz2=stab_fn_mom(StabilityMethod,z2zd/L_mod,z2zd/L_mod)
     psymz0=stab_fn_mom(StabilityMethod,z0m/L_mod,z0m/L_mod)
 
-    
+
 
     psyhz2=stab_fn_heat(StabilityMethod,z2zd/L_mod,z2zd/L_mod)
     psyhz0=stab_fn_heat(StabilityMethod,z0h/L_mod,z0h/L_mod)
-    
+
     IF ( xSurf==nan ) THEN
-       
-       
+
+
        xDiag=nan
     ELSE
        SELECT CASE (opt)
-       CASE (0) 
+       CASE (0)
           xDiag=us/k*(LOG(z10zd/z0m)-psymz10+psymz0)
 
-       CASE (1) 
+       CASE (1)
           xDiag=xSurf-xFlux/(k*us*avdens*avcp)*(LOG(z2zd/z0h)-psyhz2+psyhz0)
 
-       CASE (2) 
+       CASE (2)
           xDiag=xSurf-xFlux/(k*us*avdens*tlv)*(LOG(z2zd/z0h)-psyhz2+psyhz0)
 
        END SELECT
@@ -2289,7 +2289,7 @@ CONTAINS
 
 
 
-  
+
   ELEMENTAL FUNCTION set_nan(x) RESULT(xx)
     IMPLICIT NONE
     REAL(KIND(1d0)),PARAMETER::pNAN=9999
@@ -2304,91 +2304,91 @@ CONTAINS
     ENDIF
 
   END FUNCTION set_nan
-  
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   SUBROUTINE SuMin(&
        alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&
        alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
@@ -2594,10 +2594,10 @@ CONTAINS
 
     REAL(KIND(1D0)) ::SnowfallCum
     REAL(KIND(1D0))                             ::SnowAlb
-    
+
     REAL(KIND(1d0)),DIMENSION(24*3600/tstep)  ::Tair24HR
-    
-    REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store 
+
+    REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store
     REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1)  ::qn1_S_av_store
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
     REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
@@ -2618,8 +2618,8 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
     REAL(KIND(1D0)),DIMENSION(3600/tstep)      ::qn1_S_store
-    
-    REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store 
+
+    REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store
 
     REAL(KIND(1D0)),DIMENSION(5)                           ::datetimeLine
     REAL(KIND(1D0)),DIMENSION(ncolumnsDataOutSUEWS-5)      ::dataOutLineSUEWS
@@ -2635,12 +2635,12 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(out)::qsfc
 
 
-    Diagnose=1
+    Diagnose=0
     snowCalcSwitch=0
     snowUse=0
     DiagQN=0
     DiagQS=0
-    WaterUseMethod=1 
+    WaterUseMethod=1
     ity=2
     LAICalcYes=1
     RoughLenHeatMethod=2
@@ -2661,7 +2661,7 @@ CONTAINS
     WU_Day=0
 
     CALL SUEWS_cal_Main(&
-         AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,& 
+         AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,&
          AH_SLOPE_Heating,alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&
          alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
          alpha_bioCO2,alpha_enh_bioCO2,alt,avkdn,avRh,avU1,BaseT,BaseTe,&
@@ -2701,7 +2701,14 @@ CONTAINS
     qh=dataOutLineSUEWS(9)
     qe=dataOutLineSUEWS(10)
     qsfc=dataOutLineSUEWS(16)
+    print*, 'avkdn,kup,ldown,lup,tsurf'
+    print*, dataOutLineSUEWS(1:5)
+    print*,',qn1,qf,qs,qh,qeOut'
+    print*, dataOutLineSUEWS(6:10)
+    print*,''
 
   END SUBROUTINE SuMin
 
 END MODULE SUEWS_Driver
+
+

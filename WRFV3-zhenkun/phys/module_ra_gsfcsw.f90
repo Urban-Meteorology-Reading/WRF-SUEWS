@@ -377,6 +377,7 @@ CONTAINS
 
 
 
+
    cldwater = .true.
    overcast = .false.
 
@@ -602,6 +603,7 @@ CONTAINS
       end do
       end do
       end do
+
 
 
 
@@ -3044,3 +3046,5 @@ CONTAINS
 
 
 END MODULE module_ra_gsfcsw
+
+

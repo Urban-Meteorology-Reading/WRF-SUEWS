@@ -88,7 +88,16 @@ CONTAINS
 
 
       IF(ALLOWED_TO_READ)THEN
+
         CALL CO2O3(SFULL,SHALF,PPTOP,KME-KMS,KME-KMS+1,KME-KMS+2)
+
+
+
+
+
+
+
+
 
         CALL O3CLIM
         CALL TABLE
@@ -7618,7 +7627,11 @@ CONTAINS
 
 
 
+
+
+
       DO 303 IA=2,2
+
       ANU=CENT+HAF*(IA-2)*DEL
       C1=(H37412M5)*ANU*ANU*ANU+H1M20
 
@@ -8142,7 +8155,7 @@ CONTAINS
         WRITE(errmess,360)I,LL,CHECK
         WRITE(errmess,*)' xx=',xx,' patha=',patha
   360   FORMAT(' ERROR,I=',I3,'LL=',I3,'CHECK=',F20.10)
-        CALL wrf_error_fatal3("<stdin>",8145,&
+        CALL wrf_error_fatal3("<stdin>",8158,&
 errmess )
       ENDIF
  1010 CONTINUE
@@ -8686,7 +8699,7 @@ errmess )
 
 
       IF (RATIO.EQ.1.0) GO TO 621
-      CALL wrf_error_fatal3("<stdin>",8689,&
+      CALL wrf_error_fatal3("<stdin>",8702,&
 'SUBROUTINE CO2INT: 8746' )
 
 621   ITAP1=ITAPE
@@ -9526,17 +9539,17 @@ errmess )
       ENDIF
       CALL wrf_dm_bcast_bytes ( etarad_unit61 , 4 )
       IF ( etarad_unit61 < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",9529,&
+        CALL wrf_error_fatal3("<stdin>",9542,&
 'module_ra_hwrf: co2o3: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
       CALL wrf_dm_bcast_bytes ( etarad_unit62 , 4 )
       IF ( etarad_unit62 < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",9534,&
+        CALL wrf_error_fatal3("<stdin>",9547,&
 'module_ra_hwrf: co2o3: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
       CALL wrf_dm_bcast_bytes ( etarad_unit63 , 4 )
       IF ( etarad_unit63 < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",9539,&
+        CALL wrf_error_fatal3("<stdin>",9552,&
 'module_ra_hwrf: co2o3: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
         IF ( wrf_dm_on_monitor() ) THEN
@@ -9716,17 +9729,17 @@ errmess )
 9061 CONTINUE
      WRITE( errmess , '(A49,I4)' ) 'module_ra_hwrf: error reading tr49t85 on unit ',etarad_unit61
      write(0,*)' IERROR=',IERROR
-     CALL wrf_error_fatal3("<stdin>",9719,&
+     CALL wrf_error_fatal3("<stdin>",9732,&
 errmess)
 9062 CONTINUE
      WRITE( errmess , '(A49,I4)' ) 'module_ra_hwrf: error reading tr49t67 on unit ',etarad_unit62
      write(0,*)' IERROR=',IERROR
-     CALL wrf_error_fatal3("<stdin>",9724,&
+     CALL wrf_error_fatal3("<stdin>",9737,&
 errmess)
 9063 CONTINUE
      WRITE( errmess , '(A49,I4)' ) 'module_ra_hwrf: error reading tr67t85 on unit ',etarad_unit63
      write(0,*)' IERROR=',IERROR
-     CALL wrf_error_fatal3("<stdin>",9729,&
+     CALL wrf_error_fatal3("<stdin>",9742,&
 errmess)
       END SUBROUTINE CO2O3
 
@@ -10052,13 +10065,15 @@ errmess)
 
 9014 CONTINUE
      WRITE(errmess,'(A51,I4)')'module_ra_hwrf: error reading co2_trans on unit ',nunit_co2
-     CALL wrf_error_fatal3("<stdin>",10055,&
+     CALL wrf_error_fatal3("<stdin>",10068,&
 errmess)
 
       END SUBROUTINE CONRAD
 
 
       END MODULE module_RA_HWRF
+
+
 
 
 

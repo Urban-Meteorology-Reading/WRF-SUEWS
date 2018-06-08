@@ -19,6 +19,7 @@
 
 
 
+
 module module_mp_cammgmp_driver
   
   
@@ -35,7 +36,15 @@ module module_mp_cammgmp_driver
   use shr_kind_mod,  only: r8=>shr_kind_r8
   use physconst,     only: gravit  
   use module_cam_support,  only: pcnst =>pcnst_mp, pcols, pver, pverp
+
+
+
   use constituents,  only: cnst_get_ind, cnst_name, qmin
+
+
+
+
+
 
 
   
@@ -45,6 +54,10 @@ module module_mp_cammgmp_driver
   
   public :: CAMMGMP_INIT
   public :: CAMMGMP
+
+
+
+
   
   
   
@@ -89,6 +102,9 @@ contains
        , aitken_mode, coarse_mode, icwmrsh3d     &
        , icwmrdp3d, shfrc3d, cmfmc3d, cmfmc2_3d  &
        , config_flags, f_ice_phy, f_rain_phy     &
+
+
+
        , ids, ide,  jds, jde,  kds, kde          &
        , ims, ime,  jms, jme,  kms, kme          &
        , its, ite,  jts, jte,  kts, kte          &
@@ -100,6 +116,11 @@ contains
        , qv_curr, qc_curr, qi_curr,qs_curr       &
        , qr_curr, nc3d, ni3d,ns3d,nr3d,qndrop    &
        , rh_old_mp,lcd_old_mp                    & 
+
+
+
+
+
        , xland,snowh                            )
     
     
@@ -119,13 +140,18 @@ contains
     use microp_aero,              only: microp_aero_ts 
     use physconst,                only: cpair, tmelt 
     
+
     use modal_aero_data,          only: modeptr_accum => modeptr_accum_mp, &
          numptr_amode   => numptr_amode_mp  , lspectype_amode => lspectype_amode_mp, &
          specdens_amode => specdens_amode_mp, voltonumb_amode => voltonumb_amode_mp, &
          lmassptr_amode => lmassptr_amode_mp, modeptr_aitken  => modeptr_aitken_mp,  &
          modeptr_coarse => modeptr_coarse_mp, ntot_amode      => ntot_amode_mp,      &
          nspec_amode    => nspec_amode_mp
+
     
+
+
+
     
     use wv_saturation,             only: epsqs, polysvp 
     use conv_water,                only: conv_water_4rad
@@ -176,6 +202,9 @@ contains
     real, dimension( ims:ime, kms:kme, jms:jme ), intent(in) :: icwmrsh3d      
     real, dimension( ims:ime, kms:kme, jms:jme ), intent(in) :: icwmrdp3d      
 
+
+
+
     
     real, dimension( ims:ime , jms:jme ), intent(inout) :: rainnc              
     real, dimension( ims:ime , jms:jme ), intent(inout) :: rainncv             
@@ -206,6 +235,16 @@ contains
     real, dimension( ims:ime, kms:kme, jms:jme ), intent(inout) :: cldfrai
     real, dimension( ims:ime, kms:kme, jms:jme ), intent(inout) :: cldfral
 
+
+
+
+
+
+
+
+
+
+
     
     real, dimension( ims:ime , jms:jme ), intent(  out) :: sr                     
     
@@ -220,6 +259,9 @@ contains
     logical  :: ptend_loc_ls, ptend_all_ls                
     logical  :: ptend_loc_lq(pcnst),ptend_all_lq(pcnst)   
     integer   :: i,k,m,n,iw,jw,kw,imode,itsm1,itile_len,ktep1,kflip,ips,kcam
+
+
+
     integer   :: lchnk                                    
     integer   :: ncol                                     
     integer   :: conv_water_in_rad                        
@@ -320,11 +362,13 @@ contains
     real(r8), dimension(pcols,kte)   :: wsedl        
     real(r8), dimension(pcols,kte)   :: rel_fn       
     real(r8), dimension(pcols,kte+1) :: kkvh         
+
     real(r8), target, dimension(pcols,kte,pcnst) :: qqcw                
     real(r8), dimension(pcols,kte,ntot_amode)    :: dgnumwet            
     real(r8), dimension(pcols,kte,ntot_amode)    :: dgnum               
     real(r8), dimension(pcols,kte)               :: rate1ord_cw2pr_st   
     
+
     
     
     
@@ -446,7 +490,9 @@ contains
     real(r8)  dpdlft  (pcols,kte)
     real(r8)  shdlft  (pcols,kte)
     
+
     integer l, lnum, lnumcw, lmass, lmasscw
+
     
     
     
@@ -530,11 +576,22 @@ contains
     
     conv_water_in_rad = 1
     
+
+
+
     
     
+
     dgnumwet(:,:,:)              = 0.1e-6_r8      
     dgnumwet(:,:,modeptr_aitken) = 0.02e-6
     dgnumwet(:,:,modeptr_coarse) = 1.0e-6 
+
+
+
+
+
+
+
     
     
     dgnum(:,:,:) = dgnumwet(:,:,:) 
@@ -566,7 +623,7 @@ contains
     ncol = pcols    
     
     if(ncol .NE. 1) then
-       call wrf_error_fatal3("<stdin>",569,&
+       call wrf_error_fatal3("<stdin>",626,&
 'Number of CAM Columns (NCOL) in CAMMGMP scheme must be 1')
     endif
     
@@ -659,6 +716,7 @@ contains
              
              qqcw(1,kflip,:)                  = 1.e-38_r8      
 
+
              cldo(1,kflip)        = cldfra_mp_all(iw,kw,jw)
              
              
@@ -728,6 +786,7 @@ contains
           call physics_ptend_init(ptend_loc_name,ptend_loc_q,ptend_loc_s,ptend_loc_lq,ptend_loc_ls,pcnst)  
           call physics_ptend_init(ptend_all_name,ptend_all_q,ptend_all_s,ptend_all_lq,ptend_all_ls,pcnst)  
           
+
           if( is_first_step) then
              do i=1,pcnst
                 fldcw => qqcw(:,:,i)
@@ -736,6 +795,7 @@ contains
                 end if
              end do
           endif
+
           
           
           
@@ -801,7 +861,16 @@ contains
           ptend_loc_lq(ixnumliq) = .true.
           ptend_loc_lq(ixnumice) = .true.
           
+
+
+
+
+
+
+
+
           
+
           
           zeros(:ncol,:pver)  = 0._r8
           qc(:ncol,:pver) = state1_q(:ncol,:pver,ixcldliq)
@@ -817,6 +886,7 @@ contains
              aist_mic(:ncol,:pver) = aist(:ncol,:pver)
           endif
           
+
           
           
           
@@ -858,6 +928,7 @@ contains
           m = 2                
           l = lmassptr_amode(m,n)
           state1_q(:,:,l) = tmpmaer*0.5
+
           
           
           
@@ -869,7 +940,11 @@ contains
                nc, ni, state1_pmid, state1_pdel, ast,                     &
                alst_mic, aist_mic,                                        &
                cldo, state1_pint, state1_rpdel, state1_zm, state1_omega,  &
+
                state1_q, cflx, ptend_loc_q, dgnumwet, dgnum,              &
+
+
+
                kkvh, tke, turbtype, smaw, wsub, wsubi,                    &
                naai,naai_hom, npccn, rndst,nacon,qqcw)
           
@@ -931,7 +1006,9 @@ contains
           cvreffice(:ncol,:pver) = 37.0_r8 
           
           
+
           rate1ord_cw2pr_st(1:ncol,1:pver)=rate1cld(1:ncol,1:pver)
+
           
           
           wsedl(:ncol,:pver) = vtrmc(:ncol,:pver)
@@ -955,6 +1032,9 @@ contains
           qme(:ncol,:pver) = cmeliq(:ncol,:pver) + cmeiout(:ncol,:pver) 
           
           
+
+
+
           
           do k = 1, pver
              do i = 1, ncol
@@ -1177,6 +1257,7 @@ contains
              lradius(iw,kw,jw)    = efcout(1,kflip)
              iradius(iw,kw,jw)    = efiout(1,kflip)
              
+
           end do
           
           
@@ -1915,7 +1996,9 @@ contains
     
     use microp_aero,     only: ini_microp_aero
     use cldwat2m_micro,  only: ini_micro
+
     use ndrop,           only: activate_init
+
     
     
     implicit none
@@ -1949,8 +2032,11 @@ contains
     call ini_micro
     call ini_microp_aero
     
+
+
     
     call activate_init
+
     return
   end subroutine CAMMGMP_INIT
 subroutine findsp_water (lchnk, ncol, q, t, p, tsp, qsp)
@@ -2249,7 +2335,7 @@ subroutine findsp_water (lchnk, ncol, q, t, p, tsp, qsp)
                   write (iulog,*) ' findsp not converging at point i ', i
                   write (iulog,*) ' t, q, p, enin ', t(i), q(i), p(i), enin(i)
                   write (iulog,*) ' tsp, qsp, enout ', tsp(i), qsp(i), enout(i)
-                  call  wrf_error_fatal3("<stdin>",2252,&
+                  call  wrf_error_fatal3("<stdin>",2338,&
 'FINDSP')
                endif
             end do
@@ -2267,7 +2353,7 @@ subroutine findsp_water (lchnk, ncol, q, t, p, tsp, qsp)
                   i, enin(i), enout(i)
                write (iulog,*) ' t, q, p, enin ', t(i), q(i), p(i), enin(i)
                write (iulog,*) ' tsp, qsp, enout ', tsp(i), qsp(i), enout(i)
-               call wrf_error_fatal3("<stdin>",2270,&
+               call wrf_error_fatal3("<stdin>",2356,&
 'FINDSP')
             endif
          end do
@@ -2278,3 +2364,5 @@ subroutine findsp_water (lchnk, ncol, q, t, p, tsp, qsp)
    return
 end subroutine findsp_water
 end module module_mp_cammgmp_driver
+
+

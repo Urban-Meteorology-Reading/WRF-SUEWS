@@ -4,6 +4,9 @@
 
 MODULE module_fdda_spnudging
 
+
+
+
   USE module_wrf_error , ONLY : wrf_err_message
 
 CONTAINS
@@ -141,6 +144,7 @@ CONTAINS
    LOGICAL , EXTERNAL  :: wrf_dm_on_monitor
 
    CHARACTER (LEN=256) :: wrf_err_message
+
 
 
       DO ij = 1 , num_tiles
@@ -472,6 +476,7 @@ IF(guv > 0. ) then
 
 
 
+
      CALL spectral_nudging_filter_3dx( grid%dif_analysis, xwavenum,     &
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
@@ -481,6 +486,7 @@ IF(guv > 0. ) then
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
                                 ips, ipe, jps, jpe, kps, MIN(kde-1,kpe) )
+
 
 
 
@@ -519,6 +525,7 @@ IF(guv > 0. ) then
 
 
 
+
      CALL spectral_nudging_filter_3dx( grid%dif_analysis, xwavenum,    &
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
@@ -528,6 +535,7 @@ IF(guv > 0. ) then
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
                                 ips, ipe, jps, jpe, kps, MIN(kde-1,kpe) )
+
 
 
 
@@ -571,6 +579,7 @@ IF(gt > 0. ) then
 
 
 
+
      CALL spectral_nudging_filter_3dx( grid%dif_analysis, xwavenum,     &
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
@@ -580,6 +589,7 @@ IF(gt > 0. ) then
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
                                 ips, ipe, jps, jpe, kps, MIN(kde-1,kpe) )
+
 
 
 
@@ -623,6 +633,7 @@ IF(gph > 0. ) then
 
 
 
+
      CALL spectral_nudging_filter_3dx( grid%dif_analysis, xwavenum,     &
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
@@ -632,6 +643,7 @@ IF(gph > 0. ) then
                                 ids, ide, jds, jde, kds, kde,       &
                                 ims, ime, jms, jme, kms, kme,       &
                                 ips, ipe, jps, jpe, kps, kpe  )
+
 
 
 
@@ -652,6 +664,7 @@ IF(gph > 0. ) then
  !$OMP END PARALLEL DO
 
 ENDIF
+
 
 
    END SUBROUTINE spectral_nudging
@@ -683,7 +696,7 @@ SUBROUTINE spectral_nudging_filter_3dx( f, nwave,            &
   
   IF ((its /= ids) .OR. (ite /= ide)) THEN
      WRITE ( wrf_err_message , * ) 'module_spectral_nudging: 3d: (its /= ids) or (ite /= ide)',its,ids,ite,ide
-     CALL wrf_error_fatal3("<stdin>",686,&
+     CALL wrf_error_fatal3("<stdin>",699,&
 TRIM( wrf_err_message ) )
   END IF
 
@@ -738,7 +751,7 @@ SUBROUTINE spectral_nudging_filter_3dy( f, nwave,   &
   
   IF ((jts /= jds) .OR. (jte /= jde)) THEN
      WRITE ( wrf_err_message , * ) 'module_spectral_nudging: 3d: (jts /= jds) or (jte /= jde)',jts,jds,jte,jde
-     CALL wrf_error_fatal3("<stdin>",741,&
+     CALL wrf_error_fatal3("<stdin>",754,&
 TRIM( wrf_err_message ) )
   END IF
 
@@ -895,7 +908,7 @@ END SUBROUTINE spectralnudgingfilterfft2dncar
            'D0',id,' Spectral nudging for wind is turned on and Guv= ', guv,' xwave= ',xwavenum,' ywavenum= ',ywavenum
        CALL wrf_message(TRIM(wrf_err_message))
      ELSE IF( guv < 0.0 ) THEN
-       CALL wrf_error_fatal3("<stdin>",898,&
+       CALL wrf_error_fatal3("<stdin>",911,&
 'In grid FDDA, Guv must be positive.')
      ELSE
        WRITE(wrf_err_message,'(a,i1,a,e12.4)') &
@@ -908,7 +921,7 @@ END SUBROUTINE spectralnudgingfilterfft2dncar
            'D0',id,' Spectral nudging for temperature is turned on and Gt= ', gt,' xwave= ',xwavenum,' ywavenum= ',ywavenum
        CALL wrf_message(TRIM(wrf_err_message))
      ELSE IF( gt < 0.0 ) THEN
-       CALL wrf_error_fatal3("<stdin>",911,&
+       CALL wrf_error_fatal3("<stdin>",924,&
 'In grid FDDA, Gt must be positive.')
      ELSE
        WRITE(wrf_err_message,'(a,i1,a,e12.4)') &
@@ -921,7 +934,7 @@ END SUBROUTINE spectralnudgingfilterfft2dncar
          'D0',id,' Spectral nudging for geopotential is turned on and Gph= ', gph,' xwave= ',xwavenum,' ywavenum= ',ywavenum
        CALL wrf_message(TRIM(wrf_err_message))
      ELSE IF( gph < 0.0 ) THEN
-       CALL wrf_error_fatal3("<stdin>",924,&
+       CALL wrf_error_fatal3("<stdin>",937,&
 'In grid FDDA, Gph must be positive.')
      ELSE
        WRITE(wrf_err_message,'(a,i1,a,e12.4)') &
@@ -933,13 +946,13 @@ END SUBROUTINE spectralnudgingfilterfft2dncar
         WRITE(wrf_err_message,'(a,i1,a)') &
            'D0',id,' Spectral nudging for wind is turned off within the PBL.'
         CALL wrf_message(TRIM(wrf_err_message))
-             IF( dk_zfac_uv < 1 ) CALL wrf_error_fatal3("<stdin>",936,&
+             IF( dk_zfac_uv < 1 ) CALL wrf_error_fatal3("<stdin>",949,&
 'In spectral nudging, dk_zfac_uv must be greater or equal than 1.')
      ELSEIF( guv > 0.0 .AND. if_zfac_uv == 1 ) THEN
         WRITE(wrf_err_message,'(a,i1,a,i3)') &
            'D0',id,' Spectral nudging for wind is turned off below layer', k_zfac_uv
         CALL wrf_message(TRIM(wrf_err_message))
-             IF( dk_zfac_uv < 1 ) CALL wrf_error_fatal3("<stdin>",942,&
+             IF( dk_zfac_uv < 1 ) CALL wrf_error_fatal3("<stdin>",955,&
 'In spectral nudging, dk_zfac_uv must  be greater or equal than 1.')       
      ENDIF
 
@@ -948,13 +961,13 @@ END SUBROUTINE spectralnudgingfilterfft2dncar
         WRITE(wrf_err_message,'(a,i1,a)') &
            'D0',id,' Spectral nudging for temperature is turned off within the PBL.'
         CALL wrf_message(TRIM(wrf_err_message))
-             IF( dk_zfac_t < 1 ) CALL wrf_error_fatal3("<stdin>",951,&
+             IF( dk_zfac_t < 1 ) CALL wrf_error_fatal3("<stdin>",964,&
 'In spectral nudging, dk_zfac_t must be greater or equal than 1.')
      ELSEIF( gt > 0.0 .AND. if_zfac_t == 1 ) THEN
         WRITE(wrf_err_message,'(a,i1,a,i3)') &
            'D0',id,' Spectral nudging for temperature is turned off below layer', k_zfac_t
         CALL wrf_message(TRIM(wrf_err_message))
-            IF( dk_zfac_t < 1 ) CALL wrf_error_fatal3("<stdin>",957,&
+            IF( dk_zfac_t < 1 ) CALL wrf_error_fatal3("<stdin>",970,&
 'In spectral nudging, dk_zfac_t must be greater or equal than 1.')
      ENDIF
 
@@ -963,14 +976,14 @@ END SUBROUTINE spectralnudgingfilterfft2dncar
         WRITE(wrf_err_message,'(a,i1,a)') &
          'D0',id,' Spectral nudging for geopotential is turned off within the PBL.'
         CALL wrf_message(TRIM(wrf_err_message))
-            IF( dk_zfac_ph < 1 ) CALL wrf_error_fatal3("<stdin>",966,&
+            IF( dk_zfac_ph < 1 ) CALL wrf_error_fatal3("<stdin>",979,&
 'In spectral nudging, dk_zfac_ph must be greater or equal than 1.')
      ELSEIF( gph > 0.0 .AND. if_zfac_ph == 1 ) THEN
         WRITE(wrf_err_message,'(a,i1,a,i3)') &
           'D0',id,' Spectral nudging for geopotential is turned off below layer', &
            k_zfac_ph
         CALL wrf_message(TRIM(wrf_err_message))
-            IF( dk_zfac_ph < 1 ) CALL wrf_error_fatal3("<stdin>",973,&
+            IF( dk_zfac_ph < 1 ) CALL wrf_error_fatal3("<stdin>",986,&
 'In spectral nudging, dk_zfac_ph must be greater or equal than 1.')
      ENDIF
 
@@ -1012,3 +1025,5 @@ END SUBROUTINE spectralnudgingfilterfft2dncar
 
 
 END MODULE module_fdda_spnudging
+
+

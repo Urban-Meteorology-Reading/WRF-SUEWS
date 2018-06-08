@@ -1,4 +1,6 @@
 
+
+
 module constituents
 
 
@@ -17,7 +19,13 @@ module constituents
   use shr_kind_mod, only: r8 => shr_kind_r8
   use physconst,    only: r_universal
 
+
+
+
+
+
   use module_cam_support,   only: masterproc,endrun,iulog,pcnst =>pcnst_runtime
+
   implicit none
   private
   save
@@ -34,11 +42,19 @@ module constituents
   public cnst_cam_outfld      
 
 
+
+
+
+
+
+
   character(len=16),allocatable, public :: cnst_name(:)     
   character(len=128),allocatable,public :: cnst_longname(:) 
 
 
+
   logical, public :: readtrace = .true.             
+
 
 
 
@@ -50,6 +66,8 @@ real(r8),      allocatable, public :: cnst_cp  (:)
   real(r8),    allocatable, public :: qmin     (:)          
   real(r8),    allocatable, public :: qmincg   (:)          
   logical,     allocatable, public :: cnst_fixed_ubc(:)     
+
+
 
 
 
@@ -67,11 +85,19 @@ real(r8),      allocatable, public :: cnst_cp  (:)
 
 
 
+
   integer :: padv = 0                      
+
+
+
+
+
+
   logical, allocatable :: read_init_vals(:)         
   logical, allocatable :: cam_outfld_(:)            
                                            
                                            
+
 
 
 CONTAINS
@@ -106,15 +132,19 @@ CONTAINS
        fixed_ubc 
 
 
+
     
     if(.NOT. allocated(read_init_vals)) allocate(read_init_vals(pcnst))
     if(.NOT. allocated(cam_outfld_)) allocate(cam_outfld_(pcnst))
+
 
     padv = padv+1
     ind  = padv
     if (padv > pcnst) then
        write(iulog,*) 'CNST_ADD: advected tracer index greater than pcnst = ', pcnst
+
        call wrf_message(iulog)
+
        call endrun
     end if
 
@@ -188,7 +218,9 @@ CONTAINS
 
 
 
+
     use module_cam_support, only: lower_case, pcnst_runtime
+
 
 
     character(len=*),  intent(in)  :: name  
@@ -198,8 +230,18 @@ CONTAINS
 
     integer :: m                                   
     logical :: abort_on_error
+
     character(len=32) :: name_in, name_in_lc, name_cnst_lc
     integer           :: idone
+
+
+
+
+
+
+
+
+
 
 
 
@@ -223,12 +265,15 @@ CONTAINS
        end if
     end do 
 
+
     abort_on_error = .true.
     if ( present(abort) ) abort_on_error = abort
 
     if ( abort_on_error ) then
        write(iulog,*) 'CNST_GET_IND, name:', name,  ' not found in list:', cnst_name(:)
+
        call wrf_message(iulog)
+
        call endrun('CNST_GET_IND: name not found')
     end if
 
@@ -264,7 +309,9 @@ CONTAINS
     else
        
        write(iulog,*) 'CNST_GET_TYPE_BYIND, ind:', ind
+
        call wrf_message(iulog)
+
        call endrun
     endif
 
@@ -302,7 +349,9 @@ CONTAINS
 
 
     write(iulog,*) 'CNST_GET_TYPE_BYNAME, name:', name,  ' not found in list:', cnst_name(:)
+
        call wrf_message(iulog)
+
     call endrun
 
   end function cnst_get_type_byname
@@ -343,16 +392,22 @@ CONTAINS
 
     if (padv /= pcnst) then
        write(iulog,*)'CNST_CHK_DIM: number of advected tracer ',padv, ' not equal to pcnst = ',pcnst
+
        call wrf_message(iulog)
+
        call endrun ()
     endif
 
     if (masterproc) then
        write(iulog,*) 'Advected constituent list:'
+
        call wrf_message(iulog)
+
        do i = 1, pcnst
           write(iulog,'(i4,2x,a8,2x,a128,2x,a3)') i, cnst_name(i), cnst_longname(i), cnst_type(i)
+
        call wrf_message(iulog)
+
        end do
     end if
 
@@ -393,3 +448,5 @@ end function cnst_cam_outfld
 
 
 end module constituents
+
+

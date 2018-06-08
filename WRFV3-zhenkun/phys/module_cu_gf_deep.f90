@@ -94,6 +94,9 @@ contains
                                 
                                 
                                 
+
+
+
               ,k22                              &
               ,jmin)
 
@@ -108,6 +111,7 @@ contains
         ,intent (in  )                   ::  rand_clos
      real,  dimension (its:ite)                             &
         ,intent (in  )                   ::  rand_mom,rand_vmas
+
 
   
   
@@ -395,6 +399,7 @@ contains
        ztexec(:)=0
        zqexec(:)=0
       endif
+
 
 
 
@@ -3757,7 +3762,11 @@ contains
    tunning =max(0.2, tunning)
    beta    = 1.3 
    alpha= (tunning*(beta -2.)+1.)/(1.-tunning)
+
    fzu = gamma(alpha + beta)/(gamma(alpha)*gamma(beta))
+
+
+
   do k=kb_adj,min(kte,kt)
       kratio= (p(k)-p(kb_adj))/(p(kt)-p(kb_adj)) 
       zu(k) = zubeg+FZU*kratio**(alpha-1.0) * (1.0-kratio)**(beta-1.0)
@@ -3781,7 +3790,9 @@ contains
    tunning =max(0.2, tunning)
    beta    = 2.5 
    alpha= (tunning*(beta -2.)+1.)/(1.-tunning)
+
    fzu = gamma(alpha + beta)/(gamma(alpha)*gamma(beta))
+
   do k=kb_adj,min(kte,kt)
       kratio= (p(k)-p(kb_adj))/(p(kt)-p(kb_adj)) 
       zu(k) = zubeg+FZU*kratio**(alpha-1.0) * (1.0-kratio)**(beta-1.0)
@@ -3815,7 +3826,9 @@ contains
    tunning =max(0.2, tunning)
    beta    = 1.3 
    alpha= (tunning*(beta -2.)+1.)/(1.-tunning)
+
    fzu = gamma(alpha + beta)/(gamma(alpha)*gamma(beta))
+
   do k=kb_adj,min(kte,kt)
       kratio= (p(k)-p(kb_adj))/(p(kt)-p(kb_adj)) 
       zu(k) = zubeg+FZU*kratio**(alpha-1.0) * (1.0-kratio)**(beta-1.0)
@@ -3847,7 +3860,9 @@ contains
    tunning =max(0.2, tunning)
    beta    = 4. 
    alpha= (tunning*(beta -2.)+1.)/(1.-tunning)
+
    fzu = gamma(alpha + beta)/(gamma(alpha)*gamma(beta))
+
   zu(:)=0.
   do k=2,min(kt,ktf)
       kratio= (p(k)-p(1))/(p(kt)-p(1))
@@ -4314,3 +4329,5 @@ contains
 
    END SUBROUTINE gfinit
 END MODULE module_cu_gf_deep
+
+

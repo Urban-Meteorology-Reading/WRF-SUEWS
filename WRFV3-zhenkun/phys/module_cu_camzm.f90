@@ -1,4 +1,6 @@
 
+
+
 module module_cu_camzm
 
 
@@ -14,11 +16,21 @@ module module_cu_camzm
 
 
   use shr_kind_mod,    only: r8 => shr_kind_r8
+
+
+
+
   use module_cam_support, only: masterproc, pcols, pver, pverp 
+
   use cldwat,          only: cldwat_fice
   use physconst,       only: cpair, epsilo, gravit, latice, latvap, tmelt, rair, &
                              cpwv, cpliq, rh2o
+
+
+
+
   use module_cam_support,only: endrun, iulog
+
 
   implicit none
 
@@ -76,7 +88,13 @@ contains
 
 subroutine zmconv_readnl(nlfile)
 
+
+
+
+
+
    character(len=*), intent(in) :: nlfile  
+
 
 
 
@@ -84,15 +102,23 @@ subroutine zmconv_readnl(nlfile)
    c0_lnd = 0.0059D0 
    c0_ocn = 0.0450D0 
    ke     = 1.0E-6 
+
 end subroutine zmconv_readnl
+
+
+
+
 
 
    subroutine zm_convi(DT,DX,limcnv_in, no_deep_pbl_in)
 
 
+
    integer, intent(in)           :: limcnv_in       
    logical, intent(in), optional :: no_deep_pbl_in  
+
    REAL ,    INTENT(IN)        :: DT, DX
+
    real(r8) :: DTT
 
 
@@ -100,10 +126,12 @@ end subroutine zmconv_readnl
    
    character(len=32)   :: hgrid           
 
+
    real(r8) :: deltax     
    real(r8) :: ref_dx     
    real(r8) :: taumin     
    real(r8) :: taumax     
+
 
    
    limcnv = limcnv_in
@@ -115,11 +143,13 @@ end subroutine zmconv_readnl
    rgas   = rair
    grav   = gravit
    cp     = cpres
+
    
    ref_dx = 275000._r8
    taumin = 600._r8
    taumax = 3600._r8
    deltax=dx
+
 
    if ( present(no_deep_pbl_in) )  then
       no_deep_pbl = no_deep_pbl_in
@@ -149,28 +179,46 @@ end subroutine zmconv_readnl
 
 
 
+
    tau = max(taumin, taumax*min(1._r8,deltax/ref_dx))
+
 
    if ( masterproc ) then
       write(iulog,*) 'delta X =',deltax
+
       call wrf_debug(1,iulog)
+
       write(iulog,*) 'Convective relaxation time scale (tau) is a tunable parameter in CAM and is a function of spatial resolution.'
       write(iulog,*) 'Users are encouraged to consult with the PNNL WRF-CAM5 development team if they want to change tau.'
+
       call wrf_debug(1,iulog)
+
       write(iulog,*) 'tuning parameters zm_convi: tau',tau
+
       call wrf_message(iulog)
+
       write(iulog,*) 'Standard 2-deg CAM5.1 sets tau=3600s and is reduced for the mesoscale model WRF'
+
       call wrf_debug(1,iulog)
+
       write(iulog,*) 'tuning parameters zm_convi: c0_lnd',c0_lnd, ', c0_ocn', c0_ocn 
+
       call wrf_debug(1,iulog)
+
       write(iulog,*) 'tuning parameters zm_convi: ke',ke
+
       call wrf_debug(1,iulog)
+
       write(iulog,*) 'tuning parameters zm_convi: no_deep_pbl',no_deep_pbl
+
       call wrf_debug(1,iulog)
+
    endif
 
    if (masterproc) write(iulog,*)'**** ZM: DILUTE Buoyancy Calculation ****'
+
       call wrf_debug(1,iulog)
+
 
 end subroutine zm_convi
 
@@ -203,7 +251,12 @@ subroutine zm_convr(lchnk   ,ncol    , &
 
 
 
+
   use module_cam_support, only: pcnst =>pcnst_runtime
+
+
+
+
 
 
 
@@ -536,6 +589,7 @@ subroutine zm_convr(lchnk   ,ncol    , &
       dsubcld(i) = 0._r8
    end do
 
+
       
       
 
@@ -545,6 +599,10 @@ subroutine zm_convr(lchnk   ,ncol    , &
                   pblt    ,lcl     ,lel     ,lon     ,maxi     , &
                   rgas    ,grav    ,cpres   ,msg     , &
                   tpert   )
+
+
+
+
 
 
 
@@ -797,6 +855,9 @@ subroutine zm_conv_evap(ncol,lchnk, &
     use wv_saturation,  only: aqsat
 
 
+
+
+
     integer,intent(in) :: ncol, lchnk             
     real(r8),intent(in), dimension(pcols,pver) :: t          
     real(r8),intent(in), dimension(pcols,pver) :: pmid       
@@ -916,11 +977,15 @@ subroutine zm_conv_evap(ncol,lchnk, &
 
 
 
+
+
+
           if (flxprec(i,k).gt.0._r8) then
              work1 = min(max(0._r8,flxsnow(i,k)/flxprec(i,k)),1._r8)
           else
              work1 = 0._r8
           endif
+
           work2 = max(fsnow_conv(i,k), work1)
           if (snowmlt(i).gt.0._r8) work2 = 0._r8
 
@@ -979,6 +1044,10 @@ subroutine convtran(lchnk   , &
 
    use shr_kind_mod, only: r8 => shr_kind_r8
    use constituents,    only: cnst_get_type_byind
+
+
+
+
 
    implicit none
 
@@ -1273,6 +1342,11 @@ subroutine momtran(lchnk, ncol, &
 
 
    use shr_kind_mod, only: r8 => shr_kind_r8
+
+
+
+
+
 
    implicit none
 
@@ -1748,6 +1822,9 @@ subroutine buoyan(lchnk   ,ncol    , &
 
 
 
+
+
+
    do n = 1,5
       do i = 1,ncol
          lelten(i,n) = pver
@@ -1777,6 +1854,7 @@ subroutine buoyan(lchnk   ,ncol    , &
 
 
 
+
    do k = pver,msg + 1,-1
       do i = 1,ncol
          hmn(i) = cp*t(i,k) + grav*z(i,k) + rl*q(i,k)
@@ -1786,6 +1864,7 @@ subroutine buoyan(lchnk   ,ncol    , &
          end if
       end do
    end do
+
 
    do i = 1,ncol
       lcl(i) = mx(i)
@@ -2656,6 +2735,9 @@ subroutine closure(lchnk   , &
 
 
 
+
+
+
    implicit none
 
 
@@ -3063,6 +3145,9 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
 
 
 
+
+
+
    do n = 1,5
       do i = 1,ncol
          lelten(i,n) = pver
@@ -3092,6 +3177,7 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
 
 
 
+
    do k = pver,msg + 1,-1
       do i = 1,ncol
          hmn(i) = cp*t(i,k) + grav*z(i,k) + rl*q(i,k)
@@ -3101,6 +3187,7 @@ subroutine buoyan_dilute(lchnk   ,ncol    , &
          end if
       end do
    end do
+
 
 
 
@@ -3555,6 +3642,9 @@ end FUNCTION entropy
 
 
 
+
+
+
      integer, intent(in) :: icol, lchnk, rcall
      real(r8), intent(in)  :: s, p, Tfg, qt
      real(r8), intent(out) :: qsat, T
@@ -3598,17 +3688,28 @@ converge: do i=0, LOOPMAX
    if (abs(dTs).lt.0.001_r8) exit converge
    if (i .eq. LOOPMAX - 1) then
 
+
+
+
+
       this_lat = 0.
       this_lon = 0.
+
       write(iulog,*) '*** ZM_CONV: IENTROPY: Failed and about to exit, info follows ****'
+
       call wrf_debug(1,iulog)
+
       write(iulog,100) 'ZM_CONV: IENTROPY. Details: call#,lchnk,icol= ',rcall,lchnk,icol, &
        ' lat: ',this_lat,' lon: ',this_lon, &
        ' P(mb)= ', p, ' Tfg(K)= ', Tfg, ' qt(g/kg) = ', 1000._r8*qt, &
        ' qsat(g/kg) = ', 1000._r8*qsat,', s(J/kg) = ',s
+
       call wrf_debug(1,iulog)
+
       write(iulog,*) '*** Please report this crash to Po-Lun.Ma@pnnl.gov ***'
+
       call wrf_debug(1,iulog)
+
       call endrun('**** ZM_CONV IENTROPY: Tmix did not converge ****')
    end if
 enddo converge
@@ -3627,3 +3728,5 @@ return
 end SUBROUTINE ientropy
 
 end module module_cu_camzm
+
+

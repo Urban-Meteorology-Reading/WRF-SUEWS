@@ -1,6 +1,8 @@
 
 
 
+
+
 MODULE module_first_rk_step_part1
 
 CONTAINS
@@ -46,6 +48,11 @@ CONTAINS
     USE module_force_scm
     USE module_convtrans_prep
     USE module_big_step_utilities_em, ONLY : phy_prep
+
+
+
+
+
 
     USE module_utility
     IMPLICIT NONE
@@ -130,6 +137,9 @@ CONTAINS
    CHARACTER (LEN=1000) :: message
 
 
+
+
+
   CALL get_ijk_from_subgrid (  grid ,                   &
                             sids, side, sjds, sjde, skds, skde,    &
                             sims, sime, sjms, sjme, skms, skme,    &
@@ -168,6 +178,9 @@ CONTAINS
 
 
 
+
+
+
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij )
       DO ij = 1 , grid%num_tiles
@@ -197,7 +210,7 @@ CONTAINS
                             current_timestr=mesg )
      CALL WRFU_TimeGet( currentTime, YY=yr, dayOfYear=day, H=hr, M=minute, S=sec, rc=rc)
          IF( rc/= WRFU_SUCCESS)THEN
-         CALL wrf_error_fatal3("<stdin>",200,&
+         CALL wrf_error_fatal3("<stdin>",213,&
 'WRFU_TimeGet failed')
          ENDIF
 
@@ -280,12 +293,22 @@ CALL radiation_driver(p_top=grid%p_top,ACFRCV=grid%acfrcv,ACFRST=grid%acfrst,ALB
 
 
 
+
+
+
+
+
+
+
       num_roof_layers = grid%num_soil_layers 
       num_wall_layers = grid%num_soil_layers 
       num_road_layers = grid%num_soil_layers 
       CALL nl_get_iswater(grid%id, iswater)
       CALL nl_get_isurban(grid%id, isurban)
       call nl_get_mminlu(grid%id, mminlu)
+
+
+
 
 
       CALL wrf_debug ( 200 , ' call surface_driver' )
@@ -443,6 +466,11 @@ CALL surface_driver(HYDRO_dt=HYDRO_dt,sfcheadrt=grid%sfcheadrt,INFXSRT=grid%INFX
 
 
 
+
+
+
+
+
       CALL wrf_debug ( 200 , ' call pbl_driver' )
 
 CALL pbl_driver(AKHS=grid%akhs,AKMS=grid%akms,BL_PBL_PHYSICS=config_flags%bl_pbl_physics,WINDFARM_OPT=config_flags%windfarm_opt,po&
@@ -496,6 +524,7 @@ CALL pbl_driver(AKHS=grid%akhs,AKMS=grid%akms,BL_PBL_PHYSICS=config_flags%bl_pbl
 
 
 
+
       IF ((grid%sr_x > 0 .OR. grid%sr_y > 0) .AND. config_flags%ifire == 2) THEN
 
 
@@ -521,6 +550,11 @@ CALL pbl_driver(AKHS=grid%akhs,AKMS=grid%akms,BL_PBL_PHYSICS=config_flags%bl_pbl
 
 
       CALL wrf_debug ( 200 , ' call cumulus_driver' )
+
+
+
+
+
 
 
 
@@ -625,6 +659,9 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
      &             ,QG_CURR=moist(ims,kms,jms,P_QG)                       &
      &             ,QNC_CURR=scalar(ims,kms,jms,P_QNC)                    & 
      &             ,QNI_CURR=scalar(ims,kms,jms,P_QNI)                    & 
+
+
+
      &             ,DLF=grid%dlf, RLIQ=grid%rliq, RLIQ2=grid%rliq2        &
      &             ,DLF2=grid%dlf2                                        & 
      &             ,CMFMC=grid%cmfmc, CMFMC2=grid%cmfmc2                  &
@@ -651,6 +688,7 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
      &                                                                    )
 
 
+                          
 
 
       CALL force_scm(itimestep=grid%itimestep,dt=grid%dt                  &
@@ -737,6 +775,9 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
      &             ,KTS=k_start, KTE=min(k_end,kde-1)                     &
      &              )
 
+
+
+
       CALL wrf_debug ( 200 , ' call fddagd_driver' )
 
 
@@ -810,3 +851,5 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
   END SUBROUTINE first_rk_step_part1
 
 END MODULE module_first_rk_step_part1
+
+

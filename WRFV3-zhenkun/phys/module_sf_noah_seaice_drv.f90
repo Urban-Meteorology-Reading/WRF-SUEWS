@@ -16,9 +16,11 @@ contains
        &                  IDS, IDE, JDS, JDE, KDS, KDE,                                 &
        &                  IMS, IME, JMS, JME, KMS, KME,                                 &
        &                  ITS, ITE, JTS, JTE, KTS, KTE  )
+
     USE module_state_description, ONLY : NOAHUCMSCHEME
     USE module_state_description, ONLY : BEPSCHEME
     USE module_state_description, ONLY : BEP_BEMSCHEME
+
     implicit none
 
     INTEGER, INTENT(IN)       ::               SEAICE_ALBEDO_OPT
@@ -204,7 +206,7 @@ contains
           SELECT CASE ( SEAICE_THICKNESS_OPT )
           CASE DEFAULT
               WRITE(message,'("Namelist value for SEAICE_THICKNESS_OPT not recognized: ",I6)') SEAICE_THICKNESS_OPT
-              CALL wrf_error_fatal3("<stdin>",207,&
+              CALL wrf_error_fatal3("<stdin>",209,&
 message)
           CASE (0)
               
@@ -216,7 +218,7 @@ message)
                   call wrf_message("Field ICEDEPTH not found in input files.")
                   call wrf_message(".... Namelist SEAICE_THICKNESS_OPT=1 requires ICEDEPTH field.")
                   call wrf_message(".... Try namelist option SEAICE_THICKNESS_OPT=0.")
-                  call wrf_error_fatal3("<stdin>",219,&
+                  call wrf_error_fatal3("<stdin>",221,&
 "SEAICE_THICKNESS_OPT")
               ENDIF
               SITHICK = MIN ( MAX ( 0.10 , ICEDEPTH(I,J) ) , 10.0 )
@@ -227,7 +229,7 @@ message)
           T1     = TSK(I,J)
           IF ( SEAICE_ALBEDO_OPT == 2 ) THEN
               IF ( ALBSI(I,J) < -1.E6 ) THEN
-                  call wrf_error_fatal3("<stdin>",230,&
+                  call wrf_error_fatal3("<stdin>",232,&
 "Field ALBSI not found in input.  Field ALBSI is required if SEAICE_ALBEDO_OPT=2")
               ENDIF
               SNOALB = ALBSI(I,J)
@@ -275,7 +277,7 @@ message)
           CASE DEFAULT
               
               WRITE(message,'("Namelist value for SEAICE_SNOWDEPTH_OPT not recognized: ",I6)') SEAICE_SNOWDEPTH_OPT
-              CALL wrf_error_fatal3("<stdin>",278,&
+              CALL wrf_error_fatal3("<stdin>",280,&
 message)
 
           CASE ( 0 )
@@ -470,6 +472,7 @@ message)
                &         - SHEAT + SSOIL - ETA &
                &         - ( EMISSI * STBOLT * (T1**4) ) &
                &         - FLX1 - FLX2 - FLX3
+
           IF ( ( SF_URBAN_PHYSICS == NOAHUCMSCHEME ) .OR. &
                (SF_URBAN_PHYSICS == BEPSCHEME )      .OR. &
                ( SF_URBAN_PHYSICS == BEP_BEMSCHEME ) ) THEN
@@ -481,9 +484,12 @@ message)
              endif
           ENDIF
 
+
        enddo SEAICE_ILOOP
     enddo SEAICE_JLOOP
 
   end subroutine seaice_noah
 
 end module module_sf_noah_seaice_drv
+
+

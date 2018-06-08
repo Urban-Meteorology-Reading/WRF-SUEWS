@@ -19,7 +19,11 @@
 
 
 
+
+
+
 module memory
+
 end module
 
 
@@ -2483,6 +2487,11 @@ end module
       real  :: trefd(59)
 
 
+
+
+
+
+
       contains
 
       
@@ -3125,7 +3134,17 @@ contains
       use rrlw_vsn_f
 
 
+
+
+
+
       implicit none
+
+
+
+
+
+
 
 
 
@@ -3138,7 +3157,9 @@ contains
 
 
       subroutine mcica_subcol_lwg(colstart, ncol, nlay, icld, permuteseed, irng,       &
+
                        pmidd,clwpd,ciwpd,cswpd,taucd, &
+
                        play, cldfrac, ciwp, clwp, cswp, tauc, ngbd, cldfmcl, &
                        ciwpmcl, clwpmcl, cswpmcl, taucmcl)
 
@@ -3188,8 +3209,10 @@ contains
                                                       
 
 
+
       real  :: pmidd(:, :)
       real  :: clwpd(:,:), ciwpd(:,:), cswpd(:,:), taucd(:,:,:)
+
 
 
 
@@ -3198,6 +3221,9 @@ contains
       integer  :: ilev                        
 
       real  :: pmid(ncol, nlay)               
+
+
+
       integer, save :: counter = 0
       integer :: i,j,k,tk
       real :: t1, t2
@@ -3223,7 +3249,17 @@ contains
 
 
 
+
+
+
       pmidd(1:ncol,:nlay) = play(colstart:colstart+ncol-1,:nlay)*1.e2
+
+
+
+
+
+
+
 
 
 
@@ -3231,7 +3267,9 @@ contains
 
 
         subroutine generate_stochastic_cloudsg(ncol, nlay, icld, ngbd, &
+
                                  pmidd,cldfracd,clwpd,ciwpd,cswpd,taucd,changeSeed, &
+
                                  cld_stoch, clwp_stoch, ciwp_stoch, cswp_stoch, &
                                  tauc_stoch) 
 
@@ -3300,9 +3338,11 @@ contains
        integer  , intent(in) :: ngbd(:)
 
 
+
       real  :: pmidd(:, :)
       real  :: cldfracd(:,:), clwpd(:,:), ciwpd(:,:), cswpd(:,:), taucd(:,:,:)
       integer, intent(in) :: changeSeed
+
 
 
                                                       
@@ -3346,9 +3386,15 @@ contains
 
 
 
+
+
+
+
+
       real  :: CDF(ncol,mxlay), CDF2(mxlay)      
       integer,dimension(ncol)  :: seed1, seed2, seed3, seed4 
       real ,dimension(ncol) :: rand_num      
+
       integer  :: iseed                       
       real  :: rand_num_mt                    
 
@@ -3365,9 +3411,16 @@ contains
 
 
 
+
    
 
    
+
+
+
+
+
+
 
 
 
@@ -3391,6 +3444,7 @@ contains
 
      do gp = 1, nsubcol
 
+
   
 
 
@@ -3400,10 +3454,18 @@ contains
        select case (icld)
 
 
+
        case(1)
 
-   CALL wrf_error_fatal3("<stdin>",3405,&
+
+
+
+
+
+
+   CALL wrf_error_fatal3("<stdin>",3466,&
 "icld == 1 not supported: module_ra_rrtmg_lwf.F")
+
 
 
        case(2)
@@ -3451,13 +3513,18 @@ contains
 
        end select 
 
+
       n = ngbd(gp)
 
       do ilev = 1,nlay
        do iplon = 1, ncol
         cfs = cldfracd(iplon, ilev)
          
+
+
+
                if (CDF(iplon,ilev) >=1.  - cfs) then
+
 
                   cld_stoch(iplon,gp,ilev) = 1. 
                   clwp_stoch(iplon,gp,ilev) = clwpd(iplon,ilev)
@@ -3479,7 +3546,11 @@ contains
        enddo
       enddo
 
+
+
+
       end do
+
 
       end subroutine generate_stochastic_cloudsg
 
@@ -3542,15 +3613,21 @@ contains
 
       use rrlw_vsn_f, only: hvrclc, hnamclc
 
+
+
+
       implicit none
+
 
 
       contains
 
 
        subroutine cldprmcg(ncol, nlayers,                                           &
+
                 inflagd,iceflagd,liqflagd,ciwpmcd,clwpmcd,cswpmcd,relqmcd,reicmcd,resnmcd, &
                 absice0d,absice1d,absice2d,absice3d,absliq1d,                              &
+
                                   cldfmc, taucmc, ngb, icb, ncbands, icldlyr)
 
 
@@ -3560,6 +3637,9 @@ contains
 
       integer, value, intent(in) :: ncol              
       integer, value, intent(in) :: nlayers           
+
+
+
 
       
       real , intent(in) :: cldfmc(8, ngptlw, nlayers+1)        
@@ -3574,6 +3654,7 @@ contains
 
 
       integer , intent(out) :: ncbands(:)     
+
 
 
       integer  :: inflagd(:), iceflagd(:), liqflagd(:)
@@ -3602,6 +3683,7 @@ contains
       real, dimension(43,16) :: absice2d
       real, dimension(46,16) :: absice3d
       real, dimension(58,16) :: absliq1d
+
 
 
 
@@ -3685,9 +3767,11 @@ contains
 
 
 
+
     do iplon = 1, 8
       do lay = 1, nlayers
         do ig = 1, ngptlw
+
 
           ncbands(iplon) = 1
 
@@ -3765,13 +3849,15 @@ contains
                if (cswpmcd(iplon,ig,lay).gt.0.0 .and. iceflagd(iplon) .eq. 5) then
                   radsno = resnmcd(iplon,lay)
 
+
                   if (radsno .lt. 5.0 .or. radsno .gt. 140.0) then
                          write(errmess,'(A,i5,i5,i5,f8.2,f8.2)' )         &
                'ERROR: SNOW GENERALIZED EFFECTIVE SIZE OUT OF BOUNDS'   &
                ,iplon,ig, lay, cswpmcd(iplon,ig,lay), radsno
-                         call wrf_error_fatal3("<stdin>",3772,&
+                         call wrf_error_fatal3("<stdin>",3857,&
 errmess)
                   end if
+
 
                   ncbands(iplon) = 16
                   factor = (radsno - 2.)/3.
@@ -3816,11 +3902,18 @@ errmess)
             endif
           endif
 
+
+
+
         end do
       end do
     end do
 
+
       end subroutine cldprmcg
+
+
+
 
 
       
@@ -3828,11 +3921,20 @@ errmess)
       subroutine allocateGPUcldprmcg(ncol, nlay, ngptlw)
 
          integer , intent(in) :: nlay, ngptlw, ncol
+
         
       end subroutine
 
       
       subroutine deallocateGPUcldprmcg()
+
+
+
+
+
+
+
+
 
       
       end subroutine
@@ -3850,6 +3952,7 @@ errmess)
          real , dimension(:,:) :: absice3
          real , dimension(:,:) :: absliq1
       
+
       
       end subroutine 
 
@@ -3886,21 +3989,32 @@ errmess)
 
 
 
+
+
+
       use rrlw_tbl_f, only: bpade, tblint, tau_tbl, exp_tbl, tfn_tbl, ntbl
+
+
+
+
 
     
       implicit none 
       
 
+
       contains
 
 
        subroutine rtrnmcg(ncol, nlayers, istart, iend, iout                               &
+
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pzd,pwvcmd,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrvd,bpaded,heatfacd,fluxfacd,a0d,a1d,a2d                &
          ,delwaved,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
                                  ,ngb,icldlyr, taug, fracsd, cldfmcd)
 
 
@@ -3942,7 +4056,12 @@ errmess)
       real   :: fracsd(:,:,:)
       real   :: cldfmcd(:,:,:)
 
+
+
       integer :: ncol_,nlayers_,nbndlw_,ngptlw_
+
+
+
 
       integer  :: ngsd(nbndlw)      
 
@@ -3994,8 +4113,16 @@ errmess)
       real :: dtotuclfl_dtd(8, 0:nlayers_+1) 
                                                        
       real :: dplankbnd_dtd(8,nbndlw_) 
+
      
    
+
+
+
+
+
+
+
 
 
    
@@ -4008,6 +4135,7 @@ errmess)
       real  :: dflux( ncol, 0:mxlay)
       real  :: uclfl( ncol, 0:mxlay)
       real  :: dclfl( ncol, 0:mxlay)
+
 
     
       real  :: odclds
@@ -4108,7 +4236,17 @@ errmess)
       real :: bbb
 
 
+
+
+
+
+
+
+
+
       do igc = 1, 140 
+
+
          ibnd = ngb(igc)
 
        do iplon = 1, ncol
@@ -4158,6 +4296,11 @@ errmess)
 
 
 
+
+
+
+
+
          do lev = nlayers, 1, -1
        do iplon = 1, ncol
                plfrac = fracsd(iplon,lev,igc)
@@ -4177,6 +4320,7 @@ errmess)
                   efclfracs = absclds * cldfmcd(iplon, igc,lev)
                   odtot = odepth + odclds
                 
+
                   tblind = odepth/(bpade+odepth)
                   itgas = tblint*tblind+0.5 
                   odepth = tau_tbl(itgas)
@@ -4192,6 +4336,7 @@ errmess)
                   bbd = plfrac*(blay+tfacgas*dplankdn)
                   ATOT(iplon,lev) = 1.  - exp_tbl(ittot)
 
+
                   RADLD(iplon) = RADLD(iplon) - RADLD(iplon) * (ATRANS(iplon,lev) + &
                   efclfracs * (1.  - ATRANS(iplon,lev))) + &
                   gassrc + cldfmcd(iplon, igc,lev) * &
@@ -4202,6 +4347,7 @@ errmess)
               
 
                else
+
 
   
                   if (odepth .le. 0.06) then
@@ -4218,6 +4364,8 @@ errmess)
                      bbd = plfrac*(blay+tausfac*dplankdn)
                      BBUGAS(iplon,lev) = plfrac * (blay + tausfac * dplankup)
                   endif
+
+
                   RADLD(iplon) = RADLD(iplon) + (bbd-RADLD(iplon) )*ATRANS(iplon,lev)
                   gdrad(iplon, igc, lev-1) = gdrad(iplon, igc, lev-1) + RADLD(iplon) 
 
@@ -4239,6 +4387,12 @@ errmess)
                endif
        enddo
          enddo   
+
+
+
+
+
+
 
 
 
@@ -4309,7 +4463,11 @@ errmess)
        enddo
           end do
 
+
+
+
       end do   
+
 
       end subroutine rtrnmcg
 
@@ -4318,18 +4476,26 @@ errmess)
 
 
        subroutine rtrnadd(ncol, nlay, ngpt, drvf                &
+
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pzd,pwvcmd,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrvd,bpaded,heatfacd,fluxfacd,a0d,a1d,a2d                &
          ,delwaved,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
                                 )
 
       integer, intent(in), value :: ncol
       integer, intent(in), value :: nlay
       integer, intent(in), value :: ngpt
       integer, intent(in), value :: drvf
+
+
       integer :: ncol_,nlayers_,nbndlw_,ngptlw_
+
+
+
 
       integer  :: ngsd(nbndlw)      
 
@@ -4381,6 +4547,7 @@ errmess)
       real :: dtotuclfl_dtd(8, 0:nlayers_+1) 
                                                        
       real :: dplankbnd_dtd(8,nbndlw_) 
+
         
       integer :: iplon, ilay, igp
 
@@ -4389,8 +4556,16 @@ errmess)
 
 
 
+
+
+
+
+
+
+
       do iplon = 1, ncol
         do ilay = 0, nlay
+
 
           do igp = 1, ngpt
               
@@ -4412,24 +4587,34 @@ errmess)
 
           end if
 
+
+
+
         end do
       end do
+
 
       end subroutine
 
 
 
        subroutine rtrnheatrates(ncol, nlay &
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pzd,pwvcmd,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrvd,bpaded,heatfacd,fluxfacd,a0d,a1d,a2d                &
          ,delwaved,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
                                       )
 
       integer, intent(in), value :: ncol
       integer, intent(in), value :: nlay
+
       integer :: ncol_,nlayers_,nbndlw_,ngptlw_
+
+
+
 
       integer  :: ngsd(nbndlw)      
 
@@ -4481,20 +4666,34 @@ errmess)
       real :: dtotuclfl_dtd(8, 0:nlayers_+1) 
                                                        
       real :: dplankbnd_dtd(8,nbndlw_) 
+
+
       
       real :: t2
       integer :: iplon, ilay
 
+
+
+
+
+
+
+
       do iplon = 1, ncol
         do ilay = 0, nlay - 1
+
           t2 = pzd(iplon, ilay ) - pzd(iplon, ilay + 1)
           htrd(iplon, ilay) = heatfacd * ((totufluxd(iplon, ilay) - totdfluxd(iplon, ilay)) &
                  - (totufluxd(iplon, ilay+1) - totdfluxd(iplon, ilay+1)))/t2
           htrcd(iplon, ilay) = heatfacd * ((totuclfld(iplon, ilay) - totdclfld(iplon, ilay)) &
                  - (totuclfld(iplon, ilay+1) - totdclfld(iplon, ilay+1)))/t2
 
+
+
+
         end do
       end do
+
        
       end subroutine
 
@@ -4506,6 +4705,14 @@ errmess)
       integer , intent(in) :: idrv             
       real , intent(in) :: taut(:,:,:)  
       real , intent(in) :: pwvcm(:)
+
+
+
+
+
+
+
+
 
          
       end subroutine
@@ -4519,6 +4726,7 @@ errmess)
 integer,external :: omp_get_thread_num
 
 
+
       end subroutine 
 
 
@@ -4526,6 +4734,7 @@ integer,external :: omp_get_thread_num
 
       integer , intent(in) :: drvf
           
+
 
       end subroutine 
 
@@ -4559,7 +4768,11 @@ integer,external :: omp_get_thread_num
       use memory
  
 
+
+
+
       implicit none
+
 
 
       contains
@@ -4568,7 +4781,12 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
+
        subroutine taugb1g( ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -4576,6 +4794,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -4603,7 +4822,12 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -4649,10 +4873,17 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       integer  :: iplon
+
+
+
+
+
 
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -4720,13 +4951,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb1g
 
 
        subroutine taugb2g( ncol, nlayers , taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -4734,6 +4971,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -4752,7 +4990,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -4796,6 +5039,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, ig
@@ -4803,8 +5047,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -4849,13 +5099,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
       
+
+
+
       end do
       end do
+
 
       end subroutine taugb2g
 
 
        subroutine taugb3g( ncol, nlayers, taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -4863,6 +5119,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -4878,7 +5135,12 @@ integer,external :: omp_get_thread_num
       use rrlw_kg03_f
 
 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -4924,6 +5186,7 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
      
@@ -4943,8 +5206,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -5225,13 +5494,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb3g
 
 
        subroutine taugb4g( ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -5239,6 +5514,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -5253,7 +5529,12 @@ integer,external :: omp_get_thread_num
       use rrlw_kg04_f
 
 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -5299,6 +5580,7 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
      
@@ -5317,8 +5599,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
       refrat_planck_a = chi_mls(1,11)/chi_mls(2,11)
 
@@ -5546,13 +5834,19 @@ integer,external :: omp_get_thread_num
 
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb4g
 
 
        subroutine taugb5g( ncol, nlayers , taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -5560,6 +5854,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -5575,7 +5870,12 @@ integer,external :: omp_get_thread_num
       use rrlw_kg05_f
 
 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -5621,6 +5921,7 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
      
@@ -5639,8 +5940,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -5882,13 +6189,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb5g
 
 
        subroutine taugb6g( ncol, nlayers, taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -5896,6 +6209,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -5911,7 +6225,12 @@ integer,external :: omp_get_thread_num
       use rrlw_kg06_f
 
 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -5957,6 +6276,7 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       integer  :: lay, ind0, ind1, inds, indf, indm, ig
       real  :: chi_co2, ratco2, adjfac, adjcolco2
       real  :: tauself, taufor, absco2
@@ -5965,8 +6285,14 @@ integer,external :: omp_get_thread_num
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
      
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -6024,13 +6350,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb6g
 
 
        subroutine taugb7g( ncol, nlayers , taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -6038,6 +6370,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -6053,7 +6386,12 @@ integer,external :: omp_get_thread_num
       use rrlw_kg07_f
 
 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -6099,6 +6437,7 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
      
@@ -6118,8 +6457,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -6355,13 +6700,19 @@ integer,external :: omp_get_thread_num
 
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb7g
 
 
        subroutine taugb8g( ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -6369,6 +6720,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -6384,7 +6736,12 @@ integer,external :: omp_get_thread_num
       use rrlw_kg08_f
 
 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -6430,6 +6787,7 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
      
@@ -6439,8 +6797,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -6534,13 +6898,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb8g
 
 
        subroutine taugb9g( ncol, nlayers, taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -6548,6 +6918,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                 )
 
 
@@ -6565,7 +6936,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -6609,6 +6985,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, indm, ig
@@ -6627,8 +7004,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -6853,13 +7236,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb9g
 
 
        subroutine taugb10g( ncol, nlayers, taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -6867,6 +7256,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                  )
 
 
@@ -6882,7 +7272,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -6926,6 +7321,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, ig
@@ -6933,8 +7329,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -6978,12 +7380,18 @@ integer,external :: omp_get_thread_num
          enddo
       end if
 
+
+
+
       end do
       end do
+
       end subroutine taugb10g
 
 
        subroutine taugb11g( ncol, nlayers, taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -6991,6 +7399,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                  )
 
 
@@ -7007,7 +7416,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -7051,6 +7465,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, indm, ig
@@ -7058,8 +7473,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -7114,13 +7535,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb11g
 
 
        subroutine taugb12g( ncol, nlayers, taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -7128,6 +7555,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                  )
 
 
@@ -7144,7 +7572,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -7188,6 +7621,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, ig
@@ -7204,8 +7638,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -7375,13 +7815,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb12g
 
 
        subroutine taugb13g( ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -7389,6 +7835,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                  )
 
 
@@ -7404,7 +7851,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -7448,6 +7900,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, indm, ig
@@ -7468,8 +7921,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -7691,13 +8150,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb13g
 
 
        subroutine taugb14g( ncol, nlayers , taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -7705,6 +8170,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                  )
 
 
@@ -7720,7 +8186,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -7764,6 +8235,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, ig
@@ -7771,8 +8243,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -7809,13 +8287,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb14g
 
 
        subroutine taugb15g( ncol, nlayers , taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -7823,6 +8307,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                  )
 
 
@@ -7840,7 +8325,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -7884,6 +8374,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, indm, ig
@@ -7901,8 +8392,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -8092,13 +8589,19 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb15g
 
 
        subroutine taugb16g( ncol, nlayers , taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8106,6 +8609,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                  )
 
 
@@ -8122,7 +8626,12 @@ integer,external :: omp_get_thread_num
 
       real   :: taug(:,:,:)
       real   :: fracsd(:,:,:)
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -8166,6 +8675,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
      
 
       integer  :: lay, ind0, ind1, inds, indf, ig
@@ -8182,8 +8692,14 @@ integer,external :: omp_get_thread_num
       integer , value, intent(in) :: ncol, nlayers
       integer  :: iplon
 
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
+
 
 
 
@@ -8357,12 +8873,18 @@ integer,external :: omp_get_thread_num
          enddo
       endif
 
+
+
+
       end do
       end do
+
 
       end subroutine taugb16g
 
        subroutine addAerosols( ncol, nlayers, ngptlw, nbndlw, ngbd, taug &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8370,12 +8892,18 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                     )
 
       integer , intent(in), value :: ncol, nlayers, ngptlw, nbndlw
       integer , intent(in) :: ngbd(:)
         
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -8419,24 +8947,38 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
         
       integer  :: iplon, lay, ig
       real   :: taug(:,:,:)
      
+
+
+
+
+
+
       do iplon = 1, ncol
       do lay = 1, nlayers
       do ig = 1, ngptlw
 
+
         taug(iplon, lay, ig) = taug(iplon, lay, ig) + tauaa(iplon, lay, ngbd(ig))
+
+
+
 
       end do
       end do
       end do
+
 
       end subroutine
 
 
       subroutine taumolg(iplon, ncol, nlayers, ngbd, taug, fracsd &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8444,6 +8986,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                         )
 
 
@@ -8582,7 +9125,12 @@ integer,external :: omp_get_thread_num
       use parrrtm_f, only : ng1
 
 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -8628,6 +9176,7 @@ integer,external :: omp_get_thread_num
       real  :: oneminusd 
 
 
+
       integer , intent(in) :: iplon           
       integer , intent(in) :: ncol            
       integer , intent(in) :: nlayers         
@@ -8650,7 +9199,11 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
       call taugb1g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8658,9 +9211,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb2g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8668,9 +9224,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
       
       call taugb3g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8678,9 +9237,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb4g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8688,9 +9250,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
       
       call taugb5g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8698,9 +9263,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb6g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8708,9 +9276,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb7g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8718,9 +9289,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb8g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8728,9 +9302,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb9g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8738,9 +9315,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb10g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8748,9 +9328,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb11g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8758,9 +9341,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
  
       call taugb12g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8768,9 +9354,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb13g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8778,9 +9367,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb14g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8788,9 +9380,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb15g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8798,9 +9393,12 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
 
       call taugb16g  (ncol, nlayers, taug, fracsd  &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8808,12 +9406,19 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                            )
+
+
+
+
 
 
 
 
       call addAerosols  (ncol, nlayers, ngptlw, nbndlw, ngbd, taug &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8821,9 +9426,13 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
                                )
 
       end subroutine taumolg
+
+
+
 
 
 
@@ -8838,11 +9447,13 @@ integer,external :: omp_get_thread_num
       integer , intent(in) :: nlayers
       integer , intent(in) :: npart
       integer :: i
+
         
       end subroutine
 
 
       subroutine deallocateGPUTaumol()
+
 
 
       end subroutine
@@ -8853,6 +9464,7 @@ integer,external :: omp_get_thread_num
       integer, value, intent(in) :: colstart, pncol, nlayers, npart
       real , intent(in) :: colh2oc(:,:), colco2c(:,:), colo3c(:,:), coln2oc(:,:), &
                                      colch4c(:,:), colo2c(:,:), px1(:,:), px2(:,:), px3(:,:), px4(:,:)
+
 
       end subroutine
 
@@ -8889,6 +9501,7 @@ integer,external :: omp_get_thread_num
                                                       
       integer, intent(in)      :: pncol, colstart, nlay, npart
      
+
       end subroutine 
 
       end module gpu_rrtmg_lw_taumol
@@ -8908,6 +9521,7 @@ integer,external :: omp_get_thread_num
       implicit none
 
 
+
       contains
 
 
@@ -8915,11 +9529,23 @@ integer,external :: omp_get_thread_num
 
          integer, intent(in) :: ncol
          integer, intent(in) :: nlayers
+
+
+
+
+
+
    
       end subroutine
 
 
       subroutine deallocateGPUSetCoef( )
+
+
+
+
+
+
 
       
       end subroutine
@@ -8928,15 +9554,25 @@ integer,external :: omp_get_thread_num
       subroutine copyGPUSetCoef()
 
 
+
+
+
+
+
+
       end subroutine
 
 
        subroutine setcoefg(ncol, nlayers, istart                       &
+
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pzd,pwvcmd,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrvd,bpaded,heatfacd,fluxfacd,a0d,a1d,a2d                &
          ,delwaved,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -8944,7 +9580,10 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspad,nspbd,oneminusd                                                &
+
+
    ,taveld,tzd,tboundd,wbroadd,totplnkd,totplk16d,totplnkderivd,totplk16derivd &
+
                                  )
 
 
@@ -8954,7 +9593,13 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
+
       integer :: ncol_,nlayers_,nbndlw_,ngptlw_
+
+
+
 
       integer  :: ngsd(nbndlw)      
 
@@ -9006,7 +9651,12 @@ integer,external :: omp_get_thread_num
       real :: dtotuclfl_dtd(8, 0:nlayers_+1) 
                                                        
       real :: dplankbnd_dtd(8,nbndlw_) 
+
+
       integer :: ncol__,nlayers__,nbndlw__,ngptlw__
+
+
+
 
       real  :: pavel(8, nlayers__)
       real  :: wx1(8,nlayers__)
@@ -9050,6 +9700,7 @@ integer,external :: omp_get_thread_num
       integer  :: nspad(nbndlw__)
       integer  :: nspbd(nbndlw__)
       real  :: oneminusd 
+
       real  :: taveld(8,nlayers+1)       
                                             
       real  :: tzd(8,0:nlayers+1)        
@@ -9064,6 +9715,7 @@ integer,external :: omp_get_thread_num
 
       real  :: totplnkderivd(181,nbndlw)
       real  :: totplk16derivd(181)
+
 
 
       integer , value, intent(in) :: ncol
@@ -9081,7 +9733,12 @@ integer,external :: omp_get_thread_num
       integer  :: iplon
       real  :: wv, lcoldry
 
+
+
+
+
       do iplon = 1, ncol
+
 
         stpfac = 296. /1013. 
 
@@ -9349,7 +10006,11 @@ integer,external :: omp_get_thread_num
 
         enddo
 
+
+
+
       end do
+
       end subroutine setcoefg
 
       end module gpu_rrtmg_lw_setcoef
@@ -13623,6 +14284,9 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
+
       use gpu_mcica_subcol_gen_lw
 
       use gpu_rrtmg_lw_rtrnmc
@@ -13638,6 +14302,7 @@ integer,external :: omp_get_thread_num
       use rrlw_vsn_f  
 
       implicit none
+
 
    
       real :: timings(10)
@@ -13890,12 +14555,22 @@ integer,external :: omp_get_thread_num
       CHARACTER(LEN=256) :: message
 
       
+
+
+
       
       real gmem, cmem
 
       real t1,t2
 
 
+
+
+
+
+
+
+
       
 
 
@@ -13903,6 +14578,9 @@ integer,external :: omp_get_thread_num
 
 
       
+
+
+
 
 
 
@@ -13912,8 +14590,11 @@ integer,external :: omp_get_thread_num
          
 
 
+
     
+
       cn = 8
+
 
       WRITE(message,*)'RRTMG_LWF: Number of columns is               ',ncol
       call wrf_debug( debug_level_lwf, message)
@@ -14069,6 +14750,9 @@ integer,external :: omp_get_thread_num
       integer , intent(in) :: pncol
       integer , intent(in) :: colstart
 
+
+
+
       
 
 
@@ -14095,7 +14779,13 @@ integer,external :: omp_get_thread_num
                                                       
                                                       
 
+
+
+
+
       real  ::  cldfmcd(8, ngptlw, nlay+1)        
+
+
 
 
 
@@ -14158,6 +14848,7 @@ integer,external :: omp_get_thread_num
       integer :: icldlyr(8, nlay+1)
       real :: fracsd( 8, nlay+1, ngptlw )
       real :: taug( 8, nlay+1, ngptlw )
+
 
 
 
@@ -14304,6 +14995,9 @@ integer,external :: omp_get_thread_num
       
           integer :: ierr
       
+
+
+
       
       real , dimension(16) :: a0 =(/ 1.66 ,  1.55 ,  1.58 ,  1.66 , &
                 1.54 , 1.454 ,  1.89 ,  1.33 , &
@@ -14341,8 +15035,11 @@ integer,external :: omp_get_thread_num
 integer,external :: omp_get_thread_num
 
 
+
+
       ncol_  = pncol ; nlayers_  = nlay ; nbndlw_  = nbndlw ; ngptlw_  = ngptlw 
       ncol__ = pncol ; nlayers__ = nlay ; nbndlw__ = nbndlw ; ngptlw__ = ngptlw 
+
 
       icb(:) = (/  1,2,3,3,3,4,4,4,5, 5, 5, 5, 5, 5, 5, 5 /)
          
@@ -14366,7 +15063,12 @@ integer,external :: omp_get_thread_num
       taucq(1:pncol,1:nbndlw,1:nlay) = tauc(colstart:(colstart+pncol-1), 1:nbndlw, 1:nlay)
       tauaq(1:pncol,1:nlay,1:nbndlw) = tauaer(colstart:(colstart+pncol-1), 1:nlay, 1:nbndlw)
   
+
+
+
+
            
+
 
 
 
@@ -14408,34 +15110,48 @@ integer,external :: omp_get_thread_num
 
       call allocateGPUTaumol( 8, nlayers, npart)
 
-      tbound = tsfc(colstart:(colstart+8-1))
-      pz(:,0:nlay) = plev(colstart:(colstart+8-1),0:nlay)
-      tz(:,0:nlay) = tlev(colstart:(colstart+8-1),0:nlay)
-      pavel(:,1:nlay) = play(colstart:(colstart+8-1),1:nlay)
-      tavel(:,1:nlay) = tlay(colstart:(colstart+8-1),1:nlay)
-      
-      colh2o(1:8, 1:nlayers) = h2ovmr( colstart:(colstart+8-1), 1:nlayers)
-      colco2(1:8, 1:nlayers) = co2vmr( colstart:(colstart+8-1), 1:nlayers)
-      colo3(1:8, 1:nlayers) = o3vmr( colstart:(colstart+8-1), 1:nlayers)
-      coln2o(1:8, 1:nlayers) = n2ovmr( colstart:(colstart+8-1), 1:nlayers)
 
-      colch4(1:8, 1:nlayers) = ch4vmr( colstart:(colstart+8-1), 1:nlayers)
-      colo2(1:8, 1:nlayers) = o2vmr( colstart:(colstart+8-1), 1:nlayers)
-      wx1(1:8, 1:nlayers) = ccl4vmr(colstart:(colstart+8-1), 1:nlayers)
-      wx2(1:8, 1:nlayers) = cfc11vmr(colstart:(colstart+8-1), 1:nlayers)
-      wx3(1:8, 1:nlayers) = cfc12vmr(colstart:(colstart+8-1), 1:nlayers)
-      wx4(1:8, 1:nlayers) = cfc22vmr(colstart:(colstart+8-1), 1:nlayers)
+
+
+
+      tbound = tsfc(colstart:(colstart+8 -1))
+      pz(:,0:nlay) = plev(colstart:(colstart+8 -1),0:nlay)
+      tz(:,0:nlay) = tlev(colstart:(colstart+8 -1),0:nlay)
+      pavel(:,1:nlay) = play(colstart:(colstart+8 -1),1:nlay)
+      tavel(:,1:nlay) = tlay(colstart:(colstart+8 -1),1:nlay)
+      
+
+
+
+
+      colh2o(1:8, 1:nlayers) = h2ovmr( colstart:(colstart+8 -1), 1:nlayers)
+      colco2(1:8, 1:nlayers) = co2vmr( colstart:(colstart+8 -1), 1:nlayers)
+      colo3(1:8, 1:nlayers) = o3vmr( colstart:(colstart+8 -1), 1:nlayers)
+      coln2o(1:8, 1:nlayers) = n2ovmr( colstart:(colstart+8 -1), 1:nlayers)
+
+      colch4(1:8, 1:nlayers) = ch4vmr( colstart:(colstart+8 -1), 1:nlayers)
+      colo2(1:8, 1:nlayers) = o2vmr( colstart:(colstart+8 -1), 1:nlayers)
+      wx1(1:8, 1:nlayers) = ccl4vmr(colstart:(colstart+8 -1), 1:nlayers)
+      wx2(1:8, 1:nlayers) = cfc11vmr(colstart:(colstart+8 -1), 1:nlayers)
+      wx3(1:8, 1:nlayers) = cfc12vmr(colstart:(colstart+8 -1), 1:nlayers)
+      wx4(1:8, 1:nlayers) = cfc22vmr(colstart:(colstart+8 -1), 1:nlayers)
       colco(1:8, :) = 0
       if (npart > 1) then
-         tauaa(1:8, :, :)  = tauaer(colstart:(colstart+8-1), :, :)
+         tauaa(1:8, :, :)  = tauaer(colstart:(colstart+8 -1), :, :)
       else
          tauaa = tauaer
       endif
 
 
+
+
+
+
       permuteseed=150 
       call mcica_subcol_lwg(colstart, pncol, nlay, icld, counter, permuteseed,            &
+
                             pmid,clwp,ciwp,cswp,tauc,                                     &
+
                             play, cldfracq, ciwpq,                                        &
                             clwpq, cswpq, taucq,ngb, cldfmcd, ciwpmcd, clwpmcd, cswpmcd, & 
                             taucmcd)
@@ -14444,9 +15160,15 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
+
+
       if (icld > 0) then
          call generate_stochastic_cloudsg  (pncold, nlayd, icld, ngb, &
+
                                pmid,cldfracq,clwpq,ciwpq,cswpq,taucq,permuteseed,  &
+
                                cldfmcd, clwpmcd, ciwpmcd, cswpmcd, taucmcd)
       end if
 
@@ -14488,10 +15210,24 @@ integer,external :: omp_get_thread_num
       enddo
 
 
+
       icldlyr = 0.0
 
 
+
       semissd(1:pncol,1:nbndlw) = emis(colstart:(colstart+pncol-1),1:nbndlw)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  
@@ -14502,10 +15238,19 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
+
+
       call cldprmcg  (pncol, nlayers,                                      &
+
                 inflag,iceflag,liqflag,ciwpmcd,clwpmcd,cswpmcd,relq,reiq,resq, &
                 absice0,absice1,absice2,absice3,absliq1,                                &
+
                 cldfmcd, taucmcd,  ngb, icb, ncbandsd, icldlyr)
+
+
+
 
 
    
@@ -14516,12 +15261,20 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
+
+
       call setcoefg  (pncol, nlayers, istart                    &
+
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pz,pwvcm,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrv,bpade,heatfac,fluxfac,a0,a1,a2                &
          ,delwave,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -14529,7 +15282,10 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspa,nspb,oneminus                                                &
+
+
    ,tavel,tz,tbound,wbrodl,totplnk,totplk16,totplnkderiv,totplk16deriv &
+
                             )
 
 
@@ -14540,6 +15296,7 @@ integer,external :: omp_get_thread_num
 
       call taumolg(1, pncol,nlayers, ngb, taug, fracs &
 
+
                     ,ncol__,nlayers__,nbndlw__,ngptlw__                                             &
                     ,pavel,wx1,wx2,wx3,wx4,coldry,laytrop,jp,jt,jt1,colh2o,colco2,colo3,coln2o  &
                     ,colco,colch4,colo2,colbrd,indself,indfor,selffac,selffrac,forfac,forfrac   &
@@ -14547,6 +15304,7 @@ integer,external :: omp_get_thread_num
                     ,rat_h2oco2,rat_h2oco2_1,rat_h2oo3,rat_h2oo3_1,rat_h2on2o,rat_h2on2o_1      &
                     ,rat_h2och4,rat_h2och4_1,rat_n2oco2,rat_n2oco2_1,rat_o3co2,rat_o3co2_1      &
                     ,tauaa,nspa,nspb,oneminus                                                &
+
                   )
    
 
@@ -14556,15 +15314,27 @@ integer,external :: omp_get_thread_num
 
 
    
+
+
+
    
 
+
+
+
+
       call rtrnmcg  (pncol,nlayers, istart, iend, iout  &
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pz,pwvcm,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrv,bpade,heatfac,fluxfac,a0,a1,a2                &
          ,delwave,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
                     ,ngb, icldlyr, taug, fracs, cldfmcd)
+
+
+
 
 
 
@@ -14579,6 +15349,10 @@ integer,external :: omp_get_thread_num
       dtotuclfl_dtd = 0.0
 
 
+
+
+
+
       uflx(colstart:(colstart+pncol-1), 1:(nlayers+1)) = totufluxd(1:pncol,0:(nlayers))
       dflx(colstart:(colstart+pncol-1), 1:(nlayers+1)) = totdfluxd(1:pncol,0:(nlayers))
 
@@ -14586,24 +15360,40 @@ integer,external :: omp_get_thread_num
 
 
       call rtrnadd  (pncol, nlayers, ngptlw, idrv &
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pz,pwvcm,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrv,bpade,heatfac,fluxfac,a0,a1,a2                &
          ,delwave,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
                            )
+
+
+
+
 
       uflx(colstart:(colstart+pncol-1), 1:(nlayers+1)) = totufluxd(1:pncol,0:(nlayers))
       dflx(colstart:(colstart+pncol-1), 1:(nlayers+1)) = totdfluxd(1:pncol,0:(nlayers))
 
 
       call rtrnheatrates  (pncol, nlayers &
+
          ,ncol_,nlayers_,nbndlw_,ngptlw_                                                          &
          ,taucmcd,pz,pwvcm,semissd,planklayd,planklevd,plankbndd,gurad,gdrad,gclrurad,gclrdrad  &
          ,gdtotuflux_dtd,gdtotuclfl_dtd,idrv,bpade,heatfac,fluxfac,a0,a1,a2                &
          ,delwave,totufluxd,totdfluxd,fnetd,htrd,totuclfld,totdclfld,fnetcd,htrcd,dtotuflux_dtd  &
          ,dtotuclfl_dtd,dplankbnd_dtd                                                             &
+
                                  )    
+
+
+
+
+
+
+
+
 
 
       uflxc(colstart:(colstart+pncol-1), 1:(nlayers+1)) = totuclfld(1:pncol,0:(nlayers))
@@ -14623,10 +15413,16 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
  
       end subroutine rrtmg_lw_part
 
       end module rrtmg_lw_rad_f
+
+
+
+
 
 
 
@@ -14848,6 +15644,7 @@ integer,external :: omp_get_thread_num
                                                         liqflglw
 
 
+
     real, dimension( (jte-jts+1)*(ite-its+1)+mod((jte-jts+1)*(ite-its+1),8), kts:nlayers+1 )  ::                 &
                                                             plev, &
                                                             tlev
@@ -14917,6 +15714,10 @@ integer,external :: omp_get_thread_num
 
 
 
+
+
+
+
     real :: co2
     data co2 / 379.e-6 / 
 
@@ -14931,6 +15732,7 @@ integer,external :: omp_get_thread_num
 
     real :: cfc12
     data cfc12 / 0.538e-9 / 
+
 
     real :: cfc22
     data cfc22 / 0.169e-9 / 
@@ -15026,6 +15828,8 @@ integer,external :: omp_get_thread_num
                   264.80,266.50,267.59,268.44,268.69,267.76,      &
                   266.13,263.96,261.54,258.93,256.15,253.23,      &
                   249.89,246.67,243.48,240.25,236.66,233.86/    
+
+
 
 
 
@@ -15712,6 +16516,7 @@ integer,external :: omp_get_thread_num
 
 
 
+
       end do i_loop
    end do j_loop                                           
 
@@ -15986,7 +16791,7 @@ IMPLICIT NONE
       ENDIF
       CALL wrf_dm_bcast_bytes ( rrtmg_unit , 4 )
       IF ( rrtmg_unit < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",15989,&
+        CALL wrf_error_fatal3("<stdin>",16794,&
 'module_ra_rrtmg_lwf: rrtm_lwlookuptable: Can not '// &
                                'find unused fortran unit to read in lookup table.' )
       ENDIF
@@ -16018,7 +16823,7 @@ IMPLICIT NONE
      RETURN
 9009 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error opening RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16021,&
+     CALL wrf_error_fatal3("<stdin>",16826,&
 errmess)
 
      END SUBROUTINE rrtmg_lwlookuptable
@@ -16104,6 +16909,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mn2, kbo_mn2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16118,7 +16924,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16121,&
+     CALL wrf_error_fatal3("<stdin>",16927,&
 errmess)
 
       end subroutine lw_kgb01
@@ -16182,6 +16988,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16194,7 +17001,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16197,&
+     CALL wrf_error_fatal3("<stdin>",17004,&
 errmess)
 
       end subroutine lw_kgb02
@@ -16298,6 +17105,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mn2o, kbo_mn2o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16312,7 +17120,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16315,&
+     CALL wrf_error_fatal3("<stdin>",17123,&
 errmess)
 
       end subroutine lw_kgb03 
@@ -16387,6 +17195,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16399,7 +17208,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16402,&
+     CALL wrf_error_fatal3("<stdin>",17211,&
 errmess)
 
       end subroutine lw_kgb04
@@ -16493,6 +17302,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mo3, ccl4o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16507,7 +17317,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16510,&
+     CALL wrf_error_fatal3("<stdin>",17320,&
 errmess)
 
       end subroutine lw_kgb05
@@ -16574,6 +17384,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, kao, kao_mco2, cfc11adjo, cfc12o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16587,7 +17398,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16590,&
+     CALL wrf_error_fatal3("<stdin>",17401,&
 errmess)
 
       end subroutine lw_kgb06
@@ -16677,6 +17488,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mco2, kbo_mco2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16691,7 +17503,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16694,&
+     CALL wrf_error_fatal3("<stdin>",17506,&
 errmess)
 
       end subroutine lw_kgb07
@@ -16785,6 +17597,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mco2, kbo_mco2, kao_mn2o, &
          kbo_mn2o, kao_mo3, cfc12o, cfc22adjo, selfrefo, forrefo
@@ -16805,7 +17618,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16808,&
+     CALL wrf_error_fatal3("<stdin>",17621,&
 errmess)
 
       end subroutine lw_kgb08
@@ -16895,6 +17708,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mn2o, kbo_mn2o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16909,7 +17723,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16912,&
+     CALL wrf_error_fatal3("<stdin>",17726,&
 errmess)
 
       end subroutine lw_kgb09
@@ -16973,6 +17787,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -16985,7 +17800,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",16988,&
+     CALL wrf_error_fatal3("<stdin>",17803,&
 errmess)
 
       end subroutine lw_kgb10
@@ -17064,6 +17879,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mo2, kbo_mo2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -17078,7 +17894,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",17081,&
+     CALL wrf_error_fatal3("<stdin>",17897,&
 errmess)
 
       end subroutine lw_kgb11
@@ -17135,6 +17951,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, kao, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -17145,7 +17962,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",17148,&
+     CALL wrf_error_fatal3("<stdin>",17965,&
 errmess)
 
       end subroutine lw_kgb12
@@ -17223,6 +18040,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kao_mco2, kao_mco, kbo_mo3, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -17237,7 +18055,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",17240,&
+     CALL wrf_error_fatal3("<stdin>",18058,&
 errmess)
 
       end subroutine lw_kgb13
@@ -17307,6 +18125,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -17319,7 +18138,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",17322,&
+     CALL wrf_error_fatal3("<stdin>",18141,&
 errmess)
 
       end subroutine lw_kgb14
@@ -17388,6 +18207,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, kao, kao_mn2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -17399,7 +18219,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",17402,&
+     CALL wrf_error_fatal3("<stdin>",18222,&
 errmess)
 
       end subroutine lw_kgb15
@@ -17469,6 +18289,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -17481,7 +18302,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lwf: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",17484,&
+     CALL wrf_error_fatal3("<stdin>",18305,&
 errmess)
 
       end subroutine lw_kgb16
@@ -17579,3 +18400,5 @@ errmess)
 
 
 END MODULE module_ra_rrtmg_lwf
+
+

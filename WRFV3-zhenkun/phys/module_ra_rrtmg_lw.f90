@@ -30,7 +30,9 @@
 
 
 
+
        integer, parameter :: kind_rb = kind(1.0)              
+
 
       end module parkind
 
@@ -2835,7 +2837,7 @@ contains
                          write(errmess,'(A,i5,i5,f8.2,f8.2)' )         &
                'ERROR: ICE GENERALIZED EFFECTIVE SIZE OUT OF BOUNDS'   &
                ,ig, lay, ciwpmc(ig,lay), radice
-                         call wrf_error_fatal3("<stdin>",2838,&
+                         call wrf_error_fatal3("<stdin>",2840,&
 errmess)
                      end if
                      ncbands = 16
@@ -2858,7 +2860,7 @@ errmess)
                          write(errmess,'(A,i5,i5,f8.2,f8.2)' )         &
                'ERROR: SNOW GENERALIZED EFFECTIVE SIZE OUT OF BOUNDS'   &
                ,ig, lay, cswpmc(ig,lay), radsno
-                         call wrf_error_fatal3("<stdin>",2861,&
+                         call wrf_error_fatal3("<stdin>",2863,&
 errmess)
                      end if
                      ncbands = 16
@@ -11366,7 +11368,11 @@ MODULE module_ra_rrtmg_lw
 
 use module_model_constants, only : cp
 use module_wrf_error
+
+
+
    USE module_state_description, ONLY : FER_MP_HIRES, FER_MP_HIRES_ADVECT
+
 
 
 use parrrtm, only : nbndlw, ngptlw
@@ -11652,6 +11658,10 @@ CONTAINS
 
 
 
+
+
+
+
     real :: co2
     data co2 / 379.e-6 / 
 
@@ -11666,6 +11676,7 @@ CONTAINS
 
     real :: cfc12
     data cfc12 / 0.538e-9 / 
+
 
     real :: cfc22
     data cfc22 / 0.169e-9 / 
@@ -11761,6 +11772,8 @@ CONTAINS
                   264.80,266.50,267.59,268.44,268.69,267.76,      &
                   266.13,263.96,261.54,258.93,256.15,253.23,      &
                   249.89,246.67,243.48,240.25,236.66,233.86/    
+
+
 
 
 
@@ -11916,8 +11929,14 @@ CONTAINS
         ENDIF
 
 
+
+
+
+
+
         IF ( mp_physics == FER_MP_HIRES .OR. &
              mp_physics == FER_MP_HIRES_ADVECT) THEN
+
                   DO K=kts,kte
                      qi1d(k) = qi3d(i,k,j)
                      qs1d(k) = 0.0
@@ -11992,7 +12011,9 @@ CONTAINS
                ENDDO
             ELSE
                DO K=kts,kte
+
                   reice1D(ncol,K) = 10.0
+
                ENDDO
             ENDIF
 
@@ -12325,7 +12346,11 @@ CONTAINS
             reliq(ncol,k) = recloud1d(ncol,k)
          end do
       endif
+
       if (iceflglw .ge. 4) then
+
+
+
 
          do k = kts, kte
             reice(ncol,k) = reice1d(ncol,k)
@@ -12449,6 +12474,7 @@ CONTAINS
          tauaer(ncol,k,nb) = 0.
       end do
       end do
+
 
 
 
@@ -12714,7 +12740,7 @@ IMPLICIT NONE
       ENDIF
       CALL wrf_dm_bcast_bytes ( rrtmg_unit , 4 )
       IF ( rrtmg_unit < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",12717,&
+        CALL wrf_error_fatal3("<stdin>",12743,&
 'module_ra_rrtmg_lw: rrtm_lwlookuptable: Can not '// &
                                'find unused fortran unit to read in lookup table.' )
       ENDIF
@@ -12746,7 +12772,7 @@ IMPLICIT NONE
      RETURN
 9009 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error opening RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",12749,&
+     CALL wrf_error_fatal3("<stdin>",12775,&
 errmess)
 
      END SUBROUTINE rrtmg_lwlookuptable
@@ -12832,6 +12858,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mn2, kbo_mn2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -12846,7 +12873,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",12849,&
+     CALL wrf_error_fatal3("<stdin>",12876,&
 errmess)
 
       end subroutine lw_kgb01
@@ -12910,6 +12937,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -12922,7 +12950,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",12925,&
+     CALL wrf_error_fatal3("<stdin>",12953,&
 errmess)
 
       end subroutine lw_kgb02
@@ -13026,6 +13054,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mn2o, kbo_mn2o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13040,7 +13069,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13043,&
+     CALL wrf_error_fatal3("<stdin>",13072,&
 errmess)
 
       end subroutine lw_kgb03 
@@ -13115,6 +13144,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13127,7 +13157,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13130,&
+     CALL wrf_error_fatal3("<stdin>",13160,&
 errmess)
 
       end subroutine lw_kgb04
@@ -13221,6 +13251,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mo3, ccl4o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13235,7 +13266,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13238,&
+     CALL wrf_error_fatal3("<stdin>",13269,&
 errmess)
 
       end subroutine lw_kgb05
@@ -13302,6 +13333,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, kao, kao_mco2, cfc11adjo, cfc12o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13315,7 +13347,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13318,&
+     CALL wrf_error_fatal3("<stdin>",13350,&
 errmess)
 
       end subroutine lw_kgb06
@@ -13405,6 +13437,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mco2, kbo_mco2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13419,7 +13452,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13422,&
+     CALL wrf_error_fatal3("<stdin>",13455,&
 errmess)
 
       end subroutine lw_kgb07
@@ -13513,6 +13546,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mco2, kbo_mco2, kao_mn2o, &
          kbo_mn2o, kao_mo3, cfc12o, cfc22adjo, selfrefo, forrefo
@@ -13533,7 +13567,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13536,&
+     CALL wrf_error_fatal3("<stdin>",13570,&
 errmess)
 
       end subroutine lw_kgb08
@@ -13623,6 +13657,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mn2o, kbo_mn2o, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13637,7 +13672,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13640,&
+     CALL wrf_error_fatal3("<stdin>",13675,&
 errmess)
 
       end subroutine lw_kgb09
@@ -13701,6 +13736,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13713,7 +13749,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13716,&
+     CALL wrf_error_fatal3("<stdin>",13752,&
 errmess)
 
       end subroutine lw_kgb10
@@ -13792,6 +13828,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, kao_mo2, kbo_mo2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13806,7 +13843,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13809,&
+     CALL wrf_error_fatal3("<stdin>",13846,&
 errmess)
 
       end subroutine lw_kgb11
@@ -13863,6 +13900,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, kao, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13873,7 +13911,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13876,&
+     CALL wrf_error_fatal3("<stdin>",13914,&
 errmess)
 
       end subroutine lw_kgb12
@@ -13951,6 +13989,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kao_mco2, kao_mco, kbo_mo3, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -13965,7 +14004,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",13968,&
+     CALL wrf_error_fatal3("<stdin>",14007,&
 errmess)
 
       end subroutine lw_kgb13
@@ -14035,6 +14074,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -14047,7 +14087,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",14050,&
+     CALL wrf_error_fatal3("<stdin>",14090,&
 errmess)
 
       end subroutine lw_kgb14
@@ -14116,6 +14156,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, kao, kao_mn2, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -14127,7 +14168,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",14130,&
+     CALL wrf_error_fatal3("<stdin>",14171,&
 errmess)
 
       end subroutine lw_kgb15
@@ -14197,6 +14238,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          fracrefao, fracrefbo, kao, kbo, selfrefo, forrefo
       CALL wrf_dm_bcast_bytes ( fracrefao , size ( fracrefao ) * 4 )
@@ -14209,7 +14251,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_lw: error reading RRTMG_LW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",14212,&
+     CALL wrf_error_fatal3("<stdin>",14254,&
 errmess)
 
       end subroutine lw_kgb16
@@ -14307,3 +14349,5 @@ errmess)
 
 
 END MODULE module_ra_rrtmg_lw
+
+

@@ -35,6 +35,9 @@ SUBROUTINE camuwshcu_driver(                                  &
              ,p, p8w, pi_phy, z, z_at_w, dz8w                 &
              ,t_phy, u_phy, v_phy                             &
              ,moist, qv, qc, qi, qnc, qni                     &
+
+
+
              ,pblh_in, tke_pbl, cldfra, cldfra_old            &
              ,cldfra_old_mp,cldfra_conv, is_CAMMGMP_used      &
              ,cldfrash                                        &
@@ -57,10 +60,19 @@ SUBROUTINE camuwshcu_driver(                                  &
   USE module_state_description, only: param_first_scalar, &
                                       p_qc, p_qr, p_qi, p_qs, p_qg, p_qnc, p_qni
   USE module_cam_support,       only: pcols, pver, pcnst =>pcnst_runtime
+
+
+
   USE constituents,             only: cnst_get_ind
   USE physconst,                only: latice,cpair, gravit, latvap
   USE uwshcu,                   only: compute_uwshcu_inv
   USE wv_saturation,            only: fqsatd
+
+
+
+
+
+
 
 
   LOGICAL, INTENT(IN) :: is_CAMMGMP_used
@@ -69,8 +81,15 @@ SUBROUTINE camuwshcu_driver(                                  &
                                its,ite, jts,jte, kts,kte,  &
                                num_moist,itimestep
 
+
+
+
   REAL, DIMENSION( ims:ime, kms:kme, jms:jme, num_moist ), INTENT(IN) :: &
                               moist    
+
+
+
+
 
   REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN) :: &
                              cldfra, & 
@@ -227,6 +246,14 @@ SUBROUTINE camuwshcu_driver(                                  &
 
 
 
+
+
+
+
+
+
+
+
   ncol  = 1     
   ncnst = pcnst 
   ztodt = dt
@@ -311,6 +338,7 @@ SUBROUTINE camuwshcu_driver(                                  &
 
            call cnst_get_ind( 'NUMICE', m )
            moist8(1,kflip,m) = max(0.0,qni(i,k,j)/(1. + qv(i,k,j)))
+
 
 
         end do
@@ -399,6 +427,7 @@ SUBROUTINE camuwshcu_driver(                                  &
            
 
 
+
         do k = kts,kte+1
            kflip = kte-k+2
 
@@ -439,3 +468,5 @@ SUBROUTINE camuwshcu_driver(                                  &
 END SUBROUTINE camuwshcu_driver
 
 END MODULE module_shcu_camuwshcu_driver
+
+

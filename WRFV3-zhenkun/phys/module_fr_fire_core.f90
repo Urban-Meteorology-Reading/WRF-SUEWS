@@ -2,6 +2,8 @@
 
 
 
+
+
 module module_fr_fire_core
 
 use module_fr_fire_phys, only: fire_params , fire_ros
@@ -283,6 +285,7 @@ SUBROUTINE nearest(d,t,ax,ay,sx,sy,st,ex,ey,et,cx2,cy2)
         
         
         
+        
 
         real:: mx,my,dam2,dames,am_es,cos2,dmc2,mcrel,mid_t,dif_t,des2,cx,cy
         character(len=128):: msg
@@ -374,6 +377,7 @@ real::fmax,frat,helpsum1,helpsum2,fuel_left_ff,fire_area_ff,rx,ry,tignf(2,2)
 
 real::lffij,lffi1j,lffij1,lffi1j1,tifij,tifi1j,tifij1,tifi1j1,tx,ty,txx,tyy
 
+
 character(len=128)::msg
 integer::m,omp_get_thread_num
      
@@ -391,6 +395,10 @@ endif
 
 rx=1./ir 
 ry=1./jr
+
+
+
+
 
 
 
@@ -539,6 +547,12 @@ enddo
 
 
 
+
+
+
+
+
+
 do j=jts,jte
     do i=its,ite        
         fuel_frac(i,j) = fuel_frac(i,j) /(ir*jr) 
@@ -589,6 +603,7 @@ real, intent(in)::lfn00,lfn01,lfn10,lfn11
 real, intent(in)::tign00,tign01,tign10,tign11
 real, intent(in)::time_now                   
 real, intent(in)::fuel_time_cell            
+
 
 
 
@@ -807,9 +822,12 @@ real, intent(in)::fuel_time_cell
 
 
 
+
+
 call crash('fuel_left_cell_2: not implemented, please use fire_fuel_left_method=1')
 fuel_left_cell_2=0.  
 end function fuel_left_cell_2
+
 
 subroutine prop_ls( id, &                                
                 ids,ide,jds,jde, &                       
@@ -897,6 +915,10 @@ type(fire_params),intent(in)::fp
 
 
 
+
+
+
+
 real,dimension(its-1:ite+1,jts-1:jte+1):: tend, lfn1 
 
 real::grad2,rr,tbound2,a,a1 
@@ -940,7 +962,9 @@ call message(msg)
     jhs=max(jts-1,jds) 
     jhe=min(jte+1,jde)
 
+
     call write_array_m(ihs,ihe,jhs,jhe,ims,ime,jms,jme,lfn_in,'lfn_in',id)
+
 
     
     call check_mesh_2dim(ihs2,ihe2,jhs2,jhe2,ims,ime,jms,jme)
@@ -969,7 +993,9 @@ call message(msg)
     fp         &                             
 )
 
+
     call write_array_m(ihs,ihe,jhs,jhe,its-1,ite+1,jts-1,jte+1,tend,'tend1',id)
+
 
     
     do j=jhs,jhe
@@ -998,7 +1024,9 @@ call message(msg)
     fp &
 )
 
+
     call write_array_m(its,ite,jts,jte,its-1,ite+1,jts-1,jte+1,tend,'tend2',id)
+
 
     call print_2d_stats(its,ite,jts,jte,its-1,ite+1,jts-1,jte+1,tend,'prop_ls: tend2')
         
@@ -1195,7 +1223,9 @@ real, parameter:: zero=0.,one=1.,tol=100*eps, &
 intrinsic max,min,sqrt,nint,tiny,huge
 
 
+
 real,dimension(tims:time,tjms:tjme)::rra,grada,speeda,tanphia
+
 
 
     
@@ -1214,7 +1244,9 @@ real,dimension(tims:time,tjms:tjme)::rra,grada,speeda,tanphia
     call print_2d_stats(itso,iteo,jtso,jteo,lims,lime,ljms,ljme, &
                    lfn,'tend_ls: lfn cont')
 
+
     call write_array_m(ints-1,inte+1,jnts-1,jnte+1,lims,lime,ljms,ljme,lfn,'tend_lfn_in',id)
+
     
     tbound=0    
     do j=jnts,jnte
@@ -1324,10 +1356,12 @@ real,dimension(tims:time,tjms:tjme)::rra,grada,speeda,tanphia
             te=te + fire_viscosity*abs(rr)*((diffRx-diffLx)+(diffRy-diffLy))
 
             tend(i,j)=te
+
             rra(i,j)=rr
             grada(i,j)=grad    
             speeda(i,j)=speed
             tanphia(i,j)=tanphi
+
             
             
 
@@ -1338,11 +1372,13 @@ real,dimension(tims:time,tjms:tjme)::rra,grada,speeda,tanphia
         enddo
     enddo        
 
+
     call write_array_m(ints,inte,jnts,jnte,tims,time,tjms,tjme,rra,'rr',id)
     call write_array_m(ints,inte,jnts,jnte,tims,time,tjms,tjme,grada,'grad',id)
     call write_array_m(ints,inte,jnts,jnte,tims,time,tjms,tjme,speeda,'speed',id)
     call write_array_m(ints,inte,jnts,jnte,tims,time,tjms,tjme,tanphia,'tanphi',id)
     call write_array_m(ints,inte,jnts,jnte,tims,time,tjms,tjme,tend,'tend',id)
+
 
     call print_2d_stats(ints,inte,jnts,jnte,tims,time,tjms,tjme, &
                    tend,'tend_ls: tend out')
@@ -1457,3 +1493,5 @@ real, parameter:: eps=epsilon(0.0)
 end function speed_func
 
 end module module_fr_fire_core
+
+

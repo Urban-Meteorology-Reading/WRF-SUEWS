@@ -37,6 +37,7 @@ logical:: use_atm_vars=.true.
 
 contains
 
+
 subroutine fire_driver_em ( grid , config_flags                    & 
             ,fire_ifun_start,fire_ifun_end,tsteps                   &
             ,ids,ide, kds,kde, jds,jde                              &
@@ -45,6 +46,12 @@ subroutine fire_driver_em ( grid , config_flags                    &
             ,ifds,ifde, jfds,jfde                                   &
             ,ifms,ifme, jfms,jfme                                   &
             ,ifps,ifpe, jfps,jfpe )
+
+
+
+
+
+
 
 
 
@@ -127,6 +134,7 @@ subroutine fire_driver_em ( grid , config_flags                    &
         
         
 
+
         
         call fire_driver_phys ( &
             fire_ifun,need_lfn_update,                  &
@@ -167,6 +175,12 @@ subroutine fire_driver_em ( grid , config_flags                    &
             grid%fuel_time,                      & 
             fp &
         )
+
+
+
+
+
+
 
 
                 
@@ -471,8 +485,10 @@ do ij=1,num_tiles
             
             
 
+
          call write_array_m(its,ite,jts,jte,ims,ime,jms,jme,xlat,'xlat',id)
          call write_array_m(its,ite,jts,jte,ims,ime,jms,jme,xlong,'xlong',id)
+
         call interpolate_z2fire(id,                 & 
             ids,ide,  jds,jde,                    & 
             ims,ime,  jms,jme,                    &
@@ -615,12 +631,14 @@ do ij=1,num_tiles
 enddo 
 !$OMP END PARALLEL DO
 
+
 if(ifun.eq.1)then
     if(pid.ne.0)then
         call write_array_m(ips,ipe,jps,jpe,ims,ime,jms,jme,zs,'zs',pid)
         call write_array_m(ifps,ifpe,jfps,jfpe,ifms,ifme,jfms,jfme,fp%zsf,'zsf',pid)
     endif
 endif
+
 
 if (ifun.eq.3)then
     ignitions_done=ignitions_done_tile(1) 
@@ -633,6 +651,11 @@ if (ifun.eq.3)then
         do ij=1,num_tiles
             ignited_patch(i)=ignited_patch(i)+ignited_tile(i,ij)
         enddo
+
+
+
+
+
         if(ignited_patch(i).eq.0)then
             call crash('fire_driver_phys: Ignition failed, no nodes ignited. Bad coordinates?')
         endif
@@ -642,6 +665,7 @@ if (ifun.eq.3)then
  call print_chsum(itimestep,ims,ime,1,1,jms,jme,ids,ide,1,1,jds,jde,ips,ipe,1,1,jps,jpe,0,0,1,vah,'vah')
  call print_chsum(itimestep,ifms,ifme,1,1,jfms,jfme,ifds,ifde,1,1,jfds,jfde,ifps,ifpe,1,1,jfps,jfpe,0,0,0,fp%vx,'uf')
  call print_chsum(itimestep,ifms,ifme,1,1,jfms,jfme,ifds,ifde,1,1,jfds,jfde,ifps,ifpe,1,1,jfps,jfpe,0,0,0,fp%vy,'vf')
+
     if(pid.gt.0)then
         call write_array_m(ips,ipe1,jps,jpe,ims,ime,jms,jme,uah,'uah',pid)
         call write_array_m(ips,ipe,jps,jpe1,ims,ime,jms,jme,vah,'vah',pid)
@@ -652,13 +676,16 @@ if (ifun.eq.3)then
         call write_array_m(ifps,ifpe,jfps,jfpe,ifms,ifme,jfms,jfme,fp%vx,'uf',pid)
         call write_array_m(ifps,ifpe,jfps,jfpe,ifms,ifme,jfms,jfme,fp%vy,'vf',pid)
     endif
+
 endif
 
 if(ifun.eq.5)then
+
     if(pid.gt.0)then
         call write_array_m(ifps,ifpe,jfps,jfpe,ifms,ifme,jfms,jfme,lfn,'lfn',pid)
         call write_array_m(ifps,ifpe,jfps,jfpe,ifms,ifme,jfms,jfme,tign,'tign',pid)
     endif
+
 endif
 
 if(ifun.eq.6)then
@@ -666,6 +693,7 @@ if(ifun.eq.6)then
     call print_chsum(itimestep,ifms,ifme,1,1,jfms,jfme,ifds,ifde,1,1,jfds,jfde,ifps,ifpe,1,1,jfps,jfpe,0,0,0,fgrnqfx,'fgrnqfx')
     call print_chsum(itimestep,ims,ime,1,1,jms,jme,ids,ide,1,1,jds,jde,ips,ipe,1,1,jps,jpe,0,0,0,grnhfx,'grnhfx')
     call print_chsum(itimestep,ims,ime,1,1,jms,jme,ids,ide,1,1,jds,jde,ips,ipe,1,1,jps,jpe,0,0,0,grnqfx,'grnqfx')
+
     if(pid.gt.0)then
         call write_array_m(ips,ipe,jps,jpe,ims,ime,jms,jme,grnhfx,'grnhfx',pid)
         call write_array_m(ips,ipe,jps,jpe,ims,ime,jms,jme,grnqfx,'grnqfx',pid)
@@ -673,6 +701,7 @@ if(ifun.eq.6)then
         call write_array_m(ifps,ifpe,jfps,jfpe,ifms,ifme,jfms,jfme,fgrnhfx,'fgrnhfx',pid)
         call write_array_m(ifps,ifpe,jfps,jfpe,ifms,ifme,jfms,jfme,fgrnqfx,'fgrnqfx',pid)
     endif
+
 endif
 
 end subroutine fire_driver_phys
@@ -934,6 +963,7 @@ real,intent(out), dimension(ifms:ifme,jfms:jfme)::&
     
 
 character(len=256)::msg
+
 real, dimension(its-2:ite+2,jts-2:jte+2):: ua,va   
 real, dimension(its-2:ite+2,kds:kde,jts-2:jte+2):: altw,altub,altvb,hgtu,hgtv 
 integer:: i,j,k,ifts1,ifte1,jfts1,jfte1,ite1,jte1
@@ -1083,10 +1113,12 @@ endif
       enddo
     enddo
 
+
         call write_array_m3(itsu,iteu,kds,kdmax,jtsu,jteu,its-2,ite+2,kds,kde,jts-2,jte+2,altub,'altub',id)
         call write_array_m3(itsv,itev,kds,kdmax,jtsv,jtev,its-2,ite+2,kds,kde,jts-2,jte+2,altvb,'altvb',id)
         call write_array_m3(itsu,iteu,kds,kdmax,jtsu,jteu,its-2,ite+2,kds,kde,jts-2,jte+2,hgtu,'hgtu',id)
         call write_array_m3(itsv,itev,kds,kdmax,jtsv,jtev,its-2,ite+2,kds,kde,jts-2,jte+2,hgtv,'hgtv',id)
+
     logfwh = log(fire_wind_height)
 
     
@@ -1150,6 +1182,7 @@ endif
     enddo
 
 
+
     do j = jts,jte1
       do i = its,ite1
         uah(i,j)=ua(i,j)
@@ -1159,6 +1192,7 @@ endif
 
     call write_array_m(its,ite1,jts,jte,ims,ime,jms,jme,uah,'uah_n',id) 
     call write_array_m(its,ite,jts,jte1,ims,ime,jms,jme,vah,'vah_n',id)
+
 
     ips1 = ifval(ips.eq.ids,ips+1,ips)
     call continue_at_boundary(1,1,0., & 
@@ -1186,8 +1220,10 @@ endif
       enddo
     enddo
 
+
         call write_array_m(itsou,iteou,jtsou,jteou,its-2,ite+2,jts-2,jte+2,ua,'ua',id)
         call write_array_m(itsov,iteov,jtsov,jteov,its-2,ite+2,jts-2,jte+2,va,'va',id)
+
 
 !$OMP CRITICAL(FIRE_DRIVER_CRIT)
 
@@ -1261,8 +1297,10 @@ endif
 
 call print_2d_stats_vec(ifts,ifte,jfts,jfte,ifms,ifme,jfms,jfme,uf,vf,'fire wind (m/s)')
 
+
         call write_array_m(ifts,ifte,jfts,jfte,ifms,ifme,jfms,jfme,uf,'uf1',id)
         call write_array_m(ifts,ifte,jfts,jfte,ifms,ifme,jfms,jfme,vf,'vf1',id)
+
 
 
 return
@@ -1327,3 +1365,5 @@ fire_advection          = config_flags%fire_advection
 end subroutine set_flags
 
 end module module_fr_fire_driver
+
+

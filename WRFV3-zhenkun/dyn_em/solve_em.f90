@@ -8,12 +8,14 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
 
 
+
 ,moist,moist_bxs,moist_bxe,moist_bys,moist_bye,moist_btxs,moist_btxe,moist_btys,moist_btye,dfi_moist,dfi_moist_bxs,dfi_moist_bxe, &
 dfi_moist_bys,dfi_moist_bye,dfi_moist_btxs,dfi_moist_btxe,dfi_moist_btys,dfi_moist_btye,scalar,scalar_bxs,scalar_bxe,scalar_bys, &
 scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar_bxs,dfi_scalar_bxe,dfi_scalar_bys, &
 dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,aerod,ozmixm,aerosolc_1,aerosolc_2,fdda3d,fdda2d, &
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
+
 
 
                     )
@@ -29,6 +31,7 @@ tracer_btye &
    USE module_driver_constants
    USE module_machine
    USE module_tiles, ONLY : set_tiles
+
    USE module_utility
 
 
@@ -47,6 +50,11 @@ tracer_btye &
 
    USE module_fddaobs_driver
 
+
+
+
+
+
    USE module_first_rk_step_part1
    USE module_first_rk_step_part2
    USE module_after_all_rk_steps
@@ -61,6 +69,7 @@ tracer_btye &
    TYPE(domain) , TARGET          :: grid
 
    
+
 
 
 
@@ -125,6 +134,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
 
+
+
+
    
    TYPE (grid_config_rec_type) , INTENT(IN)          :: config_flags
 
@@ -165,6 +177,11 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
    
    LOGICAL                        :: diag_flag
    
+
+
+
+
+
 
 
 
@@ -218,17 +235,30 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
 logical   ,DIMENSION(grid%sm31:grid%em31,grid%sm33:grid%em33)           :: cu_act_flag
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm33:grid%em33)           :: hol
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist)           :: moist_tend
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist)           :: moist_old
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_moist)           :: dfi_moist_tend
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_moist)           :: dfi_moist_old
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_scalar)           :: scalar_tend
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_scalar)           :: scalar_old
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_scalar)           :: dfi_scalar_tend
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_scalar)           :: dfi_scalar_old
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_chem)           :: chem_tend
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_chem)           :: chem_old
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_tracer)           :: tracer_tend
+
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_tracer)           :: tracer_old
+
+
 
 
 
@@ -311,6 +341,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
 
 
 
+
+
+                         
 
 
 
@@ -455,6 +488,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
    IF (config_flags%polar) dclat = 90./REAL(jde-jds) 
 
 
+
    rk_order = config_flags%rk_ord
 
    IF ( grid%time_step_sound == 0 ) THEN
@@ -482,6 +516,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
   
      CALL get_wrf_debug_level( debug_level )
      IF ((config_flags%time_step < 0) .AND. (debug_level.GE.50)) THEN
+
+
+
        WRITE(wrf_err_message,*)'variable dt, max horiz cfl, max vert cfl: ',&
             grid%dt, grid%max_horiz_cfl, grid%max_vert_cfl
        CALL wrf_debug ( 0 , wrf_err_message )
@@ -543,6 +580,10 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
      
      
      IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
+
+
+
+
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -593,7 +634,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
      IF ( rk_order == 1 ) THEN   
 
        write(wrf_err_message,*)' leapfrog removed, error exit for dynamics_option = ',dynamics_option
-       CALL wrf_error_fatal3("<stdin>",596,&
+       CALL wrf_error_fatal3("<stdin>",637,&
 wrf_err_message )
 
      ELSE IF ( rk_order == 2 ) THEN   
@@ -627,7 +668,7 @@ wrf_err_message )
      ELSE
 
        write(wrf_err_message,*)' unknown solver, error exit for dynamics_option = ',dynamics_option
-       CALL wrf_error_fatal3("<stdin>",630,&
+       CALL wrf_error_fatal3("<stdin>",671,&
 wrf_err_message )
 
      END IF
@@ -683,6 +724,10 @@ wrf_err_message )
 
      END DO
      !$OMP END PARALLEL DO
+
+
+
+
 
 
 
@@ -800,6 +845,12 @@ wrf_err_message )
                             )
 
 
+
+
+
+
+
+
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_tend               &
                              , chem  , chem_tend                &
@@ -843,6 +894,10 @@ wrf_err_message )
                                ids, ide, jds, jde, kds, kde ,            &
                                ims, ime, jms, jme, kms, kme ,            &
                                ips, ipe, jps, jpe, kps, kpe              )
+
+
+
+
         its=ips ; ite = ipe
         jts=jps ; jte = jpe
         CALL set_physical_bc3d( grid%h_diabatic, 'p', config_flags,      &
@@ -1200,6 +1255,7 @@ wrf_err_message )
 
 
 
+
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij )
 
@@ -1288,6 +1344,9 @@ wrf_err_message )
      small_steps : DO iteration = 1 , number_of_small_timesteps
 
        
+
+
+
 
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
@@ -1386,6 +1445,7 @@ wrf_err_message )
 
        END DO
        !$OMP END PARALLEL DO
+
 
 
        !$OMP PARALLEL DO   &
@@ -1646,6 +1706,7 @@ wrf_err_message )
 
 
 
+
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -1859,6 +1920,10 @@ wrf_err_message )
 
 
 
+
+
+
+
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -1903,6 +1968,10 @@ wrf_err_message )
          ENDDO
        ENDDO
        !$OMP END PARALLEL DO
+
+
+
+
 
 
 
@@ -1954,6 +2023,10 @@ wrf_err_message )
 
 
 
+
+
+
+
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij )
          DO ij = 1 , grid%num_tiles
@@ -1997,6 +2070,10 @@ wrf_err_message )
            ENDDO
          END DO
          !$OMP END PARALLEL DO
+
+
+
+
 
 
 
@@ -2047,6 +2124,10 @@ wrf_err_message )
 
 
 
+
+
+
+
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij )
          DO ij = 1 , grid%num_tiles
@@ -2063,6 +2144,7 @@ wrf_err_message )
 
 
        END IF  
+
 
 
 
@@ -2245,6 +2327,7 @@ wrf_err_message )
 
 
        TKE_advance: IF (config_flags%km_opt .eq. 2) then
+
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij, tenddec )
          tke_tile_loop_1: DO ij = 1 , grid%num_tiles
@@ -2324,6 +2407,7 @@ wrf_err_message )
          !$OMP END PARALLEL DO
 
        ENDIF TKE_advance
+
 
 
 
@@ -2429,6 +2513,7 @@ wrf_err_message )
                                   kts=k_start    , kte=k_end                              )
 
            IF( config_flags%specified  ) THEN
+
              CALL flow_dep_bdy  ( tracer(ims,kms,jms,ic),     &
                                   grid%ru_m, grid%rv_m, config_flags,   &
                                   grid%spec_zone,                  &
@@ -2438,6 +2523,7 @@ wrf_err_message )
                                   grid%i_start(ij), grid%i_end(ij),  &
                                   grid%j_start(ij), grid%j_end(ij),  &
                                   k_start, k_end                    )
+
            ENDIF
          ENDDO tracer_tile_loop_2
          !$OMP END PARALLEL DO
@@ -2617,6 +2703,10 @@ wrf_err_message )
                                ids, ide, jds, jde, kds, kde ,            &
                                ims, ime, jms, jme, kms, kme ,            &
                                ips, ipe, jps, jpe, kps, kpe              )
+
+
+
+
         its=ips ; ite = ipe
         jts=jps ; jte = jpe
         CALL set_physical_bc3d( grid%t_1, 'p', config_flags,      &
@@ -2902,6 +2992,7 @@ wrf_err_message )
 
 
 
+
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        tile_bc_loop_1: DO ij = 1 , grid%num_tiles
@@ -3011,6 +3102,7 @@ wrf_err_message )
 
 
 
+
      ENDIF rk_step_1_check
 
 
@@ -3024,6 +3116,7 @@ wrf_err_message )
 
 
    IF      ( config_flags%traj_opt .EQ. UM_TRAJECTORY ) THEN
+
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -3238,6 +3331,9 @@ wrf_err_message )
 
 
 
+
+
+
      CALL microphysics_driver(                                            &
       &         DT=dtm             ,DX=grid%dx              ,DY=grid%dy   &
       &        ,DZ8W=dz8w          ,F_ICE_PHY=grid%f_ice_phy              &
@@ -3253,6 +3349,7 @@ wrf_err_message )
       &        ,T8W=t8w                                                   &
       &        ,CLDFRA=grid%cldfra, EXCH_H=grid%exch_h &
       &        ,NSOURCE=grid%qndropsource                                 &
+
       &        ,XLAND=grid%xland,SNOWH=grid%SNOW                           &  
       &        ,SPECIFIED=specified_bdy, CHANNEL_SWITCH=channel_bdy       &
       &        ,F_RAIN_PHY=grid%f_rain_phy                                &
@@ -3308,6 +3405,11 @@ wrf_err_message )
       &        , QIP_CURR=moist(ims,kms,jms,P_QIP), F_QIP=F_QIP               &
       &        , QID_CURR=moist(ims,kms,jms,P_QID), F_QID=F_QID               &
       &        , QNDROP_CURR=scalar(ims,kms,jms,P_QNDROP), F_QNDROP=F_QNDROP &
+
+
+
+
+
       &        , QT_CURR=scalar(ims,kms,jms,P_QT), F_QT=F_QT              &
       &        , QNN_CURR=scalar(ims,kms,jms,P_QNN), F_QNN=F_QNN          &
       &        , QNI_CURR=scalar(ims,kms,jms,P_QNI), F_QNI=F_QNI          &
@@ -3372,6 +3474,7 @@ wrf_err_message )
       &        ,ccn_conc=grid%ccn_conc                                   & 
 
                                                                           )
+
 
 
 
@@ -3458,6 +3561,9 @@ wrf_err_message )
                                       moist(ims,kms,jms,P_QV),grid%qv_diabatic, &
                                       moist(ims,kms,jms,P_QC),grid%qc_diabatic, &
                                       config_flags,                            &
+
+
+
                                       ids, ide, jds, jde, kds, kde,     &
                                       ims, ime, jms, jme, kms, kme,     &
                                       its, ite, jts, jte,               &
@@ -3557,6 +3663,10 @@ wrf_err_message )
 
 
    IF (.not. config_flags%non_hydrostatic) THEN
+
+
+
+
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij )
      DO ij = 1 , grid%num_tiles
@@ -3739,6 +3849,7 @@ wrf_err_message )
    
 
    
+
 
 
 
@@ -3981,6 +4092,7 @@ wrf_err_message )
      END DO moisture_loop_bdy_3
 
 
+
      tracer_species_bdy_loop_3 : DO im = PARAM_FIRST_SCALAR , num_tracer
 
      IF( ( config_flags%nested ) ) THEN
@@ -4033,6 +4145,10 @@ wrf_err_message )
 
 
 
+
+
+
+
    CALL wrf_debug ( 10 , ' call set_w_surface' )
    fill_w_flag = .false.
 
@@ -4078,6 +4194,8 @@ wrf_err_message )
 
 
 
+
+
    DEALLOCATE(max_vert_cfl_tmp)
    DEALLOCATE(max_horiz_cfl_tmp)
 
@@ -4091,6 +4209,8 @@ wrf_err_message )
    IF ( grid%id .EQ. 1 ) grid%just_read_boundary = Is_alarm_tstep(grid%domain_clock, grid%alarms(BOUNDARY_ALARM))
 
 
+
+         
 
 
 
@@ -4151,3 +4271,5 @@ wrf_err_message )
    RETURN
 
 END SUBROUTINE solve_em
+
+

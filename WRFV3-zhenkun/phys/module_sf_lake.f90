@@ -133,8 +133,10 @@ MODULE module_sf_lake
                      dz3d         ,zi3d           ,h2osoi_vol3d ,h2osoi_liq3d    ,&
                      h2osoi_ice3d ,t_grnd2d       ,t_soisno3d   ,t_lake3d        ,&
                      savedtke12d  ,lake_icefrac3d                                ,& 
+
              
                      lakemask                                          ,&
+
                      hfx          ,lh             ,grdflx       ,tsk             ,&  
                      qfx          ,t2             ,th2          ,q2 )
 
@@ -152,8 +154,10 @@ MODULE module_sf_lake
     INTEGER , INTENT (IN) :: iswater
     REAL,     INTENT(IN)  :: xice_threshold
     REAL, DIMENSION( ims:ime , jms:jme ), INTENT(INOUT)::   XICE
+
     REAL, DIMENSION( ims:ime , jms:jme ), INTENT(INOUT)::   LAKEMASK
  
+
     
     REAL,           DIMENSION( ims:ime, kms:kme, jms:jme ),INTENT(IN)  :: t_phy  
     REAL,           DIMENSION( ims:ime, kms:kme, jms:jme ),INTENT(IN)  :: p8w    
@@ -295,7 +299,11 @@ MODULE module_sf_lake
        
        
 
+
         if (lakemask(i,j).eq.1) THEN
+
+
+
     
            do c = 1,column
      
@@ -787,7 +795,7 @@ SUBROUTINE ShalLakeFluxes(forc_t,forc_pbot,forc_psrf,forc_hgt,forc_hgt_q,       
        if (snl(c) > 0 .or. snl(c) < -5) then
          WRITE(message,*)  'snl is not defined in ShalLakeFluxesMod'
          CALL wrf_message(message)
-         CALL wrf_error_fatal3("<stdin>",790,&
+         CALL wrf_error_fatal3("<stdin>",798,&
 "snl: out of range value")
        end if
 
@@ -859,11 +867,15 @@ SUBROUTINE ShalLakeFluxes(forc_t,forc_pbot,forc_psrf,forc_hgt,forc_hgt_q,       
 
        
 
+
+
+
        if (t_grnd(c) > tfrz) then
           htvp(c) = hvap
        else
           htvp(c) = hsub
        end if
+
 
 
 
@@ -949,11 +961,13 @@ SUBROUTINE ShalLakeFluxes(forc_t,forc_pbot,forc_psrf,forc_hgt,forc_hgt_q,       
           t_grnd(c) = ax/bx
 
           
+
        if (t_grnd(c) > tfrz) then
           htvp(c) = hvap
        else
           htvp(c) = hsub
        end if
+
 
           
           
@@ -1044,11 +1058,13 @@ SUBROUTINE ShalLakeFluxes(forc_t,forc_pbot,forc_psrf,forc_hgt,forc_hgt_q,       
        end if
 
           
+
        if (t_grnd(c) > tfrz) then
           htvp(c) = hvap
        else
           htvp(c) = hsub
        end if
+
 
        
 
@@ -1073,6 +1089,7 @@ SUBROUTINE ShalLakeFluxes(forc_t,forc_pbot,forc_psrf,forc_hgt,forc_hgt_q,       
        qflx_evap_tot(p) = qflx_evap_soi(p)
        eflx_lh_tot(p)   = htvp(c)*qflx_evap_soi(p)
        eflx_lh_grnd(p)  = htvp(c)*qflx_evap_soi(p)
+
        
        t_ref2m(p) = thm(c) + temp1(p)*dth(p)*(1._r8/temp12m(p) - 1._r8/temp1(p))
 
@@ -1243,6 +1260,9 @@ SUBROUTINE ShalLakeTemperature(t_grnd,h2osno,sabg,dz,dz_lake,z,zi,           &
     real(r8), intent(out) :: eflx_sh_tot(1)     
     real(r8), intent(out) :: eflx_soil_grnd(1)  
                                                
+
+
+
     real(r8), intent(inout) :: t_lake(1,nlevlake)                 
     real(r8), intent(inout) :: t_soisno(1,-nlevsnow+1:nlevsoil)    
     real(r8), intent(inout) :: h2osoi_liq(1,-nlevsnow+1:nlevsoil)  
@@ -1509,7 +1529,11 @@ SUBROUTINE ShalLakeTemperature(t_grnd,h2osno,sabg,dz,dz_lake,z,zi,           &
           
           
           
+
           eta(:) = 1.1925_r8*lakedepth(c)**(-0.424)
+
+
+
 
           zin  = z_lake(c,j) - 0.5_r8*dz_lake(c,j)
           zout = z_lake(c,j) + 0.5_r8*dz_lake(c,j)
@@ -1588,7 +1612,7 @@ SUBROUTINE ShalLakeTemperature(t_grnd,h2osno,sabg,dz,dz_lake,z,zi,           &
              t_soisno_bef(c,j) = t_soisno(c,j)
              if(abs(t_soisno(c,j)-288) > 150)   then 
                 WRITE( message,* ) 'WARNING: Extreme t_soisno at c, level',c, j
-                CALL wrf_error_fatal3("<stdin>",1591,&
+                CALL wrf_error_fatal3("<stdin>",1615,&
 message )
              endif
           end if
@@ -1763,6 +1787,7 @@ message )
 
 
 
+
     
     call PhaseChange_Lake (snl,h2osno,dz,dz_lake,                            & 
                                t_soisno,h2osoi_liq,h2osoi_ice,               & 
@@ -1778,6 +1803,7 @@ message )
     
     
     
+
 
 
 
@@ -1814,6 +1840,12 @@ message )
              c = filter_shlakec(fc)
              if (rhow(c,j) > rhow(c,j+1) .or. &
                 (lake_icefrac(c,j) < 1._r8 .and. lake_icefrac(c,j+1) > 0._r8) ) then
+
+
+
+
+
+
                 qav(c) = qav(c) + dz_lake(c,i)*(t_lake(c,i)-tfrz) * & 
                         ((1._r8 - lake_icefrac(c,i))*cwat + lake_icefrac(c,i)*cice_eff)
 
@@ -1894,6 +1926,10 @@ message )
           c = filter_shlakec(fc)
 
           cv_lake(c,j) = dz_lake(c,j) * (cwat*(1._r8-lake_icefrac(c,j)) + cice_eff*lake_icefrac(c,j))
+
+
+
+
        end do
     end do
     
@@ -1944,7 +1980,11 @@ message )
        c = pcolumn(p)
        errsoi(c) = (ncvts(c)-ocvts(c)) / dtime - fin(c)
 
+
        if (abs(errsoi(c)) < 10._r8) then 
+
+
+
           eflx_sh_tot(p) = eflx_sh_tot(p) - errsoi(c)
           eflx_sh_grnd(p) = eflx_sh_grnd(p) - errsoi(c)
           eflx_soil_grnd(p) = eflx_soil_grnd(p) + errsoi(c)
@@ -1955,6 +1995,12 @@ message )
              CALL wrf_message(message)
           end if
           errsoi(c) = 0._r8
+
+
+
+
+
+
        end if
     end do
     
@@ -2059,6 +2105,7 @@ message )
               
 
           
+
                 satw = 1._r8
                    fl = h2osoi_liq(c,j)/(h2osoi_ice(c,j)+h2osoi_liq(c,j))
                    if (t_soisno(c,j) >= tfrz) then       
@@ -2439,6 +2486,9 @@ message )
     real(r8), intent(in) :: forc_snow(1)     
     real(r8), intent(in) :: qflx_evap_tot(1) 
     real(r8), intent(in) :: forc_t(1)        
+
+
+
     logical , intent(in) :: do_capsnow(1)     
     real(r8), intent(in) :: t_grnd(1)          
     real(r8), intent(in) :: qflx_evap_soi(1)   
@@ -2497,6 +2547,7 @@ message )
     real(r8), intent(out) :: qflx_rain_grnd_col(1)   
 
 
+
     real(r8), pointer :: sucsat(:,:)      
     real(r8), pointer :: bsw(:,:)         
     real(r8), pointer :: bsw2(:,:)        
@@ -2505,6 +2556,7 @@ message )
     real(r8), pointer :: wf(:)            
     real(r8), pointer :: soilpsi(:,:)     
     real(r8) :: psi,vwc,fsat               
+
 
 
 
@@ -2531,6 +2583,9 @@ message )
     real(r8) :: heatsum(lbc:ubc)             
     real(r8) :: qflx_top_soil(1)     
     character*256 :: message 
+
+
+
 
 
 
@@ -2583,8 +2638,13 @@ message )
           qflx_rain_grnd(p) = 0._r8
        else
           qflx_snowcap(p) = 0._r8
+
+
+
+
           qflx_snow_grnd_pft(p) = qflx_prec_grnd_snow(p)           
           qflx_rain_grnd(p)     = qflx_prec_grnd_rain(p)           
+
        end if
        
        qflx_snow_grnd_col(c) = qflx_snow_grnd_pft(p)
@@ -2728,7 +2788,11 @@ message )
              snowdp(c) = h2osno(c)/snow_bd 
           end if
 
+
+
+
           h2osno(c) = max(h2osno(c), 0._r8)
+
 
        end if
 
@@ -2873,6 +2937,11 @@ message )
                 h2osno(c) = 0._r8
                 snl(c) = 0
                 
+
+
+
+
+
                 if (heatrem > 0._r8) then 
                    t_lake(c,1) = t_lake(c,1) - heatrem/(cpliq*denh2o*dz_lake(c,1))
                 else 
@@ -2974,6 +3043,7 @@ message )
 
 
 
+
     
 !dir$ concurrent
 
@@ -2995,9 +3065,16 @@ message )
        
        qflx_qrgwl(c)     = forc_rain(g) + forc_snow(g) - qflx_evap_tot(p) - (endwb(c)-begwb(c))/dtime
 
+
+
+
+
+
        
        qflx_evap_tot_col(c) = qflx_evap_tot(p)
     end do
+
+
 
 
 
@@ -4149,7 +4226,14 @@ subroutine FrictionVelocity(pgridcell,forc_hgt,forc_hgt_u,        &
 
 
 
+
+
+
+
+
+
    
+
 
 
 !dir$ concurrent
@@ -4265,7 +4349,10 @@ subroutine FrictionVelocity(pgridcell,forc_hgt,forc_hgt_u,        &
       end if
 
 
+
    end do
+
+
 
 
 
@@ -4403,6 +4490,9 @@ subroutine FrictionVelocity(pgridcell,forc_hgt,forc_hgt_u,        &
 
     rib=grav*zldis*dthv/(thv*um*um)
 
+
+
+
     if (rib >= 0._r8) then      
        zeta = rib*log(zldis/z0m)/(1._r8-5._r8*min(rib,0.19_r8))
        zeta = min(2._r8,max(zeta,0.01_r8 ))
@@ -4432,7 +4522,9 @@ end subroutine LakeDebug
                     h2osoi_liq3d,   h2osoi_vol3d,    z3d,             dz3d,           &
                     zi3d,           watsat3d,        csol3d,          tkmg3d,         &
                     iswater,        xice,            xice_threshold,  xland,   tsk,   &
+
                     lakemask,       lakeflag,                                         &
+
                     lake_depth_flag, use_lakedepth,                                   &
                     tkdry3d,        tksatu3d,        lake,            its, ite, jts, jte, &
                     ims,ime, jms,jme)
@@ -4451,8 +4543,10 @@ end subroutine LakeDebug
   REAL, DIMENSION( ims:ime , jms:jme ), INTENT(IN)::      TSK
   REAL, DIMENSION( ims:ime, jms:jme )  ,INTENT(INOUT)  :: XLAND
 
+
   REAL, DIMENSION( ims:ime , jms:jme ) ::   LAKEMASK
   INTEGER , INTENT (IN) :: lakeflag
+
   INTEGER , INTENT (INOUT) :: lake_depth_flag
   INTEGER , INTENT (IN) ::   use_lakedepth
 
@@ -4553,6 +4647,7 @@ end subroutine LakeDebug
    numb_lak = 0
        do i=its,ite
          do j=jts,jte
+
          IF (lakeflag.eq.0) THEN    
             if(ht(i,j)>=lake_min_elev) then 
               if ( xice(i,j).gt.xice_threshold) then   
@@ -4585,6 +4680,7 @@ end subroutine LakeDebug
                 lake(i,j)  = .false.
              endif
          ENDIF   
+
         end do
        end do
     write(message,*) "the total number of lake grid is :", numb_lak
@@ -4610,7 +4706,7 @@ end subroutine LakeDebug
         h2osoi_vol3d(i,:,j)    = 0.0
         snl2d(i,j)             = 0.0
           if ( use_lakedepth.eq.1 .and.lake_depth_flag.eq.0 ) then 
-          call wrf_error_fatal3("<stdin>",4613,&
+          call wrf_error_fatal3("<stdin>",4709,&
 'STOP: You need lake-depth information. Rerun WPS or set use_lakedepth = 0')
           end if
           if ( use_lakedepth.eq.0 .and.lake_depth_flag.eq.1 ) then 
@@ -4662,6 +4758,7 @@ end subroutine LakeDebug
 
 
 
+
   dzlak(1) = 0.1_r8
   dzlak(2) = 0.1_r8
   dzlak(3) = 0.1_r8
@@ -4683,6 +4780,7 @@ end subroutine LakeDebug
   zlak(8) = 0.75_r8
   zlak(9) = 0.85_r8
   zlak(10)= 0.95_r8
+
 
    
 
@@ -4884,3 +4982,5 @@ end subroutine LakeDebug
   END SUBROUTINE lakeini
 
 END MODULE module_sf_lake
+
+

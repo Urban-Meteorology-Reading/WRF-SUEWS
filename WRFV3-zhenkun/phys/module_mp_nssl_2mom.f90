@@ -112,7 +112,11 @@ MODULE module_mp_nssl_2mom
   logical, private :: cleardiag = .false.
   PRIVATE
 
+
+
+
   integer, parameter :: wrfchem_flag = 0
+
   
   integer, private :: eqtset = 1 
    double precision, parameter, public :: zscale = 1.0d0 
@@ -159,7 +163,12 @@ MODULE module_mp_nssl_2mom
   real   , private :: auttim         = 300.      
   real   , private :: qcwmntim       = 1.0e-5    
 
+
+
+
+
       logical, parameter :: invertccn = .false. 
+
   logical :: restoreccn = .false. 
   real    :: ccntimeconst = 600.  
 
@@ -1085,7 +1094,7 @@ MODULE module_mp_nssl_2mom
       ltmp = lhlw
       ENDIF
     ELSE
-      CALL wrf_error_fatal3("<stdin>",1088,&
+      CALL wrf_error_fatal3("<stdin>",1097,&
 'nssl_2mom_init: Invalid value of ipctmp' )
     ENDIF
 
@@ -2198,6 +2207,12 @@ SUBROUTINE nssl_2mom_driver(qv, qc, qr, qi, qs, qh, qhl, ccw, crw, cci, csw, chw
 
          IF ( lvh > 0 )  vhw(ix,kz,jy) = an(ix,1,kz,lvh)
          IF ( lvhl > 0 .and. present( vhl ) ) vhl(ix,kz,jy) = an(ix,1,kz,lvhl)
+
+
+
+
+
+
 
         ENDDO
        ENDDO
@@ -17835,3 +17850,5 @@ END SUBROUTINE nssl_2mom_driver
 
 
 END MODULE module_mp_nssl_2mom
+
+

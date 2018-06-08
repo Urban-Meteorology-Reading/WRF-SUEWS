@@ -9813,7 +9813,11 @@ MODULE module_ra_rrtmg_sw
 
 use module_model_constants, only : cp
 USE module_wrf_error
+
+
+
 USE module_state_description, ONLY : FER_MP_HIRES, FER_MP_HIRES_ADVECT
+
 
 
 use parrrsw, only : nbndsw, ngptsw, naerec
@@ -10215,6 +10219,7 @@ CONTAINS
 
 
 
+
   j_loop: do j = jts,jte
 
 
@@ -10372,8 +10377,14 @@ CONTAINS
          ENDIF
 
 
+
+
+
+
+
            IF ( mp_physics == FER_MP_HIRES .OR. &
                 mp_physics == FER_MP_HIRES_ADVECT) THEN
+
                   DO K=kts,kte
                      qi1d(k) = qi3d(i,k,j)
                      qs1d(k) = 0.0
@@ -10424,7 +10435,11 @@ CONTAINS
                ENDDO
             ELSE
                DO K=kts,kte
+
                   recloud1D(ncol,K) = 5.0
+
+
+
                ENDDO
             ENDIF
 
@@ -10456,7 +10471,9 @@ CONTAINS
                ENDDO
             ELSE
                DO K=kts,kte
+
                   resnow1D(ncol,K) = 10.0
+
                ENDDO
             ENDIF
 
@@ -10716,11 +10733,16 @@ CONTAINS
             reliq(ncol,k) = recloud1d(ncol,k)
          end do
       endif
+
       if (iceflgsw .ge. 4) then
+
+
+
          do k = kts, kte
             reice(ncol,k) = reice1d(ncol,k)
          end do
       endif
+
 
 
 
@@ -10845,6 +10867,7 @@ CONTAINS
                end do
             end do
       end if
+
 
 
 
@@ -11026,7 +11049,7 @@ IMPLICIT NONE
       ENDIF
       CALL wrf_dm_bcast_bytes ( rrtmg_unit , 4 )
       IF ( rrtmg_unit < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",11029,&
+        CALL wrf_error_fatal3("<stdin>",11052,&
 'module_ra_rrtmg_sw: rrtm_swlookuptable: Can not '// &
                                'find unused fortran unit to read in lookup table.' )
       ENDIF
@@ -11056,7 +11079,7 @@ IMPLICIT NONE
      RETURN
 9009 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error opening RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11059,&
+     CALL wrf_error_fatal3("<stdin>",11082,&
 errmess)
 
      END SUBROUTINE rrtmg_swlookuptable
@@ -11140,6 +11163,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat1, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11154,7 +11180,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11157,&
+     CALL wrf_error_fatal3("<stdin>",11183,&
 errmess)
 
       end subroutine sw_kgb16
@@ -11221,6 +11247,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11235,7 +11264,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11238,&
+     CALL wrf_error_fatal3("<stdin>",11267,&
 errmess)
 
       end subroutine sw_kgb17
@@ -11302,6 +11331,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11316,7 +11348,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11319,&
+     CALL wrf_error_fatal3("<stdin>",11351,&
 errmess)
 
       end subroutine sw_kgb18 
@@ -11383,6 +11415,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11397,7 +11432,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11400,&
+     CALL wrf_error_fatal3("<stdin>",11435,&
 errmess)
 
       end subroutine sw_kgb19
@@ -11466,6 +11501,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, layreffr, absch4o, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11480,7 +11518,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11483,&
+     CALL wrf_error_fatal3("<stdin>",11521,&
 errmess)
 
       end subroutine sw_kgb20
@@ -11547,6 +11585,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11561,7 +11602,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11564,&
+     CALL wrf_error_fatal3("<stdin>",11605,&
 errmess)
 
       end subroutine sw_kgb21
@@ -11628,6 +11669,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -11642,7 +11686,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11645,&
+     CALL wrf_error_fatal3("<stdin>",11689,&
 errmess)
 
       end subroutine sw_kgb22
@@ -11699,6 +11743,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, givfac, layreffr, kao, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -11712,7 +11759,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11715,&
+     CALL wrf_error_fatal3("<stdin>",11762,&
 errmess)
 
       end subroutine sw_kgb23
@@ -11783,6 +11830,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylao, raylbo, strrat, layreffr, abso3ao, abso3bo, kao, kbo, selfrefo, &
          forrefo, sfluxrefo
@@ -11801,7 +11851,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11804,&
+     CALL wrf_error_fatal3("<stdin>",11854,&
 errmess)
 
       end subroutine sw_kgb24
@@ -11847,6 +11897,8 @@ errmess)
 
 
 
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, layreffr, abso3ao, abso3bo, kao, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -11859,7 +11911,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11862,&
+     CALL wrf_error_fatal3("<stdin>",11914,&
 errmess)
 
       end subroutine sw_kgb25
@@ -11885,6 +11937,7 @@ errmess)
 
 
 
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -11893,7 +11946,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11896,&
+     CALL wrf_error_fatal3("<stdin>",11949,&
 errmess)
 
       end subroutine sw_kgb26
@@ -11953,6 +12006,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          raylo, scalekur, layreffr, kao, kbo, sfluxrefo
       CALL wrf_dm_bcast_bytes ( raylo , size ( raylo ) * 4 )
@@ -11965,7 +12021,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",11968,&
+     CALL wrf_error_fatal3("<stdin>",12024,&
 errmess)
 
       end subroutine sw_kgb27
@@ -12020,6 +12076,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, strrat, layreffr, kao, kbo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12032,7 +12091,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",12035,&
+     CALL wrf_error_fatal3("<stdin>",12094,&
 errmess)
 
       end subroutine sw_kgb28
@@ -12103,6 +12162,9 @@ errmess)
 
 
 
+
+
+
       IF ( wrf_dm_on_monitor() ) READ (rrtmg_unit,ERR=9010) &
          rayl, layreffr, absh2oo, absco2o, kao, kbo, selfrefo, forrefo, sfluxrefo
       CALL wrf_dm_bcast_real ( rayl , 1 )
@@ -12118,7 +12180,7 @@ errmess)
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A,I4)' ) 'module_ra_rrtmg_sw: error reading RRTMG_SW_DATA on unit ',rrtmg_unit
-     CALL wrf_error_fatal3("<stdin>",12121,&
+     CALL wrf_error_fatal3("<stdin>",12183,&
 errmess)
 
       end subroutine sw_kgb29
@@ -12126,4 +12188,6 @@ errmess)
 
 
 END MODULE module_ra_rrtmg_sw
+
+
 

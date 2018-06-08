@@ -104,3 +104,5 @@ SUBROUTINE SUEWS_cal_RoughnessParameters(&
   IF(zdm<0) CALL ErrorHint(14,'In SUEWS_RoughnessParameters.f95, zd < 0 m.',zdm,notUsed,notUsedI)
   IF(zzd<0) CALL ErrorHint(14,'In SUEWS_RoughnessParameters.f95, (z-zd) < 0 m.',zzd,notUsed,notUsedI)
 END SUBROUTINE SUEWS_cal_RoughnessParameters
+
+

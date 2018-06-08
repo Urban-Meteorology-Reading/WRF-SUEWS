@@ -40,6 +40,11 @@
                             
                              ,ic_flashcount, ic_flashrate              &
                              ,cg_flashcount, cg_flashrate              &
+
+
+
+
+
                             )
 
  USE module_state_description
@@ -66,6 +71,12 @@
                                 cg_flashcount, cg_flashrate
 
 
+
+
+
+
+
+
  CHARACTER (LEN=80) :: message
 
 
@@ -77,18 +88,18 @@
  IF ( lightning_dt == 0. ) THEN
     lightning_dt = dt
  ELSEIF ( ABS(1.-(1./NINT(lightning_dt/dt)) * (lightning_dt/dt)) .GT. 0.001 ) THEN
-    CALL wrf_error_fatal3("<stdin>",80,&
+    CALL wrf_error_fatal3("<stdin>",91,&
 ' lightning_init: lightning_dt needs to be a multiple of model time step dt')
  ENDIF
 
 
  IF (iccg_prescribed_den .eq. 0. .and. iccg_prescribed_num .eq. 0.) THEN
-    CALL wrf_error_fatal3("<stdin>",86,&
+    CALL wrf_error_fatal3("<stdin>",97,&
 ' lightning_init: iccg_prescribed cannot be 0.0/0.0')
  ENDIF
  IF (iccg_prescribed_den .ne. 0.) THEN
     IF (iccg_prescribed_num/iccg_prescribed_den .eq. -1.) THEN
-        CALL wrf_error_fatal3("<stdin>",91,&
+        CALL wrf_error_fatal3("<stdin>",102,&
 ' lightning_init: iccg_prescribed cannot be -1')
     ENDIF
  ENDIF
@@ -103,7 +114,7 @@
     
     CASE (ltng_crm_PR92w,ltng_crm_PR92z)
         IF ( do_radar_ref .eq. 0 .or. mp_physics .eq. 0) THEN
-          CALL wrf_error_fatal3("<stdin>",106,&
+          CALL wrf_error_fatal3("<stdin>",117,&
 ' lightning_init: Selected lightning option requires microphysics and do_radar_ref=1' )
         ENDIF
 
@@ -113,20 +124,22 @@
     
     CASE (ltng_cpm_PR92z)
         IF ( cu_physics .ne. GDSCHEME .and. cu_physics .ne. G3SCHEME  ) THEN
-          CALL wrf_error_fatal3("<stdin>",116,&
+          CALL wrf_error_fatal3("<stdin>",127,&
 ' lightning_init: Selected lightning option requires GD or G3 convective parameterization' )
         ENDIF
 
         WRITE(message, * ) ' lightning_init: CPM lightning option selected: ', lightning_option
         CALL wrf_debug ( 100 , message )
 
+
     CASE (ltng_lpi)
 
         WRITE(message, * ) ' lightning_init: LPIM lightning option selected: ', lightning_option
         CALL wrf_debug ( 100 , message )
+
     
     CASE DEFAULT
-        CALL wrf_error_fatal3("<stdin>",129,&
+        CALL wrf_error_fatal3("<stdin>",142,&
 ' lightning_init: invalid lightning_option')
  END SELECT ltng_select
 
@@ -143,7 +156,7 @@
     cg_flashrate(:,:)  = 0.
     cg_flashcount(:,:) = 0.
  ELSE
-    CALL wrf_error_fatal3("<stdin>",146,&
+    CALL wrf_error_fatal3("<stdin>",159,&
 ' lightning_init: flash arrays not present' )
  ENDIF
 
@@ -158,6 +171,7 @@
    ENDIF
    CALL wrf_debug( 100, message )
  ENDIF
+
 
 
  CALL wrf_debug( 200, ' lightning_init: finishing')
@@ -225,7 +239,9 @@
  USE module_ltng_iccg
 
 
+
   USE module_ltng_lpi
+
 
  IMPLICIT NONE
 
@@ -370,6 +386,7 @@
                   )
 
     
+
     CASE( ltng_lpi )
         CALL wrf_debug ( 100, ' lightning_driver: calling Light Potential Index' )
         IF(F_QG) THEN
@@ -391,15 +408,16 @@
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte)
         ELSE
         WRITE(wrf_err_message, * ) ' lightning_driver: LPI option needs Microphysics Option with Graupel '
-        CALL wrf_error_fatal3("<stdin>",394,&
+        CALL wrf_error_fatal3("<stdin>",411,&
 wrf_err_message )
         ENDIF
+
 
 
     
     CASE DEFAULT
         WRITE(wrf_err_message, * ) ' lightning_driver: The lightning option does not exist: lightning_opt = ', lightning_option
-        CALL wrf_error_fatal3("<stdin>",402,&
+        CALL wrf_error_fatal3("<stdin>",420,&
 wrf_err_message )
 
  END SELECT flashrate_select
@@ -527,7 +545,7 @@ wrf_err_message )
     
     CASE DEFAULT iccg_select
         WRITE(wrf_err_message, * ) ' lightning_driver: Invalid IC:CG method (iccg_method) = ', lightning_option
-        CALL wrf_error_fatal3("<stdin>",530,&
+        CALL wrf_error_fatal3("<stdin>",548,&
 wrf_err_message )
 
  END SELECT iccg_select
@@ -616,3 +634,5 @@ wrf_err_message )
  END SUBROUTINE
 
  END MODULE module_lightning_driver
+
+

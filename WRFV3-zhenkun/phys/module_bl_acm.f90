@@ -14,6 +14,10 @@ CONTAINS
    SUBROUTINE ACMPBL(XTIME,    DTPBL,    ZNW,   SIGMAH,               &
                      U3D,      V3D,      PP3D,  DZ8W, TH3D, T3D,      &
                      QV3D,     QC3D,     QI3D,  RR3D,                 &
+
+
+
+
                      UST,      HFX,      QFX,   TSK,                  &
                      PSFC,     EP1,      G,                           &
                      ROVCP,    RD,       CPD,                         &
@@ -158,12 +162,23 @@ CONTAINS
 
 
 
+
+
+
+
+
+
       INTEGER :: I, J, K, L
 
       REAL, DIMENSION( kts:kte ) :: DSIGH, DSIGHI, DSIGFI
       REAL, DIMENSION( 0:kte )   :: SIGMAF
       REAL  RDT
       REAL, PARAMETER :: KARMAN = 0.4
+
+
+
+
+
 
 
 
@@ -186,12 +201,19 @@ CONTAINS
    DSIGFI(kte) = DSIGFI(kte-1)
    
    DO j = jts,jte   
+
       CALL ACM2D(j=J,xtime=XTIME, dtpbl=DTPBL, sigmaf=SIGMAF, sigmah=SIGMAH    &
               ,dsigfi=DSIGFI,dsighi=DSIGHI,dsigh=DSIGH             &
               ,us=u3d(ims,kms,j),vs=v3d(ims,kms,j)                 &
               ,theta=th3d(ims,kms,j),tt=t3d(ims,kms,j)             &
               ,qvs=qv3d(ims,kms,j),qcs=qc3d(ims,kms,j)             &
               ,qis=qi3d(ims,kms,j)                                 &
+
+
+
+
+
+
               ,dzf=DZ8W(ims,kms,j)                                 &
               ,densx=RR3D(ims,kms,j)                               &
               ,utnp=rublten(ims,kms,j),vtnp=rvblten(ims,kms,j)     &
@@ -210,6 +232,13 @@ CONTAINS
               ,ids=ids,ide=ide, jds=jds,jde=jde, kds=kds,kde=kde   &
               ,ims=ims,ime=ime, jms=jms,jme=jme, kms=kms,kme=kme   &
               ,its=its,ite=ite, jts=jts,jte=jte, kts=kts,kte=kte   )
+
+
+
+
+
+
+
    ENDDO
 
    END SUBROUTINE ACMPBL
@@ -222,6 +251,10 @@ CONTAINS
    SUBROUTINE ACM2D(j,XTIME, DTPBL, sigmaf, sigmah          &
               ,dsigfi,dsighi,dsigh                          &
               ,us,vs,theta,tt,qvs,qcs,qis                   &
+
+
+
+
               ,dzf,densx,utnp,vtnp,ttnp,qvtnp,qctnp,qitnp   &
               ,cpd,g,rovcp,rd,rdt,psfcpa,ust                &
               ,pbl,exch_hx,regime,psim                      &
@@ -268,6 +301,12 @@ CONTAINS
       integer,  intent(in   )   ::      ids,ide, jds,jde, kds,kde, &
                                         ims,ime, jms,jme, kms,kme, &
                                         its,ite, jts,jte, kts,kte, j
+
+
+
+
+
+
 
 
       INTEGER I, K     
@@ -422,7 +461,7 @@ CONTAINS
                ' KMIX = ',kmix,' UST = ',UST(I),                       &
                ' TST = ',TST(I),' U,V = ',US(I,1),VS(I,1),              &
                ' I,J=',I,J
-       CALL wrf_error_fatal3("<stdin>",425,&
+       CALL wrf_error_fatal3("<stdin>",464,&
 message )
 201    CONTINUE
 
@@ -476,6 +515,9 @@ message )
                  TST, QST,  USTM,   EDDYZ,  DENSX,                  &
                  THETA,  QVS,    QCS,    QIS,        &
                  THETAX, QVX,    QCX,    QIX,        &
+
+
+
                  ids,ide, jds,jde, kds,kde,                         &
                  ims,ime, jms,jme, kms,kme,                         &
                  its,ite, jts,jte, kts,kte)
@@ -792,6 +834,10 @@ message )
                    TST, QST,  USTM,   EDDYZ,  DENSX,               &
                    THETA,  QVS,    QCS,    QIS,     &
                    THETAX, QVX,    QCX,    QIX,     &
+
+
+
+
                    ids,ide, jds,jde, kds,kde,                      &
                    ims,ime, jms,jme, kms,kme,                      &
                    its,ite, jts,jte, kts,kte)
@@ -868,6 +914,12 @@ message )
 
 
 
+
+
+
+
+
+
       INTEGER, PARAMETER :: NSP   = 4 
 
 
@@ -903,6 +955,9 @@ message )
       KL  = kte
       KLM = kte - 1
       NSPX = NSP
+
+
+
 
       G1000I = 1.0 / G1000
       KCBLMX = 0
@@ -967,6 +1022,11 @@ message )
           
           VCI(3,I,K) = QCS(I,K)
           VCI(4,I,K) = QIS(I,K)
+
+
+
+
+
         ENDDO
       ENDDO
 
@@ -975,6 +1035,11 @@ message )
         FS(2,I) = -UST(I) * QST(I) * DENSX(I,1) * PSTARI(I)
         FS(3,I) = 0.0
         FS(4,I) = 0.0                      
+
+
+
+
+
       ENDDO
 
 
@@ -1103,6 +1168,11 @@ message )
           QVX(I,K)    = VCI(2,I,K)
           QCX(I,K)    = VCI(3,I,K)
           QIX(I,K)    = VCI(4,I,K)
+
+
+
+
+
       ENDDO
       ENDDO
 
@@ -1589,3 +1659,5 @@ message )
 
 END MODULE module_bl_acm
                         
+
+

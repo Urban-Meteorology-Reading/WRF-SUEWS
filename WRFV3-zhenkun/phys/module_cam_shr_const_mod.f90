@@ -5,6 +5,8 @@
 
 
 
+
+
 MODULE shr_const_mod
 
    use shr_kind_mod
@@ -61,3 +63,5 @@ MODULE shr_const_mod
    real(R8),parameter :: SHR_CONST_SPVAL   = 1.0e30_R8       
 
 END MODULE shr_const_mod
+
+

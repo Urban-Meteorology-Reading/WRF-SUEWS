@@ -60,6 +60,7 @@
 
 
 
+
 MODULE module_bl_mynn
 
   USE module_model_constants, only: &
@@ -3048,6 +3049,7 @@ ENDIF
 
 
 
+
   SUBROUTINE retrieve_exchange_coeffs(kts,kte,&
        &dfm,dfh,dfq,dz,&
        &K_m,K_h,K_q)
@@ -3125,6 +3127,10 @@ ENDIF
        &vdfg,                           & 
        &Qke,tke_pbl,                    &
        &qke_adv,bl_mynn_tkeadvect,      & 
+
+
+
+
        &Tsq,Qsq,Cov,                    &
        &RUBLTEN,RVBLTEN,RTHBLTEN,       &
        &RQVBLTEN,RQCBLTEN,RQIBLTEN,     &
@@ -3229,6 +3235,7 @@ ENDIF
          &qc_bl,cldfra_bl
     REAL, DIMENSION(KTS:KTE) :: qc_bl1D,cldfra_bl1D,&
                             qc_bl1D_old,cldfra_bl1D_old
+
 
 
 
@@ -3524,6 +3531,7 @@ ENDIF
              s_awqke1(k)=0.
 
 
+
              IF (k==kts) THEN
                 zw(k)=0.
              ELSE
@@ -3541,6 +3549,11 @@ ENDIF
           s_awu1(kte+1)=0.
           s_awv1(kte+1)=0.
           s_awqke1(kte+1)=0.
+
+
+
+
+
 
           CALL GET_PBLH(KTS,KTE,PBLH(i,j),thetav,&
           & Qke1,zw,dz1,xland(i,j),KPBL(i,j))
@@ -3624,6 +3637,9 @@ ENDIF
                & s_aw1,s_awthl1,s_awqt1,          &
                & s_awqv1,s_awqc1,s_awu1,s_awv1,   &
                & s_awqke1,                        &
+
+
+
                & qc_bl1D,cldfra_bl1D,             &
                & FLAG_QI,FLAG_QC,                 &
                & Psig_shcu(i,j),                  &
@@ -3645,6 +3661,9 @@ ENDIF
                & s_aw1,s_awthl1,s_awqt1,          &
                & s_awqv1,s_awqc1,                 &
                & s_awu1,s_awv1,s_awqke1,          &
+
+
+
                & qc_bl1D,cldfra_bl1D              &
                &,FLAG_QI,FLAG_QC                  &
                &,Psig_shcu(i,j)                   &
@@ -3725,6 +3744,7 @@ ENDIF
                &bl_mynn_mixqt,                   &
                &bl_mynn_edmf,                    &
                &bl_mynn_edmf_mom)
+
 
 
 
@@ -4100,6 +4120,9 @@ ENDIF
                  & s_aw,s_awthl,s_awqt,     &
                  & s_awqv,s_awqc,           &
                  & s_awu,s_awv,s_awqke,     &
+
+
+
             
                  & qc_bl1d,cldfra_bl1d,     &
             
@@ -4177,6 +4200,7 @@ ENDIF
      REAL :: cn,c,l,n,an2,hux,maxwidth,wspd_pbl,cloud_base,width_flx
 
 
+
   
    REAL :: ERF
 
@@ -4225,6 +4249,9 @@ ENDIF
   UPQC=0.
   UPQV=0.
   UPQKE=0.
+
+
+
   ENT=0.001
 
   edmf_a  =0.
@@ -4234,6 +4261,9 @@ ENDIF
   edmf_ent=0.
   edmf_qc =0.
 
+
+
+
   s_aw=0.
   s_awthl=0.
   s_awqt=0.
@@ -4242,6 +4272,9 @@ ENDIF
   s_awu=0.
   s_awv=0.
   s_awqke=0.
+
+
+
 
 
   
@@ -4443,6 +4476,11 @@ ENDIF
 
 
 
+
+
+
+
+
     ENDDO
 
   
@@ -4480,6 +4518,14 @@ ENDIF
           
           
           
+
+
+
+
+
+
+
+
 
 
           
@@ -4524,6 +4570,11 @@ ENDIF
              UPV(K,I)=Vn
              UPQKE(K,I)=QKEn
              UPA(K,I)=UPA(K-1,I)
+
+
+
+
+
              ktop = MAX(ktop,k)
           ELSE
              exit
@@ -4549,6 +4600,11 @@ ENDIF
         edmf_thl(K)=edmf_thl(K)+UPA(K+1,I)*UPTHL(K+1,I)
         edmf_ent(K)=edmf_ent(K)+UPA(K+1,I)*ENT(K+1,I)
         edmf_qc(K)=edmf_qc(K)+UPA(K+1,I)*UPQC(K+1,I)
+
+
+
+
+
       ENDDO 
 
       IF (edmf_a(k)>0.) THEN
@@ -4557,6 +4613,11 @@ ENDIF
         edmf_thl(k)=edmf_thl(k)/edmf_a(k)
         edmf_ent(k)=edmf_ent(k)/edmf_a(k)
         edmf_qc(k)=edmf_qc(k)/edmf_a(k)
+
+
+
+
+
         edmf_a(k)=edmf_a(k)*Psig_w
 
         
@@ -4577,6 +4638,11 @@ ENDIF
         IF (tke_opt > 0) THEN
           s_awqke(k)= s_awqke(K) + UPA(K,i)*UPW(K,I)*UPQKE(K,I)*Psig_w * (1.0+rstoch_col(k))
         ENDIF
+
+
+
+
+
       ENDDO
       s_awqv(k) = s_awqt(k)  - s_awqc(k)
     ENDDO
@@ -5398,6 +5464,9 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
                  & s_aw,s_awthl,s_awqt,      &
                  & s_awqv,s_awqc,            &
                  & s_awu,s_awv,s_awqke,      &
+
+
+
             
                  & qc_bl1d,cldfra_bl1d,      &
             
@@ -5432,6 +5501,12 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
                                  s_awu,      &
                                  s_awv,      &
                                  s_awqke
+
+
+
+
+
+
 
      REAL,DIMENSION(kts:kte), INTENT(INOUT) :: qc_bl1d,cldfra_bl1d
 
@@ -5492,6 +5567,10 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
    real, dimension( kts:kte) :: edmf_u, edmf_v, edmf_qke 
    integer:: bdy_dist,taper_dist
    real:: taper
+
+
+
+
 
 
    
@@ -5734,6 +5813,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
             rstUPD(1,nu) = qsat_blend(TUPD(1,nu),p(1)) 
             rlUPD(1,nu) = 0.
 
+
+
+
+
+
             
             do k = 2,kte
                
@@ -5785,6 +5869,12 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
                      dwUPDmoistdz(k-1,nu) = -2. *epsmf(k,nu)*wUPD(k-1,nu) + 0.33*Bmoist(k-1)/wUPD(k-1,nu)
                      wUPD(k,nu) = wUPD(k-1,nu) + dwUPDmoistdz(k-1,nu) * dzm(k-1)
                   end if
+
+
+
+
+
+
                else 
                   thlUPD(k,nu) = thetal(k)
                   qtUPD(k,nu) = qtot(k)
@@ -5794,6 +5884,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
                   TEUPD(k,nu) = qke(k)
                   qlUPD(k,nu) = qc(k-1)
                   wUPD(k,nu) = 0.
+
+
+
+
+
                end if
 
                IF ( wrf_at_debug_level(3000) ) THEN
@@ -5888,6 +5983,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
                   wUPD_dry(k,nu) = 0.
                   dwUPDdz(k,nu) = 0.
                end if
+
+
+
+
+
             end do
 
             
@@ -5976,6 +6076,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
             edmf_v(k) = 0.0
             edmf_qke(k) = 0.0
             edmf_ent(k) = 0.0
+
+
+
+
+
             do nu = 1,Nupd
                
                aUPDt(k,nu) = mf_temfx(k,nu) / wUPD(k,nu)
@@ -5990,6 +6095,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
                   edmf_qke(k) = edmf_qke(k) + aUPDt(k,nu)*TEUPD(k,nu)
                   edmf_ent(k) = edmf_ent(k) + aUPDt(k,nu)*epsmf(k,nu)
                   cldfra_sum = cldfra_sum + cldfraUPD(k,nu)
+
+
+
+
+
                end if
             end do
 
@@ -6013,6 +6123,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
                edmf_u(k)=edmf_u(k)/edmf_a(k)
                edmf_v(k)=edmf_v(k)/edmf_a(k)
                edmf_qke(k)=edmf_qke(k)/edmf_a(k)
+
+
+
+
+
 
                if (edmf_qc(k) > 0.0) then
                  IF (cldfra_sum > edmf_a(k)) THEN
@@ -6047,6 +6162,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
             s_awu(k)  = edmf_a(k)*edmf_w(k)*edmf_u(k)*psig_w * (1.0+rstoch_col(k)) 
             s_awv(k)  = edmf_a(k)*edmf_w(k)*edmf_v(k)*psig_w * (1.0+rstoch_col(k))
             s_awqke(k) = edmf_a(k)*edmf_w(k)*edmf_qke(k)*psig_w * (1.0+rstoch_col(k))
+
+
+
+
+
             endif
             
              edmf_a(k)=edmf_a(k)*psig_w 
@@ -6077,6 +6197,11 @@ SUBROUTINE SCALE_AWARE(dx,PBL1,Psig_bl,Psig_shcu)
             edmf_qc(k) = qc(k-1)
             
          end do
+
+
+
+
+
       end if
       
       
@@ -6127,3 +6252,5 @@ end function rsat_temf
 
 
 END MODULE module_bl_mynn
+
+

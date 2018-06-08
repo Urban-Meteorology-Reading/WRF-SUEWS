@@ -47,6 +47,9 @@
       USE module_wrf_error
       USE module_mp_radar
 
+
+
+
       IMPLICIT NONE
 
       LOGICAL, PARAMETER, PRIVATE:: iiwarm = .false.
@@ -433,7 +436,11 @@
 
 
 
+
+
+
       max_test = MAXVAL ( nwfa(its:ite-1,:,jts:jte-1) )
+
 
       if (max_test .lt. eps) then
          write(mp_debug,*) ' Apparently there are no initial CCN aerosols.'
@@ -465,7 +472,11 @@
       endif
 
 
+
+
+
       max_test = MAXVAL ( nifa(its:ite-1,:,jts:jte-1) )
+
 
       if (max_test .lt. eps) then
          write(mp_debug,*) ' Apparently there are no initial IN aerosols.'
@@ -999,6 +1010,9 @@
                               RAINNC, RAINNCV, &
                               SNOWNC, SNOWNCV, &
                               GRAUPELNC, GRAUPELNCV, SR, &
+
+
+
                               refl_10cm, diagflag, do_radar_ref,      &
                               re_cloud, re_ice, re_snow,              &
                               has_reqc, has_reqi, has_reqs,           &
@@ -1020,6 +1034,10 @@
       REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(INOUT):: &
                           re_cloud, re_ice, re_snow
       INTEGER, INTENT(IN):: has_reqc, has_reqi, has_reqs
+
+
+
+
       REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN):: &
                           pii, p, w, dz
       REAL, DIMENSION(ims:ime, jms:jme), INTENT(INOUT):: &
@@ -1037,6 +1055,10 @@
                           nr1d, nc1d, nwfa1d, nifa1d,                   &
                           t1d, p1d, w1d, dz1d, rho, dBZ
       REAL, DIMENSION(kts:kte):: re_qc1d, re_qi1d, re_qs1d
+
+
+
+
       REAL, DIMENSION(its:ite, jts:jte):: pcp_ra, pcp_sn, pcp_gr, pcp_ic
       REAL:: dt, pptrain, pptsnow, pptgraul, pptice
       REAL:: qc_max, qr_max, qs_max, qi_max, qg_max, ni_max, nr_max
@@ -1156,6 +1178,9 @@
          call mp_thompson(qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, ni1d,     &
                       nr1d, nc1d, nwfa1d, nifa1d, t1d, p1d, w1d, dz1d,  &
                       pptrain, pptsnow, pptgraul, pptice, &
+
+
+
                       kts, kte, dt, i, j)
 
          pcp_ra(i,j) = pptrain
@@ -1200,6 +1225,10 @@
             ni(i,k,j) = ni1d(k)
             nr(i,k,j) = nr1d(k)
             th(i,k,j) = t1d(k)/pii(i,k,j)
+
+
+
+
             if (qc1d(k) .gt. qc_max) then
              imax_qc = i
              jmax_qc = j
@@ -1344,6 +1373,9 @@
       subroutine mp_thompson (qv1d, qc1d, qi1d, qr1d, qs1d, qg1d, ni1d, &
                           nr1d, nc1d, nwfa1d, nifa1d, t1d, p1d, w1d, dzq, &
                           pptrain, pptsnow, pptgraul, pptice, &
+
+
+
                           kts, kte, dt, ii, jj)
 
       implicit none
@@ -1356,6 +1388,10 @@
       REAL, DIMENSION(kts:kte), INTENT(IN):: p1d, w1d, dzq
       REAL, INTENT(INOUT):: pptrain, pptsnow, pptgraul, pptice
       REAL, INTENT(IN):: dt
+
+
+
+
 
 
       REAL, DIMENSION(kts:kte):: tten, qvten, qcten, qiten, &
@@ -1555,6 +1591,12 @@
          pnd_scd(k) = 0.
          pnd_gcd(k) = 0.
       enddo
+
+
+
+
+
+
 
 
       do k = kts, kte
@@ -3122,6 +3164,7 @@
 
 
 
+
       nstep = 0
       onstep(:) = 1.0
       ksed1(:) = 1
@@ -3566,13 +3609,13 @@
             INQUIRE(63,opened=lopen)
             IF (lopen) THEN
               IF( force_read_thompson ) THEN
-                CALL wrf_error_fatal3("<stdin>",3569,&
+                CALL wrf_error_fatal3("<stdin>",3612,&
 "Error reading qr_acr_qg.dat. Aborting because force_read_thompson is .true.")
               ENDIF
               CLOSE(63)
             ELSE
               IF( force_read_thompson ) THEN
-                CALL wrf_error_fatal3("<stdin>",3575,&
+                CALL wrf_error_fatal3("<stdin>",3618,&
 "Error opening qr_acr_qg.dat. Aborting because force_read_thompson is .true.")
               ENDIF
             ENDIF
@@ -3584,13 +3627,24 @@
           ENDIF
         ELSE
           IF( force_read_thompson ) THEN
-            CALL wrf_error_fatal3("<stdin>",3587,&
+            CALL wrf_error_fatal3("<stdin>",3630,&
 "Non-existent qr_acr_qg.dat. Aborting because force_read_thompson is .true.")
           ENDIF
         ENDIF
       ENDIF
 
+
+
+
       IF ( good .EQ. 1 ) THEN
+
+
+
+
+
+
+
+
       ELSE
         CALL wrf_message("ThompMP: computing qr_acr_qg")
         do n2 = 1, nbr
@@ -3606,8 +3660,12 @@
 
 
 
+
+
+
         km_s = 0
         km_e = ntb_r*ntb_r1 - 1
+
 
         do km = km_s, km_e
          m = km / ntb_r1 + 1
@@ -3672,6 +3730,14 @@
 
 
 
+
+
+
+
+
+
+
+
         IF ( write_thompson_tables .AND. wrf_dm_on_monitor() ) THEN
           CALL wrf_message("Writing qr_acr_qg.dat in Thompson MP init")
           OPEN(63,file="qr_acr_qg.dat",form="unformatted",err=9234)
@@ -3684,7 +3750,7 @@
           CLOSE(63)
           RETURN    
  9234     CONTINUE
-          CALL wrf_error_fatal3("<stdin>",3687,&
+          CALL wrf_error_fatal3("<stdin>",3753,&
 "Error writing qr_acr_qg.dat")
         ENDIF
       ENDIF
@@ -3744,13 +3810,13 @@
             INQUIRE(63,opened=lopen)
             IF (lopen) THEN
               IF( force_read_thompson ) THEN
-                CALL wrf_error_fatal3("<stdin>",3747,&
+                CALL wrf_error_fatal3("<stdin>",3813,&
 "Error reading qr_acr_qs.dat. Aborting because force_read_thompson is .true.")
               ENDIF
               CLOSE(63)
             ELSE
               IF( force_read_thompson ) THEN
-                CALL wrf_error_fatal3("<stdin>",3753,&
+                CALL wrf_error_fatal3("<stdin>",3819,&
 "Error opening qr_acr_qs.dat. Aborting because force_read_thompson is .true.")
               ENDIF
             ENDIF
@@ -3762,13 +3828,17 @@
           ENDIF
         ELSE
           IF( force_read_thompson ) THEN
-            CALL wrf_error_fatal3("<stdin>",3765,&
+            CALL wrf_error_fatal3("<stdin>",3831,&
 "Non-existent qr_acr_qs.dat. Aborting because force_read_thompson is .true.")
           ENDIF
         ENDIF
       ENDIF
 
+
+
+
       IF ( good .EQ. 1 ) THEN
+
       ELSE
         CALL wrf_message("ThompMP: computing qr_acr_qs")
         do n2 = 1, nbr
@@ -3785,8 +3855,12 @@
 
 
 
+
+
+
         km_s = 0
         km_e = ntb_r*ntb_r1 - 1
+
 
         do km = km_s, km_e
          m = km / ntb_r1 + 1
@@ -3920,6 +3994,7 @@
 
 
 
+
         IF ( write_thompson_tables .AND. wrf_dm_on_monitor() ) THEN
           CALL wrf_message("Writing qr_acr_qs.dat in Thompson MP init")
           OPEN(63,file="qr_acr_qs.dat",form="unformatted",err=9234)
@@ -3938,7 +4013,7 @@
           CLOSE(63)
           RETURN    
  9234     CONTINUE
-          CALL wrf_error_fatal3("<stdin>",3941,&
+          CALL wrf_error_fatal3("<stdin>",4016,&
 "Error writing qr_acr_qs.dat")
         ENDIF
       ENDIF
@@ -3992,13 +4067,13 @@
             INQUIRE(63,opened=lopen)
             IF (lopen) THEN
               IF( force_read_thompson ) THEN
-                CALL wrf_error_fatal3("<stdin>",3995,&
+                CALL wrf_error_fatal3("<stdin>",4070,&
 "Error reading freezeH2O.dat. Aborting because force_read_thompson is .true.")
               ENDIF
               CLOSE(63)
             ELSE
               IF( force_read_thompson ) THEN
-                CALL wrf_error_fatal3("<stdin>",4001,&
+                CALL wrf_error_fatal3("<stdin>",4076,&
 "Error opening freezeH2O.dat. Aborting because force_read_thompson is .true.")
               ENDIF
             ENDIF
@@ -4010,14 +4085,25 @@
           ENDIF
         ELSE
           IF( force_read_thompson ) THEN
-            CALL wrf_error_fatal3("<stdin>",4013,&
+            CALL wrf_error_fatal3("<stdin>",4088,&
 "Non-existent freezeH2O.dat. Aborting because force_read_thompson is .true.")
           ENDIF
         ENDIF
       ENDIF
 
 
+
+
+
       IF ( good .EQ. 1 ) THEN
+
+
+
+
+
+
+
+
       ELSE
         CALL wrf_message("ThompMP: computing freezeH2O")
 
@@ -4099,7 +4185,7 @@
           CLOSE(63)
           RETURN    
  9234     CONTINUE
-          CALL wrf_error_fatal3("<stdin>",4102,&
+          CALL wrf_error_fatal3("<stdin>",4188,&
 "Error writing freezeH2O.dat")
         ENDIF
       ENDIF
@@ -4446,8 +4532,11 @@
         ENDDO
  2010   CONTINUE
       ENDIF
+
+
+
       IF ( iunit_mp_th1 < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",4450,&
+        CALL wrf_error_fatal3("<stdin>",4539,&
 'module_mp_thompson: table_ccnAct: '//   &
            'Can not find unused fortran unit to read in lookup table.')
       ENDIF
@@ -4460,18 +4549,22 @@
       ENDIF
 
 
+
       IF ( wrf_dm_on_monitor() ) READ(iunit_mp_th1,ERR=9010) tnccn_act
+
+
+
 
 
       RETURN
  9009 CONTINUE
       WRITE( errmess , '(A,I2)' ) 'module_mp_thompson: error opening CCN_ACTIVATE.BIN on unit ',iunit_mp_th1
-      CALL wrf_error_fatal3("<stdin>",4469,&
+      CALL wrf_error_fatal3("<stdin>",4562,&
 errmess)
       RETURN
  9010 CONTINUE
       WRITE( errmess , '(A,I2)' ) 'module_mp_thompson: error reading CCN_ACTIVATE.BIN on unit ',iunit_mp_th1
-      CALL wrf_error_fatal3("<stdin>",4474,&
+      CALL wrf_error_fatal3("<stdin>",4567,&
 errmess)
 
       end subroutine table_ccnAct
@@ -5320,4 +5413,6 @@ errmess)
 
 
 END MODULE module_mp_thompson
+
+
 

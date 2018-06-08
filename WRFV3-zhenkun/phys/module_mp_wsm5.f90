@@ -124,10 +124,14 @@ CONTAINS
         INTENT(INOUT) ::                                    snow, &
                                                          snowncv
 
+
+
+
   REAL, DIMENSION( its:ite , kts:kte ) ::   t
   REAL, DIMENSION( its:ite , kts:kte, 2 ) ::   qci, qrs
   CHARACTER*256 :: emess
   INTEGER ::               i,j,k
+
 
 
       REAL, DIMENSION(kts:kte):: qv1d, t1d, p1d, qr1d, qs1d, dBZ
@@ -140,6 +144,7 @@ CONTAINS
   REAL, DIMENSION( kts:kte ) :: qc1d
   REAL, DIMENSION( kts:kte ) :: qi1d
   REAL, DIMENSION( kts:kte ) :: re_qc, re_qi, re_qs
+
 
 
 
@@ -229,7 +234,9 @@ CONTAINS
 
       ENDDO
 
+
   END SUBROUTINE wsm5
+
 
 
 
@@ -382,7 +389,10 @@ CONTAINS
   REAL, DIMENSION(its:ite) ::                             rmstep
   REAL dtcldden, rdelz, rdtcld
   LOGICAL, DIMENSION( its:ite ) ::                        flgcld
+
+
   REAL, DIMENSION(its:ite) :: xal, xbl
+
   REAL  ::                                                        &
             cpmcal, xlcal, diffus,                                &
             viscos, xka, venfac, conden, diffac,                  &
@@ -507,6 +517,7 @@ CONTAINS
       xai=-dldti/rv
       xbi=xai+hsub/(rv*ttp)
 
+
       do k = kts, kte
         do i = its, ite
           if(t(i,k).lt.ttp) then
@@ -530,6 +541,7 @@ CONTAINS
           qs(i,k,2) = ep2 * qs(i,k,2) / (p(i,k) - qs(i,k,2))
           qs(i,k,2) = max(qs(i,k,2),qmin)
           rh(i,k,2) = max(q(i,k) / qs(i,k,2),qmin)
+
         enddo
       enddo
 
@@ -1592,6 +1604,9 @@ CONTAINS
 
 
 
+
+
+
       subroutine refl10cm_wsm5 (qv1d, qr1d, qs1d,                       &
                        t1d, p1d, dBZ, kts, kte, ii, jj)
 
@@ -1923,3 +1938,5 @@ CONTAINS
 
                                                           
 END MODULE module_mp_wsm5
+
+

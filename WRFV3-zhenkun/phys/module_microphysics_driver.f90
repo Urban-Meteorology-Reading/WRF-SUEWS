@@ -33,6 +33,11 @@ SUBROUTINE microphysics_driver(                                          &
                       ,icwmrsh3d,icwmrdp3d,shfrc3d,cmfmc3d,cmfmc2_3d     &
                       ,config_flags,fnm,fnp,rh_old_mp,lcd_old_mp         &
 
+
+
+
+
+
                       ,qv_curr,qc_curr,qr_curr,qi_curr,qs_curr,qg_curr   &
                       ,qic_curr,qip_curr,qid_curr &
                       ,qnic_curr,qnip_curr,qnid_curr &
@@ -65,6 +70,10 @@ SUBROUTINE microphysics_driver(                                          &
                       ,snownc,    snowncv                                &
                       ,hailnc,    hailncv                                &
                       ,graupelnc, graupelncv                             &
+
+
+
+
                       ,qnwfa2d                                           & 
                       ,refl_10cm                                         & 
                       ,vmi3d                                             & 
@@ -90,6 +99,14 @@ SUBROUTINE microphysics_driver(                                          &
                       ,qrimef_curr,f_qrimef                              &
                                                    )
 
+
+
+
+
+
+
+
+
    USE module_state_description, ONLY :                                  &
                      KESSLERSCHEME, LINSCHEME, SBU_YLINSCHEME, WSM3SCHEME, WSM5SCHEME    &
                     ,WSM6SCHEME, ETAMPNEW, FER_MP_HIRES, THOMPSON, THOMPSONAERO, FAST_KHAIN_LYNN, MORR_TWO_MOMENT     &
@@ -99,9 +116,19 @@ SUBROUTINE microphysics_driver(                                          &
 
 
 
+
+
+
+
+
    USE module_model_constants
    USE module_wrf_error
    USE module_configure, only: grid_config_rec_type
+
+
+
+
+
 
 
 
@@ -122,7 +149,9 @@ SUBROUTINE microphysics_driver(                                          &
    USE module_mp_wdm5
    USE module_mp_wdm6
    USE module_mp_milbrandt2mom
+
    USE module_mp_cammgmp_driver, ONLY: CAMMGMP 
+
 
    USE module_mp_nssl_2mom
 
@@ -356,11 +385,23 @@ SUBROUTINE microphysics_driver(                                          &
                                                              cmfmc3d, &    
                                                            cmfmc2_3d       
 
+
+
+
+
+
+
+
  REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
       INTENT(INOUT) , OPTIONAL ::                                                &
                                                        cldfra_old_mp, &    
                                                            rh_old_mp, &    
                                                           lcd_old_mp       
+
+
+
+
+
 
 
 REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
@@ -373,6 +414,14 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                                                             lradius, &    
                                                             iradius, &    
                                                         cldfra_conv 
+
+
+
+
+
+
+
+
 
    REAL, INTENT(INOUT),  DIMENSION(ims:ime, kms:kme, jms:jme ) ::     &
                                      F_ICE_PHY,F_RAIN_PHY,F_RIMEF_PHY
@@ -436,6 +485,12 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
          OPTIONAL,                                                &
          INTENT(IN) :: qrcuten, qscuten, qicuten, qccuten
    INTEGER, INTENT(IN), optional ::     cu_used
+
+
+
+
+
+
 
 
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                  &
@@ -519,9 +574,14 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
    IF ( .false. ) THEN
       wmax = maxval( w(ips:ipe,kps:kpe,jps:jpe) )
       wmin = minval( w(ips:ipe,kps:kpe,jps:jpe) )
+
+
+
+
       WRITE( wrf_err_message , * ) 'microphysics_driver: GLOBAL w max/min = ', wmax, wmin
       CALL wrf_message ( wrf_err_message )
    ENDIF
+
 
 
    !$OMP PARALLEL DO   &
@@ -579,7 +639,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
 
        ELSEIF ( progn==1 .AND. mp_physics/=LINSCHEME .AND. mp_physics/=MORR_TWO_MOMENT &
                 .AND. mp_physics/=NSSL_2MOM .AND. mp_physics/=NSSL_2MOMCCN .AND. mp_physics/=NSSL_2MOMG ) THEN
-             call wrf_error_fatal3("<stdin>",582,&
+             call wrf_error_fatal3("<stdin>",642,&
              "SETTINGS ERROR: Prognostic cloud droplet number can only be used with the mp_physics=LINSCHEME or MORRISON or NSSL_2MOM.")
        END IF
        END IF
@@ -607,7 +667,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",610,&
+                CALL wrf_error_fatal3("<stdin>",670,&
 'arguments not present for calling kessler' )
              ENDIF
 
@@ -623,6 +683,12 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   PRESENT( SNOWNC)   .AND. PRESENT ( SNOWNCV)    .AND.  &
                   PRESENT( GRAUPELNC).AND. PRESENT ( GRAUPELNCV) .AND.  &
                   PRESENT( RAINNC  ) .AND. PRESENT ( RAINNCV ) ) THEN
+
+
+
+
+
+
              CALL mp_gt_driver(                          &
                      QV=qv_curr,                         &
                      QC=qc_curr,                         &
@@ -650,6 +716,10 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      GRAUPELNC=GRAUPELNC,                &
                      GRAUPELNCV=GRAUPELNCV,              &
                      SR=SR,                              &
+
+
+
+
                      REFL_10CM=refl_10cm,                &
                      diagflag=diagflag,                  &
                      do_radar_ref=do_radar_ref,          &
@@ -663,7 +733,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme, &
                  ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte)
              ELSE
-                CALL wrf_error_fatal3("<stdin>",666,&
+                CALL wrf_error_fatal3("<stdin>",736,&
 'arguments not present for calling thompson_et_al' )
              ENDIF
 
@@ -676,6 +746,12 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
 
 
                   PRESENT( RAINNC  ) .AND. PRESENT ( RAINNCV ) ) THEN
+
+
+
+
+
+
              CALL mp_gt_driver(                          &
                      QV=qv_curr,                         &
                      QC=qc_curr,                         &
@@ -699,6 +775,10 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      GRAUPELNC=GRAUPELNC,                &
                      GRAUPELNCV=GRAUPELNCV,              &
                      SR=SR,                              &
+
+
+
+
                      REFL_10CM=refl_10cm,                &
                      diagflag=diagflag,                  &
                      do_radar_ref=do_radar_ref,          &
@@ -712,9 +792,10 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme, &
                  ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte)
              ELSE
-                CALL wrf_error_fatal3("<stdin>",715,&
+                CALL wrf_error_fatal3("<stdin>",795,&
 'arguments not present for calling thompson_et_al' )
              ENDIF
+
        CASE (FAST_KHAIN_LYNN)
              CALL wrf_debug ( 100 , 'microphysics_driver: calling sbm' )
                CALL fast_sbm(W=w,U=u,V=v,TH_OLD=th_old          &
@@ -822,6 +903,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
 
 
 
+
     CASE (MORR_TWO_MOMENT)
          CALL wrf_debug(100, 'microphysics_driver: calling morrison two moment')
          IF (PRESENT (QV_CURR) .AND. PRESENT (QC_CURR) .AND. &
@@ -873,12 +955,16 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                  ,QLSINK=qlsink                                     & 
+
+
+
                  ,PRECR=precr,PRECI=preci,PRECS=precs,PRECG=precg   & 
                                                                     )
         ELSE
-           Call wrf_error_fatal3("<stdin>",879,&
+           Call wrf_error_fatal3("<stdin>",964,&
 'arguments not present for calling morrison two moment')
         ENDIF
+
 
     CASE (P3_1CATEGORY)
          CALL wrf_debug(100, 'microphysics_driver: calling p3 one category')
@@ -978,6 +1064,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,diag_rhopo_3d=rhopo3d                                   &
                                                                     )
 
+
     CASE (MILBRANDT2MOM)
          CALL wrf_debug(100, 'microphysics_driver: calling milbrandt2mom')
          IF (PRESENT (QV_CURR) .AND.                           &
@@ -1032,7 +1119,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte  &
                                                                     )
         ELSE
-           Call wrf_error_fatal3("<stdin>",1035,&
+           Call wrf_error_fatal3("<stdin>",1122,&
 'arguments not present for calling milbrandt2mom')
         ENDIF
 
@@ -1095,9 +1182,11 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
              PRESENT (QG_CURR) .AND.  &
              PRESENT (QH_CURR) .AND.  &
              PRESENT (RAINNC ) .AND. PRESENT (RAINNCV)   .AND. &
+
              PRESENT (SNOWNC ) .AND. PRESENT (SNOWNCV)   .AND. &
              PRESENT (HAILNC ) .AND. PRESENT (HAILNCV)   .AND. &
              PRESENT (GRAUPELNC).AND.PRESENT (GRAUPELNCV).AND. &
+
              PRESENT ( W      )  .AND. &
              PRESENT (QVOLG_CURR) ) THEN
              
@@ -1141,7 +1230,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte  &
                                                                     )
         ELSE
-           Call wrf_error_fatal3("<stdin>",1144,&
+           Call wrf_error_fatal3("<stdin>",1233,&
 'arguments not present for calling nssl_1mom')
         ENDIF
 
@@ -1155,8 +1244,10 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
              PRESENT (QS_CURR) .AND.  &
              PRESENT (QG_CURR) .AND.  &
              PRESENT (RAINNC ) .AND. PRESENT (RAINNCV)   .AND. &
+
              PRESENT (SNOWNC ) .AND. PRESENT (SNOWNCV)   .AND. &
              PRESENT (GRAUPELNC).AND.PRESENT (GRAUPELNCV).AND. &
+
              PRESENT ( W      )  ) THEN
              
 
@@ -1189,7 +1280,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte  &
                                                                     )
         ELSE
-           Call wrf_error_fatal3("<stdin>",1192,&
+           Call wrf_error_fatal3("<stdin>",1283,&
 'arguments not present for calling nssl_1momlfo')
         ENDIF
 
@@ -1203,9 +1294,11 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
              PRESENT (QG_CURR) .AND. PRESENT (QNG_CURR)  .AND. &
              PRESENT (QH_CURR) .AND. PRESENT (QNH_CURR)  .AND. &
              PRESENT (RAINNC ) .AND. PRESENT (RAINNCV)   .AND. &
+
              PRESENT (SNOWNC ) .AND. PRESENT (SNOWNCV)   .AND. &
              PRESENT (HAILNC ) .AND. PRESENT (HAILNCV)   .AND. &
              PRESENT (GRAUPELNC).AND.PRESENT (GRAUPELNCV).AND. &
+
              PRESENT ( W      )  .AND. &
              PRESENT (QVOLG_CURR) .AND. F_QVOLG  .AND.         &
              PRESENT (QVOLH_CURR) .AND. F_QVOLH ) THEN
@@ -1246,6 +1339,9 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      GRPLNCV  = GRAUPELNCV,              &
                      SR=SR,                              &
                      dbz      = refl_10cm,               &
+
+
+
                      nssl_progn=nssl_progn,              &
                      diagflag = diagflag,                &
                      cu_used=cu_used,                    &
@@ -1265,7 +1361,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                                                                     )
 
         ELSE
-           Call wrf_error_fatal3("<stdin>",1268,&
+           Call wrf_error_fatal3("<stdin>",1364,&
 'arguments not present for calling nssl_2mom')
         ENDIF
 
@@ -1278,9 +1374,11 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
              PRESENT (QS_CURR) .AND. PRESENT (QNS_CURR)  .AND. &
              PRESENT (QG_CURR) .AND. PRESENT (QNG_CURR)  .AND. &
              PRESENT (RAINNC ) .AND. PRESENT (RAINNCV)   .AND. &
+
              PRESENT (SNOWNC ) .AND. PRESENT (SNOWNCV)   .AND. &
              PRESENT (HAILNC ) .AND. PRESENT (HAILNCV)   .AND. &
              PRESENT (GRAUPELNC).AND.PRESENT (GRAUPELNCV).AND. &
+
              PRESENT ( W      )  .AND. &
              PRESENT (QVOLG_CURR) .AND. F_QVOLG  ) THEN
              
@@ -1317,6 +1415,9 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      GRPLNCV  = GRAUPELNCV,              &
                      SR=SR,                              &
                      dbz      = refl_10cm,               &
+
+
+
                      nssl_progn=nssl_progn,              &
                       diagflag = diagflag,               &
                      cu_used=cu_used,                    &
@@ -1336,7 +1437,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                                                                     )
 
         ELSE
-           Call wrf_error_fatal3("<stdin>",1339,&
+           Call wrf_error_fatal3("<stdin>",1440,&
 'arguments not present for calling nssl_2momg')
         ENDIF
 
@@ -1350,9 +1451,11 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
              PRESENT (QG_CURR) .AND. PRESENT (QNG_CURR)  .AND. &
              PRESENT (QH_CURR) .AND. PRESENT (QNH_CURR)  .AND. &
              PRESENT (RAINNC ) .AND. PRESENT (RAINNCV)   .AND. &
+
              PRESENT (SNOWNC ) .AND. PRESENT (SNOWNCV)   .AND. &
              PRESENT (HAILNC ) .AND. PRESENT (HAILNCV)   .AND. &
              PRESENT (GRAUPELNC).AND.PRESENT (GRAUPELNCV).AND. &
+
              PRESENT ( W      )  .AND. &
              PRESENT (QVOLG_CURR) .AND. F_QVOLG  .AND.         &
              PRESENT (QVOLH_CURR) .AND. F_QVOLH  .AND.         &
@@ -1395,6 +1498,9 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      GRPLNCV  = GRAUPELNCV,              &
                      SR=SR,                              &
                      dbz      = refl_10cm,               &
+
+
+
                      nssl_progn=nssl_progn,              &
                      diagflag = diagflag,                &
                      cu_used=cu_used,                    &
@@ -1413,7 +1519,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte  &
                                                                     )
         ELSE
-           Call wrf_error_fatal3("<stdin>",1416,&
+           Call wrf_error_fatal3("<stdin>",1522,&
 'arguments not present for calling nssl_2momccn')
         ENDIF
 
@@ -1457,7 +1563,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
 
 
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1460,&
+                CALL wrf_error_fatal3("<stdin>",1566,&
 'arguments not present for calling GSFCGCE' )
              ENDIF
 
@@ -1498,7 +1604,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,QNDROP=qndrop_curr                                &
                                                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1501,&
+                CALL wrf_error_fatal3("<stdin>",1607,&
 'arguments not present for calling lin_et_al' )
              ENDIF
 
@@ -1540,7 +1646,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
 
                                                                      )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1543,&
+                CALL wrf_error_fatal3("<stdin>",1649,&
 'arguments not present for calling sbu_ylin' )
              ENDIF
 
@@ -1566,20 +1672,23 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,RAIN=rainnc ,RAINNCV=rainncv                      &
                  ,SNOW=snownc ,SNOWNCV=snowncv                      &
                  ,SR=sr                                             &
+
                  ,has_reqc=has_reqc                                 &  
                  ,has_reqi=has_reqi                                 &
                  ,has_reqs=has_reqs                                 &
                  ,re_cloud=re_cloud                                 &
                  ,re_ice=re_ice                                     &
                  ,re_snow=re_snow                                   &  
+
                  ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde &
                  ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1580,&
+                CALL wrf_error_fatal3("<stdin>",1688,&
 'arguments not present for calling wsm3' )
              ENDIF
+
 
         CASE (WSM5SCHEME)
              CALL wrf_debug ( 100 , 'microphysics_driver: calling wsm5' )
@@ -1604,6 +1713,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,RAIN=rainnc ,RAINNCV=rainncv                      &
                  ,SNOW=snownc ,SNOWNCV=snowncv                      &
                  ,SR=sr                                             &
+
                  ,REFL_10CM=refl_10cm                               &  
                  ,diagflag=diagflag                                 &  
                  ,do_radar_ref=do_radar_ref                         &  
@@ -1613,14 +1723,16 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,re_cloud=re_cloud                                 &
                  ,re_ice=re_ice                                     &
                  ,re_snow=re_snow                                   &  
+
                  ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde &
                  ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1621,&
+                CALL wrf_error_fatal3("<stdin>",1732,&
 'arguments not present for calling wsm5' )
              ENDIF
+
 
         CASE (WSM6SCHEME)
              CALL wrf_debug ( 100 , 'microphysics_driver: calling wsm6' )
@@ -1659,9 +1771,12 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde &
                  ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
+
+
+
                                                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1664,&
+                CALL wrf_error_fatal3("<stdin>",1779,&
 'arguments not present for calling wsm6' )
              ENDIF
 
@@ -1707,7 +1822,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1710,&
+                CALL wrf_error_fatal3("<stdin>",1825,&
 'arguments not present for calling wdm5')
              ENDIF
 
@@ -1756,9 +1871,10 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                     )
              ELSE
-               CALL wrf_error_fatal3("<stdin>",1759,&
+               CALL wrf_error_fatal3("<stdin>",1874,&
 'arguments not present for calling wdm6')
              ENDIF
+
         CASE (ETAMPNEW)    
              CALL wrf_debug ( 100 , 'microphysics_driver: calling etampnew')
 
@@ -1786,7 +1902,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                  ,TBPVS_STATE=tbpvs_state,TBPVS0_STATE=tbpvs0_state &
                                                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1789,&
+                CALL wrf_error_fatal3("<stdin>",1905,&
 'arguments not present for calling etampnew' )
              ENDIF
         CASE (FER_MP_HIRES)    
@@ -1819,7 +1935,7 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                      )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1822,&
+                CALL wrf_error_fatal3("<stdin>",1938,&
 'arguments not present for calling fer_hires' )
              ENDIF
 
@@ -1852,9 +1968,10 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                      )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1855,&
+                CALL wrf_error_fatal3("<stdin>",1971,&
 'arguments not present for calling fer_hires' )
              ENDIF
+
 
           CASE (CAMMGMPSCHEME)
              CALL wrf_debug ( 100 , 'microphysics_driver: calling CAMMGMPSCHEME')
@@ -1866,7 +1983,17 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                   PRESENT( f_qi       ) .AND. PRESENT( qnc_curr    ) .AND. &
                   PRESENT( RAINNCV    ) .AND. PRESENT( SNOWNCV     ) .AND. &
                   PRESENT( qns_curr   ) .AND. PRESENT( qnr_curr    ) .AND. &
+
+
+
+
                   PRESENT( qni_curr   ) .AND. PRESENT( RAINNC      ) ) THEN
+
+
+
+
+
+
                   
                 CALL CAMMGMP(ITIMESTEP=itimestep,DT=dt,P8W=p8w_hyd,P_HYD=p_hyd    &
                      ,T_PHY=t_phy,PI_PHY=pi_phy,Z_AT_W=z_at_w,QFX=qfx             &
@@ -1878,6 +2005,9 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      ,CMFMC3D=cmfmc3d,CMFMC2_3D=cmfmc2_3d                         &
                      ,CONFIG_FLAGS=config_flags,F_ICE_PHY=f_ice_phy               &
                      ,F_RAIN_PHY=f_rain_phy                                       &
+
+
+
                      ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde           &
                      ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme           &
                      ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte           &
@@ -1891,23 +2021,32 @@ REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                        &
                      ,QS_CURR=qs_curr,QR_CURR=qr_curr,NC3D=qnc_curr               &
                      ,NI3D=qni_curr,NS3D=qns_curr,NR3D=qnr_curr,QNDROP=qndrop_curr&
                      ,RH_OLD_MP=rh_old_mp,LCD_OLD_MP=lcd_old_mp                   &
+
+
+
+
+
                      ,XLAND=XLAND,SNOWH=SNOWH                                     &
                      )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1897,&
+                CALL wrf_error_fatal3("<stdin>",2032,&
 'arguments not present for calling CAMMGMP SCHEME' )
              ENDIF
+
 
       CASE DEFAULT
 
          WRITE( wrf_err_message , * ) 'The microphysics option does not exist: mp_physics = ', mp_physics
-         CALL wrf_error_fatal3("<stdin>",1904,&
+         CALL wrf_error_fatal3("<stdin>",2040,&
 wrf_err_message )
 
       END SELECT micro_select
 
    ENDDO
    !$OMP END PARALLEL DO
+
+
+
 
 
 
@@ -1936,3 +2075,5 @@ wrf_err_message )
    END SUBROUTINE microphysics_driver
 
 END MODULE module_microphysics_driver
+
+

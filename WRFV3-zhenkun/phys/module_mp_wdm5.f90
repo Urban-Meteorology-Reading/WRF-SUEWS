@@ -1,5 +1,12 @@
 
 
+
+
+
+
+
+
+
 MODULE module_mp_wdm5
 
    USE module_utility, ONLY: WRFU_Clock, WRFU_Alarm
@@ -206,6 +213,7 @@ CONTAINS
   REAL, DIMENSION( kts:kte ) :: qi1d
   REAL, DIMENSION( kts:kte ) :: re_qc, re_qi, re_qs
 
+
       IF (itimestep .eq. 1) THEN
         DO j=jms,jme
            DO k=kms,kme
@@ -307,6 +315,7 @@ CONTAINS
 
 
       ENDDO
+
   END SUBROUTINE wdm5
 
 
@@ -407,7 +416,10 @@ CONTAINS
   REAL :: ifac, sfac
   REAL, DIMENSION(its:ite) :: tstepsnow
 
+
+
   REAL, DIMENSION(its:ite) :: xal, xbl
+
 
   REAL, DIMENSION( its:ite )           :: tvec1
   INTEGER, DIMENSION( its:ite ) :: mnstep, numndt
@@ -546,6 +558,7 @@ CONTAINS
       xai=-dldti/rv
       xbi=xai+hsub/(rv*ttp)
 
+
       do k = kts, kte
         do i = its, ite
           if(t(i,k).lt.ttp) then
@@ -571,6 +584,7 @@ CONTAINS
           rh(i,k,2) = max(q(i,k) / qs(i,k,2),qmin)
         enddo
       enddo
+
 
 
 
@@ -2342,3 +2356,5 @@ CONTAINS
 
 
 END MODULE module_mp_wdm5
+
+

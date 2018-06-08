@@ -139,6 +139,9 @@ implicit none
 
 logical, external:: wrf_dm_on_monitor
 
+
+
+
 integer:: i,j,k,ii,iounit
 character(len=128):: msg
 
@@ -147,6 +150,11 @@ character(len=128):: msg
 namelist /fuel_scalars/ cmbcnst,hfgl,fuelmc_g,fuelmc_c,nfuelcats,no_fuel_cat
 namelist /fuel_categories/ fuel_name,windrf,fgi,fueldepthm,savr, &
     fuelmce,fueldens,st,se,weight,fci_d,fct,ichap
+
+
+
+
+
 
 
 IF ( wrf_dm_on_monitor() ) THEN
@@ -776,3 +784,5 @@ end function nrm2
 end subroutine fire_ros 
 
 end module module_fr_fire_phys
+
+

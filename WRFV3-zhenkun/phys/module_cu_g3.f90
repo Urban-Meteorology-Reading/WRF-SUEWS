@@ -30,6 +30,10 @@ CONTAINS
               ,RQVFTEN,RTHFTEN,RTHCUTEN                         &
               ,rqvblten,rthblten                                &
               ,F_QV    ,F_QC    ,F_QR    ,F_QI    ,F_QS         &
+
+
+
+
                                                                 )
 
    IMPLICIT NONE
@@ -125,6 +129,7 @@ CONTAINS
                                                   ,F_QR      &
                                                   ,F_QI      &
                                                   ,F_QS
+
 
 
 
@@ -234,6 +239,7 @@ CONTAINS
    ktf=MIN(kte,kde-1)
    jtf=MIN(jte,jde-1)
 
+
      if(high_resolution.eq.1)then
 
 
@@ -262,6 +268,7 @@ CONTAINS
         ENDDO
         ENDDO
      endif
+
      DO 100 J = jts,jtf  
      DO n= 1,ensdim
      DO I= its,itf
@@ -439,6 +446,13 @@ CONTAINS
 
 
 
+
+
+
+
+
+
+
       CALL CUP_enss_3d(outqc,j,AAEQ,T2d,Q2d,TER11,subm,TN,QO,PO,PRET,&
            P2d,OUTT,OUTQ,DT,itimestep,tkm,PSUR,US,VS,tcrit,iens,tx,qx,          &
            tshall,qshall,kpbli,DHDT,outts,outqs,tscl_kf,           &
@@ -452,6 +466,9 @@ CONTAINS
            xlv,r_v,cp,g,ichoice,ipr,jpr,ens4,high_resolution,     &
            ishallow_g3,itf,jtf,ktf,                               &
            its,ite, jts,jte, kts,kte                              &
+
+
+
                                                              )
 
 
@@ -562,6 +579,10 @@ CONTAINS
               xl,rv,cp,g,ichoice,ipr,jpr,ens4,high_resolution,         &
               ishallow_g3,itf,jtf,ktf,                                 &
               its,ite, jts,jte, kts,kte                                &
+
+
+
+
                                                 )
 
    IMPLICIT NONE
@@ -629,6 +650,7 @@ CONTAINS
        real                                                            &
         ,intent (in   )                   ::                           &
         dtime,tcrit,xl,cp,rv,g,tscl_kf
+
 
 
 
@@ -860,6 +882,7 @@ CONTAINS
 
 
 
+
       do i=its,itf
           cap_max(i)=cap_maxs
           cap_max3(i)=25.
@@ -867,6 +890,7 @@ CONTAINS
         iresult=0
 
       enddo
+
 
 
 
@@ -5254,3 +5278,5 @@ CONTAINS
   END SUBROUTINE CONV_GRELL_SPREAD3D
 
 END MODULE module_cu_g3
+
+

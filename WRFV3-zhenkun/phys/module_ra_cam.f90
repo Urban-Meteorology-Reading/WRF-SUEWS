@@ -30,6 +30,7 @@ MODULE module_ra_cam
 
 
 
+
    real(r8) abari(4)         
    real(r8) bbari(4)         
    real(r8) cbari(4)         
@@ -45,6 +46,7 @@ MODULE module_ra_cam
    data dbari/ 0.0      , 1.405e-05,8.328e-04,2.05e-05 /
    data ebari/ 0.7661   , 0.7730   ,0.794    ,0.9595   /
    data fbari/ 5.851e-04, 5.665e-04,7.267e-04,1.076e-04/
+
 
 
    real(r8) delta            
@@ -422,8 +424,13 @@ subroutine camrad(RTHRATENLW,RTHRATENSW,                           &
    CHARACTER(LEN=256) :: msgstr
 
 
+
+
+
+
    LOGICAL, EXTERNAL                                :: wrf_dm_on_monitor
    CHARACTER(LEN=256)                               :: message
+
 
 
 
@@ -448,12 +455,13 @@ subroutine camrad(RTHRATENLW,RTHRATENSW,                           &
 
    if(naer_c.ne.naer_all) then
              WRITE( wrf_err_message , * ) 'naer_c-1 ne naer_all ', naer_c, naer_all
-             CALL wrf_error_fatal3("<stdin>",451,&
+             CALL wrf_error_fatal3("<stdin>",458,&
 wrf_err_message )
    endif 
 
 
   
+
 
 
 
@@ -477,6 +485,7 @@ wrf_err_message )
        ' cfc12:',f12vmr
      call wrf_debug( 100, message)
    ENDIF
+
 
 
    co2mmr=co2vmr*mwco2/mwdry
@@ -737,6 +746,10 @@ wrf_err_message )
                    sols, soll, solsd, solld,                  &
 
 
+
+
+
+
                    landfrac, zm, fsds, fsdsdir, fsdsdif) 
 
       do k = kts,kte
@@ -883,6 +896,7 @@ wrf_err_message )
     enddo    
 
 
+
 end subroutine camrad
 
    SUBROUTINE camradinit(                                           &
@@ -945,10 +959,12 @@ end subroutine camrad
    IF ( .NOT. ALLOCATED(ln_ah2ow) ) ALLOCATE( ln_ah2ow(n_p, n_tp, n_u, n_te, n_rh) )
    IF ( .NOT. ALLOCATED(ln_eh2ow) ) ALLOCATE( ln_eh2ow(n_p, n_tp, n_u, n_te, n_rh) )
 
+
    ozncyc = .true.
    indirect = .true.
    ixcldliq = 2
    ixcldice = 3
+
 
 
 
@@ -962,6 +978,7 @@ end subroutine camrad
    idxBCPHI = P_BCPHI
    idxBG = P_BG
    idxVOLC = P_VOLC
+
 
    pstd = 101325.0
 
@@ -996,7 +1013,9 @@ end subroutine camrad
                      its, ite, jts, jte, kts, kte)
 
 
+
    END SUBROUTINE camradinit
+
 
 
 subroutine oznint(julday,julian,dt,gmt,xtime,ozmixmj,ozmix,levsiz,num_months,pcols)
@@ -1240,6 +1259,12 @@ subroutine get_aerosol(c, julday, julian, dt, gmt, xtime, m_psp, m_psn, aerosolj
             if (AEROSOLt(i, k, m) < speciesmin(m)) then
                write(6,*) 'AEROSOL_INTERPOLATE: negative mass mixing ratio, exiting'
                write(6,*) 'm, column, pver',m, i, k ,AEROSOLt(i, k, m)
+
+
+
+
+
+
 
 
                call endrun ()
@@ -1529,6 +1554,10 @@ subroutine radctl(j, lchnk   ,ncol    , pcols, pver, pverp, pverr, pverrp, ppcns
                   sols    ,soll    ,solsd   ,solld   , &
 
 
+
+
+
+
                   landfrac,zm      ,fsds, fsdsdir,fsdsdif     ) 
 
 
@@ -1717,6 +1746,10 @@ subroutine radctl(j, lchnk   ,ncol    , pcols, pver, pverp, pverr, pverrp, ppcns
 
    real(r8) aerosol(pcols, pver, naer_all) 
    real(r8) scales(naer_all)               
+
+
+
+
 
 
    LOGICAL, EXTERNAL                                :: wrf_dm_on_monitor
@@ -1962,9 +1995,11 @@ subroutine radctl(j, lchnk   ,ncol    , pcols, pver, pverp, pverr, pverrp, ppcns
 
       else
 
+
          call trcmix(lchnk   ,ncol    ,pcols, pver,  &
                      pmid    ,clat, n2o     ,ch4     ,                     &
                      cfc11   ,cfc12   )
+
          IF ( wrf_dm_on_monitor() ) THEN
            WRITE(message,*)'CLWRF post_trcmix_values. n2o:', n2o(pcols/2,pver/2), ' ch4:',      &
              ch4(pcols/2,pver/2),' cfc11:', cfc11(pcols/2,pver/2),' cfc12:', cfc12(pcols/2,pver/2) 
@@ -8036,4 +8071,7 @@ end subroutine radozn
 
 
 
+
 end MODULE module_ra_cam
+
+

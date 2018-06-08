@@ -1,4 +1,6 @@
 
+
+
   module diffusion_solver
 
   
@@ -21,7 +23,11 @@
   
   
   
+
+
+
   use module_cam_support,   only : iulog
+
 
   implicit none
   private       
@@ -101,7 +107,9 @@
     errstring = ''
     if( kind .ne. r8 ) then
         write(iulog,*) 'KIND of reals passed to init_vdiff -- exiting.'
+
         call wrf_message(iulog)
+
         errstring = 'init_vdiff'
         return
     endif
@@ -139,6 +147,11 @@
     
     
     
+
+
+
+
+
   
 
   
@@ -274,7 +287,11 @@
     wsmin    = 1._r8                                     
     ksrfmin  = 1.e-4_r8                                  
     timeres  = 7200._r8                                  
+
+
+
     do_iss = .true. 
+
 
     
     
@@ -950,3 +967,5 @@
   end function diffuse
 
 end module diffusion_solver
+
+

@@ -229,6 +229,7 @@ MODULE module_mp_etanew
 
 
 
+
       CALL EGCP01DRV(DT,LOWLYR,                                         &
      &               APREC,PREC,ACPREC,SR,NSTATS,QMAX,QTOT,	        &
      &               dz8w,rho_phy,qt,t_phy,qv,F_ICE_PHY,P_PHY,          &
@@ -348,6 +349,14 @@ MODULE module_mp_etanew
       REAL,DIMENSION( ims:ime, kms:kme, jms:jme ),INTENT(INOUT) ::      &
      &   CWM_PHY, F_ICE_PHY,F_RAIN_PHY,F_RIMEF_PHY,TLATGS_PHY           &
      &   ,Q_PHY,TRAIN_PHY
+
+
+
+
+
+
+
+
 
 
 
@@ -2223,7 +2232,7 @@ nsteps = 0
         CALL wrf_dm_bcast_bytes ( etampnew_unit1 , 4 )
 
         IF ( etampnew_unit1 < 0 ) THEN
-          CALL wrf_error_fatal3("<stdin>",2226,&
+          CALL wrf_error_fatal3("<stdin>",2235,&
 'module_mp_etanew: ETANEWinit: Can not find '// &
                                  'unused fortran unit to read in lookup table.' )
         ENDIF
@@ -2398,7 +2407,7 @@ nsteps = 0
       WRITE( errmess , '(A,I4)' )                                        &
        'module_mp_etanew: error opening ETAMPNEW_DATA.expanded_rain on unit ' &
      &, etampnew_unit1
-      CALL wrf_error_fatal3("<stdin>",2401,&
+      CALL wrf_error_fatal3("<stdin>",2410,&
 errmess)
 
 
@@ -2641,3 +2650,5 @@ errmess)
       END FUNCTION FPVSX0
 
       END MODULE module_mp_etanew
+
+

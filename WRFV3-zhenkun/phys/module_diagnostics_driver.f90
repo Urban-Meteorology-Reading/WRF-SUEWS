@@ -1,5 +1,12 @@
 
 
+
+
+
+
+
+
+
 MODULE module_diagnostics_driver
 
 CONTAINS
@@ -224,7 +231,7 @@ CONTAINS
       IF ( ( config_flags%history_interval == 0 ) ) THEN
             WRITE (diag_message , * ) &
             "HAILCAST Error : No 'history_interval' defined in namelist"
-            CALL wrf_error_fatal3("<stdin>",227,&
+            CALL wrf_error_fatal3("<stdin>",234,&
 diag_message )
         END IF
 
@@ -754,7 +761,7 @@ diag_message )
          IF ( ( config_flags%auxhist3_interval == 0 ) ) THEN
             WRITE (diag_message , * ) &
             "CLWRF: ERROR -- error -- ERROR -- error : NO 'auxhist3_interval' has been defined in 'namelist.input'"
-            CALL wrf_error_fatal3("<stdin>",757,&
+            CALL wrf_error_fatal3("<stdin>",764,&
 diag_message )
          END IF
 
@@ -960,7 +967,7 @@ diag_message )
          IF ( ( config_flags%history_interval == 0 ) ) THEN
             WRITE (diag_message , * ) &
             "AFWA Diagnostics Error : No 'history_interval' defined in namelist"
-            CALL wrf_error_fatal3("<stdin>",963,&
+            CALL wrf_error_fatal3("<stdin>",970,&
 diag_message )
          END IF
 
@@ -1113,3 +1120,5 @@ diag_message )
    END SUBROUTINE diagnostics_driver
 
 END MODULE module_diagnostics_driver
+
+
