@@ -138,7 +138,8 @@ CONTAINS
     REAL, DIMENSION(nsurf) :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out
+    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out, tsk_out
+
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(360)               :: qn1_store
@@ -275,7 +276,7 @@ CONTAINS
                LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
                state,soilmoist,surf_var,&
 
-               qh_out,qe_out,qsfc_out,qn1_store,qn1_av_store,&
+               qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,&
 
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
@@ -285,6 +286,7 @@ CONTAINS
           HFX(I,J)=qh_out
           LH(I,J)=qe_out
           QFX(I,J)=qsfc_out
+          TSK(I,J)=tsk_out
           if ( i==1 .and. j==1 ) then
             print *, 'HFX = ', qh_out, 'LH = ', qe_out
 
@@ -319,7 +321,7 @@ CONTAINS
        LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
        state,soilmoist,surf_var,&
 
-       qh_out,qe_out,qsfc_out,qn1_store,qn1_av_store,&
+       qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,&
 
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -568,6 +570,7 @@ CONTAINS
     REAL(KIND(1d0)), INTENT(out) ::qh_out
     REAL(KIND(1d0)), INTENT(out) ::qe_out
     REAL(KIND(1d0)), INTENT(out) ::qsfc_out
+    REAL(KIND(1d0)), INTENT(out) ::tsk_out
 
 
     surf(1:5,:)=surf_attr(:,:)
@@ -644,7 +647,7 @@ CONTAINS
          tstep,&
          WaterDist,WetThresh,&
          Z,&
-         qh_out,qe_out,qsfc_out)
+         qh_out,qe_out,qsfc_out,tsk_out)
 
   END SUBROUTINE SUEWS1D
 
