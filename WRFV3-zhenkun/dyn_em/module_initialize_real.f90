@@ -7,6 +7,8 @@
 
 
 
+
+
 MODULE module_initialize_real
 
    USE module_bc
@@ -20,6 +22,7 @@ MODULE module_initialize_real
    USE module_date_time
    USE module_llxy
    USE module_polarfft
+
 
    REAL , SAVE :: p_top_save
    INTEGER :: internal_time_loop
@@ -51,6 +54,7 @@ CONTAINS
 
 
 
+
 ,grid%moist,grid%moist_bxs,grid%moist_bxe,grid%moist_bys,grid%moist_bye,grid%moist_btxs,grid%moist_btxe,grid%moist_btys, &
 grid%moist_btye,grid%dfi_moist,grid%dfi_moist_bxs,grid%dfi_moist_bxe,grid%dfi_moist_bys,grid%dfi_moist_bye,grid%dfi_moist_btxs, &
 grid%dfi_moist_btxe,grid%dfi_moist_btys,grid%dfi_moist_btye,grid%scalar,grid%scalar_bxs,grid%scalar_bxe,grid%scalar_bys, &
@@ -59,6 +63,7 @@ grid%dfi_scalar_bxe,grid%dfi_scalar_bys,grid%dfi_scalar_bye,grid%dfi_scalar_btxs
 grid%dfi_scalar_btye,grid%aerod,grid%ozmixm,grid%aerosolc_1,grid%aerosolc_2,grid%fdda3d,grid%fdda2d,grid%advh_t,grid%advz_t, &
 grid%nba_mij,grid%nba_rij,grid%chem,grid%tracer,grid%tracer_bxs,grid%tracer_bxe,grid%tracer_bys,grid%tracer_bye, &
 grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
+
 
 
       )
@@ -74,12 +79,14 @@ grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 
 
 
+
 ,moist,moist_bxs,moist_bxe,moist_bys,moist_bye,moist_btxs,moist_btxe,moist_btys,moist_btye,dfi_moist,dfi_moist_bxs,dfi_moist_bxe, &
 dfi_moist_bys,dfi_moist_bye,dfi_moist_btxs,dfi_moist_btxe,dfi_moist_btys,dfi_moist_btye,scalar,scalar_bxs,scalar_bxe,scalar_bys, &
 scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar_bxs,dfi_scalar_bxe,dfi_scalar_bys, &
 dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,aerod,ozmixm,aerosolc_1,aerosolc_2,fdda3d,fdda2d, &
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
+
 
 
    )
@@ -91,6 +98,7 @@ tracer_btye &
 
 
       TYPE (domain)          :: grid
+
 
 
 
@@ -154,6 +162,9 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btxe
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
+
+
+
 
 
       TYPE (grid_config_rec_type)              :: config_flags
@@ -333,6 +344,9 @@ integer::oops1,oops2
                max_mf = MAX ( max_mf , grid%msft(i,j) )
             END DO
          END DO
+
+
+
          WRITE ( a_message , FMT='(A,F5.2,A)' ) 'Max map factor in domain 1 = ',max_mf, &
                                                 '. Scale the dt in the model accordingly.'
          CALL wrf_message ( a_message ) 
@@ -413,7 +427,7 @@ integer::oops1,oops2
             CALL wrf_message ( a_message ) 
 
             WRITE ( a_message,* ) 'Problems, we cannot have excluded middle data from WPS'
-            CALL wrf_error_fatal3("<stdin>",416,&
+            CALL wrf_error_fatal3("<stdin>",430,&
 a_message )
          END IF
 
@@ -426,7 +440,7 @@ a_message )
             WRITE ( a_message,* ) 'The WPS &metgrid namelist.wps process_only_bdy width = ',flag_excluded_middle
             CALL wrf_message ( a_message ) 
             WRITE ( a_message,* ) 'WPS process_only_bdy must be >= WRF spec_bdy_width'
-            CALL wrf_error_fatal3("<stdin>",429,&
+            CALL wrf_error_fatal3("<stdin>",443,&
 a_message )
          END IF
       END IF
@@ -551,7 +565,7 @@ a_message )
          END DO
       ELSE IF ( ( .NOT. config_flags%polar ) .AND. ( flag_mf_xy .EQ. 1 ) ) THEN
          IF ( grid%msfvx(its,jts) .EQ. 0 ) THEN
-            CALL wrf_error_fatal3("<stdin>",554,&
+            CALL wrf_error_fatal3("<stdin>",568,&
 'Maybe you do not have the new map factors, try re-running geogrid' )
          END IF
          DO j=jts,min(jde,jte)
@@ -561,7 +575,7 @@ a_message )
             END DO
          END DO
       ELSE IF ( ( config_flags%polar ) .AND. ( flag_mf_xy .NE. 1 ) ) THEN
-         CALL wrf_error_fatal3("<stdin>",564,&
+         CALL wrf_error_fatal3("<stdin>",578,&
 'Neither SI data nor older metgrid data can initialize a global domain' )
       ENDIF
 
@@ -583,7 +597,7 @@ a_message )
          IF ( we_have_tsk .OR. we_have_tavgsfc ) THEN
            
          ELSE
-            CALL wrf_error_fatal3("<stdin>",586,&
+            CALL wrf_error_fatal3("<stdin>",600,&
 'We either need TSK or TAVGSFC, verify these fields are coming from WPS' )
          END IF
    
@@ -719,11 +733,12 @@ a_message )
          
 
          IF ( ( config_flags%polar ) .AND. ( grid%fft_filter_lat .GT. 90 ) ) THEN
-            CALL wrf_error_fatal3("<stdin>",722,&
+            CALL wrf_error_fatal3("<stdin>",736,&
 'If the polar boundary condition is used, then fft_filter_lat must be set in namelist.input' )
          END IF
 
          IF ( ( config_flags%map_proj .EQ. PROJ_CASSINI ) .AND. ( config_flags%polar ) ) THEN 
+
             dclat = 90./REAL(jde-jds) 
             DO j = jts, MIN(jte,jde-1)
               DO k = kts, kte
@@ -736,6 +751,7 @@ a_message )
                  grid%sr(i,j) = grid%ht(i,j)
               END DO
             END DO
+
      find_j_index_of_fft_filter : DO j = jds , jde-1
         IF ( ABS(grid%clat(ids,j)) .LE. config_flags%fft_filter_lat ) THEN
            j_save = j
@@ -743,6 +759,7 @@ a_message )
         END IF
      END DO find_j_index_of_fft_filter
      grid%mf_fft = grid%msft(ids,j_save)
+
 
          CALL pxft ( grid=grid                                              &
                ,lineno=720                                             &
@@ -776,9 +793,10 @@ a_message )
               END DO
             END DO
 
+
          ELSE IF ( ( config_flags%map_proj .NE. PROJ_CASSINI ) .AND. ( config_flags%polar ) ) THEN 
             WRITE ( a_message,* ) 'A global domain (polar = true) requires the Cassini projection'
-            CALL wrf_error_fatal3("<stdin>",781,&
+            CALL wrf_error_fatal3("<stdin>",799,&
 a_message )
          END IF
 
@@ -1120,12 +1138,15 @@ a_message )
                               its , ite , jts , jte , 1   , num_metgrid_levels )
 
 
+
+
+
             
 
             IF ( p_top_requested .LT. grid%p_top ) THEN
                print *,'p_top_requested = ',p_top_requested
                print *,'allowable grid%p_top in data   = ',grid%p_top
-               CALL wrf_error_fatal3("<stdin>",1128,&
+               CALL wrf_error_fatal3("<stdin>",1149,&
 'p_top_requested < grid%p_top possible from data' )
             END IF
 
@@ -1147,10 +1168,13 @@ a_message )
                               ims , ime , jms , jme , 1   , num_metgrid_levels , &
                               its , ite , jts , jte , 1   , num_metgrid_levels )
 
+
+
+
             IF ( grid%p_top .GT. p_top_save ) THEN
                print *,'grid%p_top from last time period = ',p_top_save
                print *,'grid%p_top from this time period = ',grid%p_top
-               CALL wrf_error_fatal3("<stdin>",1153,&
+               CALL wrf_error_fatal3("<stdin>",1177,&
 'grid%p_top > previous value' )
             END IF
             grid%p_top = p_top_save
@@ -1173,6 +1197,14 @@ a_message )
                                        ids , ide , jds , jde , kds , kde , &
                                        ims , ime , jms , jme , kms , kme , &
                                        its , ite , jts , jte , kts , kte )
+
+
+
+
+
+
+
+
 
 
          
@@ -1328,7 +1360,7 @@ a_message )
                                                ', flag_slp = ',flag_slp , & 
                                                ', sfcp_to_sfcp = ',config_flags%sfcp_to_sfcp 
             CALL wrf_message ( a_message ) 
-            CALL wrf_error_fatal3("<stdin>",1331,&
+            CALL wrf_error_fatal3("<stdin>",1363,&
 'not enough info for a p sfc computation' )
          END IF
 
@@ -1410,7 +1442,7 @@ a_message )
               ks = ks+model_config_rec%e_vert(id)
             ENDDO
             IF (ks .GT. max_eta) THEN
-              CALL wrf_error_fatal3("<stdin>",1413,&
+              CALL wrf_error_fatal3("<stdin>",1445,&
 "too many vertical levels, increase max_eta in frame/module_driver_constants.F")
             ENDIF
 
@@ -1434,16 +1466,16 @@ a_message )
             
             
             IF (eta_levels(1) .NE. 1.0) THEN
-               CALL wrf_error_fatal3("<stdin>",1437,&
+               CALL wrf_error_fatal3("<stdin>",1469,&
 "--- ERROR: the first specified eta_level is not 1.0")
             ENDIF
             IF (eta_levels(kde) .NE. 0.0) THEN
-               CALL wrf_error_fatal3("<stdin>",1441,&
+               CALL wrf_error_fatal3("<stdin>",1473,&
 "--- ERROR: the last specified eta_level is not 0.0")
             ENDIF
             DO k=2,kde
               IF (eta_levels(k) .GT. eta_levels(k-1)) THEN
-                 CALL wrf_error_fatal3("<stdin>",1446,&
+                 CALL wrf_error_fatal3("<stdin>",1478,&
 "--- ERROR: specified eta_levels are not uniformly decreasing from 1.0 to 0.0")
               ENDIF
             ENDDO
@@ -1461,7 +1493,7 @@ a_message )
              
              IF ((vnest) .AND. (model_config_rec%eta_levels(kde+1) .NE. -1.0)) THEN
                write(wrf_err_message,'(A)') "--- ERROR: too many eta_levels defined in namelist.input."
-               CALL wrf_error_fatal3("<stdin>",1464,&
+               CALL wrf_error_fatal3("<stdin>",1496,&
 wrf_err_message )
              
              
@@ -1469,16 +1501,16 @@ wrf_err_message )
                CALL wrf_debug(0, "module_initialize_real: using vert_refine_method=1, reading in eta_levels for d01 from namelist.input")
              eta_levels(1:kde) = model_config_rec%eta_levels(1:kde)
                IF (eta_levels(1) .NE. 1.0) THEN
-                 CALL wrf_error_fatal3("<stdin>",1472,&
+                 CALL wrf_error_fatal3("<stdin>",1504,&
 "--- ERROR: the first specified eta_level is not 1.0")
                ENDIF
                IF (eta_levels(kde) .NE. 0.0) THEN
-                 CALL wrf_error_fatal3("<stdin>",1476,&
+                 CALL wrf_error_fatal3("<stdin>",1508,&
 "--- ERROR: the last specified eta_level is not 0.0")
                ENDIF
                DO k=2,kde
                  IF (eta_levels(k) .GT. eta_levels(k-1)) THEN
-                   CALL wrf_error_fatal3("<stdin>",1481,&
+                   CALL wrf_error_fatal3("<stdin>",1513,&
 "--- ERROR: specified eta_levels are not uniformly decreasing from 1.0 to 0.0")
                  ENDIF
                ENDDO
@@ -1534,7 +1566,7 @@ wrf_err_message )
                CALL wrf_message     ( 'ERROR: --- hybrid_opt=1    ==> Standard WRF terrain-following coordinate, hybrid c1, c2, c3, c4' )
                CALL wrf_message     ( 'ERROR: --- hybrid_opt=2    ==> Hybrid, Klemp polynomial' )
                CALL wrf_message     ( 'ERROR: --- hybrid_opt=3    ==> Hybrid, sin^2' )
-               CALL wrf_error_fatal3("<stdin>",1537,&
+               CALL wrf_error_fatal3("<stdin>",1569,&
 'ERROR: --- Invalid option' )
             END IF
          END DO
@@ -1642,6 +1674,14 @@ wrf_err_message )
             END DO
 
 
+
+
+
+
+
+
+
+
             CALL vert_interp ( grid%ght_gc , grid%pd_gc , grid%ph0 , grid%pb , &
                                grid%hgtmaxw , grid%hgttrop , grid%pmaxw , grid%ptrop , &
                                grid%pmaxwnn , grid%ptropnn , &
@@ -1685,6 +1725,14 @@ wrf_err_message )
          force_sfc_in_vinterp = grid%force_sfc_in_vinterp
          t_extrap_type = grid%t_extrap_type
          extrap_type = grid%extrap_type
+
+
+
+
+
+
+
+
 
 
          
@@ -2101,6 +2149,7 @@ wrf_err_message )
          
 
 
+
          
          
          
@@ -2326,6 +2375,7 @@ wrf_err_message )
          END IF
 
 
+
          CALL vert_interp ( grid%u_gc , grid%pd_gc , grid%u_2               , grid%pb , &
                             grid%umaxw , grid%utrop , grid%pmaxw , grid%ptrop , &
                             grid%pmaxwnn , grid%ptropnn , &
@@ -2509,7 +2559,7 @@ wrf_err_message )
             IF ( TRIM(mminlu) .EQ. 'NLCD40' ) THEN
                CALL wrf_message ( 'NLCD40 data may be used with SLABSCHEME, LSMSCHEME, PXLSMSCHEME' )
                CALL wrf_message ( 'Re-run geogrid and choose a different land cover source, or select a different sf_surface_physics option' )
-               CALL wrf_error_fatal3("<stdin>",2512,&
+               CALL wrf_error_fatal3("<stdin>",2562,&
 'NLCD40 data may not be used with: RUCLSMSCHEME, NOAHMPSCHEME, CLMSCHEME, SSIBSCHEME' )
             END IF
 
@@ -2524,34 +2574,34 @@ wrf_err_message )
 
          CASE ( LSMSCHEME, NOAHMPSCHEME )
             IF ( num_st_levels_input .LT. 2 ) THEN
-               CALL wrf_error_fatal3("<stdin>",2527,&
+               CALL wrf_error_fatal3("<stdin>",2577,&
 'Not enough soil temperature data for Noah LSM scheme.')
             END IF
 
          CASE (RUCLSMSCHEME)
             IF ( num_st_levels_input .LT. 2 ) THEN
-               CALL wrf_error_fatal3("<stdin>",2533,&
+               CALL wrf_error_fatal3("<stdin>",2583,&
 'Not enough soil temperature data for RUC LSM scheme.')
             END IF
 
          CASE (PXLSMSCHEME)
             IF ( num_st_levels_input .LT. 2 ) THEN
-               CALL wrf_error_fatal3("<stdin>",2539,&
+               CALL wrf_error_fatal3("<stdin>",2589,&
 'Not enough soil temperature data for P-X LSM scheme.')
             END IF
          CASE (CLMSCHEME)
             IF ( num_st_levels_input .LT. 2 ) THEN
-               CALL wrf_error_fatal3("<stdin>",2544,&
+               CALL wrf_error_fatal3("<stdin>",2594,&
 'Not enough soil temperature data for CLM LSM scheme.')
             END IF
 
          CASE (SSIBSCHEME)
             IF ( num_st_levels_input .LT. 2 ) THEN
-               CALL wrf_error_fatal3("<stdin>",2550,&
+               CALL wrf_error_fatal3("<stdin>",2600,&
 'Not enough soil temperature data for SSIB LSM scheme.')
             END IF
             IF ( eta_levels(2) .GT. 0.982 ) THEN
-               CALL wrf_error_fatal3("<stdin>",2554,&
+               CALL wrf_error_fatal3("<stdin>",2604,&
 'The first two eta levels are too shallow for SSIB LSM scheme.')
             END IF
 
@@ -2652,7 +2702,7 @@ wrf_err_message )
          ELSE
             WRITE ( a_message , * ) 'You have set surface_input_source = 3,'// &
                                     ' but your geogrid data does not have valid dominant soil data.'
-            CALL wrf_error_fatal3("<stdin>",2655,&
+            CALL wrf_error_fatal3("<stdin>",2705,&
 a_message ) 
          END IF
          IF ( grid%lu_index(i_valid,j_valid) .GT. 0.5 ) THEN
@@ -2666,7 +2716,7 @@ a_message )
          ELSE
             WRITE ( a_message , * ) 'You have set surface_input_source = 3,'//&
                                     ' but your geogrid data does not have valid dominant land use data.'
-            CALL wrf_error_fatal3("<stdin>",2669,&
+            CALL wrf_error_fatal3("<stdin>",2719,&
 a_message ) 
          END IF
 
@@ -2845,7 +2895,7 @@ a_message )
                   else if(grid%sst(i,j).gt.170. .and. grid%sst(i,j).lt.400.)then
                      grid%tsk(i,j)=grid%sst(i,j)
                   else
-                     CALL wrf_error_fatal3("<stdin>",2848,&
+                     CALL wrf_error_fatal3("<stdin>",2898,&
 'grid%tsk unreasonable' )
                   end if
                END IF
@@ -2873,7 +2923,7 @@ a_message )
                else if(grid%sst(i,j).gt.170. .and. grid%sst(i,j).lt.400.)then
                   grid%tmn(i,j)=grid%sst(i,j)
                else
-                  CALL wrf_error_fatal3("<stdin>",2876,&
+                  CALL wrf_error_fatal3("<stdin>",2926,&
 'grid%tmn unreasonable' )
                endif
             END IF
@@ -3114,25 +3164,25 @@ a_message )
                               END DO
                         END SELECT fake_soil_temp
                      else if(grid%tsk(i,j).gt.170. .and. grid%tsk(i,j).lt.400.)then
-                        CALL wrf_error_fatal3("<stdin>",3117,&
+                        CALL wrf_error_fatal3("<stdin>",3167,&
 'grid%tslb unreasonable 1' )
                         DO ns = 1 , model_config_rec%num_soil_layers
                            grid%tslb(i,ns,j)=grid%tsk(i,j)
                         END DO
                      else if(grid%sst(i,j).gt.170. .and. grid%sst(i,j).lt.400.)then
-                        CALL wrf_error_fatal3("<stdin>",3123,&
+                        CALL wrf_error_fatal3("<stdin>",3173,&
 'grid%tslb unreasonable 2' )
                         DO ns = 1 , model_config_rec%num_soil_layers
                            grid%tslb(i,ns,j)=grid%sst(i,j)
                         END DO
                      else if(grid%tmn(i,j).gt.170. .and. grid%tmn(i,j).lt.400.)then
-                        CALL wrf_error_fatal3("<stdin>",3129,&
+                        CALL wrf_error_fatal3("<stdin>",3179,&
 'grid%tslb unreasonable 3' )
                         DO ns = 1 , model_config_rec%num_soil_layers
                            grid%tslb(i,ns,j)=grid%tmn(i,j)
                         END DO
                      else
-                        CALL wrf_error_fatal3("<stdin>",3135,&
+                        CALL wrf_error_fatal3("<stdin>",3185,&
 'grid%tslb unreasonable 4' )
                      endif
                END IF
@@ -3198,7 +3248,7 @@ oops2=oops2+1
                   print *,'iswater=', config_flags%iswater
                   print *,'grid%tslb=',grid%tslb(i,:,j)
                   print *,'grid%sst=',grid%sst(i,j)
-                  CALL wrf_error_fatal3("<stdin>",3201,&
+                  CALL wrf_error_fatal3("<stdin>",3251,&
 'mismatch_landmask_ivgtyp' )
                END IF
             END IF
@@ -3262,7 +3312,7 @@ endif
          print *,'The input grid%znw height values were half-levels or erroneous. '
          print *,'Attempts to treat the values as half-levels and change them '
          print *,'to valid full levels failed.'
-         CALL wrf_error_fatal3("<stdin>",3265,&
+         CALL wrf_error_fatal3("<stdin>",3315,&
 "bad grid%znw values from input files")
       ELSE IF ( were_bad ) THEN
          print *,'...adjusted. grid%znw array now contains full eta level values. '
@@ -3338,8 +3388,13 @@ endif
 
 
             DO k = 1, kte-1
+
                grid%php(i,k,j) = grid%znw(k)*(p_surf - grid%p_top) + grid%p_top 
                grid%pb(i,k,j)  = grid%znu(k)*(p_surf - grid%p_top) + grid%p_top
+
+
+
+
                temp = MAX ( tiso, t00 + A*LOG(grid%pb(i,k,j)/p00) )
                IF ( grid%pb(i,k,j) .LT. p_strat ) THEN
                    temp = tiso + A_strat * LOG ( grid%pb(i,k,j)/p_strat )
@@ -3370,13 +3425,19 @@ endif
                END DO
             ELSE IF (grid%hypsometric_opt == 2) THEN
                DO k = 2,kte
+
                   pfu = grid%mub(i,j)*grid%znw(k)   + grid%p_top
                   pfd = grid%mub(i,j)*grid%znw(k-1) + grid%p_top
                   phm = grid%mub(i,j)*grid%znu(k-1) + grid%p_top
+
+
+
+
+
                   grid%phb(i,k,j) = grid%phb(i,k-1,j) + grid%alb(i,k-1,j)*phm*LOG(pfd/pfu)
                END DO
             ELSE
-               CALL wrf_error_fatal3("<stdin>",3379,&
+               CALL wrf_error_fatal3("<stdin>",3440,&
 'initialize_real: hypsometric_opt should be 1 or 2' )
             END IF
 
@@ -3511,6 +3572,7 @@ endif
                   grid%p_hyd(i,kk,j) = grid%p(i,kk,j) + grid%pb(i,kk,j)
                END DO
 
+
                
                
 
@@ -3529,9 +3591,15 @@ endif
 
                   grid%ph_2(i,1,j) = grid%phb(i,1,j)
                   DO k = 2,kte
+
                      pfu = grid%mu0(i,j)*grid%znw(k)   + grid%p_top
                      pfd = grid%mu0(i,j)*grid%znw(k-1) + grid%p_top
                      phm = grid%mu0(i,j)*grid%znu(k-1) + grid%p_top
+
+
+
+
+
                      grid%ph_2(i,k,j) = grid%ph_2(i,k-1,j) + grid%alt(i,k-1,j)*phm*LOG(pfd/pfu)
                   END DO
 
@@ -3539,6 +3607,13 @@ endif
                      grid%ph_2(i,k,j) = grid%ph_2(i,k,j) - grid%phb(i,k,j)
                   END DO
                END IF
+
+
+
+
+
+
+
 
                
 
@@ -3549,13 +3624,20 @@ endif
                ENDDO
                ELSE IF (grid%hypsometric_opt == 2) THEN
                DO k=kts,kte-1
+
                   pfu = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k+1)+grid%p_top
                   pfd = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k)  +grid%p_top
                   phm = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znu(k)  +grid%p_top
+
+
+
+
+
                   qvf=-1./(grid%mub(i,j)+grid%mu_2(i,j))*(grid%alb(i,k,j)*grid%mu_2(i,j)  &
                                  +grid%rdnw(k)*(grid%ph_2(i,k+1,j)-grid%ph_2(i,k,j)))
                   grid%al(i,k,j) = (grid%ph_2(i,k+1,j)-grid%ph_2(i,k,j)+grid%phb(i,k+1,j)-grid%phb(i,k,j)) &
                                     /phm/LOG(pfd/pfu)-grid%alb(i,k,j)
+
           
                ENDDO     
                END IF
@@ -3747,6 +3829,7 @@ endif
                      grid%p_hyd(i,kk,j) = grid%p(i,kk,j) + grid%pb(i,kk,j)
                   END DO
 
+
                   
                   
 
@@ -3768,9 +3851,15 @@ endif
 
                      grid%ph_2(i,1,j) = grid%phb(i,1,j)
                      DO k = 2,kte
+
                         pfu = grid%mu0(i,j)*grid%znw(k)   + grid%p_top
                         pfd = grid%mu0(i,j)*grid%znw(k-1) + grid%p_top
                         phm = grid%mu0(i,j)*grid%znu(k-1) + grid%p_top
+
+
+
+
+
                         grid%ph_2(i,k,j) = grid%ph_2(i,k-1,j) + grid%alt(i,k-1,j)*phm*LOG(pfd/pfu)
                      END DO
 
@@ -3778,6 +3867,13 @@ endif
                         grid%ph_2(i,k,j) = grid%ph_2(i,k,j) - grid%phb(i,k,j)
                      END DO
                   END IF
+
+
+
+
+
+
+
 
                   
 
@@ -3788,9 +3884,15 @@ endif
                      ENDDO
                   ELSE IF (grid%hypsometric_opt == 2) THEN
                      DO k=kts,kte-1
+
                         pfu = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k+1)+grid%p_top
                         pfd = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k)  +grid%p_top
                         phm = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znu(k)  +grid%p_top
+
+
+
+
+
                         grid%al(i,k,j) = (grid%ph_2(i,k+1,j)-grid%ph_2(i,k,j)+grid%phb(i,k+1,j)-grid%phb(i,k,j)) &
                                           /phm/LOG(pfd/pfu)-grid%alb(i,k,j)
                      ENDDO     
@@ -3984,6 +4086,13 @@ endif
                   grid%traj_long(icount) = grid%xlong(i,j)
                END IF
          
+
+
+
+
+
+
+
          	      
                icount = icount + 1
                IF (icount .GT. config_flags%num_traj) THEN
@@ -4076,6 +4185,10 @@ endif
       END DO
 
 
+
+
+
+
       RETURN
 
    END SUBROUTINE init_domain_rk
@@ -4111,6 +4224,7 @@ endif
 
 
 
+
 ,grid%moist,grid%moist_bxs,grid%moist_bxe,grid%moist_bys,grid%moist_bye,grid%moist_btxs,grid%moist_btxe,grid%moist_btys, &
 grid%moist_btye,grid%dfi_moist,grid%dfi_moist_bxs,grid%dfi_moist_bxe,grid%dfi_moist_bys,grid%dfi_moist_bye,grid%dfi_moist_btxs, &
 grid%dfi_moist_btxe,grid%dfi_moist_btys,grid%dfi_moist_btye,grid%scalar,grid%scalar_bxs,grid%scalar_bxe,grid%scalar_bys, &
@@ -4119,6 +4233,7 @@ grid%dfi_scalar_bxe,grid%dfi_scalar_bys,grid%dfi_scalar_bye,grid%dfi_scalar_btxs
 grid%dfi_scalar_btye,grid%aerod,grid%ozmixm,grid%aerosolc_1,grid%aerosolc_2,grid%fdda3d,grid%fdda2d,grid%advh_t,grid%advz_t, &
 grid%nba_mij,grid%nba_rij,grid%chem,grid%tracer,grid%tracer_bxs,grid%tracer_bxe,grid%tracer_bys,grid%tracer_bye, &
 grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
+
 
 
       )
@@ -4135,6 +4250,7 @@ grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 
 
 
+
 ,moist,moist_bxs,moist_bxe,moist_bys,moist_bye,moist_btxs,moist_btxe,moist_btys,moist_btye,dfi_moist,dfi_moist_bxs,dfi_moist_bxe, &
 dfi_moist_bys,dfi_moist_bye,dfi_moist_btxs,dfi_moist_btxe,dfi_moist_btys,dfi_moist_btye,scalar,scalar_bxs,scalar_bxe,scalar_bys, &
 scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar_bxs,dfi_scalar_bxe,dfi_scalar_bys, &
@@ -4143,10 +4259,12 @@ advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,trace
 tracer_btye &
 
 
+
                         )
       IMPLICIT NONE
 
       TYPE (domain)          :: grid
+
 
 
 
@@ -4210,6 +4328,9 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btxe
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
+
+
+
 
 
       TYPE (grid_config_rec_type)              :: config_flags
@@ -4315,7 +4436,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
          IF (t00 .LT. 100. .or. p00 .LT. 10000.) THEN
             WRITE(wrf_err_message,*)&
       'ndown_em: did not find base state parameters in wrfout. Add use_baseparam_fr_nml = .t. in &dynamics and rerun'
-            CALL wrf_error_fatal3("<stdin>",4318,&
+            CALL wrf_error_fatal3("<stdin>",4439,&
 TRIM(wrf_err_message))
          ENDIF
       ENDIF
@@ -4338,8 +4459,13 @@ TRIM(wrf_err_message))
             p_surf_int = p00 * EXP ( -t00/a + ( (t00/a)**2 - 2.*g*grid%ht(i,j)     /a/r_d ) **0.5 )
 
             DO k = 1, kte-1
+
                grid%pb(i,k,j) = grid%znu(k)*(p_surf     - grid%p_top) + grid%p_top
                pb_int    = grid%znu(k)*(p_surf_int - grid%p_top) + grid%p_top
+
+
+
+
                temp = MAX ( tiso, t00 + A*LOG(grid%pb(i,k,j)/p00) )
                IF ( grid%pb(i,k,j) .LT. p_strat ) THEN
                   temp = tiso + A_strat * LOG ( grid%pb(i,k,j)/p_strat )
@@ -4377,13 +4503,19 @@ TRIM(wrf_err_message))
               END DO
             ELSE IF (grid%hypsometric_opt == 2) THEN
               DO k = 2,kte
+
                  pfu = grid%mub(i,j)*grid%znw(k)   + grid%p_top
                  pfd = grid%mub(i,j)*grid%znw(k-1) + grid%p_top
                  phm = grid%mub(i,j)*grid%znu(k-1) + grid%p_top
+
+
+
+
+
                  grid%phb(i,k,j) = grid%phb(i,k-1,j) + grid%alb(i,k-1,j)*phm*LOG(pfd/pfu)
               END DO
             ELSE
-              CALL wrf_error_fatal3("<stdin>",4386,&
+              CALL wrf_error_fatal3("<stdin>",4518,&
 'initialize_real: hypsometric_opt should be 1 or 2' )
             END IF
          END DO
@@ -4461,9 +4593,15 @@ TRIM(wrf_err_message))
 
                grid%ph_2(i,1,j) = grid%phb(i,1,j)
                DO k = 2,kte
+
                   pfu = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k)    +grid%p_top
                   pfd = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k-1)  +grid%p_top
                   phm = (grid%mub(i,j)+grid%mu_2(i,j))*grid%znu(k-1)  +grid%p_top
+
+
+
+
+
                   grid%ph_2(i,k,j) = grid%ph_2(i,k-1,j) + grid%alt(i,k-1,j)*phm*LOG(pfd/pfu)
                END DO
 
@@ -4492,6 +4630,13 @@ TRIM(wrf_err_message))
       DEALLOCATE ( t_init_int )
 
       ips = its ; ipe = ite ; jps = jts ; jpe = jte ; kps = kts ; kpe = kte
+
+
+
+
+
+
+
    END SUBROUTINE rebalance
 
 
@@ -4597,6 +4742,8 @@ TRIM(wrf_err_message))
 
 
 
+
+
    SUBROUTINE vert_interp ( fo , po , fnew , pnu , &
                             fo_maxw , fo_trop , po_maxw , po_trop , &
                             po_maxwnn , po_tropnn , &
@@ -4661,6 +4808,11 @@ TRIM(wrf_err_message))
       LOGICAL :: any_valid_points
       INTEGER :: i_valid , j_valid
       LOGICAL :: flip_data_required
+
+
+
+
+
       INTEGER :: final_zap_check_count , count_close_by_at_ko
 
       
@@ -5243,6 +5395,7 @@ TRIM(wrf_err_message))
                END IF
             END IF
  
+
             outer : DO ko = kinterp_start , kinterp_end-1
                IF ( ( ABS(ordered_porig(ko) - ordered_porig(ko+1)) .LT. MAX(zap_close_levels/10,50.) ) .AND. &
                     ( ordered_porig(ko) .GT. zap_close_levels * 10 ) ) THEN
@@ -5254,6 +5407,7 @@ TRIM(wrf_err_message))
                   EXIT outer
                END IF
             END DO outer
+
 
             
 
@@ -5336,7 +5490,11 @@ TRIM(wrf_err_message))
 
       REAL :: temp_1 , temp_2 , temp_3 , temp_y
       REAL :: depth_of_extrap_in_p , avg_of_extrap_p , temp_extrap_starting_point , dhdp , dh , dt
+
+
+
       REAL , PARAMETER :: RovCp      = rcp
+
       REAL , PARAMETER :: CRC_const1 = 11880.516      
       REAL , PARAMETER :: CRC_const2 =     0.1902632  
       REAL , PARAMETER :: CRC_const3 =     0.0065     
@@ -5357,12 +5515,12 @@ print *,'p target= ',target_x
          CALL wrf_message ( 0 , 'Finally, ridiculous values of moisture can mess up the vertical pressures, especially aloft' )
          CALL wrf_message ( 0 , 'The variable type is ' // var_type // '. This is not a unique identifer, but a type of field' )
          CALL wrf_message ( 0 , 'Check to see if all time periods with this data fail, or just this one' )
-         CALL wrf_error_fatal3("<stdin>",5360,&
+         CALL wrf_error_fatal3("<stdin>",5518,&
 'This vertical interpolation failure is more typically associated with untested data sources to ungrib' )
       END IF
 
       IF ( n .LT. 1 ) THEN
-         CALL wrf_error_fatal3("<stdin>",5365,&
+         CALL wrf_error_fatal3("<stdin>",5523,&
 'pal, linear is about as low as we go' )
       END IF
 
@@ -5443,7 +5601,7 @@ print *,'p target= ',target_x
                target_y(target_loop) = all_y(1)
 
             ELSE IF ( extrap_type .EQ. 3 ) THEN
-               CALL wrf_error_fatal3("<stdin>",5446,&
+               CALL wrf_error_fatal3("<stdin>",5604,&
 'You are not allowed to use extrap_option #3 for any var except for theta.' )
 
             END IF
@@ -5454,7 +5612,7 @@ print *,'p target= ',target_x
             DO loop = 1 , all_dim
                print *,'column of pressure and value = ',all_x(loop),all_y(loop)
             END DO
-            CALL wrf_error_fatal3("<stdin>",5457,&
+            CALL wrf_error_fatal3("<stdin>",5615,&
 'troubles, could not find trapping x locations' )
          END IF
 
@@ -5487,7 +5645,7 @@ print *,'p target= ',target_x
                CALL lagrange_interp ( all_x(ist:iend) , all_y(ist:iend) , n , target_x(target_loop) , target_y(target_loop) )
             ELSE
                IF ( .NOT. found_loc ) THEN
-                  CALL wrf_error_fatal3("<stdin>",5490,&
+                  CALL wrf_error_fatal3("<stdin>",5648,&
 'I doubt this will happen, I will only do 2nd order for now' )
                END IF
             END IF
@@ -5517,7 +5675,7 @@ print *,'p target= ',target_x
                iend = ist + n
                CALL lagrange_interp ( all_x(ist:iend) , all_y(ist:iend) , n , target_x(target_loop) , target_y(target_loop)   )
             ELSE
-               CALL wrf_error_fatal3("<stdin>",5520,&
+               CALL wrf_error_fatal3("<stdin>",5678,&
 'unauthorized area, you should not be here' )
             END IF
 
@@ -5659,6 +5817,7 @@ END SUBROUTINE TRIDIAGONAL_LINEAR_EQ
 
 
 
+
    SUBROUTINE p_dry ( mu0 , eta , pdht , pdry , full_levs , &
                              c3f , c3h , c4f , c4h ,             &
                              ids , ide , jds , jde , kds , kde , &
@@ -5691,7 +5850,11 @@ END SUBROUTINE TRIDIAGONAL_LINEAR_EQ
             DO k = kts , kte
                DO i = its , MIN (ide-1 , ite )
                   IF ( skip_middle_points_t ( ids , ide , jds , jde , i , j , em_width , hold_ups ) ) CYCLE 
+
                      pdry(i,k,j) = eta(k) * mu0(i,j) + pdht
+
+
+
                END DO
             END DO
          END DO
@@ -5705,7 +5868,11 @@ END SUBROUTINE TRIDIAGONAL_LINEAR_EQ
             DO k = kts , kte-1
                DO i = its , MIN (ide-1 , ite )
                   IF ( skip_middle_points_t ( ids , ide , jds , jde , i , j , em_width , hold_ups ) ) CYCLE 
+
                      pdry(i,k,j) = eta_h(k) * mu0(i,j) + pdht
+
+
+
                END DO
             END DO
          END DO
@@ -6040,7 +6207,7 @@ END SUBROUTINE TRIDIAGONAL_LINEAR_EQ
 print *,'i,j = ',i,j
 print *,'p = ',p(i,:)
 print *,'p sfc = ',psfc(i,j)
-                  CALL wrf_error_fatal3("<stdin>",6043,&
+                  CALL wrf_error_fatal3("<stdin>",6210,&
 'Could not find level above ground')
                END IF
             END IF
@@ -6471,6 +6638,7 @@ print *,'p sfc = ',psfc(i,j)
 
 
 
+
    SUBROUTINE compute_eta ( znw , &
                            eta_levels , max_eta , max_dz , &
                            p_top , g , p00 , cvpm , a , r_d , cp , &
@@ -6532,7 +6700,7 @@ print *,'p sfc = ',psfc(i,j)
             znw(  1) = 1.
             znw(kde) = 0.
          ELSE
-            CALL wrf_error_fatal3("<stdin>",6535,&
+            CALL wrf_error_fatal3("<stdin>",6703,&
 'First eta level should be 1.0 and the last 0.0 in namelist' )
          END IF
 
@@ -6543,7 +6711,7 @@ print *,'p sfc = ',psfc(i,j)
                PRINT *,'eta on full levels is not monotonic'
                PRINT *,'eta (',k,') = ',znw(k)
                PRINT *,'eta (',k+1,') = ',znw(k+1)
-               CALL wrf_error_fatal3("<stdin>",6546,&
+               CALL wrf_error_fatal3("<stdin>",6714,&
 'Fix non-monotonic "eta_levels" in the namelist.input file' )
             END IF
          END DO
@@ -6614,7 +6782,7 @@ print *,'p sfc = ',psfc(i,j)
             CALL wrf_message ( message )
             WRITE (message,FMT='("Thicknesses greater than ",F7.1," m are not recommended.")') max_dz 
             CALL wrf_message ( message )
-            CALL wrf_error_fatal3("<stdin>",6617,&
+            CALL wrf_error_fatal3("<stdin>",6785,&
 'Add more levels to namelist.input for e_vert' )
          END IF
 
@@ -6736,7 +6904,7 @@ print *,'namelist p_top (Pa) = ',p_top
             CALL wrf_debug ( 0, '2) A lower p_top so your total height is reduced: p_top_requested')
             CALL wrf_debug ( 0, '3) Increase the maximum allowable eta thickness: max_dz')
             CALL wrf_debug ( 0, 'All are namelist options')
-            CALL wrf_error_fatal3("<stdin>",6739,&
+            CALL wrf_error_fatal3("<stdin>",6907,&
 'dz above fixed eta levels is too large')
          END IF
 
@@ -7029,6 +7197,7 @@ end do
             END DO
 
             RETURN
+
 
          
          
@@ -7358,7 +7527,7 @@ end do
                print *,'p column = ',p(i,2:,j)
                print *,'z column = ',height(i,2:,j)
                print *,'model topo = ',ter(i,j)
-               CALL wrf_error_fatal3("<stdin>",7361,&
+               CALL wrf_error_fatal3("<stdin>",7530,&
 ' probs with sfc p computation ' )
             END IF
 
@@ -7401,7 +7570,7 @@ end do
       
 
       IF ( ( its .NE. ids ) .OR. ( ite .NE. ide ) ) THEN
-         CALL wrf_error_fatal3("<stdin>",7404,&
+         CALL wrf_error_fatal3("<stdin>",7573,&
 'filtering assumes all values on X' )
       END IF
 
@@ -7536,7 +7705,7 @@ end do
       
 
       IF ( ( its .NE. ids ) .OR. ( ite .NE. ide ) ) THEN
-         CALL wrf_error_fatal3("<stdin>",7539,&
+         CALL wrf_error_fatal3("<stdin>",7708,&
 'filtering assumes all values on X' )
       END IF
 
@@ -7804,3 +7973,5 @@ end do
 
 
 END MODULE module_initialize_real
+
+

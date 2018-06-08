@@ -11,6 +11,7 @@ SUBROUTINE interp_domain_em_part1 ( grid, ngrid, config_flags   &
 
 
 
+
 ,moist,moist_bxs,moist_bxe,moist_bys,moist_bye,moist_btxs,moist_btxe,moist_btys,moist_btye,dfi_moist,dfi_moist_bxs,dfi_moist_bxe, &
 dfi_moist_bys,dfi_moist_bye,dfi_moist_btxs,dfi_moist_btxe,dfi_moist_btys,dfi_moist_btye,scalar,scalar_bxs,scalar_bxe,scalar_bys, &
 scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar_bxs,dfi_scalar_bxe,dfi_scalar_bys, &
@@ -19,11 +20,13 @@ advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,trace
 tracer_btye &
 
 
+
                  )
          USE module_state_description
          USE module_domain, ONLY : domain, get_ijk_from_grid
          USE module_configure, ONLY : grid_config_rec_type
          TYPE(domain), POINTER :: grid , ngrid
+
 
 
 
@@ -88,6 +91,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
 
+
+
+
       INTEGER nlev
       INTEGER i,j,pig,pjg,cm,cn,nig,njg,k
       TYPE (grid_config_rec_type)            :: config_flags
@@ -110,6 +116,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
       nlev  = ckde - ckds + 1
 
       
+
 
 
 
@@ -8952,6 +8959,7 @@ ENDIF
 ENDDO
 
 
+
       RETURN
 
 END SUBROUTINE interp_domain_em_part1
@@ -8959,6 +8967,9 @@ END SUBROUTINE interp_domain_em_part1
 
 SUBROUTINE interp_domain_em_part2
 END SUBROUTINE interp_domain_em_part2
+
+
+
 
 
 

@@ -9,97 +9,97 @@ MODULE module_sf_SUEWS
 
 CONTAINS
 
-
+  
   SUBROUTINE suewsdrv(year, day, hour, minute,  &
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
        PSFC, PREC, NLCAT, LANDUSEF, ht,         &
-       HFX, QFX, LH, TSK, QSFC,&
+       HFX, QFX, LH, TSK, QSFC, chklowq,         &
        xlong, xlat,DT,DX,                       &
        ids, ide, jds, jde, kds, kde,            &
        ims, ime, jms, jme, kms, kme,            &
        its, ite, jts, jte, kts, kte)
+    
+    
+    
+    
+    
+    
+    
 
-
-
-
-
-
-
-
-
+    
     IMPLICIT NONE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     INTEGER, INTENT(IN)    ::     year, day, hour, minute
     INTEGER, INTENT(IN)    ::     ids,ide, jds,jde, kds,kde,  &
          ims,ime, jms,jme, kms,kme,  &
@@ -107,7 +107,7 @@ CONTAINS
 
     REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN)   ::  &
          QV3D, P3D, T3D, U3D, V3D, DZ3D
-
+    
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN, PSFC, PREC, ht
 
     INTEGER, INTENT(IN)  :: NLCAT
@@ -115,42 +115,42 @@ CONTAINS
     REAL, DIMENSION(ims:ime, NLCAT, jms:jme), INTENT(IN)    :: LANDUSEF
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  XLONG, XLAT
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         HFX, QFX, LH, TSK, QSFC
+         HFX, QFX, LH, TSK, QSFC, chklowq
 
-
+    
     REAL,DIMENSION(ims:ime,jms:jme, 360)                            :: qn1_store_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme, 2*360+1)                        :: qn1_av_store_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme,-4:ndays, nvegsurf)              :: LAI_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: albDecTr_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: albEveTr_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: albGrass_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: DecidCap_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: porosity_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays, 5)                     :: GDD_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme,-4:ndays, 6)                     :: HDD_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme,-4:ndays, nvegsurf)              :: LAI_SUEWS      
+    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: albDecTr_SUEWS 
+    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: albEveTr_SUEWS 
+    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: albGrass_SUEWS 
+    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: DecidCap_SUEWS 
+    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays)                        :: porosity_SUEWS 
+    REAL,DIMENSION(ims:ime,jms:jme, 0:ndays, 5)                     :: GDD_SUEWS      
+    REAL,DIMENSION(ims:ime,jms:jme,-4:ndays, 6)                     :: HDD_SUEWS      
     REAL,DIMENSION(ims:ime,jms:jme,nsurf)                           :: state_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme,nsurf)                           :: soilmoist_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme,nsurf)                           :: surf_var_SUEWS
 
 
-
+    
     REAL, DIMENSION(ims:ime, nsurf, jms:jme)    :: landusef_suews
     REAL, DIMENSION(nsurf) :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out
+    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out, tsk_out,CHKLOWQ_out
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(360)               :: qn1_store
     REAL(KIND(1d0)),DIMENSION(2*360+1)           :: qn1_av_store
-    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf):: LAI
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albDecTr
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albEveTr
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albGrass
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: DecidCap
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: porosity
-    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5)       :: GDD
-    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6)       :: HDD
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf):: LAI 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albDecTr 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albEveTr 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: albGrass 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: DecidCap 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          :: porosity 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5)       :: GDD 
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6)       :: HDD 
     REAL(KIND(1d0)),DIMENSION(nsurf)             :: state
     REAL(KIND(1d0)),DIMENSION(nsurf)             :: soilmoist
     REAL(KIND(1d0)),DIMENSION(nsurf)             :: surf_var
@@ -175,9 +175,9 @@ CONTAINS
     end do
 
     do k = 0, ndays
-       call random_array2d(2, 2, albDecTr_SUEWS(:,:,k), 0.1, 0.4)
-       call random_array2d(2, 2, albEveTr_SUEWS(:,:,k), 0.1, 0.4)
-       call random_array2d(2, 2, albGrass_SUEWS(:,:,k), 0.1, 0.4)
+       call random_array2d(2, 2, albDecTr_SUEWS(:,:,k), 0., 1.)
+       call random_array2d(2, 2, albEveTr_SUEWS(:,:,k), 0., 1.)
+       call random_array2d(2, 2, albGrass_SUEWS(:,:,k), 0., 1.)
        call random_array2d(2, 2, DecidCap_SUEWS(:,:,k), 1., 10.)
        call random_array2d(2, 2, porosity_SUEWS(:,:,k), 0., 1.)
     end do
@@ -195,11 +195,9 @@ CONTAINS
     end do
 
     do k = 1, nsurf
-      
-      
-      call random_array2d(2, 2, state_SUEWS(:,:,k), 200., 300.)
-      call random_array2d(2, 2, soilmoist_SUEWS(:,:,k), 200., 300.)
-      call random_array2d(2, 2, surf_var_SUEWS(:,:,k), 0.1, 1.)
+      call random_array2d(2, 2, state_SUEWS(:,:,k), 0., 100.)
+      call random_array2d(2, 2, soilmoist_SUEWS(:,:,k), 0., 1.)
+      call random_array2d(2, 2, surf_var_SUEWS(:,:,k), 0., 100.)
     end do
 
     CALL MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
@@ -209,19 +207,15 @@ CONTAINS
        DO I=its,ite
 
           T1D = T3D(i,1,j)
-          T1D =300
           QV1D = QV3D(i,1,j)
-          QV1D = 1e-3
           P1D  = P3D(i,1,j)
-          P1D = 1013
           U1D = U3D(i,1,j)
           V1D = V3D(i,1,j)
           DZ1D = DZ3D(i,1,j)
 
 
           SWDOWN1D = SWDOWN(i,j)
-         
-          PSFC1D= P1D
+          PSFC1D = PSFC(i,j)
           PREC1D = PREC(i,j)
           ht1d = ht(i,j)
           XLAT1D = XLAT(i,j)
@@ -229,7 +223,9 @@ CONTAINS
           landusef_suews1d = landusef_suews(i, :, j)
 
           qn1_store(:)    = qn1_store_SUEWS(I,J,:)
+          qn1_store=10
           qn1_av_store(:) = qn1_av_store_SUEWS(I,J,:)
+          qn1_av_store=10
           LAI             = LAI_SUEWS(I,J,:,:)
           albDecTr        = albDecTr_SUEWS(I,J,:)
           albEveTr        = albEveTr_SUEWS(I,J,:)
@@ -240,125 +236,99 @@ CONTAINS
           HDD             = HDD_SUEWS(I,J,:,:)
           state           = state_SUEWS(i,j,:)
           soilmoist       = soilmoist_SUEWS(i,j,:)
+          soilmoist=[150.,150.,150.,150.,150.,150.,0.]
           surf_var        = surf_var_SUEWS(i,j,:)
-          if ( i==1 .and. j==1 ) then
-            print*, 'soilmoist',soilmoist
-            print*, 'state',state
 
-          end if
+          
+          
+          
+          
 
-          qn1_store=30
-          qn1_av_store=30
-          soilmoist(:)=[150,150,150,150,150,150,0]*1.
-          state(:)=[0.1,.1,.150,.150,.150,.150,20000.]*1.
-          if ( i==1 .and. j==1 ) then
-            print*, 'soilmoist',soilmoist
-            print*, 'state',state
-
-          end if
-
-
-
-
-
-
-          timezone=0
+          timezone=0 
+          print*, 'landusef_suews1d = ',landusef_suews1d
 
           CALL SUEWS1D(&
-
+                                
                I,J,DT,year, day, hour, minute,timezone,&
-
+                                
                SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC1D,PREC1D,&
-
+                                
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
-
+                                
                LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
                state,soilmoist,surf_var,&
-
-               qh_out,qe_out,qsfc_out,qn1_store,qn1_av_store,&
-
+                                
+               qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,CHKLOWQ_out,&
+                                
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
                its,ite, jts,jte, kts,kte)
 
+               print *, 'tsk = ', tsk_out
 
-          HFX(I,J)=qh_out
-          LH(I,J)=qe_out
-          QFX(I,J)=qsfc_out
-          if ( i==1 .and. j==1 ) then
-            print *, 'HFX = ', qh_out, 'LH = ', qe_out
-
-          end if
-          HFX(I,J)=max(min(abs(qh_out),50.),50.)
-          LH(I,J)=max(min(abs(qe_out),60.),60.)
-          QFX(I,J)=LH(I,J)/2.236E6
-
-          if ( i==1 .and. j==1 ) then
-              print *, 'after'
-            print *, 'HFX = ', HFX(I,J), 'LH = ', LH(I,J)
-            print *, ''
-
-          end if
-
-
+          
+          HFX(I,J)=min(max(qh_out,50.),50.)
+          LH(I,J)=min(max(qe_out,50.),50.)
+          QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
+          chklowq(I,J)=CHKLOWQ_out
 
        ENDDO
     ENDDO
 
   END SUBROUTINE suewsdrv
 
-
+  
   SUBROUTINE SUEWS1D(&
-
+                                
        I,J,DT,iy,id,it,imin,timezone,&
-
+                                
        SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
-
+                                
        landusef_suews,ht,XLAT,XLONG,dz8w,DX,&
-
+                                
        LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
        state,soilmoist,surf_var,&
-
-       qh_out,qe_out,qsfc_out,qn1_store,qn1_av_store,&
-
+                                
+       qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,CHKLOWQ_out,&
+                                
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
        its,ite, jts,jte, kts,kte)
-
+    
     IMPLICIT NONE
 
-
-
-    REAL, DIMENSION(:) ,INTENT(IN ) :: landusef_suews
-    REAL, INTENT(IN ) :: ht
+    
+    
+    REAL, DIMENSION(:) ,INTENT(IN ) :: landusef_suews 
+    REAL, INTENT(IN ) :: ht 
     REAL, INTENT(IN ) :: XLAT
     REAL, INTENT(IN ) :: XLONG
     REAL, INTENT(IN ) :: dz8w
-    REAL, INTENT(IN ) :: DX
-    REAL, INTENT(IN ) :: DT
+    REAL, INTENT(IN ) :: DX 
+    REAL, INTENT(IN ) :: DT 
 
     REAL,INTENT(in) :: SWDOWN1D
     REAL,INTENT(in) :: QV1D
     REAL,INTENT(in) :: U1D, V1D
     REAL,INTENT(in) :: T1D
-    REAL,INTENT(in) :: PSFC
-    REAL,INTENT(in) :: PREC1D
+    REAL,INTENT(in) :: PSFC 
+    REAL,INTENT(in) :: PREC1D 
 
 
+    
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf),INTENT(inout):: LAI      
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: albDecTr 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: albEveTr 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: albGrass 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: DecidCap 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: porosity 
+    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5)       ,INTENT(inout):: GDD      
+    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6)       ,INTENT(inout):: HDD      
 
-    REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf),INTENT(inout):: LAI
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: albDecTr
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: albEveTr
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: albGrass
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: DecidCap
-    REAL(KIND(1d0)),DIMENSION( 0:ndays)          ,INTENT(inout):: porosity
-    REAL(KIND(1d0)),DIMENSION( 0:ndays, 5)       ,INTENT(inout):: GDD
-    REAL(KIND(1d0)),DIMENSION(-4:ndays, 6)       ,INTENT(inout):: HDD
-
-
-    REAL(KIND(1d0)),DIMENSION(nsurf):: state
-    REAL(KIND(1d0)),DIMENSION(nsurf):: soilmoist
-    REAL(KIND(1d0)),DIMENSION(nsurf):: surf_var
+    
+    REAL(KIND(1d0)),DIMENSION(nsurf):: state          
+    REAL(KIND(1d0)),DIMENSION(nsurf):: soilmoist      
+    REAL(KIND(1d0)),DIMENSION(nsurf):: surf_var   
 
     INTEGER, INTENT(IN)::     &
          ids,ide, jds,jde, kds,kde,  &
@@ -368,58 +338,58 @@ CONTAINS
 
 
 
+    
+    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: SoilStoreCap=[150., 150., 150., 150., 150., 150., 0.]        
 
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: SoilStoreCap=[150., 150., 150., 150., 150., 150., 0.]
+    REAL(KIND(1d0)),PARAMETER:: AlbMin_DecTr=0.12   
+    REAL(KIND(1d0)),PARAMETER:: AlbMax_DecTr=0.18   
+    REAL(KIND(1d0)),PARAMETER:: AlbMin_EveTr=0.11   
+    REAL(KIND(1d0)),PARAMETER:: AlbMax_EveTr=0.12   
+    REAL(KIND(1d0)),PARAMETER:: AlbMin_Grass=0.18   
+    REAL(KIND(1d0)),PARAMETER:: AlbMax_Grass=0.21    
 
-    REAL(KIND(1d0)),PARAMETER:: AlbMin_DecTr=0.12
-    REAL(KIND(1d0)),PARAMETER:: AlbMax_DecTr=0.18
-    REAL(KIND(1d0)),PARAMETER:: AlbMin_EveTr=0.11
-    REAL(KIND(1d0)),PARAMETER:: AlbMax_EveTr=0.12
-    REAL(KIND(1d0)),PARAMETER:: AlbMin_Grass=0.18
-    REAL(KIND(1d0)),PARAMETER:: AlbMax_Grass=0.21
+    REAL(KIND(1d0)),PARAMETER:: CapMin_dec=0.3   
+    REAL(KIND(1d0)),PARAMETER:: CapMax_dec=0.8   
+    REAL(KIND(1d0)),PARAMETER:: PorMin_dec=0.2   
+    REAL(KIND(1d0)),PARAMETER:: PorMax_dec=0.6   
 
-    REAL(KIND(1d0)),PARAMETER:: CapMin_dec=0.3
-    REAL(KIND(1d0)),PARAMETER:: CapMax_dec=0.8
-    REAL(KIND(1d0)),PARAMETER:: PorMin_dec=0.2
-    REAL(KIND(1d0)),PARAMETER:: PorMax_dec=0.6
+    REAL(KIND(1d0)),PARAMETER:: FAIbldg=0.                   
+    REAL(KIND(1d0)),PARAMETER:: FAIEveTree=0.                
+    REAL(KIND(1d0)),PARAMETER:: FAIDecTree=0.                
 
-    REAL(KIND(1d0)),PARAMETER:: FAIbldg=0.
-    REAL(KIND(1d0)),PARAMETER:: FAIEveTree=0.
-    REAL(KIND(1d0)),PARAMETER:: FAIDecTree=0.
-
-    REAL (KIND(1d0)),PARAMETER :: bldgH =10
+    REAL (KIND(1d0)),PARAMETER :: bldgH =10   
     REAL (KIND(1d0)),PARAMETER :: EveTreeH =10
     REAL (KIND(1d0)),PARAMETER :: DecTreeH =10
 
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseT          = [5,5,5]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseTe         = [11,11,11]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: GDDFull        = [300,300,300]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: SDDFull        = [-450,-450,-450]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMin         = [4.,1.,1.6]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMax         = [5.1,5.5,5.9]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: MaxConductance = [7.4,11.7,30.1]
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseT          = [5,5,5]          
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseTe         = [11,11,11]       
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: GDDFull        = [300,300,300]    
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: SDDFull        = [-450,-450,-450] 
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMin         = [4.,1.,1.6]      
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMax         = [5.1,5.5,5.9]    
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: MaxConductance = [7.4,11.7,30.1]  
 
-    REAL(KIND(1d0)),DIMENSION(4,nvegsurf),PARAMETER:: LaiPower=RESHAPE(&
+    REAL(KIND(1d0)),DIMENSION(4,nvegsurf),PARAMETER:: LaiPower=RESHAPE(&       
          [[0.03,0.03,0.03],&
          [0.0005,0.0005,0.0005],&
          [0.03,0.03,0.03],&
          [0.0005,0.0005,0.0005]],&
          [4,nvegsurf])
 
-    INTEGER,DIMENSION(nvegsurf),PARAMETER:: LAIType=1
-    INTEGER,PARAMETER::startDLS=85
-    INTEGER,PARAMETER::endDLS=302
+    INTEGER,DIMENSION(nvegsurf),PARAMETER:: LAIType=1     
+    INTEGER,PARAMETER::startDLS=85   
+    INTEGER,PARAMETER::endDLS=302   
 
-    REAL (KIND(1D0)),PARAMETER ::DRAINRT       = 0.25
+    REAL (KIND(1D0)),PARAMETER ::DRAINRT       = 0.25 
     REAL (KIND(1D0)),PARAMETER ::RAINCOVER     = 1
-    REAL (KIND(1D0)),PARAMETER ::RAINMAXRES    = 10
-    REAL (KIND(1d0)),PARAMETER ::FlowChange    = 0
-    REAL (KIND(1d0)),PARAMETER ::PipeCapacity  = 100
-    REAL (KIND(1d0)),PARAMETER ::RunoffToWater = 0.1
+    REAL (KIND(1D0)),PARAMETER ::RAINMAXRES    = 10   
+    REAL (KIND(1d0)),PARAMETER ::FlowChange    = 0    
+    REAL (KIND(1d0)),PARAMETER ::PipeCapacity  = 100  
+    REAL (KIND(1d0)),PARAMETER ::RunoffToWater = 0.1  
 
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: StateLimit=[0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.]
+    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: StateLimit=[0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.]     
 
-    REAL(KIND(1d0)),DIMENSION(nsurf+1,nsurf-1),PARAMETER::WaterDist=&
+    REAL(KIND(1d0)),DIMENSION(nsurf+1,nsurf-1),PARAMETER::WaterDist=& 
          RESHAPE(&
          [[0.,0.1,0.1,0.1,0.,0.],&
          [0.,0.,0.,0.,0.,0.],&
@@ -430,15 +400,15 @@ CONTAINS
          [0.,0.,0.,0.,0.,0.],&
          [0.98,0.9,0.9,0.9,1.,1.]],&
          [nsurf+1,nsurf-1])
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: WetThresh = [0.48, 0.25, 1.3, 0.8, 1.9, 1., 0.5]
+    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: WetThresh = [0.48, 0.25, 1.3, 0.8, 1.9, 1., 0.5]     
 
-
-
-
-
-
-
-    REAL(KIND(1d0)),DIMENSION(5,nsurf),PARAMETER:: surf_attr=RESHAPE(&
+    
+    
+    
+    
+    
+    
+    REAL(KIND(1d0)),DIMENSION(5,nsurf),PARAMETER:: surf_attr=RESHAPE(&   
          [[ 0.48 ,  0.25 ,  1.3  ,  0.3  ,  1.9  ,  0.8  ,  0.5  ],&
          [ 3.   ,  3.   ,  2.   ,  2.   ,  2.   ,  3.   ,  0.   ],&
          [10.   , 10.   ,  0.013,  0.013,  0.013, 10.   ,  0.   ],&
@@ -447,22 +417,22 @@ CONTAINS
          [5,nsurf])
 
 
-
-
-    REAL (KIND(1d0)),PARAMETER::th   = 40
-    REAL (KIND(1d0)),PARAMETER::tl   = -10
-    REAL (KIND(1d0)),PARAMETER::Kmax = 1200
-    REAL (KIND(1d0)),PARAMETER::g1   = 3.5
+    
+    
+    REAL (KIND(1d0)),PARAMETER::th   = 40   
+    REAL (KIND(1d0)),PARAMETER::tl   = -10  
+    REAL (KIND(1d0)),PARAMETER::Kmax = 1200 
+    REAL (KIND(1d0)),PARAMETER::g1   = 3.5  
     REAL (KIND(1d0)),PARAMETER::g2   = 200
     REAL (KIND(1d0)),PARAMETER::g3   = 0.1
     REAL (KIND(1d0)),PARAMETER::g4   = 0.7
     REAL (KIND(1d0)),PARAMETER::g5   = 30
-    REAL (KIND(1d0)),PARAMETER::g6   = 0.05
+    REAL (KIND(1d0)),PARAMETER::g6   = 0.05 
     REAL (KIND(1d0)),PARAMETER::s1   = 5.56
-    REAL (KIND(1d0)),PARAMETER::s2   = 0
+    REAL (KIND(1d0)),PARAMETER::s2   = 0    
 
 
-    REAL(KIND(1d0)),DIMENSION(nsurf+1,4,3):: OHM_coef=RESHAPE(&
+    REAL(KIND(1d0)),DIMENSION(nsurf+1,4,3):: OHM_coef=RESHAPE(&   
          [[[0.719,0.194,-36.6],&
          [0.719,0.194,-36.6],&
          [0.719,0.194,-36.6],&
@@ -504,113 +474,108 @@ CONTAINS
          [0.25,0.6,-30.]]],&
          [nsurf+1,4,3])
 
-    REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshSW = [10,10,10,10,10,10,10,10]
-    REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshWD = [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9]
+    REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshSW = [10,10,10,10,10,10,10,10]         
+    REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshWD = [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9] 
 
-    REAL (KIND(1d0)),PARAMETER::  BaseTHDD=18.9
+    REAL (KIND(1d0)),PARAMETER::  BaseTHDD=18.9  
 
-    INTEGER,PARAMETER::OHMIncQF=0
+    INTEGER,PARAMETER::OHMIncQF=0             
 
-
-
-
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: alb0=[0.12,0.15,0.1,0.18,0.138403,0.18,0.1]
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: emis0=[0.95,0.91,0.98,0.98,0.988388,0.94,0.95]
+    
+    
+    
+    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: alb0=[0.12,0.15,0.1,0.18,0.138403,0.18,0.1]    
+    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: emis0=[0.95,0.91,0.98,0.98,0.988388,0.94,0.95]   
     REAL(KIND(1d0)),DIMENSION(nsurf)::alb,emis
+    
+    REAL(KIND(1d0)),DIMENSION(nsurf):: sfr   
 
-    REAL(KIND(1d0)),DIMENSION(nsurf):: sfr
+    REAL (KIND(1d0)) :: alt         
+    REAL (KIND(1d0)) :: lat         
+    REAL (KIND(1d0)) :: lng         
+    REAL (KIND(1d0)) :: z           
+    REAL (KIND(1d0)) :: SurfaceArea 
 
-    REAL (KIND(1d0)) :: alt
-    REAL (KIND(1d0)) :: lat
-    REAL (KIND(1d0)) :: lng
-    REAL (KIND(1d0)) :: z
-    REAL (KIND(1d0)) :: SurfaceArea
-
-
-    REAL (KIND(1d0))                :: avkdn
-    REAL (KIND(1d0))                :: avrh
-    REAL (KIND(1d0))                :: avu1
-    REAL (KIND(1d0))                :: Temp_C
-    REAL (KIND(1d0))                :: Press_hPa
-    REAL (KIND(1d0))                :: Precip
-
-
-
-    REAL(KIND(1d0))::dectime
-    INTEGER,INTENT(in)::iy
-    INTEGER,INTENT(in)::id
-    INTEGER,INTENT(in)::it
-    INTEGER,INTENT(in)::imin
-    REAL(KIND(1d0))::timezone
-
-    INTEGER::tstep
+    
+    REAL (KIND(1d0))                :: avkdn     
+    REAL (KIND(1d0))                :: avrh      
+    REAL (KIND(1d0))                :: avu1      
+    REAL (KIND(1d0))                :: Temp_C    
+    REAL (KIND(1d0))                :: Press_hPa 
+    REAL (KIND(1d0))                :: Precip    
 
 
-    REAL(KIND(1d0)),DIMENSION(6,nsurf):: surf
+    
+    REAL(KIND(1d0))::dectime 
+    INTEGER,INTENT(in)::iy 
+    INTEGER,INTENT(in)::id 
+    INTEGER,INTENT(in)::it 
+    INTEGER,INTENT(in)::imin 
+    REAL(KIND(1d0))::timezone   
+
+    INTEGER::tstep    
+
+    
+    REAL(KIND(1d0)),DIMENSION(6,nsurf):: surf   
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    REAL(KIND(1d0)),DIMENSION(360), INTENT(inout):: qn1_store   
+    REAL(KIND(1d0)),DIMENSION(2*360+1), INTENT(inout):: qn1_av_store  
 
 
 
+    
+    REAL(KIND(1d0)), INTENT(out) ::qh_out 
+    REAL(KIND(1d0)), INTENT(out) ::qe_out 
+    REAL(KIND(1d0)), INTENT(out) ::qsfc_out 
+    REAL(KIND(1d0)), INTENT(out) ::tsk_out 
+    REAL(KIND(1d0)), INTENT(out) ::CHKLOWQ_out 
 
-
-
-
-
-
-
-
-
-    REAL(KIND(1d0)),DIMENSION(360), INTENT(inout):: qn1_store
-    REAL(KIND(1d0)),DIMENSION(2*360+1), INTENT(inout):: qn1_av_store
-
-
-
-
-    REAL(KIND(1d0)), INTENT(out) ::qh_out
-    REAL(KIND(1d0)), INTENT(out) ::qe_out
-    REAL(KIND(1d0)), INTENT(out) ::qsfc_out
-
-
+    
     surf(1:5,:)=surf_attr(:,:)
     surf(6,:)=surf_var(:)
 
 
-
+    
     lat=XLAT
     lng=XLONG
-
+    
     alt=ht
 
+    
+    z= 10 
 
-    z= 10
-
-
+    
     SurfaceArea=dx*dx
 
-
+    
     avkdn=SWDOWN1D
     avu1=SQRT(U1D**2+V1D**2)
     Temp_C=T1D-273.15
     Precip=PREC1D
-    Press_hPa = PSFC
 
-
-
-
-
-    avRh=q2rh(QV1D,T1D,REAL(Press_hPa))*100
-    print*, 'Temp_C',Temp_C
-    print*, 'QV1D',QV1D
-    print*, 'Press_hPa',Press_hPa
-    print*, 'T1D',T1D
-    print*, 'avRh',avRh
     
+    Press_hPa=PSFC/100.
 
+    
+    avRh=q2rh(QV1D,T1D,REAL(Press_hPa))*100 
+    avRh=max(5.,avRh)
 
-
+    
     tstep=INT(DT)
 
-
-
+    
+    
     alb=alb0
     emis=emis0
 
@@ -644,18 +609,20 @@ CONTAINS
          tstep,&
          WaterDist,WetThresh,&
          Z,&
-         qh_out,qe_out,qsfc_out)
+         qh_out,qe_out,qsfc_out, tsk_out)
+
+      CHKLOWQ_out = 0.2
 
   END SUBROUTINE SUEWS1D
 
-
+  
      SUBROUTINE suewsinit(TSK,                                    &
                          ids,ide, jds,jde, kds,kde,               &
                          ims,ime, jms,jme, kms,kme,               &
                          its,ite, jts,jte, kts,kte                )
-
+  
      IMPLICIT NONE
-
+  
      INTEGER, INTENT(IN   )    ::      ids,ide, jds,jde, kds,kde, &
                                        ims,ime, jms,jme, kms,kme, &
                                        its,ite, jts,jte, kts,kte
@@ -663,37 +630,37 @@ CONTAINS
      REAL,    DIMENSION( ims:ime, jms:jme )                     , &
               INTENT(IN)    ::                               TSK
 
-
+  
 
      INTEGER                   ::      L,J,I,itf,jtf
      CHARACTER*1024 message
 
-
+  
 
      itf=min0(ite,ide-1)
      jtf=min0(jte,jde-1)
 
    END SUBROUTINE suewsinit
+  
 
-
-
-
-
-
+  
+  
+  
+  
   SUBROUTINE USGScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
 
     IMPLICIT NONE
 
-
-
-
+    
+    
+    
     INTEGER, INTENT(in)                ::  ims, ime, NLCAT, jms, jme
     REAL, INTENT(in)                   ::  landusef(ims:ime, NLCAT, jms:jme)
     REAL, INTENT(out)                  ::  landusef_suews(ims:ime, nsurf, jms:jme)
 
-
-
-
+    
+    
+    
     INTEGER                            ::  i, j, k
 
     DO i = ims, ime
@@ -716,7 +683,7 @@ CONTAINS
              CASE( 19:23 )
                 landusef_suews(i, 6, j) = landusef_suews(i, 6, j) + landusef(i, k, j)
              CASE( 24 )
-
+                
              END SELECT
 
           END DO
@@ -725,24 +692,24 @@ CONTAINS
 
   END SUBROUTINE USGScat2SUEWScat
 
-
-
-
-
+  
+  
+  
+  
   SUBROUTINE MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
 
     IMPLICIT NONE
 
-
-
-
+    
+    
+    
     INTEGER, INTENT(in)                ::  ims, ime, NLCAT, jms, jme
     REAL, INTENT(in)                   ::  landusef(ims:ime, NLCAT, jms:jme)
     REAL, INTENT(out)                  ::  landusef_suews(ims:ime, nsurf, jms:jme)
 
-
-
-
+    
+    
+    
     INTEGER                            ::  i, j, k
 
     DO i = ims, ime
@@ -765,7 +732,7 @@ CONTAINS
                 landusef_suews(i, 1, j) = landusef_suews(i, 1, j) + landusef(i, k, j) * 0.5
                 landusef_suews(i, 2, j) = landusef_suews(i, 2, j) + landusef(i, k, j) * 0.5
              CASE( 15 )
-
+                
              CASE( 16 )
                 landusef_suews(i, 6, j) = landusef_suews(i, 6, j) + landusef(i, k, j)
              CASE( 18:20 )

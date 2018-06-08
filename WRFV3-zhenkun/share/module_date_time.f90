@@ -37,6 +37,11 @@ CONTAINS
      INTEGER, DIMENSION(12) :: mmd
      DATA MMD/31,28,31,30,31,30,31,31,30,31,30,31/
      CALL split_date_char ( date_str , ny , nm , nd , nh , ni , ns , nt )
+
+
+
+
+
      GMT=nh+FLOAT(ni)/60.+FLOAT(ns)/3600.
      MY1=MOD(ny,4)
      MY2=MOD(ny,100)
@@ -47,6 +52,7 @@ CONTAINS
      DO MONSS=1,nm-1
        JULDAY=JULDAY+MMD(MONSS)
      ENDDO
+
    END SUBROUTINE get_julgmt
 
 
@@ -62,6 +68,11 @@ CONTAINS
      INTEGER, DIMENSION(12) :: mmd
      DATA MMD/31,28,31,30,31,30,31,31,30,31,30,31/
      CALL split_date_char ( current_date , ny , nm , nd , nh , ni , ns , nt )
+
+
+
+
+
      GMT=nh+FLOAT(ni)/60.+FLOAT(ns)/3600.
      MY1=MOD(ny,4)
      MY2=MOD(ny,100)
@@ -72,6 +83,7 @@ CONTAINS
      DO MONSS=1,nm-1
        JULDAY=JULDAY+MMD(MONSS)
      ENDDO
+
    END SUBROUTINE geth_julgmt
 
    SUBROUTINE calc_current_date (id, time)
@@ -100,7 +112,11 @@ CONTAINS
     CALL wrf_debug(300,TRIM(mess))
     write (mess,*) 'calc_current_date called: julday = ',julday
     CALL wrf_debug(300,TRIM(mess))
+
+
+
     base_date  = '0000-01-01_00:00:00.0000'
+
     write(base_date(1:4),'(I4.4)')julyr
     CALL geth_newdate (start_date(1:19), base_date(1:19), idt)
     CALL geth_newdate (new_date, start_date(1:19), nint(time))
@@ -185,8 +201,13 @@ CONTAINS
       olen = LEN(odate)
       
       READ(odate(1:4),  '(I4.4)') yrold
+
+
+
+
       READ(odate(6:7),  '(I2)') moold
       READ(odate(9:10), '(I2)') dyold
+
       IF (olen.GE.13) THEN
          READ(odate(12:13),'(I2)') hrold
          IF (olen.GE.16) THEN
@@ -205,8 +226,13 @@ CONTAINS
       nlen = LEN(ndate)
       
       READ(ndate(1:4),  '(I4.4)') yrnew
+
+
+
+
       READ(ndate(6:7),  '(I2)') monew
       READ(ndate(9:10), '(I2)') dynew
+
       IF (nlen.GE.13) THEN
          READ(ndate(12:13),'(I2)') hrnew
          IF (nlen.GE.16) THEN
@@ -222,6 +248,7 @@ CONTAINS
       npass = .true.
       opass = .true.
       
+
       
       
       IF ((monew.GT.12).or.(monew.LT.1)) THEN
@@ -267,6 +294,7 @@ CONTAINS
             opass = .false.
          END IF
       END IF
+
       
       
       IF ((hrnew.GT.23).or.(hrnew.LT.0)) THEN
@@ -311,13 +339,13 @@ CONTAINS
       
       IF (.not. npass) THEN
          WRITE( wrf_err_message , * ) 'module_date_time: geth_idts: Bad NDATE: ', ndate(1:nlen)
-         CALL wrf_error_fatal3("<stdin>",314,&
+         CALL wrf_error_fatal3("<stdin>",342,&
 TRIM ( wrf_err_message ) )
       END IF
       
       IF (.not. opass) THEN
          WRITE( wrf_err_message , * ) 'module_date_time: geth_idts: Bad ODATE: ', odate(1:olen)
-         CALL wrf_error_fatal3("<stdin>",320,&
+         CALL wrf_error_fatal3("<stdin>",348,&
 TRIM ( wrf_err_message ) )
       END IF
       
@@ -328,6 +356,11 @@ TRIM ( wrf_err_message ) )
       
       
       newdys = 0
+
+
+
+
+
       DO i = yrold, yrnew - 1
          newdys = newdys + (365 + (nfeb(i)-28))
       END DO
@@ -339,6 +372,7 @@ TRIM ( wrf_err_message ) )
          END DO
          mday(2) = 28
       END IF
+
       
       newdys = newdys + dynew-1
       
@@ -347,6 +381,7 @@ TRIM ( wrf_err_message ) )
       
       olddys = 0
       
+
       IF (moold .GT. 1) THEN
          mday(2) = nfeb(yrold)
          DO i = 1, moold - 1
@@ -354,6 +389,7 @@ TRIM ( wrf_err_message ) )
          END DO
          mday(2) = 28
       END IF
+
       
       olddys = olddys + dyold-1
       
@@ -461,8 +497,13 @@ TRIM ( wrf_err_message ) )
       
    
       READ(odate(1:4),  '(I4.4)') yrold
+
+
+
+
       READ(odate(6:7),  '(I2)') moold
       READ(odate(9:10), '(I2)') dyold
+
       IF (olen.GE.13) THEN
          READ(odate(12:13),'(I2)') hrold
          IF (olen.GE.16) THEN
@@ -484,6 +525,13 @@ TRIM ( wrf_err_message ) )
       
       opass = .TRUE.
       
+
+
+
+
+
+
+
       
       
       IF ((moold.GT.12).or.(moold.LT.1)) THEN
@@ -497,6 +545,7 @@ TRIM ( wrf_err_message ) )
          WRITE(*,*) 'GETH_NEWDATE:  Day of ODATE = ', dyold
          opass = .FALSE.
       END IF
+
       
       
       IF ((hrold.GT.23).or.(hrold.LT.0)) THEN
@@ -523,7 +572,7 @@ TRIM ( wrf_err_message ) )
       
       IF (.not.opass) THEN
          WRITE( wrf_err_message , * ) 'module_date_time: GETH_NEWDATE: Bad ODATE: ', odate(1:olen), olen
-         CALL wrf_error_fatal3("<stdin>",526,&
+         CALL wrf_error_fatal3("<stdin>",575,&
 TRIM ( wrf_err_message ) )
       END IF
       
@@ -570,7 +619,7 @@ TRIM ( wrf_err_message ) )
          nfrac  = 0
       ELSE
          WRITE( wrf_err_message , * ) 'module_date_time: GETH_NEWDATE: Strange length for ODATE: ',olen
-         CALL wrf_error_fatal3("<stdin>",573,&
+         CALL wrf_error_fatal3("<stdin>",622,&
 TRIM ( wrf_err_message ) )
       END IF
       
@@ -605,6 +654,12 @@ TRIM ( wrf_err_message ) )
          yrnew = yrold
          DO i = 1, nday
             dynew = dynew + 1
+
+
+
+
+
+
             IF (dynew.GT.mday(monew)) THEN
                dynew = dynew - mday(monew)
                monew = monew + 1
@@ -615,6 +670,7 @@ TRIM ( wrf_err_message ) )
                   mday(2) = nfeb(yrnew)
                END IF
             END IF
+
          END DO
       
       ELSE IF (idt.LT.0) THEN
@@ -648,6 +704,12 @@ TRIM ( wrf_err_message ) )
          yrnew = yrold
          DO i = 1, nday
             dynew = dynew - 1
+
+
+
+
+
+
             IF (dynew.eq.0) THEN
                monew = monew - 1
                IF (monew.eq.0) THEN
@@ -658,6 +720,7 @@ TRIM ( wrf_err_message ) )
                END IF
                dynew = mday(monew)
             END IF
+
          END DO
       END IF
       
@@ -665,6 +728,7 @@ TRIM ( wrf_err_message ) )
       
       nlen = LEN(ndate)
       
+
       IF (nlen.GT.20) THEN
          WRITE(ndate(1:19),19) yrnew, monew, dynew, hrnew, minew, scnew
          WRITE(hfrc,'(I10)') frnew+1000000000
@@ -690,6 +754,7 @@ TRIM ( wrf_err_message ) )
       END IF
       
       IF (olen.GE.11) ndate(11:11) = sp
+
    END SUBROUTINE geth_newdate
 
 
@@ -703,6 +768,9 @@ TRIM ( wrf_err_message ) )
       INTEGER :: year
       INTEGER :: num_days
    
+
+
+
       num_days = 28 
       IF (MOD(year,4).eq.0) THEN  
          num_days = 29  
@@ -713,6 +781,7 @@ TRIM ( wrf_err_message ) )
             END IF
          END IF
       END IF
+
    
    END FUNCTION nfeb
 
@@ -730,8 +799,13 @@ TRIM ( wrf_err_message ) )
       INTEGER , INTENT(OUT) :: century_year , month , day , hour , minute , second , ten_thousandth
       
       READ(date,FMT='(    I4.4)') century_year
+
+
+
+
       READ(date,FMT='( 5X,I2.2)') month
       READ(date,FMT='( 8X,I2.2)') day
+
       READ(date,FMT='(11X,I2.2)') hour
       READ(date,FMT='(14X,I2.2)') minute
       READ(date,FMT='(17X,I2.2)') second
@@ -766,15 +840,30 @@ END MODULE module_date_time
       INTEGER rc
       IF ( LEN( str ) .GE. 20 ) THEN
         IF ( str(20:20) .EQ. '.' ) THEN
+
+
+
+
           READ(str,34) yr,mm,dd,h,m,s,ms
+
           
           ms=nint(real(ms)/10)
         ELSE
+
+
+
+
           READ(str,33) yr,mm,dd,h,m,s
+
           ms = 0
         ENDIF
       ELSE
+
+
+
+
         READ(str,33) yr,mm,dd,h,m,s
+
         ms = 0
       ENDIF
       CALL WRFU_TimeSet( time, YY=yr, MM=mm, DD=dd, H=h, M=m, S=s, MS=ms, rc=rc )
@@ -799,7 +888,7 @@ END MODULE module_date_time
       CHARACTER (LEN=256) :: mess, tmpstr
       
       IF ( LEN(str) < 19 ) THEN
-        CALL wrf_error_fatal3("<stdin>",802,&
+        CALL wrf_error_fatal3("<stdin>",891,&
 'wrf_timetoa:  str is too short' )
       ENDIF
       tmpstr = ''
@@ -877,4 +966,6 @@ END MODULE module_date_time
       ENDIF
       RETURN
    END SUBROUTINE wrf_clockprint
+
+
 

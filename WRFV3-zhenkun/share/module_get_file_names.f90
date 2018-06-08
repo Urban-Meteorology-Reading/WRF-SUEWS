@@ -13,6 +13,7 @@ CONTAINS
 
 
 
+
    SUBROUTINE unix_ls ( root , id )
 
 
@@ -23,6 +24,9 @@ CONTAINS
 
       CHARACTER (LEN=132) :: command
       INTEGER :: ierr , loop , loslen , strlen
+
+
+
       LOGICAL :: unix_access_ok
       LOGICAL, EXTERNAL :: wrf_dm_on_monitor
       CHARACTER*256 message
@@ -44,15 +48,22 @@ CONTAINS
          
          
 
+
          CALL SYSTEM ( TRIM ( command ) ) 
          CALL SYSTEM ( '( cat .foo | wc -l > .foo1 )' )
          unix_access_ok = .TRUE.
+
+
+
+
+
+
 
          
 
          IF ( .NOT. unix_access_ok ) THEN
             PRINT *,'Oops, how can I access UNIX commands from Fortran?'
-            CALL wrf_error_fatal3("<stdin>",55,&
+            CALL wrf_error_fatal3("<stdin>",66,&
 'system_or_exec_only' )
          END IF
 
@@ -71,7 +82,7 @@ CONTAINS
 
          IF ( number_of_eligible_files .LE. 0 ) THEN
             PRINT *,'Oops, we need at least ONE input file (wrfout*) for the ndown program to read.'
-            CALL wrf_error_fatal3("<stdin>",74,&
+            CALL wrf_error_fatal3("<stdin>",85,&
 'need_wrfout_input_data' )
          END IF
 
@@ -95,7 +106,7 @@ CONTAINS
       IF ( ierr .NE. 0 ) THEN
 print *,'tried to allocate ',number_of_eligible_files,' eligible files, (look at ./foo)'
          WRITE(message,*)'module_get_file_names: unix_ls: unable to allocate filename array Status = ',ierr
-         CALL wrf_error_fatal3("<stdin>",98,&
+         CALL wrf_error_fatal3("<stdin>",109,&
 message )
       END IF
 
@@ -125,8 +136,14 @@ print *,TRIM(eligible_file_name(loop))
 
          
 
+
          CALL SYSTEM ( '/bin/rm -f .foo'  )
          CALL SYSTEM ( '/bin/rm -f .foo1' )
+
+
+
+
+
 
       ENDIF monitor_only_code2
 
@@ -169,6 +186,8 @@ print *,TRIM(eligible_file_name(loop))
 
 
 END MODULE module_get_file_names
+
+
 
 
 

@@ -1,4 +1,5 @@
 
+
 MODULE module_soil_pre
 
    USE module_date_time
@@ -250,7 +251,7 @@ CONTAINS
                   IF ( ( ( tsk(i,j) .LT. 170 ) .OR. ( tsk(i,j) .GT. 400 ) ) .AND. &
                        ( ( tsk_old(i,j) .LT. 170 ) .OR. ( tsk_old(i,j) .GT. 400 ) ) )THEN
                      print *,'TSK woes in seaice post, i,j=',i,j,'  tsk = ',tsk(i,j), tsk_old(i,j)
-                     CALL wrf_error_fatal3("<stdin>",253,&
+                     CALL wrf_error_fatal3("<stdin>",254,&
 'TSK is unrealistic, problems for seaice post')
                   ELSE IF ( ( xice(i,j) .GE. xice_threshold ) .OR. &
                        ( ( landmask(i,j) .LT. 0.5 ) .AND. ( tsk(i,j) .LT. seaice_threshold ) ) ) THEN
@@ -333,7 +334,7 @@ CONTAINS
                   IF ( ( ( tsk(i,j) .LT. 170 ) .OR. ( tsk(i,j) .GT. 400 ) ) .AND. &
                        ( ( tsk_old(i,j) .LT. 170 ) .OR. ( tsk_old(i,j) .GT. 400 ) ) )THEN
                      print *,'TSK woes in seaice post, i,j=',i,j,'  tsk = ',tsk(i,j), tsk_old(i,j)
-                     CALL wrf_error_fatal3("<stdin>",336,&
+                     CALL wrf_error_fatal3("<stdin>",337,&
 'TSK is unrealistic, problems for seaice post')
                   ELSE IF ( ( xice(i,j) .GE. xice_threshold ) .OR. &
                        ( ( landmask(i,j) .LT. 0.5 ) .AND. ( tsk(i,j) .LT. seaice_threshold ) ) ) THEN
@@ -431,7 +432,12 @@ CONTAINS
       INTEGER :: i , j , l , ll, dominant_index
       REAL :: dominant_value
 
+
+
+
+
       REAL :: lwthresh = .50
+
 
       INTEGER , PARAMETER :: iswater_soil = 14
       INTEGER :: iforce
@@ -726,6 +732,7 @@ print *,'WATER CHANGE = ',change_water
             END IF
 
 
+
       END SELECT fix_bottom_level_for_temp
 
       
@@ -987,7 +994,7 @@ cycle
                ELSE IF ( ( soil_elev_max_val .GT. 10000 ) .AND. ( landmask(i,j) .GT. 0.5 ) ) THEN
 print *,'no soil temperature elevation adjustment, soil height too high = ',toposoil(i,j)
 cycle
-                  CALL wrf_error_fatal3("<stdin>",990,&
+                  CALL wrf_error_fatal3("<stdin>",997,&
 'TOPOSOIL values have large positive values > 10,000 m , unrealistic.' )
                ENDIF
 
@@ -998,7 +1005,7 @@ cycle
                            ( landmask(i,j) .GT. 0.5 ) ) THEN
 print *,'no soil temperature elevation adjustment, diff of soil height and terrain = ',ter(i,j) - toposoil(i,j)
 cycle
-                  CALL wrf_error_fatal3("<stdin>",1001,&
+                  CALL wrf_error_fatal3("<stdin>",1008,&
 'TOPOSOIL difference with terrain elevation differs by more than 3000 m, unrealistic' )
                ENDIF
 
@@ -1079,7 +1086,7 @@ cycle
 
       IF ( num_soil_layers .NE. 5 ) THEN
          PRINT '(A)','Usually, the 5-layer diffusion uses 5 layers.  Change this in the namelist.'
-         CALL wrf_error_fatal3("<stdin>",1082,&
+         CALL wrf_error_fatal3("<stdin>",1089,&
 '5-layer_diffusion_uses_5_layers' )
       END IF
 
@@ -1107,7 +1114,7 @@ cycle
 
       IF ( num_soil_layers .NE. 4 ) THEN
          PRINT '(A)','Usually, the LSM uses 4 layers.  Change this in the namelist.'
-         CALL wrf_error_fatal3("<stdin>",1110,&
+         CALL wrf_error_fatal3("<stdin>",1117,&
 'LSM_uses_4_layers' )
       END IF
 
@@ -1157,7 +1164,7 @@ cycle
 
       IF ( num_soil_layers .EQ. 4 .OR. num_soil_layers .EQ. 5 ) THEN
          write (message, FMT='(A)') 'The RUC LSM uses 6, 9 or more levels.  Change this in the namelist.'
-         CALL wrf_error_fatal3("<stdin>",1160,&
+         CALL wrf_error_fatal3("<stdin>",1167,&
 message )
       END IF
 
@@ -1228,7 +1235,7 @@ message )
 
       IF ( num_soil_layers .NE. 2 ) THEN
          PRINT '(A)','Usually, the PX LSM uses 2 layers.  Change this in the namelist.'
-         CALL wrf_error_fatal3("<stdin>",1231,&
+         CALL wrf_error_fatal3("<stdin>",1238,&
 'PXLSM_uses_2_layers' )
       END IF
 
@@ -1518,7 +1525,7 @@ message )
          found_levels = .FALSE.
 
       ELSE
-         CALL wrf_error_fatal3("<stdin>",1521,&
+         CALL wrf_error_fatal3("<stdin>",1528,&
          'No input soil level data (temperature, moisture or liquid, or all are missing). Required for LSM.' )
       END IF
 
@@ -1832,7 +1839,7 @@ message )
            ( num_sm_levels_input .LE. 0 ) ) THEN
          write (message, FMT='(A)')&
 'No input soil level data (either temperature or moisture, or both are missing).  Required for RUC LSM.'
-         CALL wrf_error_fatal3("<stdin>",1835,&
+         CALL wrf_error_fatal3("<stdin>",1842,&
 message )
       ELSE
          IF ( flag_soil_levels == 1 ) THEN
@@ -2278,7 +2285,7 @@ message )
          found_levels = .FALSE.
 
       ELSE
-         CALL wrf_error_fatal3("<stdin>",2281,&
+         CALL wrf_error_fatal3("<stdin>",2288,&
          'No input soil level data (temperature, moisture or liquid, or all are missing). Required for LSM.' )
       END IF
 
@@ -2611,7 +2618,7 @@ message )
          found_levels = .FALSE.
 
       ELSE
-         CALL wrf_error_fatal3("<stdin>",2614,&
+         CALL wrf_error_fatal3("<stdin>",2621,&
          'No input soil level data (temperature, moisture or liquid, or all are missing). Required for PX LSM.' )
       END IF
 
@@ -3073,4 +3080,6 @@ FUNCTION skip_middle_points_t ( ids , ide , jds , jde , &
    END IF
 
 END FUNCTION skip_middle_points_t
+
+
 

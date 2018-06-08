@@ -107,6 +107,7 @@ CONTAINS
 
 
 
+
 SUBROUTINE output_input ( fid , grid , config_flags , ierr )
  IMPLICIT NONE
  TYPE(domain) :: grid
@@ -1211,6 +1212,7 @@ END SUBROUTINE input_auxhist24
 
 
 
+
   SUBROUTINE input_restart ( fid , grid , config_flags , ierr )
     IMPLICIT NONE
     TYPE(domain) :: grid
@@ -1410,7 +1412,7 @@ SUBROUTINE construct_filename4( result , basename , fld1 , len1 , date_char , io
   ELSE IF ( use_package(io_form) .EQ. IO_GRIB1 ) THEN
      ext = '.gb '
   ELSE
-     CALL wrf_error_fatal3("<stdin>",1413,&
+     CALL wrf_error_fatal3("<stdin>",1415,&
 'improper io_form')
   END IF
   result = TRIM(basename) // ".d" // TRIM(t1) // "." // TRIM(date_char) // TRIM(ext)
@@ -1445,7 +1447,7 @@ SUBROUTINE construct_filename4a( result , basename , fld1 , len1 , date_char , i
   ELSE IF ( use_package(io_form) .EQ. IO_GRIB1 ) THEN
      ext = '.gb '
   ELSE
-     CALL wrf_error_fatal3("<stdin>",1448,&
+     CALL wrf_error_fatal3("<stdin>",1450,&
 'improper io_form')
   END IF
   l = len(trim(basename))
@@ -1589,6 +1591,8 @@ SUBROUTINE maybe_remove_colons( FileName )
   ENDIF
   RETURN
 END
+
+
 
 
 

@@ -1,5 +1,9 @@
+
+
+
 MODULE module_alloc_space_9
 CONTAINS
+
 
 
 
@@ -145,9 +149,17 @@ CONTAINS
       inter_domain = inter_domain_in
       okay_to_alloc = okay_to_alloc_in
 
+
+
+
       CALL get_initial_data_value ( initial_data_value )
 
+
+
+
+
       setinitval = setinitval_in
+
 
       CALL nl_get_spec_bdy_width( 1, spec_bdy_width )
 
@@ -159,7 +171,13 @@ CONTAINS
 
 
 
+
+
+
    END SUBROUTINE alloc_space_field_core_9
 
+
 END MODULE module_alloc_space_9
+
+
 

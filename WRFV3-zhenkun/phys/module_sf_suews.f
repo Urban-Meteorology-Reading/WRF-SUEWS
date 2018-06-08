@@ -13,7 +13,7 @@ CONTAINS
   SUBROUTINE suewsdrv(year, day, hour, minute,  &
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
        PSFC, PREC, NLCAT, LANDUSEF, ht,         &
-       HFX, QFX, LH, TSK, QSFC,&
+       HFX, QFX, LH, TSK, QSFC, chklowq,         &
        xlong, xlat,DT,DX,                       &
        ids, ide, jds, jde, kds, kde,            &
        ims, ime, jms, jme, kms, kme,            &
@@ -115,7 +115,7 @@ CONTAINS
     REAL, DIMENSION(ims:ime, NLCAT, jms:jme), INTENT(IN)    :: LANDUSEF
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  XLONG, XLAT
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         HFX, QFX, LH, TSK, QSFC
+         HFX, QFX, LH, TSK, QSFC, chklowq
 
     ! SUEWS specific variables:
     REAL,DIMENSION(ims:ime,jms:jme, 360)                            :: qn1_store_SUEWS
@@ -138,7 +138,7 @@ CONTAINS
     REAL, DIMENSION(nsurf) :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out, tsk_out
+    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out, tsk_out,CHKLOWQ_out
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(360)               :: qn1_store
@@ -223,7 +223,9 @@ CONTAINS
           landusef_suews1d = landusef_suews(i, :, j)
 
           qn1_store(:)    = qn1_store_SUEWS(I,J,:)
+          qn1_store=10
           qn1_av_store(:) = qn1_av_store_SUEWS(I,J,:)
+          qn1_av_store=10
           LAI             = LAI_SUEWS(I,J,:,:)
           albDecTr        = albDecTr_SUEWS(I,J,:)
           albEveTr        = albEveTr_SUEWS(I,J,:)
@@ -234,6 +236,7 @@ CONTAINS
           HDD             = HDD_SUEWS(I,J,:,:)
           state           = state_SUEWS(i,j,:)
           soilmoist       = soilmoist_SUEWS(i,j,:)
+          soilmoist=[150.,150.,150.,150.,150.,150.,0.]
           surf_var        = surf_var_SUEWS(i,j,:)
 
           ! the indices to the PSFC argument in the following call look
@@ -242,6 +245,7 @@ CONTAINS
           ! is a good idea or not, this commenter cannot comment. JM
 
           timezone=0 ! NB: fix it for now
+          print*, 'landusef_suews1d = ',landusef_suews1d
 
           CALL SUEWS1D(&
                                 ! model configuration:
@@ -254,7 +258,7 @@ CONTAINS
                LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
                state,soilmoist,surf_var,&
                                 ! modelled outout:
-               qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,&
+               qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,CHKLOWQ_out,&
                                 ! grid layout:
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
@@ -263,9 +267,10 @@ CONTAINS
                print *, 'tsk = ', tsk_out
 
           ! update fluxes
-          HFX(I,J)=qh_out
-          LH(I,J)=qe_out
-          QFX(I,J)=qsfc_out
+          HFX(I,J)=min(max(qh_out,50.),50.)
+          LH(I,J)=min(max(qe_out,50.),50.)
+          QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
+          chklowq(I,J)=CHKLOWQ_out
 
        ENDDO
     ENDDO
@@ -284,7 +289,7 @@ CONTAINS
        LAI,albDecTr,albEveTr,albGrass,DecidCap,porosity,GDD,HDD,&
        state,soilmoist,surf_var,&
                                 ! modelled outout:
-       qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,&
+       qh_out,qe_out,qsfc_out,tsk_out,qn1_store,qn1_av_store,CHKLOWQ_out,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -533,7 +538,8 @@ CONTAINS
     REAL(KIND(1d0)), INTENT(out) ::qh_out !QH for output
     REAL(KIND(1d0)), INTENT(out) ::qe_out ! QE for output
     REAL(KIND(1d0)), INTENT(out) ::qsfc_out ! QE for output
-    REAL(KIND(1d0)), INTENT(out) ::tsk_out
+    REAL(KIND(1d0)), INTENT(out) ::tsk_out ! TSK for output
+    REAL(KIND(1d0)), INTENT(out) ::CHKLOWQ_out ! TSK for output
 
     ! processing variables for SuMin
     surf(1:5,:)=surf_attr(:,:)
@@ -562,7 +568,8 @@ CONTAINS
     Press_hPa=PSFC/100.
 
     ! estimate relative humidity
-    avRh=q2rh(QV1D,T1D,REAL(Press_hPa)) !TODO:convert to relative humidity
+    avRh=q2rh(QV1D,T1D,REAL(Press_hPa))*100 !TODO:convert to relative humidity
+    avRh=max(5.,avRh)
 
     ! convert data type from real to int
     tstep=INT(DT)
@@ -603,6 +610,8 @@ CONTAINS
          WaterDist,WetThresh,&
          Z,&
          qh_out,qe_out,qsfc_out, tsk_out)!output
+
+      CHKLOWQ_out = 0.2
 
   END SUBROUTINE SUEWS1D
 

@@ -814,7 +814,11 @@ SUBROUTINE adjust_tempqv ( mub, save_mub, c3, c4, znw, p_top, &
    DO j = jps , MIN(jpe, jde-1)
       DO k = kps , kpe-1
          DO i = ips , MIN(ipe, ide-1)
+
             p_old(i,k,j) = 0.5*(znw(k+1)+znw(k))*save_mub(i,j) + p_top + pp(i,k,j)
+
+
+
             tc = (th(i,k,j)+300.)*(p_old(i,k,j)/1.e5)**(2./7.) - 273.15
             es = 610.78*exp(17.0809*tc/(234.175+tc))
             e = qv(i,k,j)*p_old(i,k,j)/(0.622+qv(i,k,j))
@@ -827,7 +831,11 @@ SUBROUTINE adjust_tempqv ( mub, save_mub, c3, c4, znw, p_top, &
    DO j = jps , MIN(jpe, jde-1)
       DO k = kps , kpe-1
          DO i = ips , MIN(ipe, ide-1)
+
             p_new(i,k,j) = 0.5*(znw(k+1)+znw(k))*mub(i,j) + p_top + pp(i,k,j)
+
+
+
 
             dth1 = -191.86e-3*(th(i,k,j)+300.)/(p_new(i,k,j)+p_old(i,k,j))*(p_new(i,k,j)-p_old(i,k,j))
             dth = -191.86e-3*(th(i,k,j)+0.5*dth1+300.)/(p_new(i,k,j)+p_old(i,k,j))*(p_new(i,k,j)-p_old(i,k,j))
@@ -864,7 +872,12 @@ SUBROUTINE input_terrain_rsmas ( grid ,                        &
    CHARACTER*256 :: rsmas_data_path
 
 
+
+
+
+
    CALL wrf_get_myproc ( myproc )
+
 
 
    CALL nl_get_rsmas_data_path(1,rsmas_data_path)
@@ -873,15 +886,19 @@ SUBROUTINE input_terrain_rsmas ( grid ,                        &
    enddo
 
 
+
    CALL get_terrain ( grid%dx/1000., grid%xlat(ids:ide,jds:jde), grid%xlong(ids:ide,jds:jde), grid%ht(ids:ide,jds:jde), &
                        ide-ids+1,jde-jds+1,ide-ids+1,jde-jds+1, ipath, LEN(TRIM(rsmas_data_path)) )
    WHERE ( grid%ht(ids:ide,jds:jde) < -1000. ) grid%ht(ids:ide,jds:jde) = 0.
 
 
 
+
+
 END SUBROUTINE input_terrain_rsmas
 
 SUBROUTINE update_after_feedback_em ( grid  &
+
 
 
 
@@ -897,6 +914,7 @@ advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,trace
 tracer_btye &
 
 
+
                  )
 
 
@@ -909,7 +927,12 @@ tracer_btye &
    USE module_driver_constants
    USE module_machine
    USE module_tiles
+
+
+
+
    USE module_dm
+
    USE module_bc
 
 
@@ -922,6 +945,7 @@ tracer_btye &
    TYPE(domain) , TARGET         :: grid
 
    
+
 
 
 
@@ -986,6 +1010,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
 
+
+
+
    INTEGER                         :: ids , ide , jds , jde , kds , kde , &
                                       ims , ime , jms , jme , kms , kme , &
                                       ips , ipe , jps , jpe , kps , kpe
@@ -999,7 +1026,12 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
                             ips, ipe, jps, jpe, kps, kpe    )
 
   CALL wrf_debug( 500, "before HALO_EM_FEEDBACK.inc in update_after_feedback_em" )
+
+
+
   CALL wrf_debug( 500, "leaving update_after_feedback_em" )
 
 END SUBROUTINE update_after_feedback_em
+
+
 

@@ -19,6 +19,10 @@ CONTAINS
 
 
 
+
+
+
+
   SUBROUTINE set_tiles1 ( grid , ids , ide , jds , jde , bdyw )
 
      USE module_domain, ONLY : domain
@@ -220,6 +224,9 @@ CONTAINS
      INTEGER                                :: ntiles
      INTEGER                                :: one
      INTEGER                                :: nt
+
+
+
      CHARACTER*255              :: mess
      CHARACTER*255              :: envval
      INTEGER                   :: tnum_tiles, istat
@@ -246,10 +253,10 @@ CONTAINS
          smx = grid%sm33 ; emx = grid%em33 ; smy = grid%sm31 ; emy = grid%em31
      END SELECT data_ordering
 
-     IF( ips < smx )THEN;WRITE(mess,'(3A4)')'ips','<','smx';CALL WRF_ERROR_FATAL(mess);ENDIF
-     IF( ipe > emx )THEN;WRITE(mess,'(3A4)')'ipe','>','emx';CALL WRF_ERROR_FATAL(mess);ENDIF
-     IF( jps < smy )THEN;WRITE(mess,'(3A4)')'jps','<','smy';CALL WRF_ERROR_FATAL(mess);ENDIF
-     IF( jpe > emy )THEN;WRITE(mess,'(3A4)')'jpe','>','emy';CALL WRF_ERROR_FATAL(mess);ENDIF
+     IF( ips < smx )THEN;WRITE(mess,'(3A4)')'A','O','B';CALL WRF_ERROR_FATAL(mess);ENDIF
+     IF( ipe > emx )THEN;WRITE(mess,'(3A4)')'A','O','B';CALL WRF_ERROR_FATAL(mess);ENDIF
+     IF( jps < smy )THEN;WRITE(mess,'(3A4)')'A','O','B';CALL WRF_ERROR_FATAL(mess);ENDIF
+     IF( jpe > emy )THEN;WRITE(mess,'(3A4)')'A','O','B';CALL WRF_ERROR_FATAL(mess);ENDIF
 
      
      
@@ -264,7 +271,13 @@ CONTAINS
        verbose = .true.
        CALL nl_get_numtiles( 1, num_tiles )
        IF ( num_tiles .EQ. 1 ) THEN
+
+
+
+
+
          num_tiles = 1
+
          CALL get_environment_variable("WRF_NUM_TILES",envval, status=istat)
          IF ( envval .NE. "" .and. istat .eq. 0) THEN
            READ (envval,*) tnum_tiles
@@ -573,4 +586,5 @@ CONTAINS
   END SUBROUTINE init_module_tiles
 
 END MODULE module_tiles
+
 

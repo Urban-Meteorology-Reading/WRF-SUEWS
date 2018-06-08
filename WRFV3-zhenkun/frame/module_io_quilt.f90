@@ -8,6 +8,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 MODULE module_wrf_quilt
 
 
@@ -62,7 +73,9 @@ MODULE module_wrf_quilt
 
   USE module_internal_header_util
   USE module_timing
+
   USE module_cpl, ONLY : coupler_on, cpl_set_dm_communicator, cpl_finalize
+
 
   INTEGER, PARAMETER :: int_num_handles = 99
   INTEGER, PARAMETER :: max_servers = int_num_handles+1  
@@ -83,7 +96,17 @@ MODULE module_wrf_quilt
   INTEGER nio_groups
 
 
+
+
+
+
+
+
+
+
+
   CONTAINS
+
 
 
     SUBROUTINE set_server_id ( dhandle, value )
@@ -102,6 +125,7 @@ MODULE module_wrf_quilt
     end FUNCTION get_poll_servers
 
 
+
     SUBROUTINE init_module_wrf_quilt
       USE module_wrf_error, only: init_module_wrf_error
       USE module_driver_constants
@@ -113,8 +137,13 @@ MODULE module_wrf_quilt
 
 
 
+
+
+
+
       RETURN
     END SUBROUTINE init_module_wrf_quilt
+
 
 
 
@@ -145,7 +174,7 @@ SUBROUTINE quilting_disabled( reslt )
   USE module_wrf_quilt
   LOGICAL, INTENT(OUT) :: reslt
   reslt = disable_quilt
-write(0,*)"module_io_quilt_old.F",2931,disable_quilt
+write(0,*)"./module_io_quilt_old.F",2931,disable_quilt
   RETURN
 END SUBROUTINE quilting_disabled
 
@@ -191,10 +220,12 @@ SUBROUTINE wrf_quilt_open_for_write_begin( FileName , gridid, Comm_compute, Comm
 
 
 
+
   RETURN  
 END SUBROUTINE wrf_quilt_open_for_write_begin
 
 SUBROUTINE wrf_quilt_open_for_write_commit( DataHandle , Status )
+
 
 
 
@@ -212,6 +243,7 @@ SUBROUTINE wrf_quilt_open_for_read ( FileName , Comm_compute, Comm_io, SysDepInf
 
 
 
+
   RETURN  
 END SUBROUTINE wrf_quilt_open_for_read
 
@@ -221,10 +253,12 @@ SUBROUTINE wrf_quilt_inquire_opened ( DataHandle, FileName , FileStatus, Status 
 
 
 
+
   RETURN
 END SUBROUTINE wrf_quilt_inquire_opened
 
 SUBROUTINE wrf_quilt_inquire_filename ( DataHandle, FileName , FileStatus, Status )
+
 
 
 
@@ -258,10 +292,12 @@ SUBROUTINE wrf_quilt_iosync ( DataHandle, Status )
 
 
 
+
   RETURN
 END SUBROUTINE wrf_quilt_iosync
 
 SUBROUTINE wrf_quilt_ioclose ( DataHandle, Status )
+
 
 
 
@@ -278,10 +314,17 @@ SUBROUTINE wrf_quilt_ioexit( Status )
 
 
 
+
   RETURN  
 END SUBROUTINE wrf_quilt_ioexit
 
 SUBROUTINE wrf_quilt_get_next_time ( DataHandle, DateStr, Status )
+
+
+
+
+
+
 
 
 
@@ -296,10 +339,17 @@ SUBROUTINE wrf_quilt_get_previous_time ( DataHandle, DateStr, Status )
 
 
 
+
+
+
+
+
+
   RETURN
 END SUBROUTINE wrf_quilt_get_previous_time
 
 SUBROUTINE wrf_quilt_set_time ( DataHandle, Data,  Status )
+
 
 
 
@@ -315,10 +365,17 @@ SUBROUTINE wrf_quilt_get_next_var ( DataHandle, VarName, Status )
 
 
 
+
+
+
+
+
+
   RETURN
 END SUBROUTINE wrf_quilt_get_next_var
 
 SUBROUTINE wrf_quilt_get_dom_ti_real ( DataHandle,Element,   Data, Count, Outcount, Status )
+
 
 
 
@@ -342,10 +399,12 @@ SUBROUTINE wrf_quilt_put_dom_ti_real ( DataHandle,Element,   Data, Count,  Statu
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_ti_real 
 
 SUBROUTINE wrf_quilt_get_dom_ti_double ( DataHandle,Element,   Data, Count, Outcount, Status )
+
 
 
 
@@ -371,10 +430,12 @@ SUBROUTINE wrf_quilt_put_dom_ti_double ( DataHandle,Element,   Data, Count,  Sta
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_ti_double 
 
 SUBROUTINE wrf_quilt_get_dom_ti_integer ( DataHandle,Element,   Data, Count, Outcount, Status )
+
 
 
 
@@ -398,10 +459,12 @@ SUBROUTINE wrf_quilt_put_dom_ti_integer ( DataHandle,Element,   Data, Count,  St
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_ti_integer 
 
 SUBROUTINE wrf_quilt_get_dom_ti_logical ( DataHandle,Element,   Data, Count, Outcount, Status )
+
 
 
 
@@ -427,10 +490,19 @@ SUBROUTINE wrf_quilt_put_dom_ti_logical ( DataHandle,Element,   Data, Count,  St
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_ti_logical 
 
 SUBROUTINE wrf_quilt_get_dom_ti_char ( DataHandle,Element,   Data,  Status )
+
+
+
+
+
+
+
+
 
 
 
@@ -453,10 +525,12 @@ SUBROUTINE wrf_quilt_put_dom_ti_char ( DataHandle, Element,  Data,  Status )
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_ti_char 
 
 SUBROUTINE wrf_quilt_get_dom_td_real ( DataHandle,Element, DateStr,  Data, Count, Outcount, Status )
+
 
 
 
@@ -482,6 +556,7 @@ SUBROUTINE wrf_quilt_put_dom_td_real ( DataHandle,Element, DateStr,  Data, Count
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_td_real 
 
@@ -497,7 +572,8 @@ SUBROUTINE wrf_quilt_get_dom_td_double ( DataHandle,Element, DateStr,  Data, Cou
 
 
 
-  CALL wrf_error_fatal3("<stdin>",500,&
+
+  CALL wrf_error_fatal3("<stdin>",576,&
 'wrf_quilt_get_dom_td_double not supported yet')
 RETURN
 END SUBROUTINE wrf_quilt_get_dom_td_double 
@@ -513,12 +589,14 @@ SUBROUTINE wrf_quilt_put_dom_td_double ( DataHandle,Element, DateStr,  Data, Cou
 
 
 
-  CALL wrf_error_fatal3("<stdin>",516,&
+
+  CALL wrf_error_fatal3("<stdin>",593,&
 'wrf_quilt_put_dom_td_double not supported yet')
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_td_double 
 
 SUBROUTINE wrf_quilt_get_dom_td_integer ( DataHandle,Element, DateStr,  Data, Count, Outcount, Status )
+
 
 
 
@@ -544,10 +622,12 @@ SUBROUTINE wrf_quilt_put_dom_td_integer ( DataHandle,Element, DateStr,  Data, Co
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_td_integer 
 
 SUBROUTINE wrf_quilt_get_dom_td_logical ( DataHandle,Element, DateStr,  Data, Count, Outcount, Status )
+
 
 
 
@@ -573,6 +653,7 @@ SUBROUTINE wrf_quilt_put_dom_td_logical ( DataHandle,Element, DateStr,  Data, Co
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_dom_td_logical 
 
@@ -587,10 +668,26 @@ SUBROUTINE wrf_quilt_get_dom_td_char ( DataHandle,Element, DateStr,  Data,  Stat
 
 
 
+
+
+
+
+
+
+
+
 RETURN
 END SUBROUTINE wrf_quilt_get_dom_td_char 
 
 SUBROUTINE wrf_quilt_put_dom_td_char ( DataHandle,Element, DateStr,  Data,  Status )
+
+
+
+
+
+
+
+
 
 
 
@@ -616,10 +713,12 @@ SUBROUTINE wrf_quilt_get_var_ti_real ( DataHandle,Element,  Varname, Data, Count
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_get_var_ti_real 
 
 SUBROUTINE wrf_quilt_put_var_ti_real ( DataHandle,Element,  Varname, Data, Count,  Status )
+
 
 
 
@@ -645,7 +744,8 @@ SUBROUTINE wrf_quilt_get_var_ti_double ( DataHandle,Element,  Varname, Data, Cou
 
 
 
-  CALL wrf_error_fatal3("<stdin>",648,&
+
+  CALL wrf_error_fatal3("<stdin>",748,&
 'wrf_quilt_get_var_ti_double not supported yet')
 RETURN
 END SUBROUTINE wrf_quilt_get_var_ti_double 
@@ -661,12 +761,14 @@ SUBROUTINE wrf_quilt_put_var_ti_double ( DataHandle,Element,  Varname, Data, Cou
 
 
 
-  CALL wrf_error_fatal3("<stdin>",664,&
+
+  CALL wrf_error_fatal3("<stdin>",765,&
 'wrf_quilt_put_var_ti_double not supported yet')
 RETURN
 END SUBROUTINE wrf_quilt_put_var_ti_double 
 
 SUBROUTINE wrf_quilt_get_var_ti_integer ( DataHandle,Element,  Varname, Data, Count, Outcount, Status )
+
 
 
 
@@ -692,10 +794,12 @@ SUBROUTINE wrf_quilt_put_var_ti_integer ( DataHandle,Element,  Varname, Data, Co
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_var_ti_integer 
 
 SUBROUTINE wrf_quilt_get_var_ti_logical ( DataHandle,Element,  Varname, Data, Count, Outcount, Status )
+
 
 
 
@@ -721,10 +825,19 @@ SUBROUTINE wrf_quilt_put_var_ti_logical ( DataHandle,Element,  Varname, Data, Co
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_var_ti_logical 
 
 SUBROUTINE wrf_quilt_get_var_ti_char ( DataHandle,Element,  Varname, Data,  Status )
+
+
+
+
+
+
+
+
 
 
 
@@ -748,10 +861,12 @@ SUBROUTINE wrf_quilt_put_var_ti_char ( DataHandle,Element,  Varname, Data,  Stat
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_var_ti_char 
 
 SUBROUTINE wrf_quilt_get_var_td_real ( DataHandle,Element,  DateStr,Varname, Data, Count, Outcount, Status )
+
 
 
 
@@ -777,6 +892,7 @@ SUBROUTINE wrf_quilt_put_var_td_real ( DataHandle,Element,  DateStr,Varname, Dat
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_var_td_real 
 
@@ -792,7 +908,8 @@ SUBROUTINE wrf_quilt_get_var_td_double ( DataHandle,Element,  DateStr,Varname, D
 
 
 
-  CALL wrf_error_fatal3("<stdin>",795,&
+
+  CALL wrf_error_fatal3("<stdin>",912,&
 'wrf_quilt_get_var_td_double not supported yet')
 RETURN
 END SUBROUTINE wrf_quilt_get_var_td_double 
@@ -808,12 +925,14 @@ SUBROUTINE wrf_quilt_put_var_td_double ( DataHandle,Element,  DateStr,Varname, D
 
 
 
-  CALL wrf_error_fatal3("<stdin>",811,&
+
+  CALL wrf_error_fatal3("<stdin>",929,&
 'wrf_quilt_put_var_td_double not supported yet')
 RETURN
 END SUBROUTINE wrf_quilt_put_var_td_double 
 
 SUBROUTINE wrf_quilt_get_var_td_integer ( DataHandle,Element,  DateStr,Varname, Data, Count, Outcount,Status)
+
 
 
 
@@ -839,10 +958,12 @@ SUBROUTINE wrf_quilt_put_var_td_integer ( DataHandle,Element,  DateStr,Varname, 
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_var_td_integer 
 
 SUBROUTINE wrf_quilt_get_var_td_logical ( DataHandle,Element,  DateStr,Varname, Data, Count, Outcount, Status )
+
 
 
 
@@ -868,10 +989,12 @@ SUBROUTINE wrf_quilt_put_var_td_logical ( DataHandle,Element,  DateStr,Varname, 
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_var_td_logical 
 
 SUBROUTINE wrf_quilt_get_var_td_char ( DataHandle,Element,  DateStr,Varname, Data,  Status )
+
 
 
 
@@ -896,6 +1019,7 @@ SUBROUTINE wrf_quilt_put_var_td_char ( DataHandle,Element,  DateStr,Varname, Dat
 
 
 
+
 RETURN
 END SUBROUTINE wrf_quilt_put_var_td_char 
 
@@ -905,6 +1029,7 @@ SUBROUTINE wrf_quilt_read_field ( DataHandle , DateStr , VarName , Field , Field
                             MemoryStart , MemoryEnd ,                                    &
                             PatchStart , PatchEnd ,                                      &
                             Status )
+
 
 
 
@@ -939,11 +1064,13 @@ SUBROUTINE wrf_quilt_write_field ( DataHandle , DateStr , VarName , Field , Fiel
 
 
 
+
   RETURN
 END SUBROUTINE wrf_quilt_write_field
 
 SUBROUTINE wrf_quilt_get_var_info ( DataHandle , VarName , NDim , MemoryOrder , Stagger , &
                               DomainStart , DomainEnd , Status )
+
 
 
 
@@ -965,6 +1092,7 @@ subroutine wrf_quilt_find_server(iserver)
   
 
 
+
 end subroutine wrf_quilt_find_server
 subroutine wrf_quilt_server_ready()
 
@@ -979,9 +1107,17 @@ subroutine wrf_quilt_server_ready()
   
 
 
+
 end subroutine wrf_quilt_server_ready
 
 SUBROUTINE get_mpi_comm_io_groups( retval, isrvr )
+
+
+
+
+
+
+
 
 
 
@@ -991,6 +1127,13 @@ SUBROUTINE get_mpi_comm_io_groups( retval, isrvr )
 END SUBROUTINE get_mpi_comm_io_groups
 
 SUBROUTINE get_nio_tasks_in_group( id, retval )
+
+
+
+
+
+
+
 
 
 
@@ -1038,4 +1181,8 @@ SUBROUTINE collect_on_comm_debug2(file,line,var,tag,sz,hdr_rec_size, &
                         outbuf, outbufsize                   )
   RETURN
 END
+
+
+
+
 

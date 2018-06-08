@@ -43,6 +43,7 @@
     TYPE(grid_config_rec_type),  INTENT(IN)    :: config_flags
 
 
+
     integer            :: ktau            
     integer            :: krest           
     integer            :: inest           
@@ -127,7 +128,9 @@
     ENDIF
 
     RETURN
+
   END SUBROUTINE wrf_fddaobs_in
+
 
 
 
@@ -1929,6 +1932,8 @@ END SUBROUTINE rh2rb
 
   endif
   END SUBROUTINE rotate_vector
+
+
 
 
 

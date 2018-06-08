@@ -9,13 +9,18 @@
     USE module_scalar_tables
     USE module_utility
     IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -24,6 +29,7 @@
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   
 
 
@@ -157,6 +163,7 @@
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
     TYPE(domain) :: grid
     TYPE(grid_config_rec_type),  INTENT(INOUT)    :: config_flags
     INTEGER, INTENT(IN) :: fid, switch
@@ -194,6 +201,7 @@
 
     
     
+
 
 
 
@@ -2532,5 +2540,8 @@ ips, MIN( (ide-1), ipe ), kds, (kde-1), 1, config_flags%spec_bdy_width, &
 ENDDO
 
 
+
     RETURN
     END
+
+

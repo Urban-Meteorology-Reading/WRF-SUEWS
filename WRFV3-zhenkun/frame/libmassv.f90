@@ -1,6 +1,7 @@
 
 
 
+
       subroutine vdiv(z,x,y,n)
       real*8 x(*),y(*),z(*)
       do 10 j=1,n
@@ -301,7 +302,12 @@
       subroutine vsacos(y,x,n)
       real*4 x(*),y(*)
       do 10 j=1,n
+
+
+
+
       y(j)=acos(x(j))
+
    10 continue
       return
       end
@@ -365,6 +371,7 @@
       return
       end
 
+
       subroutine vspow(z,y,x,n)
       real*4 x(*),y(*),z(*)
       do 10 j=1,n
@@ -380,4 +387,6 @@
    10 continue
       return
       end
+
+
 

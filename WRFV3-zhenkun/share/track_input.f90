@@ -5,13 +5,18 @@ SUBROUTINE track_input ( grid , ierr )
 
     IMPLICIT NONE
 
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -20,6 +25,7 @@ SUBROUTINE track_input ( grid , ierr )
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   
 
 
@@ -154,8 +160,10 @@ SUBROUTINE track_input ( grid , ierr )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
+
     TYPE(domain), INTENT(INOUT) :: grid
     INTEGER, INTENT(INOUT) :: ierr
+
 
 
     LOGICAL, EXTERNAL :: wrf_dm_on_monitor
@@ -167,7 +175,13 @@ SUBROUTINE track_input ( grid , ierr )
 
     ierr = 0
 
+
+
+
+
+
     IF ( grid%dfi_opt == DFI_NODFI .OR. (grid%dfi_opt /= DFI_NODFI .AND. grid%dfi_stage == DFI_SETUP) ) THEN
+
 
        IF ( grid%track_have_input .or. grid%track_loc_in <= 0 ) then
          RETURN
@@ -181,7 +195,7 @@ have_input_file : &
          IF (exists) THEN
            iunit = get_unused_unit()
            IF ( iunit <= 0 ) THEN
-              CALL wrf_error_fatal3("<stdin>",184,&
+              CALL wrf_error_fatal3("<stdin>",198,&
 'Error in track_input: could not find a free Fortran unit.')
            END IF
 
@@ -216,7 +230,7 @@ have_input_file : &
              CLOSE(iunit) 
            ENDIF   
          ELSE have_input_file
-           CALL wrf_error_fatal3("<stdin>",219,&
+           CALL wrf_error_fatal3("<stdin>",233,&
 'Error in track_input: could not find wrfinput_track.txt file.')           
          ENDIF have_input_file
 
@@ -226,8 +240,19 @@ have_input_file : &
        ENDIF master_proc
 
 
+
+
+
+
+
+
     grid%track_have_input = .TRUE.
+
 
     END IF
 
+
+
 END SUBROUTINE track_input
+
+

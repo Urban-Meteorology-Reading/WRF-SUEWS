@@ -1,6 +1,7 @@
 
 
 
+
 MODULE module_io
 
 
@@ -38,6 +39,7 @@ MODULE module_io
                                                 
                                                 
   CHARACTER*256 extradims
+
 
 
 
@@ -298,6 +300,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -431,6 +434,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -450,10 +454,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -466,10 +476,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -482,10 +498,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -498,6 +520,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -539,6 +562,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -672,6 +696,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -691,10 +716,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -707,10 +738,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -723,10 +760,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -739,6 +782,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -782,6 +826,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -915,6 +960,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -934,10 +980,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -950,10 +1002,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -966,10 +1024,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -982,6 +1046,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -1023,6 +1088,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -1156,6 +1222,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -1175,10 +1242,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -1191,10 +1264,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -1207,10 +1286,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_dom_ti_real ( Hndl, Element,   Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -1223,6 +1308,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -1266,6 +1352,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -1399,6 +1486,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -1418,6 +1506,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_ti_double ( Hndl, Element,   Data, &
@@ -1434,6 +1523,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_ti_double ( Hndl, Element,   Data, &
@@ -1450,6 +1540,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_ti_double ( Hndl, Element,   Data, &
@@ -1466,6 +1557,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -1507,6 +1599,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -1640,6 +1733,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -1659,6 +1753,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_ti_double ( Hndl, Element,   Data, &
@@ -1675,6 +1770,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_ti_double ( Hndl, Element,   Data, &
@@ -1691,6 +1787,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_ti_double ( Hndl, Element,   Data, &
@@ -1707,6 +1804,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -1750,6 +1848,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -1883,6 +1982,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -1902,6 +2002,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_ti_double ( Hndl, Element,   Data, &
@@ -1918,6 +2019,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_ti_double ( Hndl, Element,   Data, &
@@ -1934,6 +2036,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_ti_double ( Hndl, Element,   Data, &
@@ -1950,6 +2053,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -1991,6 +2095,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -2124,6 +2229,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -2143,6 +2249,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_ti_double ( Hndl, Element,   Data, &
@@ -2159,6 +2266,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_ti_double ( Hndl, Element,   Data, &
@@ -2175,6 +2283,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_ti_double ( Hndl, Element,   Data, &
@@ -2191,6 +2300,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -2234,6 +2344,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -2367,6 +2478,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -2386,6 +2498,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2402,6 +2515,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2418,6 +2532,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2434,6 +2549,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -2475,6 +2591,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -2608,6 +2725,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -2627,6 +2745,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2643,6 +2762,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2659,6 +2779,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2675,6 +2796,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -2718,6 +2840,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -2851,6 +2974,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -2870,6 +2994,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2886,6 +3011,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2902,6 +3028,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_ti_integer ( Hndl, Element,   Data, &
@@ -2918,6 +3045,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -2959,6 +3087,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -3092,6 +3221,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -3111,6 +3241,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_ti_integer ( Hndl, Element,   Data, &
@@ -3127,6 +3258,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_ti_integer ( Hndl, Element,   Data, &
@@ -3143,6 +3275,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_ti_integer ( Hndl, Element,   Data, &
@@ -3159,6 +3292,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -3202,6 +3336,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -3335,6 +3470,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -3354,6 +3490,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3370,6 +3507,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3386,6 +3524,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3402,6 +3541,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -3443,6 +3583,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -3576,6 +3717,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -3595,6 +3737,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3611,6 +3754,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3627,6 +3771,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3643,6 +3788,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -3686,6 +3832,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -3819,6 +3966,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -3838,6 +3986,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3854,6 +4003,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3870,6 +4020,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_ti_logical ( Hndl, Element,   Data, &
@@ -3886,6 +4037,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -3927,6 +4079,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -4060,6 +4213,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -4079,6 +4233,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_ti_logical ( Hndl, Element,   Data, &
@@ -4095,6 +4250,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_ti_logical ( Hndl, Element,   Data, &
@@ -4111,6 +4267,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_ti_logical ( Hndl, Element,   Data, &
@@ -4127,6 +4284,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -4170,6 +4328,7 @@ CHARACTER*(*) , INTENT(IN)  :: Element
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -4303,6 +4462,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -4322,6 +4482,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_ti_char ( Hndl, Element,   Data, &
@@ -4338,6 +4499,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_ti_char ( Hndl, Element,   Data, &
@@ -4354,6 +4516,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_ti_char ( Hndl, Element,   Data, &
@@ -4370,6 +4533,7 @@ IF ( Hndl .GT. -1 ) THEN
            CALL wrf_dm_bcast_string( Data, len_of_str )
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -4413,6 +4577,7 @@ CHARACTER*(*) , INTENT(IN)  :: Element
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -4546,6 +4711,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -4565,6 +4731,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_ti_char ( Hndl, Element,   Data, &
@@ -4581,6 +4748,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_ti_char ( Hndl, Element,   Data, &
@@ -4597,6 +4765,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_ti_char ( Hndl, Element,   Data, &
@@ -4613,6 +4782,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -4657,6 +4827,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -4790,6 +4961,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -4809,10 +4981,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -4825,10 +5003,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -4841,10 +5025,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -4857,6 +5047,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -4898,6 +5089,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -5031,6 +5223,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -5050,10 +5243,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -5066,10 +5265,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -5082,10 +5287,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -5098,6 +5309,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -5141,6 +5353,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -5274,6 +5487,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -5293,10 +5507,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -5309,10 +5529,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -5325,10 +5551,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -5341,6 +5573,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -5382,6 +5615,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -5515,6 +5749,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -5534,10 +5769,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -5550,10 +5791,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -5566,10 +5813,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_dom_td_real ( Hndl, Element, DateStr,  Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -5582,6 +5835,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -5625,6 +5879,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -5758,6 +6013,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -5777,6 +6033,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -5793,6 +6050,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -5809,6 +6067,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -5825,6 +6084,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -5866,6 +6126,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -5999,6 +6260,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -6018,6 +6280,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6034,6 +6297,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6050,6 +6314,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6066,6 +6331,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -6109,6 +6375,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -6242,6 +6509,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -6261,6 +6529,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6277,6 +6546,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6293,6 +6563,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6309,6 +6580,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -6350,6 +6622,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -6483,6 +6756,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -6502,6 +6776,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6518,6 +6793,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6534,6 +6810,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_td_double ( Hndl, Element, DateStr,  Data, &
@@ -6550,6 +6827,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -6593,6 +6871,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -6726,6 +7005,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -6745,6 +7025,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -6761,6 +7042,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -6777,6 +7059,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -6793,6 +7076,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -6834,6 +7118,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -6967,6 +7252,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -6986,6 +7272,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7002,6 +7289,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7018,6 +7306,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7034,6 +7323,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -7077,6 +7367,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -7210,6 +7501,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -7229,6 +7521,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7245,6 +7538,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7261,6 +7555,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7277,6 +7572,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -7318,6 +7614,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -7451,6 +7748,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -7470,6 +7768,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7486,6 +7785,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7502,6 +7802,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_td_integer ( Hndl, Element, DateStr,  Data, &
@@ -7518,6 +7819,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -7561,6 +7863,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -7694,6 +7997,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -7713,6 +8017,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -7729,6 +8034,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -7745,6 +8051,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -7761,6 +8068,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -7802,6 +8110,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -7935,6 +8244,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -7954,6 +8264,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -7970,6 +8281,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -7986,6 +8298,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -8002,6 +8315,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -8045,6 +8359,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -8178,6 +8493,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -8197,6 +8513,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -8213,6 +8530,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -8229,6 +8547,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -8245,6 +8564,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -8286,6 +8606,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -8419,6 +8740,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -8438,6 +8760,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -8454,6 +8777,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -8470,6 +8794,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_td_logical ( Hndl, Element, DateStr,  Data, &
@@ -8486,6 +8811,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -8529,6 +8855,7 @@ CHARACTER*(*) , INTENT(IN)  :: DateStr
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -8662,6 +8989,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -8681,6 +9009,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_dom_td_char ( Hndl, Element, DateStr,  Data, &
@@ -8697,6 +9026,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_dom_td_char ( Hndl, Element, DateStr,  Data, &
@@ -8713,6 +9043,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_dom_td_char ( Hndl, Element, DateStr,  Data, &
@@ -8729,6 +9060,7 @@ IF ( Hndl .GT. -1 ) THEN
            CALL wrf_dm_bcast_string( Data, len_of_str )
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -8772,6 +9104,7 @@ CHARACTER*(*) , INTENT(IN)  :: DateStr
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -8905,6 +9238,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -8924,6 +9258,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_dom_td_char ( Hndl, Element, DateStr,  Data, &
@@ -8940,6 +9275,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_dom_td_char ( Hndl, Element, DateStr,  Data, &
@@ -8956,6 +9292,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_dom_td_char ( Hndl, Element, DateStr,  Data, &
@@ -8972,6 +9309,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -9016,6 +9354,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -9149,6 +9488,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -9168,10 +9508,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9184,10 +9530,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9200,10 +9552,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -9216,6 +9574,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -9257,6 +9616,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -9390,6 +9750,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -9409,10 +9770,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9425,10 +9792,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9441,10 +9814,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -9457,6 +9836,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -9500,6 +9880,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -9633,6 +10014,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -9652,10 +10034,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9668,10 +10056,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9684,10 +10078,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -9700,6 +10100,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -9741,6 +10142,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -9874,6 +10276,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -9893,10 +10296,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9909,10 +10318,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -9925,10 +10340,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_var_ti_real ( Hndl, Element,  Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -9941,6 +10362,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -9984,6 +10406,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -10117,6 +10540,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -10136,6 +10560,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10152,6 +10577,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10168,6 +10594,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10184,6 +10611,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -10225,6 +10653,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -10358,6 +10787,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -10377,6 +10807,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10393,6 +10824,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10409,6 +10841,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10425,6 +10858,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -10468,6 +10902,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -10601,6 +11036,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -10620,6 +11056,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10636,6 +11073,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10652,6 +11090,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10668,6 +11107,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -10709,6 +11149,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -10842,6 +11283,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -10861,6 +11303,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10877,6 +11320,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10893,6 +11337,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_ti_double ( Hndl, Element,  Varname, Data, &
@@ -10909,6 +11354,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -10952,6 +11398,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -11085,6 +11532,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -11104,6 +11552,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11120,6 +11569,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11136,6 +11586,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11152,6 +11603,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -11193,6 +11645,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -11326,6 +11779,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -11345,6 +11799,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11361,6 +11816,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11377,6 +11833,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11393,6 +11850,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -11436,6 +11894,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -11569,6 +12028,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -11588,6 +12048,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11604,6 +12065,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11620,6 +12082,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11636,6 +12099,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -11677,6 +12141,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -11810,6 +12275,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -11829,6 +12295,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11845,6 +12312,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11861,6 +12329,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_ti_integer ( Hndl, Element,  Varname, Data, &
@@ -11877,6 +12346,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -11920,6 +12390,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -12053,6 +12524,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -12072,6 +12544,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12088,6 +12561,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12104,6 +12578,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12120,6 +12595,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -12161,6 +12637,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -12294,6 +12771,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -12313,6 +12791,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12329,6 +12808,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12345,6 +12825,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12361,6 +12842,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -12404,6 +12886,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -12537,6 +13020,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -12556,6 +13040,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12572,6 +13057,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12588,6 +13074,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12604,6 +13091,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -12645,6 +13133,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -12778,6 +13267,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -12797,6 +13287,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12813,6 +13304,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12829,6 +13321,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_ti_logical ( Hndl, Element,  Varname, Data, &
@@ -12845,6 +13338,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -12888,6 +13382,7 @@ CHARACTER*(*) , INTENT(IN)  :: VarName
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -13021,6 +13516,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -13040,6 +13536,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_ti_char ( Hndl, Element,  Varname, Data, &
@@ -13056,6 +13553,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_ti_char ( Hndl, Element,  Varname, Data, &
@@ -13072,6 +13570,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_ti_char ( Hndl, Element,  Varname, Data, &
@@ -13088,6 +13587,7 @@ IF ( Hndl .GT. -1 ) THEN
            CALL wrf_dm_bcast_string( Data, len_of_str )
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -13131,6 +13631,7 @@ CHARACTER*(*) , INTENT(IN)  :: VarName
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -13264,6 +13765,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -13283,6 +13785,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_ti_char ( Hndl, Element,  Varname, Data, &
@@ -13299,6 +13802,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_ti_char ( Hndl, Element,  Varname, Data, &
@@ -13315,6 +13819,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_ti_char ( Hndl, Element,  Varname, Data, &
@@ -13331,6 +13836,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -13375,6 +13881,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -13508,6 +14015,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -13527,10 +14035,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -13543,10 +14057,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -13559,10 +14079,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -13575,6 +14101,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -13616,6 +14143,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -13749,6 +14277,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -13768,10 +14297,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_get_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -13784,10 +14319,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_get_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -13800,10 +14341,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_get_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount, Outcount, Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -13816,6 +14363,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -13859,6 +14407,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -13992,6 +14541,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -14011,10 +14561,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -14027,10 +14583,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -14043,10 +14605,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -14059,6 +14627,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -14100,6 +14669,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -14233,6 +14803,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -14252,10 +14823,16 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_ncd_put_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -14268,10 +14845,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_gr1_put_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
           
@@ -14284,10 +14867,16 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
+
+
+
+
            CALL ext_int_put_var_td_real ( Hndl, Element, DateStr, Varname, Data, &
                                  locCount,  Status )
+
         ENDIF
         IF ( .NOT. multi_files(io_form) ) THEN
            
@@ -14300,6 +14889,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -14343,6 +14933,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -14476,6 +15067,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -14495,6 +15087,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -14511,6 +15104,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -14527,6 +15121,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -14543,6 +15138,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -14584,6 +15180,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -14717,6 +15314,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -14736,6 +15334,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -14752,6 +15351,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -14768,6 +15368,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -14784,6 +15385,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -14827,6 +15429,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -14960,6 +15563,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -14979,6 +15583,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -14995,6 +15600,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -15011,6 +15617,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -15027,6 +15634,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -15068,6 +15676,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -15201,6 +15810,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -15220,6 +15830,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -15236,6 +15847,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -15252,6 +15864,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_td_double ( Hndl, Element, DateStr, Varname, Data, &
@@ -15268,6 +15881,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -15311,6 +15925,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -15444,6 +16059,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -15463,6 +16079,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15479,6 +16096,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15495,6 +16113,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15511,6 +16130,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -15552,6 +16172,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -15685,6 +16306,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -15704,6 +16326,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15720,6 +16343,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15736,6 +16360,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15752,6 +16377,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -15795,6 +16421,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -15928,6 +16555,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -15947,6 +16575,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15963,6 +16592,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15979,6 +16609,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -15995,6 +16626,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -16036,6 +16668,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -16169,6 +16802,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -16188,6 +16822,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -16204,6 +16839,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -16220,6 +16856,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_td_integer ( Hndl, Element, DateStr, Varname, Data, &
@@ -16236,6 +16873,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -16279,6 +16917,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -16412,6 +17051,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -16431,6 +17071,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16447,6 +17088,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16463,6 +17105,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16479,6 +17122,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -16520,6 +17164,7 @@ INTEGER ,       INTENT(IN)  :: Count
 INTEGER ,       INTENT(OUT)  :: OutCount
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -16653,6 +17298,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -16672,6 +17318,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16688,6 +17335,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16704,6 +17352,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16720,6 +17369,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -16763,6 +17413,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -16896,6 +17547,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -16915,6 +17567,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16931,6 +17584,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16947,6 +17601,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -16963,6 +17618,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -17004,6 +17660,7 @@ INTEGER ,       INTENT(IN)  :: Count
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -17137,6 +17794,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -17156,6 +17814,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -17172,6 +17831,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -17188,6 +17848,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_td_logical ( Hndl, Element, DateStr, Varname, Data, &
@@ -17204,6 +17865,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -17247,6 +17909,7 @@ CHARACTER*(*) , INTENT(IN)  :: VarName
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -17380,6 +18043,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -17399,6 +18063,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_get_var_td_char ( Hndl, Element, DateStr, Varname, Data, &
@@ -17415,6 +18080,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_get_var_td_char ( Hndl, Element, DateStr, Varname, Data, &
@@ -17431,6 +18097,7 @@ IF ( Hndl .GT. -1 ) THEN
           CALL wrf_dm_bcast_string( Data, len_of_str )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_get_var_td_char ( Hndl, Element, DateStr, Varname, Data, &
@@ -17447,6 +18114,7 @@ IF ( Hndl .GT. -1 ) THEN
            CALL wrf_dm_bcast_string( Data, len_of_str )
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -17490,6 +18158,7 @@ CHARACTER*(*) , INTENT(IN)  :: VarName
 
 INTEGER ,       INTENT(OUT) :: Status
 
+
   
 
 
@@ -17623,6 +18292,7 @@ INTEGER ,       INTENT(OUT) :: Status
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
 INTEGER                     :: len_of_str
 LOGICAL                     :: for_out
 INTEGER, EXTERNAL           :: use_package
@@ -17642,6 +18312,7 @@ CALL get_handle ( Hndl, io_form , for_out, DataHandle )
 IF ( Hndl .GT. -1 ) THEN
   IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
     SELECT CASE ( use_package( io_form ) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_ncd_put_var_td_char ( Hndl, Element, DateStr, Varname, Data, &
@@ -17658,6 +18329,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_gr1_put_var_td_char ( Hndl, Element, DateStr, Varname, Data, &
@@ -17674,6 +18346,7 @@ IF ( Hndl .GT. -1 ) THEN
           
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
            CALL ext_int_put_var_td_char ( Hndl, Element, DateStr, Varname, Data, &
@@ -17690,6 +18363,7 @@ IF ( Hndl .GT. -1 ) THEN
            
            CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
     END SELECT
   ELSE IF ( for_out .AND. use_output_servers_for(io_form) ) THEN
@@ -17709,10 +18383,12 @@ END SUBROUTINE wrf_put_var_td_char_arr
 
 
 
+
   INTEGER FUNCTION io_form_for_dataset ( DataSet )
     IMPLICIT NONE
     CHARACTER*(*), INTENT(IN)  :: DataSet
     INTEGER                    :: io_form 
+
 
 
 
@@ -17827,6 +18503,7 @@ END SUBROUTINE wrf_put_var_td_char_arr
       CALL nl_get_io_form_history( 1, io_form )
     ENDIF
 
+
     io_form_for_dataset = io_form
     RETURN
   END FUNCTION io_form_for_dataset
@@ -17836,6 +18513,7 @@ END SUBROUTINE wrf_put_var_td_char_arr
     IMPLICIT NONE
     INTEGER,       INTENT(IN)  :: stream
     INTEGER                    :: io_form 
+
 
 
 
@@ -17947,9 +18625,10 @@ END SUBROUTINE wrf_put_var_td_char_arr
     ELSE IF ( stream .eq. auxhist24_only ) THEN
       CALL nl_get_io_form_auxhist24( 1, io_form )
     ELSE  
-      CALL wrf_error_fatal3("<stdin>",17950,&
+      CALL wrf_error_fatal3("<stdin>",18628,&
 'internal error: please contact wrfhelp@ucar.edu: io_form_for_stream.inc -- invalid stream number')
     ENDIF
+
 
     io_form_for_stream = io_form
     RETURN
@@ -17974,11 +18653,16 @@ SUBROUTINE wrf_ioinit( Status )
   SysDepInfo = " "
   CALL wrf_debug( 500, 'module_io.F: in wrf_ioinit' )
   CALL init_io_handles    
+
   if ( model_config_rec%use_netcdf_classic ) SysDepInfo="use_netcdf_classic"
   CALL ext_ncd_ioinit  ( SysDepInfo, ierr( 1) )
   SysDepInfo = " "
+
+
   CALL ext_int_ioinit  ( SysDepInfo, ierr( 2) )
+
   CALL ext_gr1_ioinit  ( SysDepInfo, ierr( 9) )
+
   minerr = MINVAL(ierr)
   maxerr = MAXVAL(ierr)
   IF ( minerr < 0 ) THEN
@@ -18007,9 +18691,14 @@ SUBROUTINE wrf_ioexit( Status )
   Status = 0
   ierr = 0
   CALL wrf_debug( 500, 'module_io.F: in wrf_ioexit' )
+
   CALL ext_ncd_ioexit  ( ierr( 1) )
+
+
   CALL ext_int_ioexit  ( ierr( 2) )
+
   CALL ext_gr1_ioexit  ( ierr( 9) )
+
  
   IF ( use_output_servers() ) THEN
       CALL wrf_quilt_ioexit( ierr(11) )
@@ -18037,14 +18726,22 @@ SUBROUTINE wrf_open_for_write_begin( FileName , grid, SysDepInfo, &
 
   USE module_state_description
   USE module_domain
+
+
+
   IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -18053,6 +18750,7 @@ SUBROUTINE wrf_open_for_write_begin( FileName , grid, SysDepInfo, &
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   CHARACTER*(*) :: FileName
   type(domain)                :: grid
   CHARACTER*(*), INTENT(INOUT):: SysDepInfo
@@ -18089,6 +18787,7 @@ SUBROUTINE wrf_open_for_write_begin( FileName , grid, SysDepInfo, &
   Hndl = -1
   IF ( .not. use_output_servers_for(io_form) ) THEN
     SELECT CASE ( use_package(io_form) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) THEN
           IF ( multi_files(io_form) ) THEN
@@ -18109,6 +18808,7 @@ SUBROUTINE wrf_open_for_write_begin( FileName , grid, SysDepInfo, &
           CALL wrf_dm_bcast_bytes( Hndl, 4 )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) THEN
           IF ( multi_files(io_form) ) THEN
@@ -18124,6 +18824,7 @@ SUBROUTINE wrf_open_for_write_begin( FileName , grid, SysDepInfo, &
           CALL wrf_dm_bcast_bytes( Hndl, 4 )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
         IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) THEN
           IF ( multi_files(io_form) ) THEN
@@ -18139,6 +18840,7 @@ SUBROUTINE wrf_open_for_write_begin( FileName , grid, SysDepInfo, &
           CALL wrf_dm_bcast_bytes( Hndl, 4 )
           CALL wrf_dm_bcast_bytes( Status, 4 )
         ENDIF
+
       CASE DEFAULT
         IF ( io_form .NE. 0 ) THEN
           WRITE(mess,*)'Tried to open ',FileName,' writing: no valid io_form (',io_form,')'
@@ -18181,13 +18883,18 @@ SUBROUTINE wrf_open_for_write_commit( DataHandle , Status )
   LOGICAL                     :: for_out
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -18197,6 +18904,7 @@ SUBROUTINE wrf_open_for_write_commit( DataHandle , Status )
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
 
+
   CALL wrf_debug( 500, 'module_io.F: in wrf_open_for_write_commit' )
 
   Status = 0
@@ -18205,18 +18913,22 @@ SUBROUTINE wrf_open_for_write_commit( DataHandle , Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package(io_form) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) THEN
             CALL ext_ncd_open_for_write_commit ( Hndl , Status )
           ENDIF
           IF ( .NOT. multi_files(io_form) ) CALL wrf_dm_bcast_bytes( Status, 4 )
+
       CASE ( IO_GRIB1   )
          IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) THEN
             CALL ext_gr1_open_for_write_commit ( Hndl , Status )
          ENDIF
          IF ( .NOT. multi_files(io_form) ) CALL wrf_dm_bcast_bytes( Status, 4 )
+
       CASE ( IO_INTIO   )
         CALL ext_int_open_for_write_commit ( Hndl , Status )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -18244,13 +18956,18 @@ SUBROUTINE wrf_open_for_read_begin( FileName , grid, SysDepInfo, &
   USE module_state_description
   USE module_domain
   IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -18259,6 +18976,7 @@ SUBROUTINE wrf_open_for_read_begin( FileName , grid, SysDepInfo, &
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   CHARACTER*(*) :: FileName
   TYPE (domain) :: grid
   CHARACTER*(*) :: SysDepInfo
@@ -18292,6 +19010,7 @@ SUBROUTINE wrf_open_for_read_begin( FileName , grid, SysDepInfo, &
   also_for_out = .FALSE.
 
     SELECT CASE ( use_package(io_form) )
+
       CASE ( IO_NETCDF   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
           IF ( multi_files(io_form) ) THEN
@@ -18307,6 +19026,7 @@ SUBROUTINE wrf_open_for_read_begin( FileName , grid, SysDepInfo, &
           CALL wrf_dm_bcast_bytes( Status, 4 )
           CALL wrf_dm_bcast_bytes( Hndl, 4 )
         ENDIF
+
       CASE ( IO_GRIB1   )
         IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
           IF ( multi_files(io_form) ) THEN
@@ -18322,7 +19042,9 @@ SUBROUTINE wrf_open_for_read_begin( FileName , grid, SysDepInfo, &
           CALL wrf_dm_bcast_bytes( Status, 4 )
           CALL wrf_dm_bcast_bytes( Hndl, 4 )
         ENDIF
+
       CASE ( IO_INTIO   )
+
       CASE DEFAULT
         IF ( io_form .NE. 0 ) THEN
           WRITE(mess,*)'Tried to open ',FileName,' reading: no valid io_form (',io_form,')'
@@ -18357,13 +19079,18 @@ SUBROUTINE wrf_open_for_read_commit( DataHandle , Status )
   LOGICAL                     :: for_out
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -18373,6 +19100,7 @@ SUBROUTINE wrf_open_for_read_commit( DataHandle , Status )
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
 
+
   CALL wrf_debug( 500, 'module_io.F: in wrf_open_for_read_commit' )
 
   Status = 0
@@ -18381,14 +19109,23 @@ SUBROUTINE wrf_open_for_read_commit( DataHandle , Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package(io_form) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) THEN
             CALL ext_ncd_open_for_read_commit ( Hndl , Status )
           ENDIF
           IF ( .NOT. multi_files(io_form) ) CALL wrf_dm_bcast_bytes( Status, 4 )
+
       CASE ( IO_GRIB1   )
         CALL ext_gr1_open_for_read_commit ( Hndl , Status )
+
+
+
+
+
+
       CASE ( IO_INTIO   )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -18438,6 +19175,7 @@ SUBROUTINE wrf_open_for_read ( FileName , grid, SysDepInfo, &
   Hndl = -1
   Status = 0
   SELECT CASE ( use_package(io_form) )
+
     CASE ( IO_NETCDF   )
       IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
         IF ( multi_files(io_form) ) THEN
@@ -18454,6 +19192,7 @@ SUBROUTINE wrf_open_for_read ( FileName , grid, SysDepInfo, &
         CALL wrf_dm_bcast_bytes( Status, 4 )
         CALL wrf_dm_bcast_bytes( Hndl, 4 )
       ENDIF
+
     CASE ( IO_GRIB1   )
       IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
         IF ( multi_files(io_form) ) THEN
@@ -18470,6 +19209,7 @@ SUBROUTINE wrf_open_for_read ( FileName , grid, SysDepInfo, &
         CALL wrf_dm_bcast_bytes( Status, 4 )
         CALL wrf_dm_bcast_bytes( Hndl, 4 )
       ENDIF
+
     CASE ( IO_INTIO   )
       IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) THEN
         IF ( multi_files(io_form) ) THEN
@@ -18485,6 +19225,7 @@ SUBROUTINE wrf_open_for_read ( FileName , grid, SysDepInfo, &
         CALL wrf_dm_bcast_bytes( Status, 4 )
         CALL wrf_dm_bcast_bytes( Hndl, 4 )
       ENDIF
+
     CASE DEFAULT
         Status = 0
   END SELECT
@@ -18509,13 +19250,18 @@ SUBROUTINE wrf_inquire_opened ( DataHandle, FileName , FileStatus, Status )
   LOGICAL                     :: for_out
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -18524,6 +19270,7 @@ SUBROUTINE wrf_inquire_opened ( DataHandle, FileName , FileStatus, Status )
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   
 
 
@@ -18658,6 +19405,7 @@ SUBROUTINE wrf_inquire_opened ( DataHandle, FileName , FileStatus, Status )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
+
   INTEGER io_form
   INTEGER            :: Hndl
 
@@ -18668,18 +19416,29 @@ SUBROUTINE wrf_inquire_opened ( DataHandle, FileName , FileStatus, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package(io_form) )
+
         CASE ( IO_NETCDF   )
           IF (wrf_dm_on_monitor()) CALL ext_ncd_inquire_opened ( Hndl, FileName , FileStatus, Status )
           CALL wrf_dm_bcast_bytes( FileStatus, 4 )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
       CASE ( IO_GRIB1   )
           IF (wrf_dm_on_monitor()) CALL ext_gr1_inquire_opened ( Hndl, FileName , FileStatus, Status )
           CALL wrf_dm_bcast_bytes( FileStatus, 4 )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
+
+
+
+
+
+
+
       CASE ( IO_INTIO   )
           IF (wrf_dm_on_monitor()) CALL ext_int_inquire_opened ( Hndl, FileName , FileStatus, Status )
           CALL wrf_dm_bcast_bytes( FileStatus, 4 )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
         CASE DEFAULT
           FileStatus = WRF_FILE_NOT_OPENED
           Status = 0
@@ -18709,6 +19468,7 @@ SUBROUTINE wrf_inquire_filename ( DataHandle, FileName , FileStatus, Status )
   CHARACTER*(*) :: FileName
   INTEGER ,       INTENT(OUT) :: FileStatus
   INTEGER ,       INTENT(OUT) :: Status
+
   
 
 
@@ -18842,6 +19602,7 @@ SUBROUTINE wrf_inquire_filename ( DataHandle, FileName , FileStatus, Status )
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
   LOGICAL                     :: for_out
@@ -18858,6 +19619,7 @@ SUBROUTINE wrf_inquire_filename ( DataHandle, FileName , FileStatus, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package( io_form ) )
+
         CASE ( IO_NETCDF   )
           str_length = LEN ( FileName )
           DO str_count = 1 , str_length
@@ -18866,14 +19628,24 @@ SUBROUTINE wrf_inquire_filename ( DataHandle, FileName , FileStatus, Status )
           IF (wrf_dm_on_monitor()) CALL ext_ncd_inquire_filename ( Hndl, FileName , FileStatus, Status )
           CALL wrf_dm_bcast_bytes( FileStatus, 4 )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
         CASE ( IO_GRIB1   )
           IF (wrf_dm_on_monitor()) CALL ext_gr1_inquire_filename ( Hndl, FileName , FileStatus, Status )
           CALL wrf_dm_bcast_bytes( FileStatus, 4 )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
+
+
+
+
+
+
+
         CASE ( IO_INTIO   )
           IF (wrf_dm_on_monitor()) CALL ext_int_inquire_filename ( Hndl, FileName , FileStatus, Status )
           CALL wrf_dm_bcast_bytes( FileStatus, 4 )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -18899,6 +19671,7 @@ SUBROUTINE wrf_iosync ( DataHandle, Status )
   IMPLICIT NONE
   INTEGER ,       INTENT(IN)  :: DataHandle
   INTEGER ,       INTENT(OUT) :: Status
+
   
 
 
@@ -19032,6 +19805,7 @@ SUBROUTINE wrf_iosync ( DataHandle, Status )
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
   LOGICAL                     :: for_out
@@ -19046,15 +19820,19 @@ SUBROUTINE wrf_iosync ( DataHandle, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package(io_form) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) CALL ext_ncd_iosync( Hndl, Status )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
         CASE ( IO_GRIB1   )
           IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) CALL ext_gr1_iosync( Hndl, Status )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
         CASE ( IO_INTIO   )
           IF ( multi_files(io_form) .OR. wrf_dm_on_monitor() ) CALL ext_int_iosync( Hndl, Status )
           CALL wrf_dm_bcast_bytes( Status    , 4 )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -19081,6 +19859,7 @@ SUBROUTINE wrf_ioclose ( DataHandle, Status )
   IMPLICIT NONE
   INTEGER ,       INTENT(IN)  :: DataHandle
   INTEGER ,       INTENT(OUT) :: Status
+
   
 
 
@@ -19214,6 +19993,7 @@ SUBROUTINE wrf_ioclose ( DataHandle, Status )
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
   INTEGER                     :: io_form
@@ -19228,15 +20008,19 @@ SUBROUTINE wrf_ioclose ( DataHandle, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package(io_form) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_ncd_ioclose( Hndl, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
         CASE ( IO_GRIB1   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_gr1_ioclose( Hndl, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
         CASE ( IO_INTIO   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_int_ioclose( Hndl, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -19264,6 +20048,7 @@ SUBROUTINE wrf_get_next_time ( DataHandle, DateStr, Status )
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: DateStr
   INTEGER ,       INTENT(OUT) :: Status
+
   
 
 
@@ -19398,6 +20183,7 @@ SUBROUTINE wrf_get_next_time ( DataHandle, DateStr, Status )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
+
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
   INTEGER                     :: io_form, len_of_str
@@ -19411,6 +20197,7 @@ SUBROUTINE wrf_get_next_time ( DataHandle, DateStr, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package(io_form) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_ncd_get_next_time( Hndl, DateStr, Status )
           IF ( .NOT. multi_files(io_form) ) THEN
@@ -19418,6 +20205,7 @@ SUBROUTINE wrf_get_next_time ( DataHandle, DateStr, Status )
             len_of_str = LEN(DateStr)
             CALL wrf_dm_bcast_string ( DateStr , len_of_str )
           ENDIF
+
         CASE ( IO_GRIB1   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_gr1_get_next_time( Hndl, DateStr, Status )
           IF ( .NOT. multi_files(io_form) ) THEN
@@ -19425,6 +20213,7 @@ SUBROUTINE wrf_get_next_time ( DataHandle, DateStr, Status )
             len_of_str = LEN(DateStr)
             CALL wrf_dm_bcast_string ( DateStr , len_of_str )
           ENDIF
+
         CASE ( IO_INTIO   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_int_get_next_time( Hndl, DateStr, Status )
           IF ( .NOT. multi_files(io_form) ) THEN
@@ -19432,6 +20221,7 @@ SUBROUTINE wrf_get_next_time ( DataHandle, DateStr, Status )
             len_of_str = LEN(DateStr)
             CALL wrf_dm_bcast_string ( DateStr , len_of_str )
           ENDIF
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -19459,6 +20249,7 @@ SUBROUTINE wrf_get_previous_time ( DataHandle, DateStr, Status )
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: DateStr
   INTEGER ,       INTENT(OUT) :: Status
+
   
 
 
@@ -19593,6 +20384,7 @@ SUBROUTINE wrf_get_previous_time ( DataHandle, DateStr, Status )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
+
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
   INTEGER                     :: io_form, len_of_str
@@ -19606,6 +20398,7 @@ SUBROUTINE wrf_get_previous_time ( DataHandle, DateStr, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package(io_form) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_ncd_get_previous_time( Hndl, DateStr, Status )
           IF ( .NOT. multi_files(io_form) ) THEN
@@ -19613,6 +20406,7 @@ SUBROUTINE wrf_get_previous_time ( DataHandle, DateStr, Status )
             len_of_str = LEN(DateStr)
             CALL wrf_dm_bcast_string ( DateStr , len_of_str )
           ENDIF
+
         CASE ( IO_GRIB1   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_gr1_get_previous_time( Hndl, DateStr, Status )
           IF ( .NOT. multi_files(io_form) ) THEN
@@ -19620,6 +20414,7 @@ SUBROUTINE wrf_get_previous_time ( DataHandle, DateStr, Status )
             len_of_str = LEN(DateStr)
             CALL wrf_dm_bcast_string ( DateStr , len_of_str )
          ENDIF
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -19647,6 +20442,7 @@ SUBROUTINE wrf_set_time ( DataHandle, DateStr, Status )
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: DateStr
   INTEGER ,       INTENT(OUT) :: Status
+
   
 
 
@@ -19781,6 +20577,7 @@ SUBROUTINE wrf_set_time ( DataHandle, DateStr, Status )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
+
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
   INTEGER                     :: io_form
@@ -19794,15 +20591,25 @@ SUBROUTINE wrf_set_time ( DataHandle, DateStr, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package( io_form ) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_ncd_set_time( Hndl, DateStr, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
         CASE ( IO_GRIB1   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_gr1_set_time( Hndl, DateStr, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
+
+
+
+
+
+
         CASE ( IO_INTIO   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_int_set_time( Hndl, DateStr, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -19831,6 +20638,7 @@ SUBROUTINE wrf_get_next_var ( DataHandle, VarName, Status )
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: VarName
   INTEGER ,       INTENT(OUT) :: Status
+
   
 
 
@@ -19965,6 +20773,7 @@ SUBROUTINE wrf_get_next_var ( DataHandle, VarName, Status )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
+
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers_for
   INTEGER                     :: io_form
@@ -19978,15 +20787,25 @@ SUBROUTINE wrf_get_next_var ( DataHandle, VarName, Status )
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package( io_form ) )
+
         CASE ( IO_NETCDF   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_ncd_get_next_var( Hndl, VarName, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
         CASE ( IO_GRIB1   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_gr1_get_next_var( Hndl, VarName, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
+
+
+
+
+
+
         CASE ( IO_INTIO   )
           IF ( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) CALL ext_int_get_next_var( Hndl, VarName, Status )
           CALL wrf_dm_bcast_bytes( Status, 4 )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -20021,6 +20840,7 @@ SUBROUTINE wrf_get_var_info ( DataHandle , VarName , NDim , MemoryOrder , Stagge
   CHARACTER*(*)         ,INTENT(OUT)    :: Stagger
   INTEGER ,dimension(*) ,INTENT(OUT)    :: DomainStart, DomainEnd
   INTEGER               ,INTENT(OUT)    :: Status
+
   
 
 
@@ -20154,6 +20974,7 @@ SUBROUTINE wrf_get_var_info ( DataHandle , VarName , NDim , MemoryOrder , Stagge
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
   INTEGER                     :: io_form
   LOGICAL                     :: for_out
   INTEGER, EXTERNAL           :: use_package
@@ -20167,16 +20988,26 @@ SUBROUTINE wrf_get_var_info ( DataHandle , VarName , NDim , MemoryOrder , Stagge
   IF ( Hndl .GT. -1 ) THEN
     IF (( multi_files(io_form) .OR.  wrf_dm_on_monitor() ) .AND. .NOT. (for_out .AND. use_output_servers_for(io_form)) ) THEN
       SELECT CASE ( use_package( io_form ) )
+
         CASE ( IO_NETCDF   )
           CALL ext_ncd_get_var_info ( Hndl , VarName , NDim ,            &
                                       MemoryOrder , Stagger ,                  &
                                       DomainStart , DomainEnd ,                &
                                       Status )
+
         CASE ( IO_GRIB1 )
           CALL ext_gr1_get_var_info ( Hndl , VarName , NDim ,            &
                                       MemoryOrder , Stagger ,                  &
                                       DomainStart , DomainEnd ,                &
                                       Status )
+
+
+
+
+
+
+
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -20236,11 +21067,12 @@ SUBROUTINE add_new_handle( Hndl, Hopened, for_out, DataHandle )
   INTEGER, EXTERNAL       :: use_package
   LOGICAL, EXTERNAL       :: multi_files
   IF ( .NOT. is_inited ) THEN
-    CALL wrf_error_fatal3("<stdin>",20239,&
+    CALL wrf_error_fatal3("<stdin>",21070,&
 'add_new_handle: not initialized' )
   ENDIF
   IF ( multi_files( Hopened ) ) THEN
     SELECT CASE ( use_package( Hopened ) )
+
     END SELECT
   ENDIF
   DataHandle = -1
@@ -20255,7 +21087,7 @@ SUBROUTINE add_new_handle( Hndl, Hopened, for_out, DataHandle )
     ENDIF
   ENDDO
   IF ( DataHandle .EQ. -1 ) THEN
-    CALL wrf_error_fatal3("<stdin>",20258,&
+    CALL wrf_error_fatal3("<stdin>",21090,&
 'add_new_handle: no handles left' )
   ENDIF
   RETURN
@@ -20280,7 +21112,7 @@ SUBROUTINE get_handle ( Hndl, Hopened, for_out, DataHandle )
   CHARACTER*128 mess
   INTEGER i
   IF ( .NOT. is_inited ) THEN
-    CALL wrf_error_fatal3("<stdin>",20283,&
+    CALL wrf_error_fatal3("<stdin>",21115,&
 'module_io.F: get_handle: not initialized' )
   ENDIF
   IF ( DataHandle .GE. 1 .AND. DataHandle .LE. MAX_WRF_IO_HANDLE ) THEN
@@ -20303,7 +21135,7 @@ SUBROUTINE set_first_operation( DataHandle )
   IMPLICIT NONE
   INTEGER, INTENT(IN)    :: DataHandle
   IF ( .NOT. is_inited ) THEN
-    CALL wrf_error_fatal3("<stdin>",20306,&
+    CALL wrf_error_fatal3("<stdin>",21138,&
 'module_io.F: get_handle: not initialized' )
   ENDIF
   IF ( DataHandle .GE. 1 .AND. DataHandle .LE. MAX_WRF_IO_HANDLE ) THEN
@@ -20322,7 +21154,7 @@ SUBROUTINE reset_first_operation( DataHandle )
   IMPLICIT NONE
   INTEGER, INTENT(IN)    :: DataHandle
   IF ( .NOT. is_inited ) THEN
-    CALL wrf_error_fatal3("<stdin>",20325,&
+    CALL wrf_error_fatal3("<stdin>",21157,&
 'module_io.F: get_handle: not initialized' )
   ENDIF
   IF ( DataHandle .GE. 1 .AND. DataHandle .LE. MAX_WRF_IO_HANDLE ) THEN
@@ -20341,7 +21173,7 @@ LOGICAL FUNCTION is_first_operation( DataHandle )
   IMPLICIT NONE
   INTEGER, INTENT(IN)    :: DataHandle
   IF ( .NOT. is_inited ) THEN
-    CALL wrf_error_fatal3("<stdin>",20344,&
+    CALL wrf_error_fatal3("<stdin>",21176,&
 'module_io.F: get_handle: not initialized' )
   ENDIF
   IF ( DataHandle .GE. 1 .AND. DataHandle .LE. MAX_WRF_IO_HANDLE ) THEN
@@ -20360,7 +21192,7 @@ SUBROUTINE free_handle ( DataHandle )
   INTEGER, INTENT(IN)    :: DataHandle
   INTEGER i
   IF ( .NOT. is_inited ) THEN
-    CALL wrf_error_fatal3("<stdin>",20363,&
+    CALL wrf_error_fatal3("<stdin>",21195,&
 'free_handle: not initialized' )
   ENDIF
   IF ( DataHandle .GE. 1 .AND. DataHandle .LE. MAX_WRF_IO_HANDLE ) THEN
@@ -20449,6 +21281,7 @@ SUBROUTINE wrf_read_field ( DataHandle , DateStr , VarName , Field , FieldType ,
   INTEGER ,dimension(*)         ,INTENT(IN)    :: MemoryStart, MemoryEnd
   INTEGER ,dimension(*)         ,INTENT(IN)    :: PatchStart,  PatchEnd
   INTEGER                       ,INTENT(OUT)   :: Status
+
   
 
 
@@ -20582,13 +21415,18 @@ SUBROUTINE wrf_read_field ( DataHandle , DateStr , VarName , Field , FieldType ,
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -20597,6 +21435,7 @@ SUBROUTINE wrf_read_field ( DataHandle , DateStr , VarName , Field , FieldType ,
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   INTEGER, ALLOCATABLE        :: ICAST(:)
   LOGICAL perturb_input
   IF ( FieldType .EQ. WRF_LOGICAL ) THEN
@@ -20661,6 +21500,7 @@ SUBROUTINE wrf_read_field1 ( DataHandle , DateStr , VarName , Field , FieldType 
   INTEGER ,dimension(*)         ,INTENT(IN)    :: MemoryStart, MemoryEnd
   INTEGER ,dimension(*)         ,INTENT(IN)    :: PatchStart,  PatchEnd
   INTEGER                       ,INTENT(OUT)   :: Status
+
   
 
 
@@ -20794,13 +21634,28 @@ SUBROUTINE wrf_read_field1 ( DataHandle , DateStr , VarName , Field , FieldType 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
   INTEGER                     :: io_form
   LOGICAL                     :: for_out
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers, use_input_servers, use_output_servers_for
+
   EXTERNAL     ext_ncd_read_field
+
   EXTERNAL     ext_int_read_field
+
+
+
+
+
+
+
+
   EXTERNAL ext_gr1_read_field
+
+
+
+
 
   INTEGER                     :: Hndl
   INTEGER                     :: Comm 
@@ -20819,6 +21674,7 @@ SUBROUTINE wrf_read_field1 ( DataHandle , DateStr , VarName , Field , FieldType 
       Status = 0 
     ELSE IF ( .NOT. use_input_servers() ) THEN
       SELECT CASE ( use_package( io_form ) )
+
         CASE ( IO_NETCDF   )
 
           CALL call_pkg_and_dist   ( ext_ncd_read_field, multi_files(io_form), .false. ,        &
@@ -20829,6 +21685,7 @@ SUBROUTINE wrf_read_field1 ( DataHandle , DateStr , VarName , Field , FieldType 
                                      PatchStart , PatchEnd ,                                      &
                                      Status )
 
+
         CASE ( IO_INTIO )
           CALL call_pkg_and_dist   ( ext_int_read_field, multi_files(io_form), .false.,         &
                                      Hndl , DateStr , VarName , Field , FieldType , Comm , IOComm , &
@@ -20837,6 +21694,8 @@ SUBROUTINE wrf_read_field1 ( DataHandle , DateStr , VarName , Field , FieldType 
                                      MemoryStart , MemoryEnd ,                                    &
                                      PatchStart , PatchEnd ,                                      &
                                      Status )
+
+
         CASE ( IO_GRIB1 )
           CALL call_pkg_and_dist   ( ext_gr1_read_field, multi_files(io_form), .false.,         &
                                      Hndl , DateStr , VarName , Field , FieldType , Comm , IOComm , &
@@ -20845,11 +21704,12 @@ SUBROUTINE wrf_read_field1 ( DataHandle , DateStr , VarName , Field , FieldType 
                                      MemoryStart , MemoryEnd ,                                    &
                                      PatchStart , PatchEnd ,                                      &
                                      Status )
+
         CASE DEFAULT
           Status = 0
       END SELECT
     ELSE
-      CALL wrf_error_fatal3("<stdin>",20852,&
+      CALL wrf_error_fatal3("<stdin>",21712,&
 'module_io.F: wrf_read_field: input_servers not implemented yet')
     ENDIF
   ELSE
@@ -20891,6 +21751,7 @@ SUBROUTINE wrf_write_field ( DataHandle , DateStr , VarName , Field , FieldType 
   INTEGER ,dimension(*)         ,INTENT(IN)    :: MemoryStart, MemoryEnd
   INTEGER ,dimension(*)         ,INTENT(IN)    :: PatchStart,  PatchEnd
   INTEGER                       ,INTENT(OUT)   :: Status
+
   
 
 
@@ -21024,13 +21885,18 @@ SUBROUTINE wrf_write_field ( DataHandle , DateStr , VarName , Field , FieldType 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -21039,6 +21905,7 @@ SUBROUTINE wrf_write_field ( DataHandle , DateStr , VarName , Field , FieldType 
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   INTEGER, ALLOCATABLE        :: ICAST(:)
   IF ( FieldType .EQ. WRF_LOGICAL ) THEN
       ALLOCATE(ICAST((MemoryEnd(1)-MemoryStart(1)+1)*(MemoryEnd(2)-MemoryStart(2)+1)*(MemoryEnd(3)-MemoryStart(3)+1)))
@@ -21099,6 +21966,7 @@ SUBROUTINE wrf_write_field1 ( DataHandle , DateStr , VarName , Field , FieldType
   INTEGER ,dimension(*)         ,INTENT(IN)    :: MemoryStart, MemoryEnd
   INTEGER ,dimension(*)         ,INTENT(IN)    :: PatchStart,  PatchEnd
   INTEGER                       ,INTENT(OUT)   :: Status
+
   
 
 
@@ -21232,15 +22100,30 @@ SUBROUTINE wrf_write_field1 ( DataHandle , DateStr , VarName , Field , FieldType
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
   INTEGER, DIMENSION(3) :: starts, ends
   INTEGER               :: io_form
   CHARACTER*3 MemOrd
   LOGICAL                     :: for_out, okay_to_call
   INTEGER, EXTERNAL           :: use_package
   LOGICAL, EXTERNAL           :: wrf_dm_on_monitor, multi_files, use_output_servers, use_output_servers_for
+
   EXTERNAL     ext_ncd_write_field
+
   EXTERNAL     ext_int_write_field
+
+
+
+
+
+
+
+
   EXTERNAL ext_gr1_write_field
+
+
+
+
 
   INTEGER                     :: Hndl
   INTEGER                     :: Comm 
@@ -21257,6 +22140,7 @@ SUBROUTINE wrf_write_field1 ( DataHandle , DateStr , VarName , Field , FieldType
   IF ( Hndl .GT. -1 ) THEN
     IF ( multi_files( io_form ) .OR. .NOT. use_output_servers_for(io_form) ) THEN
       SELECT CASE ( use_package( io_form ) )
+
         CASE ( IO_NETCDF   )
           CALL collect_fld_and_call_pkg ( ext_ncd_write_field, multi_files(io_form),                  &
                                      Hndl , DateStr , VarName , Field , FieldType , Comm , IOComm , &
@@ -21265,6 +22149,7 @@ SUBROUTINE wrf_write_field1 ( DataHandle , DateStr , VarName , Field , FieldType
                                      MemoryStart , MemoryEnd ,                                    &
                                      PatchStart , PatchEnd ,                                      &
                                      Status )
+
         CASE ( IO_GRIB1 )
           CALL collect_fld_and_call_pkg ( ext_gr1_write_field, multi_files(io_form),                  &
                                      Hndl , DateStr , VarName , Field , FieldType , Comm , IOComm , &
@@ -21273,6 +22158,7 @@ SUBROUTINE wrf_write_field1 ( DataHandle , DateStr , VarName , Field , FieldType
                                      MemoryStart , MemoryEnd ,                                    &
                                      PatchStart , PatchEnd ,                                      &
                                      Status )
+
         CASE ( IO_INTIO )
           CALL collect_fld_and_call_pkg ( ext_int_write_field, multi_files(io_form),                  &
                                      Hndl , DateStr , VarName , Field , FieldType , Comm , IOComm , &
@@ -21281,6 +22167,7 @@ SUBROUTINE wrf_write_field1 ( DataHandle , DateStr , VarName , Field , FieldType
                                      MemoryStart , MemoryEnd ,                                    &
                                      PatchStart , PatchEnd ,                                      &
                                      Status )
+
         CASE DEFAULT
           Status = 0
       END SELECT
@@ -21375,7 +22262,11 @@ LOGICAL FUNCTION multi_files ( io_form )
 
   IMPLICIT NONE
   INTEGER, INTENT(IN) :: io_form
+
+
+
   multi_files = .FALSE.
+
 END FUNCTION multi_files
 
 INTEGER FUNCTION use_package ( io_form )
@@ -21407,13 +22298,18 @@ SUBROUTINE collect_fld_and_call_pkg (    fcn, donotcollect_arg,                 
 
 
   IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -21422,6 +22318,7 @@ SUBROUTINE collect_fld_and_call_pkg (    fcn, donotcollect_arg,                 
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   EXTERNAL fcn
   LOGICAL,        INTENT(IN)    :: donotcollect_arg
   INTEGER ,       INTENT(IN)    :: Hndl
@@ -21544,6 +22441,11 @@ SUBROUTINE collect_real_and_call_pkg (   fcn,                                   
   ELSE
     ALLOCATE( globbuf( 1 ) )
   ENDIF
+
+
+
+
+
 
   
   CALL collect_generic_and_call_pkg (   fcn, globbuf ,                                    &
@@ -21750,13 +22652,18 @@ SUBROUTINE collect_generic_and_call_pkg ( fcn, globbuf,                         
   USE module_state_description
   USE module_driver_constants
   IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -21765,6 +22672,10 @@ SUBROUTINE collect_generic_and_call_pkg ( fcn, globbuf,                         
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
+
+
+
   EXTERNAL fcn
   REAL , DIMENSION(*) , INTENT(INOUT) :: globbuf
   INTEGER ,       INTENT(IN)    :: Hndl
@@ -21839,6 +22750,7 @@ SUBROUTINE collect_generic_and_call_pkg ( fcn, globbuf,                         
   END SELECT
 
   SELECT CASE (TRIM(MemOrd))
+
     CASE (  'xzy','zxy','xyz','yxz','xy','yx' )
 
       distributed_field = .TRUE.
@@ -21863,6 +22775,7 @@ SUBROUTINE collect_generic_and_call_pkg ( fcn, globbuf,                         
            MemoryStart(1), MemoryEnd(1), MemoryStart(2), MemoryEnd(2), MemoryStart(3), MemoryEnd(3), &
            PatchStart(1) , PatchEnd(1) , PatchStart(2) , PatchEnd(2) , PatchStart(3) , PatchEnd(3) )
       ENDIF
+
 
     CASE DEFAULT
       distributed_field = .FALSE.
@@ -21907,13 +22820,18 @@ SUBROUTINE call_pkg_and_dist (       fcn, donotdist_arg, update_arg,            
 
 
   IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -21922,6 +22840,7 @@ SUBROUTINE call_pkg_and_dist (       fcn, donotdist_arg, update_arg,            
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   EXTERNAL fcn
   LOGICAL,        INTENT(IN)    :: donotdist_arg, update_arg  
   INTEGER ,       INTENT(IN)    :: Hndl
@@ -22044,14 +22963,14 @@ SUBROUTINE call_pkg_and_dist_real (  fcn, update_arg,                           
     IF ( test .NE. 0 ) THEN
       write(mess,*)"module_io.b",'allocating globbuf ',&
            (DomainEnd(1)-DomainStart(1)+3)*(DomainEnd(2)-DomainStart(2)+3)*(DomainEnd(3)-DomainStart(3)+3)
-      CALL wrf_error_fatal3("<stdin>",22047,&
+      CALL wrf_error_fatal3("<stdin>",22966,&
 mess)
     ENDIF
   ELSE
     ALLOCATE( globbuf( 1 ), STAT=test )
     IF ( test .NE. 0 ) THEN
       write(mess,*)"module_io.b",'allocating globbuf ',1
-      CALL wrf_error_fatal3("<stdin>",22054,&
+      CALL wrf_error_fatal3("<stdin>",22973,&
 mess)
     ENDIF
   ENDIF
@@ -22261,13 +23180,18 @@ SUBROUTINE call_pkg_and_dist_generic (   fcn, globbuf , update_arg ,            
   USE module_driver_constants
   USE module_io
   IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -22276,6 +23200,10 @@ SUBROUTINE call_pkg_and_dist_generic (   fcn, globbuf , update_arg ,            
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
+
+
+
 
   EXTERNAL fcn
   REAL, DIMENSION(*) ::  globbuf
@@ -22384,12 +23312,14 @@ SUBROUTINE call_pkg_and_dist_generic (   fcn, globbuf , update_arg ,            
 
 
   SELECT CASE (MemOrd)
+
     CASE ( 'xzy', 'yzx', 'xyz', 'yxz', 'zxy', 'zyx', 'xy', 'yx' )
       distributed_field = .TRUE.
     CASE ( 'xsz', 'xez', 'xs', 'xe' )
       CALL are_bdys_distributed( distributed_field )
     CASE ( 'ysz', 'yez', 'ys', 'ye' )
       CALL are_bdys_distributed( distributed_field )
+
     CASE DEFAULT
       
       distributed_field = .FALSE.
@@ -22438,6 +23368,7 @@ SUBROUTINE call_pkg_and_dist_generic (   fcn, globbuf , update_arg ,            
     CALL wrf_dm_bcast_bytes( Status, 4 )
 
     CALL lower_case( MemoryOrder, MemOrd )
+
 
 
   ELSE 
@@ -22549,4 +23480,6 @@ LOGICAL FUNCTION has_char( str, c )
   has_char = .FALSE.
   RETURN
 END FUNCTION has_char
+
+
 

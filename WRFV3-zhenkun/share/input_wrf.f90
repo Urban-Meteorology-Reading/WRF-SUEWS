@@ -12,13 +12,18 @@
     USE module_utility
 
     IMPLICIT NONE
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -27,6 +32,7 @@
 
 
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
+
   
 
 
@@ -160,6 +166,7 @@
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
+
     TYPE(domain) :: grid
     TYPE(grid_config_rec_type),  INTENT(INOUT)    :: config_flags
     INTEGER, INTENT(IN) :: fid
@@ -292,9 +299,11 @@
 
     check_if_dryrun : IF ( .NOT. dryrun ) THEN
 
+
       IF ( switch .EQ. boundary_only ) THEN
          grid%just_read_boundary = .true.
       END IF
+
 
       
 
@@ -408,10 +417,18 @@
 
       IF ( ( ierr .EQ. 0 ) .AND. ( .NOT. reset_simulation_start ) ) THEN
         
+
+
+
+
+
+
+
         READ ( simulation_start_date , fmt = '(I4,1x,I2,1x,I2,1x,I2,1x,I2,1x,I2)' ) &
                simulation_start_year,   simulation_start_month,                     &
                simulation_start_day,    simulation_start_hour,                      &
                simulation_start_minute, simulation_start_second
+
         CALL nl_set_simulation_start_year   ( 1 , simulation_start_year   )
         CALL nl_set_simulation_start_month  ( 1 , simulation_start_month  )
         CALL nl_set_simulation_start_day    ( 1 , simulation_start_day    )
@@ -491,6 +508,7 @@
        END IF
 
 
+
        
 
        CALL wrf_get_dom_ti_real ( fid , 'DX' ,  dx_compare , 1 , icnt , ierr )
@@ -510,7 +528,9 @@
              count_fatal_error = count_fatal_error + 1
           END IF
        END IF
+
     END IF
+
 
     IF ( ( switch .EQ. input_only ) .OR. ( switch .EQ. auxinput2_only ) .OR. ( switch .EQ. auxinput1_only ) ) THEN
        ierr  = 0
@@ -552,6 +572,7 @@
           count_fatal_error = count_fatal_error + 1
        END IF
     END IF
+
 
     
 
@@ -599,6 +620,7 @@
     CALL nl_set_stand_lon ( grid%id , config_flags%stand_lon )
 
 
+
     CALL wrf_get_dom_ti_real ( fid , 'POLE_LAT' ,  config_flags%pole_lat , 1 , icnt , ierr )
     WRITE(wrf_err_message,*)'input_wrf: wrf_get_dom_ti_real for POLE_LAT returns ',config_flags%pole_lat
     CALL wrf_debug ( 300 , wrf_err_message )
@@ -622,6 +644,7 @@
       WRITE(wrf_err_message,*)'input_wrf: wrf_get_dom_ti_real for P_TOP returns ',grid%p_top
       CALL wrf_debug ( 300 , wrf_err_message )
     ENDIF
+
 
     IF ( switch .NE. boundary_only ) THEN
       CALL wrf_get_dom_ti_real ( fid , 'GMT' ,  config_flags%gmt , 1 , icnt , ierr )
@@ -649,6 +672,7 @@
     mminlu = " "
     CALL wrf_get_dom_ti_char ( fid , 'MMINLU', mminlu , ierr )
     IF ( ierr .NE. 0 ) mminlu = " "
+
     IF ( ( ( switch .EQ. input_only ) .OR. ( switch .EQ. restart_only ) ) .AND. &
          ( ( config_flags%io_form_input .EQ.  2 ) .OR. &
            ( config_flags%io_form_input .EQ. 11 ) ) ) THEN
@@ -667,6 +691,7 @@
         CALL wrf_debug ( 0 , wrf_err_message )
       END IF
     END IF
+
     IF ( ierr .EQ. 0 ) THEN
       IF ( ( ( mminlu(1:1) .GE. "A" ) .AND. ( mminlu(1:1) .LE. "Z" ) ) .OR. &
                 ( ( mminlu(1:1) .GE. "a" ) .AND. ( mminlu(1:1) .LE. "z" ) ) .OR. &
@@ -722,23 +747,31 @@
    
        IF ( ierr .EQ. 0 ) THEN
 
+
           IF ( itmp .EQ. 1 ) THEN
              CALL wrf_debug ( 0, "---- ERROR: NUM_METGRID_SOIL_LEVELS must be greater than 1")
              count_fatal_error = count_fatal_error + 1
           END IF
+
           WRITE(wrf_err_message,*)'input_wrf: global attribute NUM_METGRID_SOIL_LEVELS returns ', itmp
           CALL wrf_debug ( 300 , wrf_err_message )
           IF ( config_flags%num_metgrid_soil_levels /= itmp ) THEN
              call wrf_message("----------------- ERROR -------------------")
              WRITE(wrf_err_message,'("namelist    : num_metgrid_soil_levels = ",I10)') config_flags%num_metgrid_soil_levels
              call wrf_message(wrf_err_message)
+
              WRITE(wrf_err_message,'("input files : NUM_METGRID_SOIL_LEVELS = ",I10, " (from met_em files).")') itmp
+
+
+
              call wrf_message(wrf_err_message)
              CALL wrf_debug ( 0, "---- ERROR: Mismatch between namelist and global attribute NUM_METGRID_SOIL_LEVELS")
              count_fatal_error = count_fatal_error + 1
           END IF
        END IF
     END IF
+
+
 
 
     
@@ -788,6 +821,8 @@
        END IF
     END IF
 
+
+
     
     
 
@@ -808,6 +843,8 @@
        END IF
     END IF
 
+
+
     
     
 
@@ -827,6 +864,7 @@
           END IF
        END IF
     END IF
+
 
     CALL wrf_get_dom_ti_integer ( fid , 'ISWATER' ,  config_flags%iswater , 1 , icnt , ierr )
     WRITE(wrf_err_message,*)'input_wrf: wrf_get_dom_ti_integer for ISWATER returns ',config_flags%iswater
@@ -894,6 +932,8 @@
 
 
 
+
+
     IF      ( ( switch .EQ.     input_only  ) .OR. &
             ( ( switch .EQ. auxinput1_only ) .AND. &
               ( config_flags%auxinput1_inname(1:8) .EQ. 'wrf_real' ) ) ) THEN
@@ -926,6 +966,10 @@
           count_fatal_error = count_fatal_error + 1
        ENDIF
     ENDIF
+
+
+
+
 
 
 
@@ -977,6 +1021,7 @@
         END IF
        END IF
 
+
     ENDIF check_if_dryrun
 
 
@@ -1000,9 +1045,11 @@
         CALL wrf_debug ( 0, TRIM( wrf_err_message ) )
         count_fatal_error = count_fatal_error + 1
       ELSE
+
         WRITE(wrf_err_message,*) '---- ERROR: Could not find matching time in input file ',TRIM(fname)
         CALL wrf_debug ( 0, TRIM( wrf_err_message ) )
         count_fatal_error = count_fatal_error + 1
+
       ENDIF
     ELSE IF ( ierr .NE. WRF_WARN_NOTSUPPORTED .AND. ierr .NE. WRF_WARN_DRYRUN_READ) THEN
 
@@ -1014,9 +1061,17 @@
                auxinput3_only, auxinput4_only, auxinput5_only,  &
                auxinput6_only, auxinput7_only, auxinput8_only,  &
                auxinput9_only, auxinput10_only )
+
+
+
+
+
+
+
             CALL wrf_atotime( current_date(1:19), time )
             CALL domain_clock_get( grid, current_time=currtime, &
                                          current_timestr=currtimestr )
+
 
 
             CALL domain_clockprint(150, grid, &
@@ -1031,6 +1086,10 @@
                 CALL wrf_message( TRIM(wrf_err_message) )
                 GOTO 3003
             ENDIF
+
+
+
+
         CASE DEFAULT
       END SELECT
     ENDIF
@@ -1120,6 +1179,7 @@
           CALL wrf_get_dom_td_char ( fid , 'NEXTBDYTIME' ,  current_date(1:19), next_datestr , ierr )
           CALL wrf_atotime( next_datestr(1:19), grid%next_bdy_time )
        END IF
+
        IF( currentTime .GE. grid%next_bdy_time ) THEN
           IF ( wrf_dm_on_monitor() ) THEN
              write(a_message,*) 'THIS TIME ',this_datestr(1:19),', NEXT TIME ',next_datestr(1:19)
@@ -1127,11 +1187,18 @@
           END IF
           RETURN
        ENDIF
+
     ENDIF
+
 
     
 
     n_ref_m = config_flags%vert_refine_fact
+
+
+
+
+
 
     
      
@@ -1139,7 +1206,7 @@
        WRITE (wrf_err_message, FMT='(A,I6, A)') 'NOTE:  ', count_fatal_error, ' namelist vs input data inconsistencies found.'
        CALL wrf_message ( wrf_err_message )
        WRITE (wrf_err_message, FMT='(A,I6, A)') 'NOTE:  Please check and reset these options'
-       CALL wrf_error_fatal3("<stdin>",1142,&
+       CALL wrf_error_fatal3("<stdin>",1209,&
 wrf_err_message )
     END IF
 
@@ -1237,9 +1304,11 @@ wrf_err_message )
                   memord = p%MemoryOrder
 
                   i_inter = 0
+
                   
 
                   if( TRIM(p%dimname1).EQ.'bottom_top'.OR.TRIM(p%dimname1).EQ.'bottom_top_stag') i_inter = 1 
+
                   
                   IF      ( p%Type .EQ. 'r' ) THEN
                     IF( (i_inter.eq.1.and.n_ref_m.ge.2).and.(switch.eq.history_only) ) THEN
@@ -1441,9 +1510,11 @@ wrf_err_message )
                   memord = p%MemoryOrder
 
                   i_inter = 0
+
                   
 
                   if( TRIM(p%dimname2).EQ.'bottom_top'.OR.TRIM(p%dimname2).EQ.'bottom_top_stag') i_inter = 1
+
 
                   IF      ( p%Type .EQ. 'r' ) THEN
                     IF( (i_inter.eq.1.and.n_ref_m.ge.2).and.(switch.eq.history_only) ) then
@@ -1550,9 +1621,11 @@ wrf_err_message )
                 memord = p%MemoryOrder
 
                 i_inter = 0
+
                 
 
                 if( TRIM(p%dimname2).EQ.'bottom_top'.OR.TRIM(p%dimname2).EQ.'bottom_top_stag') i_inter = 1
+
 
                 IF      ( p%Type .EQ. 'r' ) THEN
                     IF( (i_inter.eq.1.and.n_ref_m.ge.2).and.(switch.eq.history_only) ) then
@@ -1666,13 +1739,19 @@ wrf_err_message )
       ENDIF
     ENDIF
 
+
     CALL wrf_tsin( grid , ierr )
+
     if (config_flags%track_loc_in > 0 ) then
        call track_input( grid , ierr )
     end if
+
+
 
     WRITE(wrf_err_message,*)'input_wrf: end, fid = ',fid
     CALL wrf_debug( 300 , wrf_err_message )
 
     RETURN
   END SUBROUTINE input_wrf
+
+

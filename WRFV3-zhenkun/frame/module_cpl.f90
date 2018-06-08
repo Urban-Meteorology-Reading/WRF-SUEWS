@@ -19,8 +19,13 @@ MODULE module_cpl
    PUBLIC cpl_finalize
    PUBLIC cpl_abort
 
+
+
+
+
    LOGICAL     , PARAMETER, PUBLIC :: coupler_on = .FALSE.
    CHARACTER(4), PARAMETER         :: coupler_name = 'none'
+
    INTEGER :: nsecrun             
    INTEGER, PARAMETER :: charlen = 64
    CHARACTER(charlen), DIMENSION(max_domains,max_extdomains,max_cplfld) :: rcvname, sndname   
@@ -29,7 +34,11 @@ MODULE module_cpl
    INTEGER :: nlevdbg  = 1        
    INTEGER :: nlevdbg2 = 10       
 
+
+
+
    INTEGER :: MPI_COMM_NULL = -1  
+
 
 CONTAINS
 
@@ -118,6 +127,7 @@ CONTAINS
       INTEGER :: ids,ide,jds,jde,kds,kde 
       
 
+
       CALL get_ijk_from_grid( grid, ids, ide, jds, jde, kds, kde, &
          &                          ims, ime, jms, jme, kms, kme, &
          &                          ips, ipe, jps, jpe, kps, kpe  )
@@ -171,6 +181,7 @@ CONTAINS
          WRITE(cltxt,*) '   maxval(grid%cplmask(ips:ipe,jext,jps:jpe)): ', zmax            ;   CALL wrf_debug(nlevdbg, cltxt)
 
       END DO
+
       
       IF ( coupler_name == 'oasis' ) CALL cpl_oasis_define( sndname, rcvname, grid )
 
@@ -274,10 +285,12 @@ CONTAINS
          &                          ims, ime, jms, jme, kms, kme, &
          &                          ips, ipe, jps, jpe, kps, kpe  )
 
+
       CALL cpl_snd2( grid, grid%num_ext_model_couple_dom,   &
          &                 ids, ide, jds, jde, kds, kde,    &
          &                 ims, ime, jms, jme, kms, kme,    &
          &                 ips, ipe, jps, jpe, kps, kpe )
+
 
    END SUBROUTINE cpl_snd
 
@@ -306,6 +319,7 @@ CONTAINS
       INTEGER :: ifldid
       LOGICAL,DIMENSION(max_edom) :: lltosend
       
+
 
 
       
@@ -364,6 +378,7 @@ CONTAINS
          CALL cpl_sndfield( grid%id, lltosend, ifldid, taut )
       END IF
       
+
    END SUBROUTINE cpl_snd2
 
 
@@ -456,6 +471,7 @@ CONTAINS
       INTEGER :: jext          
       
 
+
       CALL get_ijk_from_grid( grid, ids, ide, jds, jde, kds, kde, &
          &                          ims, ime, jms, jme, kms, kme, &
          &                          ips, ipe, jps, jpe, kps, kpe  )
@@ -478,6 +494,7 @@ CONTAINS
          grid%just_read_auxinput4 = .FALSE.  
       
       END IF
+
  
    END SUBROUTINE cpl_store_input
 
@@ -509,3 +526,5 @@ CONTAINS
 
 
 END MODULE module_cpl
+
+

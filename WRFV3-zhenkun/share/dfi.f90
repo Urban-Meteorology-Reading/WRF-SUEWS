@@ -1,5 +1,6 @@
 
 
+
    SUBROUTINE dfi_accumulate( grid )
 
       USE module_domain, ONLY : domain
@@ -20,6 +21,7 @@
       TYPE(domain) , POINTER          :: grid
 
       IF ( grid%dfi_opt .EQ. DFI_NODFI .OR. grid%dfi_stage .EQ. DFI_FST ) RETURN
+
 
 
 
@@ -60,6 +62,8 @@
 
       
       grid%hcoeff_tot = grid%hcoeff_tot + hn
+
+
 
 
    END SUBROUTINE dfi_accumulate
@@ -103,19 +107,23 @@
             LOGICAL, INTENT(IN)    :: allowed_to_read
          END SUBROUTINE start_domain
 
+
          SUBROUTINE rebalance_driver_dfi (grid)
             USE module_domain, ONLY : domain
             TYPE (domain)          :: grid
          END SUBROUTINE rebalance_driver_dfi
 
+
       END INTERFACE
 
       grid%dfi_stage = DFI_BCK
+
 
       if(grid%cycling) then
 
          CALL rebalance_driver_dfi ( grid )
       endif
+
 
       
       IF ( grid%time_step_dfi .gt. 0 ) THEN
@@ -149,12 +157,16 @@
       CALL nl_set_gwd_opt( grid%id, 0 )
       CALL nl_set_feedback( grid%id, 0 )
       
+
       CALL nl_set_diff_6th_opt( grid%id, 0 )
       CALL nl_set_constant_bc(1, grid%constant_bc)
       CALL nl_set_use_adaptive_time_step( grid%id, .false. )
 
 
+
+
       
+
 
       grid%km_opt_dfi = grid%km_opt
       grid%diff_opt_dfi = grid%diff_opt
@@ -163,10 +175,14 @@
       CALL nl_set_moist_adv_dfi_opt( grid%id, grid%moist_adv_dfi_opt)
       CALL nl_set_moist_adv_opt( grid%id,grid%moist_adv_dfi_opt)
 
+
       
       
 
+
       CALL nl_set_p_lev_diags( grid%id, grid%p_lev_diags_dfi)
+
+
 
 
       grid%start_subtime = domain_get_start_time ( grid )
@@ -219,10 +235,12 @@
             TYPE (domain), POINTER :: grid
          END SUBROUTINE optfil_driver
 
+
          SUBROUTINE rebalance_driver_dfi (grid)
             USE module_domain, ONLY : domain
             TYPE (domain)          :: grid
          END SUBROUTINE rebalance_driver_dfi
+
 
          SUBROUTINE start_domain(grid, allowed_to_read)
             USE module_domain, ONLY : domain
@@ -268,10 +286,14 @@
       CALL nl_set_fractional_seaice( grid%id, grid%fractional_seaice)
       CALL nl_set_gwd_opt( grid%id, grid%gwd_opt)
       CALL nl_set_feedback( grid%id, 0 )
+
       CALL nl_set_diff_6th_opt( grid%id, grid%diff_6th_opt)
       CALL nl_set_use_adaptive_time_step( grid%id, .false. )
       
       CALL nl_set_constant_bc(grid%id, grid%constant_bc)
+
+
+
 
 
 
@@ -287,6 +309,7 @@
       CALL nl_set_km_opt( grid%id, grid%km_opt_dfi)
       CALL nl_set_diff_opt( grid%id, grid%diff_opt_dfi)
       CALL nl_set_moist_adv_opt( grid%id, grid%moist_adv_opt)
+
 
 
       CALL Setup_Timekeeping (grid)
@@ -351,10 +374,12 @@
             TYPE (domain), POINTER :: grid
          END SUBROUTINE optfil_driver
 
+
          SUBROUTINE rebalance_driver_dfi (grid)
             USE module_domain, ONLY : domain
             TYPE (domain)          :: grid
          END SUBROUTINE rebalance_driver_dfi
+
 
          SUBROUTINE start_domain(grid, allowed_to_read)
             USE module_domain, ONLY : domain
@@ -371,17 +396,22 @@
       grid%itimestep=0
       grid%xtime=0.         
 
+
       if (grid%id == 1) then
          CALL nl_set_use_adaptive_time_step( 1, grid%use_adaptive_time_step )
       endif
       CALL nl_set_sst_update( grid%id, grid%sst_update)
       
       CALL nl_set_constant_bc(grid%id, .false.)
+
       CALL nl_set_feedback( grid%id, grid%feedback )
 
+
     
+
       
       CALL nl_set_p_lev_diags ( grid%id, grid%p_lev_diags)
+
 
 
       CALL Setup_Timekeeping (grid)
@@ -419,7 +449,7 @@
       CALL open_w_dataset ( fid, TRIM(rstname), grid, config_flags, output_input, "DATASET=INPUT", ierr )
       IF ( ierr .NE. 0 ) THEN
          WRITE( message , '("program wrf: error opening ",A," for writing")') TRIM(rstname)
-         CALL wrf_error_fatal3("<stdin>",422,&
+         CALL wrf_error_fatal3("<stdin>",452,&
 message )
       END IF
       CALL output_input ( fid,   grid, config_flags, ierr )
@@ -450,7 +480,7 @@ message )
       CALL open_w_dataset ( fid, TRIM(rstname),grid, config_flags, output_input, "DATASET=INPUT", ierr )
       IF ( ierr .NE. 0 ) THEN
          WRITE( message , '("program wrf: error opening ",A," for writing")') TRIM(rstname)
-         CALL wrf_error_fatal3("<stdin>",453,&
+         CALL wrf_error_fatal3("<stdin>",483,&
 message )
       END IF
       CALL output_input ( fid,   grid, config_flags, ierr )
@@ -521,6 +551,7 @@ message )
 
       
       
+
 
       grid%MU_2(:,:)    = grid%dfi_mu(:,:)      / grid%hcoeff_tot
       grid%u_2(:,:,:)   = grid%dfi_u(:,:,:)     / grid%hcoeff_tot
@@ -682,6 +713,8 @@ message )
 
 
 
+
+
    END SUBROUTINE dfi_array_reset
 
    SUBROUTINE optfil_driver( grid )
@@ -758,6 +791,7 @@ call wrf_message(mess)
       
       TYPE(domain) , POINTER          :: grid
 
+
       grid%dfi_mu(:,:)       = 0.
       grid%dfi_u(:,:,:)      = 0.
       grid%dfi_v(:,:,:)      = 0.
@@ -789,6 +823,8 @@ call wrf_message(mess)
      endif
 
 
+
+
       grid%hcoeff_tot  = 0.0
 
    END SUBROUTINE dfi_clear_accumulation
@@ -815,6 +851,7 @@ call wrf_message(mess)
 
       REAL es,qs,pol,tx,temp,pres,rslf
 
+
       
       grid%dfi_SNOW(:,:)   = grid%SNOW(:,:) 
       grid%dfi_SNOWH(:,:)  = grid%SNOWH(:,:) 
@@ -835,6 +872,9 @@ call wrf_message(mess)
       grid%dfi_SMFR3D(:,:,:)       = grid%SMFR3D(:,:,:) 
       grid%dfi_KEEPFR3DFLAG(:,:,:) = grid%KEEPFR3DFLAG(:,:,:) 
       ENDIF
+
+
+
 
 
       
@@ -901,6 +941,7 @@ call wrf_message(mess)
       END DO
     ENDDO
        endif
+
 
 
    END SUBROUTINE dfi_save_arrays
@@ -1707,7 +1748,7 @@ call wrf_message(mess)
 
         IF(NFILT.LE.0 .OR. NFILT.GT.128 ) THEN
 	   WRITE(6,*) 'NH=',NH
-       CALL wrf_error_fatal3("<stdin>",1710,&
+       CALL wrf_error_fatal3("<stdin>",1751,&
 ' Sorry, error 1 in call to OPTFIL ')
 	ENDIF
 
@@ -1723,13 +1764,13 @@ call wrf_message(mess)
           FP = DT/(TAUP*3600.)
           IF(FS.GT.0.5) then
 
-       CALL wrf_error_fatal3("<stdin>",1726,&
+       CALL wrf_error_fatal3("<stdin>",1767,&
 ' FS too large in OPTFIL ')
 
           end if
           IF(FP.LT.0.0) then
 
-       CALL wrf_error_fatal3("<stdin>",1732,&
+       CALL wrf_error_fatal3("<stdin>",1773,&
 ' FP too small in OPTFIL ')
 
           end if
@@ -1846,7 +1887,7 @@ call wrf_message(mess)
 
 
       IF(NFILT.GT.NFMAX.OR.NFILT.LT.3) THEN
-         CALL wrf_error_fatal3("<stdin>",1849,&
+         CALL wrf_error_fatal3("<stdin>",1890,&
 ' **** ERROR IN INPUT DATA ****' )
       END IF
       IF(NBANDS.LE.0) NBANDS = 1
@@ -1859,7 +1900,7 @@ call wrf_message(mess)
 
 
       IF(JTYPE.EQ.0) THEN
-         CALL wrf_error_fatal3("<stdin>",1862,&
+         CALL wrf_error_fatal3("<stdin>",1903,&
 ' **** ERROR IN INPUT DATA ****' )
       END IF
       NEG = 1
@@ -2536,8 +2577,10 @@ call wrf_message(mess)
 
       grid%dfi_stage = DFI_STARTFWD
 
+
       
       CALL nl_set_use_adaptive_time_step( grid%id, .false. )
+
 
       CALL Setup_Timekeeping (grid)
       grid%start_subtime = domain_get_start_time ( head_grid )
@@ -2647,11 +2690,17 @@ call wrf_message(mess)
       CALL nl_set_damp_opt( grid%id, 0 )
       CALL nl_set_sst_update( grid%id, 0 )
       CALL nl_set_gwd_opt( grid%id, 0 )
+
       CALL nl_set_diff_6th_opt( grid%id, 0 )
       CALL nl_set_use_adaptive_time_step( grid%id, .false. )
+
       CALL nl_set_feedback( grid%id, 0 )
+
       
       CALL nl_set_constant_bc( grid%id, head_grid%constant_bc)
+
+
+
 
 
       
@@ -2662,10 +2711,13 @@ call wrf_message(mess)
       CALL nl_set_moist_adv_dfi_opt( grid%id, grid%moist_adv_dfi_opt)
       CALL nl_set_moist_adv_opt( grid%id,grid%moist_adv_dfi_opt)
 
+
       
       
 
+
       CALL nl_set_p_lev_diags( grid%id, grid%p_lev_diags_dfi)
+
 
       
       
@@ -3019,6 +3071,7 @@ call wrf_message(mess)
 
 
 
+
    SUBROUTINE rebalance_driver_dfi ( grid )
 
       USE module_domain, ONLY : domain
@@ -3028,6 +3081,7 @@ call wrf_message(mess)
       TYPE (domain)          :: grid
 
       CALL rebalance_dfi( grid &
+
 
 
 
@@ -3045,6 +3099,7 @@ grid%nba_mij,grid%nba_rij,grid%chem,grid%tracer,grid%tracer_bxs,grid%tracer_bxe,
 grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 
 
+
       )
 
    END SUBROUTINE rebalance_driver_dfi
@@ -3052,6 +3107,7 @@ grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 
 
    SUBROUTINE rebalance_dfi ( grid  &
+
 
 
 
@@ -3067,6 +3123,7 @@ advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,trace
 tracer_btye &
 
 
+
                         )
       USE module_domain, ONLY : domain
       USE module_utility
@@ -3075,9 +3132,11 @@ tracer_btye &
       USE module_driver_constants
 
 
+
       IMPLICIT NONE
 
       TYPE (domain)        :: grid
+
 
 
 
@@ -3141,6 +3200,9 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btxe
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
+
+
+
 
 
       REAL :: p_surf ,  pd_surf, p_surf_int , pb_int , ht_hold
@@ -3281,9 +3343,15 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 
                   grid%ph_2(i,1,j) = grid%phb(i,1,j)
                   DO k = 2,kte
+
                      pfu = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k)   + grid%p_top
                      pfd = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k-1) + grid%p_top
                      phm = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znu(k-1) + grid%p_top
+
+
+
+
+
                      grid%ph_2(i,k,j) = grid%ph_2(i,k-1,j) + grid%alt(i,k-1,j)*phm*LOG(pfd/pfu)
                   END DO
 
@@ -3308,6 +3376,16 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
         ENDDO  
 
       ips = its ; ipe = ite ; jps = jts ; jpe = jte ; kps = kts ; kpe = kte
+
+
+
+
+
+
+
    END SUBROUTINE rebalance_dfi
+
+
+
 
 

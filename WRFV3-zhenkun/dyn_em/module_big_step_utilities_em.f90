@@ -4,6 +4,13 @@
 
 
 
+
+
+
+
+
+
+
 MODULE module_big_step_utilities_em
 
    USE module_model_constants
@@ -1008,7 +1015,9 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
   jtf=MIN(jte,jde-1)
   ktf=MIN(kte,kde-1)
 
+
   cpovcv_v = cpovcv
+
 
   IF (non_hydrostatic) THEN
 
@@ -1032,15 +1041,21 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
         DO j=jts,jtf
         DO k=kts,ktf
         DO i=its,itf
+
           pfu = muts(i,j)*znw(k+1)+ptop
           pfd = muts(i,j)*znw(k)  +ptop
           phm = muts(i,j)*znu(k)  +ptop
+
+
+
+
+
           al(i,k,j) = (ph(i,k+1,j)-ph(i,k,j)+phb(i,k+1,j)-phb(i,k,j))/phm/LOG(pfd/pfu)-alb(i,k,j)
         END DO
         END DO
         END DO
       ELSE
-        CALL wrf_error_fatal3("<stdin>",1043,&
+        CALL wrf_error_fatal3("<stdin>",1058,&
 'calc_p_rho_phi: hypsometric_opt should be 1 or 2' )
       END IF
 
@@ -1053,7 +1068,11 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
           temp(i)=(r_d*(t0+t(i,k,j))*qvf)/(p0*(al(i,k,j)+alb(i,k,j)))
         ENDDO
 
+
+
+
         CALL vspow  ( p(its,k,j), temp(its), cpovcv_v(its), itf-its+1 )
+
         DO i=its,itf
            p(i,k,j)= p(i,k,j)*p0-pb(i,k,j)
         ENDDO
@@ -1177,9 +1196,15 @@ SUBROUTINE calc_p_rho_phi ( moist, n_moist, hypsometric_opt,      &
 
         DO k=kts+1,ktf+1
           DO i=its,itf
+
             pfu = muts(i,j)*znw(k)  +ptop
             pfd = muts(i,j)*znw(k-1)+ptop
             phm = muts(i,j)*znu(k-1)+ptop
+
+
+
+
+
             ph(i,k,j) = ph(i,k-1,j) + (al(i,k-1,j)+alb(i,k-1,j))*phm*LOG(pfd/pfu)
           ENDDO
         ENDDO
@@ -2536,10 +2561,17 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
 
    IF ( config_flags%w_damping == 1 ) THEN
 
+
+
+
+
+
+
      DO j = jts,jtf
 
      DO k = 2, kde-1
      DO i = its,itf
+
         IF(config_flags%polar ) then
            msfuxt = MIN(msfux(i,j), msfxffl)
         ELSE
@@ -2551,6 +2583,7 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
            max_vert_cfl = vert_cfl ; maxi = i ; maxj = j ; maxk = k 
            maxdub = w(i,k,j) ; maxdeta = -1./rdnw(k)
         ENDIF
+
         
         horiz_cfl = max( abs(u(i,k,j) * rdx * msfuxt * dt),                          &
              abs(v(i,k,j) * rdy * msfvy(i,j) * dt) )
@@ -2561,8 +2594,10 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
         if(vert_cfl .gt. w_beta)then
 
 
+
            WRITE(temp,*)i,j,k,' vert_cfl,w,d(eta)=',vert_cfl,w(i,k,j),-1./rdnw(k)
            CALL wrf_debug ( 100 , TRIM(temp) )
+
            if ( vert_cfl > 2. ) some = some + 1
            rw_tend(i,k,j) = rw_tend(i,k,j)-sign(1.,w(i,k,j))*w_alpha*(vert_cfl-w_beta)*mut(i,j)
         endif
@@ -2577,6 +2612,14 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
      DO i = its,itf
 
 
+
+
+
+
+
+
+
+
         IF(config_flags%polar ) then
            msfuxt = MIN(msfux(i,j), msfxffl)
         ELSE
@@ -2588,6 +2631,7 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
            max_vert_cfl = vert_cfl ; maxi = i ; maxj = j ; maxk = k 
            maxdub = w(i,k,j) ; maxdeta = -1./rdnw(k)
         ENDIF
+
         
         horiz_cfl = max( abs(u(i,k,j) * rdx * msfuxt * dt),                          &
              abs(v(i,k,j) * rdy * msfvy(i,j) * dt) )
@@ -2597,8 +2641,10 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
         endif
         
         if(vert_cfl .gt. w_beta)then
+
            WRITE(temp,*)i,j,k,' vert_cfl,w,d(eta)=',vert_cfl,w(i,k,j),-1./rdnw(k)
            CALL wrf_debug ( 100 , TRIM(temp) )
+
            if ( vert_cfl > 2. ) some = some + 1
         endif
      END DO
@@ -2611,9 +2657,11 @@ SUBROUTINE w_damp( rw_tend, max_vert_cfl,max_horiz_cfl, &
      WRITE(temp,*)some,                                            &
             ' points exceeded cfl=2 in domain '//TRIM(grid_str)//' at time '//TRIM(time_str)//' hours'
      CALL wrf_debug ( 0 , TRIM(temp) )
+
      WRITE(temp,*)'MAX AT i,j,k: ',maxi,maxj,maxk,' vert_cfl,w,d(eta)=',max_vert_cfl, &
                              maxdub,maxdeta
      CALL wrf_debug ( 0 , TRIM(temp) )
+
    ENDIF
 
 END SUBROUTINE w_damp
@@ -4371,6 +4419,7 @@ END SUBROUTINE curvature
 
 
 
+
 SUBROUTINE zero_tend ( tendency,                     &
                        ids, ide, jds, jde, kds, kde, &
                        ims, ime, jms, jme, kms, kme, &
@@ -5261,6 +5310,9 @@ END SUBROUTINE phy_prep_part2
      DO k = k_start, k_end
      DO i = i_start, i_end
 
+
+
+
        th_phy(i,k,j) = t_new(i,k,j) + t0
        h_diabatic(i,k,j) = th_phy(i,k,j)
        qv_diabatic(i,k,j) = qv(i,k,j)
@@ -5321,6 +5373,9 @@ END SUBROUTINE phy_prep_part2
                                        qv,qv_diabatic,            &
                                        qc,qc_diabatic,            &
                                        config_flags,              &
+
+
+
                                        ids,ide, jds,jde, kds,kde, &
                                        ims,ime, jms,jme, kms,kme, &
                                        its,ite, jts,jte, kts,kte )
@@ -5347,6 +5402,12 @@ END SUBROUTINE phy_prep_part2
    REAL, DIMENSION( ims:ime , kms:kme, jms:jme ),        &
          INTENT(IN   ) ::                           qv,  &
                                                     qc
+
+
+
+
+
+
 
 
    REAL mpten, mptenmax, mptenmin
@@ -5387,6 +5448,7 @@ END SUBROUTINE phy_prep_part2
 
 
 
+
      IF ( config_flags%no_mp_heating .eq. 0 ) THEN
        mptenmax = 0.
        mptenmin = 999.
@@ -5409,7 +5471,9 @@ END SUBROUTINE phy_prep_part2
           mpten=min(config_flags%mp_tend_lim*dt, mpten)
           mpten=max(-config_flags%mp_tend_lim*dt, mpten)
 
+
          t_new(i,k,j) = t_new(i,k,j) + mpten
+
          h_diabatic(i,k,j) =  mpten/dt
 
 
@@ -6276,3 +6340,5 @@ END SUBROUTINE thetam_to_theta
 
 
 END MODULE module_big_step_utilities_em
+
+

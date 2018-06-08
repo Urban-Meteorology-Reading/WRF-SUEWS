@@ -3,6 +3,9 @@
 PROGRAM real_data
 
    USE module_machine
+
+
+
    USE module_domain, ONLY : domain, alloc_and_configure_domain, &
         domain_clock_set, head_grid, program_name, domain_clockprint, &
         set_current_grid_ptr
@@ -13,11 +16,21 @@ PROGRAM real_data
         initial_config, get_config_as_buffer, set_config_as_buffer
    USE module_timing
    USE module_state_description, ONLY : realonly, THOMPSONAERO
+
+
+
    USE module_symbols_util, ONLY: wrfu_cal_gregorian
+
    USE module_check_a_mundo
+
+
+
+
+
    USE module_utility, ONLY : WRFU_finalize
 
    IMPLICIT NONE
+
 
 
    REAL    :: time , bdyfrq
@@ -34,6 +47,12 @@ PROGRAM real_data
    INTEGER :: max_dom, domain_id , grid_id , parent_id , parent_id1 , id
    INTEGER :: e_we , e_sn , i_parent_start , j_parent_start
    INTEGER :: idum1, idum2 
+
+
+
+
+
+
    LOGICAL found_the_id
 
    INTEGER :: ids , ide , jds , jde , kds , kde
@@ -59,7 +78,9 @@ real::t1,t2
 
    LOGICAL :: ok_so_far
 
+
    CHARACTER (LEN=10) :: release_version = 'V3.9.1.1  '
+
 
    
 
@@ -69,6 +90,9 @@ real::t1,t2
    program_name = "REAL_EM " // TRIM(release_version) // " PREPROCESSOR"
 
 
+
+
+
    
    
    
@@ -76,12 +100,18 @@ real::t1,t2
 
    CALL       wrf_debug ( 100 , 'real_em: calling init_modules ' )
    CALL init_modules(1)   
+
+
+
    CALL WRFU_Initialize( defaultCalKind=WRFU_CAL_GREGORIAN, rc=rc )
+
    CALL init_modules(2)   
 
    
 
+
    CALL initial_config
+
 
    
    
@@ -111,7 +141,7 @@ real::t1,t2
    CALL nl_get_max_dom ( 1 , max_dom )
 
    IF ( model_config_rec%interval_seconds .LE. 0 ) THEN
-     CALL wrf_error_fatal3("<stdin>",114,&
+     CALL wrf_error_fatal3("<stdin>",144,&
 'namelist value for interval_seconds must be > 0')
    END IF
 
@@ -169,7 +199,7 @@ real::t1,t2
                                                  kid        = sibling_count )
                grid => another_grid
             ELSE
-              CALL wrf_error_fatal3("<stdin>",172,&
+              CALL wrf_error_fatal3("<stdin>",202,&
 'real_em.F: Could not find the parent domain')
             END IF
          END IF
@@ -207,7 +237,7 @@ real::t1,t2
             END IF
          END DO
          IF ( .NOT. ok_so_far ) THEN
-            CALL wrf_error_fatal3("<stdin>",210,&
+            CALL wrf_error_fatal3("<stdin>",240,&
 'fix namelist.input settings' )
          END IF
 
@@ -218,6 +248,12 @@ real::t1,t2
 
          
          
+
+
+
+
+
+
 
 
          
@@ -253,6 +289,11 @@ SUBROUTINE med_sidata_input ( grid , config_flags )
    USE module_bc_time_utilities
    USE module_initialize_real
    USE module_optional_input
+
+
+
+
+
 
    USE module_wps_io_arw
    USE module_date_time
@@ -370,6 +411,7 @@ real::t1,t2,t3,t4
       CALL nl_get_io_form_auxinput1( 1, io_form_auxinput1 )
 
       SELECT CASE ( use_package(io_form_auxinput1) )
+
       CASE ( IO_NETCDF , IO_PNETCDF , IO_PIO )
 
 
@@ -382,7 +424,7 @@ real::t1,t2,t3,t4
       END IF
       CALL open_r_dataset ( idsi, TRIM(si_inpname) , grid , config_flags , "DATASET=AUXINPUT1", ierr )
       IF ( ierr .NE. 0 ) THEN
-         CALL wrf_error_fatal3("<stdin>",385,&
+         CALL wrf_error_fatal3("<stdin>",427,&
 'error opening ' // TRIM(si_inpname) // &
                                ' for input; bad date in namelist or file not in directory' )
       END IF
@@ -409,6 +451,8 @@ real::t1,t2,t3,t4
       
       CALL       wrf_debug ( 100 , 'med_sidata_input: back from init_domain' )
       CALL close_dataset ( idsi , config_flags , "DATASET=AUXINPUT1" )
+
+
       CASE ( IO_INTIO )
 
 
@@ -422,7 +466,7 @@ real::t1,t2,t3,t4
 
         current_date_char(11:11)='_'
 
-        CALL wrf_error_fatal3("<stdin>",425,&
+        CALL wrf_error_fatal3("<stdin>",469,&
 "not supporting binary WRFSI in this code")
         current_date_char(11:11)='T'
 
@@ -436,8 +480,9 @@ real::t1,t2,t3,t4
 
         CALL read_wps ( grid, trim(si_inpname), current_date_char, config_flags%num_metgrid_levels )
       ENDIF
+
       CASE DEFAULT
-        CALL wrf_error_fatal3("<stdin>",440,&
+        CALL wrf_error_fatal3("<stdin>",485,&
 'real: not valid io_form_auxinput1')
       END SELECT
 
@@ -448,6 +493,7 @@ real::t1,t2,t3,t4
       WRITE ( wrf_err_message , FMT='(A,I10,A)' ) 'Timing for processing ',NINT(t4-t3) ,' s.'
       CALL wrf_debug( 0, wrf_err_message )
       CALL model_to_grid_config_rec ( grid%id , model_config_rec , config_flags )
+
 
 
       CALL cpu_time ( t3 )
@@ -495,13 +541,20 @@ SUBROUTINE compute_si_start_and_end (  &
 
    CHARACTER(LEN=19) :: current_date_char , start_date_char , end_date_char , next_date_char
 
+
+
+
+
+
+
    WRITE ( start_date_char , FMT = '(I4.4,"-",I2.2,"-",I2.2,"_",I2.2,":",I2.2,":",I2.2)' ) &
            start_year,start_month,start_day,start_hour,start_minute,start_second
    WRITE (   end_date_char , FMT = '(I4.4,"-",I2.2,"-",I2.2,"_",I2.2,":",I2.2,":",I2.2)' ) &
              end_year,  end_month,  end_day,  end_hour,  end_minute,  end_second
 
+
    IF ( end_date_char .LT. start_date_char ) THEN
-      CALL wrf_error_fatal3("<stdin>",504,&
+      CALL wrf_error_fatal3("<stdin>",557,&
 'Ending date in namelist ' // end_date_char // ' prior to beginning date ' // start_date_char )
    END IF
 
@@ -530,7 +583,7 @@ SUBROUTINE compute_si_start_and_end (  &
          IF ( ( time_loop_max .EQ. 1 ) .AND. ( start_date_char .NE. end_date_char ) ) THEN
             PRINT *,'You might have set the end time in the namelist.input for the model'         
             PRINT *,'Regional domains require more than one time-period to process, for BC generation'
-            CALL wrf_error_fatal3("<stdin>",533,&
+            CALL wrf_error_fatal3("<stdin>",586,&
 "Make the end time at least one 'interval_seconds' beyond the start time" )
          END IF
          EXIT loop_count
@@ -615,7 +668,7 @@ real::t1,t2
      CALL wrf_message( 'the decomposed patch.                                                    ')
      WRITE(message,fmt='("ips=",i4,", ipe=",i4,", jps=",i4,", jpe=",i4,", spec_bdy_width=",i2)') ips,ipe,jps,jpe,spec_bdy_width
      CALL wrf_message( message )
-     CALL wrf_error_fatal3("<stdin>",618,&
+     CALL wrf_error_fatal3("<stdin>",671,&
 'Submit the real program again with fewer processors ')
    END IF
 
@@ -678,7 +731,7 @@ real::t1,t2
       CALL construct_filename1( inpname , 'wrfinput' , grid%id , 2 )
       CALL open_w_dataset ( id1, TRIM(inpname) , grid , config_flags , output_input , "DATASET=INPUT", ierr )
       IF ( ierr .NE. 0 ) THEN
-         CALL wrf_error_fatal3("<stdin>",681,&
+         CALL wrf_error_fatal3("<stdin>",734,&
 'real: error opening wrfinput for writing' )
       END IF
       CALL output_input ( id1, grid , config_flags , ierr )
@@ -689,7 +742,7 @@ real::t1,t2
            CALL construct_filename1( inpname , 'wrflowinp' , grid%id , 2 )
            CALL open_w_dataset ( id4, TRIM(inpname) , grid , config_flags , output_auxinput4 , "DATASET=AUXINPUT4", ierr )
            IF ( ierr .NE. 0 ) THEN
-              CALL wrf_error_fatal3("<stdin>",692,&
+              CALL wrf_error_fatal3("<stdin>",745,&
 'real: error opening wrflowinp for writing' )
            END IF
            CALL output_auxinput4 ( id4, grid , config_flags , ierr )
@@ -833,7 +886,7 @@ real::t1,t2
             CALL construct_filename1( bdyname , 'wrfbdy' , grid%id , 2 )
             CALL open_w_dataset ( id, TRIM(bdyname) , grid , config_flags , output_boundary , "DATASET=BOUNDARY", ierr )
             IF ( ierr .NE. 0 ) THEN
-               CALL wrf_error_fatal3("<stdin>",836,&
+               CALL wrf_error_fatal3("<stdin>",889,&
 'real: error opening wrfbdy for writing' )
             END IF
          END IF
@@ -841,7 +894,7 @@ real::t1,t2
             CALL construct_filename1( inpname , 'wrffdda' , grid%id , 2 )
             CALL open_w_dataset ( id2, TRIM(inpname) , grid , config_flags , output_auxinput10 , "DATASET=AUXINPUT10", ierr )
             IF ( ierr .NE. 0 ) THEN
-               CALL wrf_error_fatal3("<stdin>",844,&
+               CALL wrf_error_fatal3("<stdin>",897,&
 'real: error opening wrffdda for writing' )
             END IF
          END IF
@@ -1065,7 +1118,7 @@ real::t1,t2
          CALL construct_filename2a ( inpname , 'wrfinput_d<domain>.<date>' , grid%id , 2 , TRIM(current_date) )
          CALL open_w_dataset ( id1, inpname , grid , config_flags , output_input , "DATASET=INPUT", ierr )
          IF ( ierr .NE. 0 ) THEN
-            CALL wrf_error_fatal3("<stdin>",1068,&
+            CALL wrf_error_fatal3("<stdin>",1121,&
 'real: error opening' // inpname // ' for writing' )
          END IF
          CALL output_input ( id1, grid , config_flags , ierr )
@@ -1226,3 +1279,5 @@ real::t1,t2
    END IF
 
 END SUBROUTINE assemble_output
+
+

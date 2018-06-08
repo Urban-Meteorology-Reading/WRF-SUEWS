@@ -77,6 +77,7 @@ wrf_err_message )
 
 
 
+
 IF      ( ( grid%id .EQ. 1 ) .OR. ( config_flags%fine_input_stream .EQ. 0 ) ) THEN
    CALL wrf_debug              (   0 , 'med_initialdata_input: calling input_input' )
    CALL input_input      ( fid ,  grid , config_flags , ierr )
@@ -179,9 +180,10 @@ ELSE IF   ( config_flags%fine_input_stream .EQ. 24 ) THEN
    CALL wrf_debug              ( 100 , 'med_initialdata_input: back from input_auxinput24' )
 ELSE
   WRITE( message , '("med_initialdata_input: bad fine_input_stream = ",I4)') config_flags%fine_input_stream
-  CALL wrf_error_fatal3("<stdin>",182,&
+  CALL wrf_error_fatal3("<stdin>",183,&
 message )
 END IF
+
 
 
         CALL close_dataset ( fid , config_flags , "DATASET=INPUT" )
@@ -207,7 +209,7 @@ END IF
         
         IF ( ierr .NE. 0 ) THEN
           WRITE( wrf_err_message , * ) 'program wrf: error opening ',TRIM(inpname),' for reading ierr=',ierr
-          CALL wrf_error_fatal3("<stdin>",210,&
+          CALL wrf_error_fatal3("<stdin>",212,&
 wrf_err_message )
         ENDIF
            
@@ -220,12 +222,20 @@ wrf_err_message )
        ENDIF
 
 
+
+
+
+
+
+
      ENDIF
      grid%imask_nostag = 1
      grid%imask_xstag = 1
      grid%imask_ystag = 1
      grid%imask_xystag = 1
+
      grid%press_adj = .FALSE.
+
      CALL start_domain ( grid , .TRUE. )
    ELSE
 
@@ -239,7 +249,7 @@ wrf_err_message )
      CALL open_r_dataset ( fid , TRIM(rstname) , grid , config_flags , "DATASET=RESTART", ierr )
      IF ( ierr .NE. 0 ) THEN
        WRITE( message , '("program wrf: error opening ",A32," for reading")') TRIM(rstname)
-       CALL wrf_error_fatal3("<stdin>",242,&
+       CALL wrf_error_fatal3("<stdin>",252,&
 message )
      ENDIF
      CALL input_restart ( fid,   grid , config_flags , ierr )
@@ -254,7 +264,9 @@ message )
      grid%imask_xstag = 1
      grid%imask_ystag = 1
      grid%imask_xystag = 1
+
      grid%press_adj = .FALSE.
+
      CALL start_domain ( grid , .TRUE. )
    ENDIF
 
@@ -292,7 +304,9 @@ SUBROUTINE med_shutdown_io ( grid , config_flags )
    grid_ptr => grid
    CALL med_shutdown_io_recurse ( grid_ptr , config_flags )
 
+
    CALL wrf_ioexit( ierr )    
+
 
    RETURN
 
@@ -326,6 +340,7 @@ RECURSIVE SUBROUTINE med_shutdown_io_recurse ( grid , config_flags )
 
 
 
+
 IF( grid%auxhist1_oid > 0 ) CALL close_dataset ( grid%auxhist1_oid, config_flags, 'DATASET=AUXHIST1' )
 IF( grid%auxhist2_oid > 0 ) CALL close_dataset ( grid%auxhist2_oid, config_flags, 'DATASET=AUXHIST2' )
 IF( grid%auxhist3_oid > 0 ) CALL close_dataset ( grid%auxhist3_oid, config_flags, 'DATASET=AUXHIST3' )
@@ -350,6 +365,7 @@ IF( grid%auxhist21_oid > 0 ) CALL close_dataset ( grid%auxhist21_oid, config_fla
 IF( grid%auxhist22_oid > 0 ) CALL close_dataset ( grid%auxhist22_oid, config_flags, 'DATASET=AUXHIST22' )
 IF( grid%auxhist23_oid > 0 ) CALL close_dataset ( grid%auxhist23_oid, config_flags, 'DATASET=AUXHIST23' )
 IF( grid%auxhist24_oid > 0 ) CALL close_dataset ( grid%auxhist24_oid, config_flags, 'DATASET=AUXHIST24' )
+
 
      grid_ptr => grid
      DO WHILE ( ASSOCIATED( grid_ptr ) )
@@ -376,6 +392,11 @@ SUBROUTINE med_add_config_info_to_grid ( grid )
    
 
    TYPE(domain) , TARGET          :: grid
+
+
+
+
+
 
 
 
@@ -2439,7 +2460,10 @@ SUBROUTINE med_add_config_info_to_grid ( grid )
  grid % chem_opt                   = model_config_rec % chem_opt (grid%id)
 
 
+
    RETURN
 
 END SUBROUTINE med_add_config_info_to_grid
+
+
 

@@ -220,11 +220,17 @@ RECURSIVE SUBROUTINE adapt_timestep(grid, config_flags)
      
         num_small_steps = CEILING( grid%parents(1)%ptr%dt / dt )
 
+
+
+
         dtInterval = domain_get_time_step(grid%parents(1)%ptr) / &
              num_small_steps
      else
 
         num_small_steps = FLOOR( grid%parents(1)%ptr%dt / dt )
+
+
+
 
         if (num_small_steps < 1) then
            num_small_steps = 1
@@ -239,6 +245,7 @@ RECURSIVE SUBROUTINE adapt_timestep(grid, config_flags)
   
   
   dt = real_time(dtInterval)
+
 
 
   if ((grid%nested) .and. (grid%adapt_step_using_child)) then 
@@ -550,3 +557,5 @@ FUNCTION real_time_r8( timeinterval ) RESULT ( out_time )
          out_time = REAL(dt_whole) + REAL(dt_num,8)/REAL(dt_den,8)
       endif
 END FUNCTION real_time_r8
+
+

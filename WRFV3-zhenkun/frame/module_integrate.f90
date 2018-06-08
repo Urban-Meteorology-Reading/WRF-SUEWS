@@ -17,6 +17,14 @@ RECURSIVE SUBROUTINE integrate ( grid )
    USE module_utility
    USE module_cpl, ONLY : coupler_on, cpl_snd, cpl_defdomain
 
+
+
+
+
+
+
+
+
    IMPLICIT NONE
 
    
@@ -214,6 +222,7 @@ RECURSIVE SUBROUTINE integrate ( grid )
      END SUBROUTINE med_nest_force
 
 
+
        
        
      SUBROUTINE med_nest_feedback ( parent , grid , config_flags )
@@ -287,6 +296,9 @@ END IF
                CALL med_pre_nest_initial ( grid , nestid , config_flags )
                CALL alloc_and_configure_domain ( domain_id  = nestid ,   &
 
+
+
+
                                                  grid       = new_nest , &
                                                  parent     = grid ,     &
                                                  kid        = kid        )
@@ -312,6 +324,9 @@ ENDIF
 
             grid_ptr => grid
             DO WHILE ( ASSOCIATED( grid_ptr ) )
+
+
+
 IF ( grid_ptr%active_this_task ) THEN
                   CALL set_current_grid_ptr( grid_ptr )
                   CALL wrf_debug( 100 , 'module_integrate: calling solve interface ' )
@@ -369,8 +384,20 @@ ENDIF
                      CALL med_nest_feedback ( grid_ptr , grid_ptr%nests(kid)%ptr , config_flags )
                      CALL wrf_debug( 100 , 'module_integrate: back from med_nest_feedback ' )
                    END IF
+
+
+
+
+
+
                  END IF
                END DO
+
+
+
+
+
+
                IF (coupler_on) CALL cpl_snd( grid_ptr ) 
                grid_ptr => grid_ptr%sibling
             END DO
@@ -379,11 +406,15 @@ ENDIF
             IF ( wrf_dm_on_monitor() ) THEN
 IF ( grid%active_this_task ) THEN
                CALL domain_clock_get ( grid, current_timestr=message2 )
+
                if (config_flags%use_adaptive_time_step) then
                   WRITE ( message , FMT = '("main (dt=",F6.2,"): time ",A," on domain ",I3)' ) grid%dt, TRIM(message2), grid%id
                else
                   WRITE ( message , FMT = '("main: time ",A," on domain ",I3)' ) TRIM(message2), grid%id
                endif
+
+
+
                CALL end_timing ( TRIM(message) )
 ENDIF 
             ENDIF
@@ -423,4 +454,5 @@ ENDIF
 END SUBROUTINE integrate
 
 END MODULE module_integrate
+
 

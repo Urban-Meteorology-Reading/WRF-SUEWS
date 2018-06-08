@@ -1,4 +1,11 @@
 
+
+
+
+
+
+
+
 MODULE module_polarfft
 
   USE module_model_constants
@@ -79,7 +86,9 @@ SUBROUTINE pxft ( grid                          &
                  ,ipsx,ipex,jpsx,jpex,kpsx,kpex )
    USE module_state_description
    USE module_domain, ONLY : domain
+
    USE module_dm
+
    IMPLICIT NONE
    
    TYPE(domain) , TARGET          :: grid
@@ -110,7 +119,10 @@ integer myproc, i, j, k
    LOGICAL piggyback_mu, piggyback_mut
    INTEGER ij, k_end
 
+
+
    INTEGER itrace
+
 
 
    piggyback_mu  = flag_mu .EQ. 1
@@ -161,6 +173,7 @@ call wrf_get_myproc(myproc)
        grid%u_2(ips:ipe,kde,jps:jpe) = grid%mu_2(ips:ipe,jps:jpe) 
      ENDIF
 
+
      CALL polar_filter_3d( grid%v_2, grid%clat, .false.,     &
                                 fft_filter_lat, dclat,             &
                                 ids, ide, jds, jde, kds, kde,       &
@@ -177,6 +190,7 @@ call wrf_get_myproc(myproc)
                                 ips, ipe, jps, jpe, kps, k_end )
 
 
+
      IF ( piggyback_mu ) THEN
        grid%mu_2(ips:ipe,jps:jpe) = grid%u_2(ips:ipe,kde,jps:jpe)
        piggyback_mu = .FALSE.
@@ -189,6 +203,7 @@ call wrf_get_myproc(myproc)
      IF ( piggyback_mu ) THEN
        grid%t_2(ips:ipe,kde,jps:jpe) = grid%mu_2(ips:ipe,jps:jpe)
      ENDIF
+
      k_end = MIN(kde-1,kpe)
      IF ( piggyback_mu ) k_end = MIN(kde,kpe)
 
@@ -207,6 +222,7 @@ call wrf_get_myproc(myproc)
                              ips, ipe, jps, jpe, kps, k_end )
      END IF
 
+
      IF ( piggyback_mu ) THEN
        grid%mu_2(ips:ipe,jps:jpe) = grid%t_2(ips:ipe,kde,jps:jpe)
        piggyback_mu = .FALSE.
@@ -217,6 +233,7 @@ call wrf_get_myproc(myproc)
 
    IF ( flag_wph .EQ. 1 ) THEN
       
+
 
       CALL polar_filter_3d( grid%w_2, grid%clat,  .false.,     &
                                  fft_filter_lat, 0.,                &
@@ -229,17 +246,20 @@ call wrf_get_myproc(myproc)
                                  ids, ide, jds, jde, kds, kde,       &
                                  ims, ime, jms, jme, kms, kme, &
                                  ips, ipe, jps, jpe, kps, kpe )
+
    ENDIF
 
 
 
    IF ( flag_ww .EQ. 1 ) THEN
       
+
       CALL polar_filter_3d( grid%ww_m, grid%clat, .false.,     &
                                  fft_filter_lat, 0.,                &
                                  ids, ide, jds, jde, kds, kde,       &
                                  ims, ime, jms, jme, kms, kme, &
                                  ips, ipe, jps, jpe, kps, kpe )
+
    ENDIF
 
 
@@ -248,6 +268,7 @@ call wrf_get_myproc(myproc)
      IF ( piggyback_mut ) THEN
        grid%ru_m(ips:ipe,kde,jps:jpe) = grid%mut(ips:ipe,jps:jpe)
      ENDIF
+
 
      CALL polar_filter_3d( grid%rv_m, grid%clat, .false.,     &
                                 fft_filter_lat, dclat,             &
@@ -263,6 +284,7 @@ call wrf_get_myproc(myproc)
                                 ids, ide, jds, jde, kds, kde-1,       &
                                 ims, ime, jms, jme, kms, kme, &
                                 ips, ipe, jps, jpe, kps, k_end )
+
      IF ( piggyback_mut ) THEN
        grid%mut(ips:ipe,jps:jpe) = grid%ru_m(ips:ipe,kde,jps:jpe)
        piggyback_mut = .FALSE.
@@ -273,6 +295,7 @@ call wrf_get_myproc(myproc)
 
    IF ( flag_moist .GE. PARAM_FIRST_SCALAR ) THEN
      itrace = flag_moist
+
      CALL polar_filter_3d( moist(ims,kms,jms,itrace), grid%clat, .false.,     &
                            fft_filter_lat, 0.,                &
                            ids, ide, jds, jde, kds, kde,       &
@@ -287,12 +310,14 @@ call wrf_get_myproc(myproc)
                              ims, ime, jms, jme, kms, kme, &
                              ips, ipe, jps, jpe, kps, MIN(kpe,kde-1) )
      END IF
+
    ENDIF
 
 
 
    IF ( flag_chem .GE. PARAM_FIRST_SCALAR ) THEN
      itrace = flag_chem
+
      CALL polar_filter_3d( chem(ims,kms,jms,itrace), grid%clat, .false. ,     &
                            fft_filter_lat, 0.,                &
                            ids, ide, jds, jde, kds, kde,       &
@@ -307,12 +332,14 @@ call wrf_get_myproc(myproc)
                              ims, ime, jms, jme, kms, kme, &
                              ips, ipe, jps, jpe, kps, MIN(kpe,kde-1) )
      END IF
+
    ENDIF
 
 
 
    IF ( flag_tracer .GE. PARAM_FIRST_SCALAR ) THEN
      itrace = flag_tracer
+
      CALL polar_filter_3d( tracer(ims,kms,jms,itrace), grid%clat, .false. ,     &
                            fft_filter_lat, 0.,                &
                            ids, ide, jds, jde, kds, kde,       &
@@ -327,12 +354,14 @@ call wrf_get_myproc(myproc)
                              ims, ime, jms, jme, kms, kme, &
                              ips, ipe, jps, jpe, kps, MIN(kpe,kde-1) )
      END IF
+
    ENDIF
 
 
 
    IF ( flag_scalar .GE. PARAM_FIRST_SCALAR ) THEN
      itrace = flag_scalar
+
      CALL polar_filter_3d( scalar(ims,kms,jms,itrace) , grid%clat, .false. ,     &
                            fft_filter_lat, 0.,                &
                            ids, ide, jds, jde, kds, kde,       &
@@ -347,14 +376,15 @@ call wrf_get_myproc(myproc)
                              ims, ime, jms, jme, kms, kme, &
                              ips, ipe, jps, jpe, kps, MIN(kpe,kde-1) )
      END IF
+
    ENDIF
 
    IF ( flag_mu .EQ. 1 .AND. piggyback_mu ) THEN
-      CALL wrf_error_fatal3("<stdin>",353,&
+      CALL wrf_error_fatal3("<stdin>",383,&
 "mu needed to get piggybacked on a transpose and did not")
    ENDIF
    IF ( flag_mut .EQ. 1 .AND. piggyback_mut ) THEN
-      CALL wrf_error_fatal3("<stdin>",357,&
+      CALL wrf_error_fatal3("<stdin>",387,&
 "mut needed to get piggybacked on a transpose and did not")
    ENDIF
 
@@ -396,7 +426,7 @@ SUBROUTINE polar_filter_3d( f, xlat, piggyback, fft_filter_lat, dvlat, &
   
   IF ((its /= ids) .OR. (ite /= ide)) THEN
      WRITE ( wrf_err_message , * ) 'module_polarfft: 3d: (its /= ids) or (ite /= ide)',its,ids,ite,ide
-     CALL wrf_error_fatal3("<stdin>",399,&
+     CALL wrf_error_fatal3("<stdin>",429,&
 TRIM( wrf_err_message ) )
   END IF
 
@@ -635,7 +665,7 @@ END SUBROUTINE polar_filter_fft_2d_ncar
       
 
       IF ( ( its .NE. ids ) .OR. ( ite .NE. ide ) ) THEN
-         CALL wrf_error_fatal3("<stdin>",638,&
+         CALL wrf_error_fatal3("<stdin>",668,&
 'filtering assumes all values on X' )
       END IF
 
@@ -802,7 +832,7 @@ END SUBROUTINE polar_filter_fft_2d_ncar
       
 
       IF ( ( its .NE. ids ) .OR. ( ite .NE. ide ) ) THEN
-         CALL wrf_error_fatal3("<stdin>",805,&
+         CALL wrf_error_fatal3("<stdin>",835,&
 'filtering assumes all values on X' )
       END IF
 
@@ -950,4 +980,6 @@ END SUBROUTINE polar_filter_fft_2d_ncar
 
 
 END MODULE module_polarfft
+
+
 

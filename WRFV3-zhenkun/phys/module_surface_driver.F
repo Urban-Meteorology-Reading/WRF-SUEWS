@@ -2475,7 +2475,7 @@ CONTAINS
           CALL suewsdrv(year, day_int, hour, minute,                   &
              t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
              psfc, rainbl, NLCAT, LANDUSEF, ht,                    &
-             hfx, qfx, lh, tsk, qsfc,                              &
+             hfx, qfx, lh, tsk, qsfc, chklowq,                     &
              !LAI_SUEWS,                                            &
              !qn1_store_SUEWS,                                      &
              !qn1_av_store_SUEWS,                                   &

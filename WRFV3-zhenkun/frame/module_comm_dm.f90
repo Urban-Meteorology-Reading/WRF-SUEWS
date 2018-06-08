@@ -12,6 +12,10 @@ MODULE module_comm_dm
    PRIVATE module_comm_dm_dummy
 
 
+
+
+
+
    INTEGER, PRIVATE :: idim1, idim2, idim3, idim4, idim5, idim6, idim7
 
 
@@ -28,5 +32,10 @@ CONTAINS
 
 
 
+
+
+
 END MODULE module_comm_dm
+
+
 

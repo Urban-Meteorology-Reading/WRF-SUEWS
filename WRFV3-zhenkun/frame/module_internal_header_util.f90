@@ -122,6 +122,7 @@ SUBROUTINE int_gen_write_field_header ( hdrbuf, hdrbufsize, itypesize, ftypesize
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -156,6 +157,7 @@ SUBROUTINE int_gen_write_field_header ( hdrbuf, hdrbufsize, itypesize, ftypesize
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER,       INTENT(INOUT)  ::  hdrbuf(*)
   INTEGER,       INTENT(INOUT)  ::  hdrbufsize
   INTEGER,       INTENT(INOUT)  ::  itypesize, ftypesize
@@ -225,6 +227,7 @@ SUBROUTINE int_get_write_field_header ( hdrbuf, hdrbufsize, itypesize, ftypesize
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -259,6 +262,7 @@ SUBROUTINE int_get_write_field_header ( hdrbuf, hdrbufsize, itypesize, ftypesize
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER,       INTENT(INOUT)  ::  hdrbuf(*)
   INTEGER,       INTENT(OUT)    ::  hdrbufsize
   INTEGER,       INTENT(INOUT)  ::  itypesize, ftypesize
@@ -347,6 +351,7 @@ SUBROUTINE int_gen_ofr_header( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -381,6 +386,7 @@ SUBROUTINE int_gen_ofr_header( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER,       INTENT(INOUT) ::  hdrbuf(*)
   INTEGER,       INTENT(OUT)   ::  hdrbufsize
   INTEGER,       INTENT(INOUT) ::  itypesize
@@ -412,6 +418,7 @@ SUBROUTINE int_get_ofr_header( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -446,6 +453,7 @@ SUBROUTINE int_get_ofr_header( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER,       INTENT(INOUT) ::  hdrbuf(*)
   INTEGER,       INTENT(OUT)   ::  hdrbufsize
   INTEGER,       INTENT(INOUT) ::  itypesize
@@ -501,6 +509,7 @@ SUBROUTINE int_gen_ofwb_header( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -535,6 +544,7 @@ SUBROUTINE int_gen_ofwb_header( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER,       INTENT(INOUT) :: hdrbuf(*)
   INTEGER,       INTENT(OUT)   :: hdrbufsize
   INTEGER,       INTENT(INOUT) :: itypesize
@@ -572,6 +582,7 @@ SUBROUTINE int_get_ofwb_header( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -606,6 +617,7 @@ SUBROUTINE int_get_ofwb_header( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER,       INTENT(INOUT)  :: hdrbuf(*)
   INTEGER,       INTENT(OUT)    :: hdrbufsize
   INTEGER,       INTENT(INOUT)  :: itypesize
@@ -664,6 +676,7 @@ SUBROUTINE int_gen_handle_header( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -698,6 +711,7 @@ SUBROUTINE int_gen_handle_header( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT) ::  hdrbuf(*)
   INTEGER, INTENT(OUT)   ::  hdrbufsize
   INTEGER, INTENT(INOUT) ::  itypesize
@@ -723,6 +737,7 @@ SUBROUTINE int_get_handle_header( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -757,6 +772,7 @@ SUBROUTINE int_get_handle_header( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT) ::  hdrbuf(*)
   INTEGER, INTENT(OUT)   ::  hdrbufsize
   INTEGER, INTENT(INOUT) ::  itypesize
@@ -806,6 +822,7 @@ SUBROUTINE int_gen_ti_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -840,6 +857,7 @@ SUBROUTINE int_gen_ti_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -896,6 +914,7 @@ SUBROUTINE int_gen_ti_header_integer_varna( hdrbuf, hdrbufsize, itypesize, types
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -930,6 +949,7 @@ SUBROUTINE int_gen_ti_header_integer_varna( hdrbuf, hdrbufsize, itypesize, types
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -958,6 +978,7 @@ SUBROUTINE int_gen_ti_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -992,6 +1013,7 @@ SUBROUTINE int_gen_ti_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1020,6 +1042,7 @@ SUBROUTINE int_get_ti_header_integer_varna( hdrbuf, hdrbufsize, itypesize, types
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1054,6 +1077,7 @@ SUBROUTINE int_get_ti_header_integer_varna( hdrbuf, hdrbufsize, itypesize, types
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1084,6 +1108,7 @@ SUBROUTINE int_get_ti_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1118,6 +1143,7 @@ SUBROUTINE int_get_ti_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1146,6 +1172,7 @@ SUBROUTINE int_get_ti_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1180,6 +1207,7 @@ SUBROUTINE int_get_ti_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1237,6 +1265,7 @@ SUBROUTINE int_gen_ti_header_char( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1271,6 +1300,7 @@ SUBROUTINE int_gen_ti_header_char( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize
@@ -1301,6 +1331,7 @@ SUBROUTINE int_get_ti_header_char( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1335,6 +1366,7 @@ SUBROUTINE int_get_ti_header_char( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize
@@ -1392,6 +1424,7 @@ SUBROUTINE int_gen_td_header_char( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1426,6 +1459,7 @@ SUBROUTINE int_gen_td_header_char( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize
@@ -1456,6 +1490,7 @@ SUBROUTINE int_get_td_header_char( hdrbuf, hdrbufsize, itypesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1490,6 +1525,7 @@ SUBROUTINE int_get_td_header_char( hdrbuf, hdrbufsize, itypesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize
@@ -1544,6 +1580,7 @@ SUBROUTINE int_gen_td_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1578,6 +1615,7 @@ SUBROUTINE int_gen_td_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1606,6 +1644,7 @@ SUBROUTINE int_gen_td_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1640,6 +1679,7 @@ SUBROUTINE int_gen_td_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1669,6 +1709,7 @@ SUBROUTINE int_get_td_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1703,6 +1744,7 @@ SUBROUTINE int_get_td_header_integer( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1731,6 +1773,7 @@ SUBROUTINE int_get_td_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1765,6 +1808,7 @@ SUBROUTINE int_get_td_header_real( hdrbuf, hdrbufsize, itypesize, typesize, &
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT)       ::  hdrbuf(*)
   INTEGER, INTENT(OUT)         ::  hdrbufsize
   INTEGER, INTENT(IN)          ::  itypesize, typesize
@@ -1805,6 +1849,7 @@ SUBROUTINE int_gen_noop_header ( hdrbuf, hdrbufsize, itypesize )
 !
 !</PRE>
 !</DESCRIPTION>
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1839,6 +1884,7 @@ SUBROUTINE int_gen_noop_header ( hdrbuf, hdrbufsize, itypesize )
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT) ::  hdrbuf(*)
   INTEGER, INTENT(OUT)   ::  hdrbufsize
   INTEGER, INTENT(INOUT) ::  itypesize
@@ -1861,6 +1907,7 @@ SUBROUTINE int_get_noop_header( hdrbuf, hdrbufsize, itypesize )
 !</PRE>
 !</DESCRIPTION>
   IMPLICIT NONE
+
   INTEGER, PARAMETER ::  int_ioexit			=  	     10
   INTEGER, PARAMETER ::  int_open_for_write_begin	=  	     20
   INTEGER, PARAMETER ::  int_open_for_write_commit	=  	     30
@@ -1895,6 +1942,7 @@ SUBROUTINE int_get_noop_header( hdrbuf, hdrbufsize, itypesize )
   INTEGER, PARAMETER ::  int_field 			=  	    530
   INTEGER, PARAMETER ::  int_var_info 			=  	    540
   INTEGER, PARAMETER ::  int_noop 			=  	    550
+
   INTEGER, INTENT(INOUT) ::  hdrbuf(*)
   INTEGER, INTENT(OUT)   ::  hdrbufsize
   INTEGER, INTENT(INOUT) ::  itypesize
@@ -1959,4 +2007,5 @@ SUBROUTINE int_unpack_string ( str, buf, n )
 END SUBROUTINE int_unpack_string
 
 END MODULE module_internal_header_util
+
 

@@ -2,8 +2,8 @@
 
 MODULE module_sf_slab
 
-
-
+   
+   
 
    REAL, PARAMETER :: DIFSL=5.e-7
 
@@ -223,7 +223,7 @@ CONTAINS
 
    INTEGER,  INTENT(IN   )   ::     ids,ide, jds,jde, kds,kde,  &
                                     ims,ime, jms,jme, kms,kme,  &
-                                    its,ite, jts,jte, kts,kte,J
+                                    its,ite, jts,jte, kts,kte,J 
 
    INTEGER , INTENT(IN)      ::     num_soil_layers
    LOGICAL,  INTENT(IN   )   ::     radiation
@@ -280,7 +280,7 @@ CONTAINS
    REAL,    DIMENSION( its:ite )          ::                    &
                                                            THX, &
                                                             QX, &
-                                                          SCR3
+                                                          SCR3 
 
    REAL,    DIMENSION( its:ite )          ::            DTHGDT, &
                                                            TG0, &
@@ -300,7 +300,7 @@ CONTAINS
    INTEGER :: I,K,NSOIL,ITSOIL,L,NK,RADSWTCH
    REAL    :: PS,PS1,XLDCOL,TSKX,RNSOIL,RHOG1,RHOG2,RHOG3,LAMDAG
    REAL    :: THG,ESG,QSG,HFXT,QFXT,CS,CSW,LAMG(4),THCON,PL
-
+ 
 
 
 
@@ -348,12 +348,12 @@ CONTAINS
          ENDIF
       ENDDO
 
-      XLDCOL=2.0
+      XLDCOL=2.0                                                                 
       DO 10 I=its,ite
-        XLDCOL=AMIN1(XLDCOL,XLAND(I))
-   10 CONTINUE
+        XLDCOL=AMIN1(XLDCOL,XLAND(I))                                          
+   10 CONTINUE                                                                   
 
-      IF(XLDCOL.GT.1.5)GOTO 90
+      IF(XLDCOL.GT.1.5)GOTO 90                                                   
 
 
 
@@ -361,19 +361,19 @@ CONTAINS
 
 
       DO 20 I=its,ite
-        IF((XLAND(I)-1.5).GE.0)THEN
-          XLD1(I)=0.
-        ELSE
-          XLD1(I)=1.
-        ENDIF
-   20 CONTINUE
+        IF((XLAND(I)-1.5).GE.0)THEN                                            
+          XLD1(I)=0.                                                             
+        ELSE                                                                     
+          XLD1(I)=1.                                                             
+        ENDIF                                                                    
+   20 CONTINUE                                                                   
 
 
 
 
 
       DO 50 I=its,ite
-        IF(XLD1(I).LT.0.5)GOTO 50
+        IF(XLD1(I).LT.0.5)GOTO 50                                                
 
 
         PS=PSFC(I)
@@ -381,12 +381,12 @@ CONTAINS
 
 
         TG0(I)=TSK(I)
-   50 CONTINUE
+   50 CONTINUE                                                                   
 
 
 
 
-      IF(num_soil_layers .gt. 1)NSOIL=1
+      IF(num_soil_layers .gt. 1)NSOIL=1                                                      
 
 
       IF (radiation) then
@@ -399,10 +399,10 @@ CONTAINS
         IF(XLD1(I).LT.0.5)GOTO 70
 
         OLTG(I)=TSK(I)*(P1000mb*0.001/PSFC(I))**ROVCP
-        UPFLUX(I)=RADSWTCH*STBOLT*TG0(I)**4
-        XINET(I)=EMISS(I)*(GLW(I)-UPFLUX(I))
-        RNET(I)=GSW(I)+XINET(I)
-        HM(I)=1.18*EOMEG*(TG0(I)-TMN(I))
+        UPFLUX(I)=RADSWTCH*STBOLT*TG0(I)**4                            
+        XINET(I)=EMISS(I)*(GLW(I)-UPFLUX(I))    
+        RNET(I)=GSW(I)+XINET(I)                                                
+        HM(I)=1.18*EOMEG*(TG0(I)-TMN(I))                                       
 
                 ESG=SVP1*EXP(SVP2*(TG0(I)-SVPT0)/(TG0(I)-SVP3))
                 QSG=EP2*ESG/(PSFC(I)-ESG)
@@ -410,95 +410,95 @@ CONTAINS
                 HFX(I)=FLHC(I)*(THG-THX(I))
                 QFX(I)=FLQC(I)*(QSG-QX(I))
                 LH(I)=QFX(I)*XLV
-        QS(I)=HFX(I)+QFX(I)*XLV
+        QS(I)=HFX(I)+QFX(I)*XLV                                
 
-        IF(num_soil_layers .EQ. 1)THEN
-          DTHGDT(I)=(RNET(I)-QS(I))/CAPG(I)-HM(I)
+        IF(num_soil_layers .EQ. 1)THEN                                                       
+          DTHGDT(I)=(RNET(I)-QS(I))/CAPG(I)-HM(I)                              
         ELSE
-          DTHGDT(I)=0.
-        ENDIF
-   70 CONTINUE
+          DTHGDT(I)=0.                                                           
+        ENDIF                                                                    
+   70 CONTINUE                                                                   
 
-      IF(num_soil_layers .gt. 1)THEN
-        NSOIL=1+IFIX(SOILFAC*4*DIFSL/DZS(1)*DELTSM/DZS(1))
-        RNSOIL=1./FLOAT(NSOIL)
+      IF(num_soil_layers .gt. 1)THEN                                                         
+        NSOIL=1+IFIX(SOILFAC*4*DIFSL/DZS(1)*DELTSM/DZS(1))   
+        RNSOIL=1./FLOAT(NSOIL)                                                   
 
 
 
-        DO ITSOIL=1,NSOIL
+        DO ITSOIL=1,NSOIL                                                        
           DO I=its,ite
              DO L=1,num_soil_layers-1
-              IF(XLD1(I).LT.0.5)GOTO 75
-              IF(L.EQ.1.AND.ITSOIL.GT.1)THEN
+              IF(XLD1(I).LT.0.5)GOTO 75                                          
+              IF(L.EQ.1.AND.ITSOIL.GT.1)THEN                                     
 
-                PS1=(PSFCPA(I)/P1000mb)**ROVCP
+                PS1=(PSFCPA(I)/P1000mb)**ROVCP    
 
 
                 PS=PSFC(I)
-                THG=TSLB2D(I,1)/PS1
-                ESG=SVP1*EXP(SVP2*(TSLB2D(I,1)-SVPT0)/(TSLB2D(I,1) &
-                    -SVP3))
-                QSG=EP2*ESG/(PS-ESG)
+                THG=TSLB2D(I,1)/PS1                                              
+                ESG=SVP1*EXP(SVP2*(TSLB2D(I,1)-SVPT0)/(TSLB2D(I,1) & 
+                    -SVP3))                                                      
+                QSG=EP2*ESG/(PS-ESG)                                             
 
-                HFXT=FLHC(I)*(THG-THX(I))
+                HFXT=FLHC(I)*(THG-THX(I))                                     
                 QFXT=FLQC(I)*(QSG-QX(I))
-                QS(I)=HFXT+QFXT*XLV
+                QS(I)=HFXT+QFXT*XLV                                
 
-                HFX(I)=HFX(I)+HFXT
-                QFX(I)=QFX(I)+QFXT
-              ENDIF
-              FLUX(I,1)=RNET(I)-QS(I)
-              FLUX(I,L+1)=-DIFSL*CAPG(I)*(TSLB2D(I,L+1)-TSLB2D(I,L))/( &
-                          ZS(L+1)-ZS(L))
-              DTSDT(I)=-(FLUX(I,L+1)-FLUX(I,L))/(DZS(L)*CAPG(I))
-              TSLB2D(I,L)=TSLB2D(I,L)+DTSDT(I)*DELTSM*RNSOIL
-              IF(IFSNOW.EQ.1.AND.L.EQ.1)THEN
-                IF((SNOWC(I).GT.0..AND.TSLB2D(I,1).GT.273.16))THEN
-                  TSLB2D(I,1)=273.16
-                ENDIF
-              ENDIF
-              IF(L.EQ.1)DTHGDT(I)=DTHGDT(I)+RNSOIL*DTSDT(I)
-              IF(ITSOIL.EQ.NSOIL.AND.L.EQ.1)THEN
+                HFX(I)=HFX(I)+HFXT                                           
+                QFX(I)=QFX(I)+QFXT                                           
+              ENDIF                                                              
+              FLUX(I,1)=RNET(I)-QS(I)                                            
+              FLUX(I,L+1)=-DIFSL*CAPG(I)*(TSLB2D(I,L+1)-TSLB2D(I,L))/( & 
+                          ZS(L+1)-ZS(L))                                         
+              DTSDT(I)=-(FLUX(I,L+1)-FLUX(I,L))/(DZS(L)*CAPG(I))               
+              TSLB2D(I,L)=TSLB2D(I,L)+DTSDT(I)*DELTSM*RNSOIL                     
+              IF(IFSNOW.EQ.1.AND.L.EQ.1)THEN                              
+                IF((SNOWC(I).GT.0..AND.TSLB2D(I,1).GT.273.16))THEN             
+                  TSLB2D(I,1)=273.16                                             
+                ENDIF                                                            
+              ENDIF                                                              
+              IF(L.EQ.1)DTHGDT(I)=DTHGDT(I)+RNSOIL*DTSDT(I)                      
+              IF(ITSOIL.EQ.NSOIL.AND.L.EQ.1)THEN                                 
 
-                HFX(I)=HFX(I)*RNSOIL
-                QFX(I)=QFX(I)*RNSOIL
+                HFX(I)=HFX(I)*RNSOIL                                         
+                QFX(I)=QFX(I)*RNSOIL                                         
                 LH(I)=QFX(I)*XLV
-              ENDIF
-   75         CONTINUE
-            ENDDO
-          ENDDO
-        ENDDO
-      ENDIF
+              ENDIF                                                              
+   75         CONTINUE                                                           
+            ENDDO                                                                
+          ENDDO                                                                  
+        ENDDO                                                                    
+      ENDIF                                                                      
 
       DO 80 I=its,ite
-        IF(XLD1(I).LT.0.5) GOTO 80
-        TSKX=TG0(I)+DELTSM*DTHGDT(I)
+        IF(XLD1(I).LT.0.5) GOTO 80                                                
+        TSKX=TG0(I)+DELTSM*DTHGDT(I)                                             
 
 
 
         TSK(I)=TSKX
-   80 CONTINUE
+   80 CONTINUE                                                                   
 
 
 
 
 
-      IF(IFSNOW.EQ.0)GOTO 90
+      IF(IFSNOW.EQ.0)GOTO 90                                              
       DO 85 I=its,ite
-        IF(XLD1(I).LT.0.5)GOTO 85
+        IF(XLD1(I).LT.0.5)GOTO 85                                                
 
 
         TSCVN(I)=TSK(I)
-        IF((SNOWC(I).GT.0..AND.TSCVN(I).GT.273.16))THEN
-          TSCVN(I)=273.16
-        ELSE
-          TSCVN(I)=TSCVN(I)
-        ENDIF
+        IF((SNOWC(I).GT.0..AND.TSCVN(I).GT.273.16))THEN                        
+          TSCVN(I)=273.16                                                        
+        ELSE                                                                     
+          TSCVN(I)=TSCVN(I)                                                      
+        ENDIF                                                                    
 
         TSK(I)=TSCVN(I)
-   85 CONTINUE
+   85 CONTINUE                                                                   
 
-   90 CONTINUE
+   90 CONTINUE                                                                   
       DO I=its,ite
 
 
@@ -510,7 +510,7 @@ CONTAINS
         CHKLOWQ(I)=MAVAIL(I)
       ENDDO
 
-  140 CONTINUE
+  140 CONTINUE                                                                   
 
    END SUBROUTINE SLAB1D
 
@@ -546,7 +546,7 @@ CONTAINS
    CHARACTER*1024 message
 
 
-
+ 
    itf=min0(ite,ide-1)
    jtf=min0(jte,jde-1)
 
@@ -554,3 +554,5 @@ CONTAINS
 
 
 END MODULE module_sf_slab
+
+

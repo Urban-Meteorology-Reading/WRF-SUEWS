@@ -871,6 +871,11 @@ wrf_err_message )
                          ( its == ids ) .and. open_bc_copy  )  THEN
 
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
+
+
+
+
+
             DO k = kts, k_end
               dat(ids-1,k,j) = dat(ids,k,j) 
               dat(ids-2,k,j) = dat(ids,k,j)
@@ -891,6 +896,11 @@ wrf_err_message )
           IF (variable /= 'u' .and. variable /= 'x' ) THEN
 
             DO j = jts-bdyzone, MIN(jte,jde+jstag)+bdyzone
+
+
+
+
+
             DO k = kts, k_end
               dat(ide  ,k,j) = dat(ide-1,k,j)
               dat(ide+1,k,j) = dat(ide-1,k,j)
@@ -2835,6 +2845,7 @@ wrf_err_message )
  
     INTEGER :: i , ii , j , jj , k
 
+
     
  
     
@@ -3006,6 +3017,7 @@ wrf_err_message )
        END DO
        END DO
     END IF
+
     
  END SUBROUTINE stuff_bdytend_new
 
@@ -3858,3 +3870,5 @@ SUBROUTINE get_bdyzone ( bz)
   INTEGER bz
   bz = bdyzone
 END SUBROUTINE get_bdyzone
+
+

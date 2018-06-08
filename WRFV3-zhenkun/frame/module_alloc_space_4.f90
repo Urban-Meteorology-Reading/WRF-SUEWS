@@ -1,5 +1,9 @@
+
+
+
 MODULE module_alloc_space_4
 CONTAINS
+
 
 
 
@@ -145,11 +149,21 @@ CONTAINS
       inter_domain = inter_domain_in
       okay_to_alloc = okay_to_alloc_in
 
+
+
+
       CALL get_initial_data_value ( initial_data_value )
+
+
+
+
 
       setinitval = setinitval_in
 
+
       CALL nl_get_spec_bdy_width( 1, spec_bdy_width )
+
+
 
 
 
@@ -652,7 +666,12 @@ IF ( setinitval .EQ. 3 ) grid%frames_per_auxhist24=0
 IF ( setinitval .EQ. 3 ) grid%auxinput1_oid=0
 
 
+
+
    END SUBROUTINE alloc_space_field_core_4
 
+
 END MODULE module_alloc_space_4
+
+
 

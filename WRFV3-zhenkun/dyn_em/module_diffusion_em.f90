@@ -1,6 +1,10 @@
 
 
 
+
+
+
+
     MODULE module_diffusion_em
 
     USE module_bc, only: set_physical_bc3d
@@ -1319,7 +1323,7 @@
                                ims, ime, jms, jme, kms, kme,            &
                                its, ite, jts, jte, kts, kte             )
       CASE DEFAULT
-            CALL wrf_error_fatal3("<stdin>",1322,&
+            CALL wrf_error_fatal3("<stdin>",1326,&
 'Please choose diffusion coefficient scheme' )
 
     END SELECT km_coef
@@ -3649,7 +3653,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
     ENDDO
 
   CASE DEFAULT
-    CALL wrf_error_fatal3("<stdin>",3652,&
+    CALL wrf_error_fatal3("<stdin>",3656,&
 'isfflx value invalid for diff_opt=2' )
   END SELECT vflux
 
@@ -3719,7 +3723,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
     ENDDO
 
   CASE DEFAULT
-    CALL wrf_error_fatal3("<stdin>",3722,&
+    CALL wrf_error_fatal3("<stdin>",3726,&
 'isfflx value invalid for diff_opt=2' )
   END SELECT hflux
 
@@ -3795,7 +3799,7 @@ SUBROUTINE vertical_diffusion_2   ( ru_tendf, rv_tendf, rw_tendf, rt_tendf,   &
     ENDIF
 
   CASE DEFAULT
-    CALL wrf_error_fatal3("<stdin>",3798,&
+    CALL wrf_error_fatal3("<stdin>",3802,&
 'isfflx value invalid for diff_opt=2' )
   END SELECT qflux
 
@@ -5293,7 +5297,7 @@ END SUBROUTINE phy_bc
    ENDDO
 
   CASE DEFAULT
-    CALL wrf_error_fatal3("<stdin>",5296,&
+    CALL wrf_error_fatal3("<stdin>",5300,&
 'isfflx value invalid for diff_opt=2' )
   END SELECT hflux
 
@@ -5702,7 +5706,7 @@ END SUBROUTINE phy_bc
     END DO
 
   CASE DEFAULT
-    CALL wrf_error_fatal3("<stdin>",5705,&
+    CALL wrf_error_fatal3("<stdin>",5709,&
 'isfflx value invalid for diff_opt=2' )
   END SELECT uflux
 
@@ -5777,7 +5781,7 @@ END SUBROUTINE phy_bc
     END DO
 
   CASE DEFAULT
-    CALL wrf_error_fatal3("<stdin>",5780,&
+    CALL wrf_error_fatal3("<stdin>",5784,&
 'isfflx value invalid for diff_opt=2' )
   END SELECT vflux
 
@@ -6490,6 +6494,8 @@ END SUBROUTINE phy_bc
 
 
     END MODULE module_diffusion_em
+
+
 
 
 

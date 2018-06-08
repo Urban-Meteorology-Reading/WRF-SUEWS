@@ -407,6 +407,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
   ENDDO
   ENDDO
 
+
   IF ( rk_step < rk_order ) THEN
     DO j = j_start, j_end
     DO k = kds, kde-1
@@ -426,6 +427,7 @@ SUBROUTINE small_step_finish( u_2, u_1, v_2, v_1, w_2, w_1,    &
     ENDDO
     ENDDO
   ENDIF
+
 
   DO j = j_start, j_end
   DO i = i_start, i_end
@@ -538,7 +540,11 @@ SUBROUTINE calc_p_rho( al, p, ph,                    &
        DO j=j_start, j_end
        DO k=k_start, k_end
        DO i=i_start, i_end
+
          p(i,k,j)=mu(i,j)*znu(k)
+
+
+
          al(i,k,j)=alt(i,k,j)*(t_2(i,k,j)-mu(i,j)*t_1(i,k,j))           &
                       /(Mut(i,j)*(t0+t_1(i,k,j)))-p(i,k,j)/c2a(i,k,j)
          ph(i,k+1,j)=ph(i,k,j)-dnw(k)*(Mut(i,j)*al (i,k,j)              &
@@ -648,7 +654,9 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
         DO i = i_start, i_end
           cof(i)  = (.5*dts*g*(1.+epssm))**2
           a(i, 2 ,j) = 0.
+
           MUTHMUTF_KK = mut(i,j)*mut(i,j)
+
           a(i,kde,j) =-2.*cof(i)*rdnw(kde-1)**2*c2a(i,kde-1,j)*lid_flag/MUTHMUTF_KK
           gamma(i,1 ,j) = 0.
         ENDDO
@@ -656,7 +664,9 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
         DO kk=3,kde-1
         k=kk-1
         DO i=i_start, i_end
+
           MUTHMUTF_KK = mut(i,j)*mut(i,j)
+
           a(i,kk,j) =   -cqw(i,kk,j)*cof(i)*rdn(kk)* rdnw(kk-1)*c2a(i,kk-1,j)/MUTHMUTF_KK
         ENDDO
         ENDDO
@@ -664,9 +674,11 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
 
         DO k=2,kde-1
         DO i=i_start, i_end
+
           MUTHMUTF_KK = mut(i,j)*mut(i,j)
           MUTHMUTF_KM1K = mut(i,j)*mut(i,j)
           MUTHMUTF_KKP1 = mut(i,j)*mut(i,j)
+
           b = 1.+cqw(i,k,j)*cof(i)*rdn(k)*(rdnw(k  )*c2a(i,k,  j)/MUTHMUTF_KK  &
                                           +rdnw(k-1)*c2a(i,k-1,j)/MUTHMUTF_KM1K )
           c =   -cqw(i,k,j)*cof(i)*rdn(k)*rdnw(k  )*c2a(i,k,j  )/MUTHMUTF_KKP1
@@ -677,7 +689,9 @@ SUBROUTINE calc_coef_w( a,alpha,gamma,              &
 
         k=kde
         DO i=i_start, i_end
+
           MUTHMUTF_KM1K = mut(i,j)*mut(i,j)
+
           b = 1.+2.*cof(i)*rdnw(kde-1)**2*c2a(i,kde-1,j)/MUTHMUTF_KM1K
           c = 0.
           alpha(i,kde,j) = 1./(b-a(i,kde,j)*gamma(i,kde-1,j))
@@ -1568,8 +1582,10 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
 
     DO k=2,k_end
       DO i=i_start, i_end
+
         MUTHK   = mut(i,j)
         MUTHKM1 = mut(i,j)
+
         
         w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                       &
                  + msft_inv(i)*cqw(i,k,j)*(                        &
@@ -1591,7 +1607,9 @@ SUBROUTINE advance_w( w, rw_tend, ww, w_save, u, v,  &
     K=k_end+1
 
     DO i=i_start, i_end
+
        MUTHKM1 = mut(i,j)
+
        w(i,k,j)=w(i,k,j)+dts*rw_tend(i,k,j)                         &
            +msft_inv(i)*(                                        &
          -.5*dts*g/MUTHKM1*rdnw(k-1)**2*2.*c2a(i,k-1,j)            &
@@ -1811,3 +1829,5 @@ END SUBROUTINE sumflux
   END SUBROUTINE init_module_small_step
 
 END MODULE module_small_step_em
+
+
