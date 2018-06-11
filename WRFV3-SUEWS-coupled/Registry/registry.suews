@@ -1,0 +1,24 @@
+#<Table>  <Dim>  <Order> <How defined>         <Coord-axis>  <Dimname in Datasets>
+dimspec   nsurf    -     constant=7                  c       CAT_landcover_SUEWS
+dimspec   nveg     -     constant=3                  c       CAT_veg_SUEWS
+dimspec   ndays1   -     constant=360                c       360_days
+dimspec   ndays2   -     constant=366                c       366_days
+dimspec   ndays3   -     constant=367                c       367_days
+dimspec   ndays4   -     constant=371                c       371_days
+dimspec   ndays5   -     constant=721                c       721_days
+dimspec   lenth1   -     constant=5                  c       lenth1
+dimspec   lenth2   -     constant=6                  c       lenth2
+
+#<Table> <Type>   <Sym>                    <Dims>            <Use>   <NumTLev> <Stagger>    <IO>     <DNAME>                       <DESCRIP>        <UNITS>
+state    real   qn1_store_SUEWS         ij{ndays1}            mics     1           -         ih    "qn1_store_SUEWS"           "qn1_store_SUEWS"     "W/m^2"
+state    real   qn1_av_store_SUEWS      ij{ndays5}            mics     1           -         ih    "qn1_av_store_SUEWS"        "qn1_av_store_SUEWS"  "W/m^2"
+state    real      LAI_SUEWS            ij{ndays4}{nsurf}     mics     1           -         ih      "LAI_SUEWS"                   "LAI_SUEWS"       ""
+state    real    albEveTr_SUEWS         ij{ndays3}            mics     1           -         ih     "albEveTr_SUEWS"             "albEveTr_SUEWS"    ""
+state    real    albGrass_SUEWS         ij{ndays3}            mics     1           -         ih     "albGrass_SUEWS"             "albGrass_SUEWS"    ""
+state    real    DecidCap_SUEWS         ij{ndays3}            mics     1           -         ih     "DecidCap_SUEWS"             "DecidCap_SUEWS"    ""
+state    real    porosity_SUEWS         ij{ndays3}            mics     1           -         ih     "porosity_SUEWS"             "porosity_SUEWS"    ""
+state    real     GDD_SUEWS             ij{ndays3}{lenth1}    mics     1           -         ih       "GDD_SUEWS"                   "GDD_SUEWS"      ""
+state    real     HDD_SUEWS             ij{ndays4}{lenth2}    mics     1           -         ih       "HDD_SUEWS"                   "HDD_SUEWS"      ""
+state    real    state_SUEWS            ij{nsurf}             mics     1           -         ih       "state_SUEWS"                "state_SUEWS"     ""
+state    real    soilmoist_SUEWS        ij{nsurf}             mics     1           -         ih      "soilmoist_SUEWS"            "soilmoist_SUEWS"  ""
+state    real    surf_var_SUEWS         ij{nsurf}             mics     1           -         ih      "surf_var_SUEWS"            "surf_var_SUEWS"    ""
