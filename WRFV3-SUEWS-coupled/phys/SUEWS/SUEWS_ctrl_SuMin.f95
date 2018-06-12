@@ -338,9 +338,13 @@ CONTAINS
     print*,''
     print*, 'avkdn,kup,ldown,lup,tsurf'
     print*, dataOutLineSUEWS(1:5)
-    print*, 'qn1,qf,qs,qh,qeOut'
+    print*, 'qn1,qf,qs,qh,qe'
     print*, dataOutLineSUEWS(6:10)
     print*,''
+    if ( abs(qe)>1000 ) then
+      zdm_in=0.
+      print*, 10./zdm_in
+    end if
 
   END SUBROUTINE SuMin
 

@@ -1098,7 +1098,7 @@
  AUXINPUT24_END= 11*0          ,
  IO_FORM_AUXINPUT24=          0,
  FRAMES_PER_AUXINPUT24= 11*999999     ,
- HISTORY_INTERVAL=          1, 2*60         , 8*0          ,
+ HISTORY_INTERVAL=          5, 2*60         , 8*0          ,
  FRAMES_PER_OUTFILE= 3*1000       , 8*10         ,
  RESTART=F,
  RESTART_INTERVAL=       5000,
@@ -1168,7 +1168,7 @@
  DIURNAL_DIAG=          0,
  /
 &DOMAINS
- TIME_STEP=         60,
+ TIME_STEP=        300,
  TIME_STEP_FRACT_NUM=          0,
  TIME_STEP_FRACT_DEN=          1,
  TIME_STEP_DFI=         -1,

@@ -170,34 +170,34 @@ CONTAINS
 
     do l = 1, nvegsurf
        do k = -4, ndays
-         call random_array2d(2, 2, LAI_SUEWS(:,:,k,l), 0., 3.)
+         call random_array2d(2, 2, LAI_SUEWS(:,:,k,l), 1., 3.)
        end do
     end do
 
     do k = 0, ndays
-       call random_array2d(2, 2, albDecTr_SUEWS(:,:,k), 0., 1.)
-       call random_array2d(2, 2, albEveTr_SUEWS(:,:,k), 0., 1.)
-       call random_array2d(2, 2, albGrass_SUEWS(:,:,k), 0., 1.)
+       call random_array2d(2, 2, albDecTr_SUEWS(:,:,k), 0.1, 0.31)
+       call random_array2d(2, 2, albEveTr_SUEWS(:,:,k), 0.1, 0.31)
+       call random_array2d(2, 2, albGrass_SUEWS(:,:,k), 0.1, 0.31)
        call random_array2d(2, 2, DecidCap_SUEWS(:,:,k), 1., 10.)
        call random_array2d(2, 2, porosity_SUEWS(:,:,k), 0., 1.)
     end do
 
     do l = 1, 5
        do k = 0, ndays
-          call random_array2d(2, 2, GDD_SUEWS(:,:,k,l), 0., 100.)
+          call random_array2d(2, 2, GDD_SUEWS(:,:,k,l), 10.1, 100.)
        end do
     end do
 
     do l = 1, 6
        do k = -4, ndays
-          call random_array2d(2, 2, HDD_SUEWS(:,:,k,l), 0., 100.)
+          call random_array2d(2, 2, HDD_SUEWS(:,:,k,l), 10.1, 100.)
        end do
     end do
 
     do k = 1, nsurf
-      call random_array2d(2, 2, state_SUEWS(:,:,k), 0., 100.)
-      call random_array2d(2, 2, soilmoist_SUEWS(:,:,k), 0., 1.)
-      call random_array2d(2, 2, surf_var_SUEWS(:,:,k), 0., 100.)
+      call random_array2d(2, 2, state_SUEWS(:,:,k), 10., 100.)
+      call random_array2d(2, 2, soilmoist_SUEWS(:,:,k), 0.1, 1.)
+      call random_array2d(2, 2, surf_var_SUEWS(:,:,k), 0.1, 100.)
     end do
 
     CALL MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
@@ -223,9 +223,9 @@ CONTAINS
           landusef_suews1d = landusef_suews(i, :, j)
 
           qn1_store(:)    = qn1_store_SUEWS(I,J,:)
-          qn1_store=10
+          qn1_store       = 10
           qn1_av_store(:) = qn1_av_store_SUEWS(I,J,:)
-          qn1_av_store=10
+          qn1_av_store    = 10
           LAI             = LAI_SUEWS(I,J,:,:)
           albDecTr        = albDecTr_SUEWS(I,J,:)
           albEveTr        = albEveTr_SUEWS(I,J,:)
@@ -235,8 +235,9 @@ CONTAINS
           GDD             = GDD_SUEWS(I,J,:,:)
           HDD             = HDD_SUEWS(I,J,:,:)
           state           = state_SUEWS(i,j,:)
+          state           = [0.,0.,0.,0.,0.,0.,2000.]
           soilmoist       = soilmoist_SUEWS(i,j,:)
-          soilmoist=[150.,150.,150.,150.,150.,150.,0.]
+          soilmoist       = [150.,150.,150.,150.,150.,150.,0.]
           surf_var        = surf_var_SUEWS(i,j,:)
 
           
@@ -267,13 +268,16 @@ CONTAINS
 
 
           
-
-
+          print *, 'qh_out = ', qh_out
+          print *, 'qe_out = ', qe_out
           
           
           
           HFX(I,J)=qh_out
           LH(I,J)=qe_out
+          print *, 'HFX(I,J) = ', HFX(I,J)
+          print *, 'LH(I,J) = ', LH(I,J)
+
           QFX(I,J)=qsfc_out
           chklowq(I,J)=CHKLOWQ_out
 
@@ -581,7 +585,7 @@ CONTAINS
          Z,&
          qh_out,qe_out,qsfc_out, tsk_out)
 
-      CHKLOWQ_out = 0.2
+      CHKLOWQ_out = 0.02
       tsk_out=tsk_out+273.15
 
   END SUBROUTINE SUEWS1D

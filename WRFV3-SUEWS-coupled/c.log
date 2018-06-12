@@ -7,7 +7,7 @@ V3.9.1.1
  
 Compiling: WRF_EM_CORE  
  
-Darwin webvpn-239.rdg.ac.uk 17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64 x86_64
+Darwin webvpn-81.rdg.ac.uk 17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64 x86_64
  
 GNU Fortran (Homebrew GCC 7.3.0_1) 7.3.0
 Copyright (C) 2017 Free Software Foundation, Inc.
@@ -207,23 +207,23 @@ sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_sf_suews.H > module_s
 rm -f module_sf_suews.G module_sf_suews.H module_sf_suews.bb
 time gfortran -o module_sf_suews.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include    module_sf_suews.f90
 f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
-        0.49 real         0.35 user         0.04 sys
+        0.66 real         0.42 user         0.04 sys
 rm -f module_physics_init.o
 rm -f module_surface_driver.o
 cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM  -DNETCDF -DHDF5 -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_physics_init.F  > module_physics_init.bb
 sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_surface_driver.F > module_surface_driver.G
-cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM  -DNETCDF -DHDF5 -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_surface_driver.G  > module_surface_driver.H
 /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_physics_init.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_physics_init.f90
-sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_surface_driver.H > module_surface_driver.bb
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM  -DNETCDF -DHDF5 -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_surface_driver.G  > module_surface_driver.H
 rm -f module_physics_init.b module_physics_init.bb
-/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_surface_driver.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_surface_driver.f90
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_surface_driver.H > module_surface_driver.bb
 time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include  module_physics_init.f90
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_surface_driver.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_surface_driver.f90
 f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
 rm -f module_surface_driver.G module_surface_driver.H module_surface_driver.bb
 time gfortran -o module_surface_driver.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include    module_surface_driver.f90
 f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
-        3.88 real         3.20 user         0.19 sys
-        8.46 real         7.59 user         0.31 sys
+        7.54 real         4.43 user         0.25 sys
+       12.95 real         9.39 user         0.40 sys
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: ../main/libwrflib.a(module_intermediate_nmm.o) has no symbols
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: ../main/libwrflib.a(module_cam_shr_kind_mod.o) has no symbols
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: ../main/libwrflib.a(module_cam_shr_const_mod.o) has no symbols
@@ -244,19 +244,19 @@ rm -f module_first_rk_step_part1.o
 rm -f start_em.o
 sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_first_rk_step_part1.F > module_first_rk_step_part1.G
 sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" start_em.F > start_em.G
-cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM  -DNETCDF -DHDF5 -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_first_rk_step_part1.G  > module_first_rk_step_part1.H
 cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM  -DNETCDF -DHDF5 -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  start_em.G  > start_em.H
-sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_first_rk_step_part1.H > module_first_rk_step_part1.bb
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM  -DNETCDF -DHDF5 -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_first_rk_step_part1.G  > module_first_rk_step_part1.H
 sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" start_em.H > start_em.bb
-/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_first_rk_step_part1.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_first_rk_step_part1.f90
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_first_rk_step_part1.H > module_first_rk_step_part1.bb
 /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe start_em.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > start_em.f90
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_first_rk_step_part1.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_first_rk_step_part1.f90
 rm -f module_first_rk_step_part1.G module_first_rk_step_part1.H module_first_rk_step_part1.bb
 rm -f start_em.G start_em.H start_em.bb
 time gfortran -o module_first_rk_step_part1.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include    module_first_rk_step_part1.f90
 time gfortran -o start_em.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include    start_em.f90
 f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
 f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
-        2.12 real         1.77 user         0.12 sys
+        2.55 real         2.07 user         0.13 sys
 rm -f solve_em.o
 sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" solve_em.F > solve_em.G
 cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS  -DWRF_USE_CLM  -DNETCDF -DHDF5 -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  solve_em.G  > solve_em.H
@@ -265,8 +265,8 @@ sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" solve_em.H > solve_em.bb
 rm -f solve_em.G solve_em.H solve_em.bb
 time gfortran -o solve_em.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include    solve_em.f90
 f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
-        3.59 real         2.83 user         0.16 sys
-        4.34 real         3.85 user         0.19 sys
+        4.16 real         3.17 user         0.17 sys
+        4.51 real         3.97 user         0.19 sys
 ar ru ../main/libwrflib.a module_advect_em.o module_diffusion_em.o module_small_step_em.o module_big_step_utilities_em.o module_em.o module_solvedebug_em.o module_bc_em.o module_init_utilities.o module_wps_io_arw.o module_damping_em.o module_polarfft.o module_force_scm.o module_first_rk_step_part1.o module_first_rk_step_part2.o module_avgflx_em.o module_sfs_nba.o module_convtrans_prep.o module_sfs_driver.o module_stoch.o module_after_all_rk_steps.o  init_modules_em.o solve_em.o start_em.o shift_domain_em.o couple_or_uncouple_em.o nest_init_utils.o adapt_timestep_em.o interp_domain_em.o
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: ../main/libwrflib.a(module_intermediate_nmm.o) has no symbols
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: ../main/libwrflib.a(module_cam_shr_kind_mod.o) has no symbols
@@ -288,13 +288,13 @@ ranlib -c libwrflib.a
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libwrflib.a(module_gfs_machine.o) has no symbols
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libwrflib.a(module_gfs_physcons.o) has no symbols
 time gfortran -o wrf.exe  -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  wrf.o ../main/module_wrf_top.o libwrflib.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/fftpack/fftpack5/libfftpack.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib1/libio_grib1.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib_share/libio_grib_share.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int/libwrfio_int.a -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/module_internal_header_util.o /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/pack_utils.o -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -lwrfio_nf -L/usr/local/Cellar/netcdf/4.4.1.1_7/lib -lnetcdff -lnetcdf   
-        6.11 real         4.03 user         0.67 sys
+        6.13 real         4.05 user         0.66 sys
 ( cd run ; /bin/rm -f wrf.exe ; ln -s ../main/wrf.exe . )
 if [ 0 -eq 1 ] ; then \
 	  ( cd main ; make -i -r RLFLAGS="-c" MODULE_DIRS="-I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include " SOLVER=em em_wrf_SST_ESMF ) ; \
 	fi
-build started:   Mon 11 Jun 2018 17:26:43 BST
-build completed: Mon 11 Jun 2018 17:27:29 BST
+build started:   Tue 12 Jun 2018 05:31:51 BST
+build completed: Tue 12 Jun 2018 05:32:46 BST
 --------------------------------------
 ( cd main ; make -i -r RLFLAGS="-c" MODULE_DIRS="-I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include " SOLVER=em IDEAL_CASE=real em_real )
 ranlib -c libwrflib.a
@@ -306,12 +306,12 @@ ranlib -c libwrflib.a
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libwrflib.a(module_gfs_machine.o) has no symbols
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libwrflib.a(module_gfs_physcons.o) has no symbols
 time gfortran -o ndown.exe  -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  ndown_em.o  ../dyn_em/module_initialize_real.o libwrflib.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/fftpack/fftpack5/libfftpack.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib1/libio_grib1.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib_share/libio_grib_share.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int/libwrfio_int.a -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/module_internal_header_util.o /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/pack_utils.o -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -lwrfio_nf -L/usr/local/Cellar/netcdf/4.4.1.1_7/lib -lnetcdff -lnetcdf  
-        3.89 real         3.33 user         0.36 sys
+        4.40 real         3.65 user         0.38 sys
 #TEMPORARILY REMOVED time gfortran -o nup.exe  -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  nup_em.o  ../dyn_em/module_initialize_real.o libwrflib.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/fftpack/fftpack5/libfftpack.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib1/libio_grib1.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib_share/libio_grib_share.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int/libwrfio_int.a -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/module_internal_header_util.o /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/pack_utils.o -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -lwrfio_nf -L/usr/local/Cellar/netcdf/4.4.1.1_7/lib -lnetcdff -lnetcdf  
 time gfortran -o tc.exe  -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  tc_em.o  ../dyn_em/module_initialize_real.o libwrflib.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/fftpack/fftpack5/libfftpack.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib1/libio_grib1.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib_share/libio_grib_share.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int/libwrfio_int.a -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/module_internal_header_util.o /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/pack_utils.o -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -lwrfio_nf -L/usr/local/Cellar/netcdf/4.4.1.1_7/lib -lnetcdff -lnetcdf  
-        3.77 real         3.29 user         0.35 sys
+        4.01 real         3.45 user         0.37 sys
 time gfortran -o real.exe  -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp  -g -O0 -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  real_em.o ../dyn_em/module_initialize_real.o libwrflib.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/fftpack/fftpack5/libfftpack.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib1/libio_grib1.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib_share/libio_grib_share.a /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int/libwrfio_int.a -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/module_internal_header_util.o /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame/pack_utils.o -L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -lwrfio_nf -L/usr/local/Cellar/netcdf/4.4.1.1_7/lib -lnetcdff -lnetcdf  
-        3.87 real         3.37 user         0.36 sys
+        4.05 real         3.48 user         0.37 sys
 ( cd test/em_real ; /bin/rm -f wrf.exe ; ln -s ../../main/wrf.exe . )
 if [ 0 -eq 1 ] ; then \
 	  ( cd main ; make -i -r RLFLAGS="-c" MODULE_DIRS="-I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7//include " SOLVER=em IDEAL_CASE=real em_wrf_SST_ESMF ) ; \
@@ -442,15 +442,15 @@ if [ 0 -eq 1 ] ; then \
 		/bin/rm -f namelist.input ; cp ../test/em_real/namelist.input . )
  
 ==========================================================================
-build started:   Mon 11 Jun 2018 17:26:43 BST
-build completed: Mon 11 Jun 2018 17:27:41 BST
+build started:   Tue 12 Jun 2018 05:31:51 BST
+build completed: Tue 12 Jun 2018 05:32:59 BST
  
 --->                  Executables successfully built                  <---
  
--rwxr-xr-x  1 sunt05  staff  72088612 11 Jun 17:27 main/ndown.exe
--rwxr-xr-x  1 sunt05  staff  71887732 11 Jun 17:27 main/real.exe
--rwxr-xr-x  1 sunt05  staff  70730108 11 Jun 17:27 main/tc.exe
--rwxr-xr-x  1 sunt05  staff  82354716 11 Jun 17:27 main/wrf.exe
+-rwxr-xr-x  1 sunt05  staff  72092764 12 Jun 05:32 main/ndown.exe
+-rwxr-xr-x  1 sunt05  staff  71887788 12 Jun 05:32 main/real.exe
+-rwxr-xr-x  1 sunt05  staff  70734260 12 Jun 05:32 main/tc.exe
+-rwxr-xr-x  1 sunt05  staff  82358876 12 Jun 05:32 main/wrf.exe
  
 ==========================================================================
  

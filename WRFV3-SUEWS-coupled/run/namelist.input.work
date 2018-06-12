@@ -17,7 +17,7 @@
  end_second                          = 00,   00,   00,
  interval_seconds                    = 21600
  input_from_file                     = .true.,.true.,.true.,
- history_interval                    = 1,  60,   60,
+ history_interval                    = 5,  60,   60,
  frames_per_outfile                  = 1000, 1000, 1000,
  restart                             = .false.,
  restart_interval                    = 5000,
@@ -29,7 +29,7 @@
  /
 
  &domains
- time_step                           = 60,
+ time_step                           = 300,
  time_step_fract_num                 = 0,
  time_step_fract_den                 = 1,
  max_dom                             = 1,

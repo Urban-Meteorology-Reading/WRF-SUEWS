@@ -274,7 +274,7 @@ CONTAINS
           ! If there is not sufficient water on the surface, then don't allow this evaporation to happen
           ! Allow evaporation only until surface is dry (state(is)=0); additional evaporation -> evaporation surplus
           SurplusEvap(is)=ABS(state(is))   !Surplus evaporation is that which tries to evaporate non-existent water
-          ev = ev-SurplusEvap(is)          !Limit evaporation according to water availability
+          ev = max(ev-SurplusEvap(is),0.)          !Limit evaporation according to water availability
           state(is)=0.0                    !Now surface is dry
           ! elseif (state(is)>surf(6,is)) then   !!This should perhaps be StateLimit(is)
           !    !! If state exceeds the storage capacity, then the excess goes to surface flooding
@@ -447,7 +447,16 @@ CONTAINS
             )
     ENDIF
 
+    if ( is < 7 .and. abs(ev)>1000/40634.8 ) then
+      print*,'ev after Evap_SUEWS for sfr', is
+      runoff_per_interval=0.
+      print*, ev
+      print*, 10./runoff_per_interval
+    end if
+
     runoff_per_interval=runoff_per_interval+(runoff(is)*sfr(is)) !The total runoff from the area !!Check (HCW)
+
+
 
   END SUBROUTINE soilstore
   !------------------------------------------------------------------------------

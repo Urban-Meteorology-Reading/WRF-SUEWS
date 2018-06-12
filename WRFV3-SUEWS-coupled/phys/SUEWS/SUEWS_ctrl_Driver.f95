@@ -1571,6 +1571,12 @@ CONTAINS
                ev,& ! evapotranspiration [mm]
                qe) ! latent heat flux [W m-2]
 
+          if ( abs(qe)>1000 ) then
+            print*,'qe after Evap_SUEWS'
+            runoffAGveg_m3=0.
+            print*, 10./runoffAGveg_m3
+          end if
+
 
           rss_nsurf(is) = rss !Store rss for each surface
 
@@ -1637,6 +1643,13 @@ CONTAINS
     ! Convert evaporation to latent heat flux [W m-2]
     qe_per_tstep = ev_per_tstep*tlv
     qeOut        = qe_per_tstep
+
+    print*,''
+    if ( abs(qeOut)>1000 ) then
+      runoffAGveg_m3=0.
+      print*, 10./runoffAGveg_m3
+    end if
+
 
     ! Calculate volume of water that will move between grids
     ! Volume [m3] = Depth relative to whole area [mm] / 1000 [mm m-1] * SurfaceArea [m2]
