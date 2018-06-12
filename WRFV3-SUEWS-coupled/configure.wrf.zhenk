@@ -134,7 +134,7 @@ ESMF_LDFLAG     =       $(CPLUSPLUSLIB)
 FCOPTIM         =       -O2 -ftree-vectorize -funroll-loops
 FCREDUCEDOPT	=       $(FCOPTIM)
 FCNOOPT         =       -O0
-FCDEBUG         =       -cpp  -g $(FCNOOPT) -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow
+FCDEBUG         =       -cpp # -g $(FCNOOPT) # -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow
 FORMAT_FIXED    =       -ffixed-form
 FORMAT_FREE     =       -ffree-form -ffree-line-length-none
 FCSUFFIX        =
@@ -168,7 +168,7 @@ ARCHFLAGS       =    $(COREDEFS) -DIWORDSIZE=$(IWORDSIZE) -DDWORDSIZE=$(DWORDSIZ
                        \
                        \
                        \
-                      -DHDF5 \
+                       \
                        \
                        \
                        \
@@ -214,14 +214,14 @@ CC_TOOLS_CFLAGS = -DNMM_CORE=$(WRF_NMM_CORE)
                       $(WRF_SRC_ROOT_DIR)/frame/pack_utils.o
 
  LIB_EXTERNAL    = \
-                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/usr/local/Cellar/netcdf/4.4.1.1_7/lib -lnetcdff -lnetcdf
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/Users/zhenkunli/repos/WRF-SUEWS/WRFV3-SUEWS-coupled/netcdf_links/lib -lnetcdff -lnetcdf
 
 LIB             =    $(LIB_BUNDLED) $(LIB_EXTERNAL) $(LIB_LOCAL) $(LIB_WRF_HYDRO)
 LDFLAGS         =    $(OMP) $(FCFLAGS) $(LDFLAGS_LOCAL)
 ENVCOMPDEFS     =
 WRF_CHEM	=	0
 CPPFLAGS        =    $(ARCHFLAGS) $(ENVCOMPDEFS) -I$(LIBINCLUDE) $(TRADFLAG)
-NETCDFPATH      =    /usr/local/Cellar/netcdf/4.4.1.1_7/
+NETCDFPATH      =    /Users/zhenkunli/repos/WRF-SUEWS/WRFV3-SUEWS-coupled/netcdf_links
 HDF5PATH        =
 WRFPLUSPATH     =
 RTTOVPATH       =
