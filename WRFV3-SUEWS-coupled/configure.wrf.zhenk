@@ -197,6 +197,7 @@ INCLUDE_MODULES =    $(MODULE_SRCH_FLAG) \
                       -I$(WRF_SRC_ROOT_DIR)/frame \
                       -I$(WRF_SRC_ROOT_DIR)/share \
                       -I$(WRF_SRC_ROOT_DIR)/phys \
+                      -I$(WRF_SRC_ROOT_DIR)/phys/SUEWS \
                       -I$(WRF_SRC_ROOT_DIR)/chem -I$(WRF_SRC_ROOT_DIR)/inc \
                       -I$(NETCDFPATH)/include \
 
@@ -371,7 +372,6 @@ setfeenv.o : setfeenv.c
 .c.o:
 	$(RM) $@
 	$(CC) -o $@ -c $(CFLAGS) $*.c
-
 # A little more adventurous.  Allow full opt on
 # mediation_integrate.o \
 # shift_domain_em.o \

@@ -4,10 +4,6 @@ LN      =       ln -sf
 MAKE    =       make -i -r
 RM      =       rm -f
 
-SUEWS_dir = ./SUEWS
-SUEWS_FILES_f95 = $(wildcard $(SUEWS_dir)/*.f95)
-SUEWS_FILES = $(filter-out $(SUEWS_dir)/SUEWS_Program.f95, $(SUEWS_FILES_f95))
-SUEWS_MODULES = $(patsubst %.f95,%.o,$(SUEWS_FILES))
 
 MODULES = \
 	module_cam_shr_kind_mod.o \
@@ -234,9 +230,6 @@ non_nmm : $(MODULES) $(FIRE_MODULES) $(WIND_MODULES) $(OBJS) $(DIAGNOSTIC_MODULE
 
 suews_model:
 	$(MAKE) -C $(SUEWS_dir) main # make SUEWS with the `main` recipe
-	cp -f $(SUEWS_dir)/*.o .
-	cp -f $(SUEWS_dir)/*.mod .
-
 
 clean:
 	@ echo 'use the clean script'
