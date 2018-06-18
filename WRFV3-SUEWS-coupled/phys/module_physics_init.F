@@ -2705,7 +2705,8 @@ integer myproc
 
       CASE (SUEWSSCHEME) ! add for SUEWS by Zhenkun Li, 6/6/2018
 
-           CALL suewsinit(TSK, 3, OHMcoef, allowed_to_read,    &
+           CALL suewsinit(TSK, 3, OHMcoef,                     &
+                         restart, allowed_to_read,             &
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )

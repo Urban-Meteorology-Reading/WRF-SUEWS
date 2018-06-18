@@ -598,11 +598,13 @@ CONTAINS
   END SUBROUTINE SUEWS1D
 
   !================================================================
-     SUBROUTINE suewsinit(TSK, nohm, OHMcoef, allowed_to_read,    &
+     SUBROUTINE suewsinit(TSK, nohm, OHMcoef,                     &
+                         restart, allowed_to_read,                &
                          ids,ide, jds,jde, kds,kde,               &
                          ims,ime, jms,jme, kms,kme,               &
                          its,ite, jts,jte, kts,kte                )
   !----------------------------------------------------------------
+     USE module_wrf_error
      IMPLICIT NONE
   !----------------------------------------------------------------
      INTEGER, INTENT(IN   )    ::      ids,ide, jds,jde, kds,kde, &
@@ -613,7 +615,7 @@ CONTAINS
               INTENT(IN)    ::                               TSK
      INTEGER                     :: nohm
      REAL,    DIMENSION( nohm )  :: OHMcoef
-     LOGICAL , INTENT(IN)        :: allowed_to_read
+     LOGICAL , INTENT(IN)        :: restart, allowed_to_read
 
   !  LOCAR VAR
 
@@ -645,6 +647,8 @@ CONTAINS
            CALL wrf_dm_bcast_real    ( OHMcoef , nohm )
         ENDIF
      ENDIF
+
+     IF(restart) return
 
    END SUBROUTINE suewsinit
   !-------------------------------------------------------------------
