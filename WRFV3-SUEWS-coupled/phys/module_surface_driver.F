@@ -161,6 +161,7 @@ CONTAINS
 #endif
             !  Optional urban
      &          ,year, day_int, hour, minute                          & ! add for SUEWS by Zhenkun Li, 5/6/2018
+     &          ,OHMcoef                                              & ! add for SUEWS by Zhenkun Li, 15/6/2018
      &          ,slope_rad,topo_shading,shadowmask                    & !I solar
      &          ,swnorm,slope,slp_azi,diffuse_frac                    & !I solar
      &          ,declin,solcon,coszen,hrang,xlat_urb2d                & !I solar/urban
@@ -952,6 +953,7 @@ CONTAINS
 
 
    INTEGER, OPTIONAL, INTENT(IN )::   year, day_int, hour, minute ! add for SUEWS by Zhenkun Li, 6/6/2018
+   REAL, OPTIONAL, DIMENSION( 3 ) , INTENT(IN) :: OHMcoef
    INTEGER, OPTIONAL, INTENT(IN )::   slope_rad, topo_shading
    INTEGER, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(IN):: shadowmask
    REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(INOUT):: swnorm
@@ -2472,7 +2474,7 @@ CONTAINS
           !   ids,ide, jds,jde, kds,kde,                           &
           !   ims,ime, jms,jme, kms,kme,                           &
           !   i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
-          CALL suewsdrv(year, day_int, hour, minute,                   &
+          CALL suewsdrv(year, day_int, hour, minute, OHMcoef,      &
              t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
              psfc, rainbl, NLCAT, LANDUSEF, ht,                    &
              hfx, qfx, lh, tsk, qsfc, chklowq,                     &

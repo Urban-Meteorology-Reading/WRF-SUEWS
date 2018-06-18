@@ -212,7 +212,6 @@ CONTAINS
                          ,rv_up, rc_up, u_up, v_up, frac_up    & ! Optional for qnse
                          ,ccn_conc                             & ! RAS
                          ,QKE                                  & !for MYNN
-                         ,OHMcoef                              & ! added for SUEWS by Zhenkun Li, 15/6/2018
                          ,landusef,landusef2,mosaic_cat_index                                                 & ! danli mosaic
                          ,TSK_mosaic,TSLB_mosaic,SMOIS_mosaic,SH2O_mosaic                                     & ! danli mosaic
                          ,CANWAT_mosaic,SNOW_mosaic,SNOWH_mosaic,SNOWC_mosaic                                 & ! danli mosaic
@@ -396,7 +395,6 @@ CONTAINS
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) ::    & !BSINGH(PNNL)- should be declared inout
              RUBLTEN,RVBLTEN,RTHBLTEN,RQVBLTEN,RQCBLTEN,RQIBLTEN,EXCH_H,TKE_PBL
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
-  REAL,     DIMENSION( 3 ) , INTENT(INOUT), OPTIONAL :: OHMcoef  ! add for SUEWS by Zhenkun Li, 15/6/2018
 
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                                             massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -1125,7 +1123,6 @@ integer myproc
                 ZNT,XLAND,XICE,                                 &
                 DX, DY, MSFTX, MSFTY,                           &
 #endif
-                OHMcoef,                                        & ! added for SUEWS by Zhenkun Li, 15/6/2018
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2040,7 +2037,6 @@ integer myproc
 #else
                 ZNT,XLAND,XICE,DX, DY, MSFTX, MSFTY,            &
 #endif
-                OHMcoef,                                        & ! added for SUEWS by Zhenkun Li, 15/6/2018
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 ISNOWXY, ZSNSOXY, TSNOXY,                       &
@@ -2281,7 +2277,6 @@ integer myproc
                                                           RQIBLTEN, &
                                                           TKE_PBL
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
-   REAL,     DIMENSION( 3 ) , INTENT(INOUT), OPTIONAL :: OHMcoef  ! add for SUEWS by Zhenkun Li, 15/6/2018
 
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                               massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -2705,7 +2700,7 @@ integer myproc
 
       CASE (SUEWSSCHEME) ! add for SUEWS by Zhenkun Li, 6/6/2018
 
-           CALL suewsinit(TSK, 3, OHMcoef, allowed_to_read,    &
+           CALL suewsinit(TSK,                                 &
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )

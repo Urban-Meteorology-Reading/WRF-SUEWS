@@ -10,7 +10,7 @@ MODULE module_sf_SUEWS
 CONTAINS
 
   !----------------------------------------------------------------
-  SUBROUTINE suewsdrv(year, day, hour, minute,  &
+  SUBROUTINE suewsdrv(year, day, hour, minute, OHMcoef, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
        PSFC, PREC, NLCAT, LANDUSEF, ht,         &
        HFX, QFX, LH, TSK, QSFC, chklowq,         &
@@ -105,6 +105,7 @@ CONTAINS
          ims,ime, jms,jme, kms,kme,  &
          its,ite, jts,jte, kts,kte
 
+    REAL, DIMENSION( 3 ) , INTENT(IN) :: OHMcoef
     REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN)   ::  &
          QV3D, P3D, T3D, U3D, V3D, DZ3D
     !
@@ -251,6 +252,7 @@ CONTAINS
           CALL SUEWS1D(&
                                 ! model configuration:
                I,J,DT,year, day, hour, minute,timezone,&
+               OHMcoef, &
                                 ! forcing:
                SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC1D,PREC1D,&
                                 ! surface properties (temporally invariant):
@@ -290,6 +292,7 @@ CONTAINS
   SUBROUTINE SUEWS1D(&
                                 ! model configuration:
        I,J,DT,iy,id,it,imin,timezone,&
+       OHMcoef, &
                                 ! forcing:
        SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
                                 ! surface properties (temporally invariant):
@@ -474,6 +477,7 @@ CONTAINS
     REAL (KIND(1d0))                :: Press_hPa !Station air pressure in hPa
     REAL (KIND(1d0))                :: Precip    !Precipitation per timestep [mm]
 
+    REAL, DIMENSION( 3 ) , INTENT(IN) :: OHMcoef
 
     ! 5. time-related:
     REAL(KIND(1d0))::dectime ! decimal time of year
@@ -512,7 +516,10 @@ CONTAINS
     REAL(KIND(1d0)), INTENT(out) ::CHKLOWQ_out ! TSK for output
     REAL(KIND(1d0)),DIMENSION(3):: OHM_sample=(/.1,.2,-10./)
 
-    OHM_coef=reshape(spread(SPREAD(OHM_sample, 2, 4), dim=2, ncopies=8),&
+    ! OHM_coef=reshape(spread(SPREAD(OHM_sample, 2, 4), dim=2, ncopies=8),&
+    !  shape=(/8,4,3/), order=(/3,2,1/))
+    print*, 'OHMcoef = ', OHMcoef
+    OHM_coef=reshape(spread(SPREAD(OHMcoef, 2, 4), dim=2, ncopies=8),&
      shape=(/8,4,3/), order=(/3,2,1/))
 
     ! processing variables for SuMin
@@ -591,7 +598,7 @@ CONTAINS
   END SUBROUTINE SUEWS1D
 
   !================================================================
-     SUBROUTINE suewsinit(TSK,                                    &
+     SUBROUTINE suewsinit(TSK, nohm, OHMcoef, allowed_to_read,    &
                          ids,ide, jds,jde, kds,kde,               &
                          ims,ime, jms,jme, kms,kme,               &
                          its,ite, jts,jte, kts,kte                )
@@ -604,16 +611,40 @@ CONTAINS
 
      REAL,    DIMENSION( ims:ime, jms:jme )                     , &
               INTENT(IN)    ::                               TSK
+     INTEGER                     :: nohm
+     REAL,    DIMENSION( nohm )  :: OHMcoef
+     LOGICAL , INTENT(IN)        :: allowed_to_read
 
   !  LOCAR VAR
 
      INTEGER                   ::      L,J,I,itf,jtf
      CHARACTER*1024 message
+     INTEGER                   :: OHM_unit
+     INTEGER , PARAMETER       :: OPEN_OK = 0
+     INTEGER                   :: ierr, Code
+     LOGICAL, EXTERNAL         :: wrf_dm_on_monitor
 
   !----------------------------------------------------------------
 
      itf=min0(ite,ide-1)
      jtf=min0(jte,jde-1)
+
+     IF ( allowed_to_read ) THEN
+        OHM_unit = 30
+        IF ( wrf_dm_on_monitor() ) THEN
+           OPEN(OHM_unit, FILE='SUEWS_OHMCoefficients.txt',FORM='FORMATTED',STATUS='OLD',IOSTAT=ierr)
+           IF ( ierr .NE. OPEN_OK ) THEN
+             WRITE(message,FMT='(A)') &
+             'module_sf_suews.F: suewsinit: open failure for SUEWS_OHMCoefficients.txt'
+             CALL wrf_error_fatal ( message )
+           END IF
+           READ(OHM_unit, *)
+           READ(OHM_unit, *)
+           READ(OHM_unit, *)code, OHMcoef
+           CLOSE (OHM_unit)
+           CALL wrf_dm_bcast_real    ( OHMcoef , nohm )
+        ENDIF
+     ENDIF
 
    END SUBROUTINE suewsinit
   !-------------------------------------------------------------------
