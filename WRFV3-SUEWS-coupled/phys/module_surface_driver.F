@@ -2474,7 +2474,7 @@ CONTAINS
           !   ids,ide, jds,jde, kds,kde,                           &
           !   ims,ime, jms,jme, kms,kme,                           &
           !   i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
-          CALL suewsdrv(year, day_int, hour, minute, OHMcoef,      &
+          CALL suewsdrv(year, day_int, hour, minute, xtime, OHMcoef, &
              t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
              psfc, rainbl, NLCAT, LANDUSEF, ht,                    &
              hfx, qfx, lh, tsk, qsfc, chklowq,                     &

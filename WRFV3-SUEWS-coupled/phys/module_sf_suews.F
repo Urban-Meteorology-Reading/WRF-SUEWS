@@ -10,7 +10,7 @@ MODULE module_sf_SUEWS
 CONTAINS
 
   !----------------------------------------------------------------
-  SUBROUTINE suewsdrv(year, day, hour, minute, OHMcoef, &
+  SUBROUTINE suewsdrv(year, day, hour, minute, xtime, OHMcoef, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
        PSFC, PREC, NLCAT, LANDUSEF, ht,         &
        HFX, QFX, LH, TSK, QSFC, chklowq,         &
@@ -101,6 +101,7 @@ CONTAINS
     !-- kte         end index for k in tile
     !----------------------------------------------------------------
     INTEGER, INTENT(IN)    ::     year, day, hour, minute
+    REAL, INTENT(IN   )    ::     xtime
     INTEGER, INTENT(IN)    ::     ids,ide, jds,jde, kds,kde,  &
          ims,ime, jms,jme, kms,kme,  &
          its,ite, jts,jte, kts,kte
@@ -159,7 +160,7 @@ CONTAINS
 
     INTEGER ::  I,J,K,l
 
-    print *, 'year = ', year, 'day = ', day, 'hour = ', hour, 'minute = ', minute
+    print *, 'year = ', year, 'day = ', day, 'hour = ', hour, 'minute = ', minute, 'minutesSinceSimStart = ', xtime
 
     do k = 1, 360
        call random_array2d(2, 2, qn1_store_SUEWS(:,:,k), 100., 200.)
