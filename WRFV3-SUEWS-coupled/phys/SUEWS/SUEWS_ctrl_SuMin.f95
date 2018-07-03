@@ -6,10 +6,10 @@
 
 MODULE SuMin_Module
   USE SUEWS_Driver,ONLY:SUEWS_cal_Main,ndays,nsurf,nvegsurf,&
-  PavSurf,BldgSurf,ConifSurf,DecidSurf,GrassSurf,BSoilSurf,WaterSurf,&
-  ivConif,ivDecid,ivGrass,&
-  ncolumnsDataOutSUEWS,ncolumnsDataOutSnow,&
-  ncolumnsDataOutESTM,ncolumnsDataOutDailyState
+       PavSurf,BldgSurf,ConifSurf,DecidSurf,GrassSurf,BSoilSurf,WaterSurf,&
+       ivConif,ivDecid,ivGrass,&
+       ncolumnsDataOutSUEWS,ncolumnsDataOutSnow,&
+       ncolumnsDataOutESTM,ncolumnsDataOutDailyState
 
   IMPLICIT NONE
 
@@ -17,21 +17,22 @@ CONTAINS
 
   ! a mini version of SUEWS
   SUBROUTINE SuMin(&
-       alb,albDecTr,albEveTr,albGrass,alBMax_DecTr,&! input&inout in alphabetical order
+    dt_since_start,&
+       alb,albDecTr_id,albEveTr_id,albGrass_id,alBMax_DecTr,&! input&inout in alphabetical order
        alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
        alt,avkdn,avRh,avU1,BaseT,BaseTe,&
        BaseTHDD,bldgH,CapMax_dec,CapMin_dec,&
-       DecidCap,dectime,DecTreeH,DRAINRT,&
+       DecidCap_id,dectime,DecTreeH,DRAINRT,&
        emis,endDLS,EveTreeH,FAIBldg,&
        FAIDecTree,FAIEveTree,FlowChange,&
-       G1,G2,G3,G4,G5,G6,GDD,&
-       GDDFull,HDD,&
-       id,imin,it,iy,Kmax,LAI,LAIMax,LAIMin,&
+       G1,G2,G3,G4,G5,G6,GDD_id,&
+       GDDFull,HDD_id,HDD_id_prev,&
+       id,imin,it,iy,Kmax,LAI_id,LAIMax,LAIMin,&
        LAIPower,LAIType,lat,lng,MaxConductance,&
        OHM_coef,OHMIncQF,OHM_threshSW,&
-       OHM_threshWD,PipeCapacity,PorMax_dec,PorMin_dec,porosity,&
+       OHM_threshWD,PipeCapacity,PorMax_dec,PorMin_dec,porosity_id,&
        Precip,Press_hPa,&
-       qn1_av_store,qn1_store,RAINCOVER,RainMaxRes,&
+       qn1_av,dqndt,RAINCOVER,RainMaxRes,&
        RunoffToWater,S1,S2,&
        SDDFull,sfr,&
        soilmoist,soilstoreCap,startDLS,state,StateLimit,&
@@ -73,6 +74,8 @@ CONTAINS
     INTEGER,INTENT(IN)::tstep
     INTEGER,PARAMETER::veg_type=1
     INTEGER::WaterUseMethod
+
+    INTEGER,INTENT(in)::dt_since_start ! time since simulation starts [s]
 
     REAL(KIND(1D0)),INTENT(IN)::alBMax_DecTr
     REAL(KIND(1D0)),INTENT(IN)::alBMax_EveTr
@@ -226,18 +229,18 @@ CONTAINS
     ! INTEGER,DIMENSION(0:NDAYS,3),INTENT(INOUT)                ::DayofWeek
     REAL(KIND(1d0)),DIMENSION(24*3600/tstep)  ::Tair24HR
     ! REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
-    REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store !NB:reduced size
+    ! REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store !NB:reduced size
     REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1)  ::qn1_S_av_store
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albGrass
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::DecidCap
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::porosity
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS,5),INTENT(INOUT)        ::GDD
-    REAL(KIND(1D0)),DIMENSION(0:NDAYS,9)        ::WU_Day
+    ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
+    ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
+    ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albGrass
+    ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::DecidCap
+    ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::porosity
+    ! REAL(KIND(1D0)),DIMENSION(0:NDAYS,5),INTENT(INOUT)        ::GDD
+    ! REAL(KIND(1D0)),DIMENSION(0:NDAYS,9)        ::WU_Day
     REAL(KIND(1D0)),DIMENSION(6,NSURF),INTENT(INOUT)          ::surf
-    REAL(KIND(1D0)),DIMENSION(-4:NDAYS,6),INTENT(INOUT)       ::HDD
-    REAL(KIND(1D0)),DIMENSION(-4:NDAYS,NVEGSURF),INTENT(INOUT)::LAI
+    ! REAL(KIND(1D0)),DIMENSION(-4:NDAYS,6),INTENT(INOUT)       ::HDD
+    ! REAL(KIND(1D0)),DIMENSION(-4:NDAYS,NVEGSURF),INTENT(INOUT)::LAI
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::alb
     REAL(KIND(1D0)),DIMENSION(NSURF)            ::IceFrac
     REAL(KIND(1D0)),DIMENSION(NSURF)            ::MeltWaterStore
@@ -246,9 +249,9 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF)        ::SnowPack
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
-    REAL(KIND(1D0)),DIMENSION(3600/tstep)      ::qn1_S_store
+    ! REAL(KIND(1D0)),DIMENSION(3600/tstep)      ::qn1_S_store
     ! REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
-    REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store ! NB: reduced size
+    ! REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store ! NB: reduced size
 
     REAL(KIND(1D0)),DIMENSION(5)                           ::datetimeLine
     REAL(KIND(1D0)),DIMENSION(ncolumnsDataOutSUEWS-5)      ::dataOutLineSUEWS
@@ -263,6 +266,23 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(out)::qe
     REAL(KIND(1D0)),INTENT(out)::qsfc
     REAL(KIND(1D0)),INTENT(out)::tsk
+
+    REAL(KIND(1d0)),INTENT(INOUT) ::qn1_av
+    REAL(KIND(1d0)),INTENT(INOUT) ::dqndt
+    REAL(KIND(1d0)) ::qn1_s_av
+    REAL(KIND(1d0)) ::dqnsdt
+
+    REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       :: HDD_id_prev !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT):: LAI_id      !LAI for each veg surface [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION(9)        :: WUDay_id
+
+    REAL(KIND(1d0)),INTENT(INOUT) :: DecidCap_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: albDecTr_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: albEveTr_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: albGrass_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: porosity_id
 
 
     Diagnose=0
@@ -288,34 +308,36 @@ CONTAINS
     MeltWaterStore=0
 
     SnowAlb=0
-    WU_Day=0
+    WUDay_id=0
     z0m_in=0.05
     zdm_in=0.1
 
     CALL SUEWS_cal_Main(&
          AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,& ! input&inout in alphabetical order
-         AH_SLOPE_Heating,alb,albDecTr,albEveTr,albGrass,AlbMax_DecTr,&
-         AlbMax_EveTr,AlbMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
+         AH_SLOPE_Heating,&
+         alb,AlbMax_DecTr,AlbMax_EveTr,AlbMax_Grass,&
+         AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
          alpha_bioCO2,alpha_enh_bioCO2,alt,avkdn,avRh,avU1,BaseT,BaseTe,&
          BaseTHDD,beta_bioCO2,beta_enh_bioCO2,bldgH,CapMax_dec,CapMin_dec,&
          chAnOHM,cpAnOHM,CRWmax,CRWmin,DayWat,DayWatPer,&
-         DecidCap,dectime,DecTreeH,Diagnose,DiagQN,DiagQS,DRAINRT,&
+         dectime,DecTreeH,Diagnose,DiagQN,DiagQS,DRAINRT,&
+         dt_since_start,dqndt,qn1_av,dqnsdt,qn1_s_av,&
          EF_umolCO2perJ,emis,EmissionsMethod,EnEF_v_Jkm,endDLS,EveTreeH,FAIBldg,&
          FAIDecTree,FAIEveTree,Faut,FcEF_v_kgkm,fcld_obs,FlowChange,&
-         FrFossilFuel_Heat,FrFossilFuel_NonHeat,G1,G2,G3,G4,G5,G6,GDD,&
-         GDDFull,Gridiv,gsModel,HDD,HumActivity_tstep,&
-         IceFrac,id,id_prev_t,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
+         FrFossilFuel_Heat,FrFossilFuel_NonHeat,G1,G2,G3,G4,G5,G6,GDD_id,&
+         GDDFull,Gridiv,gsModel,HDD_id,HDD_id_prev,HumActivity_tstep,&
+         IceFrac,id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
          InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,it,ity,&
-         iy,iy_prev_t,kkAnOHM,Kmax,LAI,LAICalcYes,LAIMax,LAIMin,LAI_obs,&
+         iy,kkAnOHM,Kmax,LAI_id,LAICalcYes,LAIMax,LAIMin,LAI_obs,&
          LAIPower,LAIType,lat,ldown_obs,lng,MaxConductance,MaxQFMetab,&
          MeltWaterStore,MetForcingData_grid,MinQFMetab,min_res_bioCO2,&
          NARP_EMIS_SNOW,NARP_TRANS_SITE,NetRadiationMethod,&
          NumCapita,OHM_coef,OHMIncQF,OHM_threshSW,&
          OHM_threshWD,PipeCapacity,PopDensDaytime,&
-         PopDensNighttime,PopProf_tstep,PorMax_dec,PorMin_dec,porosity,&
+         PopDensNighttime,PopProf_tstep,PorMax_dec,PorMin_dec,&
          Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,QF0_BEU,Qf_A,Qf_B,&
-         Qf_C,qh_obs,qn1_av_store,qn1_obs,qn1_S_av_store,qn1_S_store,&
-         qn1_store,RadMeltFact,RAINCOVER,RainMaxRes,resp_a,resp_b,&
+         Qf_C,qh_obs,qn1_obs,&
+         RadMeltFact,RAINCOVER,RainMaxRes,resp_a,resp_b,&
          RoughLenHeatMethod,RoughLenMomMethod,RunoffToWater,S1,S2,&
          SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
          SnowAlbMin,snowD,SnowDens,SnowDensMax,SnowDensMin,SnowfallCum,snowFrac,&
@@ -325,7 +347,14 @@ CONTAINS
          T_CRITIC_Cooling,T_CRITIC_Heating,Temp_C,TempMeltFact,TH,&
          theta_bioCO2,timezone,TL,TrafficRate,TrafficUnits,&
          TraffProf_tstep,Ts5mindata_ir,tstep,veg_type,&
-         WaterDist,WaterUseMethod,WetThresh,WU_Day,WUProfA_tstep,&
+         WaterDist,WaterUseMethod,WetThresh,&
+         WUDay_id,&
+         DecidCap_id,&
+         albDecTr_id,&
+         albEveTr_id,&
+         albGrass_id,&
+         porosity_id,&
+         WUProfA_tstep,&
          WUProfM_tstep,xsmd,Z,z0m_in,zdm_in,&
          datetimeLine,dataOutLineSUEWS,dataOutLineSnow,dataOutLineESTM,&!output
          DailyStateLine)!output
@@ -335,16 +364,16 @@ CONTAINS
     qsfc=dataOutLineSUEWS(16)
     tsk=dataOutLineSUEWS(5)
 
-    print*,''
-    print*, 'avkdn,kup,ldown,lup,tsurf'
-    print*, dataOutLineSUEWS(1:5)
-    print*, 'qn1,qf,qs,qh,qe'
-    print*, dataOutLineSUEWS(6:10)
-    print*,''
-    if ( abs(qe)>1000 ) then
-      zdm_in=0.
-      print*, 10./zdm_in
-    end if
+    PRINT*,''
+    PRINT*, 'avkdn,kup,ldown,lup,tsurf'
+    PRINT*, dataOutLineSUEWS(1:5)
+    PRINT*, 'qn1,qf,qs,qh,qe'
+    PRINT*, dataOutLineSUEWS(6:10)
+    PRINT*,''
+    IF ( ABS(qe)>1000 ) THEN
+       zdm_in=0.
+       PRINT*, 10./zdm_in
+    END IF
 
   END SUBROUTINE SuMin
 

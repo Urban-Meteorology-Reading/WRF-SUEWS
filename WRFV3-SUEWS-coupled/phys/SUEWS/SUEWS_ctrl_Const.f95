@@ -207,7 +207,7 @@ MODULE allocateArray
   REAL(KIND(1d0)),DIMENSION(nsurf):: stateOld       !Wetness status of each surface type from previous timestep [mm]
   REAL(KIND(1D0)),DIMENSION(nsurf):: rss_nsurf      !Surface resistance after wet/partially wet adjustment for each surface
 
-  REAL(KIND(1d0)),DIMENSION(nsurf):: WetThresh      !When State > WetThresh, rs=0 limit in SUEWS_evap [mm] (specified in input files)
+  REAL(KIND(1d0)),DIMENSION(nsurf):: WetThresh      !When State > WetThresh, RS=0 limit in SUEWS_evap [mm] (specified in input files)
   REAL(KIND(1d0)),DIMENSION(nsurf):: StateLimit     !Limit for state of each surface type [mm] (specified in input files)
 
   REAL(KIND(1d0)),DIMENSION(1)::     WaterDepth     !Depth of open water
@@ -235,13 +235,17 @@ MODULE allocateArray
   !! Could delete NDays and allocate these elsewhere once no. days is known
   REAL(KIND(1d0)),DIMENSION( 0:ndays, 5):: GDD          !Growing Degree Days (see SUEWS_DailyState.f95)
   REAL(KIND(1d0)),DIMENSION(-4:ndays, 6):: HDD          !Heating Degree Days (see SUEWS_DailyState.f95)
-  REAL(KIND(1d0)),DIMENSION( 0:ndays, 9):: WU_Day       !Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
+  REAL(KIND(1d0)),DIMENSION( 0:ndays, 9):: WUDay       !Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
   REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf):: LAI   !LAI for each veg surface [m2 m-2]
+
+  REAL(KIND(1d0)),DIMENSION(5)        :: GDD_id,GDD_id_prev       !Growing Degree Days (see SUEWS_DailyState.f95)
+  REAL(KIND(1d0)),DIMENSION(6)        :: HDD_id,HDD_id_prev       !Growing Degree Days (see SUEWS_DailyState.f95)
+  REAL(KIND(1d0)),DIMENSION(9)        :: WUDay_id,WUDay_id_prev !Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
+  REAL(KIND(1d0)),DIMENSION(nvegsurf) :: LAI_id,LAI_id_prev       !LAI for each veg surface [m2 m-2]
 
   ! Seasonality of deciduous trees accounted for by the following variables which change with time
   REAL(KIND(1d0)),DIMENSION( 0:ndays):: DecidCap   !Storage capacity of deciduous trees [mm]
   REAL(KIND(1d0)),DIMENSION( 0:ndays):: porosity   !Porosity of deciduous trees [-]
-
   REAL(KIND(1d0)),DIMENSION( 0:ndays):: albDecTr     !Albedo of deciduous trees [-]
   REAL(KIND(1d0)),DIMENSION( 0:ndays):: albEveTr     !Albedo of evergreen trees [-]
   REAL(KIND(1d0)),DIMENSION( 0:ndays):: albGrass   !Albedo of grass[-]
@@ -261,8 +265,13 @@ MODULE allocateArray
   !! Could delete MaxNumberOfGrids and allocate these elsewhere once NumberOfGrids is known
   REAL(KIND(1d0)),DIMENSION( 0:ndays, 5,MaxNumberOfGrids):: GDD_grids
   REAL(KIND(1d0)),DIMENSION(-4:ndays, 6,MaxNumberOfGrids):: HDD_grids
-  REAL(KIND(1d0)),DIMENSION( 0:ndays, 9,MaxNumberOfGrids):: WU_Day_grids
+  REAL(KIND(1d0)),DIMENSION( 0:ndays, 9,MaxNumberOfGrids):: WUDay_grids
   REAL(KIND(1d0)),DIMENSION(-4:ndays, nvegsurf,MaxNumberOfGrids):: LAI_grids
+
+  REAL(KIND(1d0)),DIMENSION(5,MaxNumberOfGrids):: GDD_id_grids
+  REAL(KIND(1d0)),DIMENSION(6,MaxNumberOfGrids):: HDD_id_grids,HDD_id_prev_grids
+  REAL(KIND(1d0)),DIMENSION(9,MaxNumberOfGrids):: WUDay_id_grids
+  REAL(KIND(1d0)),DIMENSION(nvegsurf,MaxNumberOfGrids):: LAI_id_grids
 
   REAL(KIND(1d0)),DIMENSION( 0:ndays,MaxNumberOfGrids):: albDecTr_grids
   REAL(KIND(1d0)),DIMENSION( 0:ndays,MaxNumberOfGrids):: DecidCap_grids
@@ -270,6 +279,18 @@ MODULE allocateArray
 
   REAL(KIND(1d0)),DIMENSION( 0:ndays,MaxNumberOfGrids):: albEveTr_grids
   REAL(KIND(1d0)),DIMENSION( 0:ndays,MaxNumberOfGrids):: albGrass_grids
+
+  REAL(KIND(1d0)),DIMENSION( MaxNumberOfGrids):: DecidCap_id_grids
+  REAL(KIND(1d0)),DIMENSION( MaxNumberOfGrids):: albDecTr_id_grids
+  REAL(KIND(1d0)),DIMENSION( MaxNumberOfGrids):: albEveTr_id_grids
+  REAL(KIND(1d0)),DIMENSION( MaxNumberOfGrids):: albGrass_id_grids
+  REAL(KIND(1d0)),DIMENSION( MaxNumberOfGrids):: porosity_id_grids
+
+  REAL(KIND(1d0)) :: DecidCap_id
+  REAL(KIND(1d0)) :: albDecTr_id
+  REAL(KIND(1d0)) :: albEveTr_id
+  REAL(KIND(1d0)) :: albGrass_id
+  REAL(KIND(1d0)) :: porosity_id
 
   ! AnOHM related: added by TS 01 Mar 2016
   ! store AnOHM coef. of all sfc. by TS 09 Apr 2016
@@ -295,10 +316,10 @@ MODULE allocateArray
   REAL(KIND(1d0)),DIMENSION(nvegsurf):: BaseTe           !Base temperature for senescence degree days [degC]
   REAL(KIND(1d0)),DIMENSION(nvegsurf):: GDDFull          !Growing degree days needed for full capacity [degC]
   REAL(KIND(1d0)),DIMENSION(nvegsurf):: SDDFull          !Senescence degree days needed to initiate leaf off [degC]
-  REAL(KIND(1d0)),DIMENSION(nvegsurf):: LaiMin           !Min LAI [m2 m-2]
-  REAL(KIND(1d0)),DIMENSION(nvegsurf):: LaiMax           !Max LAI  [m2 m-2]
+  REAL(KIND(1d0)),DIMENSION(nvegsurf):: LAIMin           !Min LAI [m2 m-2]
+  REAL(KIND(1d0)),DIMENSION(nvegsurf):: LAIMax           !Max LAI  [m2 m-2]
   REAL(KIND(1d0)),DIMENSION(nvegsurf):: MaxConductance   !Max conductance [mm s-1]
-  REAL(KIND(1d0)),DIMENSION(4,nvegsurf):: LaiPower       !Coeffs for LAI equation: 1,2 - leaf growth; 3,4 - leaf off
+  REAL(KIND(1d0)),DIMENSION(4,nvegsurf):: LAIPower       !Coeffs for LAI equation: 1,2 - leaf growth; 3,4 - leaf off
   !! N.B. currently DecTr only, although input provided for all veg types
   INTEGER,DIMENSION(nvegsurf):: LAIType                  !LAI equation to use: original (0) or new (1)
   !real(kind(1d0))::GDDmax,SDDMax                        ! Max GDD and SDD across all veg types [degC] (removed HCW 03 Mar 2015)
@@ -359,6 +380,12 @@ MODULE allocateArray
   REAL(KIND(1d0)),DIMENSION(:,:),ALLOCATABLE:: qn1_av_store, qn1_S_av_store  !Hourly Q* values for each timestep over previous 2 hr
   REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE::qn1_store_grid,qn1_av_store_grid
   REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE::qn1_S_store_grid,qn1_S_av_store_grid
+
+  REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE::qn1_av_grids,qn1_s_av_grids
+  REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE::dqndt_grids,dqnsdt_grids
+  REAL(KIND(1d0))::qn1_av,dqndt
+  REAL(KIND(1d0))::qn1_s_av,dqnsdt
+
   !-----------------------------------------------------------------------------------------------
 
   ! ---- Snow-related variables ------------------------------------------------------------------
@@ -899,7 +926,7 @@ MODULE data_in
 
   IMPLICIT NONE
 
-  CHARACTER (len=90)::progname='SUEWS_V2018a'
+  CHARACTER (len=90)::progname='SUEWS_V2018b'
 
   ! ---- Run information ------------------------------------------------------------------------
   CHARACTER (len=20)::  FileCode   !Set in RunControl
@@ -1266,6 +1293,7 @@ MODULE time
   REAL(KIND(1d0)):: dectime        !Decimal time
   REAL (KIND(1d0)):: tstepcount    !Count number of timesteps in this day
   INTEGER:: nofDaysThisYear        !Based on whether leap year or not
+  INTEGER:: dt_since_start ! time since simulation starts [s]
 
   INTEGER:: iy_prev_t, id_prev_t   !Value of iy and id at previous timestep
 
@@ -1490,7 +1518,7 @@ MODULE sues_data
        psyh,&       !Stability function of heat
        RA,&         !Aerodynamic resistance
        RAsnow,&     !Aerodynamic resistance over snow
-       tstar,&      !T*
+       TStar,&      !T*
        UStar,&      !Friction velocity
        z0_gis       !Roughness length for momentum from gis input file
 

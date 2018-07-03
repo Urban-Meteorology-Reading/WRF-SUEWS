@@ -274,7 +274,7 @@ CONTAINS
           ! If there is not sufficient water on the surface, then don't allow this evaporation to happen
           ! Allow evaporation only until surface is dry (state(is)=0); additional evaporation -> evaporation surplus
           SurplusEvap(is)=ABS(state(is))   !Surplus evaporation is that which tries to evaporate non-existent water
-          ev = max(ev-SurplusEvap(is),0.)          !Limit evaporation according to water availability
+          ev = ev-SurplusEvap(is)          !Limit evaporation according to water availability
           state(is)=0.0                    !Now surface is dry
           ! elseif (state(is)>surf(6,is)) then   !!This should perhaps be StateLimit(is)
           !    !! If state exceeds the storage capacity, then the excess goes to surface flooding
@@ -447,16 +447,7 @@ CONTAINS
             )
     ENDIF
 
-    if ( is < 7 .and. abs(ev)>1000/40634.8 ) then
-      print*,'ev after Evap_SUEWS for sfr', is
-      runoff_per_interval=0.
-      print*, ev
-      print*, 10./runoff_per_interval
-    end if
-
     runoff_per_interval=runoff_per_interval+(runoff(is)*sfr(is)) !The total runoff from the area !!Check (HCW)
-
-
 
   END SUBROUTINE soilstore
   !------------------------------------------------------------------------------
@@ -985,7 +976,7 @@ SUBROUTINE SUEWS_cal_WaterUse(&
        WUProfM_tstep(24*NSH,2),& !Manual water use profiles at model timestep
        InternalWaterUse_h,& !Internal water use [mm h-1]
        HDD_id(6),& !HDD(id-1), Heating Degree Days (see SUEWS_DailyState.f95)
-       WU_Day_id(9) !WU_Day(id-1), Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
+       WU_Day_id(9) !WUDay(id-1), Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
 
   INTEGER,INTENT(in):: &
        DayofWeek_id(3),& !DayofWeek(id) 1 - day of week; 2 - month; 3 - season
@@ -1087,7 +1078,7 @@ SUBROUTINE SUEWS_cal_WaterUse(&
      ! ---- Manual irrigation ----
      WuFr=1 !Initialize WuFr to 1, but if raining, reduce manual fraction of water use
      ! If cumulative daily precipitation exceeds 2 mm
-     IF(HDD_id(5)>2) THEN    !.and.WU_Day(id-1,3)>0) then !Commented out HCW 23/01/2015
+     IF(HDD_id(5)>2) THEN    !.and.WUDay(id-1,3)>0) then !Commented out HCW 23/01/2015
         WuFr=0   ! 0 -> No manual irrigation if raining
      ENDIF
 

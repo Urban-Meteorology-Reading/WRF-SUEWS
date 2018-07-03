@@ -806,7 +806,7 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
   HDD(:,:)    = HDD_grids(:,:,Gridiv)
   GDD(:,:)    = GDD_grids(:,:,Gridiv)
   LAI(:,:)    = LAI_grids(:,:,Gridiv)
-  WU_day(:,:) = WU_Day_grids(:,:,Gridiv)
+  WUDay(:,:) = WUDay_grids(:,:,Gridiv)
   AlbDecTr(:) = AlbDecTr_grids(:,Gridiv)
   DecidCap(:) = DecidCap_grids(:,Gridiv)
   Porosity(:) = Porosity_grids(:,Gridiv)
@@ -880,10 +880,23 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
      SnowfallCum = ModelDailyState(Gridiv,cMDS_SnowfallCum)
      SnowAlb     = ModelDailyState(Gridiv,cMDS_SnowAlb)
 
+     porosity_id    = ModelDailyState(Gridiv,cMDS_porosity)
+     albDecTr_id    = ModelDailyState(Gridiv,cMDS_albDecTr)
+     albEveTr_id    = ModelDailyState(Gridiv,cMDS_albEveTr)
+     albGrass_id    = ModelDailyState(Gridiv,cMDS_albGrass)
+     DecidCap_id    = ModelDailyState(Gridiv,cMDS_DecidCap)
+
+     DecidCap_id_grids(Gridiv) = DecidCap_id
+     albDecTr_id_grids(Gridiv) = albDecTr_id
+     albEveTr_id_grids(Gridiv) = albEveTr_id
+     albGrass_id_grids(Gridiv) = albGrass_id
+     porosity_id_grids(Gridiv) = porosity_id
+
+
      ! ---- LAI
      LAI=0
-     LAI(id_prev,ivConif)  = ModelDailyState(Gridiv,cMDS_LAIInitialEveTr)
-     LAI(id_prev,ivDecid)  = ModelDailyState(Gridiv,cMDS_LAIInitialDecTr)
+     LAI(id_prev,ivConif) = ModelDailyState(Gridiv,cMDS_LAIInitialEveTr)
+     LAI(id_prev,ivDecid) = ModelDailyState(Gridiv,cMDS_LAIInitialDecTr)
      LAI(id_prev,ivGrass) = ModelDailyState(Gridiv,cMDS_LAIInitialGrass)
 
      ! ---- Growing degree days, GDD
@@ -896,24 +909,59 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
      GDD(id_prev,1) = ModelDailyState(Gridiv,cMDS_GDD1_0)
      GDD(id_prev,2) = ModelDailyState(Gridiv,cMDS_GDD2_0)
 
+     ! ---- Growing degree days, GDD_id: GDD Values for one day
+     GDD_id = 0
+     GDD_id(1)=0
+     GDD_id(2)=0
+     GDD_id(3) = ModelDailyState(Gridiv,cMDS_GDDMin)
+     GDD_id(4) = ModelDailyState(Gridiv,cMDS_GDDMax)
+     GDD_id(5)=0
+     GDD_id_prev(1) = ModelDailyState(Gridiv,cMDS_GDD1_0)
+     GDD_id_prev(2) = ModelDailyState(Gridiv,cMDS_GDD2_0)
+
+
      ! ---- Heating degree days, HDD
      HDD = 0
-     HDD(id_prev,1) = ModelDailyState(Gridiv,cMDS_HDD1)         ! 1 = Heating
-     HDD(id_prev,2) = ModelDailyState(Gridiv,cMDS_HDD2)         ! 2 = Cooling
-     HDD(id_prev-3,3) = ModelDailyState(Gridiv,cMDS_TempCOld3)  ! 3 will become average
+     HDD(id_prev,1)   = ModelDailyState(Gridiv,cMDS_HDD1)      ! 1 = Heating
+     HDD(id_prev,2)   = ModelDailyState(Gridiv,cMDS_HDD2)      ! 2 = Cooling
+     HDD(id_prev-3,3) = ModelDailyState(Gridiv,cMDS_TempCOld3) ! 3 will become average
      HDD(id_prev-2,3) = ModelDailyState(Gridiv,cMDS_TempCOld2)
      HDD(id_prev-1,3) = ModelDailyState(Gridiv,cMDS_TempCOld1)
      HDD(id_prev,3)   = ModelDailyState(Gridiv,cMDS_TempC)
      ! 4 = 5 day running mean
      ! 5 = daily precip total
-     HDD(id_prev,6) = ModelDailyState(Gridiv,cMDS_DaysSinceRain)  ! 6 = days since rain
+     HDD(id_prev,6) = ModelDailyState(Gridiv,cMDS_DaysSinceRain) ! 6 = days since rain
+
+     HDD_id_prev   = HDD(id_prev,:)   ! TODO: remove the dependence on HDD array
+     ! ---- Heating degree days, HDD_id: HDD Values for one day
+     HDD_id=0
+
+     ! HDD_id(1)=ModelDailyState(Gridiv,cMDS_HDD1)
+     ! HDD_id(2)=ModelDailyState(Gridiv,cMDS_HDD2)
+     ! HDD_id(3)=ModelDailyState(Gridiv,cMDS_TempC)
+     ! ! 4 = 5 day running mean
+     ! ! 5 = daily precip total
+     ! HDD_id(6) = ModelDailyState(Gridiv,cMDS_DaysSinceRain)
 
 
      ! Save required DailyState variables for the current grid (HCW 27 Nov 2014)
      HDD_grids(:,:,Gridiv)    = HDD(:,:)
      GDD_grids(:,:,Gridiv)    = GDD(:,:)
      LAI_grids(:,:,Gridiv)    = LAI(:,:)
-     WU_Day_grids(:,:,Gridiv) = WU_day(:,:)
+     ! WUDay_grids(:,:,Gridiv) = WUDay(:,:)
+
+     HDD_id_grids(:,Gridiv) = HDD_id(:)
+     HDD_id_prev_grids(:,Gridiv) = HDD_id_prev(:)
+     GDD_id_grids(:,Gridiv) = GDD_id(:)
+     LAI_id_grids(:,Gridiv) = LAI_id(:)
+
+
+     ! daily water use
+     WUDay_id=0
+     WUDay_id_grids(:,Gridiv) = WUDay_id(:)
+
+
+
      AlbDecTr_grids(:,Gridiv) = AlbDecTr(:)
      AlbEveTr_grids(:,Gridiv) = AlbEveTr(:)
      AlbGrass_grids(:,Gridiv) = AlbGrass(:)
@@ -1140,10 +1188,28 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
      ! get qn1 memory for previous time steps
      qn1_store_grid(:)      = qn1_store(:,Gridiv)
      qn1_av_store_grid(:)   = qn1_av_store(:,Gridiv)
+     dqndt  = dqndt_grids(Gridiv)
+     qn1_av = qn1_av_grids(Gridiv)
+
      IF (SnowUse == 1) THEN
         qn1_S_store_grid(:)    = qn1_S_store(:,Gridiv)
         qn1_S_av_store_grid(:) = qn1_S_av_store(:,Gridiv)
+        dqnsdt  = dqnsdt_grids(Gridiv)
+        qn1_s_av = qn1_s_av_grids(Gridiv)
      ENDIF
+
+     ! added by TS 29 Jun 2018 to remove annual loops in main calculation
+     GDD_id      = GDD_id_grids(:,Gridiv)
+     HDD_id      = HDD_id_grids(:,Gridiv)
+     HDD_id_prev = HDD_id_prev_grids(:,Gridiv)
+     LAI_id      = LAI_id_grids(:,Gridiv)
+     WUDay_id    = WUDay_id_grids(:,Gridiv)
+
+     DecidCap_id = DecidCap_id_grids(Gridiv)
+     albDecTr_id = albDecTr_id_grids(Gridiv)
+     albEveTr_id = albEveTr_id_grids(Gridiv)
+     albGrass_id = albGrass_id_grids(Gridiv)
+     porosity_id = porosity_id_grids(Gridiv)
 
      ! get met array for one grid used in AnOHM
      MetForcingData_grid=MetForcingData(:,:,Gridiv)
@@ -1254,7 +1320,7 @@ SUBROUTINE SUEWS_TranslateBack(Gridiv,ir,irMax)
   HDD_grids(:,:,Gridiv)    = HDD(:,:)
   GDD_grids(:,:,Gridiv)    = GDD(:,:)
   LAI_grids(:,:,Gridiv)    = LAI(:,:)
-  WU_Day_grids(:,:,Gridiv) = WU_day(:,:)
+  WUDay_grids(:,:,Gridiv)  = WUDay(:,:)
   AlbDecTr_grids(:,Gridiv) = AlbDecTr(:)
   AlbEveTr_grids(:,Gridiv) = AlbEveTr(:)
   AlbGrass_grids(:,Gridiv) = AlbGrass(:)
@@ -1268,6 +1334,28 @@ SUBROUTINE SUEWS_TranslateBack(Gridiv,ir,irMax)
      qn1_S_store(:,Gridiv)    = qn1_S_store_grid(:)
      qn1_S_av_store(:,Gridiv) = qn1_S_av_store_grid(:)
   ENDIF
+
+  ! update averaged qn1 memory
+  dqndt_grids(Gridiv)=dqndt
+  qn1_av_grids(Gridiv)=qn1_av
+  IF (SnowUse == 1) THEN
+     dqnsdt_grids(Gridiv)=dqnsdt
+     qn1_s_av_grids(Gridiv)=qn1_s_av
+  ENDIF
+
+  ! added by TS 29 Jun 2018 to remove annual loops in main calculation
+  GDD_id_grids(:,Gridiv)=GDD_id
+  HDD_id_grids(:,Gridiv)=HDD_id
+  HDD_id_prev_grids(:,Gridiv)=HDD_id_prev
+  LAI_id_grids(:,Gridiv)=LAI_id
+  WUDay_id_grids(:,Gridiv)=WUDay_id
+
+  DecidCap_id_grids(Gridiv)=DecidCap_id
+  albDecTr_id_grids(Gridiv)=albDecTr_id
+  albEveTr_id_grids(Gridiv)=albEveTr_id
+  albGrass_id_grids(Gridiv)=albGrass_id
+  porosity_id_grids(Gridiv)=porosity_id
+
 
   ! ---- Snow density of each surface
   ModelDailyState(Gridiv,cMDS_SnowDens(1:nsurf)) = SnowDens(1:nsurf)

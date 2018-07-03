@@ -71,7 +71,7 @@ UTILS = SUEWS_ctrl_const.o  \
 
 MODULES =	SUEWS_phys_NARP.o \
 					SUEWS_ctrl_Input.o  \
-					SUEWS_phys_AtmMoist.o \
+					SUEWS_phys_AtmMoistStab.o \
 					SUEWS_phys_SOLWEIG.o  \
 					SUEWS_phys_BLUEWS.o \
 					SUEWS_phys_WaterDist.o \
@@ -79,10 +79,8 @@ MODULES =	SUEWS_phys_NARP.o \
 					SUEWS_phys_DailyState.o \
 					SUEWS_phys_ESTM.o \
 					SUEWS_phys_AnOHM.o \
-					SUEWS_phys_OHM.o \
 					SUEWS_ctrl_Output.o \
-					SUEWS_ctrl_Driver.o\
-					SUEWS_ctrl_SuMin.o
+					SUEWS_ctrl_Driver.o
 
 # Rest of the files including modules and functions which are independent
 OTHERS =  SUEWS_ctrl_Translate.o \
@@ -95,7 +93,8 @@ OTHERS =  SUEWS_ctrl_Translate.o \
 					SUEWS_phys_BiogenCO2.o
 
 # modules under rapid development
-TEST =  SUEWS_ctrl_Calculations.o
+TEST =  SUEWS_phys_OHM.o \
+		SUEWS_ctrl_Calculations.o
 
 
 # some test code
@@ -108,8 +107,8 @@ main: SUEWS_Program.f95 $(C_MODULE) $(UTILS) $(DATETIME) $(MODULES) $(OTHERS) $(
 			$(FC) SUEWS_Program.o $(C_MODULE) $(UTILS) $(DATETIME) $(MODULES) $(OTHERS) $(TEST) \
 			$(STATICLIB) \
 			-o $(TARGET)
-			# mkdir -p $(SUEWS_build_dir)
-			# cp -f $(TARGET) $(SUEWS_build_dir)/.
+			mkdir -p $(SUEWS_build_dir)
+			cp -f $(TARGET) $(SUEWS_build_dir)/.
 
 # Build main program with NETCDF support - main uses MODULES and OTHERS
 netcdf: SUEWS_Program.f95 $(C_MODULE) $(UTILS) $(DATETIME) $(MODULES) $(OTHERS) $(TEST)
