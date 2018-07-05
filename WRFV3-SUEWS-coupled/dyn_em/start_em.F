@@ -1266,6 +1266,20 @@ endif
                       ,grid%ccn_conc                                          & ! RAS
                       ,grid%QKE                                               &!JOE-for mynn
                       ,grid%OHMcoef                                           & ! added for SUEWS by Zhenkun Li, 15/6/2018
+                      ,grid%qn1_av_SUEWS                                      &
+                      ,grid%LAI_SUEWS                                         &
+                      ,grid%albDecTr_SUEWS                                    &
+                      ,grid%albEveTr_SUEWS                                    &
+                      ,grid%albGrass_SUEWS                                    &
+                      ,grid%DecidCap_SUEWS                                    &
+                      ,grid%porosity_SUEWS                                    &
+                      ,grid%GDD_SUEWS                                         &
+                      ,grid%HDD_SUEWS                                         &
+                      ,grid%HDD_PREV_SUEWS                                    &
+                      ,grid%state_SUEWS                                       &
+                      ,grid%soilmoist_SUEWS                                   &
+                      ,grid%surf_var_SUEWS                                    &
+                      ,grid%dqndt_SUEWS                                       &
                       ,grid%landusef,grid%landusef2,grid%mosaic_cat_index                            & ! danli mosaic
                       ,grid%TSK_mosaic,grid%TSLB_mosaic,grid%SMOIS_mosaic,grid%SH2O_mosaic           & ! danli mosaic
                       ,grid%CANWAT_mosaic,grid%SNOW_mosaic,grid%SNOWH_mosaic,grid%SNOWC_mosaic       & ! danli mosaic
