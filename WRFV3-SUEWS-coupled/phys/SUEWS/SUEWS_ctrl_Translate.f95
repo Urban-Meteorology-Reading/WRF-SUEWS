@@ -781,8 +781,8 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
   PopProf_tstep(:,1)     = TstepProfiles(Gridiv,cTP_PopProfWD,:)     !Population, weekdays
   PopProf_tstep(:,2)     = TstepProfiles(Gridiv,cTP_PopProfWE,:)     !Population, weekends
 
-  print*, ''
-  iv=  get_Prof_SpecTime_mean(0,5*(iv-1),0,PopProf_24hr(:,1))
+  ! print*, ''
+  ! iv=  get_Prof_SpecTime_mean(0,5*(iv-1),0,PopProf_24hr(:,1))
   do iv = 1, 12,1
     print*,5*(iv-1), AHProf_tstep(iv,1), get_Prof_SpecTime_mean(0,5*(iv-1),0,PopProf_24hr(:,1))
 

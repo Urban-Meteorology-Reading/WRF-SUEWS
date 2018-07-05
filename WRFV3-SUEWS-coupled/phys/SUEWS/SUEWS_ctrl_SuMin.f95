@@ -17,7 +17,7 @@ CONTAINS
 
   ! a mini version of SUEWS
   SUBROUTINE SuMin(&
-    dt_since_start,&
+       dt_since_start,isec,&
        alb,albDecTr_id,albEveTr_id,albGrass_id,alBMax_DecTr,&! input&inout in alphabetical order
        alBMax_EveTr,alBMax_Grass,AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
        alt,avkdn,avRh,avU1,BaseT,BaseTe,&
@@ -35,11 +35,11 @@ CONTAINS
        qn1_av,dqndt,RAINCOVER,RainMaxRes,&
        RunoffToWater,S1,S2,&
        SDDFull,sfr,&
-       soilmoist,soilstoreCap,startDLS,state,StateLimit,&
+       soilmoist_id,soilstoreCap,startDLS,state_id,StateLimit,&
        surf,SurfaceArea,&
        Temp_C,TH,&
        timezone,TL,&
-       tstep,&
+       tstep,tstep_prev,&
        WaterDist,WetThresh,&
        Z,&
        qh,qe,qsfc,tsk)!output
@@ -72,10 +72,12 @@ CONTAINS
     INTEGER::StabilityMethod
     INTEGER::StorageHeatMethod
     INTEGER,INTENT(IN)::tstep
+    INTEGER,INTENT(IN)::tstep_prev ! tstep size of the previous step
     INTEGER,PARAMETER::veg_type=1
     INTEGER::WaterUseMethod
 
     INTEGER,INTENT(in)::dt_since_start ! time since simulation starts [s]
+    INTEGER,INTENT(in)::isec
 
     REAL(KIND(1D0)),INTENT(IN)::alBMax_DecTr
     REAL(KIND(1D0)),INTENT(IN)::alBMax_EveTr
@@ -247,8 +249,8 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF)           ::SnowDens
     REAL(KIND(1D0)),DIMENSION(NSURF)           ::snowFrac
     REAL(KIND(1D0)),DIMENSION(NSURF)        ::SnowPack
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state
+    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist_id
+    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state_id
     ! REAL(KIND(1D0)),DIMENSION(3600/tstep)      ::qn1_S_store
     ! REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
     ! REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store ! NB: reduced size
@@ -327,7 +329,7 @@ CONTAINS
          FrFossilFuel_Heat,FrFossilFuel_NonHeat,G1,G2,G3,G4,G5,G6,GDD_id,&
          GDDFull,Gridiv,gsModel,HDD_id,HDD_id_prev,HumActivity_tstep,&
          IceFrac,id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
-         InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,it,ity,&
+         InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,isec,it,ity,&
          iy,kkAnOHM,Kmax,LAI_id,LAICalcYes,LAIMax,LAIMin,LAI_obs,&
          LAIPower,LAIType,lat,ldown_obs,lng,MaxConductance,MaxQFMetab,&
          MeltWaterStore,MetForcingData_grid,MinQFMetab,min_res_bioCO2,&
@@ -342,11 +344,11 @@ CONTAINS
          SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
          SnowAlbMin,snowD,SnowDens,SnowDensMax,SnowDensMin,SnowfallCum,snowFrac,&
          SnowLimBuild,SnowLimPaved,snow_obs,SnowPack,SnowProf,snowUse,SoilDepth,&
-         soilmoist,soilstoreCap,StabilityMethod,startDLS,state,StateLimit,&
+         soilmoist_id,soilstoreCap,StabilityMethod,startDLS,state_id,StateLimit,&
          StorageHeatMethod,surf,SurfaceArea,Tair24HR,tau_a,tau_f,tau_r,&
          T_CRITIC_Cooling,T_CRITIC_Heating,Temp_C,TempMeltFact,TH,&
          theta_bioCO2,timezone,TL,TrafficRate,TrafficUnits,&
-         TraffProf_tstep,Ts5mindata_ir,tstep,veg_type,&
+         TraffProf_tstep,Ts5mindata_ir,tstep,tstep_prev,veg_type,&
          WaterDist,WaterUseMethod,WetThresh,&
          WUDay_id,&
          DecidCap_id,&

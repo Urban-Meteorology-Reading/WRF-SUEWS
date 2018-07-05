@@ -1,5 +1,23 @@
 #<Table>  <Dim>  <Order> <How defined>         <Coord-axis>  <Dimname in Datasets>
 dimspec   nohm     -     constant=3                  c        num_ohm
+dimspec   nsurf    -     constant=7                  c        num_surf
+dimspec   nvegsurf -     constant=3                  c        num_vegsurf
+dimspec   dimgdd   -     constant=5                  c        third_dim_gdd
+dimspec   dimhdd   -     constant=6                  c        third_dim_hdd
 
-#<Table> <Type>   <Sym>        <Dims>           <Use>   <NumTLev> <Stagger>    <IO>     <DNAME>                       <DESCRIP>        <UNITS>
-state    real    OHMcoef      {nohm}            mics     1           -         -    "OHM_coefficients"           "OHM_coefficients"      ""
+#<Table> <Type>   <Sym>           <Dims>           <Use>   <NumTLev> <Stagger>    <IO>     <DNAME>                       <DESCRIP>        <UNITS>
+state    real    OHMcoef         {nohm}            mics      1         -           -    "OHM_coefficients"            "OHM_coefficients"    ""
+state    real    qn1_av_SUEWS      ij              mics      1         -           -    "qn1_av_SUEWS"                "qn1_av_SUEWS"        "w m-2"
+state    real    LAI_SUEWS         ij{nvegsurf}    mics      1         -           -    "LAI_SUEWS"                   "LAI_SUEWS"           "m2 m-2"
+state    real    albDecTr_SUEWS    ij              mics      1         -           -    "albDecTr_SUEWS"              "albDecTr_SUEWS"      ""
+state    real    albEveTr_SUEWS    ij              mics      1         -           -    "albEveTr_SUEWS"              "albEveTr_SUEWS"      ""
+state    real    albGrass_SUEWS    ij              mics      1         -           -    "albGrass_SUEWS"              "albGrass_SUEWS"      ""
+state    real    DecidCap_SUEWS    ij              mics      1         -           -    "DecidCap_SUEWS"              "DecidCap_SUEWS"      "mm"
+state    real    porosity_SUEWS    ij              mics      1         -           -    "porosity_SUEWS"              "porosity_SUEWS"      ""
+state    real    GDD_SUEWS         ij{dimgdd}      mics      1         -           -    "GDD_SUEWS"                   "GDD_SUEWS"           ""
+state    real    HDD_SUEWS         ij{dimhdd}      mics      1         -           -    "HDD_SUEWS"                   "HDD_SUEWS"           ""
+state    real    HDD_PREV_SUEWS    ij{dimhdd}      mics      1         -           -    "HDD_PREV_SUEWS"              "HDD_PREV_SUEWS"      ""
+state    real    state_SUEWS       ij{vegsurf}     mics      1         -           -    "state_SUEWS"                 "state_SUEWS"         ""
+state    real    soilmoist_SUEWS   ij{vegsurf}     mics      1         -           -    "soilmoist_SUEWS"             "soilmoist_SUEWS"     ""
+state    real    surf_var_SUEWS    ij{vegsurf}     mics      1         -           -    "surf_var_SUEWS"              "surf_var_SUEWS"      ""
+state    real    dqndt_SUEWS       ij              mics      1         -           -    "dqndt_SUEWS"                 "dqndt_SUEWS"         ""

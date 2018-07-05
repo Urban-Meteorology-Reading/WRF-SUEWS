@@ -436,7 +436,7 @@ BENCH_START(surf_driver_tim)
      &        ,AKMS=grid%akms          ,ALBBCK=grid%albbck      ,ALBEDO=grid%albedo      &
      &        ,EMBCK=grid%embck                                                          &
      &        ,BR=grid%br              ,CANWAT=grid%canwat      ,CHKLOWQ=chklowq    &
-     &        ,CT=grid%ct              ,DT=grid%dt         ,DX=grid%dx         &
+     &        ,CT=grid%ct              ,DT=grid%dt, DT_prev=grid%dt_prev ,DX=grid%dx         &
      &        ,DZ8W=dz8w          ,DZS=grid%dzs            ,FLHC=grid%flhc          &
      &        ,FM=grid%fm         ,FHH=grid%fh                                      &
      &        ,FLQC=grid%flqc          ,GLW=grid%glw            ,GRDFLX=grid%grdflx      &
@@ -576,8 +576,22 @@ BENCH_START(surf_driver_tim)
      &         SWUPsubgrid=grid%SWUPsubgrid,LHsoi=grid%LHsoi,                       &
      &         LHveg=grid%LHveg, LHtran=grid%LHtran                                 &
 ! end of CLM variables
-     &        ,year=yr, day_int=day, hour=hr, minute=minute                         & ! add for SUEWS by Zhenkun Li, 5/6/2018
+     &        ,year=yr, day_int=day, hour=hr, minute=minute, second=sec             & ! add for SUEWS by Zhenkun Li, 5/6/2018
      &        ,OHMcoef=grid%OHMcoef                                                 & ! add for SUEWS by Zhenkun Li, 27/6/2018
+     &        ,qn1_av_SUEWS=grid%qn1_av_SUEWS                                       & ! add for SUEWS by Zhenkun Li, 5/7/2018
+     &        ,LAI_SUEWS=grid%LAI_SUEWS                                             &
+     &        ,albDecTr_SUEWS=grid%albDecTr_SUEWS                                   &
+     &        ,albEveTr_SUEWS=grid%albEveTr_SUEWS                                   &
+     &        ,albGrass_SUEWS=grid%albGrass_SUEWS                                   &
+     &        ,DecidCap_SUEWS=grid%DecidCap_SUEWS                                   &
+     &        ,porosity_SUEWS=grid%porosity_SUEWS                                   &
+     &        ,GDD_SUEWS=grid%GDD_SUEWS                                             &
+     &        ,HDD_SUEWS=grid%HDD_SUEWS                                             &
+     &        ,HDD_PREV_SUEWS=grid%HDD_PREV_SUEWS                                   &
+     &        ,state_SUEWS=grid%state_SUEWS                                         &
+     &        ,soilmoist_SUEWS=grid%soilmoist_SUEWS                                  &
+     &        ,surf_var_SUEWS=grid%surf_var_SUEWS                                   &
+     &        ,dqndt_SUEWS=grid%dqndt_SUEWS                                         &
      &        ,SLOPE_RAD=config_flags%slope_rad,TOPO_SHADING=config_flags%topo_shading & ! solar
      &        ,SHADOWMASK=grid%shadowmask,DIFFUSE_FRAC=grid%diffuse_frac               & ! solar
      &        ,SLOPE=grid%slope, SLP_AZI=grid%slp_azi, SWNORM=grid%swnorm              & ! solar

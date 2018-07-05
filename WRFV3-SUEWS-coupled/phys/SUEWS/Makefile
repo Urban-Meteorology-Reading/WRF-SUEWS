@@ -94,7 +94,8 @@ OTHERS =  SUEWS_ctrl_Translate.o \
 
 # modules under rapid development
 TEST =  SUEWS_phys_OHM.o \
-		SUEWS_ctrl_Calculations.o
+		SUEWS_ctrl_Calculations.o \
+		SUEWS_ctrl_Sumin.o
 
 
 # some test code

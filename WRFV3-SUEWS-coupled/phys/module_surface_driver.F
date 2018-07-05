@@ -7,7 +7,7 @@ CONTAINS
      &           HYDRO_dt,sfcheadrt,INFXSRT,soldrain,                 &
      &           acgrdflx,achfx,aclhf                                 &
      &          ,acsnom,acsnow,snowfallac,akhs,akms,albedo,br,canwat  &
-     &          ,chklowq,dt,dx,dz8w,dzs,glw                           &
+     &          ,chklowq,dt,dt_prev,dx,dz8w,dzs,glw                           &
      &          ,grdflx,gsw,swdown,gz1oz0,hfx,ht,ifsnow,isfflx        &
      &          ,fractional_seaice,seaice_albedo_opt                  &
      &          ,seaice_albedo_default,seaice_thickness_opt,          &
@@ -160,8 +160,22 @@ CONTAINS
      &           ,dwt_livecrootn_to_cwdn,dwt_deadcrootn_to_cwdn,retransn &
 #endif
             !  Optional urban
-     &          ,year, day_int, hour, minute                          & ! add for SUEWS by Zhenkun Li, 5/6/2018
+     &          ,year, day_int, hour, minute, second                  & ! add for SUEWS by Zhenkun Li, 5/6/2018
      &          ,OHMcoef                                              & ! add for SUEWS by Zhenkun Li, 15/6/2018
+     &          ,qn1_av_SUEWS                                         &
+     &          ,LAI_SUEWS                                            &
+     &          ,albDecTr_SUEWS                                       &
+     &          ,albEveTr_SUEWS                                       &
+     &          ,albGrass_SUEWS                                       &
+     &          ,DecidCap_SUEWS                                       &
+     &          ,porosity_SUEWS                                       &
+     &          ,GDD_SUEWS                                            &
+     &          ,HDD_SUEWS                                            &
+     &          ,HDD_PREV_SUEWS                                       &
+     &          ,state_SUEWS                                          &
+     &          ,soilmoist_SUEWS                                      &
+     &          ,surf_var_SUEWS                                       &
+     &          ,dqndt_SUEWS                                          &
      &          ,slope_rad,topo_shading,shadowmask                    & !I solar
      &          ,swnorm,slope,slp_azi,diffuse_frac                    & !I solar
      &          ,declin,solcon,coszen,hrang,xlat_urb2d                & !I solar/urban
@@ -826,6 +840,7 @@ CONTAINS
    REAL, DIMENSION(1:num_soil_layers), INTENT(IN)::   DZS
    REAL, DIMENSION(1:num_soil_layers), INTENT(IN)::   ZS
    REAL, INTENT(IN )::   DT
+   REAL, INTENT(IN )::   DT_PREV
    REAL, INTENT(IN )::   DX
    REAL,       INTENT(IN   ),OPTIONAL    ::     bldt
    REAL,       INTENT(IN   ),OPTIONAL    ::     curr_secs
@@ -952,8 +967,22 @@ CONTAINS
 #endif
 
 
-   INTEGER, OPTIONAL, INTENT(IN )::   year, day_int, hour, minute ! add for SUEWS by Zhenkun Li, 6/6/2018
+   INTEGER, OPTIONAL, INTENT(IN )::   year, day_int, hour, minute, second ! add for SUEWS by Zhenkun Li, 6/6/2018
    REAL, OPTIONAL, DIMENSION( 3 ) , INTENT(IN) :: OHMcoef
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme,3),INTENT(INOUT)                 :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albDecTr_SUEWS !Albedo of deciduous trees [-]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albEveTr_SUEWS !Albedo of evergreen trees [-]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albGrass_SUEWS !Albedo of grass[-]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: porosity_SUEWS !Porosity of deciduous trees [-]
+   REAL,DIMENSION(ims:ime,jms:jme,5),INTENT(INOUT)                 :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+   REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT)                 :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+   REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT)                 :: HDD_PREV_SUEWS      !Heating Degree Days (see SUEWS_DailyState.f95)
+   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT)             :: state_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT)             :: soilmoist_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT)             :: surf_var_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
    INTEGER, OPTIONAL, INTENT(IN )::   slope_rad, topo_shading
    INTEGER, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(IN):: shadowmask
    REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(INOUT):: swnorm
@@ -2474,24 +2503,25 @@ CONTAINS
           !   ids,ide, jds,jde, kds,kde,                           &
           !   ims,ime, jms,jme, kms,kme,                           &
           !   i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
-          CALL suewsdrv(year, day_int, hour, minute, xtime, OHMcoef, &
+          CALL suewsdrv(year, day_int, hour, minute, second, xtime, OHMcoef, &
              t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
              psfc, rainbl, NLCAT, LANDUSEF, ht,                    &
              hfx, qfx, lh, tsk, qsfc, chklowq,                     &
-             !LAI_SUEWS,                                            &
-             !qn1_store_SUEWS,                                      &
-             !qn1_av_store_SUEWS,                                   &
-             !albDecTr_SUEWS,                                       &
-             !albEveTr_SUEWS,                                       &
-             !albGrass_SUEWS,                                       &
-             !DecidCap_SUEWS,                                       &
-             !porosity_SUEWS,                                       &
-             !GDD_SUEWS,                                            &
-             !HDD_SUEWS,                                            &
-             !state_SUEWS,                                          &
-             !soilmoist_SUEWS,                                      &
-             !surf_var_SUEWS,                                       &
-             XLONG, XLAT, DT, DX,                                  &
+             qn1_av_SUEWS,                                         &
+             LAI_SUEWS,                                            &
+             albDecTr_SUEWS,                                       &
+             albEveTr_SUEWS,                                       &
+             albGrass_SUEWS,                                       &
+             DecidCap_SUEWS,                                       &
+             porosity_SUEWS,                                       &
+             GDD_SUEWS,                                            &
+             HDD_SUEWS,                                            &
+             HDD_PREV_SUEWS ,                                      &
+             state_SUEWS,                                          &
+             soilmoist_SUEWS,                                      &
+             surf_var_SUEWS,                                       &
+             dqndt_SUEWS,                                          &
+             XLONG, XLAT, DT, DT_PREV, DX,                         &
              ids,ide, jds,jde, kds,kde,                            &
              ims,ime, jms,jme, kms,kme,                            &
              i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts, kte)

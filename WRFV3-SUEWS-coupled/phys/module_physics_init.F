@@ -213,6 +213,20 @@ CONTAINS
                          ,ccn_conc                             & ! RAS
                          ,QKE                                  & !for MYNN
                          ,OHMcoef                              & ! added for SUEWS by Zhenkun Li, 15/6/2018
+                         ,qn1_av_SUEWS                         &
+                         ,LAI_SUEWS                            &
+                         ,albDecTr_SUEWS                       &
+                         ,albEveTr_SUEWS                       &
+                         ,albGrass_SUEWS                       &
+                         ,DecidCap_SUEWS                       &
+                         ,porosity_SUEWS                       &
+                         ,GDD_SUEWS                            &
+                         ,HDD_SUEWS                            &
+                         ,HDD_PREV_SUEWS                       &
+                         ,state_SUEWS                          &
+                         ,soilmoist_SUEWS                      &
+                         ,surf_var_SUEWS                       &
+                         ,dqndt_SUEWS                          &
                          ,landusef,landusef2,mosaic_cat_index                                                 & ! danli mosaic
                          ,TSK_mosaic,TSLB_mosaic,SMOIS_mosaic,SH2O_mosaic                                     & ! danli mosaic
                          ,CANWAT_mosaic,SNOW_mosaic,SNOWH_mosaic,SNOWC_mosaic                                 & ! danli mosaic
@@ -397,6 +411,20 @@ CONTAINS
              RUBLTEN,RVBLTEN,RTHBLTEN,RQVBLTEN,RQCBLTEN,RQIBLTEN,EXCH_H,TKE_PBL
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
   REAL,     DIMENSION( 3 ) , INTENT(INOUT), OPTIONAL :: OHMcoef  ! add for SUEWS by Zhenkun Li, 15/6/2018
+  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: qn1_av_SUEWS
+  REAL,DIMENSION(ims:ime,jms:jme,3),INTENT(INOUT) , OPTIONAL        :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
+  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: albDecTr_SUEWS !Albedo of deciduous trees [-]
+  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: albEveTr_SUEWS !Albedo of evergreen trees [-]
+  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: albGrass_SUEWS !Albedo of grass[-]
+  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
+  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: porosity_SUEWS !Porosity of deciduous trees [-]
+  REAL,DIMENSION(ims:ime,jms:jme,5),INTENT(INOUT) , OPTIONAL        :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+  REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL        :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+  REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL        :: HDD_PREV_SUEWS      !Heating Degree Days (see SUEWS_DailyState.f95)
+  REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL        :: state_SUEWS
+  REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL        :: soilmoist_SUEWS
+  REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL        :: surf_var_SUEWS
+  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: dqndt_SUEWS
 
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                                             massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -1126,6 +1154,20 @@ integer myproc
                 DX, DY, MSFTX, MSFTY,                           &
 #endif
                 OHMcoef,                                        & ! added for SUEWS by Zhenkun Li, 15/6/2018
+                qn1_av_SUEWS,   &
+                LAI_SUEWS      ,&
+                albDecTr_SUEWS ,&
+                albEveTr_SUEWS ,&
+                albGrass_SUEWS ,&
+                DecidCap_SUEWS ,&
+                porosity_SUEWS ,&
+                GDD_SUEWS      ,&
+                HDD_SUEWS      ,&
+                HDD_PREV_SUEWS ,&
+                state_SUEWS,&
+                soilmoist_SUEWS,&
+                surf_var_SUEWS,&
+                dqndt_SUEWS,&
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2041,6 +2083,20 @@ integer myproc
                 ZNT,XLAND,XICE,DX, DY, MSFTX, MSFTY,            &
 #endif
                 OHMcoef,                                        & ! added for SUEWS by Zhenkun Li, 15/6/2018
+                qn1_av_SUEWS,   &
+                LAI_SUEWS      ,&
+                albDecTr_SUEWS ,&
+                albEveTr_SUEWS ,&
+                albGrass_SUEWS ,&
+                DecidCap_SUEWS ,&
+                porosity_SUEWS ,&
+                GDD_SUEWS      ,&
+                HDD_SUEWS      ,&
+                HDD_PREV_SUEWS ,&
+                state_SUEWS,&
+                soilmoist_SUEWS,&
+                surf_var_SUEWS,&
+                dqndt_SUEWS,&
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 ISNOWXY, ZSNSOXY, TSNOXY,                       &
@@ -2282,6 +2338,20 @@ integer myproc
                                                           TKE_PBL
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
    REAL,     DIMENSION( 3 ) , INTENT(INOUT), OPTIONAL :: OHMcoef  ! add for SUEWS by Zhenkun Li, 15/6/2018
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: qn1_av_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme,3),INTENT(INOUT) , OPTIONAL        :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: albDecTr_SUEWS !Albedo of deciduous trees [-]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: albEveTr_SUEWS !Albedo of evergreen trees [-]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: albGrass_SUEWS !Albedo of grass[-]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: porosity_SUEWS !Porosity of deciduous trees [-]
+   REAL,DIMENSION(ims:ime,jms:jme,5),INTENT(INOUT) , OPTIONAL        :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+   REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL        :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+   REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL        :: HDD_PREV_SUEWS      !Heating Degree Days (see SUEWS_DailyState.f95)
+   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL        :: state_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL        :: soilmoist_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL        :: surf_var_SUEWS
+   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL        :: dqndt_SUEWS
 
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                               massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -2706,6 +2776,20 @@ integer myproc
       CASE (SUEWSSCHEME) ! add for SUEWS by Zhenkun Li, 6/6/2018
 
            CALL suewsinit(TSK, 3, OHMcoef,                     &
+                         qn1_av_SUEWS,   &
+                         LAI_SUEWS      ,&
+                         albDecTr_SUEWS ,&
+                         albEveTr_SUEWS ,&
+                         albGrass_SUEWS ,&
+                         DecidCap_SUEWS ,&
+                         porosity_SUEWS ,&
+                         GDD_SUEWS      ,&
+                         HDD_SUEWS      ,&
+                         HDD_PREV_SUEWS ,&
+                         state_SUEWS,&
+                         soilmoist_SUEWS,&
+                         surf_var_SUEWS,&
+                         dqndt_SUEWS,&
                          restart, allowed_to_read,             &
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
