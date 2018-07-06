@@ -44,3 +44,6 @@ namelist.input.backup.*
 
 # delete log files
 *.log
+
+# ignore local configurations
+configure.wrf
