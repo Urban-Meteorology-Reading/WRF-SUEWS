@@ -5,7 +5,7 @@
 
 
 MODULE SuMin_Module
-  USE SUEWS_Driver,ONLY:SUEWS_cal_Main,ndays,nsurf,nvegsurf,&
+  USE SUEWS_Driver,ONLY:SUEWS_cal_Main,nsurf,nvegsurf,&
        PavSurf,BldgSurf,ConifSurf,DecidSurf,GrassSurf,BSoilSurf,WaterSurf,&
        ivConif,ivDecid,ivGrass,&
        ncolumnsDataOutSUEWS,ncolumnsDataOutSnow,&
