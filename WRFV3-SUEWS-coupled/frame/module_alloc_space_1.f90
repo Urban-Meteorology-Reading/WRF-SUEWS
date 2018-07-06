@@ -157,12 +157,21 @@ CONTAINS
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 IF(okay_to_alloc.AND.in_use_for_config(id,'flxhumb_urb2d'))THEN
   num_bytes_allocated = num_bytes_allocated + &
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%flxhumb_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",165,&
+=======
+    CALL wrf_error_fatal3("<stdin>",179,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%flxhumb_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%flxhumb_urb2d=initial_data_value
@@ -212,7 +221,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'flxhumb_urb2d'))THEN
 ELSE
   ALLOCATE(grid%flxhumb_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",215,&
+=======
+    CALL wrf_error_fatal3("<stdin>",229,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%flxhumb_urb2d(1,1).  ')
   endif
 ENDIF
@@ -221,7 +234,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'flxhumg_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%flxhumg_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",224,&
+=======
+    CALL wrf_error_fatal3("<stdin>",238,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%flxhumg_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%flxhumg_urb2d=initial_data_value
@@ -271,7 +288,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'flxhumg_urb2d'))THEN
 ELSE
   ALLOCATE(grid%flxhumg_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",274,&
+=======
+    CALL wrf_error_fatal3("<stdin>",288,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%flxhumg_urb2d(1,1).  ')
   endif
 ENDIF
@@ -280,7 +301,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tgrl_urb3d'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%num_soil_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tgrl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",283,&
+=======
+    CALL wrf_error_fatal3("<stdin>",297,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tgrl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tgrl_urb3d=initial_data_value
@@ -330,7 +355,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tgrl_urb3d'))THEN
 ELSE
   ALLOCATE(grid%tgrl_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",333,&
+=======
+    CALL wrf_error_fatal3("<stdin>",347,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tgrl_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -339,7 +368,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'smr_urb3d'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%num_soil_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%smr_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",342,&
+=======
+    CALL wrf_error_fatal3("<stdin>",356,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%smr_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%smr_urb3d=initial_data_value
@@ -389,7 +422,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'smr_urb3d'))THEN
 ELSE
   ALLOCATE(grid%smr_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",392,&
+=======
+    CALL wrf_error_fatal3("<stdin>",406,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%smr_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -398,7 +435,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'trl_urb3d'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%num_soil_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%trl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",401,&
+=======
+    CALL wrf_error_fatal3("<stdin>",415,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%trl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%trl_urb3d=initial_data_value
@@ -448,7 +489,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'trl_urb3d'))THEN
 ELSE
   ALLOCATE(grid%trl_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",451,&
+=======
+    CALL wrf_error_fatal3("<stdin>",465,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%trl_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -457,7 +502,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tbl_urb3d'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%num_soil_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tbl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",460,&
+=======
+    CALL wrf_error_fatal3("<stdin>",474,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tbl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tbl_urb3d=initial_data_value
@@ -507,7 +556,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tbl_urb3d'))THEN
 ELSE
   ALLOCATE(grid%tbl_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",510,&
+=======
+    CALL wrf_error_fatal3("<stdin>",524,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tbl_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -516,7 +569,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tgl_urb3d'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%num_soil_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tgl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",519,&
+=======
+    CALL wrf_error_fatal3("<stdin>",533,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tgl_urb3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tgl_urb3d=initial_data_value
@@ -566,7 +623,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tgl_urb3d'))THEN
 ELSE
   ALLOCATE(grid%tgl_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",569,&
+=======
+    CALL wrf_error_fatal3("<stdin>",583,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tgl_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -575,7 +636,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sh_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%sh_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",578,&
+=======
+    CALL wrf_error_fatal3("<stdin>",592,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sh_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sh_urb2d=initial_data_value
@@ -625,7 +690,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sh_urb2d'))THEN
 ELSE
   ALLOCATE(grid%sh_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",628,&
+=======
+    CALL wrf_error_fatal3("<stdin>",642,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sh_urb2d(1,1).  ')
   endif
 ENDIF
@@ -634,7 +703,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lh_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%lh_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",637,&
+=======
+    CALL wrf_error_fatal3("<stdin>",651,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lh_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lh_urb2d=initial_data_value
@@ -684,7 +757,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lh_urb2d'))THEN
 ELSE
   ALLOCATE(grid%lh_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",687,&
+=======
+    CALL wrf_error_fatal3("<stdin>",701,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lh_urb2d(1,1).  ')
   endif
 ENDIF
@@ -693,7 +770,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'g_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%g_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",696,&
+=======
+    CALL wrf_error_fatal3("<stdin>",710,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%g_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%g_urb2d=initial_data_value
@@ -743,7 +824,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'g_urb2d'))THEN
 ELSE
   ALLOCATE(grid%g_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",746,&
+=======
+    CALL wrf_error_fatal3("<stdin>",760,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%g_urb2d(1,1).  ')
   endif
 ENDIF
@@ -752,7 +837,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rn_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rn_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",755,&
+=======
+    CALL wrf_error_fatal3("<stdin>",769,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rn_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rn_urb2d=initial_data_value
@@ -802,7 +891,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rn_urb2d'))THEN
 ELSE
   ALLOCATE(grid%rn_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",805,&
+=======
+    CALL wrf_error_fatal3("<stdin>",819,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rn_urb2d(1,1).  ')
   endif
 ENDIF
@@ -811,7 +904,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ts_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ts_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",814,&
+=======
+    CALL wrf_error_fatal3("<stdin>",828,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ts_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ts_urb2d=initial_data_value
@@ -861,7 +958,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ts_urb2d'))THEN
 ELSE
   ALLOCATE(grid%ts_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",864,&
+=======
+    CALL wrf_error_fatal3("<stdin>",878,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ts_urb2d(1,1).  ')
   endif
 ENDIF
@@ -870,7 +971,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'frc_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%frc_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",873,&
+=======
+    CALL wrf_error_fatal3("<stdin>",887,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%frc_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%frc_urb2d=initial_data_value
@@ -920,7 +1025,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'frc_urb2d'))THEN
 ELSE
   ALLOCATE(grid%frc_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",923,&
+=======
+    CALL wrf_error_fatal3("<stdin>",937,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%frc_urb2d(1,1).  ')
   endif
 ENDIF
@@ -929,7 +1038,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'utype_urb2d'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%utype_urb2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",932,&
+=======
+    CALL wrf_error_fatal3("<stdin>",946,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%utype_urb2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%utype_urb2d=0
@@ -979,7 +1092,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'utype_urb2d'))THEN
 ELSE
   ALLOCATE(grid%utype_urb2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",982,&
+=======
+    CALL wrf_error_fatal3("<stdin>",996,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%utype_urb2d(1,1).  ')
   endif
 ENDIF
@@ -988,7 +1105,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'trb_urb4d').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%trb_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",991,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1005,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%trb_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%trb_urb4d=initial_data_value
@@ -1038,7 +1159,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'trb_urb4d').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%trb_urb4d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1041,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1055,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%trb_urb4d(1,1,1).  ')
   endif
 ENDIF
@@ -1047,7 +1172,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw1_urb4d').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tw1_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1050,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1064,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw1_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tw1_urb4d=initial_data_value
@@ -1097,7 +1226,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw1_urb4d').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%tw1_urb4d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1100,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1114,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw1_urb4d(1,1,1).  ')
   endif
 ENDIF
@@ -1106,7 +1239,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw2_urb4d').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tw2_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1109,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1123,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw2_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tw2_urb4d=initial_data_value
@@ -1156,7 +1293,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw2_urb4d').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%tw2_urb4d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1159,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1173,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw2_urb4d(1,1,1).  ')
   endif
 ENDIF
@@ -1165,7 +1306,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tgb_urb4d').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tgb_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1168,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1182,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tgb_urb4d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tgb_urb4d=initial_data_value
@@ -1215,7 +1360,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tgb_urb4d').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%tgb_urb4d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1218,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1232,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tgb_urb4d(1,1,1).  ')
   endif
 ENDIF
@@ -1224,7 +1373,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tlev_urb3d').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tlev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1227,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1241,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tlev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tlev_urb3d=initial_data_value
@@ -1274,7 +1427,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tlev_urb3d').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%tlev_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1277,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1291,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tlev_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -1283,7 +1440,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qlev_urb3d').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qlev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1286,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1300,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qlev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qlev_urb3d=initial_data_value
@@ -1333,7 +1494,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qlev_urb3d').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%qlev_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1336,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1350,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qlev_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -1342,7 +1507,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw1lev_urb3d').AND.(.NOT.grid%is_inte
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tw1lev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1345,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1359,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw1lev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tw1lev_urb3d=initial_data_value
@@ -1392,7 +1561,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw1lev_urb3d').AND.(.NOT.grid%is_inte
 ELSE
   ALLOCATE(grid%tw1lev_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1395,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1409,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw1lev_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -1401,7 +1574,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw2lev_urb3d').AND.(.NOT.grid%is_inte
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tw2lev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1404,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1418,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw2lev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tw2lev_urb3d=initial_data_value
@@ -1451,7 +1628,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tw2lev_urb3d').AND.(.NOT.grid%is_inte
 ELSE
   ALLOCATE(grid%tw2lev_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1454,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1468,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tw2lev_urb3d(1,1,1).  ')
   endif
 ENDIF
@@ -1460,7 +1641,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tglev_urb3d').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tglev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1463,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1477,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tglev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tglev_urb3d=initial_data_value
@@ -1510,16 +1695,30 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tglev_urb3d').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%tglev_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",1513,&
+=======
+    CALL wrf_error_fatal3("<stdin>",1527,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tglev_urb3d(1,1,1).  ')
   endif
 ENDIF
 IF(okay_to_alloc.AND.in_use_for_config(id,'tflev_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+<<<<<<< HEAD
   num_bytes_allocated = num_bytes_allocated + &
 ((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tflev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1522,&
+    'frame/module_domain.f: Failed to allocate grid%tflev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tflev_urb3d=initial_data_value
+=======
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%tflev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1536,&
     'frame/module_domain.f: Failed to allocate grid%tflev_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tflev_urb3d=initial_data_value
@@ -1569,6 +1768,78 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tflev_urb3d').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%tflev_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1586,&
+    'frame/module_domain.f: Failed to allocate grid%tflev_urb3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sf_ac_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sf_ac_urb3d(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1595,&
+    'frame/module_domain.f: Failed to allocate grid%sf_ac_urb3d(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sf_ac_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'tflev_urb3d'
+  grid%tail_statevars%DataName = 'TFLEV_URB3D'
+  grid%tail_statevars%Description = 'FLOOR TEMPERATURE'
+  grid%tail_statevars%Units = 'K'
+=======
+  grid%tail_statevars%VarName = 'sf_ac_urb3d'
+  grid%tail_statevars%DataName = 'SF_AC_URB3D'
+  grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM THE AIR COND.'
+  grid%tail_statevars%Units = 'W m{-2}'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%tflev_urb3d
+=======
+  grid%tail_statevars%rfield_2d => grid%sf_ac_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%num_urban_layers
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%num_urban_layers
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%num_urban_layers
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'urban_layers_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%tflev_urb3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1572,&
     'frame/module_domain.f: Failed to allocate grid%tflev_urb3d(1,1,1).  ')
   endif
@@ -1582,13 +1853,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sf_ac_urb3d').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%sf_ac_urb3d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sf_ac_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sf_ac_urb3d(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1645,&
+    'frame/module_domain.f: Failed to allocate grid%sf_ac_urb3d(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'lf_ac_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%lf_ac_urb3d(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1654,&
+    'frame/module_domain.f: Failed to allocate grid%lf_ac_urb3d(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lf_ac_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sf_ac_urb3d'
   grid%tail_statevars%DataName = 'SF_AC_URB3D'
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM THE AIR COND.'
+=======
+  grid%tail_statevars%VarName = 'lf_ac_urb3d'
+  grid%tail_statevars%DataName = 'LF_AC_URB3D'
+  grid%tail_statevars%Description = 'LATENT HEAT FLUX FROM THE AIR COND.'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -1598,7 +1892,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sf_ac_urb3d').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%sf_ac_urb3d
+=======
+  grid%tail_statevars%rfield_2d => grid%lf_ac_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -1626,6 +1924,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sf_ac_urb3d').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sf_ac_urb3d(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1631,&
@@ -1641,13 +1940,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lf_ac_urb3d').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%lf_ac_urb3d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lf_ac_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%lf_ac_urb3d(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1704,&
+    'frame/module_domain.f: Failed to allocate grid%lf_ac_urb3d(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cm_ac_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cm_ac_urb3d(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1713,&
+    'frame/module_domain.f: Failed to allocate grid%cm_ac_urb3d(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cm_ac_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'lf_ac_urb3d'
   grid%tail_statevars%DataName = 'LF_AC_URB3D'
   grid%tail_statevars%Description = 'LATENT HEAT FLUX FROM THE AIR COND.'
+=======
+  grid%tail_statevars%VarName = 'cm_ac_urb3d'
+  grid%tail_statevars%DataName = 'CM_AC_URB3D'
+  grid%tail_statevars%Description = 'CONSUMPTION OF THE AIR COND.'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -1657,7 +1979,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lf_ac_urb3d').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%lf_ac_urb3d
+=======
+  grid%tail_statevars%rfield_2d => grid%cm_ac_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -1685,6 +2011,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lf_ac_urb3d').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%lf_ac_urb3d(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1690,&
@@ -1700,13 +2027,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cm_ac_urb3d').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%cm_ac_urb3d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cm_ac_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%cm_ac_urb3d(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1763,&
+    'frame/module_domain.f: Failed to allocate grid%cm_ac_urb3d(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sfvent_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sfvent_urb3d(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1772,&
+    'frame/module_domain.f: Failed to allocate grid%sfvent_urb3d(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfvent_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cm_ac_urb3d'
   grid%tail_statevars%DataName = 'CM_AC_URB3D'
   grid%tail_statevars%Description = 'CONSUMPTION OF THE AIR COND.'
+=======
+  grid%tail_statevars%VarName = 'sfvent_urb3d'
+  grid%tail_statevars%DataName = 'SFVENT_URB3D'
+  grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN VENTILATION'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -1716,7 +2066,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cm_ac_urb3d').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%cm_ac_urb3d
+=======
+  grid%tail_statevars%rfield_2d => grid%sfvent_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -1744,6 +2098,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cm_ac_urb3d').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cm_ac_urb3d(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1749,&
@@ -1759,13 +2114,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfvent_urb3d').AND.(.NOT.grid%is_inte
     'frame/module_domain.f: Failed to allocate grid%sfvent_urb3d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfvent_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sfvent_urb3d(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1822,&
+    'frame/module_domain.f: Failed to allocate grid%sfvent_urb3d(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'lfvent_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%lfvent_urb3d(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1831,&
+    'frame/module_domain.f: Failed to allocate grid%lfvent_urb3d(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lfvent_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sfvent_urb3d'
   grid%tail_statevars%DataName = 'SFVENT_URB3D'
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN VENTILATION'
+=======
+  grid%tail_statevars%VarName = 'lfvent_urb3d'
+  grid%tail_statevars%DataName = 'LFVENT_URB3D'
+  grid%tail_statevars%Description = 'LATENT HEAT FLUX FROM URBAN VENTILATION'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -1775,7 +2153,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfvent_urb3d').AND.(.NOT.grid%is_inte
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%sfvent_urb3d
+=======
+  grid%tail_statevars%rfield_2d => grid%lfvent_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -1803,6 +2185,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfvent_urb3d').AND.(.NOT.grid%is_inte
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sfvent_urb3d(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1808,&
@@ -1818,50 +2201,78 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lfvent_urb3d').AND.(.NOT.grid%is_inte
     'frame/module_domain.f: Failed to allocate grid%lfvent_urb3d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lfvent_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%lfvent_urb3d(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1881,&
+    'frame/module_domain.f: Failed to allocate grid%lfvent_urb3d(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin1_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sfwin1_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1890,&
+    'frame/module_domain.f: Failed to allocate grid%sfwin1_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfwin1_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'lfvent_urb3d'
   grid%tail_statevars%DataName = 'LFVENT_URB3D'
   grid%tail_statevars%Description = 'LATENT HEAT FLUX FROM URBAN VENTILATION'
+=======
+  grid%tail_statevars%VarName = 'sfwin1_urb3d'
+  grid%tail_statevars%DataName = 'SFWIN1_URB3D'
+  grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC WINDOW'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
   grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%lfvent_urb3d
+=======
+  grid%tail_statevars%rfield_3d => grid%sfwin1_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%num_urban_layers
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%num_urban_layers
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%num_urban_layers
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
+  grid%tail_statevars%dimname2 = 'urban_layers_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%lfvent_urb3d(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1867,&
@@ -1877,12 +2288,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin1_urb3d').AND.(.NOT.grid%is_inte
     'frame/module_domain.f: Failed to allocate grid%sfwin1_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfwin1_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sfwin1_urb3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1940,&
+    'frame/module_domain.f: Failed to allocate grid%sfwin1_urb3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin2_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sfwin2_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1949,&
+    'frame/module_domain.f: Failed to allocate grid%sfwin2_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfwin2_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sfwin1_urb3d'
   grid%tail_statevars%DataName = 'SFWIN1_URB3D'
+=======
+  grid%tail_statevars%VarName = 'sfwin2_urb3d'
+  grid%tail_statevars%DataName = 'SFWIN2_URB3D'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC WINDOW'
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
@@ -1893,7 +2326,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin1_urb3d').AND.(.NOT.grid%is_inte
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%sfwin1_urb3d
+=======
+  grid%tail_statevars%rfield_3d => grid%sfwin2_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -1921,6 +2358,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin1_urb3d').AND.(.NOT.grid%is_inte
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sfwin1_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1926,&
@@ -1936,13 +2374,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin2_urb3d').AND.(.NOT.grid%is_inte
     'frame/module_domain.f: Failed to allocate grid%sfwin2_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfwin2_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sfwin2_urb3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",1999,&
+    'frame/module_domain.f: Failed to allocate grid%sfwin2_urb3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sfw1_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sfw1_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2008,&
+    'frame/module_domain.f: Failed to allocate grid%sfw1_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfw1_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sfwin2_urb3d'
   grid%tail_statevars%DataName = 'SFWIN2_URB3D'
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC WINDOW'
+=======
+  grid%tail_statevars%VarName = 'sfw1_urb3d'
+  grid%tail_statevars%DataName = 'SFW1_URB3D'
+  grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -1952,7 +2413,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin2_urb3d').AND.(.NOT.grid%is_inte
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%sfwin2_urb3d
+=======
+  grid%tail_statevars%rfield_3d => grid%sfw1_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -1980,6 +2445,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfwin2_urb3d').AND.(.NOT.grid%is_inte
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sfwin2_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",1985,&
@@ -1995,12 +2461,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfw1_urb3d').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%sfw1_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfw1_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sfw1_urb3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2058,&
+    'frame/module_domain.f: Failed to allocate grid%sfw1_urb3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sfw2_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sfw2_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2067,&
+    'frame/module_domain.f: Failed to allocate grid%sfw2_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfw2_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sfw1_urb3d'
   grid%tail_statevars%DataName = 'SFW1_URB3D'
+=======
+  grid%tail_statevars%VarName = 'sfw2_urb3d'
+  grid%tail_statevars%DataName = 'SFW2_URB3D'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC'
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
@@ -2011,7 +2499,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfw1_urb3d').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%sfw1_urb3d
+=======
+  grid%tail_statevars%rfield_3d => grid%sfw2_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2039,6 +2531,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfw1_urb3d').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sfw1_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2044,&
@@ -2054,12 +2547,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfw2_urb3d').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%sfw2_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfw2_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sfw2_urb3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2117,&
+    'frame/module_domain.f: Failed to allocate grid%sfw2_urb3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sfr_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sfr_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2126,&
+    'frame/module_domain.f: Failed to allocate grid%sfr_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfr_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sfw2_urb3d'
   grid%tail_statevars%DataName = 'SFW2_URB3D'
+=======
+  grid%tail_statevars%VarName = 'sfr_urb3d'
+  grid%tail_statevars%DataName = 'SFR_URB3D'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC'
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
@@ -2070,7 +2585,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfw2_urb3d').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%sfw2_urb3d
+=======
+  grid%tail_statevars%rfield_3d => grid%sfr_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2098,6 +2617,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfw2_urb3d').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sfw2_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2103,&
@@ -2113,12 +2633,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfr_urb3d').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%sfr_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfr_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sfr_urb3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2176,&
+    'frame/module_domain.f: Failed to allocate grid%sfr_urb3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sfg_urb3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_urban_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sfg_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2185,&
+    'frame/module_domain.f: Failed to allocate grid%sfg_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfg_urb3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sfr_urb3d'
   grid%tail_statevars%DataName = 'SFR_URB3D'
+=======
+  grid%tail_statevars%VarName = 'sfg_urb3d'
+  grid%tail_statevars%DataName = 'SFG_URB3D'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC'
   grid%tail_statevars%Units = 'W m{-2}'
   grid%tail_statevars%Type    = 'r'
@@ -2129,7 +2671,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfr_urb3d').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%sfr_urb3d
+=======
+  grid%tail_statevars%rfield_3d => grid%sfg_urb3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2157,6 +2703,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfr_urb3d').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sfr_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2162,&
@@ -2172,10 +2719,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfg_urb3d').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%sfg_urb3d(sm31:em31,1:model_config_rec%num_urban_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sfg_urb3d=initial_data_value
+=======
+  ALLOCATE(grid%sfg_urb3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2235,&
+    'frame/module_domain.f: Failed to allocate grid%sfg_urb3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cmr_sfcdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cmr_sfcdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2244,&
+    'frame/module_domain.f: Failed to allocate grid%cmr_sfcdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cmr_sfcdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sfg_urb3d'
   grid%tail_statevars%DataName = 'SFG_URB3D'
   grid%tail_statevars%Description = 'SENSIBLE HEAT FLUX FROM URBAN SFC'
@@ -2184,11 +2749,25 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfg_urb3d').AND.(.NOT.grid%is_interme
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
   grid%tail_statevars%Stagger      = 'Z'
+=======
+  grid%tail_statevars%VarName = 'cmr_sfcdif'
+  grid%tail_statevars%DataName = 'CMR_SFCDIF'
+  grid%tail_statevars%Description = ''
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%sfg_urb3d
+=======
+  grid%tail_statevars%rfield_2d => grid%cmr_sfcdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2216,6 +2795,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sfg_urb3d').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sfg_urb3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2221,&
@@ -2231,12 +2811,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmr_sfcdif').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%cmr_sfcdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cmr_sfcdif=initial_data_value
+=======
+  ALLOCATE(grid%cmr_sfcdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2294,&
+    'frame/module_domain.f: Failed to allocate grid%cmr_sfcdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'chr_sfcdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%chr_sfcdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2303,&
+    'frame/module_domain.f: Failed to allocate grid%chr_sfcdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%chr_sfcdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cmr_sfcdif'
   grid%tail_statevars%DataName = 'CMR_SFCDIF'
+=======
+  grid%tail_statevars%VarName = 'chr_sfcdif'
+  grid%tail_statevars%DataName = 'CHR_SFCDIF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = ''
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -2247,7 +2849,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmr_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%cmr_sfcdif
+=======
+  grid%tail_statevars%rfield_2d => grid%chr_sfcdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2275,6 +2881,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmr_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cmr_sfcdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2280,&
@@ -2290,12 +2897,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chr_sfcdif').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%chr_sfcdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%chr_sfcdif=initial_data_value
+=======
+  ALLOCATE(grid%chr_sfcdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2353,&
+    'frame/module_domain.f: Failed to allocate grid%chr_sfcdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cmc_sfcdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cmc_sfcdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2362,&
+    'frame/module_domain.f: Failed to allocate grid%cmc_sfcdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cmc_sfcdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'chr_sfcdif'
   grid%tail_statevars%DataName = 'CHR_SFCDIF'
+=======
+  grid%tail_statevars%VarName = 'cmc_sfcdif'
+  grid%tail_statevars%DataName = 'CMC_SFCDIF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = ''
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -2306,7 +2935,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chr_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%chr_sfcdif
+=======
+  grid%tail_statevars%rfield_2d => grid%cmc_sfcdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2334,6 +2967,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chr_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%chr_sfcdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2339,&
@@ -2349,12 +2983,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmc_sfcdif').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%cmc_sfcdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cmc_sfcdif=initial_data_value
+=======
+  ALLOCATE(grid%cmc_sfcdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2412,&
+    'frame/module_domain.f: Failed to allocate grid%cmc_sfcdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'chc_sfcdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%chc_sfcdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2421,&
+    'frame/module_domain.f: Failed to allocate grid%chc_sfcdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%chc_sfcdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cmc_sfcdif'
   grid%tail_statevars%DataName = 'CMC_SFCDIF'
+=======
+  grid%tail_statevars%VarName = 'chc_sfcdif'
+  grid%tail_statevars%DataName = 'CHC_SFCDIF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = ''
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -2365,7 +3021,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmc_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%cmc_sfcdif
+=======
+  grid%tail_statevars%rfield_2d => grid%chc_sfcdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2393,6 +3053,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmc_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cmc_sfcdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2398,&
@@ -2408,12 +3069,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chc_sfcdif').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%chc_sfcdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%chc_sfcdif=initial_data_value
+=======
+  ALLOCATE(grid%chc_sfcdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2471,&
+    'frame/module_domain.f: Failed to allocate grid%chc_sfcdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cmgr_sfcdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cmgr_sfcdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2480,&
+    'frame/module_domain.f: Failed to allocate grid%cmgr_sfcdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cmgr_sfcdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'chc_sfcdif'
   grid%tail_statevars%DataName = 'CHC_SFCDIF'
+=======
+  grid%tail_statevars%VarName = 'cmgr_sfcdif'
+  grid%tail_statevars%DataName = 'CMGR_SFCDIF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = ''
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -2424,7 +3107,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chc_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%chc_sfcdif
+=======
+  grid%tail_statevars%rfield_2d => grid%cmgr_sfcdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2452,6 +3139,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chc_sfcdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%chc_sfcdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2457,&
@@ -2467,12 +3155,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmgr_sfcdif').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%cmgr_sfcdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cmgr_sfcdif=initial_data_value
+=======
+  ALLOCATE(grid%cmgr_sfcdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2530,&
+    'frame/module_domain.f: Failed to allocate grid%cmgr_sfcdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'chgr_sfcdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%chgr_sfcdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2539,&
+    'frame/module_domain.f: Failed to allocate grid%chgr_sfcdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%chgr_sfcdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cmgr_sfcdif'
   grid%tail_statevars%DataName = 'CMGR_SFCDIF'
+=======
+  grid%tail_statevars%VarName = 'chgr_sfcdif'
+  grid%tail_statevars%DataName = 'CHGR_SFCDIF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = ''
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -2483,7 +3193,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmgr_sfcdif').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%cmgr_sfcdif
+=======
+  grid%tail_statevars%rfield_2d => grid%chgr_sfcdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2511,6 +3225,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cmgr_sfcdif').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cmgr_sfcdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2516,&
@@ -2526,14 +3241,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chgr_sfcdif').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%chgr_sfcdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%chgr_sfcdif=initial_data_value
+=======
+  ALLOCATE(grid%chgr_sfcdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2589,&
+    'frame/module_domain.f: Failed to allocate grid%chgr_sfcdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'coszen').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%coszen(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2598,&
+    'frame/module_domain.f: Failed to allocate grid%coszen(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%coszen=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'chgr_sfcdif'
   grid%tail_statevars%DataName = 'CHGR_SFCDIF'
   grid%tail_statevars%Description = ''
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'coszen'
+  grid%tail_statevars%DataName = 'COSZEN'
+  grid%tail_statevars%Description = 'COS of SOLAR ZENITH ANGLE'
+  grid%tail_statevars%Units = 'dimensionless'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -2542,8 +3281,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chgr_sfcdif').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%chgr_sfcdif
   grid%tail_statevars%streams(1) = 0 
+=======
+  grid%tail_statevars%rfield_2d => grid%coszen
+  grid%tail_statevars%streams(1) = 1 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -2570,6 +3314,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'chgr_sfcdif').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%chgr_sfcdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2575,&
@@ -2585,14 +3330,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'coszen').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%coszen(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%coszen=initial_data_value
+=======
+  ALLOCATE(grid%coszen(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2648,&
+    'frame/module_domain.f: Failed to allocate grid%coszen(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'hrang').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%hrang(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2657,&
+    'frame/module_domain.f: Failed to allocate grid%hrang(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hrang=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'coszen'
   grid%tail_statevars%DataName = 'COSZEN'
   grid%tail_statevars%Description = 'COS of SOLAR ZENITH ANGLE'
   grid%tail_statevars%Units = 'dimensionless'
+=======
+  grid%tail_statevars%VarName = 'hrang'
+  grid%tail_statevars%DataName = 'HRANG'
+  grid%tail_statevars%Description = 'SOLAR HOUR ANGLE'
+  grid%tail_statevars%Units = 'radians'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -2601,8 +3370,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'coszen').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%coszen
   grid%tail_statevars%streams(1) = 1 
+=======
+  grid%tail_statevars%rfield_2d => grid%hrang
+  grid%tail_statevars%streams(1) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -2629,6 +3403,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'coszen').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%coszen(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2634,&
@@ -2644,14 +3419,76 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hrang').AND.(.NOT.grid%is_intermediat
     'frame/module_domain.f: Failed to allocate grid%hrang(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hrang=initial_data_value
+=======
+  ALLOCATE(grid%hrang(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2707,&
+    'frame/module_domain.f: Failed to allocate grid%hrang(1,1).  ')
+  endif
+ENDIF
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'declin'
+   grid%tail_statevars%DataName = 'DECLIN'
+   grid%tail_statevars%Description = 'SOLAR DECLINATION'
+   grid%tail_statevars%Units = 'radians'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%declin
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%declin=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'solcon'
+   grid%tail_statevars%DataName = 'SOLCON'
+   grid%tail_statevars%Description = 'SOLAR CONSTANT'
+   grid%tail_statevars%Units = 'W m-2'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%solcon
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%solcon=initial_data_value
+IF(okay_to_alloc.AND.in_use_for_config(id,'rhosnf').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%rhosnf(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2754,&
+    'frame/module_domain.f: Failed to allocate grid%rhosnf(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rhosnf=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'hrang'
   grid%tail_statevars%DataName = 'HRANG'
   grid%tail_statevars%Description = 'SOLAR HOUR ANGLE'
   grid%tail_statevars%Units = 'radians'
+=======
+  grid%tail_statevars%VarName = 'rhosnf'
+  grid%tail_statevars%DataName = 'RHOSNF'
+  grid%tail_statevars%Description = 'DENSITY OF FROZEN PRECIP'
+  grid%tail_statevars%Units = 'kg/m^3'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -2660,8 +3497,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hrang').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%hrang
   grid%tail_statevars%streams(1) = 0 
+=======
+  grid%tail_statevars%rfield_2d => grid%rhosnf
+  grid%tail_statevars%streams(1) = 33554433 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -2688,6 +3530,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hrang').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%hrang(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2693,&
@@ -2741,14 +3584,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rhosnf').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%rhosnf(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rhosnf=initial_data_value
+=======
+  ALLOCATE(grid%rhosnf(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2804,&
+    'frame/module_domain.f: Failed to allocate grid%rhosnf(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'snowfallac').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%snowfallac(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2813,&
+    'frame/module_domain.f: Failed to allocate grid%snowfallac(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%snowfallac=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'rhosnf'
   grid%tail_statevars%DataName = 'RHOSNF'
   grid%tail_statevars%Description = 'DENSITY OF FROZEN PRECIP'
   grid%tail_statevars%Units = 'kg/m^3'
+=======
+  grid%tail_statevars%VarName = 'snowfallac'
+  grid%tail_statevars%DataName = 'SNOWFALLAC'
+  grid%tail_statevars%Description = 'RUN-TOTAL ACCUMULATED SNOWFALL [mm]'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -2757,7 +3624,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rhosnf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%rhosnf
+=======
+  grid%tail_statevars%rfield_2d => grid%snowfallac
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 33554433 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2785,6 +3656,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rhosnf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%rhosnf(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2790,&
@@ -2800,13 +3672,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'snowfallac').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%snowfallac(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%snowfallac=initial_data_value
+=======
+  ALLOCATE(grid%snowfallac(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2863,&
+    'frame/module_domain.f: Failed to allocate grid%snowfallac(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'precipfr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%precipfr(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2872,&
+    'frame/module_domain.f: Failed to allocate grid%precipfr(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%precipfr=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'snowfallac'
   grid%tail_statevars%DataName = 'SNOWFALLAC'
   grid%tail_statevars%Description = 'RUN-TOTAL ACCUMULATED SNOWFALL [mm]'
+=======
+  grid%tail_statevars%VarName = 'precipfr'
+  grid%tail_statevars%DataName = 'PRECIPFR'
+  grid%tail_statevars%Description = 'TIME-STEP FROZEN PRECIP [mm]'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -2814,11 +3709,17 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'snowfallac').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%snowfallac
   grid%tail_statevars%streams(1) = 33554433 
   grid%tail_statevars%streams(2) = 2097152 
+=======
+  grid%tail_statevars%rfield_2d => grid%precipfr
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = jds
@@ -2844,6 +3745,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'snowfallac').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%snowfallac(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2849,&
@@ -2859,50 +3761,81 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'precipfr').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%precipfr(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%precipfr=initial_data_value
+=======
+  ALLOCATE(grid%precipfr(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2922,&
+    'frame/module_domain.f: Failed to allocate grid%precipfr(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'smfr3d').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_soil_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%smfr3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2931,&
+    'frame/module_domain.f: Failed to allocate grid%smfr3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%smfr3d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'precipfr'
   grid%tail_statevars%DataName = 'PRECIPFR'
   grid%tail_statevars%Description = 'TIME-STEP FROZEN PRECIP [mm]'
+=======
+  grid%tail_statevars%VarName = 'smfr3d'
+  grid%tail_statevars%DataName = 'SMFR3D'
+  grid%tail_statevars%Description = 'SOIL ICE'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
   grid%tail_statevars%Ntl     = 0
+<<<<<<< HEAD
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%precipfr
+=======
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_3d => grid%smfr3d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%num_soil_layers
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%num_soil_layers
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%num_soil_layers
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
+  grid%tail_statevars%dimname2 = 'soil_layers_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%precipfr(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2908,&
@@ -2918,13 +3851,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'smfr3d').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%smfr3d(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%smfr3d=initial_data_value
+=======
+  ALLOCATE(grid%smfr3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2981,&
+    'frame/module_domain.f: Failed to allocate grid%smfr3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'keepfr3dflag').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%num_soil_layers)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%keepfr3dflag(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",2990,&
+    'frame/module_domain.f: Failed to allocate grid%keepfr3dflag(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%keepfr3dflag=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'smfr3d'
   grid%tail_statevars%DataName = 'SMFR3D'
   grid%tail_statevars%Description = 'SOIL ICE'
+=======
+  grid%tail_statevars%VarName = 'keepfr3dflag'
+  grid%tail_statevars%DataName = 'KEEPFR3DFLAG'
+  grid%tail_statevars%Description = 'FLAG - 1. FROZEN SOIL YES, 0 - NO'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -2934,7 +3890,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'smfr3d').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%smfr3d
+=======
+  grid%tail_statevars%rfield_3d => grid%keepfr3dflag
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -2962,6 +3922,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'smfr3d').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%smfr3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",2967,&
@@ -2977,10 +3938,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'keepfr3dflag').AND.(.NOT.grid%is_inte
     'frame/module_domain.f: Failed to allocate grid%keepfr3dflag(sm31:em31,1:model_config_rec%num_soil_layers,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%keepfr3dflag=initial_data_value
+=======
+  ALLOCATE(grid%keepfr3dflag(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3040,&
+    'frame/module_domain.f: Failed to allocate grid%keepfr3dflag(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdir').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%swvisdir(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3049,&
+    'frame/module_domain.f: Failed to allocate grid%swvisdir(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swvisdir=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'keepfr3dflag'
   grid%tail_statevars%DataName = 'KEEPFR3DFLAG'
   grid%tail_statevars%Description = 'FLAG - 1. FROZEN SOIL YES, 0 - NO'
@@ -2988,12 +3967,25 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'keepfr3dflag').AND.(.NOT.grid%is_inte
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
+=======
+  grid%tail_statevars%VarName = 'swvisdir'
+  grid%tail_statevars%DataName = 'SWVISDIR'
+  grid%tail_statevars%Description = 'SWR VIS DIR component'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Stagger      = 'Z'
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%keepfr3dflag
+=======
+  grid%tail_statevars%rfield_2d => grid%swvisdir
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3021,6 +4013,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'keepfr3dflag').AND.(.NOT.grid%is_inte
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%keepfr3dflag(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3026,&
@@ -3036,13 +4029,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdir').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%swvisdir(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swvisdir=initial_data_value
+=======
+  ALLOCATE(grid%swvisdir(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3099,&
+    'frame/module_domain.f: Failed to allocate grid%swvisdir(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%swvisdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3108,&
+    'frame/module_domain.f: Failed to allocate grid%swvisdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swvisdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'swvisdir'
   grid%tail_statevars%DataName = 'SWVISDIR'
   grid%tail_statevars%Description = 'SWR VIS DIR component'
+=======
+  grid%tail_statevars%VarName = 'swvisdif'
+  grid%tail_statevars%DataName = 'SWVISDIF'
+  grid%tail_statevars%Description = 'SWR VIS DIF component'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3052,7 +4068,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdir').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%swvisdir
+=======
+  grid%tail_statevars%rfield_2d => grid%swvisdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3080,6 +4100,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdir').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%swvisdir(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3085,&
@@ -3095,13 +4116,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdif').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%swvisdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swvisdif=initial_data_value
+=======
+  ALLOCATE(grid%swvisdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3158,&
+    'frame/module_domain.f: Failed to allocate grid%swvisdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdir').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%swnirdir(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3167,&
+    'frame/module_domain.f: Failed to allocate grid%swnirdir(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swnirdir=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'swvisdif'
   grid%tail_statevars%DataName = 'SWVISDIF'
   grid%tail_statevars%Description = 'SWR VIS DIF component'
+=======
+  grid%tail_statevars%VarName = 'swnirdir'
+  grid%tail_statevars%DataName = 'SWNIRDIR'
+  grid%tail_statevars%Description = 'SWR NIR DIR component'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3111,7 +4155,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdif').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%swvisdif
+=======
+  grid%tail_statevars%rfield_2d => grid%swnirdir
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3139,6 +4187,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swvisdif').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%swvisdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3144,&
@@ -3154,13 +4203,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdir').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%swnirdir(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swnirdir=initial_data_value
+=======
+  ALLOCATE(grid%swnirdir(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3217,&
+    'frame/module_domain.f: Failed to allocate grid%swnirdir(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%swnirdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3226,&
+    'frame/module_domain.f: Failed to allocate grid%swnirdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swnirdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'swnirdir'
   grid%tail_statevars%DataName = 'SWNIRDIR'
   grid%tail_statevars%Description = 'SWR NIR DIR component'
+=======
+  grid%tail_statevars%VarName = 'swnirdif'
+  grid%tail_statevars%DataName = 'SWNIRDIF'
+  grid%tail_statevars%Description = 'SWR NIR DIF component'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3170,7 +4242,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdir').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%swnirdir
+=======
+  grid%tail_statevars%rfield_2d => grid%swnirdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3198,6 +4274,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdir').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%swnirdir(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3203,&
@@ -3213,13 +4290,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdif').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%swnirdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swnirdif=initial_data_value
+=======
+  ALLOCATE(grid%swnirdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3276,&
+    'frame/module_domain.f: Failed to allocate grid%swnirdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdir').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%alswvisdir(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3285,&
+    'frame/module_domain.f: Failed to allocate grid%alswvisdir(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswvisdir=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'swnirdif'
   grid%tail_statevars%DataName = 'SWNIRDIF'
   grid%tail_statevars%Description = 'SWR NIR DIF component'
+=======
+  grid%tail_statevars%VarName = 'alswvisdir'
+  grid%tail_statevars%DataName = 'ALSWVISDIR'
+  grid%tail_statevars%Description = 'ALB VIS DIR component'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3229,7 +4329,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdif').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%swnirdif
+=======
+  grid%tail_statevars%rfield_2d => grid%alswvisdir
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3257,6 +4361,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnirdif').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%swnirdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3262,&
@@ -3272,13 +4377,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdir').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%alswvisdir(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswvisdir=initial_data_value
+=======
+  ALLOCATE(grid%alswvisdir(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3335,&
+    'frame/module_domain.f: Failed to allocate grid%alswvisdir(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%alswvisdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3344,&
+    'frame/module_domain.f: Failed to allocate grid%alswvisdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswvisdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'alswvisdir'
   grid%tail_statevars%DataName = 'ALSWVISDIR'
   grid%tail_statevars%Description = 'ALB VIS DIR component'
+=======
+  grid%tail_statevars%VarName = 'alswvisdif'
+  grid%tail_statevars%DataName = 'ALSWVISDIF'
+  grid%tail_statevars%Description = 'ALB VIS DIF component'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3288,7 +4416,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdir').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%alswvisdir
+=======
+  grid%tail_statevars%rfield_2d => grid%alswvisdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3316,6 +4448,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdir').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%alswvisdir(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3321,&
@@ -3331,13 +4464,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdif').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%alswvisdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswvisdif=initial_data_value
+=======
+  ALLOCATE(grid%alswvisdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3394,&
+    'frame/module_domain.f: Failed to allocate grid%alswvisdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdir').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%alswnirdir(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3403,&
+    'frame/module_domain.f: Failed to allocate grid%alswnirdir(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswnirdir=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'alswvisdif'
   grid%tail_statevars%DataName = 'ALSWVISDIF'
   grid%tail_statevars%Description = 'ALB VIS DIF component'
+=======
+  grid%tail_statevars%VarName = 'alswnirdir'
+  grid%tail_statevars%DataName = 'ALSWNIRDIR'
+  grid%tail_statevars%Description = 'ALB NIR DIR component'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3347,7 +4503,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%alswvisdif
+=======
+  grid%tail_statevars%rfield_2d => grid%alswnirdir
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3375,6 +4535,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswvisdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%alswvisdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3380,&
@@ -3390,13 +4551,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdir').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%alswnirdir(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswnirdir=initial_data_value
+=======
+  ALLOCATE(grid%alswnirdir(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3453,&
+    'frame/module_domain.f: Failed to allocate grid%alswnirdir(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdif').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%alswnirdif(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3462,&
+    'frame/module_domain.f: Failed to allocate grid%alswnirdif(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswnirdif=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'alswnirdir'
   grid%tail_statevars%DataName = 'ALSWNIRDIR'
   grid%tail_statevars%Description = 'ALB NIR DIR component'
+=======
+  grid%tail_statevars%VarName = 'alswnirdif'
+  grid%tail_statevars%DataName = 'ALSWNIRDIF'
+  grid%tail_statevars%Description = 'ALB NIR DIF component'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3406,7 +4590,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdir').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%alswnirdir
+=======
+  grid%tail_statevars%rfield_2d => grid%alswnirdif
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3434,6 +4622,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdir').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%alswnirdir(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3439,&
@@ -3449,10 +4638,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdif').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%alswnirdif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%alswnirdif=initial_data_value
+=======
+  ALLOCATE(grid%alswnirdif(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3512,&
+    'frame/module_domain.f: Failed to allocate grid%alswnirdif(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ra').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ra(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3521,&
+    'frame/module_domain.f: Failed to allocate grid%ra(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ra=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'alswnirdif'
   grid%tail_statevars%DataName = 'ALSWNIRDIF'
   grid%tail_statevars%Description = 'ALB NIR DIF component'
@@ -3461,11 +4668,25 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = 'Z'
+=======
+  grid%tail_statevars%VarName = 'ra'
+  grid%tail_statevars%DataName = 'RA'
+  grid%tail_statevars%Description = 'AERODYNAMIC RESISTANCE'
+  grid%tail_statevars%Units = 's m-1'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%alswnirdif
+=======
+  grid%tail_statevars%rfield_2d => grid%ra
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3493,6 +4714,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'alswnirdif').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%alswnirdif(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3498,&
@@ -3508,13 +4730,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ra').AND.(.NOT.grid%is_intermediate))
     'frame/module_domain.f: Failed to allocate grid%ra(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ra=initial_data_value
+=======
+  ALLOCATE(grid%ra(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3571,&
+    'frame/module_domain.f: Failed to allocate grid%ra(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'rs').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%rs(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3580,&
+    'frame/module_domain.f: Failed to allocate grid%rs(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rs=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ra'
   grid%tail_statevars%DataName = 'RA'
   grid%tail_statevars%Description = 'AERODYNAMIC RESISTANCE'
+=======
+  grid%tail_statevars%VarName = 'rs'
+  grid%tail_statevars%DataName = 'RS'
+  grid%tail_statevars%Description = 'SURFACE RESISTANCE'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 's m-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3524,7 +4769,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ra').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%ra
+=======
+  grid%tail_statevars%rfield_2d => grid%rs
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3552,6 +4801,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ra').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ra(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3557,&
@@ -3567,14 +4817,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rs').AND.(.NOT.grid%is_intermediate))
     'frame/module_domain.f: Failed to allocate grid%rs(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rs=initial_data_value
+=======
+  ALLOCATE(grid%rs(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3630,&
+    'frame/module_domain.f: Failed to allocate grid%rs(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'lai').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%lai(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3639,&
+    'frame/module_domain.f: Failed to allocate grid%lai(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lai=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'rs'
   grid%tail_statevars%DataName = 'RS'
   grid%tail_statevars%Description = 'SURFACE RESISTANCE'
   grid%tail_statevars%Units = 's m-1'
+=======
+  grid%tail_statevars%VarName = 'lai'
+  grid%tail_statevars%DataName = 'LAI'
+  grid%tail_statevars%Description = 'LEAF AREA INDEX'
+  grid%tail_statevars%Units = 'm-2/m-2'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -3583,8 +4857,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rs').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%rs
   grid%tail_statevars%streams(1) = 0 
+=======
+  grid%tail_statevars%rfield_2d => grid%lai
+  grid%tail_statevars%streams(1) = 771751937 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -3611,6 +4890,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rs').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%rs(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3616,&
@@ -3626,14 +4906,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lai').AND.(.NOT.grid%is_intermediate)
     'frame/module_domain.f: Failed to allocate grid%lai(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lai=initial_data_value
+=======
+  ALLOCATE(grid%lai(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3689,&
+    'frame/module_domain.f: Failed to allocate grid%lai(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'vegf_px').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%vegf_px(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3698,&
+    'frame/module_domain.f: Failed to allocate grid%vegf_px(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vegf_px=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'lai'
   grid%tail_statevars%DataName = 'LAI'
   grid%tail_statevars%Description = 'LEAF AREA INDEX'
   grid%tail_statevars%Units = 'm-2/m-2'
+=======
+  grid%tail_statevars%VarName = 'vegf_px'
+  grid%tail_statevars%DataName = 'VEGF_PX'
+  grid%tail_statevars%Description = 'Vegetation Fraction for PX LSM'
+  grid%tail_statevars%Units = 'area/area'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -3642,8 +4946,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lai').AND.(.NOT.grid%is_intermediate)
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%lai
   grid%tail_statevars%streams(1) = 771751937 
+=======
+  grid%tail_statevars%rfield_2d => grid%vegf_px
+  grid%tail_statevars%streams(1) = 1 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -3670,6 +4979,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lai').AND.(.NOT.grid%is_intermediate)
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%lai(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3675,&
@@ -3685,14 +4995,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vegf_px').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%vegf_px(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vegf_px=initial_data_value
+=======
+  ALLOCATE(grid%vegf_px(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3748,&
+    'frame/module_domain.f: Failed to allocate grid%vegf_px(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'t2obs').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%t2obs(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3757,&
+    'frame/module_domain.f: Failed to allocate grid%t2obs(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%t2obs=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'vegf_px'
   grid%tail_statevars%DataName = 'VEGF_PX'
   grid%tail_statevars%Description = 'Vegetation Fraction for PX LSM'
   grid%tail_statevars%Units = 'area/area'
+=======
+  grid%tail_statevars%VarName = 't2obs'
+  grid%tail_statevars%DataName = 'T2OBS'
+  grid%tail_statevars%Description = '2-m temperature from analysis '
+  grid%tail_statevars%Units = 'K'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -3701,8 +5035,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vegf_px').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%vegf_px
   grid%tail_statevars%streams(1) = 1 
+=======
+  grid%tail_statevars%rfield_2d => grid%t2obs
+  grid%tail_statevars%streams(1) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -3729,6 +5068,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vegf_px').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%vegf_px(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3734,&
@@ -3744,14 +5084,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2obs').AND.(.NOT.grid%is_intermediat
     'frame/module_domain.f: Failed to allocate grid%t2obs(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%t2obs=initial_data_value
+=======
+  ALLOCATE(grid%t2obs(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3807,&
+    'frame/module_domain.f: Failed to allocate grid%t2obs(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'q2obs').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%q2obs(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3816,&
+    'frame/module_domain.f: Failed to allocate grid%q2obs(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%q2obs=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 't2obs'
   grid%tail_statevars%DataName = 'T2OBS'
   grid%tail_statevars%Description = '2-m temperature from analysis '
   grid%tail_statevars%Units = 'K'
+=======
+  grid%tail_statevars%VarName = 'q2obs'
+  grid%tail_statevars%DataName = 'Q2OBS'
+  grid%tail_statevars%Description = '2-m mixing ratio from analysis '
+  grid%tail_statevars%Units = 'kg/kg'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -3760,7 +5124,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2obs').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%t2obs
+=======
+  grid%tail_statevars%rfield_2d => grid%q2obs
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3788,6 +5156,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2obs').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%t2obs(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3793,&
@@ -3803,14 +5172,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2obs').AND.(.NOT.grid%is_intermediat
     'frame/module_domain.f: Failed to allocate grid%q2obs(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%q2obs=initial_data_value
+=======
+  ALLOCATE(grid%q2obs(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3866,&
+    'frame/module_domain.f: Failed to allocate grid%q2obs(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'imperv'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%imperv(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3875,&
+    'frame/module_domain.f: Failed to allocate grid%imperv(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%imperv=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'q2obs'
   grid%tail_statevars%DataName = 'Q2OBS'
   grid%tail_statevars%Description = '2-m mixing ratio from analysis '
   grid%tail_statevars%Units = 'kg/kg'
+=======
+  grid%tail_statevars%VarName = 'imperv'
+  grid%tail_statevars%DataName = 'IMPERV'
+  grid%tail_statevars%Description = 'Impervious surface fraction NLCD'
+  grid%tail_statevars%Units = 'percent'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -3819,8 +5212,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2obs').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%q2obs
   grid%tail_statevars%streams(1) = 0 
+=======
+  grid%tail_statevars%rfield_2d => grid%imperv
+  grid%tail_statevars%streams(1) = 234881025 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -3847,6 +5245,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2obs').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%q2obs(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3852,&
@@ -3862,13 +5261,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'imperv'))THEN
     'frame/module_domain.f: Failed to allocate grid%imperv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%imperv=initial_data_value
+=======
+  ALLOCATE(grid%imperv(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3925,&
+    'frame/module_domain.f: Failed to allocate grid%imperv(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'canfra'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%canfra(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3934,&
+    'frame/module_domain.f: Failed to allocate grid%canfra(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%canfra=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'imperv'
   grid%tail_statevars%DataName = 'IMPERV'
   grid%tail_statevars%Description = 'Impervious surface fraction NLCD'
+=======
+  grid%tail_statevars%VarName = 'canfra'
+  grid%tail_statevars%DataName = 'CANFRA'
+  grid%tail_statevars%Description = 'Satellite canopy fraction'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'percent'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3878,7 +5300,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'imperv'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%imperv
+=======
+  grid%tail_statevars%rfield_2d => grid%canfra
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -3906,6 +5332,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'imperv'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%imperv(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3911,&
@@ -3921,25 +5348,55 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'canfra'))THEN
     'frame/module_domain.f: Failed to allocate grid%canfra(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%canfra=initial_data_value
+=======
+  ALLOCATE(grid%canfra(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3984,&
+    'frame/module_domain.f: Failed to allocate grid%canfra(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'fm').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%fm(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",3993,&
+    'frame/module_domain.f: Failed to allocate grid%fm(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fm=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'canfra'
   grid%tail_statevars%DataName = 'CANFRA'
   grid%tail_statevars%Description = 'Satellite canopy fraction'
   grid%tail_statevars%Units = 'percent'
+=======
+  grid%tail_statevars%VarName = 'fm'
+  grid%tail_statevars%DataName = 'FM'
+  grid%tail_statevars%Description = 'INTEGRATED FUNCTION FOR MOMENTUM'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%canfra
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
+=======
+  grid%tail_statevars%rfield_2d => grid%fm
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = jds
@@ -3965,6 +5422,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'canfra'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%canfra(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",3970,&
@@ -3980,13 +5438,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fm').AND.(.NOT.grid%is_intermediate))
     'frame/module_domain.f: Failed to allocate grid%fm(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fm=initial_data_value
+=======
+  ALLOCATE(grid%fm(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4043,&
+    'frame/module_domain.f: Failed to allocate grid%fm(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'fh').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%fh(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4052,&
+    'frame/module_domain.f: Failed to allocate grid%fh(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fh=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'fm'
   grid%tail_statevars%DataName = 'FM'
   grid%tail_statevars%Description = 'INTEGRATED FUNCTION FOR MOMENTUM'
+=======
+  grid%tail_statevars%VarName = 'fh'
+  grid%tail_statevars%DataName = 'FH'
+  grid%tail_statevars%Description = 'INTEGRATED FUNCTION FOR HEAT'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -3996,7 +5477,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fm').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%fm
+=======
+  grid%tail_statevars%rfield_2d => grid%fh
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -4024,6 +5509,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fm').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%fm(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",4029,&
@@ -4039,13 +5525,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fh').AND.(.NOT.grid%is_intermediate))
     'frame/module_domain.f: Failed to allocate grid%fh(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fh=initial_data_value
+=======
+  ALLOCATE(grid%fh(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4102,&
+    'frame/module_domain.f: Failed to allocate grid%fh(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'br').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%br(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4111,&
+    'frame/module_domain.f: Failed to allocate grid%br(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%br=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'fh'
   grid%tail_statevars%DataName = 'FH'
   grid%tail_statevars%Description = 'INTEGRATED FUNCTION FOR HEAT'
+=======
+  grid%tail_statevars%VarName = 'br'
+  grid%tail_statevars%DataName = 'BR'
+  grid%tail_statevars%Description = 'Bulk Richardson'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -4055,7 +5564,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fh').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%fh
+=======
+  grid%tail_statevars%rfield_2d => grid%br
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -4083,6 +5596,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fh').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%fh(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",4088,&
@@ -4098,13 +5612,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'br').AND.(.NOT.grid%is_intermediate))
     'frame/module_domain.f: Failed to allocate grid%br(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%br=initial_data_value
+=======
+  ALLOCATE(grid%br(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4161,&
+    'frame/module_domain.f: Failed to allocate grid%br(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'zol').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%zol(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4170,&
+    'frame/module_domain.f: Failed to allocate grid%zol(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%zol=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'br'
   grid%tail_statevars%DataName = 'BR'
   grid%tail_statevars%Description = 'Bulk Richardson'
+=======
+  grid%tail_statevars%VarName = 'zol'
+  grid%tail_statevars%DataName = 'ZOL'
+  grid%tail_statevars%Description = 'z/L'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -4114,7 +5651,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'br').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%br
+=======
+  grid%tail_statevars%rfield_2d => grid%zol
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -4142,6 +5683,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'br').AND.(.NOT.grid%is_intermediate))
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%br(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",4147,&
@@ -4157,14 +5699,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'zol').AND.(.NOT.grid%is_intermediate)
     'frame/module_domain.f: Failed to allocate grid%zol(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%zol=initial_data_value
+=======
+  ALLOCATE(grid%zol(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4220,&
+    'frame/module_domain.f: Failed to allocate grid%zol(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wstar_ysu').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wstar_ysu(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4229,&
+    'frame/module_domain.f: Failed to allocate grid%wstar_ysu(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wstar_ysu=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'zol'
   grid%tail_statevars%DataName = 'ZOL'
   grid%tail_statevars%Description = 'z/L'
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'wstar_ysu'
+  grid%tail_statevars%DataName = 'WSTAR_YSU'
+  grid%tail_statevars%Description = 'mixed-layer velocity scale from ysupbl'
+  grid%tail_statevars%Units = 'm/s'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -4173,7 +5739,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'zol').AND.(.NOT.grid%is_intermediate)
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%zol
+=======
+  grid%tail_statevars%rfield_2d => grid%wstar_ysu
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -4201,6 +5771,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'zol').AND.(.NOT.grid%is_intermediate)
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%zol(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",4206,&
@@ -4216,14 +5787,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wstar_ysu').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%wstar_ysu(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wstar_ysu=initial_data_value
+=======
+  ALLOCATE(grid%wstar_ysu(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4279,&
+    'frame/module_domain.f: Failed to allocate grid%wstar_ysu(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'delta_ysu').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%delta_ysu(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4288,&
+    'frame/module_domain.f: Failed to allocate grid%delta_ysu(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%delta_ysu=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'wstar_ysu'
   grid%tail_statevars%DataName = 'WSTAR_YSU'
   grid%tail_statevars%Description = 'mixed-layer velocity scale from ysupbl'
   grid%tail_statevars%Units = 'm/s'
+=======
+  grid%tail_statevars%VarName = 'delta_ysu'
+  grid%tail_statevars%DataName = 'DELTA_YSU'
+  grid%tail_statevars%Description = 'entrainment layer depth from ysupbl'
+  grid%tail_statevars%Units = 'm'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -4232,7 +5827,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wstar_ysu').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%wstar_ysu
+=======
+  grid%tail_statevars%rfield_2d => grid%delta_ysu
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -4260,6 +5859,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wstar_ysu').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%wstar_ysu(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",4265,&
@@ -4275,50 +5875,82 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'delta_ysu').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%delta_ysu(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%delta_ysu=initial_data_value
+=======
+  ALLOCATE(grid%delta_ysu(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4338,&
+    'frame/module_domain.f: Failed to allocate grid%delta_ysu(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'exch_h').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%exch_h(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4347,&
+    'frame/module_domain.f: Failed to allocate grid%exch_h(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%exch_h=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'delta_ysu'
   grid%tail_statevars%DataName = 'DELTA_YSU'
   grid%tail_statevars%Description = 'entrainment layer depth from ysupbl'
   grid%tail_statevars%Units = 'm'
+=======
+  grid%tail_statevars%VarName = 'exch_h'
+  grid%tail_statevars%DataName = 'EXCH_H'
+  grid%tail_statevars%Description = 'SCALAR EXCHANGE COEFFICIENTS '
+  grid%tail_statevars%Units = 'm2 s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
   grid%tail_statevars%Ntl     = 0
+<<<<<<< HEAD
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%delta_ysu
+=======
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_3d => grid%exch_h
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = kde
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( kde, kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
+  grid%tail_statevars%dimname2 = 'bottom_top_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%delta_ysu(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",4324,&
@@ -4384,12 +6016,24 @@ ELSE
     'frame/module_domain.f: Failed to allocate grid%exch_h(1,1,1).  ')
   endif
 ENDIF
+=======
+  ALLOCATE(grid%exch_h(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",4397,&
+    'frame/module_domain.f: Failed to allocate grid%exch_h(1,1,1).  ')
+  endif
+ENDIF
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 IF(okay_to_alloc.AND.in_use_for_config(id,'exch_m').AND.(.NOT.grid%is_intermediate))THEN
   num_bytes_allocated = num_bytes_allocated + &
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%exch_m(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4392,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4406,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%exch_m(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%exch_m=initial_data_value
@@ -4439,7 +6083,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'exch_m').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%exch_m(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4442,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4456,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%exch_m(1,1,1).  ')
   endif
 ENDIF
@@ -4448,7 +6096,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ct').AND.(.NOT.grid%is_intermediate))
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ct(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4451,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4465,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ct(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ct=initial_data_value
@@ -4498,7 +6150,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ct').AND.(.NOT.grid%is_intermediate))
 ELSE
   ALLOCATE(grid%ct(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4501,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4515,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ct(1,1).  ')
   endif
 ENDIF
@@ -4507,7 +6163,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thz0').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%thz0(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4510,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4524,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thz0(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%thz0=initial_data_value
@@ -4557,7 +6217,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thz0').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%thz0(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4560,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4574,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thz0(1,1).  ')
   endif
 ENDIF
@@ -4566,7 +6230,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'z0').AND.(.NOT.grid%is_intermediate))
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%z0(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4569,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4583,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%z0(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%z0=initial_data_value
@@ -4616,7 +6284,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'z0').AND.(.NOT.grid%is_intermediate))
 ELSE
   ALLOCATE(grid%z0(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4619,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4633,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%z0(1,1).  ')
   endif
 ENDIF
@@ -4625,7 +6297,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qz0').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qz0(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4628,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4642,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qz0(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qz0=initial_data_value
@@ -4675,7 +6351,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qz0').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%qz0(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4678,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4692,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qz0(1,1).  ')
   endif
 ENDIF
@@ -4684,7 +6364,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'uz0').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%uz0(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4687,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4701,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%uz0(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%uz0=initial_data_value
@@ -4734,7 +6418,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'uz0').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%uz0(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4737,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4751,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%uz0(1,1).  ')
   endif
 ENDIF
@@ -4743,7 +6431,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vz0').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%vz0(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4746,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4760,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vz0(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vz0=initial_data_value
@@ -4793,7 +6485,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vz0').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%vz0(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4796,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4810,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vz0(1,1).  ')
   endif
 ENDIF
@@ -4802,7 +6498,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qsfc').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qsfc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4805,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4819,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qsfc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qsfc=initial_data_value
@@ -4852,7 +6552,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qsfc').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%qsfc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4855,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4869,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qsfc(1,1).  ')
   endif
 ENDIF
@@ -4861,7 +6565,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'akhs').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%akhs(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4864,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4878,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%akhs(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%akhs=initial_data_value
@@ -4911,7 +6619,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'akhs').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%akhs(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4914,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4928,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%akhs(1,1).  ')
   endif
 ENDIF
@@ -4920,7 +6632,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'akms').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%akms(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4923,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4937,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%akms(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%akms=initial_data_value
@@ -4970,7 +6686,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'akms').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%akms(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4973,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4987,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%akms(1,1).  ')
   endif
 ENDIF
@@ -4979,7 +6699,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kpbl').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%kpbl(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",4982,&
+=======
+    CALL wrf_error_fatal3("<stdin>",4996,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%kpbl(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%kpbl=0
@@ -5029,7 +6753,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kpbl').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%kpbl(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5032,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5046,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%kpbl(1,1).  ')
   endif
 ENDIF
@@ -5038,7 +6766,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'akpbl').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%akpbl(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5041,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5055,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%akpbl(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%akpbl=initial_data_value
@@ -5088,7 +6820,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'akpbl').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%akpbl(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5091,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5105,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%akpbl(1,1).  ')
   endif
 ENDIF
@@ -5097,7 +6833,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tshltr').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tshltr(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5100,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5114,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tshltr(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tshltr=initial_data_value
@@ -5147,7 +6887,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tshltr').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%tshltr(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5150,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5164,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tshltr(1,1).  ')
   endif
 ENDIF
@@ -5156,7 +6900,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qshltr').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qshltr(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5159,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5173,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qshltr(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qshltr=initial_data_value
@@ -5206,7 +6954,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qshltr').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%qshltr(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5209,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5223,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qshltr(1,1).  ')
   endif
 ENDIF
@@ -5215,7 +6967,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pshltr').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%pshltr(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5218,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5232,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pshltr(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pshltr=initial_data_value
@@ -5265,7 +7021,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pshltr').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%pshltr(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5268,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5282,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pshltr(1,1).  ')
   endif
 ENDIF
@@ -5274,7 +7034,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'th10').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%th10(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5277,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5291,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%th10(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%th10=initial_data_value
@@ -5324,7 +7088,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'th10').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%th10(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5327,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5341,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%th10(1,1).  ')
   endif
 ENDIF
@@ -5333,7 +7101,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q10').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%q10(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5336,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5350,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q10(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%q10=initial_data_value
@@ -5383,7 +7155,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q10').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%q10(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5386,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5400,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q10(1,1).  ')
   endif
 ENDIF
@@ -5392,7 +7168,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'massflux_edkf').AND.(.NOT.grid%is_int
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%massflux_edkf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5395,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5409,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%massflux_edkf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%massflux_edkf=initial_data_value
@@ -5442,7 +7222,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'massflux_edkf').AND.(.NOT.grid%is_int
 ELSE
   ALLOCATE(grid%massflux_edkf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5445,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5459,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%massflux_edkf(1,1,1).  ')
   endif
 ENDIF
@@ -5451,7 +7235,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'entr_edkf').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%entr_edkf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5454,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5468,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%entr_edkf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%entr_edkf=initial_data_value
@@ -5501,7 +7289,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'entr_edkf').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%entr_edkf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5504,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5518,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%entr_edkf(1,1,1).  ')
   endif
 ENDIF
@@ -5510,7 +7302,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'detr_edkf').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%detr_edkf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5513,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5527,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%detr_edkf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%detr_edkf=initial_data_value
@@ -5560,7 +7356,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'detr_edkf').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%detr_edkf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5563,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5577,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%detr_edkf(1,1,1).  ')
   endif
 ENDIF
@@ -5569,7 +7369,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thl_up').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%thl_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5572,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5586,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thl_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%thl_up=initial_data_value
@@ -5619,7 +7423,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thl_up').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%thl_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5622,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5636,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thl_up(1,1,1).  ')
   endif
 ENDIF
@@ -5628,7 +7436,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thv_up').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%thv_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5631,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5645,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thv_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%thv_up=initial_data_value
@@ -5678,7 +7490,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thv_up').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%thv_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5681,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5695,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thv_up(1,1,1).  ')
   endif
 ENDIF
@@ -5687,7 +7503,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rv_up').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rv_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5690,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5704,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rv_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rv_up=initial_data_value
@@ -5737,7 +7557,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rv_up').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%rv_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5740,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5754,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rv_up(1,1,1).  ')
   endif
 ENDIF
@@ -5746,7 +7570,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rt_up').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rt_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5749,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5763,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rt_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rt_up=initial_data_value
@@ -5796,7 +7624,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rt_up').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%rt_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5799,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5813,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rt_up(1,1,1).  ')
   endif
 ENDIF
@@ -5805,7 +7637,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rc_up').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rc_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5808,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5822,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rc_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rc_up=initial_data_value
@@ -5855,7 +7691,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rc_up').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%rc_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5858,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5872,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rc_up(1,1,1).  ')
   endif
 ENDIF
@@ -5864,7 +7704,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u_up').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%u_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5867,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5881,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%u_up=initial_data_value
@@ -5914,7 +7758,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u_up').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%u_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5917,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5931,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u_up(1,1,1).  ')
   endif
 ENDIF
@@ -5923,7 +7771,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v_up').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%v_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5926,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5940,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%v_up=initial_data_value
@@ -5973,7 +7825,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v_up').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%v_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5976,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5990,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v_up(1,1,1).  ')
   endif
 ENDIF
@@ -5982,7 +7838,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'frac_up').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%frac_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",5985,&
+=======
+    CALL wrf_error_fatal3("<stdin>",5999,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%frac_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%frac_up=initial_data_value
@@ -6032,7 +7892,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'frac_up').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%frac_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6035,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6049,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%frac_up(1,1,1).  ')
   endif
 ENDIF
@@ -6041,7 +7905,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rc_mf').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rc_mf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6044,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6058,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rc_mf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rc_mf=initial_data_value
@@ -6091,7 +7959,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rc_mf').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%rc_mf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6094,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6108,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rc_mf(1,1,1).  ')
   endif
 ENDIF
@@ -6100,7 +7972,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'te_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%te_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6103,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6117,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%te_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%te_temf=initial_data_value
@@ -6150,7 +8026,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'te_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%te_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6153,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6167,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%te_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6159,7 +8039,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kh_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%kh_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6162,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6176,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%kh_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%kh_temf=initial_data_value
@@ -6209,7 +8093,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kh_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%kh_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6212,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6226,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%kh_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6218,7 +8106,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'km_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%km_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6221,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6235,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%km_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%km_temf=initial_data_value
@@ -6268,7 +8160,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'km_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%km_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6271,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6285,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%km_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6277,7 +8173,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'shf_temf').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%shf_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6280,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6294,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%shf_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%shf_temf=initial_data_value
@@ -6327,7 +8227,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'shf_temf').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%shf_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6330,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6344,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%shf_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6336,7 +8240,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qf_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qf_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6339,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6353,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qf_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qf_temf=initial_data_value
@@ -6386,7 +8294,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qf_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%qf_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6389,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6403,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qf_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6395,7 +8307,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'uw_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%uw_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6398,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6412,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%uw_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%uw_temf=initial_data_value
@@ -6445,7 +8361,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'uw_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%uw_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6448,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6462,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%uw_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6454,7 +8374,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vw_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%vw_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6457,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6471,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vw_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vw_temf=initial_data_value
@@ -6504,7 +8428,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vw_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%vw_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6507,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6521,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vw_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6513,7 +8441,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wupd_temf').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%wupd_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6516,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6530,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%wupd_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wupd_temf=initial_data_value
@@ -6563,7 +8495,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wupd_temf').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%wupd_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6566,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6580,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%wupd_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6572,7 +8508,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mf_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%mf_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6575,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6589,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mf_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%mf_temf=initial_data_value
@@ -6622,7 +8562,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mf_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%mf_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6625,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6639,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mf_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6631,7 +8575,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thup_temf').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%thup_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6634,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6648,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thup_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%thup_temf=initial_data_value
@@ -6681,7 +8629,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'thup_temf').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%thup_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6684,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6698,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%thup_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6690,7 +8642,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qtup_temf').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qtup_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6693,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6707,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qtup_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qtup_temf=initial_data_value
@@ -6740,7 +8696,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qtup_temf').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%qtup_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6743,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6757,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qtup_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6749,7 +8709,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qlup_temf').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qlup_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6752,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6766,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qlup_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qlup_temf=initial_data_value
@@ -6799,7 +8763,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qlup_temf').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%qlup_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6802,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6816,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qlup_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6808,7 +8776,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cf3d_temf').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cf3d_temf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6811,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6825,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cf3d_temf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cf3d_temf=initial_data_value
@@ -6858,7 +8830,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cf3d_temf').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%cf3d_temf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6861,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6875,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cf3d_temf(1,1,1).  ')
   endif
 ENDIF
@@ -6867,7 +8843,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hd_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%hd_temf(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6870,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6884,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hd_temf(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hd_temf=initial_data_value
@@ -6917,7 +8897,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hd_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%hd_temf(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6920,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6934,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hd_temf(1,1).  ')
   endif
 ENDIF
@@ -6926,7 +8910,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lcl_temf').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%lcl_temf(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6929,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6943,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lcl_temf(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lcl_temf=initial_data_value
@@ -6976,7 +8964,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lcl_temf').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%lcl_temf(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6979,&
+=======
+    CALL wrf_error_fatal3("<stdin>",6993,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lcl_temf(1,1).  ')
   endif
 ENDIF
@@ -6985,7 +8977,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hct_temf').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%hct_temf(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",6988,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7002,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hct_temf(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hct_temf=initial_data_value
@@ -7035,7 +9031,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hct_temf').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%hct_temf(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7038,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7052,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hct_temf(1,1).  ')
   endif
 ENDIF
@@ -7044,7 +9044,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cfm_temf').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cfm_temf(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7047,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7061,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cfm_temf(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfm_temf=initial_data_value
@@ -7094,7 +9098,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cfm_temf').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%cfm_temf(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7097,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7111,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cfm_temf(1,1).  ')
   endif
 ENDIF
@@ -7103,7 +9111,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wm_temf').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%wm_temf(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7106,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7120,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%wm_temf(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wm_temf=initial_data_value
@@ -7153,7 +9165,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wm_temf').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%wm_temf(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7156,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7170,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%wm_temf(1,1).  ')
   endif
 ENDIF
@@ -7162,7 +9178,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qke').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qke(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7165,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7179,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qke(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qke=initial_data_value
@@ -7212,7 +9232,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qke').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%qke(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7215,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7229,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qke(1,1,1).  ')
   endif
 ENDIF
@@ -7221,7 +9245,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qshear').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qshear(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7224,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7238,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qshear(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qshear=initial_data_value
@@ -7271,7 +9299,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qshear').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%qshear(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7274,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7288,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qshear(1,1,1).  ')
   endif
 ENDIF
@@ -7280,7 +9312,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qbuoy').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qbuoy(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7283,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7297,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qbuoy(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qbuoy=initial_data_value
@@ -7330,7 +9366,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qbuoy').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%qbuoy(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7333,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7347,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qbuoy(1,1,1).  ')
   endif
 ENDIF
@@ -7339,7 +9379,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qdiss').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qdiss(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7342,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7356,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qdiss(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qdiss=initial_data_value
@@ -7389,7 +9433,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qdiss').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%qdiss(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7392,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7406,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qdiss(1,1,1).  ')
   endif
 ENDIF
@@ -7398,7 +9446,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qwt').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qwt(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7401,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7415,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qwt(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qwt=initial_data_value
@@ -7448,7 +9500,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qwt').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%qwt(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7451,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7465,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qwt(1,1,1).  ')
   endif
 ENDIF
@@ -7457,7 +9513,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dqke').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%dqke(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7460,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7474,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%dqke(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dqke=initial_data_value
@@ -7507,7 +9567,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dqke').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%dqke(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7510,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7524,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%dqke(1,1,1).  ')
   endif
 ENDIF
@@ -7516,7 +9580,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tsq').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tsq(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7519,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7533,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tsq(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tsq=initial_data_value
@@ -7566,7 +9634,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tsq').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%tsq(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7569,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7583,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tsq(1,1,1).  ')
   endif
 ENDIF
@@ -7575,7 +9647,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qsq').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qsq(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7578,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7592,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qsq(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qsq=initial_data_value
@@ -7625,7 +9701,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qsq').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%qsq(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7628,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7642,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qsq(1,1,1).  ')
   endif
 ENDIF
@@ -7634,7 +9714,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cov').AND.(.NOT.grid%is_intermediate)
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cov(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7637,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7651,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cov(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cov=initial_data_value
@@ -7684,7 +9768,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cov').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%cov(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7687,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7701,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cov(1,1,1).  ')
   endif
 ENDIF
@@ -7693,7 +9781,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sh3d').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%sh3d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7696,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7710,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sh3d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sh3d=initial_data_value
@@ -7743,7 +9835,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sh3d').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%sh3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7746,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7760,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sh3d(1,1,1).  ')
   endif
 ENDIF
@@ -7752,7 +9848,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ch').AND.(.NOT.grid%is_intermediate))
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ch(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7755,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7769,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ch(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ch=initial_data_value
@@ -7802,7 +9902,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ch').AND.(.NOT.grid%is_intermediate))
 ELSE
   ALLOCATE(grid%ch(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7805,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7819,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ch(1,1).  ')
   endif
 ENDIF
@@ -7811,7 +9915,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_a').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%edmf_a(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7814,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7828,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_a(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edmf_a=initial_data_value
@@ -7861,7 +9969,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_a').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%edmf_a(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7864,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7878,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_a(1,1,1).  ')
   endif
 ENDIF
@@ -7870,7 +9982,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_w').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%edmf_w(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7873,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7887,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_w(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edmf_w=initial_data_value
@@ -7920,7 +10036,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_w').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%edmf_w(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7923,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7937,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_w(1,1,1).  ')
   endif
 ENDIF
@@ -7929,7 +10049,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_thl').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%edmf_thl(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7932,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7946,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_thl(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edmf_thl=initial_data_value
@@ -7979,7 +10103,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_thl').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%edmf_thl(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7982,&
+=======
+    CALL wrf_error_fatal3("<stdin>",7996,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_thl(1,1,1).  ')
   endif
 ENDIF
@@ -7988,7 +10116,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_qt').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%edmf_qt(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",7991,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8005,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_qt(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edmf_qt=initial_data_value
@@ -8038,7 +10170,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_qt').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%edmf_qt(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8041,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8055,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_qt(1,1,1).  ')
   endif
 ENDIF
@@ -8047,7 +10183,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_ent').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%edmf_ent(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8050,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8064,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_ent(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edmf_ent=initial_data_value
@@ -8097,7 +10237,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_ent').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%edmf_ent(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8100,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8114,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_ent(1,1,1).  ')
   endif
 ENDIF
@@ -8106,7 +10250,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_qc').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%edmf_qc(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8109,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8123,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_qc(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edmf_qc=initial_data_value
@@ -8156,7 +10304,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edmf_qc').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%edmf_qc(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8159,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8173,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%edmf_qc(1,1,1).  ')
   endif
 ENDIF
@@ -8165,7 +10317,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fgdp').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%fgdp(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8168,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8182,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fgdp(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fgdp=initial_data_value
@@ -8215,7 +10371,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fgdp').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%fgdp(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8218,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8232,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fgdp(1,1).  ')
   endif
 ENDIF
@@ -8224,7 +10384,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dfgdp').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%dfgdp(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8227,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8241,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%dfgdp(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dfgdp=initial_data_value
@@ -8274,7 +10438,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dfgdp').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%dfgdp(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8277,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8291,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%dfgdp(1,1).  ')
   endif
 ENDIF
@@ -8283,7 +10451,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vdfg').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%vdfg(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8286,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8300,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vdfg(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vdfg=initial_data_value
@@ -8333,7 +10505,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vdfg').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%vdfg(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8336,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8350,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vdfg(1,1).  ')
   endif
 ENDIF
@@ -8342,7 +10518,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'exch_tke').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%exch_tke(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8345,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8359,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%exch_tke(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%exch_tke=initial_data_value
@@ -8392,7 +10572,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'exch_tke').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%exch_tke(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8395,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8409,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%exch_tke(1,1,1).  ')
   endif
 ENDIF
@@ -8401,7 +10585,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dtaux3d').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%dtaux3d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8404,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8418,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%dtaux3d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dtaux3d=initial_data_value
@@ -8451,7 +10639,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dtaux3d').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%dtaux3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8454,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8468,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%dtaux3d(1,1,1).  ')
   endif
 ENDIF
@@ -8460,7 +10652,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dtauy3d').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%dtauy3d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",8463,&
+=======
+    CALL wrf_error_fatal3("<stdin>",8477,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%dtauy3d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dtauy3d=initial_data_value
@@ -8482,6 +10678,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dtauy3d').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_3d => grid%dtauy3d
   grid%tail_statevars%streams(1) = 1 
+<<<<<<< HEAD
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -8541,32 +10738,35 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dusfcg').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%dusfcg
   grid%tail_statevars%streams(1) = 1 
+=======
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = (kde-1)
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
+  grid%tail_statevars%dimname2 = 'bottom_top'
+  grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%dusfcg(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8572,&
@@ -8582,13 +10782,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dvsfcg').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%dvsfcg(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dvsfcg=initial_data_value
+=======
+  ALLOCATE(grid%dtauy3d(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8527,&
+    'frame/module_domain.f: Failed to allocate grid%dtauy3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'dusfcg').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%dusfcg(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8536,&
+    'frame/module_domain.f: Failed to allocate grid%dusfcg(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dusfcg=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'dvsfcg'
   grid%tail_statevars%DataName = 'DVSFCG'
   grid%tail_statevars%Description = 'COLUMN-INTEGRATED V GWDO STRESS'
+=======
+  grid%tail_statevars%VarName = 'dusfcg'
+  grid%tail_statevars%DataName = 'DUSFCG'
+  grid%tail_statevars%Description = 'COLUMN-INTEGRATED U GWDO STRESS'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'Pa m s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -8598,7 +10821,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dvsfcg').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%dvsfcg
+=======
+  grid%tail_statevars%rfield_2d => grid%dusfcg
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -8626,6 +10853,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dvsfcg').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%dvsfcg(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8631,&
@@ -8641,14 +10869,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'var2d'))THEN
     'frame/module_domain.f: Failed to allocate grid%var2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%var2d=initial_data_value
+=======
+  ALLOCATE(grid%dusfcg(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8586,&
+    'frame/module_domain.f: Failed to allocate grid%dusfcg(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'dvsfcg').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%dvsfcg(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8595,&
+    'frame/module_domain.f: Failed to allocate grid%dvsfcg(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dvsfcg=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'var2d'
   grid%tail_statevars%DataName = 'VAR'
   grid%tail_statevars%Description = 'OROGRAPHIC VARIANCE'
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'dvsfcg'
+  grid%tail_statevars%DataName = 'DVSFCG'
+  grid%tail_statevars%Description = 'COLUMN-INTEGRATED V GWDO STRESS'
+  grid%tail_statevars%Units = 'Pa m s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -8657,8 +10909,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'var2d'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%var2d
   grid%tail_statevars%streams(1) = 234881025 
+=======
+  grid%tail_statevars%rfield_2d => grid%dvsfcg
+  grid%tail_statevars%streams(1) = 1 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -8685,6 +10942,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'var2d'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%var2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8690,&
@@ -8700,13 +10958,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oc12d'))THEN
     'frame/module_domain.f: Failed to allocate grid%oc12d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oc12d=initial_data_value
+=======
+  ALLOCATE(grid%dvsfcg(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8645,&
+    'frame/module_domain.f: Failed to allocate grid%dvsfcg(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'var2d'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%var2d(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8654,&
+    'frame/module_domain.f: Failed to allocate grid%var2d(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%var2d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'oc12d'
   grid%tail_statevars%DataName = 'CON'
   grid%tail_statevars%Description = 'OROGRAPHIC CONVEXITY'
+=======
+  grid%tail_statevars%VarName = 'var2d'
+  grid%tail_statevars%DataName = 'VAR'
+  grid%tail_statevars%Description = 'OROGRAPHIC VARIANCE'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -8716,7 +10997,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oc12d'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%oc12d
+=======
+  grid%tail_statevars%rfield_2d => grid%var2d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -8744,6 +11029,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oc12d'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%oc12d(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8749,&
@@ -8759,13 +11045,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa1'))THEN
     'frame/module_domain.f: Failed to allocate grid%oa1(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa1=initial_data_value
+=======
+  ALLOCATE(grid%var2d(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8704,&
+    'frame/module_domain.f: Failed to allocate grid%var2d(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'oc12d'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%oc12d(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8713,&
+    'frame/module_domain.f: Failed to allocate grid%oc12d(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oc12d=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'oa1'
   grid%tail_statevars%DataName = 'OA1'
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
+=======
+  grid%tail_statevars%VarName = 'oc12d'
+  grid%tail_statevars%DataName = 'CON'
+  grid%tail_statevars%Description = 'OROGRAPHIC CONVEXITY'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -8775,7 +11084,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa1'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%oa1
+=======
+  grid%tail_statevars%rfield_2d => grid%oc12d
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -8803,6 +11116,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa1'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%oa1(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8808,&
@@ -8818,12 +11132,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa2'))THEN
     'frame/module_domain.f: Failed to allocate grid%oa2(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa2=initial_data_value
+=======
+  ALLOCATE(grid%oc12d(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8763,&
+    'frame/module_domain.f: Failed to allocate grid%oc12d(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'oa1'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%oa1(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8772,&
+    'frame/module_domain.f: Failed to allocate grid%oa1(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa1=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'oa2'
   grid%tail_statevars%DataName = 'OA2'
+=======
+  grid%tail_statevars%VarName = 'oa1'
+  grid%tail_statevars%DataName = 'OA1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -8834,7 +11170,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa2'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%oa2
+=======
+  grid%tail_statevars%rfield_2d => grid%oa1
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -8862,6 +11202,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa2'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%oa2(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8867,&
@@ -8877,12 +11218,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa3'))THEN
     'frame/module_domain.f: Failed to allocate grid%oa3(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa3=initial_data_value
+=======
+  ALLOCATE(grid%oa1(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8822,&
+    'frame/module_domain.f: Failed to allocate grid%oa1(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'oa2'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%oa2(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8831,&
+    'frame/module_domain.f: Failed to allocate grid%oa2(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa2=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'oa3'
   grid%tail_statevars%DataName = 'OA3'
+=======
+  grid%tail_statevars%VarName = 'oa2'
+  grid%tail_statevars%DataName = 'OA2'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -8893,7 +11256,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa3'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%oa3
+=======
+  grid%tail_statevars%rfield_2d => grid%oa2
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -8921,6 +11288,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa3'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%oa3(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8926,&
@@ -8936,12 +11304,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa4'))THEN
     'frame/module_domain.f: Failed to allocate grid%oa4(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa4=initial_data_value
+=======
+  ALLOCATE(grid%oa2(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8881,&
+    'frame/module_domain.f: Failed to allocate grid%oa2(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'oa3'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%oa3(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8890,&
+    'frame/module_domain.f: Failed to allocate grid%oa3(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa3=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'oa4'
   grid%tail_statevars%DataName = 'OA4'
+=======
+  grid%tail_statevars%VarName = 'oa3'
+  grid%tail_statevars%DataName = 'OA3'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -8952,7 +11342,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa4'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%oa4
+=======
+  grid%tail_statevars%rfield_2d => grid%oa3
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -8980,6 +11374,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'oa4'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%oa4(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",8985,&
@@ -8995,12 +11390,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol1'))THEN
     'frame/module_domain.f: Failed to allocate grid%ol1(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol1=initial_data_value
+=======
+  ALLOCATE(grid%oa3(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8940,&
+    'frame/module_domain.f: Failed to allocate grid%oa3(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'oa4'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%oa4(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8949,&
+    'frame/module_domain.f: Failed to allocate grid%oa4(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%oa4=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ol1'
   grid%tail_statevars%DataName = 'OL1'
+=======
+  grid%tail_statevars%VarName = 'oa4'
+  grid%tail_statevars%DataName = 'OA4'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -9011,7 +11428,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol1'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%ol1
+=======
+  grid%tail_statevars%rfield_2d => grid%oa4
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -9039,6 +11460,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol1'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ol1(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9044,&
@@ -9054,12 +11476,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol2'))THEN
     'frame/module_domain.f: Failed to allocate grid%ol2(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol2=initial_data_value
+=======
+  ALLOCATE(grid%oa4(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",8999,&
+    'frame/module_domain.f: Failed to allocate grid%oa4(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ol1'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ol1(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9008,&
+    'frame/module_domain.f: Failed to allocate grid%ol1(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol1=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ol2'
   grid%tail_statevars%DataName = 'OL2'
+=======
+  grid%tail_statevars%VarName = 'ol1'
+  grid%tail_statevars%DataName = 'OL1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -9070,7 +11514,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol2'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%ol2
+=======
+  grid%tail_statevars%rfield_2d => grid%ol1
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -9098,6 +11546,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol2'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ol2(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9103,&
@@ -9113,12 +11562,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol3'))THEN
     'frame/module_domain.f: Failed to allocate grid%ol3(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol3=initial_data_value
+=======
+  ALLOCATE(grid%ol1(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9058,&
+    'frame/module_domain.f: Failed to allocate grid%ol1(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ol2'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ol2(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9067,&
+    'frame/module_domain.f: Failed to allocate grid%ol2(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol2=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ol3'
   grid%tail_statevars%DataName = 'OL3'
+=======
+  grid%tail_statevars%VarName = 'ol2'
+  grid%tail_statevars%DataName = 'OL2'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -9129,7 +11600,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol3'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%ol3
+=======
+  grid%tail_statevars%rfield_2d => grid%ol2
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -9157,6 +11632,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol3'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ol3(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9162,&
@@ -9172,12 +11648,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol4'))THEN
     'frame/module_domain.f: Failed to allocate grid%ol4(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol4=initial_data_value
+=======
+  ALLOCATE(grid%ol2(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9117,&
+    'frame/module_domain.f: Failed to allocate grid%ol2(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ol3'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ol3(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9126,&
+    'frame/module_domain.f: Failed to allocate grid%ol3(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol3=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ol4'
   grid%tail_statevars%DataName = 'OL4'
+=======
+  grid%tail_statevars%VarName = 'ol3'
+  grid%tail_statevars%DataName = 'OL3'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
@@ -9188,7 +11686,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol4'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%ol4
+=======
+  grid%tail_statevars%rfield_2d => grid%ol3
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -9216,6 +11718,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ol4'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ol4(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9221,&
@@ -9231,13 +11734,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo'))THEN
     'frame/module_domain.f: Failed to allocate grid%ctopo(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ctopo=initial_data_value
+=======
+  ALLOCATE(grid%ol3(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9176,&
+    'frame/module_domain.f: Failed to allocate grid%ol3(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ol4'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ol4(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9185,&
+    'frame/module_domain.f: Failed to allocate grid%ol4(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ol4=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ctopo'
   grid%tail_statevars%DataName = 'CTOPO'
   grid%tail_statevars%Description = 'Correction for topography'
+=======
+  grid%tail_statevars%VarName = 'ol4'
+  grid%tail_statevars%DataName = 'OL4'
+  grid%tail_statevars%Description = 'OROGRAPHIC DIRECTION ASYMMETRY FUNCTION'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -9247,8 +11773,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%ctopo
   grid%tail_statevars%streams(1) = 0 
+=======
+  grid%tail_statevars%rfield_2d => grid%ol4
+  grid%tail_statevars%streams(1) = 234881025 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -9275,6 +11806,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ctopo(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9280,&
@@ -9290,13 +11822,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo2'))THEN
     'frame/module_domain.f: Failed to allocate grid%ctopo2(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ctopo2=initial_data_value
+=======
+  ALLOCATE(grid%ol4(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9235,&
+    'frame/module_domain.f: Failed to allocate grid%ol4(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ctopo(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9244,&
+    'frame/module_domain.f: Failed to allocate grid%ctopo(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ctopo=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ctopo2'
   grid%tail_statevars%DataName = 'CTOPO2'
   grid%tail_statevars%Description = 'Correction for topography 2'
+=======
+  grid%tail_statevars%VarName = 'ctopo'
+  grid%tail_statevars%DataName = 'CTOPO'
+  grid%tail_statevars%Description = 'Correction for topography'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -9306,7 +11861,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo2'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%ctopo2
+=======
+  grid%tail_statevars%rfield_2d => grid%ctopo
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -9334,6 +11893,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo2'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ctopo2(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9339,&
@@ -9349,50 +11909,79 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_u_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%a_u_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_u_bep=initial_data_value
+=======
+  ALLOCATE(grid%ctopo(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9294,&
+    'frame/module_domain.f: Failed to allocate grid%ctopo(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ctopo2'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ctopo2(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9303,&
+    'frame/module_domain.f: Failed to allocate grid%ctopo2(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ctopo2=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'a_u_bep'
   grid%tail_statevars%DataName = 'A_U_BEP'
   grid%tail_statevars%Description = 'IMPLICIT FOR X-COMP.'
   grid%tail_statevars%Units = 's-1'
+=======
+  grid%tail_statevars%VarName = 'ctopo2'
+  grid%tail_statevars%DataName = 'CTOPO2'
+  grid%tail_statevars%Description = 'Correction for topography 2'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XZY'
-  grid%tail_statevars%Stagger      = 'Z'
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 3
-  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%a_u_bep
+=======
+  grid%tail_statevars%rfield_2d => grid%ctopo2
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = kds
-  grid%tail_statevars%ed2 = kde
-  grid%tail_statevars%sd3 = jds
-  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = kms
-  grid%tail_statevars%em2 = kme
-  grid%tail_statevars%sm3 = jms
-  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = kps
-  grid%tail_statevars%ep2 = MIN( kde, kpe )
-  grid%tail_statevars%sp3 = jps
-  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'bottom_top_stag'
-  grid%tail_statevars%dimname3 = 'south_north'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%a_u_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9398,&
@@ -9408,13 +11997,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_v_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%a_v_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_v_bep=initial_data_value
+=======
+  ALLOCATE(grid%ctopo2(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9353,&
+    'frame/module_domain.f: Failed to allocate grid%ctopo2(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'a_u_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%a_u_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9362,&
+    'frame/module_domain.f: Failed to allocate grid%a_u_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_u_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'a_v_bep'
   grid%tail_statevars%DataName = 'A_V_BEP'
   grid%tail_statevars%Description = 'IMPLICIT FOR Y-COMP.'
+=======
+  grid%tail_statevars%VarName = 'a_u_bep'
+  grid%tail_statevars%DataName = 'A_U_BEP'
+  grid%tail_statevars%Description = 'IMPLICIT FOR X-COMP.'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 's-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -9424,7 +12036,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_v_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%a_v_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%a_u_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9452,6 +12068,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_v_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%a_v_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9457,&
@@ -9467,13 +12084,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_t_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%a_t_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_t_bep=initial_data_value
+=======
+  ALLOCATE(grid%a_u_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9412,&
+    'frame/module_domain.f: Failed to allocate grid%a_u_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'a_v_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%a_v_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9421,&
+    'frame/module_domain.f: Failed to allocate grid%a_v_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_v_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'a_t_bep'
   grid%tail_statevars%DataName = 'A_T_BEP'
   grid%tail_statevars%Description = 'IMPLICIT FOR Pot. Temp'
+=======
+  grid%tail_statevars%VarName = 'a_v_bep'
+  grid%tail_statevars%DataName = 'A_V_BEP'
+  grid%tail_statevars%Description = 'IMPLICIT FOR Y-COMP.'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 's-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -9483,7 +12123,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_t_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%a_t_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%a_v_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9511,6 +12155,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_t_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%a_t_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9516,&
@@ -9526,13 +12171,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_q_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%a_q_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_q_bep=initial_data_value
+=======
+  ALLOCATE(grid%a_v_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9471,&
+    'frame/module_domain.f: Failed to allocate grid%a_v_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'a_t_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%a_t_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9480,&
+    'frame/module_domain.f: Failed to allocate grid%a_t_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_t_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'a_q_bep'
   grid%tail_statevars%DataName = 'A_Q_BEP'
   grid%tail_statevars%Description = 'IMPLICIT FOR Moisture'
+=======
+  grid%tail_statevars%VarName = 'a_t_bep'
+  grid%tail_statevars%DataName = 'A_T_BEP'
+  grid%tail_statevars%Description = 'IMPLICIT FOR Pot. Temp'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 's-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -9542,7 +12210,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_q_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%a_q_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%a_t_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9570,6 +12242,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_q_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%a_q_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9575,&
@@ -9585,13 +12258,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_e_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%a_e_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_e_bep=initial_data_value
+=======
+  ALLOCATE(grid%a_t_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9530,&
+    'frame/module_domain.f: Failed to allocate grid%a_t_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'a_q_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%a_q_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9539,&
+    'frame/module_domain.f: Failed to allocate grid%a_q_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_q_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'a_e_bep'
   grid%tail_statevars%DataName = 'A_E_BEP'
   grid%tail_statevars%Description = 'IMPLICIT FOR TKE'
+=======
+  grid%tail_statevars%VarName = 'a_q_bep'
+  grid%tail_statevars%DataName = 'A_Q_BEP'
+  grid%tail_statevars%Description = 'IMPLICIT FOR Moisture'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 's-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -9601,7 +12297,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_e_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%a_e_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%a_q_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9629,6 +12329,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'a_e_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%a_e_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9634,&
@@ -9644,14 +12345,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_u_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%b_u_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_u_bep=initial_data_value
+=======
+  ALLOCATE(grid%a_q_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9589,&
+    'frame/module_domain.f: Failed to allocate grid%a_q_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'a_e_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%a_e_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9598,&
+    'frame/module_domain.f: Failed to allocate grid%a_e_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%a_e_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'b_u_bep'
   grid%tail_statevars%DataName = 'B_U_BEP'
   grid%tail_statevars%Description = 'EXPLICIT FOR X-COMP.'
   grid%tail_statevars%Units = 'm s-2'
+=======
+  grid%tail_statevars%VarName = 'a_e_bep'
+  grid%tail_statevars%DataName = 'A_E_BEP'
+  grid%tail_statevars%Description = 'IMPLICIT FOR TKE'
+  grid%tail_statevars%Units = 's-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -9660,7 +12385,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_u_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%b_u_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%a_e_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9688,6 +12417,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_u_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%b_u_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9693,&
@@ -9703,13 +12433,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_v_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%b_v_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_v_bep=initial_data_value
+=======
+  ALLOCATE(grid%a_e_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9648,&
+    'frame/module_domain.f: Failed to allocate grid%a_e_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'b_u_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%b_u_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9657,&
+    'frame/module_domain.f: Failed to allocate grid%b_u_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_u_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'b_v_bep'
   grid%tail_statevars%DataName = 'B_V_BEP'
   grid%tail_statevars%Description = 'EXPLICIT FOR Y-COMP.'
+=======
+  grid%tail_statevars%VarName = 'b_u_bep'
+  grid%tail_statevars%DataName = 'B_U_BEP'
+  grid%tail_statevars%Description = 'EXPLICIT FOR X-COMP.'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'm s-2'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -9719,7 +12472,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_v_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%b_v_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%b_u_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9747,6 +12504,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_v_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%b_v_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9752,&
@@ -9762,14 +12520,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_t_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%b_t_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_t_bep=initial_data_value
+=======
+  ALLOCATE(grid%b_u_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9707,&
+    'frame/module_domain.f: Failed to allocate grid%b_u_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'b_v_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%b_v_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9716,&
+    'frame/module_domain.f: Failed to allocate grid%b_v_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_v_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'b_t_bep'
   grid%tail_statevars%DataName = 'B_T_BEP'
   grid%tail_statevars%Description = 'EXPLICIT FOR Pot. Temp'
   grid%tail_statevars%Units = 'K s-1'
+=======
+  grid%tail_statevars%VarName = 'b_v_bep'
+  grid%tail_statevars%DataName = 'B_V_BEP'
+  grid%tail_statevars%Description = 'EXPLICIT FOR Y-COMP.'
+  grid%tail_statevars%Units = 'm s-2'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -9778,7 +12560,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_t_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%b_t_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%b_v_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9806,6 +12592,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_t_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%b_t_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9811,&
@@ -9821,14 +12608,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_q_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%b_q_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_q_bep=initial_data_value
+=======
+  ALLOCATE(grid%b_v_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9766,&
+    'frame/module_domain.f: Failed to allocate grid%b_v_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'b_t_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%b_t_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9775,&
+    'frame/module_domain.f: Failed to allocate grid%b_t_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_t_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'b_q_bep'
   grid%tail_statevars%DataName = 'B_Q_BEP'
   grid%tail_statevars%Description = 'EXPLICIT FOR Moisture'
   grid%tail_statevars%Units = 'kg s-1'
+=======
+  grid%tail_statevars%VarName = 'b_t_bep'
+  grid%tail_statevars%DataName = 'B_T_BEP'
+  grid%tail_statevars%Description = 'EXPLICIT FOR Pot. Temp'
+  grid%tail_statevars%Units = 'K s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -9837,7 +12648,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_q_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%b_q_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%b_t_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9865,6 +12680,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_q_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%b_q_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9870,&
@@ -9880,14 +12696,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_e_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%b_e_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_e_bep=initial_data_value
+=======
+  ALLOCATE(grid%b_t_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9825,&
+    'frame/module_domain.f: Failed to allocate grid%b_t_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'b_q_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%b_q_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9834,&
+    'frame/module_domain.f: Failed to allocate grid%b_q_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_q_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'b_e_bep'
   grid%tail_statevars%DataName = 'B_E_BEP'
   grid%tail_statevars%Description = 'EXPLICIT FOR TKE'
   grid%tail_statevars%Units = 'm2 s-3'
+=======
+  grid%tail_statevars%VarName = 'b_q_bep'
+  grid%tail_statevars%DataName = 'B_Q_BEP'
+  grid%tail_statevars%Description = 'EXPLICIT FOR Moisture'
+  grid%tail_statevars%Units = 'kg s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -9896,7 +12736,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_e_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%b_e_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%b_q_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9924,6 +12768,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'b_e_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%b_e_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9929,&
@@ -9939,14 +12784,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dlg_bep').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%dlg_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dlg_bep=initial_data_value
+=======
+  ALLOCATE(grid%b_q_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9884,&
+    'frame/module_domain.f: Failed to allocate grid%b_q_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'b_e_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%b_e_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9893,&
+    'frame/module_domain.f: Failed to allocate grid%b_e_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%b_e_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'dlg_bep'
   grid%tail_statevars%DataName = 'DLG_BEP'
   grid%tail_statevars%Description = 'length scale 1'
   grid%tail_statevars%Units = 'm'
+=======
+  grid%tail_statevars%VarName = 'b_e_bep'
+  grid%tail_statevars%DataName = 'B_E_BEP'
+  grid%tail_statevars%Description = 'EXPLICIT FOR TKE'
+  grid%tail_statevars%Units = 'm2 s-3'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -9955,7 +12824,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dlg_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%dlg_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%b_e_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -9983,6 +12856,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dlg_bep').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%dlg_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",9988,&
@@ -9998,13 +12872,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dl_u_bep').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%dl_u_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dl_u_bep=initial_data_value
+=======
+  ALLOCATE(grid%b_e_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9943,&
+    'frame/module_domain.f: Failed to allocate grid%b_e_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'dlg_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%dlg_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",9952,&
+    'frame/module_domain.f: Failed to allocate grid%dlg_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dlg_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'dl_u_bep'
   grid%tail_statevars%DataName = 'DL_U_BEP'
   grid%tail_statevars%Description = 'urban length scale'
+=======
+  grid%tail_statevars%VarName = 'dlg_bep'
+  grid%tail_statevars%DataName = 'DLG_BEP'
+  grid%tail_statevars%Description = 'length scale 1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'm'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -10014,7 +12911,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dl_u_bep').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%dl_u_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%dlg_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -10042,6 +12943,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dl_u_bep').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%dl_u_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10047,&
@@ -10057,14 +12959,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sf_bep').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%sf_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sf_bep=initial_data_value
+=======
+  ALLOCATE(grid%dlg_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10002,&
+    'frame/module_domain.f: Failed to allocate grid%dlg_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'dl_u_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%dl_u_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10011,&
+    'frame/module_domain.f: Failed to allocate grid%dl_u_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dl_u_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sf_bep'
   grid%tail_statevars%DataName = 'SF_BEP'
   grid%tail_statevars%Description = 'surface grid'
   grid%tail_statevars%Units = '-'
+=======
+  grid%tail_statevars%VarName = 'dl_u_bep'
+  grid%tail_statevars%DataName = 'DL_U_BEP'
+  grid%tail_statevars%Description = 'urban length scale'
+  grid%tail_statevars%Units = 'm'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -10073,7 +12999,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sf_bep').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%sf_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%dl_u_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -10101,6 +13031,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sf_bep').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sf_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10106,&
@@ -10116,13 +13047,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vl_bep').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%vl_bep(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vl_bep=initial_data_value
+=======
+  ALLOCATE(grid%dl_u_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10061,&
+    'frame/module_domain.f: Failed to allocate grid%dl_u_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sf_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sf_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10070,&
+    'frame/module_domain.f: Failed to allocate grid%sf_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sf_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'vl_bep'
   grid%tail_statevars%DataName = 'VL_BEP'
   grid%tail_statevars%Description = 'volume grid'
+=======
+  grid%tail_statevars%VarName = 'sf_bep'
+  grid%tail_statevars%DataName = 'SF_BEP'
+  grid%tail_statevars%Description = 'surface grid'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = '-'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -10132,7 +13086,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vl_bep').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%vl_bep
+=======
+  grid%tail_statevars%rfield_3d => grid%sf_bep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -10160,6 +13118,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vl_bep').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%vl_bep(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10165,&
@@ -10175,25 +13134,57 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tke_pbl').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%tke_pbl(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tke_pbl=initial_data_value
+=======
+  ALLOCATE(grid%sf_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10120,&
+    'frame/module_domain.f: Failed to allocate grid%sf_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'vl_bep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%vl_bep(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10129,&
+    'frame/module_domain.f: Failed to allocate grid%vl_bep(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vl_bep=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'tke_pbl'
   grid%tail_statevars%DataName = 'TKE_PBL'
   grid%tail_statevars%Description = 'TKE from PBL'
   grid%tail_statevars%Units = 'm2 s-2'
+=======
+  grid%tail_statevars%VarName = 'vl_bep'
+  grid%tail_statevars%DataName = 'VL_BEP'
+  grid%tail_statevars%Description = 'volume grid'
+  grid%tail_statevars%Units = '-'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
   grid%tail_statevars%Stagger      = 'Z'
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 3
+<<<<<<< HEAD
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_3d => grid%tke_pbl
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 2097152 
+=======
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_3d => grid%vl_bep
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = kds
@@ -10219,6 +13210,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tke_pbl').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%tke_pbl(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10224,&
@@ -10234,25 +13226,57 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'el_pbl').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%el_pbl(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%el_pbl=initial_data_value
+=======
+  ALLOCATE(grid%vl_bep(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10179,&
+    'frame/module_domain.f: Failed to allocate grid%vl_bep(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'tke_pbl').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%tke_pbl(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10188,&
+    'frame/module_domain.f: Failed to allocate grid%tke_pbl(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tke_pbl=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'el_pbl'
   grid%tail_statevars%DataName = 'EL_PBL'
   grid%tail_statevars%Description = 'Length scale from PBL'
   grid%tail_statevars%Units = 'm'
+=======
+  grid%tail_statevars%VarName = 'tke_pbl'
+  grid%tail_statevars%DataName = 'TKE_PBL'
+  grid%tail_statevars%Description = 'TKE from PBL'
+  grid%tail_statevars%Units = 'm2 s-2'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
   grid%tail_statevars%Stagger      = 'Z'
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 3
+<<<<<<< HEAD
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_3d => grid%el_pbl
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 0 
+=======
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_3d => grid%tke_pbl
+  grid%tail_statevars%streams(1) = 1 
+  grid%tail_statevars%streams(2) = 2097152 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = kds
@@ -10278,6 +13302,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'el_pbl').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%el_pbl(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10283,&
@@ -10293,10 +13318,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wu_tur').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%wu_tur(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wu_tur=initial_data_value
+=======
+  ALLOCATE(grid%tke_pbl(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10238,&
+    'frame/module_domain.f: Failed to allocate grid%tke_pbl(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'el_pbl').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%el_pbl(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10247,&
+    'frame/module_domain.f: Failed to allocate grid%el_pbl(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%el_pbl=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'wu_tur'
   grid%tail_statevars%DataName = 'WU_TUR'
   grid%tail_statevars%Description = 'Turbulent flux of momentum(x)'
@@ -10316,6 +13359,27 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wu_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = kds
   grid%tail_statevars%ed2 = (kde-1)
+=======
+  grid%tail_statevars%VarName = 'el_pbl'
+  grid%tail_statevars%DataName = 'EL_PBL'
+  grid%tail_statevars%Description = 'Length scale from PBL'
+  grid%tail_statevars%Units = 'm'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_3d => grid%el_pbl
+  grid%tail_statevars%streams(1) = 1 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = kde
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd3 = jds
   grid%tail_statevars%ed3 = (jde-1)
   grid%tail_statevars%sm1 = ims
@@ -10327,12 +13391,17 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wu_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
   grid%tail_statevars%sp2 = kps
+<<<<<<< HEAD
   grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+=======
+  grid%tail_statevars%ep2 = MIN( kde, kpe )
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sp3 = jps
   grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
+<<<<<<< HEAD
   grid%tail_statevars%dimname2 = 'bottom_top'
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
@@ -10352,13 +13421,40 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wv_tur').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%wv_tur(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wv_tur=initial_data_value
+=======
+  grid%tail_statevars%dimname2 = 'bottom_top_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+  ALLOCATE(grid%el_pbl(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10297,&
+    'frame/module_domain.f: Failed to allocate grid%el_pbl(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wu_tur').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wu_tur(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10306,&
+    'frame/module_domain.f: Failed to allocate grid%wu_tur(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wu_tur=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'wv_tur'
   grid%tail_statevars%DataName = 'WV_TUR'
   grid%tail_statevars%Description = 'Turbulent flux of momentum(y)'
+=======
+  grid%tail_statevars%VarName = 'wu_tur'
+  grid%tail_statevars%DataName = 'WU_TUR'
+  grid%tail_statevars%Description = 'Turbulent flux of momentum(x)'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'm2 s-2'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -10368,7 +13464,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wv_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%wv_tur
+=======
+  grid%tail_statevars%rfield_3d => grid%wu_tur
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -10396,6 +13496,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wv_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%wv_tur(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10401,&
@@ -10411,14 +13512,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wt_tur').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%wt_tur(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wt_tur=initial_data_value
+=======
+  ALLOCATE(grid%wu_tur(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10356,&
+    'frame/module_domain.f: Failed to allocate grid%wu_tur(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wv_tur').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wv_tur(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10365,&
+    'frame/module_domain.f: Failed to allocate grid%wv_tur(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wv_tur=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'wt_tur'
   grid%tail_statevars%DataName = 'WT_TUR'
   grid%tail_statevars%Description = 'Turbulent flux of temperature'
   grid%tail_statevars%Units = 'K m s-1'
+=======
+  grid%tail_statevars%VarName = 'wv_tur'
+  grid%tail_statevars%DataName = 'WV_TUR'
+  grid%tail_statevars%Description = 'Turbulent flux of momentum(y)'
+  grid%tail_statevars%Units = 'm2 s-2'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -10427,7 +13552,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wt_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%wt_tur
+=======
+  grid%tail_statevars%rfield_3d => grid%wv_tur
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -10455,6 +13584,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wt_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%wt_tur(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10460,&
@@ -10470,14 +13600,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wq_tur').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%wq_tur(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wq_tur=initial_data_value
+=======
+  ALLOCATE(grid%wv_tur(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10415,&
+    'frame/module_domain.f: Failed to allocate grid%wv_tur(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wt_tur').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wt_tur(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10424,&
+    'frame/module_domain.f: Failed to allocate grid%wt_tur(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wt_tur=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'wq_tur'
   grid%tail_statevars%DataName = 'WQ_TUR'
   grid%tail_statevars%Description = 'Turbulent flux of water vapor'
   grid%tail_statevars%Units = '- m s-1'
+=======
+  grid%tail_statevars%VarName = 'wt_tur'
+  grid%tail_statevars%DataName = 'WT_TUR'
+  grid%tail_statevars%Description = 'Turbulent flux of temperature'
+  grid%tail_statevars%Units = 'K m s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -10486,7 +13640,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wq_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%wq_tur
+=======
+  grid%tail_statevars%rfield_3d => grid%wt_tur
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -10514,6 +13672,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wq_tur').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%wq_tur(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",10519,&
@@ -10529,1027 +13688,55 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'htop').AND.(.NOT.grid%is_intermediate
     'frame/module_domain.f: Failed to allocate grid%htop(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%htop=initial_data_value
+=======
+  ALLOCATE(grid%wt_tur(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10474,&
+    'frame/module_domain.f: Failed to allocate grid%wt_tur(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wq_tur').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wq_tur(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10483,&
+    'frame/module_domain.f: Failed to allocate grid%wq_tur(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wq_tur=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'htop'
   grid%tail_statevars%DataName = 'HTOP'
   grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL'
   grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%htop
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%htop(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10578,&
-    'frame/module_domain.f: Failed to allocate grid%htop(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'hbot').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%hbot(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10587,&
-    'frame/module_domain.f: Failed to allocate grid%hbot(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hbot=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'hbot'
-  grid%tail_statevars%DataName = 'HBOT'
-  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL'
-  grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%hbot
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%hbot(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10637,&
-    'frame/module_domain.f: Failed to allocate grid%hbot(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'htopr').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%htopr(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10646,&
-    'frame/module_domain.f: Failed to allocate grid%htopr(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%htopr=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'htopr'
-  grid%tail_statevars%DataName = 'HTOPR'
-  grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL FOR RADIATION'
-  grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%htopr
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%htopr(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10696,&
-    'frame/module_domain.f: Failed to allocate grid%htopr(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'hbotr').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%hbotr(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10705,&
-    'frame/module_domain.f: Failed to allocate grid%hbotr(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hbotr=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'hbotr'
-  grid%tail_statevars%DataName = 'HBOTR'
-  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL FOR RADIATION'
-  grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%hbotr
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%hbotr(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10755,&
-    'frame/module_domain.f: Failed to allocate grid%hbotr(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'cutop').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%cutop(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10764,&
-    'frame/module_domain.f: Failed to allocate grid%cutop(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cutop=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'cutop'
-  grid%tail_statevars%DataName = 'CUTOP'
-  grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL FROM CUMULUS PAR'
-  grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%cutop
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%cutop(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10814,&
-    'frame/module_domain.f: Failed to allocate grid%cutop(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'cubot').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%cubot(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10823,&
-    'frame/module_domain.f: Failed to allocate grid%cubot(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cubot=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'cubot'
-  grid%tail_statevars%DataName = 'CUBOT'
-  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL FROM CUMULUS PAR'
-  grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%cubot
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%cubot(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10873,&
-    'frame/module_domain.f: Failed to allocate grid%cubot(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'cuppt').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%cuppt(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10882,&
-    'frame/module_domain.f: Failed to allocate grid%cuppt(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cuppt=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'cuppt'
-  grid%tail_statevars%DataName = 'CUPPT'
-  grid%tail_statevars%Description = 'ACCUMULATED CONVECTIVE RAIN SINC LAST CALL TO THE RADIATION'
-  grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%cuppt
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%cuppt(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10932,&
-    'frame/module_domain.f: Failed to allocate grid%cuppt(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'rswtoa').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%rswtoa(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10941,&
-    'frame/module_domain.f: Failed to allocate grid%rswtoa(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rswtoa=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'rswtoa'
-  grid%tail_statevars%DataName = 'RSWTOA'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%rswtoa
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%rswtoa(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",10991,&
-    'frame/module_domain.f: Failed to allocate grid%rswtoa(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'rlwtoa').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%rlwtoa(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11000,&
-    'frame/module_domain.f: Failed to allocate grid%rlwtoa(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rlwtoa=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'rlwtoa'
-  grid%tail_statevars%DataName = 'RLWTOA'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%rlwtoa
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%rlwtoa(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11050,&
-    'frame/module_domain.f: Failed to allocate grid%rlwtoa(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'czmean').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%czmean(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11059,&
-    'frame/module_domain.f: Failed to allocate grid%czmean(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%czmean=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'czmean'
-  grid%tail_statevars%DataName = 'CZMEAN'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%czmean
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%czmean(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11109,&
-    'frame/module_domain.f: Failed to allocate grid%czmean(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'cfracl').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%cfracl(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11118,&
-    'frame/module_domain.f: Failed to allocate grid%cfracl(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfracl=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'cfracl'
-  grid%tail_statevars%DataName = 'CFRACL'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%cfracl
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%cfracl(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11168,&
-    'frame/module_domain.f: Failed to allocate grid%cfracl(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'cfracm').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%cfracm(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11177,&
-    'frame/module_domain.f: Failed to allocate grid%cfracm(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfracm=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'cfracm'
-  grid%tail_statevars%DataName = 'CFRACM'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%cfracm
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%cfracm(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11227,&
-    'frame/module_domain.f: Failed to allocate grid%cfracm(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'cfrach').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%cfrach(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11236,&
-    'frame/module_domain.f: Failed to allocate grid%cfrach(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfrach=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'cfrach'
-  grid%tail_statevars%DataName = 'CFRACH'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%cfrach
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%cfrach(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11286,&
-    'frame/module_domain.f: Failed to allocate grid%cfrach(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'acfrst').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%acfrst(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11295,&
-    'frame/module_domain.f: Failed to allocate grid%acfrst(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acfrst=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'acfrst'
-  grid%tail_statevars%DataName = 'ACFRST'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%acfrst
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%acfrst(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11345,&
-    'frame/module_domain.f: Failed to allocate grid%acfrst(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'ncfrst').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%ncfrst(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11354,&
-    'frame/module_domain.f: Failed to allocate grid%ncfrst(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ncfrst=0
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'ncfrst'
-  grid%tail_statevars%DataName = 'NCFRST'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'i'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%ifield_2d => grid%ncfrst
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%ncfrst(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11404,&
-    'frame/module_domain.f: Failed to allocate grid%ncfrst(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'acfrcv').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%acfrcv(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11413,&
-    'frame/module_domain.f: Failed to allocate grid%acfrcv(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acfrcv=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'acfrcv'
-  grid%tail_statevars%DataName = 'ACFRCV'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%acfrcv
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%acfrcv(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11463,&
-    'frame/module_domain.f: Failed to allocate grid%acfrcv(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'ncfrcv').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%ncfrcv(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11472,&
-    'frame/module_domain.f: Failed to allocate grid%ncfrcv(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ncfrcv=0
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'ncfrcv'
-  grid%tail_statevars%DataName = 'NCFRCV'
-  grid%tail_statevars%Description = '-'
-  grid%tail_statevars%Units = '-'
-  grid%tail_statevars%Type    = 'i'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .FALSE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%ifield_2d => grid%ncfrcv
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 0 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%ncfrcv(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11522,&
-    'frame/module_domain.f: Failed to allocate grid%ncfrcv(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'o3rad').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%o3rad(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",11531,&
-    'frame/module_domain.f: Failed to allocate grid%o3rad(sm31:em31,sm32:em32,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%o3rad=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'o3rad'
-  grid%tail_statevars%DataName = 'O3RAD'
-  grid%tail_statevars%Description = 'RADIATION 3D OZONE'
-  grid%tail_statevars%Units = 'ppmv'
+=======
+  grid%tail_statevars%VarName = 'wq_tur'
+  grid%tail_statevars%DataName = 'WQ_TUR'
+  grid%tail_statevars%Description = 'Turbulent flux of water vapor'
+  grid%tail_statevars%Units = '- m s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
+<<<<<<< HEAD
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%htop
+=======
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_3d => grid%o3rad
-  grid%tail_statevars%streams(1) = 33554433 
+  grid%tail_statevars%rfield_3d => grid%wq_tur
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -11576,6 +13763,1486 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'o3rad').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%htop(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10578,&
+    'frame/module_domain.f: Failed to allocate grid%htop(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'hbot').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%hbot(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10587,&
+    'frame/module_domain.f: Failed to allocate grid%hbot(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hbot=initial_data_value
+=======
+  ALLOCATE(grid%wq_tur(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10533,&
+    'frame/module_domain.f: Failed to allocate grid%wq_tur(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'htop').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%htop(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10542,&
+    'frame/module_domain.f: Failed to allocate grid%htop(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%htop=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'hbot'
+  grid%tail_statevars%DataName = 'HBOT'
+  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL'
+=======
+  grid%tail_statevars%VarName = 'htop'
+  grid%tail_statevars%DataName = 'HTOP'
+  grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%hbot
+=======
+  grid%tail_statevars%rfield_2d => grid%htop
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%hbot(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10637,&
+    'frame/module_domain.f: Failed to allocate grid%hbot(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'htopr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%htopr(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10646,&
+    'frame/module_domain.f: Failed to allocate grid%htopr(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%htopr=initial_data_value
+=======
+  ALLOCATE(grid%htop(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10592,&
+    'frame/module_domain.f: Failed to allocate grid%htop(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'hbot').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%hbot(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10601,&
+    'frame/module_domain.f: Failed to allocate grid%hbot(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hbot=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'htopr'
+  grid%tail_statevars%DataName = 'HTOPR'
+  grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL FOR RADIATION'
+=======
+  grid%tail_statevars%VarName = 'hbot'
+  grid%tail_statevars%DataName = 'HBOT'
+  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%htopr
+=======
+  grid%tail_statevars%rfield_2d => grid%hbot
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%htopr(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10696,&
+    'frame/module_domain.f: Failed to allocate grid%htopr(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'hbotr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%hbotr(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10705,&
+    'frame/module_domain.f: Failed to allocate grid%hbotr(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hbotr=initial_data_value
+=======
+  ALLOCATE(grid%hbot(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10651,&
+    'frame/module_domain.f: Failed to allocate grid%hbot(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'htopr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%htopr(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10660,&
+    'frame/module_domain.f: Failed to allocate grid%htopr(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%htopr=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'hbotr'
+  grid%tail_statevars%DataName = 'HBOTR'
+  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL FOR RADIATION'
+=======
+  grid%tail_statevars%VarName = 'htopr'
+  grid%tail_statevars%DataName = 'HTOPR'
+  grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL FOR RADIATION'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%hbotr
+=======
+  grid%tail_statevars%rfield_2d => grid%htopr
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%hbotr(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10755,&
+    'frame/module_domain.f: Failed to allocate grid%hbotr(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cutop').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cutop(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10764,&
+    'frame/module_domain.f: Failed to allocate grid%cutop(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cutop=initial_data_value
+=======
+  ALLOCATE(grid%htopr(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10710,&
+    'frame/module_domain.f: Failed to allocate grid%htopr(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'hbotr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%hbotr(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10719,&
+    'frame/module_domain.f: Failed to allocate grid%hbotr(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hbotr=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'cutop'
+  grid%tail_statevars%DataName = 'CUTOP'
+  grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL FROM CUMULUS PAR'
+=======
+  grid%tail_statevars%VarName = 'hbotr'
+  grid%tail_statevars%DataName = 'HBOTR'
+  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL FOR RADIATION'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%cutop
+=======
+  grid%tail_statevars%rfield_2d => grid%hbotr
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%cutop(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10814,&
+    'frame/module_domain.f: Failed to allocate grid%cutop(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cubot').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cubot(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10823,&
+    'frame/module_domain.f: Failed to allocate grid%cubot(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cubot=initial_data_value
+=======
+  ALLOCATE(grid%hbotr(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10769,&
+    'frame/module_domain.f: Failed to allocate grid%hbotr(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cutop').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cutop(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10778,&
+    'frame/module_domain.f: Failed to allocate grid%cutop(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cutop=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'cubot'
+  grid%tail_statevars%DataName = 'CUBOT'
+  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL FROM CUMULUS PAR'
+=======
+  grid%tail_statevars%VarName = 'cutop'
+  grid%tail_statevars%DataName = 'CUTOP'
+  grid%tail_statevars%Description = 'TOP OF CONVECTION LEVEL FROM CUMULUS PAR'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%cubot
+=======
+  grid%tail_statevars%rfield_2d => grid%cutop
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%cubot(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10873,&
+    'frame/module_domain.f: Failed to allocate grid%cubot(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cuppt').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cuppt(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10882,&
+    'frame/module_domain.f: Failed to allocate grid%cuppt(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cuppt=initial_data_value
+=======
+  ALLOCATE(grid%cutop(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10828,&
+    'frame/module_domain.f: Failed to allocate grid%cutop(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cubot').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cubot(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10837,&
+    'frame/module_domain.f: Failed to allocate grid%cubot(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cubot=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'cuppt'
+  grid%tail_statevars%DataName = 'CUPPT'
+  grid%tail_statevars%Description = 'ACCUMULATED CONVECTIVE RAIN SINC LAST CALL TO THE RADIATION'
+=======
+  grid%tail_statevars%VarName = 'cubot'
+  grid%tail_statevars%DataName = 'CUBOT'
+  grid%tail_statevars%Description = 'BOT OF CONVECTION LEVEL FROM CUMULUS PAR'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%cuppt
+=======
+  grid%tail_statevars%rfield_2d => grid%cubot
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%cuppt(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10932,&
+    'frame/module_domain.f: Failed to allocate grid%cuppt(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'rswtoa').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%rswtoa(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10941,&
+    'frame/module_domain.f: Failed to allocate grid%rswtoa(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rswtoa=initial_data_value
+=======
+  ALLOCATE(grid%cubot(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10887,&
+    'frame/module_domain.f: Failed to allocate grid%cubot(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cuppt').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cuppt(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10896,&
+    'frame/module_domain.f: Failed to allocate grid%cuppt(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cuppt=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'rswtoa'
+  grid%tail_statevars%DataName = 'RSWTOA'
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+=======
+  grid%tail_statevars%VarName = 'cuppt'
+  grid%tail_statevars%DataName = 'CUPPT'
+  grid%tail_statevars%Description = 'ACCUMULATED CONVECTIVE RAIN SINC LAST CALL TO THE RADIATION'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+<<<<<<< HEAD
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%rswtoa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+=======
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%cuppt
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%rswtoa(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10991,&
+    'frame/module_domain.f: Failed to allocate grid%rswtoa(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'rlwtoa').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%rlwtoa(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11000,&
+    'frame/module_domain.f: Failed to allocate grid%rlwtoa(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rlwtoa=initial_data_value
+=======
+  ALLOCATE(grid%cuppt(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10946,&
+    'frame/module_domain.f: Failed to allocate grid%cuppt(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'rswtoa').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%rswtoa(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",10955,&
+    'frame/module_domain.f: Failed to allocate grid%rswtoa(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rswtoa=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'rlwtoa'
+  grid%tail_statevars%DataName = 'RLWTOA'
+=======
+  grid%tail_statevars%VarName = 'rswtoa'
+  grid%tail_statevars%DataName = 'RSWTOA'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%rlwtoa
+=======
+  grid%tail_statevars%rfield_2d => grid%rswtoa
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%rlwtoa(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11050,&
+    'frame/module_domain.f: Failed to allocate grid%rlwtoa(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'czmean').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%czmean(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11059,&
+    'frame/module_domain.f: Failed to allocate grid%czmean(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%czmean=initial_data_value
+=======
+  ALLOCATE(grid%rswtoa(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11005,&
+    'frame/module_domain.f: Failed to allocate grid%rswtoa(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'rlwtoa').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%rlwtoa(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11014,&
+    'frame/module_domain.f: Failed to allocate grid%rlwtoa(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rlwtoa=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'czmean'
+  grid%tail_statevars%DataName = 'CZMEAN'
+=======
+  grid%tail_statevars%VarName = 'rlwtoa'
+  grid%tail_statevars%DataName = 'RLWTOA'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%czmean
+=======
+  grid%tail_statevars%rfield_2d => grid%rlwtoa
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%czmean(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11109,&
+    'frame/module_domain.f: Failed to allocate grid%czmean(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cfracl').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cfracl(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11118,&
+    'frame/module_domain.f: Failed to allocate grid%cfracl(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfracl=initial_data_value
+=======
+  ALLOCATE(grid%rlwtoa(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11064,&
+    'frame/module_domain.f: Failed to allocate grid%rlwtoa(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'czmean').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%czmean(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11073,&
+    'frame/module_domain.f: Failed to allocate grid%czmean(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%czmean=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'cfracl'
+  grid%tail_statevars%DataName = 'CFRACL'
+=======
+  grid%tail_statevars%VarName = 'czmean'
+  grid%tail_statevars%DataName = 'CZMEAN'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%cfracl
+=======
+  grid%tail_statevars%rfield_2d => grid%czmean
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%cfracl(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11168,&
+    'frame/module_domain.f: Failed to allocate grid%cfracl(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cfracm').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cfracm(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11177,&
+    'frame/module_domain.f: Failed to allocate grid%cfracm(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfracm=initial_data_value
+=======
+  ALLOCATE(grid%czmean(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11123,&
+    'frame/module_domain.f: Failed to allocate grid%czmean(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cfracl').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cfracl(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11132,&
+    'frame/module_domain.f: Failed to allocate grid%cfracl(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfracl=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'cfracm'
+  grid%tail_statevars%DataName = 'CFRACM'
+=======
+  grid%tail_statevars%VarName = 'cfracl'
+  grid%tail_statevars%DataName = 'CFRACL'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%cfracm
+=======
+  grid%tail_statevars%rfield_2d => grid%cfracl
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%cfracm(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11227,&
+    'frame/module_domain.f: Failed to allocate grid%cfracm(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cfrach').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cfrach(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11236,&
+    'frame/module_domain.f: Failed to allocate grid%cfrach(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfrach=initial_data_value
+=======
+  ALLOCATE(grid%cfracl(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11182,&
+    'frame/module_domain.f: Failed to allocate grid%cfracl(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cfracm').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cfracm(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11191,&
+    'frame/module_domain.f: Failed to allocate grid%cfracm(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfracm=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'cfrach'
+  grid%tail_statevars%DataName = 'CFRACH'
+=======
+  grid%tail_statevars%VarName = 'cfracm'
+  grid%tail_statevars%DataName = 'CFRACM'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%cfrach
+=======
+  grid%tail_statevars%rfield_2d => grid%cfracm
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%cfrach(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11286,&
+    'frame/module_domain.f: Failed to allocate grid%cfrach(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'acfrst').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%acfrst(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11295,&
+    'frame/module_domain.f: Failed to allocate grid%acfrst(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acfrst=initial_data_value
+=======
+  ALLOCATE(grid%cfracm(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11241,&
+    'frame/module_domain.f: Failed to allocate grid%cfracm(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cfrach').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cfrach(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11250,&
+    'frame/module_domain.f: Failed to allocate grid%cfrach(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cfrach=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'acfrst'
+  grid%tail_statevars%DataName = 'ACFRST'
+=======
+  grid%tail_statevars%VarName = 'cfrach'
+  grid%tail_statevars%DataName = 'CFRACH'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%acfrst
+=======
+  grid%tail_statevars%rfield_2d => grid%cfrach
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%acfrst(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11345,&
+    'frame/module_domain.f: Failed to allocate grid%acfrst(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ncfrst').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ncfrst(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11354,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrst(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ncfrst=0
+=======
+  ALLOCATE(grid%cfrach(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11300,&
+    'frame/module_domain.f: Failed to allocate grid%cfrach(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'acfrst').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%acfrst(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11309,&
+    'frame/module_domain.f: Failed to allocate grid%acfrst(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acfrst=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'ncfrst'
+  grid%tail_statevars%DataName = 'NCFRST'
+=======
+  grid%tail_statevars%VarName = 'acfrst'
+  grid%tail_statevars%DataName = 'ACFRST'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'i'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%ifield_2d => grid%ncfrst
+=======
+  grid%tail_statevars%rfield_2d => grid%acfrst
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%ncfrst(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11404,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrst(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'acfrcv').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%acfrcv(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11413,&
+    'frame/module_domain.f: Failed to allocate grid%acfrcv(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acfrcv=initial_data_value
+=======
+  ALLOCATE(grid%acfrst(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11359,&
+    'frame/module_domain.f: Failed to allocate grid%acfrst(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ncfrst').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ncfrst(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11368,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrst(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ncfrst=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'acfrcv'
+  grid%tail_statevars%DataName = 'ACFRCV'
+=======
+  grid%tail_statevars%VarName = 'ncfrst'
+  grid%tail_statevars%DataName = 'NCFRST'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'i'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%acfrcv
+=======
+  grid%tail_statevars%ifield_2d => grid%ncfrst
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%acfrcv(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11463,&
+    'frame/module_domain.f: Failed to allocate grid%acfrcv(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ncfrcv').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ncfrcv(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11472,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrcv(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ncfrcv=0
+=======
+  ALLOCATE(grid%ncfrst(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11418,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrst(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'acfrcv').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%acfrcv(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11427,&
+    'frame/module_domain.f: Failed to allocate grid%acfrcv(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acfrcv=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'ncfrcv'
+  grid%tail_statevars%DataName = 'NCFRCV'
+=======
+  grid%tail_statevars%VarName = 'acfrcv'
+  grid%tail_statevars%DataName = 'ACFRCV'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'i'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%ifield_2d => grid%ncfrcv
+=======
+  grid%tail_statevars%rfield_2d => grid%acfrcv
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%ncfrcv(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11522,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrcv(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'o3rad').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%o3rad(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11531,&
+    'frame/module_domain.f: Failed to allocate grid%o3rad(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%o3rad=initial_data_value
+=======
+  ALLOCATE(grid%acfrcv(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11477,&
+    'frame/module_domain.f: Failed to allocate grid%acfrcv(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ncfrcv').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ncfrcv(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11486,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrcv(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ncfrcv=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'o3rad'
+  grid%tail_statevars%DataName = 'O3RAD'
+  grid%tail_statevars%Description = 'RADIATION 3D OZONE'
+  grid%tail_statevars%Units = 'ppmv'
+  grid%tail_statevars%Type    = 'r'
+=======
+  grid%tail_statevars%VarName = 'ncfrcv'
+  grid%tail_statevars%DataName = 'NCFRCV'
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'i'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%o3rad
+  grid%tail_statevars%streams(1) = 33554433 
+  grid%tail_statevars%streams(2) = 2097152 
+=======
+  grid%tail_statevars%ifield_2d => grid%ncfrcv
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%o3rad(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",11581,&
@@ -11591,14 +15258,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerodm').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%aerodm(sm31:em31,1:model_config_rec%alevsiz,sm33:em33,1:12,1:model_config_rec%no_src_types). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerodm=initial_data_value
+=======
+  ALLOCATE(grid%ncfrcv(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11536,&
+    'frame/module_domain.f: Failed to allocate grid%ncfrcv(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'o3rad').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%o3rad(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11545,&
+    'frame/module_domain.f: Failed to allocate grid%o3rad(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%o3rad=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'aerodm'
   grid%tail_statevars%DataName = 'AERODM'
   grid%tail_statevars%Description = '-'
   grid%tail_statevars%Units = '-'
+=======
+  grid%tail_statevars%VarName = 'o3rad'
+  grid%tail_statevars%DataName = 'O3RAD'
+  grid%tail_statevars%Description = 'RADIATION 3D OZONE'
+  grid%tail_statevars%Units = 'ppmv'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -11607,9 +15298,15 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerodm').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 5
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_5d => grid%aerodm
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
+=======
+  grid%tail_statevars%rfield_3d => grid%o3rad
+  grid%tail_statevars%streams(1) = 33554433 
+  grid%tail_statevars%streams(2) = 2097152 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = 1
@@ -11635,6 +15332,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerodm').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%aerodm(1,1,1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",11640,&
@@ -11650,19 +15348,44 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pina').AND.(.NOT.grid%is_intermediate
     'frame/module_domain.f: Failed to allocate grid%pina(1:model_config_rec%alevsiz). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pina=initial_data_value
+=======
+  ALLOCATE(grid%o3rad(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11595,&
+    'frame/module_domain.f: Failed to allocate grid%o3rad(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'aerodm').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%alevsiz)-(1)+1))*(((em33)-(sm33)+1))*(((12)-(1)+1))*(((model_config_rec%no_src_types)-(1)+1))) * 4
+  ALLOCATE(grid%aerodm(sm31:em31,1:model_config_rec%alevsiz,sm33:em33,1:12,1:model_config_rec%no_src_types),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11604,&
+    'frame/module_domain.f: Failed to allocate grid%aerodm(sm31:em31,1:model_config_rec%alevsiz,sm33:em33,1:12,1:model_config_rec%no_src_types). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerodm=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'pina'
   grid%tail_statevars%DataName = 'PINA'
   grid%tail_statevars%Description = 'PRESSURE LEVEL OF OZONE MIXING RATIO'
   grid%tail_statevars%Units = 'millibar'
+=======
+  grid%tail_statevars%VarName = 'aerodm'
+  grid%tail_statevars%DataName = 'AERODM'
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'Z'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
+<<<<<<< HEAD
   grid%tail_statevars%Ndim    = 1
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
@@ -11707,6 +15430,133 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerod'))THEN
     'frame/module_domain.f: Failed to allocate grid%aerod(sm31:em31,sm32:em32,sm33:em33,num_aerod). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerod=initial_data_value
+=======
+  grid%tail_statevars%Ndim    = 5
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_5d => grid%aerodm
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%alevsiz
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%alevsiz
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%alevsiz
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'alevsiz'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+  ALLOCATE(grid%aerodm(1,1,1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11654,&
+    'frame/module_domain.f: Failed to allocate grid%aerodm(1,1,1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'pina').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((model_config_rec%alevsiz)-(1)+1))) * 4
+  ALLOCATE(grid%pina(1:model_config_rec%alevsiz),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11663,&
+    'frame/module_domain.f: Failed to allocate grid%pina(1:model_config_rec%alevsiz). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pina=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'aerod'
+  grid%tail_statevars%DataName = 'AEROD'
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+=======
+  grid%tail_statevars%VarName = 'pina'
+  grid%tail_statevars%DataName = 'PINA'
+  grid%tail_statevars%Description = 'PRESSURE LEVEL OF OZONE MIXING RATIO'
+  grid%tail_statevars%Units = 'millibar'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'Z'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+<<<<<<< HEAD
+  grid%tail_statevars%Ndim    = 4
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .TRUE.
+  grid%tail_statevars%rfield_4d => grid%aerod
+  grid%tail_statevars%num_table => aerod_num_table
+  grid%tail_statevars%index_table => aerod_index_table
+  grid%tail_statevars%boundary_table => aerod_boundary_table
+  grid%tail_statevars%dname_table => aerod_dname_table
+  grid%tail_statevars%desc_table => aerod_desc_table
+  grid%tail_statevars%units_table => aerod_units_table
+  grid%tail_statevars%streams_table => aerod_streams_table
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+=======
+  grid%tail_statevars%Ndim    = 1
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_1d => grid%pina
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = 1
+  grid%tail_statevars%ed1 = config_flags%alevsiz
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = 1
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = 1
+  grid%tail_statevars%em1 = config_flags%alevsiz
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = 1
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = 1
+  grid%tail_statevars%ep1 = config_flags%alevsiz
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = 1
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%dimname1 = 'alevsiz'
+  grid%tail_statevars%dimname2 = ''
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%pina(1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11711,&
+    'frame/module_domain.f: Failed to allocate grid%pina(1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'aerod'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1)*num_aerod)) * 4
+  ALLOCATE(grid%aerod(sm31:em31,sm32:em32,sm33:em33,num_aerod),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",11720,&
+    'frame/module_domain.f: Failed to allocate grid%aerod(sm31:em31,sm32:em32,sm33:em33,num_aerod). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerod=initial_data_value
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
@@ -11733,6 +15583,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerod'))THEN
   grid%tail_statevars%streams_table => aerod_streams_table
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = kds
@@ -11760,7 +15611,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerod'))THEN
 ELSE
   ALLOCATE(grid%aerod(1,1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11763,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11777,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aerod(1,1,1,1).  ')
   endif
 ENDIF
@@ -11769,7 +15624,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aodtot').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aodtot(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11772,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11786,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aodtot(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aodtot=initial_data_value
@@ -11819,7 +15678,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aodtot').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%aodtot(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11822,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11836,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aodtot(1,1).  ')
   endif
 ENDIF
@@ -11828,7 +15691,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ozmixm'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%levsiz)-(1)+1))*(((em33)-(sm33)+1)*num_ozmixm)) * 4
   ALLOCATE(grid%ozmixm(sm31:em31,1:model_config_rec%levsiz,sm33:em33,num_ozmixm),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11831,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11845,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ozmixm(sm31:em31,1:model_config_rec%levsiz,sm33:em33,num_ozmixm). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ozmixm=initial_data_value
@@ -11885,7 +15752,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ozmixm'))THEN
 ELSE
   ALLOCATE(grid%ozmixm(1,1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11888,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11902,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ozmixm(1,1,1,1).  ')
   endif
 ENDIF
@@ -11894,7 +15765,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pin').AND.(.NOT.grid%is_intermediate)
 ((((model_config_rec%levsiz)-(1)+1))) * 4
   ALLOCATE(grid%pin(1:model_config_rec%levsiz),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11897,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11911,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pin(1:model_config_rec%levsiz). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pin=initial_data_value
@@ -11942,7 +15817,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pin').AND.(.NOT.grid%is_intermediate)
 ELSE
   ALLOCATE(grid%pin(1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11945,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11959,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pin(1).  ')
   endif
 ENDIF
@@ -11951,7 +15830,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'m_ps_1').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%m_ps_1(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",11954,&
+=======
+    CALL wrf_error_fatal3("<stdin>",11968,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%m_ps_1(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%m_ps_1=initial_data_value
@@ -12001,7 +15884,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'m_ps_1').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%m_ps_1(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",12004,&
+=======
+    CALL wrf_error_fatal3("<stdin>",12018,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%m_ps_1(1,1).  ')
   endif
 ENDIF
@@ -12010,7 +15897,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'m_ps_2').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%m_ps_2(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",12013,&
+=======
+    CALL wrf_error_fatal3("<stdin>",12027,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%m_ps_2(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%m_ps_2=initial_data_value
@@ -12033,6 +15924,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'m_ps_2').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%rfield_2d => grid%m_ps_2
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
+<<<<<<< HEAD
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = jds
@@ -12070,6 +15962,47 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerosolc_1').AND.(IAND(1,tl).NE.0))TH
   ALLOCATE(grid%aerosolc_1(sm31:em31,1:model_config_rec%paerlev,sm33:em33,num_aerosolc),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12072,&
+    'frame/module_domain.f: Failed to allocate grid%aerosolc_1(sm31:em31,1:model_config_rec%paerlev,sm33:em33,num_aerosolc). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerosolc_1=initial_data_value
+=======
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%m_ps_2(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12077,&
+    'frame/module_domain.f: Failed to allocate grid%m_ps_2(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'aerosolc_1').AND.(IAND(1,tl).NE.0))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%paerlev)-(1)+1))*(((em33)-(sm33)+1)*num_aerosolc)) * 4
+  ALLOCATE(grid%aerosolc_1(sm31:em31,1:model_config_rec%paerlev,sm33:em33,num_aerosolc),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12086,&
     'frame/module_domain.f: Failed to allocate grid%aerosolc_1(sm31:em31,1:model_config_rec%paerlev,sm33:em33,num_aerosolc). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerosolc_1=initial_data_value
@@ -12126,6 +16059,87 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerosolc_1').AND.(IAND(1,tl).NE.0))TH
 ELSE
   ALLOCATE(grid%aerosolc_1(1,1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12143,&
+    'frame/module_domain.f: Failed to allocate grid%aerosolc_1(1,1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'aerosolc_2').AND.(IAND(2,tl).NE.0))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%paerlev)-(1)+1))*(((em33)-(sm33)+1)*num_aerosolc)) * 4
+  ALLOCATE(grid%aerosolc_2(sm31:em31,1:model_config_rec%paerlev,sm33:em33,num_aerosolc),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12152,&
+    'frame/module_domain.f: Failed to allocate grid%aerosolc_2(sm31:em31,1:model_config_rec%paerlev,sm33:em33,num_aerosolc). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerosolc_2=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'aerosolc_1'
+  grid%tail_statevars%DataName = 'AEROSOLC_1'
+=======
+  grid%tail_statevars%VarName = 'aerosolc_2'
+  grid%tail_statevars%DataName = 'AEROSOLC_2'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = ''
+<<<<<<< HEAD
+  grid%tail_statevars%Ntl     = 201
+  grid%tail_statevars%Ndim    = 4
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .TRUE.
+  grid%tail_statevars%rfield_4d => grid%aerosolc_1
+=======
+  grid%tail_statevars%Ntl     = 202
+  grid%tail_statevars%Ndim    = 4
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .TRUE.
+  grid%tail_statevars%rfield_4d => grid%aerosolc_2
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%num_table => aerosolc_num_table
+  grid%tail_statevars%index_table => aerosolc_index_table
+  grid%tail_statevars%boundary_table => aerosolc_boundary_table
+  grid%tail_statevars%dname_table => aerosolc_dname_table
+  grid%tail_statevars%desc_table => aerosolc_desc_table
+  grid%tail_statevars%units_table => aerosolc_units_table
+  grid%tail_statevars%streams_table => aerosolc_streams_table
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%paerlev
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%paerlev
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%paerlev
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'paerlev'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%aerosolc_1(1,1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12129,&
     'frame/module_domain.f: Failed to allocate grid%aerosolc_1(1,1,1,1).  ')
   endif
@@ -12139,10 +16153,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerosolc_2').AND.(IAND(2,tl).NE.0))TH
     'frame/module_domain.f: Failed to allocate grid%aerosolc_2(sm31:em31,1:model_config_rec%paerlev,sm33:em33,num_aerosolc). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerosolc_2=initial_data_value
+=======
+  ALLOCATE(grid%aerosolc_2(1,1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12209,&
+    'frame/module_domain.f: Failed to allocate grid%aerosolc_2(1,1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'m_hybi').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((model_config_rec%paerlev)-(1)+1))) * 4
+  ALLOCATE(grid%m_hybi(1:model_config_rec%paerlev),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12218,&
+    'frame/module_domain.f: Failed to allocate grid%m_hybi(1:model_config_rec%paerlev). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%m_hybi=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'aerosolc_2'
   grid%tail_statevars%DataName = 'AEROSOLC_2'
   grid%tail_statevars%Description = '-'
@@ -12205,10 +16237,66 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'m_hybi').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%m_hybi(1:model_config_rec%paerlev). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%m_hybi=initial_data_value
+=======
+  grid%tail_statevars%VarName = 'm_hybi'
+  grid%tail_statevars%DataName = 'M_HYBI'
+  grid%tail_statevars%Description = 'MATCH hybi'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'Z'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 1
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_1d => grid%m_hybi
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = 1
+  grid%tail_statevars%ed1 = config_flags%paerlev
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = 1
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = 1
+  grid%tail_statevars%em1 = config_flags%paerlev
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = 1
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = 1
+  grid%tail_statevars%ep1 = config_flags%paerlev
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = 1
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%dimname1 = 'paerlev'
+  grid%tail_statevars%dimname2 = ''
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%m_hybi(1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12266,&
+    'frame/module_domain.f: Failed to allocate grid%m_hybi(1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'f_ice_phy'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%f_ice_phy(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12275,&
+    'frame/module_domain.f: Failed to allocate grid%f_ice_phy(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%f_ice_phy=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'm_hybi'
   grid%tail_statevars%DataName = 'M_HYBI'
   grid%tail_statevars%Description = 'MATCH hybi'
@@ -12262,10 +16350,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_ice_phy'))THEN
     'frame/module_domain.f: Failed to allocate grid%f_ice_phy(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%f_ice_phy=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
+=======
   grid%tail_statevars%VarName = 'f_ice_phy'
   grid%tail_statevars%DataName = 'F_ICE_PHY'
   grid%tail_statevars%Description = 'FRACTION OF ICE'
@@ -12308,7 +16393,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_ice_phy'))THEN
 ELSE
   ALLOCATE(grid%f_ice_phy(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",12311,&
+    CALL wrf_error_fatal3("<stdin>",12325,&
     'frame/module_domain.f: Failed to allocate grid%f_ice_phy(1,1,1).  ')
   endif
 ENDIF
@@ -12317,17 +16402,24 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_rain_phy'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%f_rain_phy(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",12320,&
+    CALL wrf_error_fatal3("<stdin>",12334,&
     'frame/module_domain.f: Failed to allocate grid%f_rain_phy(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%f_rain_phy=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'f_ice_phy'
+  grid%tail_statevars%DataName = 'F_ICE_PHY'
+  grid%tail_statevars%Description = 'FRACTION OF ICE'
+=======
   grid%tail_statevars%VarName = 'f_rain_phy'
   grid%tail_statevars%DataName = 'F_RAIN_PHY'
   grid%tail_statevars%Description = 'FRACTION OF RAIN '
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -12337,7 +16429,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_rain_phy'))THEN
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%f_ice_phy
+=======
   grid%tail_statevars%rfield_3d => grid%f_rain_phy
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -12365,6 +16461,94 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_rain_phy'))THEN
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%f_ice_phy(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12311,&
+    'frame/module_domain.f: Failed to allocate grid%f_ice_phy(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'f_rain_phy'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%f_rain_phy(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12320,&
+    'frame/module_domain.f: Failed to allocate grid%f_rain_phy(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%f_rain_phy=initial_data_value
+=======
+  ALLOCATE(grid%f_rain_phy(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12384,&
+    'frame/module_domain.f: Failed to allocate grid%f_rain_phy(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'f_rimef_phy'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%f_rimef_phy(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12393,&
+    'frame/module_domain.f: Failed to allocate grid%f_rimef_phy(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%f_rimef_phy=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'f_rain_phy'
+  grid%tail_statevars%DataName = 'F_RAIN_PHY'
+  grid%tail_statevars%Description = 'FRACTION OF RAIN '
+=======
+  grid%tail_statevars%VarName = 'f_rimef_phy'
+  grid%tail_statevars%DataName = 'F_RIMEF_PHY'
+  grid%tail_statevars%Description = 'MASS RATIO OF RIMED ICE '
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%f_rain_phy
+=======
+  grid%tail_statevars%rfield_3d => grid%f_rimef_phy
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 1 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = (kde-1)
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'bottom_top'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%f_rain_phy(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12370,&
@@ -12380,14 +16564,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_rimef_phy'))THEN
     'frame/module_domain.f: Failed to allocate grid%f_rimef_phy(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%f_rimef_phy=initial_data_value
+=======
+  ALLOCATE(grid%f_rimef_phy(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12443,&
+    'frame/module_domain.f: Failed to allocate grid%f_rimef_phy(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'qndropsource').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%qndropsource(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12452,&
+    'frame/module_domain.f: Failed to allocate grid%qndropsource(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qndropsource=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'f_rimef_phy'
   grid%tail_statevars%DataName = 'F_RIMEF_PHY'
   grid%tail_statevars%Description = 'MASS RATIO OF RIMED ICE '
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'qndropsource'
+  grid%tail_statevars%DataName = 'QNDROPSOURCE'
+  grid%tail_statevars%Description = 'Droplet number source'
+  grid%tail_statevars%Units = ' /kg/s'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -12396,8 +16604,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_rimef_phy'))THEN
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%f_rimef_phy
   grid%tail_statevars%streams(1) = 1 
+=======
+  grid%tail_statevars%rfield_3d => grid%qndropsource
+  grid%tail_statevars%streams(1) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -12424,6 +16637,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f_rimef_phy'))THEN
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%f_rimef_phy(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12429,&
@@ -12439,10 +16653,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qndropsource').AND.(.NOT.grid%is_inte
     'frame/module_domain.f: Failed to allocate grid%qndropsource(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qndropsource=initial_data_value
+=======
+  ALLOCATE(grid%qndropsource(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12502,&
+    'frame/module_domain.f: Failed to allocate grid%qndropsource(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_tmp'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_tmp(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12511,&
+    'frame/module_domain.f: Failed to allocate grid%om_tmp(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_tmp=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'qndropsource'
   grid%tail_statevars%DataName = 'QNDROPSOURCE'
   grid%tail_statevars%Description = 'Droplet number source'
@@ -12451,10 +16683,21 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qndropsource').AND.(.NOT.grid%is_inte
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
   grid%tail_statevars%Stagger      = ''
+=======
+  grid%tail_statevars%VarName = 'om_tmp'
+  grid%tail_statevars%DataName = 'OM_TMP'
+  grid%tail_statevars%Description = 'temperature'
+  grid%tail_statevars%Units = 'k'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%qndropsource
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
@@ -12462,23 +16705,43 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qndropsource').AND.(.NOT.grid%is_inte
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = kds
   grid%tail_statevars%ed2 = (kde-1)
+=======
+  grid%tail_statevars%rfield_3d => grid%om_tmp
+  grid%tail_statevars%streams(1) = 234881025 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%ocean_levels
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd3 = jds
   grid%tail_statevars%ed3 = (jde-1)
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
+<<<<<<< HEAD
   grid%tail_statevars%sm2 = kms
   grid%tail_statevars%em2 = kme
+=======
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%ocean_levels
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sm3 = jms
   grid%tail_statevars%em3 = jme
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+<<<<<<< HEAD
   grid%tail_statevars%sp2 = kps
   grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+=======
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%ocean_levels
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sp3 = jps
   grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
+<<<<<<< HEAD
   grid%tail_statevars%dimname2 = 'bottom_top'
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
@@ -12498,14 +16761,42 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_tmp'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_tmp(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_tmp=initial_data_value
+=======
+  grid%tail_statevars%dimname2 = 'ocean_layer_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+  ALLOCATE(grid%om_tmp(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12561,&
+    'frame/module_domain.f: Failed to allocate grid%om_tmp(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_s'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_s(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12570,&
+    'frame/module_domain.f: Failed to allocate grid%om_s(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_s=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'om_tmp'
   grid%tail_statevars%DataName = 'OM_TMP'
   grid%tail_statevars%Description = 'temperature'
   grid%tail_statevars%Units = 'k'
+=======
+  grid%tail_statevars%VarName = 'om_s'
+  grid%tail_statevars%DataName = 'OM_S'
+  grid%tail_statevars%Description = 'salinity'
+  grid%tail_statevars%Units = 'degree'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -12514,7 +16805,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_tmp'))THEN
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%om_tmp
+=======
+  grid%tail_statevars%rfield_3d => grid%om_s
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -12542,6 +16837,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_tmp'))THEN
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%om_tmp(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12547,&
@@ -12557,14 +16853,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_s'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_s(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_s=initial_data_value
+=======
+  ALLOCATE(grid%om_s(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12620,&
+    'frame/module_domain.f: Failed to allocate grid%om_s(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_depth'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_depth(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12629,&
+    'frame/module_domain.f: Failed to allocate grid%om_depth(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_depth=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'om_s'
   grid%tail_statevars%DataName = 'OM_S'
   grid%tail_statevars%Description = 'salinity'
   grid%tail_statevars%Units = 'degree'
+=======
+  grid%tail_statevars%VarName = 'om_depth'
+  grid%tail_statevars%DataName = 'OM_DEPTH'
+  grid%tail_statevars%Description = 'depth'
+  grid%tail_statevars%Units = 'm'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -12573,7 +16893,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_s'))THEN
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%om_s
+=======
+  grid%tail_statevars%rfield_3d => grid%om_depth
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -12601,6 +16925,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_s'))THEN
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%om_s(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12606,&
@@ -12616,14 +16941,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_depth'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_depth(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_depth=initial_data_value
+=======
+  ALLOCATE(grid%om_depth(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12679,&
+    'frame/module_domain.f: Failed to allocate grid%om_depth(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_u'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_u(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12688,&
+    'frame/module_domain.f: Failed to allocate grid%om_u(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_u=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'om_depth'
   grid%tail_statevars%DataName = 'OM_DEPTH'
   grid%tail_statevars%Description = 'depth'
   grid%tail_statevars%Units = 'm'
+=======
+  grid%tail_statevars%VarName = 'om_u'
+  grid%tail_statevars%DataName = 'OM_U'
+  grid%tail_statevars%Description = 'u current'
+  grid%tail_statevars%Units = 'm/s'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -12632,7 +16981,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_depth'))THEN
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%om_depth
+=======
+  grid%tail_statevars%rfield_3d => grid%om_u
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -12660,6 +17013,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_depth'))THEN
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%om_depth(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12665,&
@@ -12675,13 +17029,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_u'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_u(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_u=initial_data_value
+=======
+  ALLOCATE(grid%om_u(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12738,&
+    'frame/module_domain.f: Failed to allocate grid%om_u(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_v'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_v(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12747,&
+    'frame/module_domain.f: Failed to allocate grid%om_v(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_v=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'om_u'
   grid%tail_statevars%DataName = 'OM_U'
   grid%tail_statevars%Description = 'u current'
+=======
+  grid%tail_statevars%VarName = 'om_v'
+  grid%tail_statevars%DataName = 'OM_V'
+  grid%tail_statevars%Description = 'v current'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'm/s'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -12691,7 +17068,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_u'))THEN
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%om_u
+=======
+  grid%tail_statevars%rfield_3d => grid%om_v
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881025 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -12719,6 +17100,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_u'))THEN
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%om_u(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12724,&
@@ -12734,14 +17116,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_v'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_v(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_v=initial_data_value
+=======
+  ALLOCATE(grid%om_v(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12797,&
+    'frame/module_domain.f: Failed to allocate grid%om_v(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_lat'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_lat(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12806,&
+    'frame/module_domain.f: Failed to allocate grid%om_lat(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_lat=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'om_v'
   grid%tail_statevars%DataName = 'OM_V'
   grid%tail_statevars%Description = 'v current'
   grid%tail_statevars%Units = 'm/s'
+=======
+  grid%tail_statevars%VarName = 'om_lat'
+  grid%tail_statevars%DataName = 'OM_LAT'
+  grid%tail_statevars%Description = 'om lat'
+  grid%tail_statevars%Units = 'degree'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -12750,8 +17156,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_v'))THEN
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%om_v
   grid%tail_statevars%streams(1) = 234881025 
+=======
+  grid%tail_statevars%rfield_2d => grid%om_lat
+  grid%tail_statevars%streams(1) = 234881024 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -12778,6 +17189,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_v'))THEN
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%om_v(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12783,&
@@ -12793,13 +17205,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_lat'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_lat(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_lat=initial_data_value
+=======
+  ALLOCATE(grid%om_lat(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12856,&
+    'frame/module_domain.f: Failed to allocate grid%om_lat(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_lon'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_lon(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12865,&
+    'frame/module_domain.f: Failed to allocate grid%om_lon(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_lon=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'om_lat'
   grid%tail_statevars%DataName = 'OM_LAT'
   grid%tail_statevars%Description = 'om lat'
+=======
+  grid%tail_statevars%VarName = 'om_lon'
+  grid%tail_statevars%DataName = 'OM_LON'
+  grid%tail_statevars%Description = 'om lon'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'degree'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -12809,7 +17244,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_lat'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%om_lat
+=======
+  grid%tail_statevars%rfield_2d => grid%om_lon
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 234881024 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -12837,6 +17276,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_lat'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%om_lat(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12842,&
@@ -12852,14 +17292,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_lon'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_lon(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_lon=initial_data_value
+=======
+  ALLOCATE(grid%om_lon(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12915,&
+    'frame/module_domain.f: Failed to allocate grid%om_lon(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_ml'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_ml(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12924,&
+    'frame/module_domain.f: Failed to allocate grid%om_ml(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_ml=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'om_lon'
   grid%tail_statevars%DataName = 'OM_LON'
   grid%tail_statevars%Description = 'om lon'
   grid%tail_statevars%Units = 'degree'
+=======
+  grid%tail_statevars%VarName = 'om_ml'
+  grid%tail_statevars%DataName = 'OM_ML'
+  grid%tail_statevars%Description = 'om ml'
+  grid%tail_statevars%Units = 'm'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -12868,8 +17332,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_lon'))THEN
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%om_lon
   grid%tail_statevars%streams(1) = 234881024 
+=======
+  grid%tail_statevars%rfield_2d => grid%om_ml
+  grid%tail_statevars%streams(1) = 234881025 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -12896,6 +17365,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_lon'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%om_lon(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",12901,&
@@ -12911,53 +17381,10 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_ml'))THEN
     'frame/module_domain.f: Failed to allocate grid%om_ml(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_ml=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'om_ml'
-  grid%tail_statevars%DataName = 'OM_ML'
-  grid%tail_statevars%Description = 'om ml'
-  grid%tail_statevars%Units = 'm'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%om_ml
-  grid%tail_statevars%streams(1) = 234881025 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
+=======
   ALLOCATE(grid%om_ml(1,1),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",12960,&
+    CALL wrf_error_fatal3("<stdin>",12974,&
     'frame/module_domain.f: Failed to allocate grid%om_ml(1,1).  ')
   endif
 ENDIF
@@ -12966,7 +17393,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_tini'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%om_tini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",12969,&
+    CALL wrf_error_fatal3("<stdin>",12983,&
     'frame/module_domain.f: Failed to allocate grid%om_tini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_tini=initial_data_value
@@ -13016,7 +17443,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_tini'))THEN
 ELSE
   ALLOCATE(grid%om_tini(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13019,&
+    CALL wrf_error_fatal3("<stdin>",13033,&
     'frame/module_domain.f: Failed to allocate grid%om_tini(1,1,1).  ')
   endif
 ENDIF
@@ -13025,7 +17452,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_sini'))THEN
 ((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%om_sini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13028,&
+    CALL wrf_error_fatal3("<stdin>",13042,&
     'frame/module_domain.f: Failed to allocate grid%om_sini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_sini=initial_data_value
@@ -13075,6 +17502,257 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'om_sini'))THEN
 ELSE
   ALLOCATE(grid%om_sini(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13092,&
+    'frame/module_domain.f: Failed to allocate grid%om_sini(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cupflag').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cupflag(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13101,&
+    'frame/module_domain.f: Failed to allocate grid%cupflag(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cupflag=.FALSE.
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'om_ml'
+  grid%tail_statevars%DataName = 'OM_ML'
+  grid%tail_statevars%Description = 'om ml'
+  grid%tail_statevars%Units = 'm'
+  grid%tail_statevars%Type    = 'r'
+=======
+  grid%tail_statevars%VarName = 'cupflag'
+  grid%tail_statevars%DataName = 'CUPFLAG'
+  grid%tail_statevars%Description = 'CuP scheme activavted, T=yes, F=no'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'l'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%om_ml
+  grid%tail_statevars%streams(1) = 234881025 
+=======
+  grid%tail_statevars%lfield_2d => grid%cupflag
+  grid%tail_statevars%streams(1) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%om_ml(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12960,&
+    'frame/module_domain.f: Failed to allocate grid%om_ml(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_tini'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_tini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",12969,&
+    'frame/module_domain.f: Failed to allocate grid%om_tini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_tini=initial_data_value
+=======
+  ALLOCATE(grid%cupflag(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13151,&
+    'frame/module_domain.f: Failed to allocate grid%cupflag(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'slopesfc').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%slopesfc(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13160,&
+    'frame/module_domain.f: Failed to allocate grid%slopesfc(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slopesfc=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'om_tini'
+  grid%tail_statevars%DataName = 'OM_TINI'
+  grid%tail_statevars%Description = 'temperature init'
+  grid%tail_statevars%Units = 'k'
+=======
+  grid%tail_statevars%VarName = 'slopesfc'
+  grid%tail_statevars%DataName = 'SLOPESFC'
+  grid%tail_statevars%Description = 'Slope of surface layer dTheta/dMixRatio'
+  grid%tail_statevars%Units = 'K'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%om_tini
+  grid%tail_statevars%streams(1) = 234881024 
+=======
+  grid%tail_statevars%rfield_2d => grid%slopesfc
+  grid%tail_statevars%streams(1) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%ocean_levels
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%ocean_levels
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%ocean_levels
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'ocean_layer_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%om_tini(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13019,&
+    'frame/module_domain.f: Failed to allocate grid%om_tini(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'om_sini'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((model_config_rec%ocean_levels)-(1)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%om_sini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13028,&
+    'frame/module_domain.f: Failed to allocate grid%om_sini(sm31:em31,1:model_config_rec%ocean_levels,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%om_sini=initial_data_value
+=======
+  ALLOCATE(grid%slopesfc(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13210,&
+    'frame/module_domain.f: Failed to allocate grid%slopesfc(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'slopeez').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%slopeez(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13219,&
+    'frame/module_domain.f: Failed to allocate grid%slopeez(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slopeez=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'om_sini'
+  grid%tail_statevars%DataName = 'OM_SINI'
+  grid%tail_statevars%Description = 'salinity init'
+  grid%tail_statevars%Units = 'degree'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = 'Z'
+=======
+  grid%tail_statevars%VarName = 'slopeez'
+  grid%tail_statevars%DataName = 'SLOPEEZ'
+  grid%tail_statevars%Description = 'Slope of entrainment layer dTheta/dMixRatio'
+  grid%tail_statevars%Units = 'K'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%om_sini
+  grid%tail_statevars%streams(1) = 234881024 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = config_flags%ocean_levels
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = config_flags%ocean_levels
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = config_flags%ocean_levels
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'ocean_layer_stag'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+  ALLOCATE(grid%om_sini(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13078,&
     'frame/module_domain.f: Failed to allocate grid%om_sini(1,1,1).  ')
   endif
@@ -13088,140 +17766,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cupflag').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%cupflag(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cupflag=.FALSE.
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'cupflag'
-  grid%tail_statevars%DataName = 'CUPFLAG'
-  grid%tail_statevars%Description = 'CuP scheme activavted, T=yes, F=no'
-  grid%tail_statevars%Units = ''
-  grid%tail_statevars%Type    = 'l'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%lfield_2d => grid%cupflag
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%cupflag(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13137,&
-    'frame/module_domain.f: Failed to allocate grid%cupflag(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'slopesfc').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%slopesfc(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13146,&
-    'frame/module_domain.f: Failed to allocate grid%slopesfc(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slopesfc=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'slopesfc'
-  grid%tail_statevars%DataName = 'SLOPESFC'
-  grid%tail_statevars%Description = 'Slope of surface layer dTheta/dMixRatio'
-  grid%tail_statevars%Units = 'K'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_2d => grid%slopesfc
-  grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
-  ENDIF
-ELSE
-  ALLOCATE(grid%slopesfc(1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13196,&
-    'frame/module_domain.f: Failed to allocate grid%slopesfc(1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'slopeez').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%slopeez(sm31:em31,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13205,&
-    'frame/module_domain.f: Failed to allocate grid%slopeez(sm31:em31,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slopeez=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'slopeez'
-  grid%tail_statevars%DataName = 'SLOPEEZ'
-  grid%tail_statevars%Description = 'Slope of entrainment layer dTheta/dMixRatio'
-  grid%tail_statevars%Units = 'K'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
+=======
   grid%tail_statevars%rfield_2d => grid%slopeez
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
@@ -13252,7 +17797,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'slopeez').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%slopeez(1,1),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13255,&
+    CALL wrf_error_fatal3("<stdin>",13269,&
     'frame/module_domain.f: Failed to allocate grid%slopeez(1,1).  ')
   endif
 ENDIF
@@ -13261,19 +17806,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sigmasfc').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%sigmasfc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",13264,&
+    CALL wrf_error_fatal3("<stdin>",13278,&
     'frame/module_domain.f: Failed to allocate grid%sigmasfc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sigmasfc=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'cupflag'
+  grid%tail_statevars%DataName = 'CUPFLAG'
+  grid%tail_statevars%Description = 'CuP scheme activavted, T=yes, F=no'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'l'
+=======
   grid%tail_statevars%VarName = 'sigmasfc'
   grid%tail_statevars%DataName = 'SIGMASFC'
   grid%tail_statevars%Description = 'Std. dev. of surface layer dTheta/dMixRatio'
   grid%tail_statevars%Units = 'K kg kg-1'
   grid%tail_statevars%Type    = 'r'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
@@ -13281,7 +17835,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sigmasfc').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%lfield_2d => grid%cupflag
+=======
   grid%tail_statevars%rfield_2d => grid%sigmasfc
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13309,6 +17867,271 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sigmasfc').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%cupflag(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13137,&
+    'frame/module_domain.f: Failed to allocate grid%cupflag(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'slopesfc').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%slopesfc(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13146,&
+    'frame/module_domain.f: Failed to allocate grid%slopesfc(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slopesfc=initial_data_value
+=======
+  ALLOCATE(grid%sigmasfc(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13328,&
+    'frame/module_domain.f: Failed to allocate grid%sigmasfc(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sigmaez').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sigmaez(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13337,&
+    'frame/module_domain.f: Failed to allocate grid%sigmaez(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sigmaez=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'slopesfc'
+  grid%tail_statevars%DataName = 'SLOPESFC'
+  grid%tail_statevars%Description = 'Slope of surface layer dTheta/dMixRatio'
+  grid%tail_statevars%Units = 'K'
+=======
+  grid%tail_statevars%VarName = 'sigmaez'
+  grid%tail_statevars%DataName = 'SIGMAEZ'
+  grid%tail_statevars%Description = 'Std. dev. of entrainment layer dTheta/dMixRatio'
+  grid%tail_statevars%Units = 'K kg kg-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%slopesfc
+=======
+  grid%tail_statevars%rfield_2d => grid%sigmaez
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%slopesfc(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13196,&
+    'frame/module_domain.f: Failed to allocate grid%slopesfc(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'slopeez').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%slopeez(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13205,&
+    'frame/module_domain.f: Failed to allocate grid%slopeez(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slopeez=initial_data_value
+=======
+  ALLOCATE(grid%sigmaez(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13387,&
+    'frame/module_domain.f: Failed to allocate grid%sigmaez(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'shall').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%shall(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13396,&
+    'frame/module_domain.f: Failed to allocate grid%shall(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%shall=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'slopeez'
+  grid%tail_statevars%DataName = 'SLOPEEZ'
+  grid%tail_statevars%Description = 'Slope of entrainment layer dTheta/dMixRatio'
+  grid%tail_statevars%Units = 'K'
+=======
+  grid%tail_statevars%VarName = 'shall'
+  grid%tail_statevars%DataName = 'SHALL'
+  grid%tail_statevars%Description = 'Cumulus type, 0=deep, 1=shallow, 2=none'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%slopeez
+=======
+  grid%tail_statevars%rfield_2d => grid%shall
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%slopeez(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13255,&
+    'frame/module_domain.f: Failed to allocate grid%slopeez(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'sigmasfc').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%sigmasfc(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13264,&
+    'frame/module_domain.f: Failed to allocate grid%sigmasfc(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sigmasfc=initial_data_value
+=======
+  ALLOCATE(grid%shall(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13446,&
+    'frame/module_domain.f: Failed to allocate grid%shall(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'taucloud').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%taucloud(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13455,&
+    'frame/module_domain.f: Failed to allocate grid%taucloud(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%taucloud=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'sigmasfc'
+  grid%tail_statevars%DataName = 'SIGMASFC'
+  grid%tail_statevars%Description = 'Std. dev. of surface layer dTheta/dMixRatio'
+  grid%tail_statevars%Units = 'K kg kg-1'
+=======
+  grid%tail_statevars%VarName = 'taucloud'
+  grid%tail_statevars%DataName = 'TAUCLOUD'
+  grid%tail_statevars%Description = 'CuP cloud time scale for lifetime'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_2d => grid%sigmasfc
+=======
+  grid%tail_statevars%rfield_2d => grid%taucloud
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sigmasfc(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13314,&
@@ -13324,14 +18147,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sigmaez').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%sigmaez(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sigmaez=initial_data_value
+=======
+  ALLOCATE(grid%taucloud(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13505,&
+    'frame/module_domain.f: Failed to allocate grid%taucloud(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'tactive').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%tactive(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13514,&
+    'frame/module_domain.f: Failed to allocate grid%tactive(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tactive=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'sigmaez'
   grid%tail_statevars%DataName = 'SIGMAEZ'
   grid%tail_statevars%Description = 'Std. dev. of entrainment layer dTheta/dMixRatio'
   grid%tail_statevars%Units = 'K kg kg-1'
+=======
+  grid%tail_statevars%VarName = 'tactive'
+  grid%tail_statevars%DataName = 'TACTIVE'
+  grid%tail_statevars%Description = 'CuP cloud formation time scale'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -13340,7 +18187,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sigmaez').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%sigmaez
+=======
+  grid%tail_statevars%rfield_2d => grid%tactive
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13368,6 +18219,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sigmaez').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%sigmaez(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13373,&
@@ -13383,13 +18235,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'shall').AND.(.NOT.grid%is_intermediat
     'frame/module_domain.f: Failed to allocate grid%shall(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%shall=initial_data_value
+=======
+  ALLOCATE(grid%tactive(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13564,&
+    'frame/module_domain.f: Failed to allocate grid%tactive(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'tcloud_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%tcloud_cup(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13573,&
+    'frame/module_domain.f: Failed to allocate grid%tcloud_cup(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tcloud_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'shall'
   grid%tail_statevars%DataName = 'SHALL'
   grid%tail_statevars%Description = 'Cumulus type, 0=deep, 1=shallow, 2=none'
+=======
+  grid%tail_statevars%VarName = 'tcloud_cup'
+  grid%tail_statevars%DataName = 'TCLOUD_CUP'
+  grid%tail_statevars%Description = 'CuP cloud duration for modifying T,QV,chem,etc'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -13399,7 +18274,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'shall').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%shall
+=======
+  grid%tail_statevars%rfield_2d => grid%tcloud_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13427,6 +18306,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'shall').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%shall(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13432,&
@@ -13442,13 +18322,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'taucloud').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%taucloud(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%taucloud=initial_data_value
+=======
+  ALLOCATE(grid%tcloud_cup(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13623,&
+    'frame/module_domain.f: Failed to allocate grid%tcloud_cup(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wcloudbase').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wcloudbase(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13632,&
+    'frame/module_domain.f: Failed to allocate grid%wcloudbase(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wcloudbase=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'taucloud'
   grid%tail_statevars%DataName = 'TAUCLOUD'
   grid%tail_statevars%Description = 'CuP cloud time scale for lifetime'
+=======
+  grid%tail_statevars%VarName = 'wcloudbase'
+  grid%tail_statevars%DataName = 'WCLOUDBASE'
+  grid%tail_statevars%Description = 'CuP cloud base vertical velocity'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -13458,7 +18361,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'taucloud').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%taucloud
+=======
+  grid%tail_statevars%rfield_2d => grid%wcloudbase
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13486,6 +18393,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'taucloud').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%taucloud(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13491,&
@@ -13501,14 +18409,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tactive').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%tactive(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tactive=initial_data_value
+=======
+  ALLOCATE(grid%wcloudbase(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13682,&
+    'frame/module_domain.f: Failed to allocate grid%wcloudbase(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'activefrac').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%activefrac(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13691,&
+    'frame/module_domain.f: Failed to allocate grid%activefrac(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%activefrac=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'tactive'
   grid%tail_statevars%DataName = 'TACTIVE'
   grid%tail_statevars%Description = 'CuP cloud formation time scale'
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'activefrac'
+  grid%tail_statevars%DataName = 'ACTIVEFRAC'
+  grid%tail_statevars%Description = 'Fraction of PDF the forms clouds'
+  grid%tail_statevars%Units = 'fraction'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -13517,7 +18449,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tactive').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%tactive
+=======
+  grid%tail_statevars%rfield_2d => grid%activefrac
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13545,6 +18481,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tactive').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%tactive(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13550,&
@@ -13560,14 +18497,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tcloud_cup').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%tcloud_cup(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tcloud_cup=initial_data_value
+=======
+  ALLOCATE(grid%activefrac(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13741,&
+    'frame/module_domain.f: Failed to allocate grid%activefrac(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cldfratend_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cldfratend_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13750,&
+    'frame/module_domain.f: Failed to allocate grid%cldfratend_cup(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfratend_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'tcloud_cup'
   grid%tail_statevars%DataName = 'TCLOUD_CUP'
   grid%tail_statevars%Description = 'CuP cloud duration for modifying T,QV,chem,etc'
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'cldfratend_cup'
+  grid%tail_statevars%DataName = 'CLDFRATEND_CUP'
+  grid%tail_statevars%Description = 'Cloud fraction tendency due to CuP Scheme'
+  grid%tail_statevars%Units = 'fraction'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -13576,7 +18537,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tcloud_cup').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%tcloud_cup
+=======
+  grid%tail_statevars%rfield_3d => grid%cldfratend_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13604,6 +18569,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tcloud_cup').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%tcloud_cup(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13609,&
@@ -13619,14 +18585,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wcloudbase').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%wcloudbase(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wcloudbase=initial_data_value
+=======
+  ALLOCATE(grid%cldfratend_cup(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13800,&
+    'frame/module_domain.f: Failed to allocate grid%cldfratend_cup(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cldfra_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13809,&
+    'frame/module_domain.f: Failed to allocate grid%cldfra_cup(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'wcloudbase'
   grid%tail_statevars%DataName = 'WCLOUDBASE'
   grid%tail_statevars%Description = 'CuP cloud base vertical velocity'
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'cldfra_cup'
+  grid%tail_statevars%DataName = 'CLDFRA_CUP'
+  grid%tail_statevars%Description = 'Cloud fraction due to CuP Scheme'
+  grid%tail_statevars%Units = 'fraction'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -13635,7 +18625,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wcloudbase').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%wcloudbase
+=======
+  grid%tail_statevars%rfield_3d => grid%cldfra_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13663,6 +18657,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wcloudbase').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%wcloudbase(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13668,&
@@ -13678,13 +18673,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'activefrac').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%activefrac(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%activefrac=initial_data_value
+=======
+  ALLOCATE(grid%cldfra_cup(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13859,&
+    'frame/module_domain.f: Failed to allocate grid%cldfra_cup(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'updfra_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%updfra_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13868,&
+    'frame/module_domain.f: Failed to allocate grid%updfra_cup(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%updfra_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'activefrac'
   grid%tail_statevars%DataName = 'ACTIVEFRAC'
   grid%tail_statevars%Description = 'Fraction of PDF the forms clouds'
+=======
+  grid%tail_statevars%VarName = 'updfra_cup'
+  grid%tail_statevars%DataName = 'UPDFRA_CUP'
+  grid%tail_statevars%Description = 'Updraft fractional area due to CuP Scheme'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'fraction'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -13694,7 +18712,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'activefrac').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%activefrac
+=======
+  grid%tail_statevars%rfield_3d => grid%updfra_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13722,6 +18744,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'activefrac').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%activefrac(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13727,&
@@ -13737,14 +18760,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfratend_cup').AND.(.NOT.grid%is_in
     'frame/module_domain.f: Failed to allocate grid%cldfratend_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfratend_cup=initial_data_value
+=======
+  ALLOCATE(grid%updfra_cup(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13918,&
+    'frame/module_domain.f: Failed to allocate grid%updfra_cup(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'qc_iu_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%qc_iu_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13927,&
+    'frame/module_domain.f: Failed to allocate grid%qc_iu_cup(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_iu_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cldfratend_cup'
   grid%tail_statevars%DataName = 'CLDFRATEND_CUP'
   grid%tail_statevars%Description = 'Cloud fraction tendency due to CuP Scheme'
   grid%tail_statevars%Units = 'fraction'
+=======
+  grid%tail_statevars%VarName = 'qc_iu_cup'
+  grid%tail_statevars%DataName = 'QC_IU_CUP'
+  grid%tail_statevars%Description = 'Cloud water due to CuP Scheme (in cumulus updraft)'
+  grid%tail_statevars%Units = 'kg kg-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -13753,7 +18800,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfratend_cup').AND.(.NOT.grid%is_in
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cldfratend_cup
+=======
+  grid%tail_statevars%rfield_3d => grid%qc_iu_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13781,6 +18832,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfratend_cup').AND.(.NOT.grid%is_in
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cldfratend_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13786,&
@@ -13796,14 +18848,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_cup').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%cldfra_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra_cup=initial_data_value
+=======
+  ALLOCATE(grid%qc_iu_cup(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13977,&
+    'frame/module_domain.f: Failed to allocate grid%qc_iu_cup(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'qc_ic_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%qc_ic_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",13986,&
+    'frame/module_domain.f: Failed to allocate grid%qc_ic_cup(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_ic_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cldfra_cup'
   grid%tail_statevars%DataName = 'CLDFRA_CUP'
   grid%tail_statevars%Description = 'Cloud fraction due to CuP Scheme'
   grid%tail_statevars%Units = 'fraction'
+=======
+  grid%tail_statevars%VarName = 'qc_ic_cup'
+  grid%tail_statevars%DataName = 'QC_IC_CUP'
+  grid%tail_statevars%Description = 'Cloud water due to CuP Scheme (in cumulus cloud)'
+  grid%tail_statevars%Units = 'kg kg-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -13812,7 +18888,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_cup').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cldfra_cup
+=======
+  grid%tail_statevars%rfield_3d => grid%qc_ic_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13840,6 +18920,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_cup').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cldfra_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13845,&
@@ -13855,14 +18936,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'updfra_cup').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%updfra_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%updfra_cup=initial_data_value
+=======
+  ALLOCATE(grid%qc_ic_cup(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14036,&
+    'frame/module_domain.f: Failed to allocate grid%qc_ic_cup(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'qndrop_ic_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%qndrop_ic_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14045,&
+    'frame/module_domain.f: Failed to allocate grid%qndrop_ic_cup(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qndrop_ic_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'updfra_cup'
   grid%tail_statevars%DataName = 'UPDFRA_CUP'
   grid%tail_statevars%Description = 'Updraft fractional area due to CuP Scheme'
   grid%tail_statevars%Units = 'fraction'
+=======
+  grid%tail_statevars%VarName = 'qndrop_ic_cup'
+  grid%tail_statevars%DataName = 'QNDROP_IC_CUP'
+  grid%tail_statevars%Description = 'Cloud droplet number due to CuP Scheme (in cumulus cloud)'
+  grid%tail_statevars%Units = '  kg-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -13871,7 +18976,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'updfra_cup').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%updfra_cup
+=======
+  grid%tail_statevars%rfield_3d => grid%qndrop_ic_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13899,6 +19008,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'updfra_cup').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%updfra_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13904,&
@@ -13914,14 +19024,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_iu_cup').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%qc_iu_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_iu_cup=initial_data_value
+=======
+  ALLOCATE(grid%qndrop_ic_cup(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14095,&
+    'frame/module_domain.f: Failed to allocate grid%qndrop_ic_cup(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wup_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wup_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14104,&
+    'frame/module_domain.f: Failed to allocate grid%wup_cup(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wup_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'qc_iu_cup'
   grid%tail_statevars%DataName = 'QC_IU_CUP'
   grid%tail_statevars%Description = 'Cloud water due to CuP Scheme (in cumulus updraft)'
   grid%tail_statevars%Units = 'kg kg-1'
+=======
+  grid%tail_statevars%VarName = 'wup_cup'
+  grid%tail_statevars%DataName = 'WUP_CUP'
+  grid%tail_statevars%Description = 'Updraft vertical velocity'
+  grid%tail_statevars%Units = 'm s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -13930,7 +19064,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_iu_cup').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%qc_iu_cup
+=======
+  grid%tail_statevars%rfield_3d => grid%wup_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -13958,6 +19096,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_iu_cup').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%qc_iu_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",13963,&
@@ -13973,14 +19112,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_ic_cup').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%qc_ic_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_ic_cup=initial_data_value
+=======
+  ALLOCATE(grid%wup_cup(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14154,&
+    'frame/module_domain.f: Failed to allocate grid%wup_cup(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wact_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wact_cup(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14163,&
+    'frame/module_domain.f: Failed to allocate grid%wact_cup(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wact_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'qc_ic_cup'
   grid%tail_statevars%DataName = 'QC_IC_CUP'
   grid%tail_statevars%Description = 'Cloud water due to CuP Scheme (in cumulus cloud)'
   grid%tail_statevars%Units = 'kg kg-1'
+=======
+  grid%tail_statevars%VarName = 'wact_cup'
+  grid%tail_statevars%DataName = 'WACT_CUP'
+  grid%tail_statevars%Description = 'CuP cloud base vertical velocity for activation'
+  grid%tail_statevars%Units = 'm s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -13989,7 +19152,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_ic_cup').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%qc_ic_cup
+=======
+  grid%tail_statevars%rfield_2d => grid%wact_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -14017,6 +19184,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_ic_cup').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%qc_ic_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",14022,&
@@ -14150,13 +19318,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wact_cup').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%wact_cup(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wact_cup=initial_data_value
+=======
+  ALLOCATE(grid%wact_cup(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14213,&
+    'frame/module_domain.f: Failed to allocate grid%wact_cup(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'wulcl_cup').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%wulcl_cup(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14222,&
+    'frame/module_domain.f: Failed to allocate grid%wulcl_cup(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%wulcl_cup=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'wact_cup'
   grid%tail_statevars%DataName = 'WACT_CUP'
   grid%tail_statevars%Description = 'CuP cloud base vertical velocity for activation'
+=======
+  grid%tail_statevars%VarName = 'wulcl_cup'
+  grid%tail_statevars%DataName = 'WULCL_CUP'
+  grid%tail_statevars%Description = 'CuP updraft vertical velocity at top of first cloud layer'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'm s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -14166,7 +19357,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wact_cup').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%wact_cup
+=======
+  grid%tail_statevars%rfield_2d => grid%wulcl_cup
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -14194,6 +19389,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'wact_cup').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%wact_cup(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",14199,&
@@ -14259,12 +19455,24 @@ ELSE
     'frame/module_domain.f: Failed to allocate grid%wulcl_cup(1,1).  ')
   endif
 ENDIF
+=======
+  ALLOCATE(grid%wulcl_cup(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",14272,&
+    'frame/module_domain.f: Failed to allocate grid%wulcl_cup(1,1).  ')
+  endif
+ENDIF
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 IF(okay_to_alloc.AND.in_use_for_config(id,'mfup_cup').AND.(.NOT.grid%is_intermediate))THEN
   num_bytes_allocated = num_bytes_allocated + &
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%mfup_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14267,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14281,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfup_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%mfup_cup=initial_data_value
@@ -14314,7 +19522,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mfup_cup').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%mfup_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14317,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14331,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfup_cup(1,1,1).  ')
   endif
 ENDIF
@@ -14323,7 +19535,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mfup_ent_cup').AND.(.NOT.grid%is_inte
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%mfup_ent_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14326,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14340,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfup_ent_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%mfup_ent_cup=initial_data_value
@@ -14373,7 +19589,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mfup_ent_cup').AND.(.NOT.grid%is_inte
 ELSE
   ALLOCATE(grid%mfup_ent_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14376,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14390,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfup_ent_cup(1,1,1).  ')
   endif
 ENDIF
@@ -14382,7 +19602,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mfdn_cup').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%mfdn_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14385,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14399,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfdn_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%mfdn_cup=initial_data_value
@@ -14432,7 +19656,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mfdn_cup').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%mfdn_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14435,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14449,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfdn_cup(1,1,1).  ')
   endif
 ENDIF
@@ -14441,7 +19669,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mfdn_ent_cup').AND.(.NOT.grid%is_inte
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%mfdn_ent_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14444,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14458,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfdn_ent_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%mfdn_ent_cup=initial_data_value
@@ -14491,7 +19723,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mfdn_ent_cup').AND.(.NOT.grid%is_inte
 ELSE
   ALLOCATE(grid%mfdn_ent_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14494,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14508,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%mfdn_ent_cup(1,1,1).  ')
   endif
 ENDIF
@@ -14500,7 +19736,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fcvt_qc_to_pr_cup').AND.(.NOT.grid%is
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%fcvt_qc_to_pr_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14503,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14517,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fcvt_qc_to_pr_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fcvt_qc_to_pr_cup=initial_data_value
@@ -14550,7 +19790,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fcvt_qc_to_pr_cup').AND.(.NOT.grid%is
 ELSE
   ALLOCATE(grid%fcvt_qc_to_pr_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14553,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14567,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fcvt_qc_to_pr_cup(1,1,1).  ')
   endif
 ENDIF
@@ -14559,7 +19803,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fcvt_qc_to_qi_cup').AND.(.NOT.grid%is
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%fcvt_qc_to_qi_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14562,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14576,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fcvt_qc_to_qi_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fcvt_qc_to_qi_cup=initial_data_value
@@ -14609,7 +19857,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fcvt_qc_to_qi_cup').AND.(.NOT.grid%is
 ELSE
   ALLOCATE(grid%fcvt_qc_to_qi_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14612,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14626,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fcvt_qc_to_qi_cup(1,1,1).  ')
   endif
 ENDIF
@@ -14618,7 +19870,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fcvt_qi_to_pr_cup').AND.(.NOT.grid%is
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%fcvt_qi_to_pr_cup(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14621,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14635,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fcvt_qi_to_pr_cup(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%fcvt_qi_to_pr_cup=initial_data_value
@@ -14668,7 +19924,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'fcvt_qi_to_pr_cup').AND.(.NOT.grid%is
 ELSE
   ALLOCATE(grid%fcvt_qi_to_pr_cup(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14671,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14685,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%fcvt_qi_to_pr_cup(1,1,1).  ')
   endif
 ENDIF
@@ -14677,7 +19937,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tstar').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tstar(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14680,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14694,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tstar(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tstar=initial_data_value
@@ -14727,7 +19991,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tstar').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%tstar(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14730,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14744,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tstar(1,1).  ')
   endif
 ENDIF
@@ -14736,7 +20004,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lnterms').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%lnterms(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14739,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14753,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lnterms(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lnterms=initial_data_value
@@ -14786,7 +20058,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lnterms').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%lnterms(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14789,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14803,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lnterms(1,1,1).  ')
   endif
 ENDIF
@@ -14795,7 +20071,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lnint').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%lnint(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14798,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14812,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lnint(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lnint=initial_data_value
@@ -14845,7 +20125,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lnint').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%lnint(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14848,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14862,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%lnint(1,1).  ')
   endif
 ENDIF
@@ -14854,7 +20138,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'h_diabatic'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%h_diabatic(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14857,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14871,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%h_diabatic(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%h_diabatic=initial_data_value
@@ -14904,7 +20192,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'h_diabatic'))THEN
 ELSE
   ALLOCATE(grid%h_diabatic(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14907,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14921,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%h_diabatic(1,1,1).  ')
   endif
 ENDIF
@@ -14913,7 +20205,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qv_diabatic'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qv_diabatic(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14916,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14930,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qv_diabatic(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qv_diabatic=initial_data_value
@@ -14963,7 +20259,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qv_diabatic'))THEN
 ELSE
   ALLOCATE(grid%qv_diabatic(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14966,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14980,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qv_diabatic(1,1,1).  ')
   endif
 ENDIF
@@ -14972,7 +20272,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_diabatic'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qc_diabatic(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",14975,&
+=======
+    CALL wrf_error_fatal3("<stdin>",14989,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qc_diabatic(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_diabatic=initial_data_value
@@ -15022,7 +20326,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_diabatic'))THEN
 ELSE
   ALLOCATE(grid%qc_diabatic(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15025,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15039,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qc_diabatic(1,1,1).  ')
   endif
 ENDIF
@@ -15031,7 +20339,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msft'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msft(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15034,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15048,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msft(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msft=initial_data_value
@@ -15081,7 +20393,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msft'))THEN
 ELSE
   ALLOCATE(grid%msft(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15084,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15098,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msft(1,1).  ')
   endif
 ENDIF
@@ -15090,7 +20406,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfu'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfu(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15093,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15107,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfu(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfu=initial_data_value
@@ -15140,7 +20460,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfu'))THEN
 ELSE
   ALLOCATE(grid%msfu(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15143,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15157,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfu(1,1).  ')
   endif
 ENDIF
@@ -15149,7 +20473,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfv'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15152,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15166,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfv=initial_data_value
@@ -15199,7 +20527,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfv'))THEN
 ELSE
   ALLOCATE(grid%msfv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15202,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15216,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfv(1,1).  ')
   endif
 ENDIF
@@ -15208,7 +20540,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msftx'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msftx(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15211,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15225,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msftx(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msftx=initial_data_value
@@ -15258,7 +20594,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msftx'))THEN
 ELSE
   ALLOCATE(grid%msftx(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15261,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15275,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msftx(1,1).  ')
   endif
 ENDIF
@@ -15267,7 +20607,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfty'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfty(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15270,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15284,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfty(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfty=initial_data_value
@@ -15317,7 +20661,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfty'))THEN
 ELSE
   ALLOCATE(grid%msfty(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15320,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15334,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfty(1,1).  ')
   endif
 ENDIF
@@ -15326,7 +20674,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfux'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfux(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15329,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15343,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfux(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfux=initial_data_value
@@ -15376,7 +20728,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfux'))THEN
 ELSE
   ALLOCATE(grid%msfux(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15379,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15393,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfux(1,1).  ')
   endif
 ENDIF
@@ -15385,7 +20741,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfuy'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfuy(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15388,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15402,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfuy(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfuy=initial_data_value
@@ -15435,7 +20795,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfuy'))THEN
 ELSE
   ALLOCATE(grid%msfuy(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15438,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15452,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfuy(1,1).  ')
   endif
 ENDIF
@@ -15444,7 +20808,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfvx'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfvx(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15447,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15461,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfvx(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfvx=initial_data_value
@@ -15494,7 +20862,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfvx'))THEN
 ELSE
   ALLOCATE(grid%msfvx(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15497,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15511,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfvx(1,1).  ')
   endif
 ENDIF
@@ -15503,7 +20875,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfvx_inv'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfvx_inv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15506,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15520,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfvx_inv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfvx_inv=initial_data_value
@@ -15553,7 +20929,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfvx_inv'))THEN
 ELSE
   ALLOCATE(grid%msfvx_inv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15556,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15570,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfvx_inv(1,1).  ')
   endif
 ENDIF
@@ -15562,7 +20942,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfvy'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%msfvy(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15565,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15579,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfvy(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%msfvy=initial_data_value
@@ -15612,7 +20996,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'msfvy'))THEN
 ELSE
   ALLOCATE(grid%msfvy(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15615,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15629,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%msfvy(1,1).  ')
   endif
 ENDIF
@@ -15621,7 +21009,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%f(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15624,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15638,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%f(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%f=initial_data_value
@@ -15671,7 +21063,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'f'))THEN
 ELSE
   ALLOCATE(grid%f(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15674,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15688,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%f(1,1).  ')
   endif
 ENDIF
@@ -15680,7 +21076,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'e'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%e(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15683,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15697,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%e(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%e=initial_data_value
@@ -15730,7 +21130,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'e'))THEN
 ELSE
   ALLOCATE(grid%e(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15733,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15747,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%e(1,1).  ')
   endif
 ENDIF
@@ -15739,7 +21143,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sina'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%sina(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15742,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15756,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sina(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sina=initial_data_value
@@ -15789,7 +21197,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sina'))THEN
 ELSE
   ALLOCATE(grid%sina(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15792,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15806,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sina(1,1).  ')
   endif
 ENDIF
@@ -15798,7 +21210,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cosa'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cosa(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15801,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15815,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cosa(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cosa=initial_data_value
@@ -15848,7 +21264,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cosa'))THEN
 ELSE
   ALLOCATE(grid%cosa(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15851,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15865,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cosa(1,1).  ')
   endif
 ENDIF
@@ -15857,7 +21277,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ht(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15860,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15874,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht=initial_data_value
@@ -15907,7 +21331,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht'))THEN
 ELSE
   ALLOCATE(grid%ht(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15910,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15924,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht(1,1).  ')
   endif
 ENDIF
@@ -15916,7 +21344,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_fine').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ht_fine(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15919,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15933,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht_fine(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_fine=initial_data_value
@@ -15966,7 +21398,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_fine').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%ht_fine(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15969,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15983,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht_fine(1,1).  ')
   endif
 ENDIF
@@ -15975,7 +21411,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_int').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ht_int(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",15978,&
+=======
+    CALL wrf_error_fatal3("<stdin>",15992,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht_int(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_int=initial_data_value
@@ -16025,7 +21465,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_int').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%ht_int(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",16028,&
+=======
+    CALL wrf_error_fatal3("<stdin>",16042,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht_int(1,1).  ')
   endif
 ENDIF
@@ -16034,7 +21478,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_input').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ht_input(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",16037,&
+=======
+    CALL wrf_error_fatal3("<stdin>",16051,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht_input(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_input=initial_data_value
@@ -16084,7 +21532,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_input').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%ht_input(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",16087,&
+=======
+    CALL wrf_error_fatal3("<stdin>",16101,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht_input(1,1).  ')
   endif
 ENDIF
@@ -16093,7 +21545,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_smooth').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ht_smooth(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",16096,&
+=======
+    CALL wrf_error_fatal3("<stdin>",16110,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%ht_smooth(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_smooth=initial_data_value
@@ -16114,6 +21570,8 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_smooth').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%ht_smooth
+<<<<<<< HEAD
+=======
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -16143,7 +21601,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_smooth').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%ht_smooth(1,1),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",16146,&
+    CALL wrf_error_fatal3("<stdin>",16160,&
     'frame/module_domain.f: Failed to allocate grid%ht_smooth(1,1).  ')
   endif
 ENDIF
@@ -16152,7 +21610,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_shad'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%ht_shad(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",16155,&
+    CALL wrf_error_fatal3("<stdin>",16169,&
     'frame/module_domain.f: Failed to allocate grid%ht_shad(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad=initial_data_value
@@ -16200,6 +21658,371 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ht_shad'))THEN
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+  ALLOCATE(grid%ht_shad(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16219,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad(1,1).  ')
+  endif
+ENDIF
+IF(.TRUE..AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+(((em33-sm33+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_bxs(sm33:em33,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16228,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bxs(sm33:em33,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_bxs=initial_data_value
+  num_bytes_allocated = num_bytes_allocated + &
+(((em33-sm33+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_bxe(sm33:em33,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16236,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bxe(sm33:em33,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_bxe=initial_data_value
+  num_bytes_allocated = num_bytes_allocated + &
+(((em31-sm31+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_bys(sm31:em31,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16244,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bys(sm31:em31,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_bys=initial_data_value
+  num_bytes_allocated = num_bytes_allocated + &
+(((em31-sm31+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_bye(sm31:em31,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16252,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bye(sm31:em31,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_bye=initial_data_value
+ELSE
+  ALLOCATE(grid%ht_shad_bxs(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16259,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bxs(1,1,1).  ')
+  endif
+  ALLOCATE(grid%ht_shad_bxe(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16264,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bxe(1,1,1).  ')
+  endif
+  ALLOCATE(grid%ht_shad_bys(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16269,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bys(1,1,1).  ')
+  endif
+  ALLOCATE(grid%ht_shad_bye(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16274,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_bye(1,1,1).  ')
+  endif
+ENDIF
+IF(.TRUE..AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+(((em33-sm33+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_btxs(sm33:em33,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16283,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btxs(sm33:em33,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_btxs=initial_data_value
+  num_bytes_allocated = num_bytes_allocated + &
+(((em33-sm33+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_btxe(sm33:em33,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16291,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btxe(sm33:em33,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_btxe=initial_data_value
+  num_bytes_allocated = num_bytes_allocated + &
+(((em31-sm31+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_btys(sm31:em31,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16299,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btys(sm31:em31,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_btys=initial_data_value
+  num_bytes_allocated = num_bytes_allocated + &
+(((em31-sm31+1)*(spec_bdy_width))) * 4
+  ALLOCATE(grid%ht_shad_btye(sm31:em31,1,spec_bdy_width),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16307,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btye(sm31:em31,1,spec_bdy_width). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad_btye=initial_data_value
+ELSE
+  ALLOCATE(grid%ht_shad_btxs(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16314,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btxs(1,1,1).  ')
+  endif
+  ALLOCATE(grid%ht_shad_btxe(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16319,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btxe(1,1,1).  ')
+  endif
+  ALLOCATE(grid%ht_shad_btys(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16324,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btys(1,1,1).  ')
+  endif
+  ALLOCATE(grid%ht_shad_btye(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16329,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad_btye(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'shadowmask').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%shadowmask(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16338,&
+    'frame/module_domain.f: Failed to allocate grid%shadowmask(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%shadowmask=0
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+  grid%tail_statevars%VarName = 'shadowmask'
+  grid%tail_statevars%DataName = 'SHADOWMASK'
+  grid%tail_statevars%Description = '-'
+  grid%tail_statevars%Units = '-'
+  grid%tail_statevars%Type    = 'i'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%ifield_2d => grid%shadowmask
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%shadowmask(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16388,&
+    'frame/module_domain.f: Failed to allocate grid%shadowmask(1,1).  ')
+  endif
+ENDIF
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'min_ptchsz'
+   grid%tail_statevars%DataName = 'MIN_PTCHSZ'
+   grid%tail_statevars%Description = '-'
+   grid%tail_statevars%Units = '-'
+   grid%tail_statevars%Type    = 'i'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%ifield_0d => grid%min_ptchsz
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+<<<<<<< HEAD
+ELSE
+  ALLOCATE(grid%ht_smooth(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16146,&
+    'frame/module_domain.f: Failed to allocate grid%ht_smooth(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ht_shad'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ht_shad(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16155,&
+    'frame/module_domain.f: Failed to allocate grid%ht_shad(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ht_shad=initial_data_value
+=======
+IF ( setinitval .EQ. 3 ) grid%min_ptchsz=0
+IF(okay_to_alloc.AND.in_use_for_config(id,'tsk'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%tsk(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16416,&
+    'frame/module_domain.f: Failed to allocate grid%tsk(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tsk=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+  grid%tail_statevars%VarName = 'tsk'
+  grid%tail_statevars%DataName = 'TSK'
+  grid%tail_statevars%Description = 'SURFACE SKIN TEMPERATURE'
+  grid%tail_statevars%Units = 'K'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%tsk
+  grid%tail_statevars%streams(1) = 234881025 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%tsk(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16466,&
+    'frame/module_domain.f: Failed to allocate grid%tsk(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'dfi_tsk').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%dfi_tsk(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16475,&
+    'frame/module_domain.f: Failed to allocate grid%dfi_tsk(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%dfi_tsk=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'ht_shad'
+  grid%tail_statevars%DataName = 'HGT_SHAD'
+  grid%tail_statevars%Description = 'Height of orographic shadow'
+  grid%tail_statevars%Units = 'm'
+=======
+  grid%tail_statevars%VarName = 'dfi_tsk'
+  grid%tail_statevars%DataName = 'TSK_DFI'
+  grid%tail_statevars%Description = 'saved SURFACE SKIN TEMPERATURE'
+  grid%tail_statevars%Units = '-'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+<<<<<<< HEAD
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%ht_shad
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 0 
+=======
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%dfi_tsk
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ht_shad(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",16205,&
@@ -16325,25 +22148,58 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'shadowmask').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%shadowmask(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%shadowmask=0
+=======
+  ALLOCATE(grid%dfi_tsk(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16525,&
+    'frame/module_domain.f: Failed to allocate grid%dfi_tsk(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'tsk_save').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%tsk_save(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16534,&
+    'frame/module_domain.f: Failed to allocate grid%tsk_save(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tsk_save=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'shadowmask'
   grid%tail_statevars%DataName = 'SHADOWMASK'
   grid%tail_statevars%Description = '-'
   grid%tail_statevars%Units = '-'
   grid%tail_statevars%Type    = 'i'
+=======
+  grid%tail_statevars%VarName = 'tsk_save'
+  grid%tail_statevars%DataName = 'TSK_SAVE'
+  grid%tail_statevars%Description = 'SURFACE SKIN TEMPERATURE, EXTRA COPY FOR SEA ICE TESTS in REAL'
+  grid%tail_statevars%Units = 'K'
+  grid%tail_statevars%Type    = 'r'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
+<<<<<<< HEAD
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%ifield_2d => grid%shadowmask
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
+=======
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%tsk_save
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = jds
@@ -16367,12 +22223,249 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'shadowmask').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname1 = 'west_east'
   grid%tail_statevars%dimname2 = 'south_north'
   grid%tail_statevars%dimname3 = ''
+<<<<<<< HEAD
   ENDIF
 ELSE
   ALLOCATE(grid%shadowmask(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",16374,&
     'frame/module_domain.f: Failed to allocate grid%shadowmask(1,1).  ')
+=======
+  ENDIF
+ELSE
+  ALLOCATE(grid%tsk_save(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16584,&
+    'frame/module_domain.f: Failed to allocate grid%tsk_save(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'u_base').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em32)-(sm32)+1))) * 4
+  ALLOCATE(grid%u_base(sm32:em32),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16593,&
+    'frame/module_domain.f: Failed to allocate grid%u_base(sm32:em32). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%u_base=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+  grid%tail_statevars%VarName = 'u_base'
+  grid%tail_statevars%DataName = 'U_BASE'
+  grid%tail_statevars%Description = 'BASE STATE X WIND IN IDEALIZED CASES'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'Z'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 1
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_1d => grid%u_base
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = kds
+  grid%tail_statevars%ed1 = (kde-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = 1
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = kms
+  grid%tail_statevars%em1 = kme
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = 1
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = kps
+  grid%tail_statevars%ep1 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = 1
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%dimname1 = 'bottom_top'
+  grid%tail_statevars%dimname2 = ''
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%u_base(1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16641,&
+    'frame/module_domain.f: Failed to allocate grid%u_base(1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'v_base').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em32)-(sm32)+1))) * 4
+  ALLOCATE(grid%v_base(sm32:em32),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16650,&
+    'frame/module_domain.f: Failed to allocate grid%v_base(sm32:em32). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%v_base=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+  grid%tail_statevars%VarName = 'v_base'
+  grid%tail_statevars%DataName = 'V_BASE'
+  grid%tail_statevars%Description = 'BASE STATE Y WIND IN IDEALIZED CASES'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'Z'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 1
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_1d => grid%v_base
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = kds
+  grid%tail_statevars%ed1 = (kde-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = 1
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = kms
+  grid%tail_statevars%em1 = kme
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = 1
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = kps
+  grid%tail_statevars%ep1 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = 1
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%dimname1 = 'bottom_top'
+  grid%tail_statevars%dimname2 = ''
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%v_base(1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16698,&
+    'frame/module_domain.f: Failed to allocate grid%v_base(1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'qv_base').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em32)-(sm32)+1))) * 4
+  ALLOCATE(grid%qv_base(sm32:em32),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16707,&
+    'frame/module_domain.f: Failed to allocate grid%qv_base(sm32:em32). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qv_base=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+  grid%tail_statevars%VarName = 'qv_base'
+  grid%tail_statevars%DataName = 'QV_BASE'
+  grid%tail_statevars%Description = 'BASE STATE QV IN IDEALIZED CASES'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'Z'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 1
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_1d => grid%qv_base
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = kds
+  grid%tail_statevars%ed1 = (kde-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = 1
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = kms
+  grid%tail_statevars%em1 = kme
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = 1
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = kps
+  grid%tail_statevars%ep1 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = 1
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%dimname1 = 'bottom_top'
+  grid%tail_statevars%dimname2 = ''
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%qv_base(1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16755,&
+    'frame/module_domain.f: Failed to allocate grid%qv_base(1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'z_base').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em32)-(sm32)+1))) * 4
+  ALLOCATE(grid%z_base(sm32:em32),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16764,&
+    'frame/module_domain.f: Failed to allocate grid%z_base(sm32:em32). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%z_base=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+  grid%tail_statevars%VarName = 'z_base'
+  grid%tail_statevars%DataName = 'Z_BASE'
+  grid%tail_statevars%Description = 'BASE STATE HEIGHT IN IDEALIZED CASES'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'Z'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 1
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_1d => grid%z_base
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = kds
+  grid%tail_statevars%ed1 = (kde-1)
+  grid%tail_statevars%sd2 = 1
+  grid%tail_statevars%ed2 = 1
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = kms
+  grid%tail_statevars%em1 = kme
+  grid%tail_statevars%sm2 = 1
+  grid%tail_statevars%em2 = 1
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = kps
+  grid%tail_statevars%ep1 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp2 = 1
+  grid%tail_statevars%ep2 = 1
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%dimname1 = 'bottom_top'
+  grid%tail_statevars%dimname2 = ''
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%z_base(1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",16812,&
+    'frame/module_domain.f: Failed to allocate grid%z_base(1).  ')
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   endif
 ENDIF
   IF (.NOT.grid%is_intermediate) THEN
@@ -16380,15 +22473,24 @@ ENDIF
    grid%tail_statevars => grid%tail_statevars%next
    NULLIFY( grid%tail_statevars%next )
    grid%tail_statevars%ProcOrient    = '  '
+<<<<<<< HEAD
    grid%tail_statevars%VarName = 'min_ptchsz'
    grid%tail_statevars%DataName = 'MIN_PTCHSZ'
    grid%tail_statevars%Description = '-'
    grid%tail_statevars%Units = '-'
    grid%tail_statevars%Type    = 'i'
+=======
+   grid%tail_statevars%VarName = 'u_frame'
+   grid%tail_statevars%DataName = 'U_FRAME'
+   grid%tail_statevars%Description = 'FRAME X WIND'
+   grid%tail_statevars%Units = 'm s-1'
+   grid%tail_statevars%Type    = 'r'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
    grid%tail_statevars%Ntl = 0
    grid%tail_statevars%Restart  = .TRUE.
    grid%tail_statevars%Ndim    = 0
    grid%tail_statevars%scalar_array  = .FALSE. 
+<<<<<<< HEAD
    grid%tail_statevars%ifield_0d => grid%min_ptchsz
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
@@ -16421,6 +22523,48 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tsk'))THEN
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%tsk
   grid%tail_statevars%streams(1) = 234881025 
+=======
+   grid%tail_statevars%rfield_0d => grid%u_frame
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%u_frame=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'v_frame'
+   grid%tail_statevars%DataName = 'V_FRAME'
+   grid%tail_statevars%Description = 'FRAME Y WIND'
+   grid%tail_statevars%Units = 'm s-1'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%v_frame
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%v_frame=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'just_read_auxinput4'
+   grid%tail_statevars%DataName = 'WE_JUST_READ_SST'
+   grid%tail_statevars%Description = '1=AUXINPUT4 ALARM RINGING, 0=NO AUXINPUT4 ALARM'
+   grid%tail_statevars%Units = '-'
+   grid%tail_statevars%Type    = 'l'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%lfield_0d => grid%just_read_auxinput4
+  grid%tail_statevars%streams(1) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -16446,6 +22590,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tsk'))THEN
   grid%tail_statevars%dimname2 = 'south_north'
   grid%tail_statevars%dimname3 = ''
   ENDIF
+<<<<<<< HEAD
 ELSE
   ALLOCATE(grid%tsk(1,1),STAT=ierr)
   if (ierr.ne.0) then
@@ -16479,6 +22624,24 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dfi_tsk').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%dfi_tsk
+=======
+IF ( setinitval .EQ. 3 ) grid%just_read_auxinput4=.FALSE.
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'just_read_boundary'
+   grid%tail_statevars%DataName = 'WE_JUST_D01_LBC'
+   grid%tail_statevars%Description = '1=BOUNDARY  ALARM RINGING, 0=NO BOUNDARY  ALARM'
+   grid%tail_statevars%Units = '-'
+   grid%tail_statevars%Type    = 'l'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%lfield_0d => grid%just_read_boundary
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -16505,6 +22668,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'dfi_tsk').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname2 = 'south_north'
   grid%tail_statevars%dimname3 = ''
   ENDIF
+<<<<<<< HEAD
 ELSE
   ALLOCATE(grid%dfi_tsk(1,1),STAT=ierr)
   if (ierr.ne.0) then
@@ -16539,6 +22703,196 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tsk_save').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%tsk_save
   grid%tail_statevars%streams(1) = 0 
+=======
+IF ( setinitval .EQ. 3 ) grid%just_read_boundary=.FALSE.
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'mf_fft'
+   grid%tail_statevars%DataName = 'MF_FFT'
+   grid%tail_statevars%Description = 'Mass point map factor at equatorward FFT filter location'
+   grid%tail_statevars%Units = ''
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%mf_fft
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%mf_fft=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'p_top'
+   grid%tail_statevars%DataName = 'P_TOP'
+   grid%tail_statevars%Description = 'PRESSURE TOP OF THE MODEL'
+   grid%tail_statevars%Units = 'Pa'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%p_top
+  grid%tail_statevars%streams(1) = 33554433 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%p_top=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'got_var_sso'
+   grid%tail_statevars%DataName = 'GOT_VAR_SSO'
+   grid%tail_statevars%Description = 'whether VAR_SSO was included in WPS output (beginning V3.4)'
+   grid%tail_statevars%Units = ''
+   grid%tail_statevars%Type    = 'l'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%lfield_0d => grid%got_var_sso
+  grid%tail_statevars%streams(1) = 167772160 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%got_var_sso=.FALSE.
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'lat_ll_t'
+   grid%tail_statevars%DataName = 'LAT_LL_T'
+   grid%tail_statevars%Description = 'latitude lower left, temp point'
+   grid%tail_statevars%Units = 'degrees'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%lat_ll_t
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%lat_ll_t=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'lat_ul_t'
+   grid%tail_statevars%DataName = 'LAT_UL_T'
+   grid%tail_statevars%Description = 'latitude up left, temp point'
+   grid%tail_statevars%Units = 'degrees'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%lat_ul_t
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%lat_ul_t=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'lat_ur_t'
+   grid%tail_statevars%DataName = 'LAT_UR_T'
+   grid%tail_statevars%Description = 'latitude up right, temp point'
+   grid%tail_statevars%Units = 'degrees'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%lat_ur_t
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%lat_ur_t=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'lat_lr_t'
+   grid%tail_statevars%DataName = 'LAT_LR_T'
+   grid%tail_statevars%Description = 'latitude lower right, temp point'
+   grid%tail_statevars%Units = 'degrees'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%lat_lr_t
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%lat_lr_t=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'lat_ll_u'
+   grid%tail_statevars%DataName = 'LAT_LL_U'
+   grid%tail_statevars%Description = 'latitude lower left, u point'
+   grid%tail_statevars%Units = 'degrees'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%lat_ll_u
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%lat_ll_u=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'lat_ul_u'
+   grid%tail_statevars%DataName = 'LAT_UL_U'
+   grid%tail_statevars%Description = 'latitude up left, u point'
+   grid%tail_statevars%Units = 'degrees'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%lat_ul_u
+  grid%tail_statevars%streams(1) = 33554432 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%lat_ul_u=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'lat_ur_u'
+   grid%tail_statevars%DataName = 'LAT_UR_U'
+   grid%tail_statevars%Description = 'latitude up right, u point'
+   grid%tail_statevars%Units = 'degrees'
+   grid%tail_statevars%Type    = 'r'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%rfield_0d => grid%lat_ur_u
+  grid%tail_statevars%streams(1) = 33554432 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -17374,6 +23728,7 @@ IF ( setinitval .EQ. 3 ) grid%lon_ur_u=initial_data_value
    grid%tail_statevars => grid%tail_statevars%next
    NULLIFY( grid%tail_statevars%next )
    grid%tail_statevars%ProcOrient    = '  '
+<<<<<<< HEAD
    grid%tail_statevars%VarName = 'lon_lr_u'
    grid%tail_statevars%DataName = 'LON_LR_U'
    grid%tail_statevars%Description = 'longitude lower right, u point'
@@ -17586,12 +23941,18 @@ IF ( setinitval .EQ. 3 ) grid%p00=initial_data_value
    grid%tail_statevars%VarName = 'tlp'
    grid%tail_statevars%DataName = 'TLP'
    grid%tail_statevars%Description = 'BASE STATE LAPSE RATE    '
+=======
+   grid%tail_statevars%VarName = 'max_msfty'
+   grid%tail_statevars%DataName = 'MAX_MSTFY'
+   grid%tail_statevars%Description = 'Max map factor in domain'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
    grid%tail_statevars%Units = ''
    grid%tail_statevars%Type    = 'r'
    grid%tail_statevars%Ntl = 0
    grid%tail_statevars%Restart  = .TRUE.
    grid%tail_statevars%Ndim    = 0
    grid%tail_statevars%scalar_array  = .FALSE. 
+<<<<<<< HEAD
    grid%tail_statevars%rfield_0d => grid%tlp
   grid%tail_statevars%streams(1) = 167772161 
   grid%tail_statevars%streams(2) = 2097152 
@@ -17748,6 +24109,69 @@ ELSE
   ALLOCATE(grid%tlwdn(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",17750,&
+=======
+   grid%tail_statevars%rfield_0d => grid%max_msfty
+  grid%tail_statevars%streams(1) = 1 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+IF ( setinitval .EQ. 3 ) grid%max_msfty=initial_data_value
+IF(okay_to_alloc.AND.in_use_for_config(id,'tlwdn').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%tlwdn(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",17714,&
+    'frame/module_domain.f: Failed to allocate grid%tlwdn(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tlwdn=initial_data_value
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+  grid%tail_statevars%VarName = 'tlwdn'
+  grid%tail_statevars%DataName = 'TLWDN'
+  grid%tail_statevars%Description = 'TOA LW downwelling flux'
+  grid%tail_statevars%Units = 'W m-2'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%tlwdn
+  grid%tail_statevars%streams(1) = 1 
+  grid%tail_statevars%streams(2) = 0 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%tlwdn(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",17764,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tlwdn(1,1).  ')
   endif
 ENDIF
@@ -17756,7 +24180,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tlwup').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tlwup(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17759,&
+=======
+    CALL wrf_error_fatal3("<stdin>",17773,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tlwup(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tlwup=initial_data_value
@@ -17806,7 +24234,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tlwup').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%tlwup(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17809,&
+=======
+    CALL wrf_error_fatal3("<stdin>",17823,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tlwup(1,1).  ')
   endif
 ENDIF
@@ -17815,7 +24247,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'slwdn').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%slwdn(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17818,&
+=======
+    CALL wrf_error_fatal3("<stdin>",17832,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%slwdn(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slwdn=initial_data_value
@@ -17865,7 +24301,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'slwdn').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%slwdn(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17868,&
+=======
+    CALL wrf_error_fatal3("<stdin>",17882,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%slwdn(1,1).  ')
   endif
 ENDIF
@@ -17874,7 +24314,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'slwup').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%slwup(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17877,&
+=======
+    CALL wrf_error_fatal3("<stdin>",17891,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%slwup(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%slwup=initial_data_value
@@ -17924,7 +24368,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'slwup').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%slwup(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17927,&
+=======
+    CALL wrf_error_fatal3("<stdin>",17941,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%slwup(1,1).  ')
   endif
 ENDIF
@@ -17933,7 +24381,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tswdn').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tswdn(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17936,&
+=======
+    CALL wrf_error_fatal3("<stdin>",17950,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tswdn(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tswdn=initial_data_value
@@ -17983,7 +24435,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tswdn').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%tswdn(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17986,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18000,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tswdn(1,1).  ')
   endif
 ENDIF
@@ -17992,7 +24448,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tswup').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tswup(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",17995,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18009,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tswup(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tswup=initial_data_value
@@ -18042,7 +24502,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tswup').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%tswup(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18045,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18059,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tswup(1,1).  ')
   endif
 ENDIF
@@ -18051,7 +24515,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sswdn').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%sswdn(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18054,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18068,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sswdn(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sswdn=initial_data_value
@@ -18101,7 +24569,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sswdn').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%sswdn(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18104,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18118,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sswdn(1,1).  ')
   endif
 ENDIF
@@ -18110,7 +24582,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sswup').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%sswup(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18113,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18127,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sswup(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%sswup=initial_data_value
@@ -18160,7 +24636,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'sswup').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%sswup(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18163,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18177,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%sswup(1,1).  ')
   endif
 ENDIF
@@ -18169,7 +24649,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rushten').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rushten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18172,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18186,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rushten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rushten=initial_data_value
@@ -18219,7 +24703,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rushten').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rushten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18222,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18236,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rushten(1,1,1).  ')
   endif
 ENDIF
@@ -18228,7 +24716,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rvshten').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rvshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18231,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18245,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rvshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rvshten=initial_data_value
@@ -18278,7 +24770,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rvshten').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rvshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18281,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18295,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rvshten(1,1,1).  ')
   endif
 ENDIF
@@ -18287,7 +24783,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthshten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rthshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18290,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18304,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rthshten=initial_data_value
@@ -18337,7 +24837,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthshten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rthshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18340,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18354,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthshten(1,1,1).  ')
   endif
 ENDIF
@@ -18346,7 +24850,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqvshten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqvshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18349,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18363,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqvshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqvshten=initial_data_value
@@ -18396,7 +24904,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqvshten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqvshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18399,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18413,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqvshten(1,1,1).  ')
   endif
 ENDIF
@@ -18405,7 +24917,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqrshten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqrshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18408,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18422,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqrshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqrshten=initial_data_value
@@ -18455,7 +24971,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqrshten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqrshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18458,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18472,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqrshten(1,1,1).  ')
   endif
 ENDIF
@@ -18464,7 +24984,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqcshten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqcshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18467,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18481,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqcshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqcshten=initial_data_value
@@ -18514,7 +25038,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqcshten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqcshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18517,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18531,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqcshten(1,1,1).  ')
   endif
 ENDIF
@@ -18523,7 +25051,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqsshten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqsshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18526,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18540,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqsshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqsshten=initial_data_value
@@ -18573,7 +25105,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqsshten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqsshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18576,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18590,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqsshten(1,1,1).  ')
   endif
 ENDIF
@@ -18582,7 +25118,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqishten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqishten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18585,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18599,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqishten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqishten=initial_data_value
@@ -18632,7 +25172,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqishten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqishten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18635,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18649,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqishten(1,1,1).  ')
   endif
 ENDIF
@@ -18641,7 +25185,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqgshten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqgshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18644,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18658,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqgshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqgshten=initial_data_value
@@ -18691,7 +25239,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqgshten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqgshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18694,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18708,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqgshten(1,1,1).  ')
   endif
 ENDIF
@@ -18700,7 +25252,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqcnshten').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqcnshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18703,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18717,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqcnshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqcnshten=initial_data_value
@@ -18750,7 +25306,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqcnshten').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%rqcnshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18753,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18767,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqcnshten(1,1,1).  ')
   endif
 ENDIF
@@ -18759,7 +25319,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqinshten').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqinshten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18762,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18776,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqinshten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqinshten=initial_data_value
@@ -18809,7 +25373,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqinshten').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%rqinshten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18812,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18826,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqinshten(1,1,1).  ')
   endif
 ENDIF
@@ -18818,7 +25386,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rucuten').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rucuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18821,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18835,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rucuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rucuten=initial_data_value
@@ -18868,7 +25440,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rucuten').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rucuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18871,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18885,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rucuten(1,1,1).  ')
   endif
 ENDIF
@@ -18877,7 +25453,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rvcuten').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rvcuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18880,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18894,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rvcuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rvcuten=initial_data_value
@@ -18927,7 +25507,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rvcuten').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rvcuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18930,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18944,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rvcuten(1,1,1).  ')
   endif
 ENDIF
@@ -18936,7 +25520,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthcuten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rthcuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18939,&
+=======
+    CALL wrf_error_fatal3("<stdin>",18953,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthcuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rthcuten=initial_data_value
@@ -18986,7 +25574,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthcuten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rthcuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18989,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19003,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthcuten(1,1,1).  ')
   endif
 ENDIF
@@ -18995,7 +25587,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqvcuten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqvcuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",18998,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19012,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqvcuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqvcuten=initial_data_value
@@ -19045,7 +25641,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqvcuten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqvcuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19048,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19062,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqvcuten(1,1,1).  ')
   endif
 ENDIF
@@ -19054,7 +25654,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqrcuten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqrcuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19057,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19071,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqrcuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqrcuten=initial_data_value
@@ -19104,7 +25708,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqrcuten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqrcuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19107,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19121,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqrcuten(1,1,1).  ')
   endif
 ENDIF
@@ -19113,7 +25721,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqccuten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqccuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19116,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19130,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqccuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqccuten=initial_data_value
@@ -19163,7 +25775,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqccuten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqccuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19166,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19180,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqccuten(1,1,1).  ')
   endif
 ENDIF
@@ -19172,7 +25788,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqscuten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqscuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19175,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19189,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqscuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqscuten=initial_data_value
@@ -19222,7 +25842,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqscuten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqscuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19225,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19239,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqscuten(1,1,1).  ')
   endif
 ENDIF
@@ -19231,7 +25855,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqicuten').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqicuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19234,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19248,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqicuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqicuten=initial_data_value
@@ -19281,7 +25909,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqicuten').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%rqicuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19284,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19298,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqicuten(1,1,1).  ')
   endif
 ENDIF
@@ -19290,7 +25922,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqcncuten').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqcncuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19293,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19307,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqcncuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqcncuten=initial_data_value
@@ -19340,7 +25976,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqcncuten').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%rqcncuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19343,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19357,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqcncuten(1,1,1).  ')
   endif
 ENDIF
@@ -19349,7 +25989,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqincuten').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqincuten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19352,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19366,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqincuten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqincuten=initial_data_value
@@ -19399,7 +26043,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqincuten').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%rqincuten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19402,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19416,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqincuten(1,1,1).  ')
   endif
 ENDIF
@@ -19408,7 +26056,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'w0avg').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%w0avg(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19411,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19425,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%w0avg(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%w0avg=initial_data_value
@@ -19458,7 +26110,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'w0avg').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%w0avg(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19461,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19475,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%w0avg(1,1,1).  ')
   endif
 ENDIF
@@ -19467,7 +26123,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19470,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19484,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainc=initial_data_value
@@ -19517,7 +26177,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainc'))THEN
 ELSE
   ALLOCATE(grid%rainc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19520,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19534,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainc(1,1).  ')
   endif
 ENDIF
@@ -19526,7 +26190,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainsh'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainsh(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19529,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19543,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainsh(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainsh=initial_data_value
@@ -19576,7 +26244,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainsh'))THEN
 ELSE
   ALLOCATE(grid%rainsh(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19579,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19593,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainsh(1,1).  ')
   endif
 ENDIF
@@ -19585,7 +26257,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainnc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainnc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19588,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19602,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainnc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainnc=initial_data_value
@@ -19635,7 +26311,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainnc'))THEN
 ELSE
   ALLOCATE(grid%rainnc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19638,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19652,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainnc(1,1).  ')
   endif
 ENDIF
@@ -19644,7 +26324,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_rainc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_rainc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19647,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19661,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_rainc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_rainc=0
@@ -19694,7 +26378,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_rainc'))THEN
 ELSE
   ALLOCATE(grid%i_rainc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19697,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19711,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_rainc(1,1).  ')
   endif
 ENDIF
@@ -19703,7 +26391,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_rainnc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_rainnc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19706,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19720,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_rainnc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_rainnc=0
@@ -19753,7 +26445,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_rainnc'))THEN
 ELSE
   ALLOCATE(grid%i_rainnc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19756,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19770,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_rainnc(1,1).  ')
   endif
 ENDIF
@@ -19762,7 +26458,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pratec').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%pratec(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19765,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19779,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pratec(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pratec=initial_data_value
@@ -19812,7 +26512,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pratec').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%pratec(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19815,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19829,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pratec(1,1).  ')
   endif
 ENDIF
@@ -19821,7 +26525,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pratesh').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%pratesh(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19824,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19838,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pratesh(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pratesh=initial_data_value
@@ -19871,7 +26579,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pratesh').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%pratesh(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19874,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19888,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%pratesh(1,1).  ')
   endif
 ENDIF
@@ -19880,7 +26592,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%raincv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19883,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19897,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincv=initial_data_value
@@ -19930,7 +26646,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%raincv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19933,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19947,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincv(1,1).  ')
   endif
 ENDIF
@@ -19939,7 +26659,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainshv').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainshv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19942,&
+=======
+    CALL wrf_error_fatal3("<stdin>",19956,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainshv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainshv=initial_data_value
@@ -19989,7 +26713,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainshv').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rainshv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",19992,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20006,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainshv(1,1).  ')
   endif
 ENDIF
@@ -19998,7 +26726,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncv').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainncv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20001,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20015,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainncv=initial_data_value
@@ -20048,7 +26780,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncv').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rainncv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20051,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20065,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncv(1,1).  ')
   endif
 ENDIF
@@ -20057,7 +26793,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainbl').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainbl(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20060,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20074,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainbl(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainbl=initial_data_value
@@ -20107,7 +26847,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainbl').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%rainbl(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20110,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20124,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainbl(1,1).  ')
   endif
 ENDIF
@@ -20116,7 +26860,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'snownc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%snownc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20119,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20133,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%snownc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%snownc=initial_data_value
@@ -20166,7 +26914,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'snownc'))THEN
 ELSE
   ALLOCATE(grid%snownc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20169,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20183,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%snownc(1,1).  ')
   endif
 ENDIF
@@ -20175,7 +26927,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'graupelnc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%graupelnc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20178,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20192,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%graupelnc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%graupelnc=initial_data_value
@@ -20225,7 +26981,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'graupelnc'))THEN
 ELSE
   ALLOCATE(grid%graupelnc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20228,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20242,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%graupelnc(1,1).  ')
   endif
 ENDIF
@@ -20234,7 +26994,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hailnc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%hailnc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20237,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20251,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hailnc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hailnc=initial_data_value
@@ -20284,7 +27048,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hailnc'))THEN
 ELSE
   ALLOCATE(grid%hailnc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20287,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20301,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hailnc(1,1).  ')
   endif
 ENDIF
@@ -20293,7 +27061,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'snowncv').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%snowncv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20296,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20310,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%snowncv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%snowncv=initial_data_value
@@ -20343,7 +27115,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'snowncv').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%snowncv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20346,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20360,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%snowncv(1,1).  ')
   endif
 ENDIF
@@ -20352,7 +27128,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'graupelncv').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%graupelncv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20355,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20369,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%graupelncv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%graupelncv=initial_data_value
@@ -20402,7 +27182,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'graupelncv').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%graupelncv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20405,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20419,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%graupelncv(1,1).  ')
   endif
 ENDIF
@@ -20411,7 +27195,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hailncv').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%hailncv(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20414,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20428,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hailncv(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%hailncv=initial_data_value
@@ -20461,7 +27249,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'hailncv').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%hailncv(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20464,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20478,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%hailncv(1,1).  ')
   endif
 ENDIF
@@ -20470,7 +27262,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'refl_10cm'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%refl_10cm(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20473,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20487,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%refl_10cm(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%refl_10cm=initial_data_value
@@ -20520,7 +27316,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'refl_10cm'))THEN
 ELSE
   ALLOCATE(grid%refl_10cm(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20523,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20537,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%refl_10cm(1,1,1).  ')
   endif
 ENDIF
@@ -20529,7 +27329,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'th_old'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%th_old(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20532,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20546,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%th_old(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%th_old=initial_data_value
@@ -20579,7 +27383,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'th_old'))THEN
 ELSE
   ALLOCATE(grid%th_old(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20582,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20596,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%th_old(1,1,1).  ')
   endif
 ENDIF
@@ -20588,7 +27396,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qv_old'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qv_old(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20591,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20605,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qv_old(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qv_old=initial_data_value
@@ -20638,7 +27450,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qv_old'))THEN
 ELSE
   ALLOCATE(grid%qv_old(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20641,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20655,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qv_old(1,1,1).  ')
   endif
 ENDIF
@@ -20647,7 +27463,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vmi3d'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%vmi3d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20650,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20664,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vmi3d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%vmi3d=initial_data_value
@@ -20697,7 +27517,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'vmi3d'))THEN
 ELSE
   ALLOCATE(grid%vmi3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20700,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20714,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%vmi3d(1,1,1).  ')
   endif
 ENDIF
@@ -20706,7 +27530,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'di3d'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%di3d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20709,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20723,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%di3d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%di3d=initial_data_value
@@ -20756,7 +27584,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'di3d'))THEN
 ELSE
   ALLOCATE(grid%di3d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20759,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20773,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%di3d(1,1,1).  ')
   endif
 ENDIF
@@ -20765,7 +27597,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rhopo3d'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rhopo3d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",20768,&
+=======
+    CALL wrf_error_fatal3("<stdin>",20782,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rhopo3d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rhopo3d=initial_data_value
@@ -20814,6 +27650,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rhopo3d'))THEN
   ENDIF
 ELSE
   ALLOCATE(grid%rhopo3d(1,1,1),STAT=ierr)
+<<<<<<< HEAD
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",20818,&
     'frame/module_domain.f: Failed to allocate grid%rhopo3d(1,1,1).  ')
@@ -20887,15 +27724,39 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lowlyr').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%lowlyr(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lowlyr=0
+=======
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",20832,&
+    'frame/module_domain.f: Failed to allocate grid%rhopo3d(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'nca').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%nca(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",20841,&
+    'frame/module_domain.f: Failed to allocate grid%nca(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%nca=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'lowlyr'
   grid%tail_statevars%DataName = 'LOWLYR'
   grid%tail_statevars%Description = 'INDEX OF LOWEST MODEL LAYER ABOVE THE GROUND IN BMJ SCHEME'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'i'
+=======
+  grid%tail_statevars%VarName = 'nca'
+  grid%tail_statevars%DataName = 'NCA'
+  grid%tail_statevars%Description = 'COUNTER OF THE CLOUD RELAXATION TIME IN KF CUMULUS SCHEME'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
@@ -20903,7 +27764,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lowlyr').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%ifield_2d => grid%lowlyr
+=======
+  grid%tail_statevars%rfield_2d => grid%nca
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -20931,6 +27796,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'lowlyr').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%lowlyr(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",20936,&
@@ -20946,25 +27812,54 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'mass_flux').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%mass_flux(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%mass_flux=initial_data_value
+=======
+  ALLOCATE(grid%nca(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",20891,&
+    'frame/module_domain.f: Failed to allocate grid%nca(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'lowlyr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%lowlyr(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",20900,&
+    'frame/module_domain.f: Failed to allocate grid%lowlyr(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%lowlyr=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'mass_flux'
   grid%tail_statevars%DataName = 'MASS_FLUX'
   grid%tail_statevars%Description = 'DOWNDRAFT MASS FLUX FOR IN GRELL CUMULUS SCHEME'
   grid%tail_statevars%Units = 'mb hour-1'
   grid%tail_statevars%Type    = 'r'
+=======
+  grid%tail_statevars%VarName = 'lowlyr'
+  grid%tail_statevars%DataName = 'LOWLYR'
+  grid%tail_statevars%Description = 'INDEX OF LOWEST MODEL LAYER ABOVE THE GROUND IN BMJ SCHEME'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'i'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
-  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%mass_flux
+=======
+  grid%tail_statevars%ifield_2d => grid%lowlyr
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = jds
@@ -21049,6 +27944,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_dp').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cldfra_dp(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21054,&
@@ -21064,14 +27960,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_sh').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%cldfra_sh(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra_sh=initial_data_value
+=======
+  ALLOCATE(grid%lowlyr(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",20950,&
+    'frame/module_domain.f: Failed to allocate grid%lowlyr(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'mass_flux').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%mass_flux(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",20959,&
+    'frame/module_domain.f: Failed to allocate grid%mass_flux(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%mass_flux=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cldfra_sh'
   grid%tail_statevars%DataName = 'CLDFRA_SH'
   grid%tail_statevars%Description = 'SHALLOW CONVECTIVE CLOUD FRACTION FROM KF'
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'mass_flux'
+  grid%tail_statevars%DataName = 'MASS_FLUX'
+  grid%tail_statevars%Description = 'DOWNDRAFT MASS FLUX FOR IN GRELL CUMULUS SCHEME'
+  grid%tail_statevars%Units = 'mb hour-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -21080,7 +28000,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_sh').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cldfra_sh
+=======
+  grid%tail_statevars%rfield_2d => grid%mass_flux
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21108,6 +28032,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_sh').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cldfra_sh(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21113,&
@@ -21123,10 +28048,209 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'w_up'))THEN
     'frame/module_domain.f: Failed to allocate grid%w_up(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%w_up=initial_data_value
+=======
+  ALLOCATE(grid%mass_flux(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21009,&
+    'frame/module_domain.f: Failed to allocate grid%mass_flux(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_dp').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cldfra_dp(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21018,&
+    'frame/module_domain.f: Failed to allocate grid%cldfra_dp(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra_dp=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'w_up'
+  grid%tail_statevars%DataName = 'W_UP'
+  grid%tail_statevars%Description = 'EFFECTIVE SUBGRID VELOCITY FROM KF'
+  grid%tail_statevars%Units = 'm s-1'
+=======
+  grid%tail_statevars%VarName = 'cldfra_dp'
+  grid%tail_statevars%DataName = 'CLDFRA_DP'
+  grid%tail_statevars%Description = 'DEEP CONVECTIVE CLOUD FRACTION FROM KF'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%w_up
+=======
+  grid%tail_statevars%rfield_3d => grid%cldfra_dp
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = (kde-1)
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'bottom_top'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%w_up(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21172,&
+    'frame/module_domain.f: Failed to allocate grid%w_up(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'udr_kf').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%udr_kf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21181,&
+    'frame/module_domain.f: Failed to allocate grid%udr_kf(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%udr_kf=initial_data_value
+=======
+  ALLOCATE(grid%cldfra_dp(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21068,&
+    'frame/module_domain.f: Failed to allocate grid%cldfra_dp(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_sh').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cldfra_sh(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21077,&
+    'frame/module_domain.f: Failed to allocate grid%cldfra_sh(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra_sh=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'udr_kf'
+  grid%tail_statevars%DataName = 'UDR_KF'
+  grid%tail_statevars%Description = 'UPDRAFT DETRAINMENT RATE FROM KF'
+  grid%tail_statevars%Units = 'kg s-1'
+=======
+  grid%tail_statevars%VarName = 'cldfra_sh'
+  grid%tail_statevars%DataName = 'CLDFRA_SH'
+  grid%tail_statevars%Description = 'SHALLOW CONVECTIVE CLOUD FRACTION FROM KF'
+  grid%tail_statevars%Units = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%udr_kf
+  grid%tail_statevars%streams(1) = 1 
+=======
+  grid%tail_statevars%rfield_3d => grid%cldfra_sh
+  grid%tail_statevars%streams(1) = 0 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = (kde-1)
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'bottom_top'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%udr_kf(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21231,&
+    'frame/module_domain.f: Failed to allocate grid%udr_kf(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ddr_kf').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ddr_kf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21240,&
+    'frame/module_domain.f: Failed to allocate grid%ddr_kf(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ddr_kf=initial_data_value
+=======
+  ALLOCATE(grid%cldfra_sh(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21127,&
+    'frame/module_domain.f: Failed to allocate grid%cldfra_sh(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'w_up'))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%w_up(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21136,&
+    'frame/module_domain.f: Failed to allocate grid%w_up(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%w_up=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'ddr_kf'
+  grid%tail_statevars%DataName = 'DDR_KF'
+  grid%tail_statevars%Description = 'DOWNDRAFT DETRAINMENT RATE FROM KF'
+=======
   grid%tail_statevars%VarName = 'w_up'
   grid%tail_statevars%DataName = 'W_UP'
   grid%tail_statevars%Description = 'EFFECTIVE SUBGRID VELOCITY FROM KF'
@@ -21169,7 +28293,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'w_up'))THEN
 ELSE
   ALLOCATE(grid%w_up(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",21172,&
+    CALL wrf_error_fatal3("<stdin>",21186,&
     'frame/module_domain.f: Failed to allocate grid%w_up(1,1,1).  ')
   endif
 ENDIF
@@ -21178,7 +28302,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'udr_kf').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%udr_kf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",21181,&
+    CALL wrf_error_fatal3("<stdin>",21195,&
     'frame/module_domain.f: Failed to allocate grid%udr_kf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%udr_kf=initial_data_value
@@ -21189,6 +28313,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'udr_kf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%VarName = 'udr_kf'
   grid%tail_statevars%DataName = 'UDR_KF'
   grid%tail_statevars%Description = 'UPDRAFT DETRAINMENT RATE FROM KF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'kg s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21198,66 +28323,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'udr_kf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
-  grid%tail_statevars%rfield_3d => grid%udr_kf
-  grid%tail_statevars%streams(1) = 1 
-  grid%tail_statevars%streams(2) = 2097152 
-  grid%tail_statevars%sd1 = ids
-  grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = kds
-  grid%tail_statevars%ed2 = (kde-1)
-  grid%tail_statevars%sd3 = jds
-  grid%tail_statevars%ed3 = (jde-1)
-  grid%tail_statevars%sm1 = ims
-  grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = kms
-  grid%tail_statevars%em2 = kme
-  grid%tail_statevars%sm3 = jms
-  grid%tail_statevars%em3 = jme
-  grid%tail_statevars%sp1 = ips
-  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = kps
-  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
-  grid%tail_statevars%sp3 = jps
-  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
-  grid%tail_statevars%subgrid_x = .FALSE.
-  grid%tail_statevars%subgrid_y = .FALSE.
-  grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'bottom_top'
-  grid%tail_statevars%dimname3 = 'south_north'
-  ENDIF
-ELSE
-  ALLOCATE(grid%udr_kf(1,1,1),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",21231,&
-    'frame/module_domain.f: Failed to allocate grid%udr_kf(1,1,1).  ')
-  endif
-ENDIF
-IF(okay_to_alloc.AND.in_use_for_config(id,'ddr_kf').AND.(.NOT.grid%is_intermediate))THEN
-  num_bytes_allocated = num_bytes_allocated + &
-((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
-  ALLOCATE(grid%ddr_kf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
-  if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",21240,&
-    'frame/module_domain.f: Failed to allocate grid%ddr_kf(sm31:em31,sm32:em32,sm33:em33). ')
-  endif
-  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ddr_kf=initial_data_value
-  IF (.NOT.grid%is_intermediate) THEN
-  ALLOCATE( grid%tail_statevars%next )
-  grid%tail_statevars => grid%tail_statevars%next
-  NULLIFY( grid%tail_statevars%next )
-  grid%tail_statevars%VarName = 'ddr_kf'
-  grid%tail_statevars%DataName = 'DDR_KF'
-  grid%tail_statevars%Description = 'DOWNDRAFT DETRAINMENT RATE FROM KF'
-  grid%tail_statevars%Units = 'kg s-1'
-  grid%tail_statevars%Type    = 'r'
-  grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XZY'
-  grid%tail_statevars%Stagger      = ''
-  grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 3
-  grid%tail_statevars%Restart  = .TRUE.
-  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%ddr_kf
+=======
+  grid%tail_statevars%rfield_3d => grid%udr_kf
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21285,6 +28355,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ddr_kf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ddr_kf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21290,&
@@ -21300,13 +28371,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'uer_kf').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%uer_kf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%uer_kf=initial_data_value
+=======
+  ALLOCATE(grid%udr_kf(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21245,&
+    'frame/module_domain.f: Failed to allocate grid%udr_kf(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ddr_kf').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ddr_kf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21254,&
+    'frame/module_domain.f: Failed to allocate grid%ddr_kf(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ddr_kf=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'uer_kf'
   grid%tail_statevars%DataName = 'UER_KF'
   grid%tail_statevars%Description = 'UPDRAFT ENTRAINMENT RATE FROM KF'
+=======
+  grid%tail_statevars%VarName = 'ddr_kf'
+  grid%tail_statevars%DataName = 'DDR_KF'
+  grid%tail_statevars%Description = 'DOWNDRAFT DETRAINMENT RATE FROM KF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'kg s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21316,7 +28410,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'uer_kf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%uer_kf
+=======
+  grid%tail_statevars%rfield_3d => grid%ddr_kf
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21344,6 +28442,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'uer_kf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%uer_kf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21349,&
@@ -21359,13 +28458,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'der_kf').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%der_kf(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%der_kf=initial_data_value
+=======
+  ALLOCATE(grid%ddr_kf(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21304,&
+    'frame/module_domain.f: Failed to allocate grid%ddr_kf(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'uer_kf').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%uer_kf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21313,&
+    'frame/module_domain.f: Failed to allocate grid%uer_kf(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%uer_kf=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'der_kf'
   grid%tail_statevars%DataName = 'DER_KF'
   grid%tail_statevars%Description = 'DOWNDRAFT ENTRAINMENT RATE FROM KF'
+=======
+  grid%tail_statevars%VarName = 'uer_kf'
+  grid%tail_statevars%DataName = 'UER_KF'
+  grid%tail_statevars%Description = 'UPDRAFT ENTRAINMENT RATE FROM KF'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'kg s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21375,7 +28497,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'der_kf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%der_kf
+=======
+  grid%tail_statevars%rfield_3d => grid%uer_kf
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21403,6 +28529,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'der_kf').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%der_kf(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21408,&
@@ -21418,50 +28545,82 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'timec_kf').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%timec_kf(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%timec_kf=initial_data_value
+=======
+  ALLOCATE(grid%uer_kf(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21363,&
+    'frame/module_domain.f: Failed to allocate grid%uer_kf(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'der_kf').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%der_kf(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21372,&
+    'frame/module_domain.f: Failed to allocate grid%der_kf(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%der_kf=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'timec_kf'
   grid%tail_statevars%DataName = 'TIMEC_KF'
   grid%tail_statevars%Description = 'CONVECTIVE TIMESCALE FROM MSKF'
   grid%tail_statevars%Units = 's'
+=======
+  grid%tail_statevars%VarName = 'der_kf'
+  grid%tail_statevars%DataName = 'DER_KF'
+  grid%tail_statevars%Description = 'DOWNDRAFT ENTRAINMENT RATE FROM KF'
+  grid%tail_statevars%Units = 'kg s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%MemoryOrder  = 'XZY'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
+<<<<<<< HEAD
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%timec_kf
+=======
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_3d => grid%der_kf
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 1 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = jds
-  grid%tail_statevars%ed2 = (jde-1)
-  grid%tail_statevars%sd3 = 1
-  grid%tail_statevars%ed3 = 1
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = (kde-1)
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = jms
-  grid%tail_statevars%em2 = jme
-  grid%tail_statevars%sm3 = 1
-  grid%tail_statevars%em3 = 1
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = jps
-  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
-  grid%tail_statevars%sp3 = 1
-  grid%tail_statevars%ep3 = 1
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'south_north'
-  grid%tail_statevars%dimname3 = ''
+  grid%tail_statevars%dimname2 = 'bottom_top'
+  grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%timec_kf(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21467,&
@@ -21477,14 +28636,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_gr').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%apr_gr(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_gr=initial_data_value
+=======
+  ALLOCATE(grid%der_kf(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21422,&
+    'frame/module_domain.f: Failed to allocate grid%der_kf(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'timec_kf').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%timec_kf(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21431,&
+    'frame/module_domain.f: Failed to allocate grid%timec_kf(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%timec_kf=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_gr'
   grid%tail_statevars%DataName = 'APR_GR'
   grid%tail_statevars%Description = 'PRECIP FROM CLOSURE OLD_GRELL'
   grid%tail_statevars%Units = 'mm hour-1'
+=======
+  grid%tail_statevars%VarName = 'timec_kf'
+  grid%tail_statevars%DataName = 'TIMEC_KF'
+  grid%tail_statevars%Description = 'CONVECTIVE TIMESCALE FROM MSKF'
+  grid%tail_statevars%Units = 's'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -21493,8 +28676,13 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_gr').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_gr
   grid%tail_statevars%streams(1) = 0 
+=======
+  grid%tail_statevars%rfield_2d => grid%timec_kf
+  grid%tail_statevars%streams(1) = 1 
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
@@ -21521,6 +28709,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_gr').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_gr(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21526,&
@@ -21536,13 +28725,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_w').AND.(.NOT.grid%is_intermediat
     'frame/module_domain.f: Failed to allocate grid%apr_w(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_w=initial_data_value
+=======
+  ALLOCATE(grid%timec_kf(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21481,&
+    'frame/module_domain.f: Failed to allocate grid%timec_kf(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_gr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_gr(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21490,&
+    'frame/module_domain.f: Failed to allocate grid%apr_gr(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_gr=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_w'
   grid%tail_statevars%DataName = 'APR_W'
   grid%tail_statevars%Description = 'PRECIP FROM CLOSURE W'
+=======
+  grid%tail_statevars%VarName = 'apr_gr'
+  grid%tail_statevars%DataName = 'APR_GR'
+  grid%tail_statevars%Description = 'PRECIP FROM CLOSURE OLD_GRELL'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mm hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21552,7 +28764,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_w').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_w
+=======
+  grid%tail_statevars%rfield_2d => grid%apr_gr
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21580,6 +28796,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_w').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_w(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21585,&
@@ -21595,13 +28812,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_mc').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%apr_mc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_mc=initial_data_value
+=======
+  ALLOCATE(grid%apr_gr(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21540,&
+    'frame/module_domain.f: Failed to allocate grid%apr_gr(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_w').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_w(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21549,&
+    'frame/module_domain.f: Failed to allocate grid%apr_w(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_w=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_mc'
   grid%tail_statevars%DataName = 'APR_MC'
   grid%tail_statevars%Description = 'PRECIP FROM CLOSURE KRISH MV'
+=======
+  grid%tail_statevars%VarName = 'apr_w'
+  grid%tail_statevars%DataName = 'APR_W'
+  grid%tail_statevars%Description = 'PRECIP FROM CLOSURE W'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mm hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21611,7 +28851,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_mc').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_mc
+=======
+  grid%tail_statevars%rfield_2d => grid%apr_w
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21639,6 +28883,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_mc').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_mc(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21644,&
@@ -21654,13 +28899,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_st').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%apr_st(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_st=initial_data_value
+=======
+  ALLOCATE(grid%apr_w(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21599,&
+    'frame/module_domain.f: Failed to allocate grid%apr_w(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_mc').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_mc(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21608,&
+    'frame/module_domain.f: Failed to allocate grid%apr_mc(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_mc=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_st'
   grid%tail_statevars%DataName = 'APR_ST'
   grid%tail_statevars%Description = 'PRECIP FROM CLOSURE STABILITY'
+=======
+  grid%tail_statevars%VarName = 'apr_mc'
+  grid%tail_statevars%DataName = 'APR_MC'
+  grid%tail_statevars%Description = 'PRECIP FROM CLOSURE KRISH MV'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mm hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21670,7 +28938,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_st').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_st
+=======
+  grid%tail_statevars%rfield_2d => grid%apr_mc
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21698,6 +28970,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_st').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_st(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21703,&
@@ -21713,13 +28986,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_as').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%apr_as(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_as=initial_data_value
+=======
+  ALLOCATE(grid%apr_mc(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21658,&
+    'frame/module_domain.f: Failed to allocate grid%apr_mc(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_st').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_st(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21667,&
+    'frame/module_domain.f: Failed to allocate grid%apr_st(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_st=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_as'
   grid%tail_statevars%DataName = 'APR_AS'
   grid%tail_statevars%Description = 'PRECIP FROM CLOSURE AS-TYPE'
+=======
+  grid%tail_statevars%VarName = 'apr_st'
+  grid%tail_statevars%DataName = 'APR_ST'
+  grid%tail_statevars%Description = 'PRECIP FROM CLOSURE STABILITY'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mm hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21729,7 +29025,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_as').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_as
+=======
+  grid%tail_statevars%rfield_2d => grid%apr_st
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21757,6 +29057,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_as').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_as(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21762,&
@@ -21772,13 +29073,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capma').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%apr_capma(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_capma=initial_data_value
+=======
+  ALLOCATE(grid%apr_st(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21717,&
+    'frame/module_domain.f: Failed to allocate grid%apr_st(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_as').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_as(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21726,&
+    'frame/module_domain.f: Failed to allocate grid%apr_as(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_as=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_capma'
   grid%tail_statevars%DataName = 'APR_CAPMA'
   grid%tail_statevars%Description = 'PRECIP FROM MAX CAP'
+=======
+  grid%tail_statevars%VarName = 'apr_as'
+  grid%tail_statevars%DataName = 'APR_AS'
+  grid%tail_statevars%Description = 'PRECIP FROM CLOSURE AS-TYPE'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mm hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21788,7 +29112,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capma').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_capma
+=======
+  grid%tail_statevars%rfield_2d => grid%apr_as
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21816,6 +29144,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capma').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_capma(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21821,&
@@ -21831,13 +29160,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capme').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%apr_capme(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_capme=initial_data_value
+=======
+  ALLOCATE(grid%apr_as(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21776,&
+    'frame/module_domain.f: Failed to allocate grid%apr_as(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capma').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_capma(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21785,&
+    'frame/module_domain.f: Failed to allocate grid%apr_capma(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_capma=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_capme'
   grid%tail_statevars%DataName = 'APR_CAPME'
   grid%tail_statevars%Description = 'PRECIP FROM MEAN CAP'
+=======
+  grid%tail_statevars%VarName = 'apr_capma'
+  grid%tail_statevars%DataName = 'APR_CAPMA'
+  grid%tail_statevars%Description = 'PRECIP FROM MAX CAP'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mm hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21847,7 +29199,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capme').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_capme
+=======
+  grid%tail_statevars%rfield_2d => grid%apr_capma
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21875,6 +29231,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capme').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_capme(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21880,&
@@ -21890,13 +29247,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capmi').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%apr_capmi(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_capmi=initial_data_value
+=======
+  ALLOCATE(grid%apr_capma(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21835,&
+    'frame/module_domain.f: Failed to allocate grid%apr_capma(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capme').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_capme(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21844,&
+    'frame/module_domain.f: Failed to allocate grid%apr_capme(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_capme=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'apr_capmi'
   grid%tail_statevars%DataName = 'APR_CAPMI'
   grid%tail_statevars%Description = 'PRECIP FROM MIN CAP'
+=======
+  grid%tail_statevars%VarName = 'apr_capme'
+  grid%tail_statevars%DataName = 'APR_CAPME'
+  grid%tail_statevars%Description = 'PRECIP FROM MEAN CAP'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mm hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -21906,7 +29286,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capmi').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%apr_capmi
+=======
+  grid%tail_statevars%rfield_2d => grid%apr_capme
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -21934,6 +29318,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capmi').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%apr_capmi(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21939,&
@@ -21949,23 +29334,53 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edt_out').AND.(.NOT.grid%is_intermedi
     'frame/module_domain.f: Failed to allocate grid%edt_out(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edt_out=initial_data_value
+=======
+  ALLOCATE(grid%apr_capme(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21894,&
+    'frame/module_domain.f: Failed to allocate grid%apr_capme(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'apr_capmi').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%apr_capmi(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21903,&
+    'frame/module_domain.f: Failed to allocate grid%apr_capmi(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%apr_capmi=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'edt_out'
   grid%tail_statevars%DataName = 'EDT_OUT'
   grid%tail_statevars%Description = 'EDT FROM GD SCHEME'
   grid%tail_statevars%Units = ''
+=======
+  grid%tail_statevars%VarName = 'apr_capmi'
+  grid%tail_statevars%DataName = 'APR_CAPMI'
+  grid%tail_statevars%Description = 'PRECIP FROM MIN CAP'
+  grid%tail_statevars%Units = 'mm hour-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
+<<<<<<< HEAD
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%edt_out
+=======
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%apr_capmi
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -21993,6 +29408,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'edt_out').AND.(.NOT.grid%is_intermedi
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%edt_out(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",21998,&
@@ -22008,13 +29424,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'xmb_shallow').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%xmb_shallow(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%xmb_shallow=initial_data_value
+=======
+  ALLOCATE(grid%apr_capmi(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21953,&
+    'frame/module_domain.f: Failed to allocate grid%apr_capmi(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'edt_out').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%edt_out(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",21962,&
+    'frame/module_domain.f: Failed to allocate grid%edt_out(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%edt_out=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'xmb_shallow'
   grid%tail_statevars%DataName = 'XMB_SHALLOW'
   grid%tail_statevars%Description = 'MASSFLUX FROM SHALLOW CONVECTION (G3 and GF only)'
+=======
+  grid%tail_statevars%VarName = 'edt_out'
+  grid%tail_statevars%DataName = 'EDT_OUT'
+  grid%tail_statevars%Description = 'EDT FROM GD SCHEME'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22022,11 +29461,17 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'xmb_shallow').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
+<<<<<<< HEAD
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_2d => grid%xmb_shallow
+=======
+  grid%tail_statevars%Restart  = .FALSE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%rfield_2d => grid%edt_out
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = jds
@@ -22052,6 +29497,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'xmb_shallow').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%xmb_shallow(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22057,&
@@ -22067,15 +29513,40 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'k22_shallow').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%k22_shallow(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%k22_shallow=0
+=======
+  ALLOCATE(grid%edt_out(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22012,&
+    'frame/module_domain.f: Failed to allocate grid%edt_out(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'xmb_shallow').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%xmb_shallow(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22021,&
+    'frame/module_domain.f: Failed to allocate grid%xmb_shallow(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%xmb_shallow=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'k22_shallow'
   grid%tail_statevars%DataName = 'K22_SHALLOW'
   grid%tail_statevars%Description = 'K22 LEVEL FROM SHALLOW CONVECTION (G3 and GF only)'
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'i'
+=======
+  grid%tail_statevars%VarName = 'xmb_shallow'
+  grid%tail_statevars%DataName = 'XMB_SHALLOW'
+  grid%tail_statevars%Description = 'MASSFLUX FROM SHALLOW CONVECTION (G3 and GF only)'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'r'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
@@ -22083,7 +29554,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'k22_shallow').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%ifield_2d => grid%k22_shallow
+=======
+  grid%tail_statevars%rfield_2d => grid%xmb_shallow
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22111,6 +29586,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'k22_shallow').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%k22_shallow(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22116,&
@@ -22126,13 +29602,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_shallow').AND.(.NOT.grid%is_int
     'frame/module_domain.f: Failed to allocate grid%kbcon_shallow(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%kbcon_shallow=0
+=======
+  ALLOCATE(grid%xmb_shallow(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22071,&
+    'frame/module_domain.f: Failed to allocate grid%xmb_shallow(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'k22_shallow').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%k22_shallow(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22080,&
+    'frame/module_domain.f: Failed to allocate grid%k22_shallow(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%k22_shallow=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'kbcon_shallow'
   grid%tail_statevars%DataName = 'KBCON_SHALLOW'
   grid%tail_statevars%Description = 'KBCON LEVEL FROM SHALLOW CONVECTION (G3 and GF only)'
+=======
+  grid%tail_statevars%VarName = 'k22_shallow'
+  grid%tail_statevars%DataName = 'K22_SHALLOW'
+  grid%tail_statevars%Description = 'K22 LEVEL FROM SHALLOW CONVECTION (G3 and GF only)'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'i'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22142,7 +29641,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_shallow').AND.(.NOT.grid%is_int
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%ifield_2d => grid%kbcon_shallow
+=======
+  grid%tail_statevars%ifield_2d => grid%k22_shallow
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22170,6 +29673,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_shallow').AND.(.NOT.grid%is_int
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%kbcon_shallow(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22175,&
@@ -22185,13 +29689,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_shallow').AND.(.NOT.grid%is_inte
     'frame/module_domain.f: Failed to allocate grid%ktop_shallow(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ktop_shallow=0
+=======
+  ALLOCATE(grid%k22_shallow(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22130,&
+    'frame/module_domain.f: Failed to allocate grid%k22_shallow(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_shallow').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%kbcon_shallow(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22139,&
+    'frame/module_domain.f: Failed to allocate grid%kbcon_shallow(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%kbcon_shallow=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ktop_shallow'
   grid%tail_statevars%DataName = 'KTOP_SHALLOW'
   grid%tail_statevars%Description = 'KTOP LEVEL FROM SHALLOW CONVECTION (G3 and GF only)'
+=======
+  grid%tail_statevars%VarName = 'kbcon_shallow'
+  grid%tail_statevars%DataName = 'KBCON_SHALLOW'
+  grid%tail_statevars%Description = 'KBCON LEVEL FROM SHALLOW CONVECTION (G3 and GF only)'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'i'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22201,7 +29728,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_shallow').AND.(.NOT.grid%is_inte
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%ifield_2d => grid%ktop_shallow
+=======
+  grid%tail_statevars%ifield_2d => grid%kbcon_shallow
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22229,6 +29760,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_shallow').AND.(.NOT.grid%is_inte
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ktop_shallow(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22234,&
@@ -22244,13 +29776,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'k22_deep').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%k22_deep(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%k22_deep=0
+=======
+  ALLOCATE(grid%kbcon_shallow(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22189,&
+    'frame/module_domain.f: Failed to allocate grid%kbcon_shallow(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_shallow').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ktop_shallow(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22198,&
+    'frame/module_domain.f: Failed to allocate grid%ktop_shallow(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ktop_shallow=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'k22_deep'
   grid%tail_statevars%DataName = 'K22_DEEP'
   grid%tail_statevars%Description = 'K22 LEVEL FROM DEEPCONVECTION (G3 and GF only)'
+=======
+  grid%tail_statevars%VarName = 'ktop_shallow'
+  grid%tail_statevars%DataName = 'KTOP_SHALLOW'
+  grid%tail_statevars%Description = 'KTOP LEVEL FROM SHALLOW CONVECTION (G3 and GF only)'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'i'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22258,9 +29813,15 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'k22_deep').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 2
+<<<<<<< HEAD
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%ifield_2d => grid%k22_deep
+=======
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+  grid%tail_statevars%ifield_2d => grid%ktop_shallow
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -22288,6 +29849,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'k22_deep').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%k22_deep(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22293,&
@@ -22303,13 +29865,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_deep').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%kbcon_deep(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%kbcon_deep=0
+=======
+  ALLOCATE(grid%ktop_shallow(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22248,&
+    'frame/module_domain.f: Failed to allocate grid%ktop_shallow(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'k22_deep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%k22_deep(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22257,&
+    'frame/module_domain.f: Failed to allocate grid%k22_deep(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%k22_deep=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'kbcon_deep'
   grid%tail_statevars%DataName = 'KBCON_DEEP'
   grid%tail_statevars%Description = 'KBCON LEVEL FROM DEEP CONVECTION (G3 and GF only)'
+=======
+  grid%tail_statevars%VarName = 'k22_deep'
+  grid%tail_statevars%DataName = 'K22_DEEP'
+  grid%tail_statevars%Description = 'K22 LEVEL FROM DEEPCONVECTION (G3 and GF only)'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'i'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22319,7 +29904,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_deep').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%ifield_2d => grid%kbcon_deep
+=======
+  grid%tail_statevars%ifield_2d => grid%k22_deep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -22347,6 +29936,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_deep').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%kbcon_deep(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22352,&
@@ -22362,13 +29952,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_deep').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%ktop_deep(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ktop_deep=0
+=======
+  ALLOCATE(grid%k22_deep(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22307,&
+    'frame/module_domain.f: Failed to allocate grid%k22_deep(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'kbcon_deep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%kbcon_deep(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22316,&
+    'frame/module_domain.f: Failed to allocate grid%kbcon_deep(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%kbcon_deep=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'ktop_deep'
   grid%tail_statevars%DataName = 'KTOP_DEEP'
   grid%tail_statevars%Description = 'KTOP LEVEL FROM DEEP CONVECTION (G3 and GF only)'
+=======
+  grid%tail_statevars%VarName = 'kbcon_deep'
+  grid%tail_statevars%DataName = 'KBCON_DEEP'
+  grid%tail_statevars%Description = 'KBCON LEVEL FROM DEEP CONVECTION (G3 and GF only)'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = ''
   grid%tail_statevars%Type    = 'i'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22378,7 +29991,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_deep').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%ifield_2d => grid%ktop_deep
+=======
+  grid%tail_statevars%ifield_2d => grid%kbcon_deep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
@@ -22406,6 +30023,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_deep').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%ktop_deep(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22411,&
@@ -22421,10 +30039,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'xf_ens').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%xf_ens(sm31:em31,sm33:em33,1:model_config_rec%ensdim). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%xf_ens=initial_data_value
+=======
+  ALLOCATE(grid%kbcon_deep(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22366,&
+    'frame/module_domain.f: Failed to allocate grid%kbcon_deep(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'ktop_deep').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%ktop_deep(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22375,&
+    'frame/module_domain.f: Failed to allocate grid%ktop_deep(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%ktop_deep=0
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'xf_ens'
   grid%tail_statevars%DataName = 'XF_ENS'
   grid%tail_statevars%Description = 'MASS FLUX PDF IN GRELL CUMULUS SCHEME'
@@ -22433,35 +30069,62 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'xf_ens').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XYZ'
   grid%tail_statevars%Stagger      = 'Z'
+=======
+  grid%tail_statevars%VarName = 'ktop_deep'
+  grid%tail_statevars%DataName = 'KTOP_DEEP'
+  grid%tail_statevars%Description = 'KTOP LEVEL FROM DEEP CONVECTION (G3 and GF only)'
+  grid%tail_statevars%Units = ''
+  grid%tail_statevars%Type    = 'i'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XY'
+  grid%tail_statevars%Stagger      = ''
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 3
-  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%Ndim    = 2
+  grid%tail_statevars%Restart  = .FALSE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%xf_ens
+=======
+  grid%tail_statevars%ifield_2d => grid%ktop_deep
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
-  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%streams(2) = 0 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
   grid%tail_statevars%sd2 = jds
   grid%tail_statevars%ed2 = (jde-1)
   grid%tail_statevars%sd3 = 1
+<<<<<<< HEAD
   grid%tail_statevars%ed3 = config_flags%ensdim
+=======
+  grid%tail_statevars%ed3 = 1
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
   grid%tail_statevars%sm2 = jms
   grid%tail_statevars%em2 = jme
   grid%tail_statevars%sm3 = 1
+<<<<<<< HEAD
   grid%tail_statevars%em3 = config_flags%ensdim
+=======
+  grid%tail_statevars%em3 = 1
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
   grid%tail_statevars%sp2 = jps
   grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
   grid%tail_statevars%sp3 = 1
+<<<<<<< HEAD
   grid%tail_statevars%ep3 = config_flags%ensdim
+=======
+  grid%tail_statevars%ep3 = 1
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
   grid%tail_statevars%dimname2 = 'south_north'
+<<<<<<< HEAD
   grid%tail_statevars%dimname3 = 'ensemble_stag'
   ENDIF
 ELSE
@@ -22480,13 +30143,39 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pr_ens').AND.(.NOT.grid%is_intermedia
     'frame/module_domain.f: Failed to allocate grid%pr_ens(sm31:em31,sm33:em33,1:model_config_rec%ensdim). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pr_ens=initial_data_value
+=======
+  grid%tail_statevars%dimname3 = ''
+  ENDIF
+ELSE
+  ALLOCATE(grid%ktop_deep(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22425,&
+    'frame/module_domain.f: Failed to allocate grid%ktop_deep(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'xf_ens').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))*(((model_config_rec%ensdim)-(1)+1))) * 4
+  ALLOCATE(grid%xf_ens(sm31:em31,sm33:em33,1:model_config_rec%ensdim),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22434,&
+    'frame/module_domain.f: Failed to allocate grid%xf_ens(sm31:em31,sm33:em33,1:model_config_rec%ensdim). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%xf_ens=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'pr_ens'
   grid%tail_statevars%DataName = 'PR_ENS'
   grid%tail_statevars%Description = 'PRECIP RATE PDF IN GRELL CUMULUS SCHEME'
+=======
+  grid%tail_statevars%VarName = 'xf_ens'
+  grid%tail_statevars%DataName = 'XF_ENS'
+  grid%tail_statevars%Description = 'MASS FLUX PDF IN GRELL CUMULUS SCHEME'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'mb hour-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22496,7 +30185,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pr_ens').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%pr_ens
+=======
+  grid%tail_statevars%rfield_3d => grid%xf_ens
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22524,6 +30217,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'pr_ens').AND.(.NOT.grid%is_intermedia
   grid%tail_statevars%dimname3 = 'ensemble_stag'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%pr_ens(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22529,&
@@ -22539,10 +30233,28 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_tten').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%cugd_tten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_tten=initial_data_value
+=======
+  ALLOCATE(grid%xf_ens(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22484,&
+    'frame/module_domain.f: Failed to allocate grid%xf_ens(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'pr_ens').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))*(((model_config_rec%ensdim)-(1)+1))) * 4
+  ALLOCATE(grid%pr_ens(sm31:em31,sm33:em33,1:model_config_rec%ensdim),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22493,&
+    'frame/module_domain.f: Failed to allocate grid%pr_ens(sm31:em31,sm33:em33,1:model_config_rec%ensdim). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%pr_ens=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cugd_tten'
   grid%tail_statevars%DataName = 'CUGD_TTEN'
   grid%tail_statevars%Description = 'INITIAL TTENDENCY OUT OFF GRELL CUMULUS SCHEME'
@@ -22551,15 +30263,30 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_tten').AND.(.NOT.grid%is_interme
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
   grid%tail_statevars%Stagger      = ''
+=======
+  grid%tail_statevars%VarName = 'pr_ens'
+  grid%tail_statevars%DataName = 'PR_ENS'
+  grid%tail_statevars%Description = 'PRECIP RATE PDF IN GRELL CUMULUS SCHEME'
+  grid%tail_statevars%Units = 'mb hour-1'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XYZ'
+  grid%tail_statevars%Stagger      = 'Z'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Ntl     = 0
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cugd_tten
+=======
+  grid%tail_statevars%rfield_3d => grid%pr_ens
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
+<<<<<<< HEAD
   grid%tail_statevars%sd2 = kds
   grid%tail_statevars%ed2 = (kde-1)
   grid%tail_statevars%sd3 = jds
@@ -22598,13 +30325,59 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvten').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%cugd_qvten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_qvten=initial_data_value
+=======
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = config_flags%ensdim
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = config_flags%ensdim
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = config_flags%ensdim
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = 'ensemble_stag'
+  ENDIF
+ELSE
+  ALLOCATE(grid%pr_ens(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22543,&
+    'frame/module_domain.f: Failed to allocate grid%pr_ens(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_tten').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cugd_tten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22552,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_tten(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_tten=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cugd_qvten'
   grid%tail_statevars%DataName = 'CUGD_QVTEN'
   grid%tail_statevars%Description = 'INITIAL QTENDENCY OUT OFF GRELL CUMULUS SCHEME'
+=======
+  grid%tail_statevars%VarName = 'cugd_tten'
+  grid%tail_statevars%DataName = 'CUGD_TTEN'
+  grid%tail_statevars%Description = 'INITIAL TTENDENCY OUT OFF GRELL CUMULUS SCHEME'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'K s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22614,7 +30387,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvten').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cugd_qvten
+=======
+  grid%tail_statevars%rfield_3d => grid%cugd_tten
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22642,6 +30419,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvten').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cugd_qvten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22647,&
@@ -22657,13 +30435,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_ttens').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%cugd_ttens(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_ttens=initial_data_value
+=======
+  ALLOCATE(grid%cugd_tten(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22602,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_tten(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvten').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cugd_qvten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22611,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_qvten(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_qvten=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cugd_ttens'
   grid%tail_statevars%DataName = 'CUGD_TTENS'
   grid%tail_statevars%Description = 'INITIAL SUBSIDENCE TTENDENCY OUT OFF GRELL CUMULUS SCHEME'
+=======
+  grid%tail_statevars%VarName = 'cugd_qvten'
+  grid%tail_statevars%DataName = 'CUGD_QVTEN'
+  grid%tail_statevars%Description = 'INITIAL QTENDENCY OUT OFF GRELL CUMULUS SCHEME'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'K s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22673,7 +30474,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_ttens').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cugd_ttens
+=======
+  grid%tail_statevars%rfield_3d => grid%cugd_qvten
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22701,6 +30506,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_ttens').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cugd_ttens(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22706,&
@@ -22716,13 +30522,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvtens').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%cugd_qvtens(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_qvtens=initial_data_value
+=======
+  ALLOCATE(grid%cugd_qvten(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22661,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_qvten(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_ttens').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cugd_ttens(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22670,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_ttens(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_ttens=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cugd_qvtens'
   grid%tail_statevars%DataName = 'CUGD_QVTENS'
   grid%tail_statevars%Description = 'INITIAL SUBSIDNCE QTENDENCY OUT OFF GRELL CUMULUS SCHEME'
+=======
+  grid%tail_statevars%VarName = 'cugd_ttens'
+  grid%tail_statevars%DataName = 'CUGD_TTENS'
+  grid%tail_statevars%Description = 'INITIAL SUBSIDENCE TTENDENCY OUT OFF GRELL CUMULUS SCHEME'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'K s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22732,7 +30561,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvtens').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cugd_qvtens
+=======
+  grid%tail_statevars%rfield_3d => grid%cugd_ttens
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22760,6 +30593,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvtens').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cugd_qvtens(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22765,&
@@ -22775,13 +30609,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qcten').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%cugd_qcten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_qcten=initial_data_value
+=======
+  ALLOCATE(grid%cugd_ttens(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22720,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_ttens(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qvtens').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cugd_qvtens(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22729,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_qvtens(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_qvtens=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'cugd_qcten'
   grid%tail_statevars%DataName = 'CUGD_QCTEN'
   grid%tail_statevars%Description = 'INITIAL TEMPERATURE TENDENCY OUT OFF GRELL CUMULUS SCHEME'
+=======
+  grid%tail_statevars%VarName = 'cugd_qvtens'
+  grid%tail_statevars%DataName = 'CUGD_QVTENS'
+  grid%tail_statevars%Description = 'INITIAL SUBSIDNCE QTENDENCY OUT OFF GRELL CUMULUS SCHEME'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'K s-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22791,7 +30648,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qcten').AND.(.NOT.grid%is_interm
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%cugd_qcten
+=======
+  grid%tail_statevars%rfield_3d => grid%cugd_qvtens
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22819,6 +30680,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qcten').AND.(.NOT.grid%is_interm
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%cugd_qcten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22824,&
@@ -22834,14 +30696,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%gd_cloud(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud=initial_data_value
+=======
+  ALLOCATE(grid%cugd_qvtens(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22779,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_qvtens(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'cugd_qcten').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%cugd_qcten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22788,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_qcten(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cugd_qcten=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'gd_cloud'
   grid%tail_statevars%DataName = 'GD_CLOUD'
   grid%tail_statevars%Description = 'CLOUD WATER/ICE MIXING RAIO IN GD CLOUD'
   grid%tail_statevars%Units = 'kg kg-1'
+=======
+  grid%tail_statevars%VarName = 'cugd_qcten'
+  grid%tail_statevars%DataName = 'CUGD_QCTEN'
+  grid%tail_statevars%Description = 'INITIAL TEMPERATURE TENDENCY OUT OFF GRELL CUMULUS SCHEME'
+  grid%tail_statevars%Units = 'K s-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -22850,7 +30736,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%gd_cloud
+=======
+  grid%tail_statevars%rfield_3d => grid%cugd_qcten
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22878,6 +30768,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%gd_cloud(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22883,&
@@ -22893,13 +30784,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2').AND.(.NOT.grid%is_interme
     'frame/module_domain.f: Failed to allocate grid%gd_cloud2(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud2=initial_data_value
+=======
+  ALLOCATE(grid%cugd_qcten(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22838,&
+    'frame/module_domain.f: Failed to allocate grid%cugd_qcten(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%gd_cloud(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22847,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'gd_cloud2'
   grid%tail_statevars%DataName = 'GD_CLOUD2'
   grid%tail_statevars%Description = 'TEST for GD CLOUD'
+=======
+  grid%tail_statevars%VarName = 'gd_cloud'
+  grid%tail_statevars%DataName = 'GD_CLOUD'
+  grid%tail_statevars%Description = 'CLOUD WATER/ICE MIXING RAIO IN GD CLOUD'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'kg kg-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -22909,7 +30823,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2').AND.(.NOT.grid%is_interme
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%gd_cloud2
+=======
+  grid%tail_statevars%rfield_3d => grid%gd_cloud
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22937,6 +30855,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2').AND.(.NOT.grid%is_interme
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%gd_cloud2(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",22942,&
@@ -22952,14 +30871,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cldfr').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%gd_cldfr(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cldfr=initial_data_value
+=======
+  ALLOCATE(grid%gd_cloud(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22897,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%gd_cloud2(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22906,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud2(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud2=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'gd_cldfr'
   grid%tail_statevars%DataName = 'GD_CLDFR'
   grid%tail_statevars%Description = 'GD CLOUD Fraction'
   grid%tail_statevars%Units = ' ? '
+=======
+  grid%tail_statevars%VarName = 'gd_cloud2'
+  grid%tail_statevars%DataName = 'GD_CLOUD2'
+  grid%tail_statevars%Description = 'TEST for GD CLOUD'
+  grid%tail_statevars%Units = 'kg kg-1'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XZY'
@@ -22968,7 +30911,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cldfr').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%gd_cldfr
+=======
+  grid%tail_statevars%rfield_3d => grid%gd_cloud2
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -22996,6 +30943,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cldfr').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%gd_cldfr(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",23001,&
@@ -23011,14 +30959,38 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_a').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%raincv_a(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincv_a=initial_data_value
+=======
+  ALLOCATE(grid%gd_cloud2(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22956,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud2(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cldfr').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%gd_cldfr(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",22965,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cldfr(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cldfr=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'raincv_a'
   grid%tail_statevars%DataName = 'RAINCV_A'
   grid%tail_statevars%Description = 'taveragd TIME-STEP CUMULUS PRECIPITATION'
   grid%tail_statevars%Units = 'mm'
+=======
+  grid%tail_statevars%VarName = 'gd_cldfr'
+  grid%tail_statevars%DataName = 'GD_CLDFR'
+  grid%tail_statevars%Description = 'GD CLOUD Fraction'
+  grid%tail_statevars%Units = ' ? '
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
   grid%tail_statevars%MemoryOrder  = 'XY'
@@ -23027,7 +30999,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_a').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%raincv_a
+=======
+  grid%tail_statevars%rfield_3d => grid%gd_cldfr
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -23055,6 +31031,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_a').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%raincv_a(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",23060,&
@@ -23070,12 +31047,34 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_b').AND.(.NOT.grid%is_intermed
     'frame/module_domain.f: Failed to allocate grid%raincv_b(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincv_b=initial_data_value
+=======
+  ALLOCATE(grid%gd_cldfr(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23015,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cldfr(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_a').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%raincv_a(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23024,&
+    'frame/module_domain.f: Failed to allocate grid%raincv_a(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincv_a=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'raincv_b'
   grid%tail_statevars%DataName = 'RAINCV_B'
+=======
+  grid%tail_statevars%VarName = 'raincv_a'
+  grid%tail_statevars%DataName = 'RAINCV_A'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Description = 'taveragd TIME-STEP CUMULUS PRECIPITATION'
   grid%tail_statevars%Units = 'mm'
   grid%tail_statevars%Type    = 'r'
@@ -23086,7 +31085,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_b').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_2d => grid%raincv_b
+=======
+  grid%tail_statevars%rfield_2d => grid%raincv_a
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -23114,6 +31117,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_b').AND.(.NOT.grid%is_intermed
   grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%raincv_b(1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",23119,&
@@ -23129,50 +31133,79 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud_a').AND.(.NOT.grid%is_interm
     'frame/module_domain.f: Failed to allocate grid%gd_cloud_a(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud_a=initial_data_value
+=======
+  ALLOCATE(grid%raincv_a(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23074,&
+    'frame/module_domain.f: Failed to allocate grid%raincv_a(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'raincv_b').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%raincv_b(sm31:em31,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23083,&
+    'frame/module_domain.f: Failed to allocate grid%raincv_b(sm31:em31,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincv_b=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'gd_cloud_a'
   grid%tail_statevars%DataName = 'GD_CLOUD_A'
   grid%tail_statevars%Description = 'taveragd CLOUD WATER MIXING RAIO IN GD CLOUD'
   grid%tail_statevars%Units = 'kg kg-1'
+=======
+  grid%tail_statevars%VarName = 'raincv_b'
+  grid%tail_statevars%DataName = 'RAINCV_B'
+  grid%tail_statevars%Description = 'taveragd TIME-STEP CUMULUS PRECIPITATION'
+  grid%tail_statevars%Units = 'mm'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
-  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%MemoryOrder  = 'XY'
   grid%tail_statevars%Stagger      = ''
   grid%tail_statevars%Ntl     = 0
-  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Ndim    = 2
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%gd_cloud_a
+=======
+  grid%tail_statevars%rfield_2d => grid%raincv_b
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
   grid%tail_statevars%ed1 = (ide-1)
-  grid%tail_statevars%sd2 = kds
-  grid%tail_statevars%ed2 = (kde-1)
-  grid%tail_statevars%sd3 = jds
-  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sd2 = jds
+  grid%tail_statevars%ed2 = (jde-1)
+  grid%tail_statevars%sd3 = 1
+  grid%tail_statevars%ed3 = 1
   grid%tail_statevars%sm1 = ims
   grid%tail_statevars%em1 = ime
-  grid%tail_statevars%sm2 = kms
-  grid%tail_statevars%em2 = kme
-  grid%tail_statevars%sm3 = jms
-  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sm2 = jms
+  grid%tail_statevars%em2 = jme
+  grid%tail_statevars%sm3 = 1
+  grid%tail_statevars%em3 = 1
   grid%tail_statevars%sp1 = ips
   grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
-  grid%tail_statevars%sp2 = kps
-  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
-  grid%tail_statevars%sp3 = jps
-  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp2 = jps
+  grid%tail_statevars%ep2 = MIN( (jde-1), jpe )
+  grid%tail_statevars%sp3 = 1
+  grid%tail_statevars%ep3 = 1
   grid%tail_statevars%subgrid_x = .FALSE.
   grid%tail_statevars%subgrid_y = .FALSE.
   grid%tail_statevars%dimname1 = 'west_east'
-  grid%tail_statevars%dimname2 = 'bottom_top'
-  grid%tail_statevars%dimname3 = 'south_north'
+  grid%tail_statevars%dimname2 = 'south_north'
+  grid%tail_statevars%dimname3 = ''
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%gd_cloud_a(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",23178,&
@@ -23188,13 +31221,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2_a').AND.(.NOT.grid%is_inter
     'frame/module_domain.f: Failed to allocate grid%gd_cloud2_a(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud2_a=initial_data_value
+=======
+  ALLOCATE(grid%raincv_b(1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23133,&
+    'frame/module_domain.f: Failed to allocate grid%raincv_b(1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud_a').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%gd_cloud_a(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23142,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud_a(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud_a=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'gd_cloud2_a'
   grid%tail_statevars%DataName = 'GD_CLOUD2_A'
   grid%tail_statevars%Description = 'taveragd cloud ice mix ratio in GD'
+=======
+  grid%tail_statevars%VarName = 'gd_cloud_a'
+  grid%tail_statevars%DataName = 'GD_CLOUD_A'
+  grid%tail_statevars%Description = 'taveragd CLOUD WATER MIXING RAIO IN GD CLOUD'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'kg kg-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -23204,7 +31260,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2_a').AND.(.NOT.grid%is_inter
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%gd_cloud2_a
+=======
+  grid%tail_statevars%rfield_3d => grid%gd_cloud_a
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -23232,6 +31292,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2_a').AND.(.NOT.grid%is_inter
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%gd_cloud2_a(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",23237,&
@@ -23247,13 +31308,36 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_cu').AND.(.NOT.grid%is_intermediat
     'frame/module_domain.f: Failed to allocate grid%qc_cu(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_cu=initial_data_value
+=======
+  ALLOCATE(grid%gd_cloud_a(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23192,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud_a(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'gd_cloud2_a').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%gd_cloud2_a(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23201,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud2_a(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gd_cloud2_a=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   IF (.NOT.grid%is_intermediate) THEN
   ALLOCATE( grid%tail_statevars%next )
   grid%tail_statevars => grid%tail_statevars%next
   NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
   grid%tail_statevars%VarName = 'qc_cu'
   grid%tail_statevars%DataName = 'QC_CU'
   grid%tail_statevars%Description = 'CLOUD WATER MIXING RATIO FROM A CU SCHEME'
+=======
+  grid%tail_statevars%VarName = 'gd_cloud2_a'
+  grid%tail_statevars%DataName = 'GD_CLOUD2_A'
+  grid%tail_statevars%Description = 'taveragd cloud ice mix ratio in GD'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%Units = 'kg kg-1'
   grid%tail_statevars%Type    = 'r'
   grid%tail_statevars%ProcOrient    = ' '
@@ -23263,7 +31347,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_cu').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%Ndim    = 3
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
   grid%tail_statevars%rfield_3d => grid%qc_cu
+=======
+  grid%tail_statevars%rfield_3d => grid%gd_cloud2_a
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -23291,6 +31379,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_cu').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%dimname3 = 'south_north'
   ENDIF
 ELSE
+<<<<<<< HEAD
   ALLOCATE(grid%qc_cu(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",23296,&
@@ -23303,6 +31392,97 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qi_cu').AND.(.NOT.grid%is_intermediat
   ALLOCATE(grid%qi_cu(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
     CALL wrf_error_fatal3("<stdin>",23305,&
+    'frame/module_domain.f: Failed to allocate grid%qi_cu(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qi_cu=initial_data_value
+=======
+  ALLOCATE(grid%gd_cloud2_a(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23251,&
+    'frame/module_domain.f: Failed to allocate grid%gd_cloud2_a(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'qc_cu').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%qc_cu(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23260,&
+    'frame/module_domain.f: Failed to allocate grid%qc_cu(sm31:em31,sm32:em32,sm33:em33). ')
+  endif
+  IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_cu=initial_data_value
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  IF (.NOT.grid%is_intermediate) THEN
+  ALLOCATE( grid%tail_statevars%next )
+  grid%tail_statevars => grid%tail_statevars%next
+  NULLIFY( grid%tail_statevars%next )
+<<<<<<< HEAD
+  grid%tail_statevars%VarName = 'qi_cu'
+  grid%tail_statevars%DataName = 'QI_CU'
+  grid%tail_statevars%Description = 'CLOUD ICE MIXUNG RATIO FROM A CU SCHEME'
+=======
+  grid%tail_statevars%VarName = 'qc_cu'
+  grid%tail_statevars%DataName = 'QC_CU'
+  grid%tail_statevars%Description = 'CLOUD WATER MIXING RATIO FROM A CU SCHEME'
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%Units = 'kg kg-1'
+  grid%tail_statevars%Type    = 'r'
+  grid%tail_statevars%ProcOrient    = ' '
+  grid%tail_statevars%MemoryOrder  = 'XZY'
+  grid%tail_statevars%Stagger      = ''
+  grid%tail_statevars%Ntl     = 0
+  grid%tail_statevars%Ndim    = 3
+  grid%tail_statevars%Restart  = .TRUE.
+  grid%tail_statevars%scalar_array = .FALSE.
+<<<<<<< HEAD
+  grid%tail_statevars%rfield_3d => grid%qi_cu
+=======
+  grid%tail_statevars%rfield_3d => grid%qc_cu
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = (kde-1)
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'bottom_top'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+<<<<<<< HEAD
+  ALLOCATE(grid%qi_cu(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23355,&
+=======
+  ALLOCATE(grid%qc_cu(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23310,&
+    'frame/module_domain.f: Failed to allocate grid%qc_cu(1,1,1).  ')
+  endif
+ENDIF
+IF(okay_to_alloc.AND.in_use_for_config(id,'qi_cu').AND.(.NOT.grid%is_intermediate))THEN
+  num_bytes_allocated = num_bytes_allocated + &
+((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
+  ALLOCATE(grid%qi_cu(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23319,&
     'frame/module_domain.f: Failed to allocate grid%qi_cu(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qi_cu=initial_data_value
@@ -23352,7 +31532,8 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qi_cu').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%qi_cu(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
-    CALL wrf_error_fatal3("<stdin>",23355,&
+    CALL wrf_error_fatal3("<stdin>",23369,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qi_cu(1,1,1).  ')
   endif
 ENDIF
@@ -23361,7 +31542,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_bl').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%qc_bl(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23364,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23378,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%qc_bl(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%qc_bl=initial_data_value
@@ -23382,6 +31567,7 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'qc_bl').AND.(.NOT.grid%is_intermediat
   grid%tail_statevars%Restart  = .TRUE.
   grid%tail_statevars%scalar_array = .FALSE.
   grid%tail_statevars%rfield_3d => grid%qc_bl
+<<<<<<< HEAD
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   grid%tail_statevars%sd1 = ids
@@ -23433,13 +31619,70 @@ ENDIF
   grid%tail_statevars%streams(1) = 0 
   grid%tail_statevars%streams(2) = 2097152 
   ENDIF
+=======
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  grid%tail_statevars%sd1 = ids
+  grid%tail_statevars%ed1 = (ide-1)
+  grid%tail_statevars%sd2 = kds
+  grid%tail_statevars%ed2 = (kde-1)
+  grid%tail_statevars%sd3 = jds
+  grid%tail_statevars%ed3 = (jde-1)
+  grid%tail_statevars%sm1 = ims
+  grid%tail_statevars%em1 = ime
+  grid%tail_statevars%sm2 = kms
+  grid%tail_statevars%em2 = kme
+  grid%tail_statevars%sm3 = jms
+  grid%tail_statevars%em3 = jme
+  grid%tail_statevars%sp1 = ips
+  grid%tail_statevars%ep1 = MIN( (ide-1), ipe )
+  grid%tail_statevars%sp2 = kps
+  grid%tail_statevars%ep2 = MIN( (kde-1), kpe )
+  grid%tail_statevars%sp3 = jps
+  grid%tail_statevars%ep3 = MIN( (jde-1), jpe )
+  grid%tail_statevars%subgrid_x = .FALSE.
+  grid%tail_statevars%subgrid_y = .FALSE.
+  grid%tail_statevars%dimname1 = 'west_east'
+  grid%tail_statevars%dimname2 = 'bottom_top'
+  grid%tail_statevars%dimname3 = 'south_north'
+  ENDIF
+ELSE
+  ALLOCATE(grid%qc_bl(1,1,1),STAT=ierr)
+  if (ierr.ne.0) then
+    CALL wrf_error_fatal3("<stdin>",23428,&
+    'frame/module_domain.f: Failed to allocate grid%qc_bl(1,1,1).  ')
+  endif
+ENDIF
+  IF (.NOT.grid%is_intermediate) THEN
+   ALLOCATE( grid%tail_statevars%next )
+   grid%tail_statevars => grid%tail_statevars%next
+   NULLIFY( grid%tail_statevars%next )
+   grid%tail_statevars%ProcOrient    = '  '
+   grid%tail_statevars%VarName = 'stepave_count'
+   grid%tail_statevars%DataName = 'STEPAVE_COUNT'
+   grid%tail_statevars%Description = 'time steps contained in averages for convective transport'
+   grid%tail_statevars%Units = ''
+   grid%tail_statevars%Type    = 'i'
+   grid%tail_statevars%Ntl = 0
+   grid%tail_statevars%Restart  = .TRUE.
+   grid%tail_statevars%Ndim    = 0
+   grid%tail_statevars%scalar_array  = .FALSE. 
+   grid%tail_statevars%ifield_0d => grid%stepave_count
+  grid%tail_statevars%streams(1) = 0 
+  grid%tail_statevars%streams(2) = 2097152 
+  ENDIF
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 IF ( setinitval .EQ. 3 ) grid%stepave_count=0
 IF(okay_to_alloc.AND.in_use_for_config(id,'rthften').AND.(.NOT.grid%is_intermediate))THEN
   num_bytes_allocated = num_bytes_allocated + &
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rthften(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23442,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23456,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthften(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rthften=initial_data_value
@@ -23489,7 +31732,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthften').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rthften(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23492,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23506,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthften(1,1,1).  ')
   endif
 ENDIF
@@ -23498,7 +31745,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqvften').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rqvften(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23501,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23515,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqvften(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rqvften=initial_data_value
@@ -23548,7 +31799,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rqvften').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%rqvften(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23551,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23565,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rqvften(1,1,1).  ')
   endif
 ENDIF
@@ -23576,7 +31831,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthraten'))THEN
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rthraten(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23579,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23593,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthraten(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rthraten=initial_data_value
@@ -23626,7 +31885,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthraten'))THEN
 ELSE
   ALLOCATE(grid%rthraten(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23629,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23643,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthraten(1,1,1).  ')
   endif
 ENDIF
@@ -23635,7 +31898,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthratenlw').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rthratenlw(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23638,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23652,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthratenlw(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rthratenlw=initial_data_value
@@ -23685,7 +31952,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthratenlw').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%rthratenlw(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23688,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23702,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthratenlw(1,1,1).  ')
   endif
 ENDIF
@@ -23694,7 +31965,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthratensw').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rthratensw(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23697,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23711,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthratensw(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rthratensw=initial_data_value
@@ -23744,7 +32019,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rthratensw').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%rthratensw(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23747,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23761,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rthratensw(1,1,1).  ')
   endif
 ENDIF
@@ -23753,7 +32032,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cldfra(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23756,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23770,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldfra(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra=initial_data_value
@@ -23803,7 +32086,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%cldfra(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23806,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23820,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldfra(1,1,1).  ')
   endif
 ENDIF
@@ -23812,7 +32099,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_old').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cldfra_old(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23815,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23829,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldfra_old(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra_old=initial_data_value
@@ -23862,7 +32153,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_old').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%cldfra_old(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23865,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23879,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldfra_old(1,1,1).  ')
   endif
 ENDIF
@@ -23871,7 +32166,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_bl').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cldfra_bl(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23874,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23888,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldfra_bl(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldfra_bl=initial_data_value
@@ -23921,7 +32220,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldfra_bl').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%cldfra_bl(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23924,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23938,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldfra_bl(1,1,1).  ')
   endif
 ENDIF
@@ -23930,7 +32233,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldt').AND.(.NOT.grid%is_intermediate
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%cldt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23933,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23947,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%cldt=initial_data_value
@@ -23980,7 +32287,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'cldt').AND.(.NOT.grid%is_intermediate
 ELSE
   ALLOCATE(grid%cldt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23983,&
+=======
+    CALL wrf_error_fatal3("<stdin>",23997,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%cldt(1,1).  ')
   endif
 ENDIF
@@ -23989,7 +32300,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdown'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swdown(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",23992,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24006,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdown(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swdown=initial_data_value
@@ -24039,7 +32354,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdown'))THEN
 ELSE
   ALLOCATE(grid%swdown(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24042,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24056,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdown(1,1).  ')
   endif
 ENDIF
@@ -24048,7 +32367,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdownc').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swdownc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24051,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24065,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdownc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swdownc=initial_data_value
@@ -24098,7 +32421,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdownc').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%swdownc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24101,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24115,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdownc(1,1).  ')
   endif
 ENDIF
@@ -24107,7 +32434,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gsw'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%gsw(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24110,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24124,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%gsw(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gsw=initial_data_value
@@ -24157,7 +32488,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gsw'))THEN
 ELSE
   ALLOCATE(grid%gsw(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24160,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24174,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%gsw(1,1).  ')
   endif
 ENDIF
@@ -24166,7 +32501,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'glw'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%glw(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24169,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24183,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%glw(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%glw=initial_data_value
@@ -24216,7 +32555,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'glw'))THEN
 ELSE
   ALLOCATE(grid%glw(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24219,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24233,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%glw(1,1).  ')
   endif
 ENDIF
@@ -24225,7 +32568,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnorm'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swnorm(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24228,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24242,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swnorm(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swnorm=initial_data_value
@@ -24275,7 +32622,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swnorm'))THEN
 ELSE
   ALLOCATE(grid%swnorm(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24278,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24292,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swnorm(1,1).  ')
   endif
 ENDIF
@@ -24284,7 +32635,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'diffuse_frac'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%diffuse_frac(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24287,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24301,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%diffuse_frac(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%diffuse_frac=initial_data_value
@@ -24334,7 +32689,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'diffuse_frac'))THEN
 ELSE
   ALLOCATE(grid%diffuse_frac(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24337,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24351,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%diffuse_frac(1,1).  ')
   endif
 ENDIF
@@ -24343,7 +32702,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddir'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swddir(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24346,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24360,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddir(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swddir=initial_data_value
@@ -24393,7 +32756,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddir'))THEN
 ELSE
   ALLOCATE(grid%swddir(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24396,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24410,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddir(1,1).  ')
   endif
 ENDIF
@@ -24402,7 +32769,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddni'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swddni(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24405,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24419,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddni(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swddni=initial_data_value
@@ -24452,7 +32823,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddni'))THEN
 ELSE
   ALLOCATE(grid%swddni(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24455,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24469,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddni(1,1).  ')
   endif
 ENDIF
@@ -24461,7 +32836,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddif'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swddif(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24464,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24478,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddif(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swddif=initial_data_value
@@ -24511,7 +32890,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddif'))THEN
 ELSE
   ALLOCATE(grid%swddif(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24514,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24528,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddif(1,1).  ')
   endif
 ENDIF
@@ -24520,7 +32903,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gx'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%gx(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24523,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24537,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%gx(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gx=initial_data_value
@@ -24570,7 +32957,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gx'))THEN
 ELSE
   ALLOCATE(grid%gx(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24573,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24587,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%gx(1,1).  ')
   endif
 ENDIF
@@ -24579,7 +32970,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'bx'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%bx(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24582,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24596,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%bx(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%bx=initial_data_value
@@ -24629,7 +33024,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'bx'))THEN
 ELSE
   ALLOCATE(grid%bx(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24632,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24646,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%bx(1,1).  ')
   endif
 ENDIF
@@ -24638,7 +33037,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gg'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%gg(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24641,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24655,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%gg(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%gg=initial_data_value
@@ -24688,7 +33091,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'gg'))THEN
 ELSE
   ALLOCATE(grid%gg(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24691,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24705,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%gg(1,1).  ')
   endif
 ENDIF
@@ -24697,7 +33104,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'bb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%bb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24700,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24714,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%bb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%bb=initial_data_value
@@ -24747,7 +33158,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'bb'))THEN
 ELSE
   ALLOCATE(grid%bb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24750,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24764,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%bb(1,1).  ')
   endif
 ENDIF
@@ -24756,7 +33171,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'coszen_ref'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%coszen_ref(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24759,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24773,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%coszen_ref(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%coszen_ref=initial_data_value
@@ -24806,7 +33225,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'coszen_ref'))THEN
 ELSE
   ALLOCATE(grid%coszen_ref(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24809,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24823,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%coszen_ref(1,1).  ')
   endif
 ENDIF
@@ -24815,7 +33238,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdown_ref'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swdown_ref(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24818,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24832,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdown_ref(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swdown_ref=initial_data_value
@@ -24865,7 +33292,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdown_ref'))THEN
 ELSE
   ALLOCATE(grid%swdown_ref(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24868,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24882,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdown_ref(1,1).  ')
   endif
 ENDIF
@@ -24874,7 +33305,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddir_ref'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swddir_ref(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24877,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24891,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddir_ref(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swddir_ref=initial_data_value
@@ -24924,7 +33359,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swddir_ref'))THEN
 ELSE
   ALLOCATE(grid%swddir_ref(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24927,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24941,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swddir_ref(1,1).  ')
   endif
 ENDIF
@@ -24933,7 +33372,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aod5502d').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aod5502d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24936,&
+=======
+    CALL wrf_error_fatal3("<stdin>",24950,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aod5502d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aod5502d=initial_data_value
@@ -24983,7 +33426,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aod5502d').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%aod5502d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24986,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25000,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aod5502d(1,1).  ')
   endif
 ENDIF
@@ -24992,7 +33439,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'angexp2d').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%angexp2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",24995,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25009,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%angexp2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%angexp2d=initial_data_value
@@ -25042,7 +33493,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'angexp2d').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%angexp2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25045,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25059,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%angexp2d(1,1).  ')
   endif
 ENDIF
@@ -25051,7 +33506,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerssa2d').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aerssa2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25054,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25068,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aerssa2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerssa2d=initial_data_value
@@ -25101,7 +33560,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerssa2d').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%aerssa2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25104,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25118,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aerssa2d(1,1).  ')
   endif
 ENDIF
@@ -25110,7 +33573,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerasy2d').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aerasy2d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25113,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25127,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aerasy2d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aerasy2d=initial_data_value
@@ -25160,7 +33627,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aerasy2d').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%aerasy2d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25163,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25177,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aerasy2d(1,1).  ')
   endif
 ENDIF
@@ -25169,7 +33640,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aod5503d').AND.(.NOT.grid%is_intermed
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aod5503d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25172,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25186,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aod5503d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aod5503d=initial_data_value
@@ -25219,7 +33694,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aod5503d').AND.(.NOT.grid%is_intermed
 ELSE
   ALLOCATE(grid%aod5503d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25222,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25236,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aod5503d(1,1,1).  ')
   endif
 ENDIF
@@ -25228,7 +33707,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'taod5503d').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em32)-(sm32)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%taod5503d(sm31:em31,sm32:em32,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25231,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25245,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%taod5503d(sm31:em31,sm32:em32,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%taod5503d=initial_data_value
@@ -25278,7 +33761,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'taod5503d').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%taod5503d(1,1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25281,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25295,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%taod5503d(1,1,1).  ')
   endif
 ENDIF
@@ -25287,7 +33774,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'taod5502d').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%taod5502d(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25290,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25304,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%taod5502d(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%taod5502d=initial_data_value
@@ -25337,7 +33828,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'taod5502d').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%taod5502d(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25340,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25354,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%taod5502d(1,1).  ')
   endif
 ENDIF
@@ -25346,7 +33841,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2min').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%t2min(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25349,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25363,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2min(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%t2min=initial_data_value
@@ -25396,7 +33895,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2min').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%t2min(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25399,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25413,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2min(1,1).  ')
   endif
 ENDIF
@@ -25405,7 +33908,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2max').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%t2max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25408,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25422,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%t2max=initial_data_value
@@ -25455,7 +33962,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2max').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%t2max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25458,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25472,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2max(1,1).  ')
   endif
 ENDIF
@@ -25464,7 +33975,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tt2min').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tt2min(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25467,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25481,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tt2min(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tt2min=initial_data_value
@@ -25514,7 +34029,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tt2min').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%tt2min(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25517,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25531,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tt2min(1,1).  ')
   endif
 ENDIF
@@ -25523,7 +34042,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tt2max').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tt2max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25526,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25540,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tt2max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tt2max=initial_data_value
@@ -25573,7 +34096,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tt2max').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%tt2max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25576,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25590,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tt2max(1,1).  ')
   endif
 ENDIF
@@ -25582,7 +34109,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2mean').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%t2mean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25585,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25599,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2mean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%t2mean=initial_data_value
@@ -25632,7 +34163,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2mean').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%t2mean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25635,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25649,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2mean(1,1).  ')
   endif
 ENDIF
@@ -25641,7 +34176,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2std').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%t2std(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25644,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25658,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2std(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%t2std=initial_data_value
@@ -25691,7 +34230,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'t2std').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%t2std(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25694,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25708,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%t2std(1,1).  ')
   endif
 ENDIF
@@ -25700,7 +34243,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2min').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%q2min(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25703,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25717,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2min(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%q2min=initial_data_value
@@ -25750,7 +34297,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2min').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%q2min(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25753,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25767,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2min(1,1).  ')
   endif
 ENDIF
@@ -25759,7 +34310,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2max').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%q2max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25762,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25776,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%q2max=initial_data_value
@@ -25809,7 +34364,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2max').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%q2max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25812,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25826,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2max(1,1).  ')
   endif
 ENDIF
@@ -25818,7 +34377,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tq2min').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tq2min(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25821,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25835,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tq2min(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tq2min=initial_data_value
@@ -25868,7 +34431,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tq2min').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%tq2min(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25871,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25885,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tq2min(1,1).  ')
   endif
 ENDIF
@@ -25877,7 +34444,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tq2max').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tq2max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25880,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25894,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tq2max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tq2max=initial_data_value
@@ -25927,7 +34498,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tq2max').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%tq2max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25930,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25944,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tq2max(1,1).  ')
   endif
 ENDIF
@@ -25936,7 +34511,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2mean').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%q2mean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25939,&
+=======
+    CALL wrf_error_fatal3("<stdin>",25953,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2mean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%q2mean=initial_data_value
@@ -25986,7 +34565,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2mean').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%q2mean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25989,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26003,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2mean(1,1).  ')
   endif
 ENDIF
@@ -25995,7 +34578,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2std').AND.(.NOT.grid%is_intermediat
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%q2std(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",25998,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26012,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2std(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%q2std=initial_data_value
@@ -26045,7 +34632,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'q2std').AND.(.NOT.grid%is_intermediat
 ELSE
   ALLOCATE(grid%q2std(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26048,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26062,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%q2std(1,1).  ')
   endif
 ENDIF
@@ -26054,7 +34645,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempmin').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%skintempmin(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26057,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26071,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempmin(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%skintempmin=initial_data_value
@@ -26104,7 +34699,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempmin').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%skintempmin(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26107,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26121,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempmin(1,1).  ')
   endif
 ENDIF
@@ -26113,7 +34712,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempmax').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%skintempmax(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26116,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26130,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempmax(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%skintempmax=initial_data_value
@@ -26163,7 +34766,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempmax').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%skintempmax(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26166,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26180,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempmax(1,1).  ')
   endif
 ENDIF
@@ -26172,7 +34779,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tskintempmin').AND.(.NOT.grid%is_inte
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tskintempmin(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26175,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26189,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tskintempmin(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tskintempmin=initial_data_value
@@ -26222,7 +34833,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tskintempmin').AND.(.NOT.grid%is_inte
 ELSE
   ALLOCATE(grid%tskintempmin(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26225,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26239,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tskintempmin(1,1).  ')
   endif
 ENDIF
@@ -26231,7 +34846,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tskintempmax').AND.(.NOT.grid%is_inte
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tskintempmax(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26234,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26248,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tskintempmax(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tskintempmax=initial_data_value
@@ -26281,7 +34900,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tskintempmax').AND.(.NOT.grid%is_inte
 ELSE
   ALLOCATE(grid%tskintempmax(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26284,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26298,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tskintempmax(1,1).  ')
   endif
 ENDIF
@@ -26290,7 +34913,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempmean').AND.(.NOT.grid%is_inte
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%skintempmean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26293,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26307,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempmean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%skintempmean=initial_data_value
@@ -26340,7 +34967,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempmean').AND.(.NOT.grid%is_inte
 ELSE
   ALLOCATE(grid%skintempmean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26343,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26357,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempmean(1,1).  ')
   endif
 ENDIF
@@ -26349,7 +34980,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempstd').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%skintempstd(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26352,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26366,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempstd(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%skintempstd=initial_data_value
@@ -26399,7 +35034,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'skintempstd').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%skintempstd(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26402,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26416,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%skintempstd(1,1).  ')
   endif
 ENDIF
@@ -26408,7 +35047,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u10max').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%u10max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26411,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26425,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u10max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%u10max=initial_data_value
@@ -26458,7 +35101,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u10max').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%u10max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26461,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26475,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u10max(1,1).  ')
   endif
 ENDIF
@@ -26467,7 +35114,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v10max').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%v10max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26470,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26484,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v10max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%v10max=initial_data_value
@@ -26517,7 +35168,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v10max').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%v10max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26520,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26534,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v10max(1,1).  ')
   endif
 ENDIF
@@ -26526,7 +35181,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'spduv10max').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%spduv10max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26529,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26543,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%spduv10max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%spduv10max=initial_data_value
@@ -26576,7 +35235,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'spduv10max').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%spduv10max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26579,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26593,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%spduv10max(1,1).  ')
   endif
 ENDIF
@@ -26585,7 +35248,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tspduv10max').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%tspduv10max(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26588,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26602,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tspduv10max(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%tspduv10max=initial_data_value
@@ -26635,7 +35302,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'tspduv10max').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%tspduv10max(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26638,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26652,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%tspduv10max(1,1).  ')
   endif
 ENDIF
@@ -26644,7 +35315,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u10mean').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%u10mean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26647,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26661,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u10mean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%u10mean=initial_data_value
@@ -26694,7 +35369,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u10mean').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%u10mean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26697,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26711,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u10mean(1,1).  ')
   endif
 ENDIF
@@ -26703,7 +35382,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v10mean').AND.(.NOT.grid%is_intermedi
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%v10mean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26706,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26720,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v10mean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%v10mean=initial_data_value
@@ -26753,7 +35436,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v10mean').AND.(.NOT.grid%is_intermedi
 ELSE
   ALLOCATE(grid%v10mean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26756,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26770,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v10mean(1,1).  ')
   endif
 ENDIF
@@ -26762,7 +35449,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'spduv10mean').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%spduv10mean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26765,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26779,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%spduv10mean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%spduv10mean=initial_data_value
@@ -26812,7 +35503,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'spduv10mean').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%spduv10mean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26815,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26829,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%spduv10mean(1,1).  ')
   endif
 ENDIF
@@ -26821,7 +35516,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u10std').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%u10std(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26824,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26838,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u10std(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%u10std=initial_data_value
@@ -26871,7 +35570,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'u10std').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%u10std(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26874,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26888,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%u10std(1,1).  ')
   endif
 ENDIF
@@ -26880,7 +35583,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v10std').AND.(.NOT.grid%is_intermedia
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%v10std(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26883,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26897,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v10std(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%v10std=initial_data_value
@@ -26930,7 +35637,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'v10std').AND.(.NOT.grid%is_intermedia
 ELSE
   ALLOCATE(grid%v10std(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26933,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26947,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%v10std(1,1).  ')
   endif
 ENDIF
@@ -26939,7 +35650,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'spduv10std').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%spduv10std(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26942,&
+=======
+    CALL wrf_error_fatal3("<stdin>",26956,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%spduv10std(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%spduv10std=initial_data_value
@@ -26989,7 +35704,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'spduv10std').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%spduv10std(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",26992,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27006,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%spduv10std(1,1).  ')
   endif
 ENDIF
@@ -26998,7 +35717,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincvmax').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%raincvmax(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27001,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27015,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincvmax(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincvmax=initial_data_value
@@ -27048,7 +35771,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincvmax').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%raincvmax(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27051,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27065,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincvmax(1,1).  ')
   endif
 ENDIF
@@ -27057,7 +35784,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncvmax').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainncvmax(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27060,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27074,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncvmax(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainncvmax=initial_data_value
@@ -27107,7 +35838,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncvmax').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%rainncvmax(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27110,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27124,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncvmax(1,1).  ')
   endif
 ENDIF
@@ -27116,7 +35851,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'traincvmax').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%traincvmax(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27119,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27133,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%traincvmax(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%traincvmax=initial_data_value
@@ -27166,7 +35905,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'traincvmax').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%traincvmax(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27169,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27183,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%traincvmax(1,1).  ')
   endif
 ENDIF
@@ -27175,7 +35918,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'trainncvmax').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%trainncvmax(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27178,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27192,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%trainncvmax(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%trainncvmax=initial_data_value
@@ -27225,7 +35972,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'trainncvmax').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%trainncvmax(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27228,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27242,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%trainncvmax(1,1).  ')
   endif
 ENDIF
@@ -27234,7 +35985,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincvmean').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%raincvmean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27237,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27251,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincvmean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincvmean=initial_data_value
@@ -27284,7 +36039,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincvmean').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%raincvmean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27287,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27301,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincvmean(1,1).  ')
   endif
 ENDIF
@@ -27293,7 +36052,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncvmean').AND.(.NOT.grid%is_inter
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainncvmean(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27296,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27310,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncvmean(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainncvmean=initial_data_value
@@ -27343,7 +36106,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncvmean').AND.(.NOT.grid%is_inter
 ELSE
   ALLOCATE(grid%rainncvmean(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27346,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27360,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncvmean(1,1).  ')
   endif
 ENDIF
@@ -27352,7 +36119,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincvstd').AND.(.NOT.grid%is_interme
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%raincvstd(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27355,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27369,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincvstd(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%raincvstd=initial_data_value
@@ -27402,7 +36173,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'raincvstd').AND.(.NOT.grid%is_interme
 ELSE
   ALLOCATE(grid%raincvstd(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27405,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27419,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%raincvstd(1,1).  ')
   endif
 ENDIF
@@ -27411,7 +36186,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncvstd').AND.(.NOT.grid%is_interm
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%rainncvstd(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27414,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27428,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncvstd(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%rainncvstd=initial_data_value
@@ -27461,7 +36240,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'rainncvstd').AND.(.NOT.grid%is_interm
 ELSE
   ALLOCATE(grid%rainncvstd(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27464,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27478,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%rainncvstd(1,1).  ')
   endif
 ENDIF
@@ -27489,7 +36272,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswupt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswupt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27492,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27506,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswupt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswupt=initial_data_value
@@ -27539,7 +36326,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswupt'))THEN
 ELSE
   ALLOCATE(grid%acswupt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27542,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27556,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswupt(1,1).  ')
   endif
 ENDIF
@@ -27548,7 +36339,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswuptc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswuptc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27551,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27565,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswuptc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswuptc=initial_data_value
@@ -27598,7 +36393,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswuptc'))THEN
 ELSE
   ALLOCATE(grid%acswuptc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27601,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27615,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswuptc(1,1).  ')
   endif
 ENDIF
@@ -27607,7 +36406,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdnt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswdnt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27610,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27624,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdnt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswdnt=initial_data_value
@@ -27657,7 +36460,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdnt'))THEN
 ELSE
   ALLOCATE(grid%acswdnt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27660,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27674,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdnt(1,1).  ')
   endif
 ENDIF
@@ -27666,7 +36473,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdntc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswdntc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27669,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27683,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdntc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswdntc=initial_data_value
@@ -27716,7 +36527,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdntc'))THEN
 ELSE
   ALLOCATE(grid%acswdntc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27719,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27733,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdntc(1,1).  ')
   endif
 ENDIF
@@ -27725,7 +36540,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswupb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswupb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27728,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27742,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswupb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswupb=initial_data_value
@@ -27775,7 +36594,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswupb'))THEN
 ELSE
   ALLOCATE(grid%acswupb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27778,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27792,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswupb(1,1).  ')
   endif
 ENDIF
@@ -27784,7 +36607,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswupbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswupbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27787,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27801,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswupbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswupbc=initial_data_value
@@ -27834,7 +36661,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswupbc'))THEN
 ELSE
   ALLOCATE(grid%acswupbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27837,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27851,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswupbc(1,1).  ')
   endif
 ENDIF
@@ -27843,7 +36674,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdnb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswdnb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27846,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27860,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdnb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswdnb=initial_data_value
@@ -27893,7 +36728,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdnb'))THEN
 ELSE
   ALLOCATE(grid%acswdnb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27896,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27910,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdnb(1,1).  ')
   endif
 ENDIF
@@ -27902,7 +36741,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdnbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%acswdnbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27905,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27919,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdnbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%acswdnbc=initial_data_value
@@ -27952,7 +36795,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'acswdnbc'))THEN
 ELSE
   ALLOCATE(grid%acswdnbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27955,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27969,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%acswdnbc(1,1).  ')
   endif
 ENDIF
@@ -27961,7 +36808,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwupt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwupt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",27964,&
+=======
+    CALL wrf_error_fatal3("<stdin>",27978,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwupt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwupt=initial_data_value
@@ -28011,7 +36862,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwupt'))THEN
 ELSE
   ALLOCATE(grid%aclwupt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28014,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28028,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwupt(1,1).  ')
   endif
 ENDIF
@@ -28020,7 +36875,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwuptc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwuptc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28023,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28037,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwuptc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwuptc=initial_data_value
@@ -28070,7 +36929,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwuptc'))THEN
 ELSE
   ALLOCATE(grid%aclwuptc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28073,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28087,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwuptc(1,1).  ')
   endif
 ENDIF
@@ -28079,7 +36942,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdnt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwdnt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28082,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28096,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdnt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwdnt=initial_data_value
@@ -28129,7 +36996,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdnt'))THEN
 ELSE
   ALLOCATE(grid%aclwdnt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28132,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28146,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdnt(1,1).  ')
   endif
 ENDIF
@@ -28138,7 +37009,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdntc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwdntc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28141,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28155,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdntc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwdntc=initial_data_value
@@ -28188,7 +37063,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdntc'))THEN
 ELSE
   ALLOCATE(grid%aclwdntc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28191,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28205,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdntc(1,1).  ')
   endif
 ENDIF
@@ -28197,7 +37076,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwupb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwupb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28200,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28214,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwupb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwupb=initial_data_value
@@ -28247,7 +37130,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwupb'))THEN
 ELSE
   ALLOCATE(grid%aclwupb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28250,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28264,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwupb(1,1).  ')
   endif
 ENDIF
@@ -28256,7 +37143,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwupbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwupbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28259,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28273,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwupbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwupbc=initial_data_value
@@ -28306,7 +37197,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwupbc'))THEN
 ELSE
   ALLOCATE(grid%aclwupbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28309,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28323,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwupbc(1,1).  ')
   endif
 ENDIF
@@ -28315,7 +37210,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdnb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwdnb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28318,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28332,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdnb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwdnb=initial_data_value
@@ -28365,7 +37264,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdnb'))THEN
 ELSE
   ALLOCATE(grid%aclwdnb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28368,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28382,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdnb(1,1).  ')
   endif
 ENDIF
@@ -28374,7 +37277,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdnbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%aclwdnbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28377,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28391,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdnbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%aclwdnbc=initial_data_value
@@ -28424,7 +37331,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'aclwdnbc'))THEN
 ELSE
   ALLOCATE(grid%aclwdnbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28427,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28441,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%aclwdnbc(1,1).  ')
   endif
 ENDIF
@@ -28433,7 +37344,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswupt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswupt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28436,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28450,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswupt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswupt=0
@@ -28483,7 +37398,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswupt'))THEN
 ELSE
   ALLOCATE(grid%i_acswupt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28486,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28500,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswupt(1,1).  ')
   endif
 ENDIF
@@ -28492,7 +37411,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswuptc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswuptc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28495,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28509,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswuptc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswuptc=0
@@ -28542,7 +37465,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswuptc'))THEN
 ELSE
   ALLOCATE(grid%i_acswuptc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28545,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28559,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswuptc(1,1).  ')
   endif
 ENDIF
@@ -28551,7 +37478,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdnt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswdnt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28554,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28568,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdnt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswdnt=0
@@ -28601,7 +37532,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdnt'))THEN
 ELSE
   ALLOCATE(grid%i_acswdnt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28604,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28618,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdnt(1,1).  ')
   endif
 ENDIF
@@ -28610,7 +37545,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdntc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswdntc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28613,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28627,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdntc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswdntc=0
@@ -28660,7 +37599,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdntc'))THEN
 ELSE
   ALLOCATE(grid%i_acswdntc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28663,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28677,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdntc(1,1).  ')
   endif
 ENDIF
@@ -28669,7 +37612,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswupb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswupb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28672,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28686,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswupb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswupb=0
@@ -28719,7 +37666,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswupb'))THEN
 ELSE
   ALLOCATE(grid%i_acswupb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28722,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28736,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswupb(1,1).  ')
   endif
 ENDIF
@@ -28728,7 +37679,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswupbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswupbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28731,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28745,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswupbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswupbc=0
@@ -28778,7 +37733,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswupbc'))THEN
 ELSE
   ALLOCATE(grid%i_acswupbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28781,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28795,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswupbc(1,1).  ')
   endif
 ENDIF
@@ -28787,7 +37746,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdnb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswdnb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28790,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28804,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdnb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswdnb=0
@@ -28837,7 +37800,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdnb'))THEN
 ELSE
   ALLOCATE(grid%i_acswdnb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28840,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28854,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdnb(1,1).  ')
   endif
 ENDIF
@@ -28846,7 +37813,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdnbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_acswdnbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28849,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28863,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdnbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_acswdnbc=0
@@ -28896,7 +37867,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_acswdnbc'))THEN
 ELSE
   ALLOCATE(grid%i_acswdnbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28899,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28913,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_acswdnbc(1,1).  ')
   endif
 ENDIF
@@ -28905,7 +37880,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwupt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwupt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28908,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28922,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwupt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwupt=0
@@ -28955,7 +37934,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwupt'))THEN
 ELSE
   ALLOCATE(grid%i_aclwupt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28958,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28972,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwupt(1,1).  ')
   endif
 ENDIF
@@ -28964,7 +37947,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwuptc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwuptc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",28967,&
+=======
+    CALL wrf_error_fatal3("<stdin>",28981,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwuptc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwuptc=0
@@ -29014,7 +38001,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwuptc'))THEN
 ELSE
   ALLOCATE(grid%i_aclwuptc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29017,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29031,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwuptc(1,1).  ')
   endif
 ENDIF
@@ -29023,7 +38014,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdnt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwdnt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29026,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29040,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdnt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwdnt=0
@@ -29073,7 +38068,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdnt'))THEN
 ELSE
   ALLOCATE(grid%i_aclwdnt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29076,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29090,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdnt(1,1).  ')
   endif
 ENDIF
@@ -29082,7 +38081,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdntc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwdntc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29085,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29099,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdntc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwdntc=0
@@ -29132,7 +38135,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdntc'))THEN
 ELSE
   ALLOCATE(grid%i_aclwdntc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29135,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29149,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdntc(1,1).  ')
   endif
 ENDIF
@@ -29141,7 +38148,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwupb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwupb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29144,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29158,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwupb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwupb=0
@@ -29191,7 +38202,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwupb'))THEN
 ELSE
   ALLOCATE(grid%i_aclwupb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29194,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29208,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwupb(1,1).  ')
   endif
 ENDIF
@@ -29200,7 +38215,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwupbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwupbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29203,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29217,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwupbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwupbc=0
@@ -29250,7 +38269,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwupbc'))THEN
 ELSE
   ALLOCATE(grid%i_aclwupbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29253,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29267,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwupbc(1,1).  ')
   endif
 ENDIF
@@ -29259,7 +38282,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdnb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwdnb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29262,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29276,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdnb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwdnb=0
@@ -29309,7 +38336,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdnb'))THEN
 ELSE
   ALLOCATE(grid%i_aclwdnb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29312,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29326,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdnb(1,1).  ')
   endif
 ENDIF
@@ -29318,7 +38349,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdnbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%i_aclwdnbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29321,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29335,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdnbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%i_aclwdnbc=0
@@ -29368,7 +38403,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'i_aclwdnbc'))THEN
 ELSE
   ALLOCATE(grid%i_aclwdnbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29371,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29385,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%i_aclwdnbc(1,1).  ')
   endif
 ENDIF
@@ -29377,7 +38416,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swupt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swupt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29380,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29394,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swupt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swupt=initial_data_value
@@ -29427,7 +38470,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swupt'))THEN
 ELSE
   ALLOCATE(grid%swupt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29430,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29444,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swupt(1,1).  ')
   endif
 ENDIF
@@ -29436,7 +38483,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swuptc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swuptc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29439,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29453,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swuptc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swuptc=initial_data_value
@@ -29486,7 +38537,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swuptc'))THEN
 ELSE
   ALLOCATE(grid%swuptc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29489,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29503,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swuptc(1,1).  ')
   endif
 ENDIF
@@ -29495,7 +38550,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdnt'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swdnt(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29498,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29512,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdnt(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swdnt=initial_data_value
@@ -29545,7 +38604,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdnt'))THEN
 ELSE
   ALLOCATE(grid%swdnt(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29548,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29562,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdnt(1,1).  ')
   endif
 ENDIF
@@ -29554,7 +38617,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdntc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swdntc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29557,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29571,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdntc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swdntc=initial_data_value
@@ -29604,7 +38671,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdntc'))THEN
 ELSE
   ALLOCATE(grid%swdntc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29607,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29621,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdntc(1,1).  ')
   endif
 ENDIF
@@ -29613,7 +38684,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swupb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swupb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29616,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29630,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swupb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swupb=initial_data_value
@@ -29663,7 +38738,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swupb'))THEN
 ELSE
   ALLOCATE(grid%swupb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29666,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29680,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swupb(1,1).  ')
   endif
 ENDIF
@@ -29672,7 +38751,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swupbc'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swupbc(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29675,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29689,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swupbc(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swupbc=initial_data_value
@@ -29722,7 +38805,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swupbc'))THEN
 ELSE
   ALLOCATE(grid%swupbc(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29725,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29739,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swupbc(1,1).  ')
   endif
 ENDIF
@@ -29731,7 +38818,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdnb'))THEN
 ((((em31)-(sm31)+1))*(((em33)-(sm33)+1))) * 4
   ALLOCATE(grid%swdnb(sm31:em31,sm33:em33),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29734,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29748,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdnb(sm31:em31,sm33:em33). ')
   endif
   IF ( setinitval .EQ. 1 .OR. setinitval .EQ. 3 ) grid%swdnb=initial_data_value
@@ -29781,7 +38872,11 @@ IF(okay_to_alloc.AND.in_use_for_config(id,'swdnb'))THEN
 ELSE
   ALLOCATE(grid%swdnb(1,1),STAT=ierr)
   if (ierr.ne.0) then
+<<<<<<< HEAD
     CALL wrf_error_fatal3("<stdin>",29784,&
+=======
+    CALL wrf_error_fatal3("<stdin>",29798,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
     'frame/module_domain.f: Failed to allocate grid%swdnb(1,1).  ')
   endif
 ENDIF

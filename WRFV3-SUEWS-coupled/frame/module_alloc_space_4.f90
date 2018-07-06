@@ -157,6 +157,11 @@ CONTAINS
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 IF ( setinitval .EQ. 3 ) grid%auxhist1_interval_m=0
 IF ( setinitval .EQ. 3 ) grid%auxhist1_interval_s=0
 IF ( setinitval .EQ. 3 ) grid%auxhist1_interval=0
@@ -653,6 +658,11 @@ IF ( setinitval .EQ. 3 ) grid%auxhist24_end_y=0
 IF ( setinitval .EQ. 3 ) grid%auxhist24_end_d=0
 IF ( setinitval .EQ. 3 ) grid%auxhist24_end_h=0
 IF ( setinitval .EQ. 3 ) grid%auxhist24_end_m=0
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 
 
    END SUBROUTINE alloc_space_field_core_4

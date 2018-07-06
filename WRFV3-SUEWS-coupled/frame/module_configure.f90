@@ -8421,7 +8421,11 @@ NAMELIST /physics/ chem_opt
              IOSTAT = io_status         )
 
       IF ( io_status .NE. 0 ) THEN
+<<<<<<< HEAD
         CALL wrf_error_fatal3("<stdin>",8424,&
+=======
+        CALL wrf_error_fatal3("<stdin>",8436,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 'ERROR OPENING namelist.input' )
       ENDIF
 
@@ -8432,7 +8436,14 @@ NAMELIST /physics/ chem_opt
              IOSTAT = io_status         )
 
       IF ( io_status .NE. 0 ) THEN
+<<<<<<< HEAD
         CALL wrf_error_fatal3("<stdin>",8435,&
+=======
+
+
+
+        CALL wrf_error_fatal3("<stdin>",8455,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 'ERROR OPENING namelist.output' )
       ENDIF
 
@@ -10602,7 +10613,11 @@ chem_opt = 0
      CALL wrf_debug(1," --> Using registry defaults for variables in "//TRIM(nml_name))
  END DO NML_LOOP
  
+<<<<<<< HEAD
  IF ( nml_read_error ) CALL wrf_error_fatal3("<stdin>",10605,&
+=======
+ IF ( nml_read_error ) CALL wrf_error_fatal3("<stdin>",10669,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 "ERRORS while reading one or more namelists from namelist.input.")
 
 
@@ -12687,14 +12702,22 @@ chem_opt = 0
       CLOSE ( UNIT = nml_read_unit , IOSTAT = io_status )
 
       IF ( io_status .NE. 0 ) THEN
+<<<<<<< HEAD
         CALL wrf_error_fatal3("<stdin>",12690,&
+=======
+        CALL wrf_error_fatal3("<stdin>",12764,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 'ERROR CLOSING namelist.input' )
       ENDIF
 
       CLOSE ( UNIT = nml_write_unit , IOSTAT = io_status )
 
       IF ( io_status .NE. 0 ) THEN
+<<<<<<< HEAD
         CALL wrf_error_fatal3("<stdin>",12697,&
+=======
+        CALL wrf_error_fatal3("<stdin>",12772,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
 'ERROR CLOSING namelist.output' )
       ENDIF
 
@@ -12716,7 +12739,11 @@ chem_opt = 0
 
 
       IF ( nbytes .gt. buflen ) THEN
+<<<<<<< HEAD
         CALL wrf_error_fatal3("<stdin>",12719,&
+=======
+        CALL wrf_error_fatal3("<stdin>",12799,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
         "get_config_rec_as_buffer: buffer size too small for config_rec" )
       ENDIF
       CALL wrf_mem_copy( model_config_rec, buffer, nbytes )
@@ -12736,7 +12763,11 @@ chem_opt = 0
 
 
       IF ( nbytes .gt. buflen ) THEN
+<<<<<<< HEAD
         CALL wrf_error_fatal3("<stdin>",12739,&
+=======
+        CALL wrf_error_fatal3("<stdin>",12819,&
+>>>>>>> 209d9cb64a4bc3351e19abdb062e8a77bdf546aa
         "set_config_rec_as_buffer: buffer length too small to fill model config record" )
       ENDIF
       CALL wrf_mem_copy( buffer, model_config_rec, nbytes )
