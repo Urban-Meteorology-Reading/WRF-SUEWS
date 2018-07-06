@@ -171,6 +171,11 @@ CONTAINS
 
 
 
+IF ( setinitval .EQ. 3 ) grid%auxhist24_end_s=0
+IF ( setinitval .EQ. 3 ) grid%auxhist24_end=0
+IF ( setinitval .EQ. 3 ) grid%io_form_auxhist24=0
+IF ( setinitval .EQ. 3 ) grid%frames_per_auxhist24=0
+IF ( setinitval .EQ. 3 ) grid%auxinput1_oid=0
 IF ( setinitval .EQ. 3 ) grid%auxinput1_interval_y=0
 IF ( setinitval .EQ. 3 ) grid%auxinput1_interval_d=0
 IF ( setinitval .EQ. 3 ) grid%auxinput1_interval_h=0
@@ -661,10 +666,6 @@ IF ( setinitval .EQ. 3 ) grid%auxinput24_interval_s=0
 IF ( setinitval .EQ. 3 ) grid%auxinput24_interval=0
 IF ( setinitval .EQ. 3 ) grid%auxinput24_begin_y=0
 IF ( setinitval .EQ. 3 ) grid%auxinput24_begin_d=0
-IF ( setinitval .EQ. 3 ) grid%auxinput24_begin_h=0
-IF ( setinitval .EQ. 3 ) grid%auxinput24_begin_m=0
-IF ( setinitval .EQ. 3 ) grid%auxinput24_begin_s=0
-IF ( setinitval .EQ. 3 ) grid%auxinput24_begin=0
 
 
 

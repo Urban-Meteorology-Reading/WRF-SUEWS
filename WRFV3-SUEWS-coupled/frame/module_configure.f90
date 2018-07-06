@@ -328,6 +328,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real , DIMENSION(max_domains) :: dt
+real , DIMENSION(max_domains) :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used
@@ -2395,6 +2396,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real :: dt
+real :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used
@@ -4528,6 +4530,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real , DIMENSION(max_domains) :: dt
+real , DIMENSION(max_domains) :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used
@@ -8430,7 +8433,7 @@ NAMELIST /physics/ chem_opt
              IOSTAT = io_status         )
 
       IF ( io_status .NE. 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",8433,&
+        CALL wrf_error_fatal3("<stdin>",8436,&
 'ERROR OPENING namelist.input' )
       ENDIF
 
@@ -8449,7 +8452,7 @@ NAMELIST /physics/ chem_opt
 
 
 
-        CALL wrf_error_fatal3("<stdin>",8452,&
+        CALL wrf_error_fatal3("<stdin>",8455,&
 'ERROR OPENING namelist.output' )
 
       ENDIF
@@ -8619,6 +8622,7 @@ nproc_x = -1
 nproc_y = -1
 irand = 0
 dt = 2.
+dt_prev = 2.
 fft_used = 0
 cu_used = 0
 shcu_used = 0
@@ -10662,7 +10666,7 @@ chem_opt = 0
      CALL wrf_debug(1," --> Using registry defaults for variables in "//TRIM(nml_name))
  END DO NML_LOOP
  
- IF ( nml_read_error ) CALL wrf_error_fatal3("<stdin>",10665,&
+ IF ( nml_read_error ) CALL wrf_error_fatal3("<stdin>",10669,&
 "ERRORS while reading one or more namelists from namelist.input.")
 
 
@@ -10852,6 +10856,7 @@ chem_opt = 0
  model_config_rec % nproc_y                    =  nproc_y 
  model_config_rec % irand                      =  irand 
  model_config_rec % dt                         =  dt 
+ model_config_rec % dt_prev                    =  dt_prev 
  model_config_rec % fft_used                   =  fft_used 
  model_config_rec % cu_used                    =  cu_used 
  model_config_rec % shcu_used                  =  shcu_used 
@@ -12756,7 +12761,7 @@ chem_opt = 0
       CLOSE ( UNIT = nml_read_unit , IOSTAT = io_status )
 
       IF ( io_status .NE. 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",12759,&
+        CALL wrf_error_fatal3("<stdin>",12764,&
 'ERROR CLOSING namelist.input' )
       ENDIF
 
@@ -12764,7 +12769,7 @@ chem_opt = 0
       CLOSE ( UNIT = nml_write_unit , IOSTAT = io_status )
 
       IF ( io_status .NE. 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",12767,&
+        CALL wrf_error_fatal3("<stdin>",12772,&
 'ERROR CLOSING namelist.output' )
       ENDIF
 
@@ -12791,7 +12796,7 @@ chem_opt = 0
 
 
       IF ( nbytes .gt. buflen ) THEN
-        CALL wrf_error_fatal3("<stdin>",12794,&
+        CALL wrf_error_fatal3("<stdin>",12799,&
         "get_config_rec_as_buffer: buffer size too small for config_rec" )
       ENDIF
       CALL wrf_mem_copy( model_config_rec, buffer, nbytes )
@@ -12811,7 +12816,7 @@ chem_opt = 0
 
 
       IF ( nbytes .gt. buflen ) THEN
-        CALL wrf_error_fatal3("<stdin>",12814,&
+        CALL wrf_error_fatal3("<stdin>",12819,&
         "set_config_rec_as_buffer: buffer length too small to fill model config record" )
       ENDIF
       CALL wrf_mem_copy( buffer, model_config_rec, nbytes )
@@ -13021,6 +13026,7 @@ chem_opt = 0
  grid_config_rec % nproc_y                    = model_config_rec % nproc_y 
  grid_config_rec % irand                      = model_config_rec % irand 
  grid_config_rec % dt                         = model_config_rec % dt (id_id)
+ grid_config_rec % dt_prev                    = model_config_rec % dt_prev (id_id)
  grid_config_rec % fft_used                   = model_config_rec % fft_used 
  grid_config_rec % cu_used                    = model_config_rec % cu_used 
  grid_config_rec % shcu_used                  = model_config_rec % shcu_used 
@@ -22184,6 +22190,14 @@ IF(TRIM(vname).EQ.'o3rad')THEN
     in_use = in_use.OR.model_config_rec%ra_sw_physics(id).EQ.24
   ENDIF
 ENDIF
+IF(TRIM(vname).EQ.'ohmcoef')THEN
+  IF(uses.EQ.0)THEN
+    in_use = model_config_rec%sf_surface_physics(id).EQ.9
+    uses = 1
+  ELSE
+    in_use = in_use.OR.model_config_rec%sf_surface_physics(id).EQ.9
+  ENDIF
+ENDIF
 IF(TRIM(vname).EQ.'odis_ndg_old')THEN
   IF(uses.EQ.0)THEN
     in_use = model_config_rec%grid_sfdda(id).EQ.1
@@ -31002,6 +31016,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real , DIMENSION(max_domains) :: dt
+real , DIMENSION(max_domains) :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used

@@ -469,6 +469,7 @@ integer                                  :: nproc_x
 integer                                  :: nproc_y
 integer                                  :: irand
 real                                     :: dt
+real                                     :: dt_prev
 integer                                  :: fft_used
 integer                                  :: cu_used
 integer                                  :: shcu_used
@@ -2434,6 +2435,21 @@ real                                     :: etac
 integer                                  :: num_wif_levels
 integer                                  :: wif_input_opt
 integer                                  :: chem_opt
+real      ,DIMENSION(:)       ,POINTER   :: ohmcoef
+real      ,DIMENSION(:,:)     ,POINTER   :: qn1_av_suews
+real      ,DIMENSION(:,:,:)   ,POINTER   :: lai_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: albdectr_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: albevetr_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: albgrass_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: decidcap_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: porosity_suews
+real      ,DIMENSION(:,:,:)   ,POINTER   :: gdd_suews
+real      ,DIMENSION(:,:,:)   ,POINTER   :: hdd_suews
+real      ,DIMENSION(:,:,:)   ,POINTER   :: hdd_prev_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: state_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: soilmoist_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: surf_var_suews
+real      ,DIMENSION(:,:)     ,POINTER   :: dqndt_suews
 real      ,DIMENSION(:,:)     ,POINTER   :: xlat
 real      ,DIMENSION(:,:)     ,POINTER   :: xlong
 real      ,DIMENSION(:,:)     ,POINTER   :: lu_index

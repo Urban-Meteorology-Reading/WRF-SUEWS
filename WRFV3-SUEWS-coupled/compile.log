@@ -1,0 +1,1008 @@
+None of WRF_EM_CORE, WRF_NMM_CORE, 
+        specified in shell environment.... 
+ 
+============================================================================================== 
+ 
+V3.9.1.1  
+ 
+Compiling: WRF_EM_CORE  
+ 
+Darwin webvpn-14.rdg.ac.uk 17.6.0 Darwin Kernel Version 17.6.0: Tue May  8 15:22:16 PDT 2018; root:xnu-4570.61.1~1/RELEASE_X86_64 x86_64
+ 
+GNU Fortran (Homebrew GCC 7.3.0_1) 7.3.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+ 
+============================================================================================== 
+ 
+setting parallel make -j 2
+ 
+============================================================================================== 
+ 
+The following indicate the compilers selected to build the WRF system
+ 
+Serial Fortran compiler (mostly for tool generation):
+which SFC
+/usr/local/bin/gfortran
+ 
+Serial C compiler (mostly for tool generation):
+which SCC
+/usr/bin/clang
+ 
+Fortran compiler for the model source code:
+which FC
+/usr/local/bin/gfortran
+Will use 'time' to report timing information
+ 
+C compiler for the model source code:
+which CC
+/usr/bin/clang
+ 
+============================================================================================== 
+ 
+make -i -r MODULE_DIRS="-I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include " ext
+--------------------------------------
+( cd frame ; make -i -r externals )
+( cd /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 ; \
+          make -j 2 FC="gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow " RANLIB="ranlib" \
+          CPP="cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp" AR="ar" ARFLAGS="ru" )
+/bin/rm -f ESMF_Base.o
+/bin/rm -f ESMF_Fraction.o
+sed -e "/\!.*'/s/'//g" ESMF_Base.F90 > ESMF_Base.b
+sed -e "/\!.*'/s/'//g" ESMF_Fraction.F90 > ESMF_Fraction.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Fraction.b > ESMF_Fraction.f
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Base.b > ESMF_Base.f
+/bin/rm -f ESMF_Base.b
+/bin/rm -f ESMF_Fraction.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Base.o -c ESMF_Base.f
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Fraction.o -c ESMF_Fraction.f
+/bin/rm -f ESMF_BaseTime.o
+sed -e "/\!.*'/s/'//g" ESMF_BaseTime.F90 > ESMF_BaseTime.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_BaseTime.b > ESMF_BaseTime.f
+/bin/rm -f ESMF_BaseTime.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_BaseTime.o -c ESMF_BaseTime.f
+/bin/rm -f ESMF_Calendar.o
+sed -e "/\!.*'/s/'//g" ESMF_Calendar.F90 > ESMF_Calendar.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Calendar.b > ESMF_Calendar.f
+/bin/rm -f ESMF_Calendar.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Calendar.o -c ESMF_Calendar.f
+/bin/rm -f ESMF_TimeInterval.o
+/bin/rm -f ESMF_Stubs.o
+sed -e "/\!.*'/s/'//g" ESMF_TimeInterval.F90 > ESMF_TimeInterval.b
+sed -e "/\!.*'/s/'//g" ESMF_Stubs.F90 > ESMF_Stubs.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Stubs.b > ESMF_Stubs.f
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_TimeInterval.b > ESMF_TimeInterval.f
+/bin/rm -f ESMF_Stubs.b
+/bin/rm -f ESMF_TimeInterval.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Stubs.o -c ESMF_Stubs.f
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_TimeInterval.o -c ESMF_TimeInterval.f
+/bin/rm -f ESMF_Time.o
+sed -e "/\!.*'/s/'//g" ESMF_Time.F90 > ESMF_Time.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Time.b > ESMF_Time.f
+/bin/rm -f ESMF_Time.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Time.o -c ESMF_Time.f
+/bin/rm -f ESMF_Alarm.o
+sed -e "/\!.*'/s/'//g" ESMF_Alarm.F90 > ESMF_Alarm.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Alarm.b > ESMF_Alarm.f
+/bin/rm -f ESMF_Alarm.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Alarm.o -c ESMF_Alarm.f
+/bin/rm -f ESMF_Clock.o
+sed -e "/\!.*'/s/'//g" ESMF_Clock.F90 > ESMF_Clock.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Clock.b > ESMF_Clock.f
+/bin/rm -f ESMF_Clock.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Clock.o -c ESMF_Clock.f
+/bin/rm -f Meat.o
+/bin/rm -f ESMF_AlarmClock.o
+sed -e "/\!.*'/s/'//g" Meat.F90 > Meat.b
+sed -e "/\!.*'/s/'//g" ESMF_AlarmClock.F90 > ESMF_AlarmClock.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. Meat.b > Meat.f
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_AlarmClock.b > ESMF_AlarmClock.f
+/bin/rm -f ESMF_AlarmClock.b
+/bin/rm -f Meat.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_AlarmClock.o -c ESMF_AlarmClock.f
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o Meat.o -c Meat.f
+/bin/rm -f ESMF_Mod.o
+sed -e "/\!.*'/s/'//g" ESMF_Mod.F90 > ESMF_Mod.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. ESMF_Mod.b > ESMF_Mod.f
+/bin/rm -f ESMF_Mod.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o ESMF_Mod.o -c ESMF_Mod.f
+/bin/rm -f module_symbols_util.o
+sed -e "/\!.*'/s/'//g" module_symbols_util.F90 > module_symbols_util.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. module_symbols_util.b > module_symbols_util.f
+/bin/rm -f module_symbols_util.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o module_symbols_util.o -c module_symbols_util.f
+/bin/rm -f module_utility.o
+sed -e "/\!.*'/s/'//g" module_utility.F90 > module_utility.b
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I. -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -traditional-cpp -I. module_utility.b > module_utility.f
+/bin/rm -f module_utility.b
+gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o module_utility.o -c module_utility.f
+/bin/rm -f libesmf_time.a
+if [ "ar" != "lib.exe" ] ; then \
+          ar ru libesmf_time.a ESMF_Alarm.o ESMF_BaseTime.o ESMF_Clock.o ESMF_Time.o Meat.o ESMF_Base.o ESMF_Calendar.o ESMF_Fraction.o ESMF_TimeInterval.o ESMF_Stubs.o ESMF_Mod.o module_symbols_util.o module_utility.o ESMF_AlarmClock.o ; \
+        else \
+          ar /out:libesmf_time.a ESMF_Alarm.o ESMF_BaseTime.o ESMF_Clock.o ESMF_Time.o Meat.o ESMF_Base.o ESMF_Calendar.o ESMF_Fraction.o ESMF_TimeInterval.o ESMF_Stubs.o ESMF_Mod.o module_symbols_util.o module_utility.o ESMF_AlarmClock.o ; \
+        fi
+ar: creating archive libesmf_time.a
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libesmf_time.a(ESMF_Mod.o) has no symbols
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libesmf_time.a(module_symbols_util.o) has no symbols
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libesmf_time.a(module_utility.o) has no symbols
+ranlib libesmf_time.a
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libesmf_time.a(ESMF_Mod.o) has no symbols
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libesmf_time.a(module_symbols_util.o) has no symbols
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib: file: libesmf_time.a(module_utility.o) has no symbols
+( cd /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf ; \
+          make -j 2 NETCDFPATH="/usr/local/Cellar/netcdf/4.4.1.1_7" RANLIB="ranlib" CPP="cpp -P -nostdinc -xassembler-with-cpp" \
+          CC="clang" CFLAGS="-w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0" \
+          FC="gfortran   -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow " TRADFLAG="-traditional-cpp" AR="ar" ARFLAGS="ru" )
+grep nf_format_64bit /usr/local/Cellar/netcdf/4.4.1.1_7/include/netcdf.inc ;\
+                        a=$? ; export a ; \
+			if [ $a -a "$WRFIO_NCD_LARGE_FILE_SUPPORT" = "1" ] ; then \
+                          cpp -P -nostdinc -xassembler-with-cpp -P -traditional-cpp -DWRFIO_NCD_LARGE_FILE_SUPPORT -I../ioapi_share wrf_io.F90 | m4 -Uinclude -Uindex -Ulen - > wrf_io.f ; \
+                        else \
+                          cpp -P -nostdinc -xassembler-with-cpp -P -traditional-cpp -I../ioapi_share wrf_io.F90 | m4 -Uinclude -Uindex -Ulen - > wrf_io.f ; \
+                        fi
+cpp -P -nostdinc -xassembler-with-cpp -P -traditional-cpp -I../ioapi_share module_wrfsi_static.F90 > module_wrfsi_static.f
+      integer nf_format_64bit
+      parameter (nf_format_64bit = 2)
+gfortran   -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o module_wrfsi_static.o  -I/usr/local/Cellar/netcdf/4.4.1.1_7/include -I../ioapi_share -c module_wrfsi_static.f
+gfortran   -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o wrf_io.o  -I/usr/local/Cellar/netcdf/4.4.1.1_7/include -I../ioapi_share -c wrf_io.f
+cpp -P -nostdinc -xassembler-with-cpp -P -traditional-cpp -I../ioapi_share field_routines.F90 > field_routines.f
+gfortran   -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -o field_routines.o  -I/usr/local/Cellar/netcdf/4.4.1.1_7/include -I../ioapi_share -c field_routines.f
+/bin/rm -f libwrfio_nf.a
+if [ "ar" != "lib.exe" ] ; then \
+                          ar cr libwrfio_nf.a wrf_io.o field_routines.o module_wrfsi_static.o ; \
+                        else \
+                          ar /out:libwrfio_nf.a wrf_io.o field_routines.o module_wrfsi_static.o ; \
+                        fi
+ranlib libwrfio_nf.a
+( cd /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/ioapi_share ; \
+          make -i -r NATIVE_RWORDSIZE="4" RWORDSIZE="4" AR="ar" ARFLAGS="ru" )
+( /bin/rm -f ../../inc/wrf_io_flags.h foo_io_flags.h; \
+	/bin/cp wrf_io_flags.h foo_io_flags.h; \
+	if [ 4 -ne 4 ] ; then \
+	  /bin/rm -f foo_io_flags.h; \
+	  sed -e 's/104/105/' wrf_io_flags.h > foo_io_flags.h ;\
+	fi ; \
+	/bin/mv foo_io_flags.h ../../inc/wrf_io_flags.h )
+/bin/rm -f ../../inc/wrf_status_codes.h
+/bin/cp wrf_status_codes.h ../../inc
+( cd /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib_share ; \
+          make -j 2 CC="clang" CFLAGS="-w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0" RM="rm -f" RANLIB="ranlib" CPP="cpp -P -nostdinc -xassembler-with-cpp" \
+          FC="gfortran  -I. -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " TRADFLAG="-traditional-cpp" AR="ar" ARFLAGS="ru" archive)
+make[4]: *** No rule to make target `io_grib_share.o', needed by `thisdir_archive'.  Stop.
+make[3]: [archive] Error 2 (ignored)
+( cd /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_grib1 ; \
+          make -j 2 CC="clang" CFLAGS="-w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0" RM="rm -f" RANLIB="ranlib" CPP="cpp -P -nostdinc -xassembler-with-cpp" \
+          FC="gfortran  -I. -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " TRADFLAG="-traditional-cpp" AR="ar" ARFLAGS="ru" archive)
+        Doing make archive on library subdirectory MEL_grib1
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c FTP_getfile.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c apply_bitmap.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c display_gribhdr.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gbyte.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c grib_dec.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c grib_enc.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c grib_seek.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribgetbds.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribgetbms.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribgetgds.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribgetpds.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribhdr2file.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribputbds.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribputgds.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribputpds.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c hdr_print.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c init_dec_struct.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c init_enc_struct.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c init_gribhdr.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c init_struct.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c ld_dec_lookup.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c ld_enc_input.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c ld_enc_lookup.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c ld_grib_origctrs.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c make_default_grbfn.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c make_grib_log.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c map_lvl.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c map_parm.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c pack_spatial.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c prt_inp_struct.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c upd_child_errmsg.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c prt_badmsg.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c swap.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c grib_uthin.c
+clang  -I. -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c set_bytes.c
+ar ru ../libio_grib1.a FTP_getfile.o apply_bitmap.o display_gribhdr.o gbyte.o grib_dec.o grib_enc.o grib_seek.o gribgetbds.o gribgetbms.o gribgetgds.o gribgetpds.o gribhdr2file.o gribputbds.o gribputgds.o gribputpds.o hdr_print.o init_dec_struct.o init_enc_struct.o init_gribhdr.o init_struct.o ld_dec_lookup.o ld_enc_input.o ld_enc_lookup.o ld_grib_origctrs.o make_default_grbfn.o make_grib_log.o map_lvl.o map_parm.o pack_spatial.o prt_inp_struct.o upd_child_errmsg.o prt_badmsg.o swap.o grib_uthin.o set_bytes.o
+ar: creating archive ../libio_grib1.a
+ranlib ../libio_grib1.a
+        Doing make archive on library subdirectory grib1_util
+clang  -I. -I../MEL_grib1 -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c alloc_2d.c
+clang  -I. -I../MEL_grib1 -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c read_grib.c
+clang  -I. -I../MEL_grib1 -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c write_grib.c
+ar ru ../libio_grib1.a alloc_2d.o read_grib.o write_grib.o
+ranlib ../libio_grib1.a
+        Doing make archive on library subdirectory WGRIB
+clang -c -O wgrib_main.c
+clang -c -O seekgrib.c
+clang -c -O ibm2flt.c
+clang -c -O readgrib.c
+clang -c -O intpower.c
+clang -c -O cnames.c
+clang -c -O BDSunpk.c
+clang -c -O flt2ieee.c
+clang -c -O wrtieee.c
+clang -c -O levels.c
+clang -c -O PDStimes.c
+clang -c -O missing.c
+clang -c -O nceptable_reanal.c
+clang -c -O nceptable_opn.c
+clang -c -O ensemble.c
+clang -c -O ombtable.c
+clang -c -O ec_ext.c
+clang -c -O gribtable.c
+clang -c -O gds_grid.c
+gribtable.c:100:55: warning: for loop has empty body [-Wempty-body]
+        for (c0 = 0; line[c0] != ':' && line[c0] != 0; c0++) ;
+                                                             ^
+gribtable.c:100:55: note: put the semicolon on a separate line to silence this warning
+1 warning generated.
+clang -c -O PDS_date.c
+clang -c -O ectable_128.c
+clang -c -O ectable_129.c
+clang -c -O ectable_130.c
+clang -c -O ectable_131.c
+clang -c -O ectable_140.c
+clang -c -O ectable_150.c
+clang -c -O ectable_151.c
+clang -c -O ectable_160.c
+clang -c -O ectable_170.c
+clang -c -O ectable_180.c
+clang -c -O nceptab_129.c
+clang -c -O dwdtable_002.c
+clang -c -O dwdtable_201.c
+clang -c -O dwdtable_202.c
+clang -c -O dwdtable_203.c
+clang -c -O cptectable_254.c
+clang -c -O nceptab_130.c
+clang -c -O nceptab_131.c
+clang -o wgrib.exe wgrib_main.o seekgrib.o ibm2flt.o readgrib.o intpower.o cnames.o BDSunpk.o flt2ieee.o wrtieee.o levels.o PDStimes.o missing.o nceptable_reanal.o nceptable_opn.o ensemble.o ombtable.o ec_ext.o gribtable.o gds_grid.o PDS_date.o ectable_128.o ectable_129.o ectable_130.o ectable_131.o ectable_140.o ectable_150.o ectable_151.o ectable_160.o ectable_170.o ectable_180.o nceptab_129.o dwdtable_002.o dwdtable_201.o dwdtable_202.o dwdtable_203.o cptectable_254.o nceptab_130.o nceptab_131.o #-lm
+( cd .. ; \rm -f wgrib.exe ; \ln -sf WGRIB/wgrib.exe wgrib.exe ; cd WGRIB )
+clang  -I. -I./MEL_grib1 -Igrib1_util -I../io_grib_share -I../ -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c grib1_routines.c
+clang  -I. -I./MEL_grib1 -Igrib1_util -I../io_grib_share -I../ -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0   -c gribmap.c
+make[4]: *** No rule to make target `io_grib1.o', needed by `thisdir_archive'.  Stop.
+make[4]: *** Waiting for unfinished jobs....
+make[3]: [archive] Error 2 (ignored)
+( cd /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int ; \
+          make -j 2 CC="clang -DFSEEKO_OK" CFLAGS_LOCAL="-w -O3 -c  -DMACOS" RM="rm -f" RANLIB="ranlib" CPP="cpp -P -nostdinc -xassembler-with-cpp" \
+          FC="time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " FGREP="fgrep -iq" \
+          TRADFLAG="-traditional-cpp" AR="ar" ARFLAGS="ru" ARCHFLAGS="-DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0" all )
+rm -f module_internal_header_util.f
+awk '{print "#define", toupper($4), $6}' < ../../inc/intio_tags.h > io_int_idx_tags.h
+cp ../../frame/module_internal_header_util.F mod_int_hdr_util.b
+cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -I../../inc -I../ioapi_share mod_int_hdr_util.b > module_internal_header_util.f
+cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 module_io_int_idx.F90 > module_io_int_idx.f
+cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 module_io_int_read.F90 > module_io_int_read.f
+rm -f mod_int_hdr_util.b
+Diffwrf io_int will be built later on in this compile. No need to rerun compile. 
+Diffwrf io_int will be built later on in this compile. No need to rerun compile. 
+Diffwrf io_int will be built later on in this compile. No need to rerun compile. 
+Diffwrf io_int will be built later on in this compile. No need to rerun compile. 
+Diffwrf io_int will be built later on in this compile. No need to rerun compile. 
+Diffwrf io_int will be built later on in this compile. No need to rerun compile. 
+cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0 test_io_idx.F90 > test_io_idx.f
+time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow    -o module_internal_header_util.o -c module_internal_header_util.f
+clang -DFSEEKO_OK -o io_int_idx.o -c -w -O3 -c  -DMACOS io_int_idx.c
+        0.61 real         0.23 user         0.04 sys
+time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow    -o module_io_int_idx.o -c module_io_int_idx.f
+cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I../../inc -I../ioapi_share io_int.F90 | m4 -Uinclude -Uindex -Ulen - > io_int.f
+time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow    -I../../inc -I../ioapi_share -o io_int.o -c io_int.f
+        0.15 real         0.05 user         0.03 sys
+time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow    -I../../frame -o module_io_int_read.o -c module_io_int_read.f
+        0.24 real         0.11 user         0.03 sys
+        1.24 real         0.55 user         0.07 sys
+rm -f libwrfio_int.a
+if [ `echo "time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " | awk '{print $1}'` = "gfortran" ] ; then \
+		echo removing external declaration of iargc for gfortran ; \
+		cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I../ioapi_share diffwrf.F90 | \
+		sed '/integer *, *external.*iargc/d' > diffwrf.f  ; \
+	else \
+		cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I../ioapi_share diffwrf.F90 > diffwrf.f  ; \
+	fi ; \
+	time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -c  -I../ioapi_share diffwrf.f ; \
+
+ar ru libwrfio_int.a io_int.o io_int_idx.o module_io_int_idx.o module_io_int_read.o
+ar: creating archive libwrfio_int.a
+ranlib libwrfio_int.a
+time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow     -o test_io_idx test_io_idx.f -L. -lwrfio_int
+
+real	0m0.614s
+user	0m0.213s
+sys	0m0.049s
+if [ -f ../../frame/pack_utils.o -a -f ../../frame/clog.o ] ; then \
+	  time gfortran  -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow     -I../ioapi_share -o diffwrf diffwrf.f \
+		../../frame/pack_utils.o ../../frame/module_internal_header_util.o ../../frame/module_driver_constants.o ../../frame/module_machine.o ../../frame/module_wrf_error.o ../../frame/wrf_debug.o  libwrfio_int.a ; \
+	fi
+        0.87 real         0.09 user         0.43 sys
+( cd /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/fftpack/fftpack5 ; \
+          make -j 2 FC="gfortran" FFLAGS=" -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow " RANLIB="ranlib" AR="ar" \
+          ARFLAGS="ru" CPP="cpp -P -nostdinc -xassembler-with-cpp" CPPFLAGS="-DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp" RM="rm -f" )
+make[3]: *** No rule to make target `c1f2kb.o', needed by `library'.  Stop.
+make[2]: [fftpack] Error 2 (ignored)
+( /bin/rm -f /Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/gen_comms.c )
+( if [ ! -e module_dm.F ] ; then /bin/cp module_dm_warning module_dm.F ; cat module_dm_stubs.F >> module_dm.F ; fi )
+make -i -r MODULE_DIRS="-I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include " toolsdir
+--------------------------------------
+( cd tools ; make -i -r CC_TOOLS_CFLAGS="-DNMM_CORE=0" CC_TOOLS="clang -DIWORDSIZE=4 -DMAX_HISTORY=25" )
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  registry.c
+registry.c:60:3: warning: implicit declaration of function 'sym_forget' is invalid in C99 [-Wimplicit-function-declaration]
+  sym_forget() ;
+  ^
+registry.c:132:3: warning: implicit declaration of function 'gen_io_boilerplate' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_io_boilerplate() ;  /* 20091213 jm.  Generate the io_boilerplate_temporary.inc file */
+  ^
+registry.c:134:3: warning: implicit declaration of function 'init_parser' is invalid in C99 [-Wimplicit-function-declaration]
+  init_parser() ;
+  ^
+registry.c:157:8: warning: implicit declaration of function 'pre_parse' is invalid in C99 [-Wimplicit-function-declaration]
+  if ( pre_parse( dir, fp_in, fp_tmp ) ) {
+       ^
+registry.c:177:3: warning: implicit declaration of function 'check_dimspecs' is invalid in C99 [-Wimplicit-function-declaration]
+  check_dimspecs() ;
+  ^
+registry.c:187:3: warning: implicit declaration of function 'gen_actual_args_new' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_actual_args_new( "inc" ) ;
+  ^
+registry.c:189:3: warning: implicit declaration of function 'gen_dummy_args_new' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_dummy_args_new( "inc" ) ;
+  ^
+registry.c:191:3: warning: implicit declaration of function 'gen_dummy_decls_new' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_dummy_decls_new( "inc" ) ;
+  ^
+registry.c:193:3: warning: implicit declaration of function 'gen_namelist_statements' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_namelist_statements("inc") ;
+  ^
+registry.c:203:3: warning: implicit declaration of function 'gen_nest_interp' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_nest_interp( "inc" ) ;
+  ^
+registry.c:204:3: warning: implicit declaration of function 'gen_nest_v_interp' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_nest_v_interp( "inc") ; /*KAL added this for vertical interpolation*/
+  ^
+registry.c:206:3: warning: implicit declaration of function 'gen_streams' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_streams("inc") ;
+  ^
+registry.c:209:3: warning: implicit declaration of function 'gen_comms' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_comms( "inc" ) ;    /* this is either package supplied (by copying a */
+  ^
+13 warnings generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  my_strtok.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  reg_parse.c
+reg_parse.c:229:15: warning: implicitly declaring library function 'tolower' with type 'int (int)' [-Wimplicit-function-declaration]
+          x = tolower(tokens[F_DIMS][i]) ;
+              ^
+reg_parse.c:229:15: note: include the header <ctype.h> or explicitly provide a declaration for 'tolower'
+reg_parse.c:239:25: warning: '&&' within '||' [-Wlogical-op-parentheses]
+          if ( x != 'f' && x != 't' || inbrace ) strcat( newdims4d , xstr ) ;
+               ~~~~~~~~~^~~~~~~~~~~ ~~
+reg_parse.c:239:25: note: place parentheses around the '&&' expression to silence this warning
+          if ( x != 'f' && x != 't' || inbrace ) strcat( newdims4d , xstr ) ;
+                        ^
+               (                   )
+reg_parse.c:258:36: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+                sprintf(tracers[ntracers],tokens[F_USE]) ;
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+/usr/include/secure/_stdio.h:47:56: note: expanded from macro 'sprintf'
+  __builtin___sprintf_chk (str, 0, __darwin_obsz(str), __VA_ARGS__)
+                                                       ^~~~~~~~~~~
+reg_parse.c:258:36: note: treat the string as an argument to avoid this
+                sprintf(tracers[ntracers],tokens[F_USE]) ;
+                                          ^
+                                          "%s", 
+/usr/include/secure/_stdio.h:47:56: note: expanded from macro 'sprintf'
+  __builtin___sprintf_chk (str, 0, __darwin_obsz(str), __VA_ARGS__)
+                                                       ^
+reg_parse.c:511:61: warning: '&&' within '||' [-Wlogical-op-parentheses]
+                  if ( unitid >= 0  || unitid < MAX_STREAMS && stream + unitid < MAX_HISTORY ) {
+                                    ~~ ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+reg_parse.c:511:61: note: place parentheses around the '&&' expression to silence this warning
+                  if ( unitid >= 0  || unitid < MAX_STREAMS && stream + unitid < MAX_HISTORY ) {
+                                       ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+reg_parse.c:538:58: warning: '&&' within '||' [-Wlogical-op-parentheses]
+              if ( unitid >= 0  || unitid < MAX_STREAMS  && unitid < MAX_HISTORY ) {
+                                ~~ ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+reg_parse.c:538:58: note: place parentheses around the '&&' expression to silence this warning
+              if ( unitid >= 0  || unitid < MAX_STREAMS  && unitid < MAX_HISTORY ) {
+                                   ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+reg_parse.c:1043:14: warning: logical not is only applied to the left hand side of this bitwise operator [-Wlogical-not-parentheses]
+        if ( ! q->node_kind & RCONFIG )
+             ^              ~
+reg_parse.c:1043:14: note: add parentheses after the '!' to evaluate the bitwise operator first
+        if ( ! q->node_kind & RCONFIG )
+             ^
+               (                     )
+reg_parse.c:1043:14: note: add parentheses around left hand side expression to silence this warning
+        if ( ! q->node_kind & RCONFIG )
+             ^
+             (             )
+reg_parse.c:1068:12: warning: logical not is only applied to the left hand side of this bitwise operator [-Wlogical-not-parentheses]
+      if ( ! q->node_kind & RCONFIG )
+           ^              ~
+reg_parse.c:1068:12: note: add parentheses after the '!' to evaluate the bitwise operator first
+      if ( ! q->node_kind & RCONFIG )
+           ^
+             (                     )
+reg_parse.c:1068:12: note: add parentheses around left hand side expression to silence this warning
+      if ( ! q->node_kind & RCONFIG )
+           ^
+           (             )
+7 warnings generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  data.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  type.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  misc.c
+misc.c:434:32: warning: implicit declaration of function 'getpid' is invalid in C99 [-Wimplicit-function-declaration]
+  sprintf(tempfile,"regtmp1%d",getpid()) ;
+                               ^
+misc.c:467:35: warning: implicitly declaring library function 'toupper' with type 'int (int)' [-Wimplicit-function-declaration]
+  for ( p = str ; *p ; p++ ) *p = toupper(*p) ; 
+                                  ^
+misc.c:467:35: note: include the header <ctype.h> or explicitly provide a declaration for 'toupper'
+misc.c:477:35: warning: implicitly declaring library function 'tolower' with type 'int (int)' [-Wimplicit-function-declaration]
+  for ( p = str ; *p ; p++ ) *p = tolower(*p) ; 
+                                  ^
+misc.c:477:35: note: include the header <ctype.h> or explicitly provide a declaration for 'tolower'
+3 warnings generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_defs.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_allocs.c
+gen_allocs.c:111:5: warning: implicit declaration of function 'make_upper_case' is invalid in C99 [-Wimplicit-function-declaration]
+    make_upper_case(dname_tmp) ;
+    ^
+1 warning generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_mod_state_descr.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_scalar_indices.c
+gen_scalar_indices.c:209:19: warning: implicit declaration of function 'make_lower_case' is invalid in C99 [-Wimplicit-function-declaration]
+                  make_lower_case(fname2)  ;
+                  ^
+1 warning generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_args.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_config.c
+gen_config.c:135:3: warning: implicit declaration of function 'sym_forget' is invalid in C99 [-Wimplicit-function-declaration]
+  sym_forget() ;
+  ^
+gen_config.c:167:25: warning: implicitly declaring library function 'toupper' with type 'int (int)' [-Wimplicit-function-declaration]
+                  fputc(toupper(*i),fp); 
+                        ^
+gen_config.c:167:25: note: include the header <ctype.h> or explicitly provide a declaration for 'toupper'
+2 warnings generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  sym.c
+sym.c:73:5: warning: implicit declaration of function 'create_ht' is invalid in C99 [-Wimplicit-function-declaration]
+    create_ht( &symtab ) ;
+    ^
+sym.c:77:2: warning: implicitly declaring library function 'exit' with type 'void (int) __attribute__((noreturn))' [-Wimplicit-function-declaration]
+        exit(1) ;
+        ^
+sym.c:77:2: note: include the header <stdlib.h> or explicitly provide a declaration for 'exit'
+2 warnings generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  symtab_gen.c
+symtab_gen.c:62:13: warning: implicit declaration of function 'hash' is invalid in C99 [-Wimplicit-function-declaration]
+    index = hash( name ) ;
+            ^
+1 warning generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_model_data_ord.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_interp.c
+gen_interp.c:96:5: warning: implicit declaration of function 'gen_nest_interp2' is invalid in C99 [-Wimplicit-function-declaration]
+    gen_nest_interp2( fp, Domain.fields, NULL, down_path[ipath], (down_path[ipath]==FORCE_DOWN)?2:2 );
+    ^
+gen_interp.c:380:21: warning: logical not is only applied to the left hand side of this bitwise operator [-Wlogical-not-parentheses]
+               if ( ! p->node_kind & FOURD ) {
+                    ^              ~
+gen_interp.c:380:21: note: add parentheses after the '!' to evaluate the bitwise operator first
+               if ( ! p->node_kind & FOURD ) {
+                    ^
+                      (                   )
+gen_interp.c:380:21: note: add parentheses around left hand side expression to silence this warning
+               if ( ! p->node_kind & FOURD ) {
+                    ^
+                    (             )
+gen_interp.c:549:26: warning: expression result unused [-Wunused-value]
+                     ( ddim[1][1], "kde") ||
+                       ~~~~~~~ ~^
+gen_interp.c:550:23: warning: expression result unused [-Wunused-value]
+                         ( ddim[2][1], "kde")) {        
+                           ~~~~~~~ ~^
+4 warnings generated.
+/bin/cp gen_comms.stub gen_comms.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_comms.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_scalar_derefs.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  set_dim_strs.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_wrf_io.c
+gen_wrf_io.c:36:3: warning: implicit declaration of function 'sym_forget' is invalid in C99 [-Wimplicit-function-declaration]
+  OP_F(fp,"wrf_bdyout.inc") ;
+  ^
+gen_wrf_io.c:27:3: note: expanded from macro 'OP_F'
+  sym_forget() ;
+  ^
+gen_wrf_io.c:88:26: warning: logical not is only applied to the left hand side of this bitwise operator [-Wlogical-not-parentheses]
+    if ( p->ndims > 3 && ! p->node_kind & FOURD ) continue ; /* short circuit anything with more than 3 dims, (not counting 4d arrays) */
+                         ^              ~
+gen_wrf_io.c:88:26: note: add parentheses after the '!' to evaluate the bitwise operator first
+    if ( p->ndims > 3 && ! p->node_kind & FOURD ) continue ; /* short circuit anything with more than 3 dims, (not counting 4d arrays) */
+                         ^
+                           (                   )
+gen_wrf_io.c:88:26: note: add parentheses around left hand side expression to silence this warning
+    if ( p->ndims > 3 && ! p->node_kind & FOURD ) continue ; /* short circuit anything with more than 3 dims, (not counting 4d arrays) */
+                         ^
+                         (             )
+gen_wrf_io.c:272:25: warning: '&&' within '||' [-Wlogical-op-parentheses]
+      if (  p->boundary && strcmp( p->use, "_4d_bdy_array_" ) || ( p->boundary && fourdname ) )
+            ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~
+gen_wrf_io.c:272:25: note: place parentheses around the '&&' expression to silence this warning
+      if (  p->boundary && strcmp( p->use, "_4d_bdy_array_" ) || ( p->boundary && fourdname ) )
+                        ^
+            (                                                )
+gen_wrf_io.c:320:11: warning: implicit declaration of function 'make_upper_case' is invalid in C99 [-Wimplicit-function-declaration]
+          make_upper_case(dname) ;
+          ^
+4 warnings generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  gen_streams.c
+gen_streams.c:25:3: warning: implicit declaration of function 'gen_io_domain_defs' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_io_domain_defs( fp ) ;
+  ^
+gen_streams.c:33:3: warning: implicit declaration of function 'gen_set_timekeeping_defs' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_set_timekeeping_defs( fp ) ;
+  ^
+gen_streams.c:41:3: warning: implicit declaration of function 'gen_set_timekeeping_alarms' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_set_timekeeping_alarms( fp ) ;
+  ^
+gen_streams.c:49:3: warning: implicit declaration of function 'gen_io_form_for_dataset' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_io_form_for_dataset( fp ) ;
+  ^
+gen_streams.c:57:3: warning: implicit declaration of function 'gen_io_form_for_stream' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_io_form_for_stream( fp ) ;
+  ^
+gen_streams.c:65:3: warning: implicit declaration of function 'gen_switches_and_alarms' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_switches_and_alarms( fp ) ;
+  ^
+gen_streams.c:73:3: warning: implicit declaration of function 'gen_check_auxstream_alarms' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_check_auxstream_alarms( fp ) ;
+  ^
+gen_streams.c:81:3: warning: implicit declaration of function 'gen_fine_stream_input' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_fine_stream_input( fp ) ;
+  ^
+gen_streams.c:89:3: warning: implicit declaration of function 'gen_med_auxinput_in' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_med_auxinput_in( fp ) ;
+  ^
+gen_streams.c:97:3: warning: implicit declaration of function 'gen_med_hist_out_opens' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_med_hist_out_opens( fp ) ;
+  ^
+gen_streams.c:105:3: warning: implicit declaration of function 'gen_med_hist_out_closes' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_med_hist_out_closes( fp ) ;
+  ^
+gen_streams.c:113:3: warning: implicit declaration of function 'gen_med_auxinput_in_closes' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_med_auxinput_in_closes( fp ) ;
+  ^
+gen_streams.c:121:3: warning: implicit declaration of function 'gen_med_last_solve_io' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_med_last_solve_io( fp ) ;
+  ^
+gen_streams.c:129:3: warning: implicit declaration of function 'gen_med_open_esmf_calls' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_med_open_esmf_calls( fp ) ;
+  ^
+gen_streams.c:137:3: warning: implicit declaration of function 'gen_med_find_esmf_coupling' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_med_find_esmf_coupling( fp ) ;
+  ^
+gen_streams.c:145:3: warning: implicit declaration of function 'gen_shutdown_closes' is invalid in C99 [-Wimplicit-function-declaration]
+  gen_shutdown_closes( fp ) ;
+  ^
+gen_streams.c:528:1: warning: type specifier missing, defaults to 'int' [-Wimplicit-int]
+gen_med_open_esmf_calls ( FILE *fp )
+^
+gen_streams.c:558:1: warning: type specifier missing, defaults to 'int' [-Wimplicit-int]
+gen_med_find_esmf_coupling ( FILE *fp )
+^
+18 warnings generated.
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -DNMM_CORE=0  -c -g  standard.c
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -o standard.exe -g   standard.o
+clang -DIWORDSIZE=4 -DMAX_HISTORY=25 -o registry -g   registry.o my_strtok.o reg_parse.o data.o type.o misc.o gen_defs.o gen_allocs.o gen_mod_state_descr.o gen_scalar_indices.o gen_args.o gen_config.o sym.o symtab_gen.o gen_model_data_ord.o gen_interp.o gen_comms.o gen_scalar_derefs.o set_dim_strs.o gen_wrf_io.o gen_streams.o
+/bin/rm -f main/libwrflib.a main/libwrflib.lib
+make -i -r MODULE_DIRS="-I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include " framework
+--------------------------------------
+( cd frame ; make -i -r -j 2 framework; \
+          cd ../external/io_netcdf ; \
+          make -i -r NETCDFPATH="/usr/local/Cellar/netcdf/4.4.1.1_7" \
+               FC="time gfortran -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " RANLIB="ranlib" \
+               CPP="cpp -P -nostdinc -xassembler-with-cpp" LDFLAGS=" -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " TRADFLAG="-traditional-cpp" ESMF_IO_LIB_EXT="-L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time" \
+	       LIB_LOCAL="" \
+               ESMF_MOD_DEPENDENCE="/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90/module_utility.o" AR="INTERNAL_BUILD_ERROR_SHOULD_NOT_NEED_AR" diffwrf; \
+          cd ../io_netcdf ; \
+          make -i -r NETCDFPATH="/usr/local/Cellar/netcdf/4.4.1.1_7" \
+               FC="gfortran -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " RANLIB="ranlib" \
+               CPP="cpp -P -nostdinc -xassembler-with-cpp" LDFLAGS=" -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " TRADFLAG="-traditional-cpp" ESMF_IO_LIB_EXT="-L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time" \
+	       LIB_LOCAL="" \
+               ESMF_MOD_DEPENDENCE="/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90/module_utility.o" AR="INTERNAL_BUILD_ERROR_SHOULD_NOT_NEED_AR"; \
+          cd ../io_pio ; \
+          echo SKIPPING PIO BUILD make -i -r NETCDFPATH="" \
+               FC="gfortran -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " RANLIB="ranlib" \
+               CPP="cpp -P -nostdinc -xassembler-with-cpp" LDFLAGS=" -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " TRADFLAG="-traditional-cpp" ESMF_IO_LIB_EXT="-L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time" \
+	       LIB_LOCAL="" \
+               ESMF_MOD_DEPENDENCE="/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90/module_utility.o" AR="INTERNAL_BUILD_ERROR_SHOULD_NOT_NEED_AR"; \
+          cd ../io_int ; \
+          make -i -r SFC="gfortran -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow " \
+               FC="gfortran -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  " \
+               RANLIB="ranlib" CPP="cpp -P -nostdinc -xassembler-with-cpp -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM" DM_FC="mpif90 -f90=gfortran -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow "\
+               TRADFLAG="-traditional-cpp" ESMF_IO_LIB_EXT="-L/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90 -lesmf_time" \
+               ESMF_MOD_DEPENDENCE="/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90/module_utility.o" AR="INTERNAL_BUILD_ERROR_SHOULD_NOT_NEED_AR" diffwrf ; \
+          cd ../../frame )
+( cd .. ; tools/registry -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -DNEW_BDYS Registry/Registry ) ; 
+rm -f wrf_shutdown.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" wrf_shutdown.F > wrf_shutdown.G
+opening Registry/registry.dimspec
+including Registry/registry.dimspec
+opening Registry/registry.suews
+including Registry/registry.suews
+opening Registry/Registry.EM_COMMON
+including Registry/Registry.EM_COMMON
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  wrf_shutdown.G  > wrf_shutdown.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" wrf_shutdown.H > wrf_shutdown.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe wrf_shutdown.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > wrf_shutdown.f90
+rm -f wrf_shutdown.G wrf_shutdown.H wrf_shutdown.bb
+time gfortran -o wrf_shutdown.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    wrf_shutdown.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.10 real         0.04 user         0.03 sys
+rm -f clog.o
+clang -DFSEEKO_OK -o clog.o -c -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0 clog.c
+opening Registry/registry.io_boilerplate
+including Registry/registry.io_boilerplate
+opening Registry/io_boilerplate_temporary.inc
+including Registry/io_boilerplate_temporary.inc
+rm -f hires_timer.o
+clang -DFSEEKO_OK -o hires_timer.o -c -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0 hires_timer.c
+opening Registry/registry.fire
+including Registry/registry.fire
+rm -f ../share/module_model_constants.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" ../share/module_model_constants.F > ../share/module_model_constants.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  ../share/module_model_constants.G  > ../share/module_model_constants.H
+opening Registry/registry.avgflx
+including Registry/registry.avgflx
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" ../share/module_model_constants.H > ../share/module_model_constants.bb
+opening Registry/registry.stoch
+including Registry/registry.stoch
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe ../share/module_model_constants.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > ../share/module_model_constants.f90
+opening Registry/registry.les
+including Registry/registry.les
+opening Registry/registry.cam
+including Registry/registry.cam
+opening Registry/registry.clm
+including Registry/registry.clm
+opening Registry/registry.ssib
+including Registry/registry.ssib
+opening Registry/registry.lake
+including Registry/registry.lake
+opening Registry/registry.diags
+including Registry/registry.diags
+rm -f ../share/module_model_constants.G ../share/module_model_constants.H ../share/module_model_constants.bb
+opening Registry/registry.afwa
+including Registry/registry.afwa
+time gfortran -o ../share/module_model_constants.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    ../share/module_model_constants.f90
+opening Registry/registry.rasm_diag
+including Registry/registry.rasm_diag
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+opening Registry/registry.sbm
+including Registry/registry.sbm
+        0.11 real         0.04 user         0.03 sys
+if [ "m4 -B 14000" = NA ] ; then \
+	  /bin/cp ../arch/md_calls.inc . ; \
+	else \
+	  m4 -B 14000 md_calls.m4 > md_calls.inc ; \
+	fi
+opening Registry/registry.elec
+including Registry/registry.elec
+opening Registry/registry.bdy_perturb
+including Registry/registry.bdy_perturb
+opening Registry/registry.hyb_coord
+including Registry/registry.hyb_coord
+opening Registry/registry.new3d_wif
+including Registry/registry.new3d_wif
+Registry warning: some problem with dimstring ij{vegsurf}
+cpp -P -nostdinc -xassembler-with-cpp -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp -I../inc module_internal_header_util.F > module_internal_header_util.f90
+Registry warning: some problem with dimstring ij{vegsurf}
+Registry warning: some problem with dimstring ij{vegsurf}
+gfortran -c   -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  module_internal_header_util.f90
+clang -DFSEEKO_OK -c -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0 wrf_num_bytes_between.c
+rm -f libmassv.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" libmassv.F > libmassv.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  libmassv.G  > libmassv.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" libmassv.H > libmassv.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe libmassv.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > libmassv.f90
+rm -f libmassv.G libmassv.H libmassv.bb
+time gfortran -o libmassv.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    libmassv.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        1.73 real         0.79 user         0.06 sys
+rm -f collect_on_comm.o
+clang -DFSEEKO_OK -o collect_on_comm.o -c -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0 collect_on_comm.c
+clang -DFSEEKO_OK -c -w -O3 -c  -DMACOS -DMAX_HISTORY=25 -DNMM_CORE=0 -DIWORDSIZE=4 pack_utils.c
+rm -f module_wrf_error.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_wrf_error.F > module_wrf_error.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_wrf_error.G  > module_wrf_error.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_wrf_error.H > module_wrf_error.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_wrf_error.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_wrf_error.f90
+rm -f module_wrf_error.G module_wrf_error.H module_wrf_error.bb
+time gfortran -o module_wrf_error.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    module_wrf_error.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.35 real         0.15 user         0.04 sys
+rm -f module_sm.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_sm.F > module_sm.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_sm.G  > module_sm.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_sm.H > module_sm.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_sm.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_sm.f90
+rm -f module_sm.G module_sm.H module_sm.bb
+time gfortran -o module_sm.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    module_sm.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.10 real         0.03 user         0.02 sys
+rm -f wrf_debug.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" wrf_debug.F > wrf_debug.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  wrf_debug.G  > wrf_debug.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" wrf_debug.H > wrf_debug.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe wrf_debug.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > wrf_debug.f90
+rm -f wrf_debug.G wrf_debug.H wrf_debug.bb
+time gfortran -o wrf_debug.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    wrf_debug.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.14 real         0.07 user         0.03 sys
+Registry INFO variable counts: 0d 2276 1d 125 2d 1076 3d 846
+REGISTRY WARNING: aerod(grid%sm31,grid%sm32,grid%sm33,itrace): aerod_b is not a variable or number; ignoring it
+REGISTRY WARNING: aerod(grid%sm31,grid%sm32,grid%sm33,itrace): aerod_bt is not a variable or number; ignoring it
+REGISTRY WARNING: om_tmp: om_tmp_b is not a variable or number; ignoring it
+REGISTRY WARNING: om_tmp: om_tmp_bt is not a variable or number; ignoring it
+REGISTRY WARNING: om_s: om_s_b is not a variable or number; ignoring it
+REGISTRY WARNING: om_s: om_s_bt is not a variable or number; ignoring it
+REGISTRY WARNING: om_u: om_u_b is not a variable or number; ignoring it
+REGISTRY WARNING: om_u: om_u_bt is not a variable or number; ignoring it
+REGISTRY WARNING: om_v: om_v_b is not a variable or number; ignoring it
+REGISTRY WARNING: om_v: om_v_bt is not a variable or number; ignoring it
+REGISTRY WARNING: om_ml: om_ml_b is not a variable or number; ignoring it
+REGISTRY WARNING: om_ml: om_ml_bt is not a variable or number; ignoring it
+REGISTRY WARNING: field_sf: field_sf_b is not a variable or number; ignoring it
+REGISTRY WARNING: field_sf: field_sf_bt is not a variable or number; ignoring it
+REGISTRY WARNING: field_pbl: field_pbl_b is not a variable or number; ignoring it
+REGISTRY WARNING: field_pbl: field_pbl_bt is not a variable or number; ignoring it
+REGISTRY WARNING: field_conv: field_conv_b is not a variable or number; ignoring it
+REGISTRY WARNING: field_conv: field_conv_bt is not a variable or number; ignoring it
+REGISTRY WARNING: ru_tendf_stoch: ru_tendf_stoch_b is not a variable or number; ignoring it
+REGISTRY WARNING: ru_tendf_stoch: ru_tendf_stoch_bt is not a variable or number; ignoring it
+REGISTRY WARNING: rv_tendf_stoch: rv_tendf_stoch_b is not a variable or number; ignoring it
+REGISTRY WARNING: rv_tendf_stoch: rv_tendf_stoch_bt is not a variable or number; ignoring it
+REGISTRY WARNING: rt_tendf_stoch: rt_tendf_stoch_b is not a variable or number; ignoring it
+REGISTRY WARNING: rt_tendf_stoch: rt_tendf_stoch_bt is not a variable or number; ignoring it
+REGISTRY WARNING: rand_pert: rand_pert_b is not a variable or number; ignoring it
+REGISTRY WARNING: rand_pert: rand_pert_bt is not a variable or number; ignoring it
+REGISTRY WARNING: pattern_spp_conv: pattern_spp_conv_b is not a variable or number; ignoring it
+REGISTRY WARNING: pattern_spp_conv: pattern_spp_conv_bt is not a variable or number; ignoring it
+REGISTRY WARNING: pattern_spp_pbl: pattern_spp_pbl_b is not a variable or number; ignoring it
+REGISTRY WARNING: pattern_spp_pbl: pattern_spp_pbl_bt is not a variable or number; ignoring it
+REGISTRY WARNING: pattern_spp_lsm: pattern_spp_lsm_b is not a variable or number; ignoring it
+REGISTRY WARNING: pattern_spp_lsm: pattern_spp_lsm_bt is not a variable or number; ignoring it
+REGISTRY WARNING: rstoch: rstoch_b is not a variable or number; ignoring it
+REGISTRY WARNING: rstoch: rstoch_bt is not a variable or number; ignoring it
+REGISTRY WARNING: field_u_tend_perturb: field_u_tend_perturb_b is not a variable or number; ignoring it
+REGISTRY WARNING: field_u_tend_perturb: field_u_tend_perturb_bt is not a variable or number; ignoring it
+REGISTRY WARNING: field_v_tend_perturb: field_v_tend_perturb_b is not a variable or number; ignoring it
+REGISTRY WARNING: field_v_tend_perturb: field_v_tend_perturb_bt is not a variable or number; ignoring it
+REGISTRY WARNING: field_t_tend_perturb: field_t_tend_perturb_b is not a variable or number; ignoring it
+REGISTRY WARNING: field_t_tend_perturb: field_t_tend_perturb_bt is not a variable or number; ignoring it
+rm -f module_state_description.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_state_description.F  > module_state_description.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_state_description.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_state_description.f90
+rm -f module_state_description.b module_state_description.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_state_description.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.26 real         0.16 user         0.03 sys
+rm -f module_driver_constants.o
+rm -f module_streams.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_driver_constants.F > module_driver_constants.G
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_streams.F > module_streams.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_streams.G  > module_streams.H
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_driver_constants.G  > module_driver_constants.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_driver_constants.H > module_driver_constants.bb
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_streams.H > module_streams.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_driver_constants.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_driver_constants.f90
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_streams.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_streams.f90
+rm -f module_streams.G module_streams.H module_streams.bb
+rm -f module_driver_constants.G module_driver_constants.H module_driver_constants.bb
+time gfortran -o module_streams.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    module_streams.f90
+time gfortran -o module_driver_constants.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    module_driver_constants.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.10 real         0.04 user         0.03 sys
+rm -f module_timing.o
+        0.10 real         0.04 user         0.02 sys
+rm -f module_domain_type.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_timing.F > module_timing.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_domain_type.F  > module_domain_type.bb
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_timing.G  > module_timing.H
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_domain_type.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_domain_type.f90
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_timing.H > module_timing.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_timing.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_timing.f90
+rm -f module_timing.G module_timing.H module_timing.bb
+rm -f module_domain_type.b module_domain_type.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_domain_type.f90
+time gfortran -o module_timing.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    module_timing.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.14 real         0.07 user         0.03 sys
+rm -f module_machine.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_machine.F > module_machine.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_machine.G  > module_machine.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_machine.H > module_machine.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_machine.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_machine.f90
+rm -f module_machine.G module_machine.H module_machine.bb
+time gfortran -o module_machine.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    module_machine.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.26 real         0.16 user         0.03 sys
+rm -f module_quilt_outbuf_ops.o
+sed -e "s/grid%mu/gridmu/g" -e "s/grid%Mu/gridMu/g" -e "s/^\!.*'.*//" -e "s/^ *\!.*'.*//" module_quilt_outbuf_ops.F > module_quilt_outbuf_ops.G
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_quilt_outbuf_ops.G  > module_quilt_outbuf_ops.H
+sed -e "s/gridmu/grid%mu/g" -e "s/gridMu/grid%Mu/g" module_quilt_outbuf_ops.H > module_quilt_outbuf_ops.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_quilt_outbuf_ops.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_quilt_outbuf_ops.f90
+rm -f module_quilt_outbuf_ops.G module_quilt_outbuf_ops.H module_quilt_outbuf_ops.bb
+time gfortran -o module_quilt_outbuf_ops.o -c -O2 -ftree-vectorize -funroll-loops -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow   -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include    module_quilt_outbuf_ops.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        1.39 real         0.59 user         0.05 sys
+rm -f module_configure.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_configure.F  > module_configure.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_configure.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_configure.f90
+rm -f module_configure.b module_configure.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_configure.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        7.74 real         3.10 user         0.11 sys
+       39.44 real        27.35 user         1.89 sys
+rm -f module_alloc_space_0.o
+rm -f module_alloc_space_1.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_0.F  > module_alloc_space_0.bb
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_1.F  > module_alloc_space_1.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_0.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_0.f90
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_1.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_1.f90
+rm -f module_alloc_space_0.b module_alloc_space_0.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_0.f90
+rm -f module_alloc_space_1.b module_alloc_space_1.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_1.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       23.22 real        18.36 user         1.49 sys
+rm -f module_alloc_space_2.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_2.F  > module_alloc_space_2.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_2.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_2.f90
+rm -f module_alloc_space_2.b module_alloc_space_2.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_2.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       23.92 real        19.10 user         1.23 sys
+rm -f module_alloc_space_3.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_3.F  > module_alloc_space_3.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_3.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_3.f90
+rm -f module_alloc_space_3.b module_alloc_space_3.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_3.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        3.33 real         2.29 user         0.16 sys
+rm -f module_alloc_space_4.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_4.F  > module_alloc_space_4.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_4.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_4.f90
+rm -f module_alloc_space_4.b module_alloc_space_4.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_4.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.86 real         0.62 user         0.06 sys
+rm -f module_alloc_space_5.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_5.F  > module_alloc_space_5.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_5.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_5.f90
+rm -f module_alloc_space_5.b module_alloc_space_5.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_5.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.91 real         0.63 user         0.06 sys
+rm -f module_alloc_space_6.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_6.F  > module_alloc_space_6.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_6.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_6.f90
+rm -f module_alloc_space_6.b module_alloc_space_6.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_6.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       14.49 real        10.97 user         0.68 sys
+rm -f module_alloc_space_7.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_7.F  > module_alloc_space_7.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_7.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_7.f90
+rm -f module_alloc_space_7.b module_alloc_space_7.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_7.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        9.75 real         8.17 user         0.51 sys
+rm -f module_alloc_space_8.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_8.F  > module_alloc_space_8.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_8.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_8.f90
+rm -f module_alloc_space_8.b module_alloc_space_8.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_8.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.94 real         0.53 user         0.06 sys
+rm -f module_alloc_space_9.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_alloc_space_9.F  > module_alloc_space_9.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_alloc_space_9.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_alloc_space_9.f90
+rm -f module_alloc_space_9.b module_alloc_space_9.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_alloc_space_9.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+        0.90 real         0.53 user         0.06 sys
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=0 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy0.f90
+time gfortran -o nl_get_0_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy0.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       11.29 real         9.04 user         0.69 sys
+rm -f yy0.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=1 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy1.f90
+time gfortran -o nl_get_1_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy1.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       21.57 real        16.59 user         0.97 sys
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=2 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy2.f90
+time gfortran -o nl_get_2_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy2.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       12.28 real         9.17 user         0.69 sys
+rm -f yy1.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=3 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy3.f90
+time gfortran -o nl_get_3_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy3.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       12.49 real         9.28 user         0.81 sys
+rm -f yy2.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=4 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy4.f90
+time gfortran -o nl_get_4_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy4.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       11.65 real         9.33 user         0.65 sys
+rm -f yy3.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=5 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy5.f90
+time gfortran -o nl_get_5_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy5.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       14.02 real         9.34 user         0.66 sys
+rm -f yy4.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=6 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy6.f90
+time gfortran -o nl_get_6_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy6.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       16.28 real         9.97 user         0.81 sys
+rm -f yy5.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=7 -I../inc -DNL_get_ROUTINES nl_access_routines.F > yy7.f90
+time gfortran -o nl_get_7_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   yy7.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       14.32 real        10.36 user         0.93 sys
+rm -f yy6.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=0 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx0.f90
+time gfortran -o nl_set_0_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx0.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       14.75 real        10.30 user         0.92 sys
+rm -f yy7.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=1 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx1.f90
+time gfortran -o nl_set_1_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx1.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       17.34 real        10.45 user         0.98 sys
+rm -f xx0.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=2 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx2.f90
+time gfortran -o nl_set_2_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx2.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       17.86 real        10.70 user         1.11 sys
+rm -f xx1.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=3 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx3.f90
+time gfortran -o nl_set_3_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx3.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       16.06 real        10.76 user         1.03 sys
+rm -f xx2.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=4 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx4.f90
+time gfortran -o nl_set_4_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx4.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       15.15 real        10.84 user         1.02 sys
+rm -f xx3.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=5 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx5.f90
+time gfortran -o nl_set_5_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx5.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       15.20 real        10.76 user         0.99 sys
+rm -f xx4.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=6 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx6.f90
+time gfortran -o nl_set_6_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx6.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       14.86 real        10.74 user         1.03 sys
+rm -f xx5.f90
+cpp -P -nostdinc -xassembler-with-cpp -DNNN=7 -I../inc -DNL_set_ROUTINES nl_access_routines.F > xx7.f90
+time gfortran -o nl_set_7_routines.o -c  -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include   xx7.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
+       15.95 real        10.72 user         0.98 sys
+rm -f xx6.f90
+rm -f module_domain.o
+cpp -P -nostdinc -xassembler-with-cpp -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNONSTANDARD_SYSTEM_SUBR -DMACOS -DWRF_USE_CLM  -DNETCDF -DUSE_ALLOCATABLES -DGRIB1 -DINTIO -DKEEP_INT_AROUND -DLIMIT_ARGS -DCONFIG_BUF_LEN=65536 -DMAX_DOMAINS_F=21 -DMAX_HISTORY=25 -DNMM_NEST=0  -I. -traditional-cpp  module_domain.F  > module_domain.bb
+/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/tools/standard.exe module_domain.bb | cpp -P -nostdinc -xassembler-with-cpp -traditional-cpp > module_domain.f90
+rm -f module_domain.b module_domain.bb
+time gfortran -c   -O0 -w -ffree-form -ffree-line-length-none -fconvert=big-endian -frecord-marker=4 -cpp -fbacktrace -ggdb -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow  -I../dyn_em -I../dyn_nmm   -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/esmf_time_f90  -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/main -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_netcdf -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/external/io_int -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/frame -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/share -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/phys/SUEWS -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem -I/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/inc -I/usr/local/Cellar/netcdf/4.4.1.1_7/include  module_domain.f90
+f951: Warning: Nonexistent include directory '/Users/sunt05/Documents/WRF-SUEWS/WRFV3-SUEWS-coupled/chem' [-Wmissing-include-dirs]
