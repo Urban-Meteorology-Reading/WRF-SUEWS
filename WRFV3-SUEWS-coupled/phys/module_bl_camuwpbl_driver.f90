@@ -1,4 +1,3 @@
-
 MODULE module_bl_camuwpbl_driver
 
   
@@ -115,9 +114,7 @@ MODULE module_bl_camuwpbl_driver
  
   integer              :: ixcldice, ixcldliq           
   integer              :: ixnumice, ixnumliq
-
   integer              :: ixndrop
-
   integer              :: wgustd_index   
 CONTAINS
   
@@ -150,9 +147,7 @@ CONTAINS
     use molec_diff,            only : compute_molec_diff, vd_lu_qdecomp
     use constituents,          only : qmincg, qmin
     use diffusion_solver 
-
     use modal_aero_data
-
     
     implicit none   
     
@@ -329,10 +324,8 @@ CONTAINS
 
     real(r8) :: cflx(pcols,pcnst)                            
     
-
     real(r8) :: tmp1(pcols)                                         
     integer  :: l, lspec
-
     
     
     
@@ -352,7 +345,7 @@ CONTAINS
 
     
     if(ncol .NE. 1) then
-       call wrf_error_fatal3("<stdin>",355,&
+       call wrf_error_fatal3("<stdin>",348,&
 'Number of CAM Columns (NCOL) in CAMUWPBL scheme must be 1')
     endif
 
@@ -599,14 +592,14 @@ CONTAINS
           end if
 
           if( errstring .ne. '' ) then
-             call wrf_error_fatal3("<stdin>",602,&
+             call wrf_error_fatal3("<stdin>",595,&
 errstring)
           endif
           
           if( any( fieldlist_dry ) ) then
              if( do_molec_diff ) then
                 errstring = "Design flaw: dry vdiff not currently supported with molecular diffusion"
-                call wrf_error_fatal3("<stdin>",609,&
+                call wrf_error_fatal3("<stdin>",602,&
 errstring)
              end if
              
@@ -616,7 +609,7 @@ errstring)
                   tautmsy, dtk, topflx, errstring, tauresx, tauresy, 1, do_molec_diff,                  &
                   compute_molec_diff, vd_lu_qdecomp)
 
-             if( errstring .ne. '' ) call wrf_error_fatal3("<stdin>",619,&
+             if( errstring .ne. '' ) call wrf_error_fatal3("<stdin>",612,&
 errstring)
 
           end if
@@ -625,7 +618,6 @@ errstring)
           tauresx2d(i,j) = tauresx(ncol)
           tauresy2d(i,j) = tauresy(ncol)
 
-
           
           
           
@@ -642,7 +634,6 @@ errstring)
           
           
           
-
           
           
           
@@ -874,9 +865,7 @@ errstring)
     use constituents,           only : cnst_get_ind, cnst_get_type_byind, cnst_name
     use module_cam_support,     only : masterproc
     use module_model_constants, only : epsq2
-
     use modal_aero_data
-
     
     implicit none
 
@@ -902,9 +891,7 @@ errstring)
     integer        :: nbot_molec        
     character(128) :: errstring         
     real(r8)       :: hypm(kte)         
-
     integer        :: m, l
-
 
     
     jtf   = min(jte,jde-1)
@@ -965,7 +952,7 @@ errstring)
        if( shallow_scheme .ne. 'UW' ) then
           write(iulog,*) 'ERROR: shallow convection scheme ', shallow_scheme,' is incompatible with eddy scheme ', eddy_scheme
           call wrf_message(iulog)
-          call wrf_error_fatal3("<stdin>",968,&
+          call wrf_error_fatal3("<stdin>",955,&
 'convect_shallow_init: shallow_scheme and eddy_scheme are incompatible' )
        endif
        
@@ -1003,7 +990,7 @@ errstring)
     
     
     call init_vdiff( r8, pcnst, rair, gravit, fieldlist_wet, fieldlist_dry, errstring )
-    if( errstring .ne. '' ) call wrf_error_fatal3("<stdin>",1006,&
+    if( errstring .ne. '' ) call wrf_error_fatal3("<stdin>",993,&
 errstring )
     
     
@@ -1011,21 +998,18 @@ errstring )
     
     
     
-    if( vdiff_select( fieldlist_wet, 'u' ) .ne. '' ) call wrf_error_fatal3("<stdin>",1014,&
+    if( vdiff_select( fieldlist_wet, 'u' ) .ne. '' ) call wrf_error_fatal3("<stdin>",1001,&
 vdiff_select( fieldlist_wet, 'u' ) )
-    if( vdiff_select( fieldlist_wet, 'v' ) .ne. '' ) call wrf_error_fatal3("<stdin>",1016,&
+    if( vdiff_select( fieldlist_wet, 'v' ) .ne. '' ) call wrf_error_fatal3("<stdin>",1003,&
 vdiff_select( fieldlist_wet, 'v' ) )
-    if( vdiff_select( fieldlist_wet, 's' ) .ne. '' ) call wrf_error_fatal3("<stdin>",1018,&
+    if( vdiff_select( fieldlist_wet, 's' ) .ne. '' ) call wrf_error_fatal3("<stdin>",1005,&
 vdiff_select( fieldlist_wet, 's' ) )
-
 
     
     call cnst_get_ind( 'NUMLIQ', ixndrop )
 
-
     do k = 1, pcnst
        
-
        
 
        
@@ -1052,10 +1036,9 @@ vdiff_select( fieldlist_wet, 's' ) )
        
           
        
-
        
        if( cnst_get_type_byind(k) .eq. 'wet' ) then
-          if( vdiff_select( fieldlist_wet, 'q', k ) .ne. '' ) call wrf_error_fatal3("<stdin>",1058,&
+          if( vdiff_select( fieldlist_wet, 'q', k ) .ne. '' ) call wrf_error_fatal3("<stdin>",1041,&
 vdiff_select( fieldlist_wet, 'q', k ) )
        else
 
@@ -1104,6 +1087,4 @@ vdiff_select( fieldlist_wet, 'q', k ) )
   end subroutine vd_register
   
 end module module_bl_camuwpbl_driver
-
-
 

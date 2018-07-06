@@ -42,13 +42,8 @@ CONTAINS
       REAL, PARAMETER      :: tconst = 0.6
       REAL  :: julian, yrday, tprior, deltat
 
-
-
-
-
       yrday=365.      
       if(mod(yr,4).eq.0) yrday=366.
-
 
 
     !$OMP PARALLEL DO   &
@@ -122,5 +117,3 @@ CONTAINS
 
 
 END MODULE module_sf_tmnupdate
-
-

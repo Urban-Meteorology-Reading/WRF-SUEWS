@@ -154,7 +154,6 @@ mess)
     CALL debug_io_wrf ( debug_message,DateStr,                          &
                         domain_start,domain_end,patch_start,patch_end,  &
                         memory_start,memory_end                          )
-
     Status = 0
 
     CALL wrf_write_field (   &
@@ -202,7 +201,6 @@ mess)
                       ,Var                        &  
                       ,Stagger                    &  
                       ,Status )
-
 
 
 
@@ -281,7 +279,6 @@ mess)
                           ,Status )
         ENDIF
       ENDIF
-
     ENDIF
 
     IF ( wrf_at_debug_level(300) ) THEN
@@ -294,5 +291,3 @@ mess)
     ENDIF
 
   END SUBROUTINE wrf_ext_write_field
-
-

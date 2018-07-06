@@ -7,24 +7,14 @@ MODULE module_timing
    INTEGER, PRIVATE :: cn = 0 
    REAL, PRIVATE    :: elapsed_seconds , elapsed_seconds_total = 0
 
-
-
-
-
-
    REAL(kind=8) :: epoch_seconds_hires(cnmax)
-
 
 CONTAINS
 
    SUBROUTINE init_module_timing
-
-
-
       
       
       call init_hires_timer()
-
       cn = 0
    END SUBROUTINE init_module_timing
 
@@ -37,17 +27,12 @@ CONTAINS
       if(silence/=0) return
       cn = cn + 1
       IF ( cn .gt. cnmax ) THEN
-        CALL wrf_error_fatal3("<stdin>",40,&
+        CALL wrf_error_fatal3("<stdin>",30,&
 'module_timing: clock nesting error (too many nests)' )
         RETURN
       ENDIF
 
-
-
-
-
       call hires_timer(epoch_seconds_hires(cn))
-
 
    END SUBROUTINE start_timing
 
@@ -63,18 +48,16 @@ CONTAINS
       if(silence/=0) return
 
       IF ( cn .lt. 1 ) THEN
-        CALL wrf_error_fatal3("<stdin>",66,&
+        CALL wrf_error_fatal3("<stdin>",51,&
 'module_timing: clock nesting error, cn<1' ) 
       ELSE IF ( cn .gt. cnmax ) THEN
-        CALL wrf_error_fatal3("<stdin>",69,&
+        CALL wrf_error_fatal3("<stdin>",54,&
 'module_timing: clock nesting error, cn>cnmax' ) 
       ENDIF
-
 
       call hires_timer(now_hires)
       
       elapsed_seconds = REAL(now_hires-epoch_seconds_hires(cn))
-
       elapsed_seconds_total = elapsed_seconds_total + elapsed_seconds
 
 3031 format("Timing for ",A,": ",F10.5," elapsed seconds")
@@ -102,16 +85,8 @@ CONTAINS
      
      implicit none
      real*8 :: timef
-
-
-
-
-
      call hires_timer(timef)
-
    END FUNCTION now_time
 
 END MODULE module_timing
-
-
 

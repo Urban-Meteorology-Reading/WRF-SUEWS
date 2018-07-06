@@ -233,15 +233,7 @@ CONTAINS
       if(present(shalconv)) then
          shalconv_use=shalconv
       else
-
-
-
-
          shalconv_use=1
-
-
-
-
       endif
 
       if(present(pgcon)) then
@@ -363,7 +355,6 @@ CONTAINS
       ENDDO
 
 
-
       DO i=its,ite
         PRSI(i,kts)=PS(i)
       ENDDO
@@ -414,15 +405,10 @@ CONTAINS
 
 
       if_shallow_conv: if(shalconv_use==1) then
-
         
 
         
         CALL OLD_ARW_SHALCV(IM,IM,KX,DELT,DEL,PRSI,PRSL,PRSLK,KCNV,Q1,T1,DPSHC)
-
-
-
-
      endif if_shallow_conv
 
         DO I=ITS,ITE
@@ -438,7 +424,6 @@ CONTAINS
           RQVCUTEN(I,K,J)=(Q1(I,K)/(1.-q1(i,k))-QV3D(I,K,J))*RDELT
         ENDDO
       ENDDO
-
 
 
 
@@ -501,13 +486,7 @@ CONTAINS
    ktf=min0(kte,kde-1)
    itf=min0(ite,ide-1)
 
-
-
-
-
-
    IF(.not.restart)THEN
-
      DO j=jts,jtf
      DO k=kts,ktf
      DO i=its,itf
@@ -711,14 +690,12 @@ CONTAINS
          evfact = 0.6
          evfactl = .6
 
-
       ALPHAl  = .5
       ALPHAs  = .75
       BETAl   = .05
       betas   = .05
       evfact  = 0.5
       evfactl = 0.5
-
       PDPDWN  = 0.
       PDETRN  = 200.
       xlambu  = 1.e-4
@@ -2695,7 +2672,6 @@ CONTAINS
 
 
 
-
       km1 = km - 1
 
 
@@ -2760,12 +2736,10 @@ CONTAINS
       evfact  = 0.3
       evfactl = 0.3
 
-
       BETAl   = .05
       betas   = .05
       evfact  = 0.5
       evfactl = 0.5
-
 
       cxlamu  = 1.0e-4
       xlamde  = 1.0e-4
@@ -3018,14 +2992,6 @@ CONTAINS
           tem1= .5*(cincrmax-cincrmin)
           cincr = cincrmax - tem * tem1
           pbcdif(i) = pfld(i,kb(i)) - pfld(i,kbcon(i))
-
-
-
-
-
-
-
-
           if(pbcdif(i).gt.cincr) then
              cnvflg(i) = .false.
           endif
@@ -5561,5 +5527,3 @@ CONTAINS
       endif
       return
       END FUNCTION gasdev
-
-

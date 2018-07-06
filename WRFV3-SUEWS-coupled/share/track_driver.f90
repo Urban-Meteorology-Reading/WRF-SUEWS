@@ -17,7 +17,6 @@ SUBROUTINE track_driver( grid )
 
    
    TYPE (domain), INTENT(INOUT) :: grid
-
    LOGICAL, EXTERNAL :: wrf_dm_on_monitor
 
    
@@ -38,9 +37,7 @@ SUBROUTINE track_driver( grid )
    
    IF ( grid%track_loc_domain <= 0 ) RETURN     
 
-
    IF ( grid%dfi_opt /= DFI_NODFI .AND. grid%dfi_stage /= DFI_FST ) RETURN
-
 
 
 
@@ -66,17 +63,11 @@ SUBROUTINE track_driver( grid )
    level      = grid%em32-grid%sm32
    level_stag = grid%em32-grid%sm32+1
 
-
-
-
-
-
    ix = grid%track_i(n)
    iy = grid%track_j(n)
   
       IF (grid%sp31 <= ix .AND. ix <= grid%ep31 .AND. &
           grid%sp33 <= iy .AND. iy <= grid%ep33) THEN
-
 
 
 
@@ -108,7 +99,6 @@ SUBROUTINE track_driver( grid )
 
        
       ELSE
-
 
 
 
@@ -151,7 +141,6 @@ SUBROUTINE track_driver( grid )
    grid%track_next_time = grid%track_next_time + 1
 
 
-
 END SUBROUTINE track_driver
 
 
@@ -166,7 +155,6 @@ SUBROUTINE write_track( grid )
    
 
    TYPE (domain), INTENT(INOUT) :: grid
-
    LOGICAL, EXTERNAL :: wrf_dm_on_monitor
    INTEGER, EXTERNAL :: get_unused_unit
 
@@ -204,35 +192,15 @@ SUBROUTINE write_track( grid )
 
 
 
-
-
-
-
-
-
-
 include 'netcdf.inc'
-
-
-
-
-
 
 
    IF ( grid%track_loc_domain .LE. 0 ) RETURN
 
-
    IF ( grid%dfi_opt /= DFI_NODFI .AND. grid%dfi_stage /= DFI_FST ) RETURN
-
 
    level      = grid%em32 - grid%sm32
    level_stag = grid%em32 - grid%sm32 + 1  
-
-
-
-
-
-
 
 
    IF ( wrf_dm_on_monitor() ) THEN
@@ -267,18 +235,10 @@ include 'netcdf.inc'
 
 
 
-
-
-
-
-
-
-
       var_dim(1) = Times_dim
       var_dim(2) = time_dim
 
       astat = NF_DEF_VAR(ncid,'Times', NF_CHAR, 2, var_dim(1:2), var_id)
-
 
 
 
@@ -405,7 +365,6 @@ include 'netcdf.inc'
 
 
 
-
       var_dim(1) = level_stag_dim
       var_dim(2) = time_dim
       description = 'z-wind component'
@@ -431,7 +390,6 @@ include 'netcdf.inc'
          astat = NF_PUT_VARA_TEXT(ncid,var_id,start,count,grid%track_time_domain(m))
       end do
       write (*,*) 'var_id,grid%track_time_domain = ', var_id,grid%track_time_domain
-
 
 
 
@@ -551,7 +509,6 @@ include 'netcdf.inc'
 
 
 
-
       start(1) = 1
       start(2) = 1
       count(1) = level_stag
@@ -571,7 +528,6 @@ include 'netcdf.inc'
 
    grid%track_next_time = 1
 
-
 END SUBROUTINE write_track
 
 SUBROUTINE calc_track_locations( grid )
@@ -585,7 +541,6 @@ SUBROUTINE calc_track_locations( grid )
 
    
    TYPE (domain), INTENT(INOUT) :: grid
-
    
    LOGICAL, EXTERNAL :: wrf_dm_on_monitor
 
@@ -610,9 +565,7 @@ SUBROUTINE calc_track_locations( grid )
      RETURN
    ENDIF
 
-
    IF ( grid%dfi_stage == DFI_FST ) THEN
-
      CALL get_ijk_from_grid ( grid ,                               &
                               ids, ide, jds, jde, kds, kde,        &
                               ims, ime, jms, jme, kms, kme,        &
@@ -759,23 +712,12 @@ SUBROUTINE calc_track_locations( grid )
          grid%track_ele(k) = grid%ht(grid%track_i(k),grid%track_j(k))
        ENDIF
 
-
-
-
-
-
-
-
      END DO
 
      write(message,*) 'calc_track_locations: valid track locations in the model domain ', grid%track_loc_domain
      call wrf_message( trim(message) )
    
     ENDIF
-
    ENDIF
 
-
-
 END SUBROUTINE calc_track_locations
-

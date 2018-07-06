@@ -69,7 +69,6 @@ CONTAINS
                  its, ite, jts, jte, kts, kte
 
       
-
       ids = grid%sd31 ; ide = grid%ed31 ;
       kds = grid%sd32 ; kde = grid%ed32 ;
       jds = grid%sd33 ; jde = grid%ed33 ;
@@ -81,7 +80,6 @@ CONTAINS
       its = grid%sp31 ; ite = grid%ep31 ;   
       kts = grid%sp32 ; kte = grid%ep32 ;   
       jts = grid%sp33 ; jte = grid%ep33 ;   
-
       IF ( .NOT. already_been_here ) THEN
 
          num_st_levels_alloc = config_flags%num_soil_layers * 3 
@@ -101,7 +99,6 @@ CONTAINS
       already_been_here = .TRUE.
 
    END SUBROUTINE init_module_optional_input
-
 
 
 
@@ -125,7 +122,6 @@ CONTAINS
       CHARACTER (LEN=132) :: message
 
       
-
       ids = grid%sd31 ; ide = grid%ed31 ;
       kds = grid%sd32 ; kde = grid%ed32 ;
       jds = grid%sd33 ; jde = grid%ed33 ;
@@ -137,7 +133,6 @@ CONTAINS
       its = grid%sp31 ; ite = grid%ep31 ;   
       kts = grid%sp32 ; kte = grid%ep32 ;   
       jts = grid%sp33 ; jte = grid%ep33 ;   
-
 
       CALL optional_tsk        ( grid , fid , &
                                  ids, ide, jds, jde, kds, kde, &
@@ -227,7 +222,6 @@ CONTAINS
          CALL wrf_debug(0,message)
       END IF
 
-
       IF ( ( flag_soil_levels == 1 ) .OR. ( flag_soil_layers == 1 ) ) THEN
 
          num_st_levels_input   = config_flags%num_metgrid_soil_levels
@@ -236,7 +230,6 @@ CONTAINS
          num_soil_levels_input = config_flags%num_metgrid_soil_levels
 
       END IF
-
 
       IF (  ( model_config_rec%sf_surface_physics(grid%id) .EQ. 1 ) .OR. &
             ( model_config_rec%sf_surface_physics(grid%id) .EQ. 2 ) .OR. &
@@ -868,7 +861,7 @@ USE module_io_domain
       
       IF ( flag_icedepth == 0 ) THEN
           IF ( seaice_thickness_opt == 1 ) THEN
-             call wrf_error_fatal3("<stdin>",871,&
+             call wrf_error_fatal3("<stdin>",864,&
 "Field ICEDEPTH not found in input.  Field ICEDEPTH is required if SEAICE_THICKNESS_OPT=1")
              
              
@@ -883,7 +876,7 @@ USE module_io_domain
       
       IF ( flag_albsi == 0 ) THEN
           IF ( seaice_albedo_opt == 2 ) THEN
-             call wrf_error_fatal3("<stdin>",886,&
+             call wrf_error_fatal3("<stdin>",879,&
 "Field ALBSI not found in input.  Field ALBSI is required if SEAICE_ALBEDO_OPT=2")
              
              
@@ -898,7 +891,7 @@ USE module_io_domain
       
       IF ( flag_snowsi == 0 ) THEN
           IF ( seaice_snowdepth_opt == 1 ) THEN
-             call wrf_error_fatal3("<stdin>",901,&
+             call wrf_error_fatal3("<stdin>",894,&
 "Field SNOWSI not found in input.  Field SNOWSI is required if SEAICE_SNOWDEPTH_OPT=1")
              
              
@@ -1075,7 +1068,6 @@ USE module_io_domain
 
 
 
-
       IF ( flag_soil_levels == 1 ) THEN
 
          DO k = 1, num_st_levels_input
@@ -1161,7 +1153,6 @@ USE module_io_domain
          END IF
 
       END IF    
-
 
       IF ( ( flag_soil_levels == 0 ) .AND. ( flag_soil_layers == 0 ) ) THEN        
 
@@ -1707,7 +1698,7 @@ USE module_io_domain
            ( num_sm_levels_input .GT. num_sm_levels_alloc ) .OR. &
            ( num_sw_levels_input .GT. num_sw_levels_alloc ) ) THEN
          print *,'pain and woe, the soil level allocation is too small'
-         CALL wrf_error_fatal3("<stdin>",1710,&
+         CALL wrf_error_fatal3("<stdin>",1701,&
 'soil_levels_too_few' )
       END IF
 
@@ -1732,7 +1723,4 @@ USE module_io_domain
    END FUNCTION char2int2
 
 
-
 END MODULE module_optional_input
-
-

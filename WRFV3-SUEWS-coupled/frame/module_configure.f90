@@ -11,7 +11,6 @@ MODULE module_scalar_tables
 
 
 
-
   INTEGER, TARGET :: moist_index_table( param_num_moist, max_domains )
   INTEGER, TARGET :: moist_num_table( max_domains )
   TYPE(streamrec), TARGET :: moist_streams_table( max_domains, param_num_moist )
@@ -118,12 +117,10 @@ MODULE module_scalar_tables
   CHARACTER*256, TARGET :: tracer_desc_table( max_domains, param_num_tracer )
   CHARACTER*256, TARGET :: tracer_units_table( max_domains, param_num_tracer )
 
-
 CONTAINS
   SUBROUTINE init_module_scalar_tables
      INTEGER i , j
      DO j = 1, max_domains
-
 
 
 
@@ -146,7 +143,6 @@ CONTAINS
   chem_num_table( j ) = 1
   tracer_num_table( j ) = 1
 
-
      END DO
   END SUBROUTINE init_module_scalar_tables
 END MODULE module_scalar_tables
@@ -159,7 +155,6 @@ MODULE module_configure
 
    TYPE model_config_rec_type
       SEQUENCE
-
 
 
 
@@ -328,6 +323,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real , DIMENSION(max_domains) :: dt
+real , DIMENSION(max_domains) :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used
@@ -2227,11 +2223,9 @@ integer :: wif_input_opt
 integer , DIMENSION(max_domains) :: chem_opt
 integer    :: last_item_in_struct
 
-
    END TYPE model_config_rec_type
 
    TYPE grid_config_rec_type
-
 
 
 
@@ -2395,6 +2389,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real :: dt
+real :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used
@@ -4294,7 +4289,6 @@ integer :: wif_input_opt
 integer :: chem_opt
 integer    :: last_item_in_struct
 
-
    END TYPE grid_config_rec_type
 
    TYPE(model_config_rec_type) :: model_config_rec
@@ -4361,7 +4355,6 @@ CONTAINS
 
       INTEGER, PARAMETER :: nml_write_unit= 9
       INTEGER, PARAMETER :: nml_read_unit = 10
-
 
 
 
@@ -4528,6 +4521,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real , DIMENSION(max_domains) :: dt
+real , DIMENSION(max_domains) :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used
@@ -6426,8 +6420,6 @@ integer :: num_wif_levels
 integer :: wif_input_opt
 integer , DIMENSION(max_domains) :: chem_opt
 integer    :: last_item_in_struct
-
-
 
 
 
@@ -8422,7 +8414,6 @@ NAMELIST /domains/ wif_input_opt
 NAMELIST /physics/ chem_opt
 
 
-
       OPEN ( UNIT   = nml_read_unit    ,      &
              FILE   = "namelist.input" ,      &
              FORM   = "FORMATTED"      ,      &
@@ -8430,31 +8421,20 @@ NAMELIST /physics/ chem_opt
              IOSTAT = io_status         )
 
       IF ( io_status .NE. 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",8433,&
+        CALL wrf_error_fatal3("<stdin>",8424,&
 'ERROR OPENING namelist.input' )
       ENDIF
 
-
       OPEN ( UNIT   = nml_write_unit    ,      &
-
-
-
              FILE   = "namelist.output" ,      &
-
              FORM   = "FORMATTED"      ,      &
              STATUS = "REPLACE"        ,      &
              IOSTAT = io_status         )
 
       IF ( io_status .NE. 0 ) THEN
-
-
-
-        CALL wrf_error_fatal3("<stdin>",8452,&
+        CALL wrf_error_fatal3("<stdin>",8435,&
 'ERROR OPENING namelist.output' )
-
       ENDIF
-
-
 
 
 
@@ -8619,6 +8599,7 @@ nproc_x = -1
 nproc_y = -1
 irand = 0
 dt = 2.
+dt_prev = 2.
 fft_used = 0
 cu_used = 0
 shcu_used = 0
@@ -10528,15 +10509,6 @@ chem_opt = 0
 
 
 
-
-
-
-
-
-
-
-
-
  nml_read_error = .FALSE.
  NML_LOOP : DO i=1,16
     REWIND ( UNIT = nml_read_unit )
@@ -10544,114 +10516,82 @@ chem_opt = 0
        CASE ( 1 ) 
           nml_name = "time_control"
           READ   ( UNIT = nml_read_unit , NML = time_control , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = time_control )
-
           CYCLE NML_LOOP
        CASE ( 2 ) 
           nml_name = "pio_control"
           READ   ( UNIT = nml_read_unit , NML = pio_control , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = pio_control )
-
           CYCLE NML_LOOP
        CASE ( 3 ) 
           nml_name = "dfi_control"
           READ   ( UNIT = nml_read_unit , NML = dfi_control , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = dfi_control )
-
           CYCLE NML_LOOP
        CASE ( 4 ) 
           nml_name = "domains"
           READ   ( UNIT = nml_read_unit , NML = domains , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = domains )
-
           CYCLE NML_LOOP
        CASE ( 5 ) 
           nml_name = "tc"
           READ   ( UNIT = nml_read_unit , NML = tc , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = tc )
-
           CYCLE NML_LOOP
        CASE ( 6 ) 
           nml_name = "physics"
           READ   ( UNIT = nml_read_unit , NML = physics , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = physics )
-
           CYCLE NML_LOOP
        CASE ( 7 ) 
           nml_name = "noah_mp"
           READ   ( UNIT = nml_read_unit , NML = noah_mp , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = noah_mp )
-
           CYCLE NML_LOOP
        CASE ( 8 ) 
           nml_name = "fdda"
           READ   ( UNIT = nml_read_unit , NML = fdda , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = fdda )
-
           CYCLE NML_LOOP
        CASE ( 9 ) 
           nml_name = "scm"
           READ   ( UNIT = nml_read_unit , NML = scm , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = scm )
-
           CYCLE NML_LOOP
        CASE ( 10 ) 
           nml_name = "dynamics"
           READ   ( UNIT = nml_read_unit , NML = dynamics , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = dynamics )
-
           CYCLE NML_LOOP
        CASE ( 11 ) 
           nml_name = "bdy_control"
           READ   ( UNIT = nml_read_unit , NML = bdy_control , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = bdy_control )
-
           CYCLE NML_LOOP
        CASE ( 12 ) 
           nml_name = "grib2"
           READ   ( UNIT = nml_read_unit , NML = grib2 , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = grib2 )
-
           CYCLE NML_LOOP
        CASE ( 13 ) 
           nml_name = "fire"
           READ   ( UNIT = nml_read_unit , NML = fire , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = fire )
-
           CYCLE NML_LOOP
        CASE ( 14 ) 
           nml_name = "stoch"
           READ   ( UNIT = nml_read_unit , NML = stoch , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = stoch )
-
           CYCLE NML_LOOP
        CASE ( 15 ) 
           nml_name = "diags"
           READ   ( UNIT = nml_read_unit , NML = diags , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = diags )
-
           CYCLE NML_LOOP
        CASE ( 16 ) 
           nml_name = "afwa"
           READ   ( UNIT = nml_read_unit , NML = afwa , ERR=9201, END=9202 )
-
           WRITE ( UNIT = nml_write_unit, NML = afwa )
-
           CYCLE NML_LOOP
     END SELECT
 9201 CALL wrf_message("  ------ ERROR while reading namelist "//TRIM(nml_name)//" ------")
@@ -10662,9 +10602,8 @@ chem_opt = 0
      CALL wrf_debug(1," --> Using registry defaults for variables in "//TRIM(nml_name))
  END DO NML_LOOP
  
- IF ( nml_read_error ) CALL wrf_error_fatal3("<stdin>",10665,&
+ IF ( nml_read_error ) CALL wrf_error_fatal3("<stdin>",10605,&
 "ERRORS while reading one or more namelists from namelist.input.")
-
 
 
 
@@ -10678,14 +10617,6 @@ chem_opt = 0
       DO i = 1, max_dom
          mp_physics(i) = mp_physics(max_dom)
       ENDDO
-
-
-
-
-
-
-
-
 
 
 
@@ -10852,6 +10783,7 @@ chem_opt = 0
  model_config_rec % nproc_y                    =  nproc_y 
  model_config_rec % irand                      =  irand 
  model_config_rec % dt                         =  dt 
+ model_config_rec % dt_prev                    =  dt_prev 
  model_config_rec % fft_used                   =  fft_used 
  model_config_rec % cu_used                    =  cu_used 
  model_config_rec % shcu_used                  =  shcu_used 
@@ -12752,31 +12684,24 @@ chem_opt = 0
 
 
 
-
       CLOSE ( UNIT = nml_read_unit , IOSTAT = io_status )
 
       IF ( io_status .NE. 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",12759,&
+        CALL wrf_error_fatal3("<stdin>",12690,&
 'ERROR CLOSING namelist.input' )
       ENDIF
-
 
       CLOSE ( UNIT = nml_write_unit , IOSTAT = io_status )
 
       IF ( io_status .NE. 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",12767,&
+        CALL wrf_error_fatal3("<stdin>",12697,&
 'ERROR CLOSING namelist.output' )
       ENDIF
-
-
-
-
 
 
       RETURN
 
    END SUBROUTINE initial_config
-
 
    SUBROUTINE get_config_as_buffer( buffer, buflen, ncopied )
 
@@ -12791,7 +12716,7 @@ chem_opt = 0
 
 
       IF ( nbytes .gt. buflen ) THEN
-        CALL wrf_error_fatal3("<stdin>",12794,&
+        CALL wrf_error_fatal3("<stdin>",12719,&
         "get_config_rec_as_buffer: buffer size too small for config_rec" )
       ENDIF
       CALL wrf_mem_copy( model_config_rec, buffer, nbytes )
@@ -12811,26 +12736,17 @@ chem_opt = 0
 
 
       IF ( nbytes .gt. buflen ) THEN
-        CALL wrf_error_fatal3("<stdin>",12814,&
+        CALL wrf_error_fatal3("<stdin>",12739,&
         "set_config_rec_as_buffer: buffer length too small to fill model config record" )
       ENDIF
       CALL wrf_mem_copy( buffer, model_config_rec, nbytes )
       RETURN
    END SUBROUTINE set_config_as_buffer
 
-
    SUBROUTINE model_to_grid_config_rec ( id_id , model_config_rec , grid_config_rec )
       INTEGER , INTENT(IN)                         ::  id_id
       TYPE ( model_config_rec_type ) , INTENT(IN)  ::  model_config_rec
       TYPE ( grid_config_rec_type  ) , INTENT(OUT) ::  grid_config_rec
-
-
-
-
-
-
-
-
 
 
 
@@ -13021,6 +12937,7 @@ chem_opt = 0
  grid_config_rec % nproc_y                    = model_config_rec % nproc_y 
  grid_config_rec % irand                      = model_config_rec % irand 
  grid_config_rec % dt                         = model_config_rec % dt (id_id)
+ grid_config_rec % dt_prev                    = model_config_rec % dt_prev (id_id)
  grid_config_rec % fft_used                   = model_config_rec % fft_used 
  grid_config_rec % cu_used                    = model_config_rec % cu_used 
  grid_config_rec % shcu_used                  = model_config_rec % shcu_used 
@@ -14919,7 +14836,6 @@ chem_opt = 0
  grid_config_rec % wif_input_opt              = model_config_rec % wif_input_opt 
  grid_config_rec % chem_opt                   = model_config_rec % chem_opt (id_id)
 
-
    END SUBROUTINE model_to_grid_config_rec
 
 
@@ -14933,7 +14849,6 @@ chem_opt = 0
      in_use = .TRUE.
 
      IF      ( vname(1:1) .EQ. 'a' ) THEN
-
 
 
 
@@ -16101,9 +16016,7 @@ IF(TRIM(vname).EQ.'albedo12m')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'b' ) THEN
-
 
 
 
@@ -16407,9 +16320,7 @@ IF(TRIM(vname).EQ.'betafl')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'c' ) THEN
-
 
 
 
@@ -17025,9 +16936,7 @@ IF(TRIM(vname).EQ.'car_urb2d')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'd' ) THEN
-
 
 
 
@@ -18379,9 +18288,7 @@ IF(TRIM(vname).EQ.'dz3d')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'e' ) THEN
-
 
 
 
@@ -18941,9 +18848,7 @@ IF(TRIM(vname).EQ.'elecz')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'f' ) THEN
-
 
 
 
@@ -19495,9 +19400,7 @@ IF(TRIM(vname).EQ.'fad90_urb2d')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'g' ) THEN
-
 
 
 
@@ -19713,9 +19616,7 @@ IF(TRIM(vname).EQ.'greenfrac')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'h' ) THEN
-
 
 
 
@@ -20451,9 +20352,7 @@ IF(TRIM(vname).EQ.'ht_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'i' ) THEN
-
 
 
 
@@ -20957,9 +20856,7 @@ IF(TRIM(vname).EQ.'icefrac_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'j' ) THEN
-
 
 
 
@@ -20975,9 +20872,7 @@ IF(TRIM(vname).EQ.'jt2d')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'k' ) THEN
-
 
 
 
@@ -21185,9 +21080,7 @@ IF(TRIM(vname).EQ.'kext_ft_qg')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'l' ) THEN
-
 
 
 
@@ -21915,9 +21808,7 @@ IF(TRIM(vname).EQ.'lai12m')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'm' ) THEN
-
 
 
 
@@ -22045,9 +21936,7 @@ IF(TRIM(vname).EQ.'midrh_min_old')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'n' ) THEN
-
 
 
 
@@ -22143,9 +22032,7 @@ IF(TRIM(vname).EQ.'noninduc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'o' ) THEN
-
 
 
 
@@ -22182,6 +22069,14 @@ IF(TRIM(vname).EQ.'o3rad')THEN
     uses = 1
   ELSE
     in_use = in_use.OR.model_config_rec%ra_sw_physics(id).EQ.24
+  ENDIF
+ENDIF
+IF(TRIM(vname).EQ.'ohmcoef')THEN
+  IF(uses.EQ.0)THEN
+    in_use = model_config_rec%sf_surface_physics(id).EQ.9
+    uses = 1
+  ELSE
+    in_use = in_use.OR.model_config_rec%sf_surface_physics(id).EQ.9
   ENDIF
 ENDIF
 IF(TRIM(vname).EQ.'odis_ndg_old')THEN
@@ -22377,9 +22272,7 @@ IF(TRIM(vname).EQ.'om_sini')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'p' ) THEN
-
 
 
 
@@ -22907,9 +22800,7 @@ IF(TRIM(vname).EQ.'pdhs')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'q' ) THEN
-
 
 
 
@@ -23973,9 +23864,7 @@ IF(TRIM(vname).EQ.'qni_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'r' ) THEN
-
 
 
 
@@ -25239,9 +25128,7 @@ IF(TRIM(vname).EQ.'rh_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 's' ) THEN
-
 
 
 
@@ -27145,9 +27032,7 @@ IF(TRIM(vname).EQ.'sh_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 't' ) THEN
-
 
 
 
@@ -29139,9 +29024,7 @@ IF(TRIM(vname).EQ.'tmn_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'u' ) THEN
-
 
 
 
@@ -29501,9 +29384,7 @@ IF(TRIM(vname).EQ.'u_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'v' ) THEN
-
 
 
 
@@ -29951,9 +29832,7 @@ IF(TRIM(vname).EQ.'v_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'w' ) THEN
-
 
 
 
@@ -30401,9 +30280,7 @@ IF(TRIM(vname).EQ.'w_wif_dec')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'x' ) THEN
-
 
 
 
@@ -30475,7 +30352,6 @@ IF(TRIM(vname).EQ.'xlong_gc')THEN
   ENDIF
 ENDIF
 
-
      ELSE IF ( vname(1:1) .EQ. 'y' ) THEN
 
 
@@ -30484,10 +30360,7 @@ ENDIF
 
 
 
-
-
      ELSE IF ( vname(1:1) .EQ. 'z' ) THEN
-
 
 
 
@@ -30807,7 +30680,6 @@ IF(TRIM(vname).EQ.'zdr_urb2d')THEN
   ENDIF
 ENDIF
 
-
      ENDIF
 
      RETURN
@@ -30837,7 +30709,6 @@ ENDIF
      INTEGER, INTENT(IN)       :: nml_read_unit
      CHARACTER*(*), INTENT(IN) :: nml_name
      INTEGER                   :: nml_error
-
 
 
 
@@ -31002,6 +30873,7 @@ integer :: nproc_x
 integer :: nproc_y
 integer :: irand
 real , DIMENSION(max_domains) :: dt
+real , DIMENSION(max_domains) :: dt_prev
 integer :: fft_used
 integer :: cu_used
 integer :: shcu_used
@@ -32900,7 +32772,6 @@ integer :: num_wif_levels
 integer :: wif_input_opt
 integer , DIMENSION(max_domains) :: chem_opt
 integer    :: last_item_in_struct
-
 
 
 
@@ -34894,7 +34765,6 @@ NAMELIST /physics/ chem_opt
 
 
 
-
      logical , DIMENSION(max_domains) :: pd_moist, pd_chem, pd_tke, pd_scalar
      NAMELIST /dynamics/                 pd_moist, pd_chem, pd_tke, pd_scalar
 
@@ -35020,7 +34890,6 @@ NAMELIST /physics/ chem_opt
 
 
 
-
 &      (TRIM(nml_name) .EQ. 'time_control') &
 & .OR. (TRIM(nml_name) .EQ. 'pio_control') &
 & .OR. (TRIM(nml_name) .EQ. 'dfi_control') &
@@ -35037,7 +34906,6 @@ NAMELIST /physics/ chem_opt
 & .OR. (TRIM(nml_name) .EQ. 'stoch') &
 & .OR. (TRIM(nml_name) .EQ. 'diags') &
 & .OR. (TRIM(nml_name) .EQ. 'afwa') &
-
               ) THEN
             nml_error = 0
          ELSE
@@ -35064,7 +34932,6 @@ SUBROUTINE set_scalar_indices_from_config ( idomain , dummy2, dummy1 )
   INTEGER , INTENT(IN)  :: idomain
   INTEGER               :: dummy1
   INTEGER               :: dummy2
-
 
 
 
@@ -49809,7 +49676,6 @@ SUBROUTINE set_scalar_indices_from_config ( idomain , dummy2, dummy1 )
 
 
 
-
   num_moist = moist_num_table( idomain )
   num_dfi_moist = dfi_moist_num_table( idomain )
   num_scalar = scalar_num_table( idomain )
@@ -49826,9 +49692,6 @@ SUBROUTINE set_scalar_indices_from_config ( idomain , dummy2, dummy1 )
   num_chem = chem_num_table( idomain )
   num_tracer = tracer_num_table( idomain )
 
-
   RETURN
 END SUBROUTINE set_scalar_indices_from_config
-
-
 

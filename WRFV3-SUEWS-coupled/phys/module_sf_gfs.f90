@@ -1765,5 +1765,3 @@ CONTAINS
       END FUNCTION TWLT
 
  END MODULE module_sf_gfs
-
-

@@ -21,9 +21,6 @@ MODULE module_cu_camzm_driver
 
 
   USE module_cam_support, only: pcnst =>pcnst_runtime, pcols, pver, pverp
-
-
-
   USE shr_kind_mod,    only: r8 => shr_kind_r8
   USE module_cu_camzm, only: convtran, momtran, zm_conv_evap, zm_convr
 
@@ -32,9 +29,6 @@ MODULE module_cu_camzm_driver
   PRIVATE                  
   PUBLIC :: &              
        camzm_driver  , &
-
-
-
        zm_conv_init
 
   
@@ -238,11 +232,7 @@ SUBROUTINE camzm_driver(                                      &
 
 
 
-
-
-
  REAL(r8), DIMENSION(pcols, kte, 5) ::  &
-
                              fracis    
 
 
@@ -671,13 +661,11 @@ SUBROUTINE camzm_driver(                                      &
         l_qt(2:3) = .true.      
         cloudtnd = 0._r8
         fracis(1,:,1:3) = 1._r8 
-
         
         
         
         
         fracis(1,:,4:5) = 1._r8
-
         ncnst = 3               
         fake_dpdry = 0._r8      
         do k=kts,kte
@@ -945,7 +933,7 @@ SUBROUTINE get_tpert(bl_pbl_physics, sf_sfclay_physics, dx, &
         
         
 
-        if( pblh <= 0. ) call wrf_error_fatal3("<stdin>",948,&
+        if( pblh <= 0. ) call wrf_error_fatal3("<stdin>",936,&
              "CAMZMSCHEME needs a PBL height from a PBL scheme.")
 
         za     = 0.5*dzlowest
@@ -975,7 +963,7 @@ SUBROUTINE get_tpert(bl_pbl_physics, sf_sfclay_physics, dx, &
         if( br2 <= 0. ) UnstableOrNeutral = .true.
 
      CASE DEFAULT
-        call wrf_error_fatal3("<stdin>",978,&
+        call wrf_error_fatal3("<stdin>",966,&
 "CAMZMSCHEME requires MYJSFCSCHEME or else CAMUWPBLSCHEME.")
 
      END SELECT sfclay_case
@@ -989,7 +977,7 @@ SUBROUTINE get_tpert(bl_pbl_physics, sf_sfclay_physics, dx, &
      
      
      if( bl_pbl_physics /= MYJPBLSCHEME ) &
-          call wrf_error_fatal3("<stdin>",992,&
+          call wrf_error_fatal3("<stdin>",980,&
 "CAMZMSCHEME requires MYJPBLSCHEME or CAMUWPBLSCHEME")
    
 
@@ -1017,7 +1005,7 @@ SUBROUTINE get_tpert(bl_pbl_physics, sf_sfclay_physics, dx, &
      end if
 
   else
-     call wrf_error_fatal3("<stdin>",1020,&
+     call wrf_error_fatal3("<stdin>",1008,&
 "CAMZMSCHEME requires MYJPBLSCHEME or CAMUWPBLSCHEME")
 
   end if 
@@ -1027,7 +1015,4 @@ END SUBROUTINE get_tpert
 
 
 
-
 END MODULE module_cu_camzm_driver
-
-

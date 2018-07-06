@@ -535,5 +535,3 @@ CONTAINS
    END SUBROUTINE swinit
 
 END MODULE module_ra_sw
-
-

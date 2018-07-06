@@ -1,13 +1,6 @@
 
 
 
-
-
-
-
-
-
-
 MODULE module_diag_misc
       PRIVATE :: WGAMMA
       PRIVATE :: GAMMLN
@@ -1117,9 +1110,6 @@ CONTAINS
 
    CALL get_current_grid_name( grid_str )
 
-
-
-
      WRITE(outstring,*) grid_str,'Domain average of dpsdt, dmudt (mb/3h): ', xtime, &
            dpsdt_sum/no_points*108., &
            dmudt_sum/no_points*108.
@@ -1151,9 +1141,6 @@ CONTAINS
            lh_sum/no_points
      CALL wrf_message ( TRIM(outstring) )
      ENDIF
-
-
-
 
    ENDIF
 
@@ -1222,5 +1209,3 @@ CONTAINS
 
 
 END MODULE module_diag_misc
-
-

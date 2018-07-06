@@ -1,27 +1,10 @@
 
-
-
   module uwshcu
-
-
-
   use module_cam_support, only: outfld, addfld, phys_decomp
-
-
-
   use module_state_description, only: CAMUWPBLSCHEME, MYJPBLSCHEME, &
       MYNNPBLSCHEME2, MYNNPBLSCHEME3
-
-
   use error_function, only: erfc
-
-
-
-
-
-
   use module_cam_support, only: iulog, pcols, pver, pverp, endrun, masterproc
-
 
 
   implicit none
@@ -64,25 +47,17 @@ contains
 
 subroutine uwshcu_readnl(nlfile)
 
-
-
-
-
-
    character(len=*), intent(in) :: nlfile  
-
 
    
    
    rpen= 10.0_r8
-
 
 end subroutine uwshcu_readnl
 
 
 
   subroutine init_uwshcu( kind, xlv_in, cp_in, xlf_in, zvir_in, r_in, g_in, ep2_in &
-
        , rushten, rvshten, rthshten, rqvshten,                   &
        rqcshten, rqrshten, rqishten, rqsshten, rqgshten,         &
        p_qc, p_qr, p_qi, p_qs, p_qg,                             &
@@ -92,19 +67,11 @@ end subroutine uwshcu_readnl
        its, ite, jts, jte, kts, kte                              )
 
 
-
-
-
     
     
     
     
-
-
-
-
     use module_cam_support, only: outfld, addfld, phys_decomp, pcols, pver, pverp
-
     implicit none
     integer , intent(in) :: kind       
     real(r8), intent(in) :: xlv_in     
@@ -116,7 +83,6 @@ end subroutine uwshcu_readnl
     real(r8), intent(in) :: ep2_in     
 
     character(len=*), parameter :: subname = 'init_uwshcu'
-
     LOGICAL , INTENT(IN)           ::   restart
     INTEGER , INTENT(IN)           ::   ids, ide, jds, jde, kds, kde, &
                                         ims, ime, jms, jme, kms, kme, &
@@ -142,7 +108,6 @@ end subroutine uwshcu_readnl
   ktf = min(kte,kde-1)
   itf = min(ite,ide-1)
 
-
   
   call uwshcu_readnl('dummyString')
 
@@ -154,16 +119,11 @@ end subroutine uwshcu_readnl
 
 
 
-
   select case(bl_pbl_physics)
-
-
-
   case (CAMUWPBLSCHEME, MYJPBLSCHEME, MYNNPBLSCHEME2, MYNNPBLSCHEME3)
-
      
   case default
-     call wrf_error_fatal3("<stdin>",166,&
+     call wrf_error_fatal3("<stdin>",126,&
 "The CAMUWSHCU scheme requires CAMUWPBLSCHEME, MYJPBLSCHEME or MYNN.")
   end select
 
@@ -175,7 +135,6 @@ end subroutine uwshcu_readnl
 
   pver  = ktf-kts+1
   pverp = pver+1
-
     
     
     
@@ -280,9 +239,7 @@ end subroutine uwshcu_readnl
 
     if( kind .ne. r8 ) then
         write(iulog,*) subname//': ERROR -- real KIND does not match internal specification.'
-
         call wrf_message(iulog)
-
         call endrun(subname//': ERROR -- real KIND does not match internal specification.')
     endif
 
@@ -303,11 +260,8 @@ end subroutine uwshcu_readnl
 
     if ( masterproc ) then 
        write(iulog,*) subname//': tuning parameters: rpen=',rpen
-
        call wrf_debug(1,iulog)
-
     endif
-
 
     
     
@@ -329,7 +283,6 @@ end subroutine uwshcu_readnl
           enddo
        enddo
     end if   
-
 
   end subroutine init_uwshcu
 
@@ -554,15 +507,9 @@ end subroutine uwshcu_readnl
     
     
     
-
-
-
     use module_cam_support, only : outfld, addfld, phys_decomp
-
     use constituents,    only : qmin, cnst_get_type_byind, cnst_get_ind
-
     use modal_aero_data, only : ntot_amode, numptr_amode
-
 
     implicit none
 
@@ -2141,9 +2088,7 @@ end subroutine uwshcu_readnl
            mumin2 = compute_mumin2(mulcl,rmaxfrac,mu)
            if( mu .gt. mumin2 ) then
                write(iulog,*) 'Critical error in mu calculation in UW_ShCu'
-
                call wrf_message(iulog)
-
                call endrun
            endif
            mu = max(mu,mumin2)
@@ -2908,9 +2853,7 @@ end subroutine uwshcu_readnl
                elseif( xc1 .gt. 0._r8 .and. xc2 .gt. 0._r8 ) then
                    ppen = -dp0(kpen)
                    write(iulog,*) 'Warning : UW-Cumulus penetrates upto kpen interface'
-
                    call wrf_message(iulog)
-
                else
                    ppen = min( xc1, xc2 )
                    ppen = min( 0._r8,max( -dp0(kpen), ppen ) )  
@@ -2918,9 +2861,7 @@ end subroutine uwshcu_readnl
            else
                ppen = -dp0(kpen)
                write(iulog,*) 'Warning : UW-Cumulus penetrates upto kpen interface'
-
                call wrf_message(iulog)
-
            endif       
        else 
            ppen = compute_ppen(wtwb,drage,bogbot,bogtop,rho0j,dp0(kpen))
@@ -4033,7 +3974,6 @@ end subroutine uwshcu_readnl
        if( m .ne. ixnumliq .and. m .ne. ixnumice ) then
 
           trmin = qmin(m)
-
           do mm = 1, ntot_amode
              if( m .eq. numptr_amode(mm) ) then
                  trmin = 1.e-5_r8
@@ -4041,7 +3981,6 @@ end subroutine uwshcu_readnl
              endif              
           enddo
        55 continue
-
           trflx_d(0:mkx) = 0._r8
           trflx_u(0:mkx) = 0._r8           
           do k = 1, mkx-1
@@ -4874,9 +4813,7 @@ end subroutine uwshcu_readnl
     rhi      =  qt/qs(1)      
     if( rhi .le. 0.01_r8 ) then
         write(iulog,*) 'Source air is too dry and pLCL is set to psmin in uwshcu.F90' 
-
         call wrf_message(iulog)
-
         qsinvert = psmin
         return
     end if
@@ -4900,9 +4837,7 @@ end subroutine uwshcu_readnl
        ps       =  ps + dps
        if( ps .lt. 0._r8 ) then
            write(iulog,*) 'pLCL iteration is negative and set to psmin in uwshcu.F90', qt, thl, psfc 
-
            call wrf_message(iulog)
-
            qsinvert = psmin
            return    
        end if
@@ -4912,9 +4847,7 @@ end subroutine uwshcu_readnl
        end if
     end do
     write(iulog,*) 'pLCL does not converge and is set to psmin in uwshcu.F90', qt, thl, psfc 
-
            call wrf_message(iulog)
-
     qsinvert = psmin
     return
   end function qsinvert
@@ -5044,22 +4977,16 @@ end subroutine uwshcu_readnl
 
     xflx(0:mkx) = 0._r8
     dp = ps0(kinv-1) - ps0(kinv) 
-
     xbot = xbotin
     xtop = xtopin
-
     
     
     
     xtop_ori = xtop
     xbot_ori = xbot
     rcbmf = ( cbmf * g * dt ) / dp                  
-
-
-
     rpeff = ( xmean - xtop ) / max(1.e-13_r8, (xbot - xtop) ) 
     rpeff = abs(rpeff)
-
     rpeff = min( max(0._r8,rpeff), 1._r8 )          
     if( rpeff .eq. 0._r8 .or. rpeff .eq. 1._r8 ) then
         xbot = xmean
@@ -5147,9 +5074,7 @@ end subroutine uwshcu_readnl
             enddo 
         else 
             write(iulog,*) 'Full positive_moisture is impossible in uwshcu'
-
             call wrf_message(iulog)
-
         endif
     endif 
 
@@ -5261,12 +5186,7 @@ end subroutine uwshcu_readnl
       do i = 1,ncol
 
 
-
-
          tlim(i) = min(max(t(i,k),173._r8),373._r8)
-
-
-
          es = estblf(tlim(i))
          denom = p(i,k) - omeps*es
          qs = epsqs*es/denom
@@ -5308,7 +5228,6 @@ end subroutine uwshcu_readnl
              r1b    = c2/(c2 + c1*qs)
              qvd   = r1b*tmp
              tsp(i,k) = tlim(i) + ((hltalt(i,k)/cp)*qvd)
-
              es = estblf(tsp(i,k))
              qsp(i,k) = min(epsqs*es/(p(i,k) - omeps*es),1._r8)
           else
@@ -5369,14 +5288,6 @@ end subroutine uwshcu_readnl
                q1 = min(epsqs*es/(p(i,k) - omeps*es),1._r8)
                dq = abs(q1 - qsp(i,k))/max(q1,1.e-12_r8)
                qsp(i,k) = q1
-
-
-
-
-
-
-
-
                dtm = max(dtm,dt)
                dqm = max(dqm,dq)
 
@@ -5385,11 +5296,7 @@ end subroutine uwshcu_readnl
                endif
                enout(i) = cp*tsp(i,k) + hltalt(i,k)*qsp(i,k)
 
-
                if (tsp(i,k) < 174.16_r8) then
-
-
-
                   doit(i) = 4
                endif
             else
@@ -5412,17 +5319,11 @@ end subroutine uwshcu_readnl
             do i = 1,ncol
                if (doit(i) == 0) then
                   write(iulog,*) ' findsp not converging at point i, k ', i, k
-
                   call wrf_message(iulog)
-
                   write(iulog,*) ' t, q, p, enin ', t(i,k), q(i,k), p(i,k), enin(i)
-
                   call wrf_message(iulog)
-
                   write(iulog,*) ' tsp, qsp, enout ', tsp(i,k), qsp(i,k), enout(i)
-
                   call wrf_message(iulog)
-
                   call endrun ('FINDSP')
                endif
             end do
@@ -5438,17 +5339,11 @@ end subroutine uwshcu_readnl
             if (doit(i) == 2 .and. abs((enin(i)-enout(i))/(enin(i)+enout(i))) > 1.e-4_r8) then
                write(iulog,*) ' the enthalpy is not conserved for point ', &
                   i, k, enin(i), enout(i)
-
                call wrf_message(iulog)
-
                write(iulog,*) ' t, q, p, enin ', t(i,k), q(i,k), p(i,k), enin(i)
-
                call wrf_message(iulog)
-
                write(iulog,*) ' tsp, qsp, enout ', tsp(i,k), qsp(i,k), enout(i)
-
                call wrf_message(iulog)
-
                call endrun ('FINDSP')
             endif
          end do
@@ -5466,6 +5361,4 @@ end subroutine uwshcu_readnl
   
 
   end module uwshcu
-
-
 

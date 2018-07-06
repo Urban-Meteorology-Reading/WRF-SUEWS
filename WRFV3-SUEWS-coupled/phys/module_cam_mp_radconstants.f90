@@ -1,18 +1,12 @@
 
 
-
-
 module radconstants
 
 
 
 
 use shr_kind_mod,   only: r8 => shr_kind_r8
-
-
-
   use module_cam_support,    only: endrun
-
 
 implicit none
 private
@@ -259,5 +253,3 @@ integer function rad_gas_index(gasname)
 end function rad_gas_index
 
 end module radconstants
-
-

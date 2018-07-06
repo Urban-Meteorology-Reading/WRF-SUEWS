@@ -167,5 +167,3 @@ contains
    end subroutine scmflux
 
 end module module_sf_scmflux
-
-

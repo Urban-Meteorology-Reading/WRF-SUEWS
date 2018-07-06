@@ -20,11 +20,9 @@ CONTAINS
                       itimestep)
 
 
-
    USE module_state_description, ONLY : OMLSCHEME , PWP3DSCHEME
    USE module_sf_oml
    USE module_sf_3dpwp
-
 
    IMPLICIT NONE
 
@@ -105,7 +103,6 @@ CONTAINS
 
 
 
-
   stepom=nint(omdt*60/deltsm)
   stepom = max(stepom,1) 
 
@@ -160,11 +157,8 @@ elseif ( sf_ocean_physics .eq. PWP3DSCHEME ) then
        endif
 endif 
 
-
    END SUBROUTINE OCEAN_DRIVER
 
 
 
 END MODULE module_sf_ocean_driver
-
-

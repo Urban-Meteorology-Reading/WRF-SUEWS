@@ -2,9 +2,7 @@
 
 
 
-
    SUBROUTINE start_domain_em ( grid, allowed_to_read &
-
 
 
 
@@ -20,7 +18,6 @@ advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,trace
 tracer_btye &
 
 
-
 )
 
    USE module_domain, ONLY : domain, wrfu_timeinterval, get_ijk_from_grid, &
@@ -33,13 +30,7 @@ tracer_btye &
    USE module_bc_em, ONLY: lbc_fcx_gcx, set_w_surface
    USE module_configure, ONLY : model_to_grid_config_rec, model_config_rec, grid_config_rec_type
    USE module_tiles, ONLY : set_tiles
-
-
-
-
-
    USE module_dm, ONLY : wrf_dm_min_real, wrf_dm_max_real
-
    USE module_comm_dm
    USE module_llxy, ONLY : proj_cassini
    USE module_physics_init
@@ -47,13 +38,6 @@ tracer_btye &
    USE module_fr_fire_driver_wrf, ONLY : fire_driver_em_init
    USE module_stoch, ONLY : setup_rand_perturb, rand_seed, update_stoch, initialize_stoch
    USE module_trajectory, ONLY : trajectory_init
-
-
-
-
-
-
-
    USE module_diag_pld, ONLY : pld
    USE module_diag_zld, ONLY : zld
 
@@ -70,7 +54,6 @@ tracer_btye &
    LOGICAL , INTENT(IN)   :: allowed_to_read
 
    
-
 
 
 
@@ -135,9 +118,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
 
-
-
-
    
    TYPE (grid_config_rec_type)              :: config_flags
 
@@ -159,13 +139,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
    REAL        :: p_top_test, p00, t00, a, tiso, p_surf, pd_surf, temp, tiso_tmp
    REAL        :: p_strat, a_strat
 
-
-
-
-
-
-
-
    REAL :: qvf1, qvf2, qvf
    REAL :: pfu, pfd, phm
    REAL :: MPDT
@@ -173,9 +146,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
    LOGICAL :: first_trip_for_this_domain, start_of_simulation, fill_w_flag
    LOGICAL, EXTERNAL :: wrf_dm_on_monitor
 
-
       REAL,ALLOCATABLE,DIMENSION(:,:,:) :: cldfra_old
-
 
    REAL :: lat1 , lat2 , lat3 , lat4
    REAL :: lon1 , lon2 , lon3 , lon4
@@ -220,9 +191,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
    kts = kps ; kte = kpe     
    its = ips ; ite = ipe     
    jts = jps ; jte = jpe    
-
          ALLOCATE(CLDFRA_OLD(IMS:IME,KMS:KME,JMS:JME),STAT=I)  ; CLDFRA_OLD = 0.
-
    ALLOCATE(z_at_q(IMS:IME,KMS:KME,JMS:JME),STAT=I)  ; z_at_q = 0.
    CALL model_to_grid_config_rec ( grid%id , model_config_rec , config_flags )
 
@@ -236,23 +205,20 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
             max_rot_angle = MAX ( max_rot_angle , ASIN(ABS(grid%sina(i,j)))/DEGRAD )
          END DO
       END DO
-
-
-
       IF ( max_rot_angle .GT. ABS(config_flags%max_rot_angle_gwd) ) THEN
          WRITE ( a_message , FMT='(A,F5.2)' ) 'Max projection rotation angle for domain 1 = ',max_rot_angle
-         CALL wrf_message ( a_message ) 
+         CALL wrf_message ( a_message )
          WRITE ( a_message , FMT='(A)'      ) 'This projection may not be appropriate for using the gravity wave drag option.'
-         CALL wrf_message ( a_message ) 
+         CALL wrf_message ( a_message )
          WRITE ( a_message , FMT='(A)'      ) 'In namelist.input make one of the two following changes:'
-         CALL wrf_message ( a_message ) 
+         CALL wrf_message ( a_message )
          WRITE ( a_message , FMT='(A)'      ) ' 1) gwd_opt = 0 '
-         CALL wrf_message ( a_message ) 
+         CALL wrf_message ( a_message )
          WRITE ( a_message , FMT='(A,F5.2)' ) ' 2) max_rot_angle_gwd > ',max_rot_angle
-         CALL wrf_message ( a_message ) 
+         CALL wrf_message ( a_message )
          WRITE ( a_message , FMT='(A)'      ) '--- ERROR: gwd_opt does not work with this domain'
-         CALL wrf_error_fatal3("<stdin>",254,&
-a_message ) 
+         CALL wrf_error_fatal3("<stdin>",220,&
+a_message )
       END IF
    END IF
 
@@ -262,12 +228,11 @@ a_message )
       WRITE(message, FMT='(A,I2,":  Both MOD(",I4,"-",I1,",",I2,") and MOD(",I4,"-",I1,",",I2,") must = 0" )') &
          "Nested dimensions are illegal for domain ",grid%id,ide,ids,config_flags%parent_grid_ratio,&
          jde,jds,config_flags%parent_grid_ratio
-      CALL wrf_error_fatal3("<stdin>",265,&
+      CALL wrf_error_fatal3("<stdin>",231,&
 message )
    END IF
 
    IF ( config_flags%polar ) THEN
-
 
 
 
@@ -280,7 +245,7 @@ message )
    CALL boundary_condition_check( config_flags, bdyzone, error, grid%id )
 
     IF ((config_flags%topo_wind .EQ. 1) .AND. (.NOT. grid%got_var_sso)) THEN
-      CALL wrf_error_fatal3("<stdin>",283,&
+      CALL wrf_error_fatal3("<stdin>",248,&
 "topo_wind requires VAR_SSO data")
     ENDIF
 
@@ -313,12 +278,9 @@ message )
                max_mf = MAX ( max_mf , grid%msft(i,j) )
             END DO
          END DO
-
-
-
          WRITE ( a_message , FMT='(A,F5.2,A)' ) 'Max map factor in domain 1 = ',max_mf, &
                                                 '. Scale the dt in the model accordingly.'
-         CALL wrf_message ( a_message ) 
+         CALL wrf_message ( a_message )
       END IF
 
     if(config_flags%cycling) then
@@ -348,16 +310,16 @@ message )
        grid%itimestep=0
    ENDIF
 
-   IF ( config_flags%restart .or. grid%moved .or. config_flags%hrrr_cycling) THEN 
+   IF ( config_flags%restart .or. grid%moved .or. config_flags%hrrr_cycling) THEN
        first_trip_for_this_domain = .TRUE.
    ENDIF
 
-   CALL INITIALIZE_STOCH  (grid, config_flags,                  &    
-                           first_trip_for_this_domain,          &    
-                           ips, ipe, jps, jpe, kps, kpe,        &    
-                           ids, ide, jds, jde, kds, kde,        &    
-                           ims, ime, jms, jme, kms, kme,        &    
-                           its, ite, jts, jte, kts, kte,        &    
+   CALL INITIALIZE_STOCH  (grid, config_flags,                  &
+                           first_trip_for_this_domain,          &
+                           ips, ipe, jps, jpe, kps, kpe,        &
+                           ids, ide, jds, jde, kds, kde,        &
+                           ims, ime, jms, jme, kms, kme,        &
+                           its, ite, jts, jte, kts, kte,        &
                            imsx, imex, jmsx, jmex, kmsx, kmex,  &
                            ipsx, ipex, jpsx, jpex, kpsx, kpex,  &
                            imsy, imey, jmsy, jmey, kmsy, kmey,  &
@@ -534,7 +496,7 @@ message )
    IF ( .NOT. grid%this_is_an_ideal_run ) THEN
       CALL nl_get_p_top_requested  ( 1 , p_top_test )
       IF ( grid%p_top .NE. p_top_test ) THEN
-         CALL wrf_error_fatal3("<stdin>",537,&
+         CALL wrf_error_fatal3("<stdin>",499,&
 'start_em: p_top from the namelist does not match p_top from the input file.' )
       END IF
    END IF
@@ -548,7 +510,7 @@ message )
       CALL nl_get_base_pres_strat  ( 1 , p_strat    )
       IF ( ( t00 .LT. 100. .or. p00 .LT. 10000.) .AND. ( .NOT. grid%this_is_an_ideal_run ) ) THEN
          WRITE(wrf_err_message,*) 'start_em: BAD BASE STATE for T00 or P00 in namelist.input file'
-         CALL wrf_error_fatal3("<stdin>",551,&
+         CALL wrf_error_fatal3("<stdin>",513,&
 TRIM(wrf_err_message))
       END IF
 
@@ -564,7 +526,7 @@ TRIM(wrf_err_message))
       IF ( ( t00 .LT. 100. .or. p00 .LT. 10000.) .AND. ( .NOT. grid%this_is_an_ideal_run ) ) THEN
          WRITE(wrf_err_message,*)&
          'start_em: did not find base state parameters in wrfinput. Add use_baseparam_fr_nml = .t. in &dynamics and rerun'
-         CALL wrf_error_fatal3("<stdin>",567,&
+         CALL wrf_error_fatal3("<stdin>",529,&
 TRIM(wrf_err_message))
       ENDIF
 
@@ -576,7 +538,7 @@ TRIM(wrf_err_message))
    IF ( ( tiso_tmp .NE. tiso ) .AND. ( .NOT. grid%this_is_an_ideal_run ) ) THEN
       WRITE(wrf_err_message,*)&
       'start_em: namelist iso_temp is not equal to iso_temp in wrfinput. Reset nml value and rerun'
-      CALL wrf_error_fatal3("<stdin>",579,&
+      CALL wrf_error_fatal3("<stdin>",541,&
 TRIM(wrf_err_message))
    ENDIF
 
@@ -584,7 +546,7 @@ TRIM(wrf_err_message))
         (( config_flags%input_from_hires ) .OR. ( config_flags%input_from_file ))) THEN
 
       IF ( config_flags%map_proj .EQ. 0 ) THEN
-         CALL wrf_error_fatal3("<stdin>",587,&
+         CALL wrf_error_fatal3("<stdin>",549,&
 'start_domain: Idealized case cannot have a separate nested input file' )
       END IF
 
@@ -593,7 +555,6 @@ TRIM(wrf_err_message))
       
 
       DO k = 1, kte
-
          grid%c1f(k) = 1.
          grid%c2f(k) = 0.
          grid%c3f(k) = grid%znw(k)
@@ -602,7 +563,6 @@ TRIM(wrf_err_message))
          grid%c2h(k) = 0.
          grid%c3h(k) = grid%znu(k)
          grid%c4h(k) = 0.
-
       END DO
 
       DO j = jts, MIN(jte,jde-1)
@@ -618,11 +578,7 @@ TRIM(wrf_err_message))
             p_surf = p00 * EXP ( -t00/a + ( (t00/a)**2 - 2.*g*grid%ht(i,j)/a/r_d ) **0.5 )
 
             DO k = 1, kte-1
-
                grid%pb(i,k,j) = grid%znu(k)*(p_surf - grid%p_top) + grid%p_top
-
-
-
                temp = MAX ( tiso, t00 + A*LOG(grid%pb(i,k,j)/p00) )
                IF ( grid%pb(i,k,j) .LT. p_strat ) THEN
                   temp = tiso + A_strat * LOG ( grid%pb(i,k,j)/p_strat )
@@ -648,15 +604,9 @@ TRIM(wrf_err_message))
                END DO
             ELSE IF ( config_flags%hypsometric_opt .EQ. 2 ) THEN
                DO k  = 2,kte
-
                   pfu = grid%mub(i,j)*grid%znw(k)   + grid%p_top
                   pfd = grid%mub(i,j)*grid%znw(k-1) + grid%p_top
                   phm = grid%mub(i,j)*grid%znu(k-1) + grid%p_top
-
-
-
-
-
                   grid%phb(i,k,j) = grid%phb(i,k-1,j) + grid%alb(i,k-1,j)*phm*LOG(pfd/pfu)
                END DO
             END IF
@@ -709,11 +659,7 @@ TRIM(wrf_err_message))
      DO k = kts,kte-1
      DO i = its, min(ite,ide-1)
        IF ( grid%imask_nostag(i,j) .EQ. 1 ) THEN
-
          grid%pb(i,k,j) = grid%znu(k)*grid%mub(i,j)+grid%p_top
-
-
-
          grid%alb(i,k,j) = (r_d/p1000mb)*(grid%t_init(i,k,j)+t0)*(grid%pb(i,k,j)/p1000mb)**cvpm
        ENDIF
      ENDDO
@@ -725,11 +671,7 @@ TRIM(wrf_err_message))
         DO k = kts,kte-1
         DO i = its, min(ite,ide-1)
           IF ( grid%imask_nostag(i,j) .EQ. 1 ) THEN
-
             grid%pb(i,k,j) = grid%znu(k)*grid%mub(i,j)+grid%p_top
-
-
-
             temp = MAX ( tiso, t00 + A*LOG(grid%pb(i,k,j)/p00) )
             IF ( grid%pb(i,k,j) .LT. p_strat ) THEN
                temp = tiso + A_strat * LOG ( grid%pb(i,k,j)/p_strat )
@@ -747,7 +689,7 @@ TRIM(wrf_err_message))
         
         
        DO j = jts,min(jte,jde-1)
-       DO i = its, min(ite,ide-1)               
+       DO i = its, min(ite,ide-1)
         grid%phb(i,1,j) = grid%ht(i,j) * g
         IF ( config_flags%hypsometric_opt .EQ. 1 ) THEN
            DO kk  = 2,kte
@@ -756,15 +698,9 @@ TRIM(wrf_err_message))
            END DO
         ELSE IF ( config_flags%hypsometric_opt .EQ. 2 ) THEN
            DO k  = 2,kte
-
               pfu = grid%mub(i,j)*grid%znw(k)   + grid%p_top
               pfd = grid%mub(i,j)*grid%znw(k-1) + grid%p_top
               phm = grid%mub(i,j)*grid%znu(k-1) + grid%p_top
-
-
-
-
-
               grid%phb(i,k,j) = grid%phb(i,k-1,j) + grid%alb(i,k-1,j)*phm*LOG(pfd/pfu)
             END DO
           ENDIF
@@ -778,11 +714,7 @@ TRIM(wrf_err_message))
            DO k = kts,kte-1
            DO i = its, min(ite,ide-1)
              IF ( grid%imask_nostag(i,j) .EQ. 1 ) THEN
-
                grid%pb(i,k,j) = grid%znu(k)*grid%mub(i,j)+grid%p_top
-
-
-
                grid%alb(i,k,j) = -grid%rdnw(k)*(grid%phb(i,k+1,j)-grid%phb(i,k,j))/grid%mub(i,j)
                grid%t_init(i,k,j) = grid%alb(i,k,j)*(p1000mb/r_d)/((grid%pb(i,k,j)/p1000mb)**cvpm) - t0
              ENDIF
@@ -794,11 +726,7 @@ TRIM(wrf_err_message))
            DO k = kts,kte-1
            DO i = its, min(ite,ide-1)
              IF ( grid%imask_nostag(i,j) .EQ. 1 ) THEN
-
                grid%pb(i,k,j) = grid%znu(k)*grid%mub(i,j)+grid%p_top
-
-
-
                grid%alb(i,k,j) = (r_d/p1000mb)*(grid%t_init(i,k,j)+t0)*(grid%pb(i,k,j)/p1000mb)**cvpm
              ENDIF
            ENDDO
@@ -809,9 +737,9 @@ TRIM(wrf_err_message))
            
            DO j = jts,min(jte,jde-1)
            DO i = its, min(ite,ide-1)
-            grid%phb(i,1,j) = grid%ht(i,j) * g 
+            grid%phb(i,1,j) = grid%ht(i,j) * g
             DO kk  = 2,kte
-              k = kk - 1 
+              k = kk - 1
               grid%phb(i,kk,j) = grid%phb(i,kk-1,j) - grid%dnw(kk-1)*grid%mub(i,j)*grid%alb(i,kk-1,j)
             END DO
            ENDDO
@@ -819,7 +747,7 @@ TRIM(wrf_err_message))
         END IF  
      END IF 
     END IF 
-     
+
 
 
   
@@ -874,15 +802,9 @@ TRIM(wrf_err_message))
        DO j=jts,min(jte,jde-1)
        DO k=kts,kte-1
        DO i=its,min(ite,ide-1)
-
           pfu = (grid%mub(i,j)+grid%mu_1(i,j))*grid%znw(k+1)+grid%p_top
           pfd = (grid%mub(i,j)+grid%mu_1(i,j))*grid%znw(k)  +grid%p_top
           phm = (grid%mub(i,j)+grid%mu_1(i,j))*grid%znu(k)  +grid%p_top
-
-
-
-
-
           grid%al(i,k,j) = (grid%ph_1(i,k+1,j)-grid%ph_1(i,k,j)+grid%phb(i,k+1,j)-grid%phb(i,k,j)) &
                             /phm/LOG(pfd/pfu)-grid%alb(i,k,j)
        ENDDO
@@ -907,11 +829,7 @@ TRIM(wrf_err_message))
        DO j=jts,min(jte,jde-1)
           DO i=its,min(ite,ide-1)
              p_surf = p00 * EXP ( -t00/a + ( (t00/a)**2 - 2.*g*grid%ht(i,j)/a/r_d ) **0.5 )
-
              grid%p_hyd_w(i,1,j) = grid%p(i,1,j) + grid%znw(1)*(p_surf - grid%p_top) + grid%p_top
-
-
-
              DO k=kts+1,kte
                 grid%p_hyd_w(i,k,j) = ( 2.*(grid%p(i,k-1,j)+grid%pb(i,k-1,j)) - grid%p_hyd_w(i,k-1,j) )
              ENDDO
@@ -921,11 +839,7 @@ TRIM(wrf_err_message))
        DO j=jts,min(jte,jde-1)
           DO i=its,min(ite,ide-1)
              p_surf = grid%MUB(i,j)+grid%p_top
-
              grid%p_hyd_w(i,1,j) = grid%p(i,1,j) + grid%znw(1)*(p_surf - grid%p_top) + grid%p_top
-
-
-
              DO k=kts+1,kte
                 grid%p_hyd_w(i,k,j) = ( 2.*(grid%p(i,k-1,j)+grid%pb(i,k-1,j)) - grid%p_hyd_w(i,k-1,j) )
              ENDDO
@@ -1025,7 +939,7 @@ TRIM(wrf_err_message))
       grid%dt = grid%starting_time_step
 
 
-      
+
       grid%last_max_vert_cfl = 0
       grid%last_max_horiz_cfl = 0
 
@@ -1036,10 +950,6 @@ TRIM(wrf_err_message))
 
       grid%max_msftx=MAXVAL(grid%msftx)
       grid%max_msfty=MAXVAL(grid%msfty)
-
-
-
-
       end if
 
 
@@ -1066,11 +976,6 @@ TRIM(wrf_err_message))
 
 
    if ( allowed_to_read ) grid%num_tiles = max(1,grid%num_tiles)
-
-
-
-
-
 
 
 
@@ -1110,11 +1015,7 @@ TRIM(wrf_err_message))
                       grid%mass_flux,                              &
                       grid%rthften, grid%rqvften,                       &
                       grid%cldfra,                                      &
-
-
-
                       cldfra_old,                                  &
-
                       grid%glw,grid%gsw,grid%emiss,grid%embck,            &
                       grid%lu_index,                                      &
                       grid%landuse_ISICE, grid%landuse_LUCATS,            &
@@ -1270,15 +1171,30 @@ TRIM(wrf_err_message))
                       config_flags%nssl_rho_qh, config_flags%nssl_rho_qhl,    &
                       config_flags%nssl_rho_qs,                               &
                       config_flags%nssl_ipelec,                               &
-                      config_flags%nssl_isaund                               & 
+                      config_flags%nssl_isaund                               &
                       ,grid%RQCNCUTEN, grid%RQINCUTEN,grid%rliq             &      
                       ,grid%cldfra_dp,grid%cldfra_sh                        & 
                       ,grid%te_temf,grid%cf3d_temf,grid%wm_temf        & 
-                      ,grid%massflux_EDKF, grid%entr_EDKF, grid%detr_EDKF                & 
+                      ,grid%massflux_EDKF, grid%entr_EDKF, grid%detr_EDKF                &
                       ,grid%thl_up,grid%thv_up,grid%rt_up                                &
                       ,grid%rv_up,grid%rc_up,grid%u_up,grid%v_up,grid%frac_up            &
                       ,grid%ccn_conc                                          & 
                       ,grid%QKE                                               &
+                      ,grid%OHMcoef                                           & 
+                      ,grid%qn1_av_SUEWS                                      &
+                      ,grid%LAI_SUEWS                                         &
+                      ,grid%albDecTr_SUEWS                                    &
+                      ,grid%albEveTr_SUEWS                                    &
+                      ,grid%albGrass_SUEWS                                    &
+                      ,grid%DecidCap_SUEWS                                    &
+                      ,grid%porosity_SUEWS                                    &
+                      ,grid%GDD_SUEWS                                         &
+                      ,grid%HDD_SUEWS                                         &
+                      ,grid%HDD_PREV_SUEWS                                    &
+                      ,grid%state_SUEWS                                       &
+                      ,grid%soilmoist_SUEWS                                   &
+                      ,grid%surf_var_SUEWS                                    &
+                      ,grid%dqndt_SUEWS                                       &
                       ,grid%landusef,grid%landusef2,grid%mosaic_cat_index                            & 
                       ,grid%TSK_mosaic,grid%TSLB_mosaic,grid%SMOIS_mosaic,grid%SH2O_mosaic           & 
                       ,grid%CANWAT_mosaic,grid%SNOW_mosaic,grid%SNOWH_mosaic,grid%SNOWC_mosaic       & 
@@ -1302,7 +1218,7 @@ TRIM(wrf_err_message))
    IF (config_flags%do_avgflx_em .EQ. 1) THEN
       WRITE ( message , FMT = '("start_em: initializing avgflx on domain ",I3)' ) &
            & grid%id
-      CALL wrf_message(trim(message)) 
+      CALL wrf_message(trim(message))
       grid%avgflx_count = 0
       f_flux = config_flags%do_avgflx_cugd .EQ. 1  
       DO ij = 1, grid%num_tiles
@@ -1316,10 +1232,6 @@ TRIM(wrf_err_message))
          call wrf_debug(200,'In start_em, after zero_avgflx call')
       ENDDO
    ENDIF
-
-
-
-
 
 
    call wrf_debug(100,'start_em: calling lightning_init')
@@ -1340,13 +1252,6 @@ TRIM(wrf_err_message))
                     
                         ,ic_flashcount=grid%ic_flashcount, ic_flashrate=grid%ic_flashrate        &
                         ,cg_flashcount=grid%cg_flashcount, cg_flashrate=grid%cg_flashrate        &
-
-
-
-
-
-
-
                     )
 
     call wrf_debug(100,'start_em: after calling lightning_init')
@@ -1357,11 +1262,7 @@ TRIM(wrf_err_message))
 
 
 
-
-
-
  
-
 
 
 
@@ -1479,10 +1380,6 @@ TRIM(wrf_err_message))
          END DO
       END DO
 
-
-
-
-
       IF ( ( ABS(w_max) .LT. 1.E-6 ) .AND. &
            ( ABS(w_min) .LT. 1.E-6 ) ) THEN
          w_needs_to_be_set = .TRUE.
@@ -1510,7 +1407,7 @@ TRIM(wrf_err_message))
                               grid%cf2, grid%cf3, grid%rdx, grid%rdy, grid%msftx, grid%msfty, &
                               ids, ide, jds, jde, kds, kde,                    &
                               ims, ime, jms, jme, kms, kme,                    &
-                              its, ite, jts, jte, kts, kte                     ) 
+                              its, ite, jts, jte, kts, kte                     )
       END IF
    END IF
 
@@ -1727,9 +1624,6 @@ TRIM(wrf_err_message))
          
       END IF
       ccn_max_val = MAXVAL(scalar(its:MIN(ite,ide-1),kts:kte-1,jts:MIN(jte,jde-1),p_qnn))
-
-
-
       IF ( ccn_max_val < 1.0 ) THEN 
          DO j=jts,MIN(jte,jde-1)
             DO k=kts,kte
@@ -1754,7 +1648,6 @@ TRIM(wrf_err_message))
       END DO loop_3d_s
 
    ENDIF
-
 
 
 
@@ -1828,9 +1721,7 @@ TRIM(wrf_err_message))
                          its , ite , jts , jte , &
                          its , ite , jts , jte   )
 
-
       DEALLOCATE(CLDFRA_OLD)
-
 
 DEALLOCATE(z_at_q)
 
@@ -1866,13 +1757,13 @@ DEALLOCATE(z_at_q)
                  ,num_press_levels=config_flags%num_press_levels &
                  ,max_press_levels=max_plevs    &
                  ,press_levels=model_config_rec%press_levels &
-                 ,p_pl  = grid%p_pl             &  
-                 ,u_pl  = grid%u_pl             &  
-                 ,v_pl  = grid%v_pl             &  
-                 ,t_pl  = grid%t_pl             &  
-                 ,rh_pl = grid%rh_pl            & 
+                 ,p_pl  = grid%p_pl             &
+                 ,u_pl  = grid%u_pl             &
+                 ,v_pl  = grid%v_pl             &
+                 ,t_pl  = grid%t_pl             &
+                 ,rh_pl = grid%rh_pl            &
                  ,ght_pl= grid%ght_pl           &
-                 ,s_pl  = grid%s_pl             &  
+                 ,s_pl  = grid%s_pl             &
                  ,td_pl = grid%td_pl            &
                  ,q_pl = grid%q_pl              &
                  
@@ -1914,13 +1805,13 @@ DEALLOCATE(z_at_q)
                  ,num_z_levels=config_flags%num_z_levels &
                  ,max_z_levels=max_zlevs    &
                  ,z_levels=model_config_rec%z_levels &
-                 ,z_zl  = grid%z_zl             &  
-                 ,u_zl  = grid%u_zl             &  
-                 ,v_zl  = grid%v_zl             &  
-                 ,t_zl  = grid%t_zl             &  
-                 ,rh_zl = grid%rh_zl            & 
+                 ,z_zl  = grid%z_zl             &
+                 ,u_zl  = grid%u_zl             &
+                 ,v_zl  = grid%v_zl             &
+                 ,t_zl  = grid%t_zl             &
+                 ,rh_zl = grid%rh_zl            &
                  ,ght_zl= grid%ght_zl           &
-                 ,s_zl  = grid%s_zl             &  
+                 ,s_zl  = grid%s_zl             &
                  ,td_zl = grid%td_zl            &
                  ,q_zl = grid%q_zl              &
                  
@@ -1928,7 +1819,7 @@ DEALLOCATE(z_at_q)
                  ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme    &
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte    )
    ENDIF
- 
+
 
 
 if(config_flags%ifire.eq.2)then
@@ -1936,7 +1827,7 @@ if(config_flags%ifire.eq.2)then
    call fire_driver_em_init ( grid , config_flags    &
             ,ids,ide, kds,kde, jds,jde                &
             ,ims,ime, kms,kme, jms,jme                &
-            ,ips,ipe, kps,kpe, jps,jpe ) 
+            ,ips,ipe, kps,kpe, jps,jpe )
 
    CALL wrf_debug ( 100 , 'start_domain_em: After call to fire_driver_em_init' )
 endif
@@ -1971,7 +1862,6 @@ endif
 
 
 
-
 ,grid%moist,grid%moist_bxs,grid%moist_bxe,grid%moist_bys,grid%moist_bye,grid%moist_btxs,grid%moist_btxe,grid%moist_btys, &
 grid%moist_btye,grid%dfi_moist,grid%dfi_moist_bxs,grid%dfi_moist_bxe,grid%dfi_moist_bys,grid%dfi_moist_bye,grid%dfi_moist_btxs, &
 grid%dfi_moist_btxe,grid%dfi_moist_btys,grid%dfi_moist_btye,grid%scalar,grid%scalar_bxs,grid%scalar_bxe,grid%scalar_bys, &
@@ -1980,7 +1870,6 @@ grid%dfi_scalar_bxe,grid%dfi_scalar_bys,grid%dfi_scalar_bye,grid%dfi_scalar_btxs
 grid%dfi_scalar_btye,grid%aerod,grid%ozmixm,grid%aerosolc_1,grid%aerosolc_2,grid%fdda3d,grid%fdda2d,grid%advh_t,grid%advz_t, &
 grid%nba_mij,grid%nba_rij,grid%chem,grid%tracer,grid%tracer_bxs,grid%tracer_bxe,grid%tracer_bys,grid%tracer_bye, &
 grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
-
 
 
       )
@@ -1997,14 +1886,12 @@ grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 
 
 
-
 ,moist,moist_bxs,moist_bxe,moist_bys,moist_bye,moist_btxs,moist_btxe,moist_btys,moist_btye,dfi_moist,dfi_moist_bxs,dfi_moist_bxe, &
 dfi_moist_bys,dfi_moist_bye,dfi_moist_btxs,dfi_moist_btxe,dfi_moist_btys,dfi_moist_btye,scalar,scalar_bxs,scalar_bxe,scalar_bys, &
 scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar_bxs,dfi_scalar_bxe,dfi_scalar_bys, &
 dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,aerod,ozmixm,aerosolc_1,aerosolc_2,fdda3d,fdda2d, &
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
-
 
 
                         )
@@ -2017,11 +1904,9 @@ tracer_btye &
                                          DATA_ORDER_XY, DATA_ORDER_YX, model_data_order
 
 
-
       IMPLICIT NONE
 
       TYPE (domain)          :: grid
-
 
 
 
@@ -2085,9 +1970,6 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btxe
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
-
-
-
 
 
       TYPE (grid_config_rec_type)              :: config_flags
@@ -2170,7 +2052,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
          DO i = its, MIN(ite,ide-1)
 
         IF (n_moist >= PARAM_FIRST_SCALAR ) THEN
-       
+
                
                
                
@@ -2236,15 +2118,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 
                   grid%ph_2(i,1,j) = grid%phb(i,1,j)
                   DO k = 2,kte
-
                      pfu = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k)   + grid%p_top
                      pfd = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k-1) + grid%p_top
                      phm = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znu(k-1) + grid%p_top
-
-
-
-
-
                      grid%ph_2(i,k,j) = grid%ph_2(i,k-1,j) + grid%alt(i,k-1,j)*phm*LOG(pfd/pfu)
                   END DO
 
@@ -2260,7 +2136,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
        ELSE  
 
          kk = kte - 1
-               k = kk + 1 
+               k = kk + 1
 
                qvf1 = 0.5*(moist(i,kk,j,P_QV)+moist(i,kk,j,P_QV))
                qvf2 = 1./(1.+qvf1)
@@ -2277,7 +2153,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
             
 
            DO kk=kte-2,kts,-1
-               k = kk + 1 
+               k = kk + 1
                qvf1 = 0.5*(moist(i,kk,j,P_QV)+moist(i,kk+1,j,P_QV))
                qvf2 = 1./(1.+qvf1)
                qvf1 = qvf1*qvf2
@@ -2308,15 +2184,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 
                grid%ph_2(i,1,j) = grid%phb(i,1,j)
                DO k = 2,kte
-
                   pfu = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k)   + grid%p_top
                   pfd = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znw(k-1) + grid%p_top
                   phm = ( grid%mub(i,j)+grid%mu_2(i,j))*grid%znu(k-1) + grid%p_top
-
-
-
-
-
                   grid%ph_2(i,k,j) = grid%ph_2(i,k-1,j) + grid%alt(i,k-1,j)*phm*LOG(pfd/pfu)
                END DO
 
@@ -2343,15 +2213,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
         ENDDO 
 
       ips = its ; ipe = ite ; jps = jts ; jpe = jte ; kps = kts ; kpe = kte
-
-
-
-
-
-
-
    END SUBROUTINE rebalance_cycl
-
-
 
 

@@ -1484,5 +1484,3 @@ end subroutine calc_relative_humidity
 
 end module module_ra_aerosol
 
-
-

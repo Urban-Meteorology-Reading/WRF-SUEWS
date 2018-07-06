@@ -25,76 +25,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        
 
 module module_interp_nmm
@@ -553,7 +483,7 @@ contains
           else
              a=mod(JJ(i,j),2)
           endif
-          fbxs(j,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
+          fbxs(j,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
        enddo
     endif
     if(nite>=nide-1) then
@@ -564,7 +494,7 @@ contains
           else
              a=mod(JJ(i,j),2)
           endif
-          fbxe(j,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
+          fbxe(j,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
        enddo
     endif
     if(njts==1) then
@@ -575,7 +505,7 @@ contains
           else
              a=mod(JJ(i,j),2)
           endif
-          fbys(i,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
+          fbys(i,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
        enddo
     endif
     if(njte>=njde-1) then
@@ -586,7 +516,7 @@ contains
           else
              a=mod(JJ(i,j),2)
           endif
-          fbye(i,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
+          fbye(i,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
        enddo
     endif
   end subroutine c2b_copy2d
@@ -629,7 +559,7 @@ contains
 
        iloop: do i=istart,iend
           ni = (i-ipos)*nri + 2 - a
-          cfield(i,j)=(nfield(ni,nj+2) + nfield(ni-a ,nj+1)+ nfield(ni+1-a,nj+1) + nfield(ni-1,nj ) + nfield(ni,nj ) + nfield(ni+1,nj ) + nfield(ni-a ,nj-1)+ nfield(ni+1-a,nj-1) + nfield(ni,nj-2) ) / 9
+          cfield(i,j)=(nfield(ni,nj+2)  + nfield(ni-a  ,nj+1)+ nfield(ni+1-a,nj+1) + nfield(ni-1,nj  )  + nfield(ni,nj  )  + nfield(ni+1,nj  ) + nfield(ni-a  ,nj-1)+ nfield(ni+1-a,nj-1) +  nfield(ni,nj-2)   ) / 9
        enddo iloop
     enddo bigj 
  end subroutine n2c_copy2d
@@ -673,7 +603,7 @@ contains
 
        iloop: do i=istart,iend
           ni = (i-ipos)*nri + 2 - a
-          cfield(i,j)=max(cfield(i,j), max(nfield(ni,nj+2), max(nfield(ni-1,nj ),max(nfield(ni,nj ), max(nfield(ni+1,nj ), max(nfield(ni-a ,nj-1),max(nfield(ni+1-a,nj-1), nfield(ni,nj-2) )))))))
+          cfield(i,j)=max(cfield(i,j), max(nfield(ni,nj+2), max(nfield(ni-1,nj  ),max(nfield(ni,nj  ),  max(nfield(ni+1,nj  ),     max(nfield(ni-a  ,nj-1),max(nfield(ni+1-a,nj-1),     nfield(ni,nj-2) )))))))
        enddo iloop
     enddo bigj 
   end subroutine n2c_max2d
@@ -710,7 +640,7 @@ contains
           else
              a=mod(JJ(i,j),2)
           endif
-          nfield(i,j)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
+          nfield(i,j)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
        enddo interploop
     end do bigj
   end subroutine c2n_copy2d
@@ -745,7 +675,7 @@ contains
           else
              a=mod(JJ(i,j),2)
           endif
-          nfield(i,j)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
+          nfield(i,j)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1))
        enddo interploop
     end do bigj
   end subroutine c2n_copy2d_nomask
@@ -801,7 +731,7 @@ contains
              a=mod(JJ(i,j),2)
           endif
           kloop1: do k=nkds,min(nkde,nkte)
-             fbxs(j,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbxs(j,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kloop1
        enddo
     endif
@@ -814,7 +744,7 @@ contains
              a=mod(JJ(i,j),2)
           endif
           kloop2: do k=nkds,min(nkde,nkte)
-             fbxe(j,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbxe(j,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kloop2
        enddo
     endif
@@ -827,7 +757,7 @@ contains
              a=mod(JJ(i,j),2)
           endif
           kloop3: do k=nkts,min(nkde,nkte)
-             fbys(i,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbys(i,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kloop3
        enddo
     endif
@@ -840,7 +770,7 @@ contains
              a=mod(JJ(i,j),2)
           endif
           kloop4: do k=nkts,min(nkde,nkte)
-             fbye(i,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbye(i,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kloop4
        enddo
     endif
@@ -891,7 +821,7 @@ contains
        iloop: do i=istart,iend
           do k=nkds,nkde
              ni = (i-ipos)*nri + 2 - a
-             cfield(i,j,k)=(nfield(ni,nj+2,k) + nfield(ni-a ,nj+1,k)+ nfield(ni+1-a,nj+1,k) + nfield(ni-1,nj ,k) + nfield(ni,nj ,k) + nfield(ni+1,nj ,k) + nfield(ni-a ,nj-1,k)+ nfield(ni+1-a,nj-1,k) + nfield(ni,nj-2,k) ) / 9
+             cfield(i,j,k)=(nfield(ni,nj+2,k)  + nfield(ni-a  ,nj+1,k)+ nfield(ni+1-a,nj+1,k) + nfield(ni-1,nj  ,k)  + nfield(ni,nj  ,k)  + nfield(ni+1,nj  ,k) + nfield(ni-a  ,nj-1,k)+ nfield(ni+1-a,nj-1,k) +  nfield(ni,nj-2,k)   ) / 9
           enddo
        enddo iloop
     enddo bigj
@@ -942,7 +872,7 @@ contains
        iloop: do i=istart,iend
           do k=nkds,nkde
              ni = (i-ipos)*nri + 2 - a
-             cfield(i,j,k)=max(cfield(i,j,k),max(nfield(ni,nj+2,k), max(nfield(ni-1,nj ,k),max(nfield(ni,nj ,k), max(nfield(ni+1,nj ,k), max(nfield(ni-a ,nj-1,k),max(nfield(ni+1-a,nj-1,k), nfield(ni,nj-2,k) )))))))
+             cfield(i,j,k)=max(cfield(i,j,k),max(nfield(ni,nj+2,k),     max(nfield(ni-1,nj  ,k),max(nfield(ni,nj  ,k),  max(nfield(ni+1,nj  ,k),  max(nfield(ni-a  ,nj-1,k),max(nfield(ni+1-a,nj-1,k), nfield(ni,nj-2,k) )))))))
           enddo
        enddo iloop
     enddo bigj
@@ -982,7 +912,7 @@ contains
              else
                 a=mod(JJ(i,j),2)
              endif
-             nfield(i,j,k) = (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             nfield(i,j,k) = (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kinterploop
        enddo interploop
     end do bigj
@@ -1047,7 +977,7 @@ contains
        do j=j1,j2,2
           a=1-mod(JJ(i,j),2)
           kcopy1: do k=min(nkde,nkte),kpres+1,-1
-             fbxs(j,k,1) = (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbxs(j,k,1) = (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kcopy1
           kloop1: do k=kpres,nkds,-1
              weight=wbxs(j,k,1)
@@ -1055,17 +985,17 @@ contains
              
              if(ck>1) then
                 fbxs(j,k,1) = &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck-1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck-1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck-1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck-1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
              else
                 
                 if(emethod==EConst) then
                    fbxs(j,k,1)=evalue
                 else if(emethod==ECopy) then
-                   fbxs(j,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
+                   fbxs(j,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
                 else 
                    fbxs(j,k,1)=evalue * weight + &
-                               (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1)) * (1.0-weight)
+                               (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1)) * (1.0-weight)
                 endif
              endif
           enddo kloop1
@@ -1076,7 +1006,7 @@ contains
        do j=j1,j2,2
           a=1-mod(JJ(i,j),2)
           kcopy2: do k=min(nkde,nkte),kpres+1,-1
-             fbxe(j,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbxe(j,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kcopy2
           kloop2: do k=kpres,nkds,-1
              weight=wbxe(j,k,1)
@@ -1084,17 +1014,17 @@ contains
 
              if(ck>1) then
                 fbxe(j,k,1) = &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck-1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck-1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck-1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck-1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
              else
                 
                 if(emethod==EConst) then
                    fbxe(j,k,1)=evalue
                 else if(emethod==ECopy) then
-                   fbxe(j,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
+                   fbxe(j,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
                 else 
                    fbxe(j,k,1)=evalue * weight + &
-                        (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1)) * (1.0-weight)
+                        (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1)) * (1.0-weight)
                 endif
              endif
           enddo kloop2
@@ -1105,7 +1035,7 @@ contains
        do i=max(nits-1,nids),min(nite+1,nide-1)
           a=1-mod(JJ(i,j),2)
           kcopy3: do k=min(nkde,nkte),kpres+1,-1
-             fbys(i,k,1) = (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbys(i,k,1) = (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kcopy3
           kloop3: do k=kpres,nkds,-1
              weight=wbys(i,k,1)
@@ -1113,17 +1043,17 @@ contains
 
              if(ck>1) then
                 fbys(i,k,1) = &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck-1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck-1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck-1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck-1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
              else
                 
                 if(emethod==EConst) then
                    fbys(i,k,1)=evalue
                 else if(emethod==ECopy) then
-                   fbys(i,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
+                   fbys(i,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
                 else 
                    fbys(i,k,1)=evalue*weight + &
-                        (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))*(1.0-weight)
+                        (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))*(1.0-weight)
                 endif
              endif
           enddo kloop3
@@ -1134,7 +1064,7 @@ contains
        do i=max(nits-1,nids),min(nite+1,nide-1)
           a=1-mod(JJ(i,j),2)
           kcopy4: do k=min(nkde,nkte),kpres+1,-1
-             fbye(i,k,1) = (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             fbye(i,k,1) = (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
           enddo kcopy4
           kloop4: do k=kpres,nkds,-1
              weight=wbye(i,k,1)
@@ -1142,16 +1072,16 @@ contains
 
              if(ck>1) then
                 fbye(i,k,1) = &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck-1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck-1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck-1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck-1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
              else
                 if(emethod==EConst) then
                    fbye(i,k,1)=evalue
                 else if(emethod==ECopy) then
-                   fbye(i,k,1)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
+                   fbye(i,k,1)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
                 else 
                    fbye(i,k,1)=evalue*weight + &
-                        (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))*(1.0-weight)
+                        (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))*(1.0-weight)
                 endif
              endif
           enddo kloop4
@@ -1202,7 +1132,7 @@ contains
           nj = (j-jpos)*nrj + 1
           icopy: do i=istart,iend
              ni = (i-ipos)*nri + 2 - a
-             cfield(i,j,k) = (nfield(ni,nj+2,k) + nfield(ni-a ,nj+1,k)+ nfield(ni+1-a,nj+1,k) + nfield(ni-1,nj ,k) + nfield(ni,nj ,k) + nfield(ni+1,nj ,k) + nfield(ni-a ,nj-1,k)+ nfield(ni+1-a,nj-1,k) + nfield(ni,nj-2,k) ) / 9
+             cfield(i,j,k) = (nfield(ni,nj+2,k)  + nfield(ni-a  ,nj+1,k)+ nfield(ni+1-a,nj+1,k) + nfield(ni-1,nj  ,k)  + nfield(ni,nj  ,k)  + nfield(ni+1,nj  ,k) + nfield(ni-a  ,nj-1,k)+ nfield(ni+1-a,nj-1,k) +  nfield(ni,nj-2,k)   ) / 9
           enddo icopy
        enddo jcopy
     enddo kcopy
@@ -1221,19 +1151,19 @@ contains
 
              if(nk>1) then
                 cfield(i,j,k) = &
-                     (nfield(ni,nj+2,nk) + nfield(ni-a ,nj+1,nk)+ nfield(ni+1-a,nj+1,nk) + nfield(ni-1,nj ,nk) + nfield(ni,nj ,nk) + nfield(ni+1,nj ,nk) + nfield(ni-a ,nj-1,nk)+ nfield(ni+1-a,nj-1,nk) + nfield(ni,nj-2,nk) ) / 9   * weight + &
+                     (nfield(ni,nj+2,nk)  + nfield(ni-a  ,nj+1,nk)+ nfield(ni+1-a,nj+1,nk) + nfield(ni-1,nj  ,nk)  + nfield(ni,nj  ,nk)  + nfield(ni+1,nj  ,nk) + nfield(ni-a  ,nj-1,nk)+ nfield(ni+1-a,nj-1,nk) +  nfield(ni,nj-2,nk)   ) / 9   * weight + &
 
-             (nfield(ni,nj+2,nk-1) + nfield(ni-a ,nj+1,nk-1)+ nfield(ni+1-a,nj+1,nk-1) + nfield(ni-1,nj ,nk-1) + nfield(ni,nj ,nk-1) + nfield(ni+1,nj ,nk-1) + nfield(ni-a ,nj-1,nk-1)+ nfield(ni+1-a,nj-1,nk-1) + nfield(ni,nj-2,nk-1) ) / 9 &
+             (nfield(ni,nj+2,nk-1)  + nfield(ni-a  ,nj+1,nk-1)+ nfield(ni+1-a,nj+1,nk-1) + nfield(ni-1,nj  ,nk-1)  + nfield(ni,nj  ,nk-1)  + nfield(ni+1,nj  ,nk-1) + nfield(ni-a  ,nj-1,nk-1)+ nfield(ni+1-a,nj-1,nk-1) +  nfield(ni,nj-2,nk-1)   ) / 9 &
              * (1.0-weight)
              else
                 
                 if(emethod==EConst) then
                    cfield(i,j,k)=evalue
                 elseif(emethod==ECopy) then
-                   cfield(i,j,k)=(nfield(ni,nj+2,1) + nfield(ni-a ,nj+1,1)+ nfield(ni+1-a,nj+1,1) + nfield(ni-1,nj ,1) + nfield(ni,nj ,1) + nfield(ni+1,nj ,1) + nfield(ni-a ,nj-1,1)+ nfield(ni+1-a,nj-1,1) + nfield(ni,nj-2,1) ) / 9
+                   cfield(i,j,k)=(nfield(ni,nj+2,1)  + nfield(ni-a  ,nj+1,1)+ nfield(ni+1-a,nj+1,1) + nfield(ni-1,nj  ,1)  + nfield(ni,nj  ,1)  + nfield(ni+1,nj  ,1) + nfield(ni-a  ,nj-1,1)+ nfield(ni+1-a,nj-1,1) +  nfield(ni,nj-2,1)   ) / 9
                 else 
                    cfield(i,j,k)=evalue*weight + &
-                        (nfield(ni,nj+2,1) + nfield(ni-a ,nj+1,1)+ nfield(ni+1-a,nj+1,1) + nfield(ni-1,nj ,1) + nfield(ni,nj ,1) + nfield(ni+1,nj ,1) + nfield(ni-a ,nj-1,1)+ nfield(ni+1-a,nj-1,1) + nfield(ni,nj-2,1) ) / 9*(1.0-weight)
+                        (nfield(ni,nj+2,1)  + nfield(ni-a  ,nj+1,1)+ nfield(ni+1-a,nj+1,1) + nfield(ni-1,nj  ,1)  + nfield(ni,nj  ,1)  + nfield(ni+1,nj  ,1) + nfield(ni-a  ,nj-1,1)+ nfield(ni+1-a,nj-1,1) +  nfield(ni,nj-2,1)   ) / 9*(1.0-weight)
                 endif
              endif
           end do kinterploop
@@ -1284,7 +1214,7 @@ contains
        kcopyloop: do k=nkde,kpres+1,-1
           icopyloop: do i=istart,iend
              ni = (i-ipos)*nri + 2 - a
-             cfield(i,k,j) = (nfield(ni,k,nj+2) + nfield(ni-a ,k,nj+1)+ nfield(ni+1-a,k,nj+1) + nfield(ni-1,k,nj ) + nfield(ni,k,nj ) + nfield(ni+1,k,nj ) + nfield(ni-a ,k,nj-1)+ nfield(ni+1-a,k,nj-1) + nfield(ni,k,nj-2) ) / 9
+             cfield(i,k,j) = (nfield(ni,k,nj+2)  + nfield(ni-a  ,k,nj+1)+ nfield(ni+1-a,k,nj+1)    + nfield(ni-1,k,nj  )  + nfield(ni,k,nj  )  + nfield(ni+1,k,nj  ) + nfield(ni-a  ,k,nj-1)+ nfield(ni+1-a,k,nj-1) +  nfield(ni,k,nj-2)   ) / 9
           enddo icopyloop
        enddo kcopyloop
 
@@ -1296,19 +1226,19 @@ contains
 
              if(nk>1) then
                 cfield(i,k,j) = &
-                     (nfield(ni,nk,nj+2) + nfield(ni-a ,nk,nj+1)+ nfield(ni+1-a,nk,nj+1) + nfield(ni-1,nk,nj ) + nfield(ni,nk,nj ) + nfield(ni+1,nk,nj ) + nfield(ni-a ,nk,nj-1)+ nfield(ni+1-a,nk,nj-1) + nfield(ni,nk,nj-2) ) / 9 * weight + &
+                     (nfield(ni,nk,nj+2)  + nfield(ni-a  ,nk,nj+1)+ nfield(ni+1-a,nk,nj+1)    + nfield(ni-1,nk,nj  )  + nfield(ni,nk,nj  )  + nfield(ni+1,nk,nj  ) + nfield(ni-a  ,nk,nj-1)+ nfield(ni+1-a,nk,nj-1) +  nfield(ni,nk,nj-2)   ) / 9 * weight + &
 
-             (nfield(ni,nk-1,nj+2) + nfield(ni-a ,nk-1,nj+1)+ nfield(ni+1-a,nk-1,nj+1) + nfield(ni-1,nk-1,nj ) + nfield(ni,nk-1,nj ) + nfield(ni+1,nk-1,nj ) + nfield(ni-a ,nk-1,nj-1)+ nfield(ni+1-a,nk-1,nj-1) + nfield(ni,nk-1,nj-2) ) / 9 &
+             (nfield(ni,nk-1,nj+2)  + nfield(ni-a  ,nk-1,nj+1)+ nfield(ni+1-a,nk-1,nj+1)    + nfield(ni-1,nk-1,nj  )  + nfield(ni,nk-1,nj  )  + nfield(ni+1,nk-1,nj  ) + nfield(ni-a  ,nk-1,nj-1)+ nfield(ni+1-a,nk-1,nj-1) +  nfield(ni,nk-1,nj-2)   ) / 9 &
              * (1.0-weight)
              else
                 
                 if(emethod==EConst) then
                    cfield(i,k,j)=evalue
                 elseif(emethod==ECopy) then
-                   cfield(i,k,j)=(nfield(ni,1,nj+2) + nfield(ni-a ,1,nj+1)+ nfield(ni+1-a,1,nj+1) + nfield(ni-1,1,nj ) + nfield(ni,1,nj ) + nfield(ni+1,1,nj ) + nfield(ni-a ,1,nj-1)+ nfield(ni+1-a,1,nj-1) + nfield(ni,1,nj-2) ) / 9
+                   cfield(i,k,j)=(nfield(ni,1,nj+2)  + nfield(ni-a  ,1,nj+1)+ nfield(ni+1-a,1,nj+1)    + nfield(ni-1,1,nj  )  + nfield(ni,1,nj  )  + nfield(ni+1,1,nj  ) + nfield(ni-a  ,1,nj-1)+ nfield(ni+1-a,1,nj-1) +  nfield(ni,1,nj-2)   ) / 9
                 else 
                    cfield(i,k,j)=evalue*weight + &
-                        (nfield(ni,1,nj+2) + nfield(ni-a ,1,nj+1)+ nfield(ni+1-a,1,nj+1) + nfield(ni-1,1,nj ) + nfield(ni,1,nj ) + nfield(ni+1,1,nj ) + nfield(ni-a ,1,nj-1)+ nfield(ni+1-a,1,nj-1) + nfield(ni,1,nj-2) ) / 9*(1.0-weight)
+                        (nfield(ni,1,nj+2)  + nfield(ni-a  ,1,nj+1)+ nfield(ni+1-a,1,nj+1)    + nfield(ni-1,1,nj  )  + nfield(ni,1,nj  )  + nfield(ni+1,1,nj  ) + nfield(ni-a  ,1,nj-1)+ nfield(ni+1-a,1,nj-1) +  nfield(ni,1,nj-2)   ) / 9*(1.0-weight)
                 endif
              endif
           enddo iloop
@@ -1346,7 +1276,7 @@ contains
     nx=min(nide-1,nite)-max(nids,nits)+1
     nz=nkde-nkds+1
     if(kpres<=nkds .or. kpres>=nkde) then
-       call wrf_error_fatal3("<stdin>",1349,&
+       call wrf_error_fatal3("<stdin>",1279,&
 'invalid kpres: outside domain bounds')
     end if
     bigj: do j=max(njds,njts),min(njde-1,njte)
@@ -1354,7 +1284,7 @@ contains
           if(imask(i,j)/=0) cycle interploop
           a=1-mod(JJ(i,j),2)
           kcopyloop: do k=nkde,kpres+1,-1
-             nfield(i,j,k)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
+             nfield(i,j,k)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,k))
              
              ck=iinfo(i,j,k)
 
@@ -1374,17 +1304,17 @@ contains
 
              if(ck>1) then
                 nfield(i,j,k) = &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
-                     (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,ck-1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,ck-1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck))   * weight + &
+                     (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,ck-1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,ck-1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,ck-1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,ck-1)) * (1.0-weight)
              else                
                 
                 if(emethod==EConst) then
                    nfield(i,j,k)=evalue
                 elseif(emethod==ECopy) then
-                   nfield(i,j,k)=(W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
+                   nfield(i,j,k)=(W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))
                 else 
                    nfield(i,j,k)=evalue*weight + &
-                        (W1(i,j)*cfield(II(i,j) ,JJ(i,j) ,1) + W2(i,j)*cfield(II(i,j)+1,JJ(i,j) ,1) + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1) + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))*(1.0-weight)
+                        (W1(i,j)*cfield(II(i,j)  ,JJ(i,j)  ,1)    + W2(i,j)*cfield(II(i,j)+1,JJ(i,j)  ,1)    + W3(i,j)*cfield(II(i,j)+a,JJ(i,j)-1,1)    + W4(i,j)*cfield(II(i,j)+a,JJ(i,j)+1,1))*(1.0-weight)
                 endif
              endif
           enddo kinterploop
@@ -1428,7 +1358,7 @@ contains
           if(imask(i,j)/=0) cycle interploop
           a=1-mod(JJ(i,j),2)
           kcopyloop: do k=nkde,kpres+1,-1
-             nfield(i,k,j)=(W1(i,j)*cfield(II(i,j) ,k,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,k,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,k,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,k,JJ(i,j)+1))
+             nfield(i,k,j)=(W1(i,j)*cfield(II(i,j)  ,k,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,k,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,k,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,k,JJ(i,j)+1))
           end do kcopyloop
           kinterploop: do k=kpres,nkds,-1
              weight=winfo(i,j,k)
@@ -1436,17 +1366,17 @@ contains
 
              if(ck>1) then
                 nfield(i,k,j) = &
-                     (W1(i,j)*cfield(II(i,j) ,ck,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,ck,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,ck,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,ck,JJ(i,j)+1))   * weight + &
-                     (W1(i,j)*cfield(II(i,j) ,ck-1,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,ck-1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,ck-1,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,ck-1,JJ(i,j)+1)) * (1.0-weight)
+                     (W1(i,j)*cfield(II(i,j)  ,ck,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,ck,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,ck,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,ck,JJ(i,j)+1))   * weight + &
+                     (W1(i,j)*cfield(II(i,j)  ,ck-1,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,ck-1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,ck-1,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,ck-1,JJ(i,j)+1)) * (1.0-weight)
              else
                 
                 if(emethod==EConst) then
                    nfield(i,k,j)=evalue
                 elseif(emethod==ECopy) then
-                   nfield(i,k,j)=(W1(i,j)*cfield(II(i,j) ,1,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,1,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,1,JJ(i,j)+1))
+                   nfield(i,k,j)=(W1(i,j)*cfield(II(i,j)  ,1,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,1,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,1,JJ(i,j)+1))
                 else 
                    nfield(i,k,j)=evalue * weight + &
-                               (W1(i,j)*cfield(II(i,j) ,1,JJ(i,j) ) + W2(i,j)*cfield(II(i,j)+1,1,JJ(i,j) ) + W3(i,j)*cfield(II(i,j)+a,1,JJ(i,j)-1) + W4(i,j)*cfield(II(i,j)+a,1,JJ(i,j)+1)) * (1.0-weight)
+                               (W1(i,j)*cfield(II(i,j)  ,1,JJ(i,j)  )    + W2(i,j)*cfield(II(i,j)+1,1,JJ(i,j)  )    + W3(i,j)*cfield(II(i,j)+a,1,JJ(i,j)-1)    + W4(i,j)*cfield(II(i,j)+a,1,JJ(i,j)+1)) * (1.0-weight)
                 endif
              endif
           enddo kinterploop
@@ -1469,7 +1399,7 @@ contains
     do while(eta2(k) < 1e-5 .and. eta2(k-1) < 1e-5)
        k=k-1
        if(k<=kds) then
-          call wrf_error_fatal3("<stdin>",1472,&
+          call wrf_error_fatal3("<stdin>",1402,&
 'New NMM interpolation routines do not work in a constant pressure space.')
        endif
     enddo
@@ -1554,9 +1484,9 @@ contains
           do i=istart,iend
              ni = (i-ipos)*nri + 2 - a
 
-             inT0(k,i-istart+1)=(nT(ni,nj+2,k) + nT(ni-a ,nj+1,k)+ nT(ni+1-a,nj+1,k) + nT(ni-1,nj ,k)+ nT(ni,nj ,k) + nT(ni+1,nj ,k) + nT(ni-a ,nj-1,k)+ nT(ni+1-a,nj-1,k) + nT(ni,nj-2,k) ) / 9
-             inQ(k,i-istart+1)=(nQ(ni,nj+2,k) + nQ(ni-a ,nj+1,k)+ nQ(ni+1-a,nj+1,k) + nQ(ni-1,nj ,k)+ nQ(ni,nj ,k) + nQ(ni+1,nj ,k) + nQ(ni-a ,nj-1,k)+ nQ(ni+1-a,nj-1,k) + nQ(ni,nj-2,k) ) / 9
-             inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k) + nPINT(ni-a ,nj+1,k)+ nPINT(ni+1-a,nj+1,k) + nPINT(ni-1,nj ,k)+ nPINT(ni,nj ,k) + nPINT(ni+1,nj ,k) + nPINT(ni-a ,nj-1,k)+ nPINT(ni+1-a,nj-1,k) + nPINT(ni,nj-2,k) ) / 9
+             inT0(k,i-istart+1)=(nT(ni,nj+2,k)  + nT(ni-a  ,nj+1,k)+ nT(ni+1-a,nj+1,k)  + nT(ni-1,nj  ,k)+ nT(ni,nj  ,k)  + nT(ni+1,nj  ,k)  + nT(ni-a  ,nj-1,k)+ nT(ni+1-a,nj-1,k)  +  nT(ni,nj-2,k)   ) / 9
+             inQ(k,i-istart+1)=(nQ(ni,nj+2,k)  + nQ(ni-a  ,nj+1,k)+ nQ(ni+1-a,nj+1,k)  + nQ(ni-1,nj  ,k)+ nQ(ni,nj  ,k)  + nQ(ni+1,nj  ,k)  + nQ(ni-a  ,nj-1,k)+ nQ(ni+1-a,nj-1,k)  +  nQ(ni,nj-2,k)   ) / 9
+             inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k)  + nPINT(ni-a  ,nj+1,k)+ nPINT(ni+1-a,nj+1,k)  + nPINT(ni-1,nj  ,k)+ nPINT(ni,nj  ,k)  + nPINT(ni+1,nj  ,k)  + nPINT(ni-a  ,nj-1,k)+ nPINT(ni+1-a,nj-1,k)  +  nPINT(ni,nj-2,k)   ) / 9
           enddo
        enddo qtloop
 
@@ -1564,9 +1494,9 @@ contains
        loop2d: do i=istart,iend
           ni = (i-ipos)*nri + 2 - a
 
-          inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k) + nPINT(ni-a ,nj+1,k)+ nPINT(ni+1-a,nj+1,k) + nPINT(ni-1,nj ,k)+ nPINT(ni,nj ,k) + nPINT(ni+1,nj ,k) + nPINT(ni-a ,nj-1,k)+ nPINT(ni+1-a,nj-1,k) + nPINT(ni,nj-2,k) ) / 9
-          inPD(1,i-istart+1)=(nPD(ni,nj+2,1) + nPD(ni-a ,nj+1,1)+ nPD(ni+1-a,nj+1,1) + nPD(ni-1,nj ,1)+ nPD(ni,nj ,1) + nPD(ni+1,nj ,1) + nPD(ni-a ,nj-1,1)+ nPD(ni+1-a,nj-1,1) + nPD(ni,nj-2,1) ) / 9
-          inFIS(1,i-istart+1)=(nFIS(ni,nj+2,1) + nFIS(ni-a ,nj+1,1)+ nFIS(ni+1-a,nj+1,1) + nFIS(ni-1,nj ,1)+ nFIS(ni,nj ,1) + nFIS(ni+1,nj ,1) + nFIS(ni-a ,nj-1,1)+ nFIS(ni+1-a,nj-1,1) + nFIS(ni,nj-2,1) ) / 9
+          inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k)  + nPINT(ni-a  ,nj+1,k)+ nPINT(ni+1-a,nj+1,k)  + nPINT(ni-1,nj  ,k)+ nPINT(ni,nj  ,k)  + nPINT(ni+1,nj  ,k)  + nPINT(ni-a  ,nj-1,k)+ nPINT(ni+1-a,nj-1,k)  +  nPINT(ni,nj-2,k)   ) / 9
+          inPD(1,i-istart+1)=(nPD(ni,nj+2,1)  + nPD(ni-a  ,nj+1,1)+ nPD(ni+1-a,nj+1,1)  + nPD(ni-1,nj  ,1)+ nPD(ni,nj  ,1)  + nPD(ni+1,nj  ,1)  + nPD(ni-a  ,nj-1,1)+ nPD(ni+1-a,nj-1,1)  +  nPD(ni,nj-2,1)   ) / 9
+          inFIS(1,i-istart+1)=(nFIS(ni,nj+2,1)  + nFIS(ni-a  ,nj+1,1)+ nFIS(ni+1-a,nj+1,1)  + nFIS(ni-1,nj  ,1)+ nFIS(ni,nj  ,1)  + nFIS(ni+1,nj  ,1)  + nFIS(ni-a  ,nj-1,1)+ nFIS(ni+1-a,nj-1,1)  +  nFIS(ni,nj-2,1)   ) / 9
 
           icPD(1,i-istart+1)=cPD(i,j,1)
 
@@ -1680,9 +1610,9 @@ contains
           do i=istart,iend
              ni = (i-ipos)*nri + 2 - a
 
-             inT0(k,i-istart+1)=(nT(ni,nj+2,k) + nT(ni-a ,nj+1,k)+ nT(ni+1-a,nj+1,k) + nT(ni-1,nj ,k)+ nT(ni,nj ,k) + nT(ni+1,nj ,k) + nT(ni-a ,nj-1,k)+ nT(ni+1-a,nj-1,k) + nT(ni,nj-2,k) ) / 9
-             inQ(k,i-istart+1)=(nQ(ni,nj+2,k) + nQ(ni-a ,nj+1,k)+ nQ(ni+1-a,nj+1,k) + nQ(ni-1,nj ,k)+ nQ(ni,nj ,k) + nQ(ni+1,nj ,k) + nQ(ni-a ,nj-1,k)+ nQ(ni+1-a,nj-1,k) + nQ(ni,nj-2,k) ) / 9
-             inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k) + nPINT(ni-a ,nj+1,k)+ nPINT(ni+1-a,nj+1,k) + nPINT(ni-1,nj ,k)+ nPINT(ni,nj ,k) + nPINT(ni+1,nj ,k) + nPINT(ni-a ,nj-1,k)+ nPINT(ni+1-a,nj-1,k) + nPINT(ni,nj-2,k) ) / 9
+             inT0(k,i-istart+1)=(nT(ni,nj+2,k)  + nT(ni-a  ,nj+1,k)+ nT(ni+1-a,nj+1,k)  + nT(ni-1,nj  ,k)+ nT(ni,nj  ,k)  + nT(ni+1,nj  ,k)  + nT(ni-a  ,nj-1,k)+ nT(ni+1-a,nj-1,k)  +  nT(ni,nj-2,k)   ) / 9
+             inQ(k,i-istart+1)=(nQ(ni,nj+2,k)  + nQ(ni-a  ,nj+1,k)+ nQ(ni+1-a,nj+1,k)  + nQ(ni-1,nj  ,k)+ nQ(ni,nj  ,k)  + nQ(ni+1,nj  ,k)  + nQ(ni-a  ,nj-1,k)+ nQ(ni+1-a,nj-1,k)  +  nQ(ni,nj-2,k)   ) / 9
+             inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k)  + nPINT(ni-a  ,nj+1,k)+ nPINT(ni+1-a,nj+1,k)  + nPINT(ni-1,nj  ,k)+ nPINT(ni,nj  ,k)  + nPINT(ni+1,nj  ,k)  + nPINT(ni-a  ,nj-1,k)+ nPINT(ni+1-a,nj-1,k)  +  nPINT(ni,nj-2,k)   ) / 9
           enddo
        enddo qtloop
 
@@ -1690,9 +1620,9 @@ contains
        loop2d: do i=istart,iend
           ni = (i-ipos)*nri + 2 - a
 
-          inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k) + nPINT(ni-a ,nj+1,k)+ nPINT(ni+1-a,nj+1,k) + nPINT(ni-1,nj ,k)+ nPINT(ni,nj ,k) + nPINT(ni+1,nj ,k) + nPINT(ni-a ,nj-1,k)+ nPINT(ni+1-a,nj-1,k) + nPINT(ni,nj-2,k) ) / 9
-          inPD(1,i-istart+1)=(nPD(ni,nj+2,1) + nPD(ni-a ,nj+1,1)+ nPD(ni+1-a,nj+1,1) + nPD(ni-1,nj ,1)+ nPD(ni,nj ,1) + nPD(ni+1,nj ,1) + nPD(ni-a ,nj-1,1)+ nPD(ni+1-a,nj-1,1) + nPD(ni,nj-2,1) ) / 9
-          inFIS(1,i-istart+1)=(nFIS(ni,nj+2,1) + nFIS(ni-a ,nj+1,1)+ nFIS(ni+1-a,nj+1,1) + nFIS(ni-1,nj ,1)+ nFIS(ni,nj ,1) + nFIS(ni+1,nj ,1) + nFIS(ni-a ,nj-1,1)+ nFIS(ni+1-a,nj-1,1) + nFIS(ni,nj-2,1) ) / 9
+          inPINT(k,i-istart+1)=(nPINT(ni,nj+2,k)  + nPINT(ni-a  ,nj+1,k)+ nPINT(ni+1-a,nj+1,k)  + nPINT(ni-1,nj  ,k)+ nPINT(ni,nj  ,k)  + nPINT(ni+1,nj  ,k)  + nPINT(ni-a  ,nj-1,k)+ nPINT(ni+1-a,nj-1,k)  +  nPINT(ni,nj-2,k)   ) / 9
+          inPD(1,i-istart+1)=(nPD(ni,nj+2,1)  + nPD(ni-a  ,nj+1,1)+ nPD(ni+1-a,nj+1,1)  + nPD(ni-1,nj  ,1)+ nPD(ni,nj  ,1)  + nPD(ni+1,nj  ,1)  + nPD(ni-a  ,nj-1,1)+ nPD(ni+1-a,nj-1,1)  +  nPD(ni,nj-2,1)   ) / 9
+          inFIS(1,i-istart+1)=(nFIS(ni,nj+2,1)  + nFIS(ni-a  ,nj+1,1)+ nFIS(ni+1-a,nj+1,1)  + nFIS(ni-1,nj  ,1)+ nFIS(ni,nj  ,1)  + nFIS(ni+1,nj  ,1)  + nFIS(ni-a  ,nj-1,1)+ nFIS(ni+1-a,nj-1,1)  +  nFIS(ni,nj-2,1)   ) / 9
 
           icPD(1,i-istart+1)=cPD(i,j,1)
 
@@ -1737,8 +1667,8 @@ contains
           iend=MIN(ipos+(nide-nids)/nri-1,cite)
           icopy: do i=istart,iend
              ni = (i-ipos)*nri + 2 - a
-             cT(i,j,k)=(nT(ni,nj+2,k) + nT(ni-a ,nj+1,k)+ nT(ni+1-a,nj+1,k) + nT(ni-1,nj ,k) + nT(ni,nj ,k) + nT(ni+1,nj ,k) + nT(ni-a ,nj-1,k)+ nT(ni+1-a,nj-1,k) + nT(ni,nj-2,k) ) / 9
-             cQ(i,j,k)=(nQ(ni,nj+2,k) + nQ(ni-a ,nj+1,k)+ nQ(ni+1-a,nj+1,k) + nQ(ni-1,nj ,k) + nQ(ni,nj ,k) + nQ(ni+1,nj ,k) + nQ(ni-a ,nj-1,k)+ nQ(ni+1-a,nj-1,k) + nQ(ni,nj-2,k) ) / 9
+             cT(i,j,k)=(nT(ni,nj+2,k)  + nT(ni-a  ,nj+1,k)+ nT(ni+1-a,nj+1,k) + nT(ni-1,nj  ,k)  + nT(ni,nj  ,k)  + nT(ni+1,nj  ,k) + nT(ni-a  ,nj-1,k)+ nT(ni+1-a,nj-1,k) +  nT(ni,nj-2,k)   ) / 9
+             cQ(i,j,k)=(nQ(ni,nj+2,k)  + nQ(ni-a  ,nj+1,k)+ nQ(ni+1-a,nj+1,k) + nQ(ni-1,nj  ,k)  + nQ(ni,nj  ,k)  + nQ(ni+1,nj  ,k) + nQ(ni-a  ,nj-1,k)+ nQ(ni+1-a,nj-1,k) +  nQ(ni,nj-2,k)   ) / 9
              out_iinfo(i,j,k)=k
              out_winfo(i,j,k)=1.0
           enddo icopy
@@ -1834,17 +1764,17 @@ contains
              a=1-mod(JJ(i,j),2)
              used=used+1
              do k=nkts,nkte-1
-                icT(k,used)=W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
-                icQ(k,used)=W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
-                icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+                icT(k,used)=W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
+                icQ(k,used)=W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
+                icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
              enddo
                 
              k=nkte
              a=1-mod(JJ(i,j),2)
 
-             icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
-             icPD(1,used)=W1(i,j)*cPD(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cPD(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
-             icFIS(1,used)=W1(i,j)*cFIS(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
+             icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+             icPD(1,used)=W1(i,j)*cPD(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cPD(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
+             icFIS(1,used)=W1(i,j)*cFIS(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
 
              inFIS(1,used)=nFIS(i,j,1)
 
@@ -1863,17 +1793,17 @@ contains
              used=used+1
              do k=nkts,nkte-1
                 a=1-mod(JJ(i,j),2)
-                icT(k,used)=W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
-                icQ(k,used)=W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
-                icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+                icT(k,used)=W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
+                icQ(k,used)=W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
+                icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
              enddo
                 
              k=nkte
              a=1-mod(JJ(i,j),2)
 
-             icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
-             icPD(1,used)=W1(i,j)*cPD(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cPD(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
-             icFIS(1,used)=W1(i,j)*cFIS(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
+             icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+             icPD(1,used)=W1(i,j)*cPD(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cPD(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
+             icFIS(1,used)=W1(i,j)*cFIS(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
 
              inFIS(1,used)=nFIS(i,j,1)
           enddo
@@ -1958,7 +1888,7 @@ contains
     endif if_bye
 
     if(used/=used1) then
-       call wrf_error_fatal3("<stdin>",1961,&
+       call wrf_error_fatal3("<stdin>",1891,&
 'Number of input and output points does not match.')
     endif
 
@@ -2048,17 +1978,17 @@ contains
              used=used+1
              do k=nkts,kpres+1
                 a=1-mod(JJ(i,j),2)
-                icT(k,used)=W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
-                icQ(k,used)=W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
-                icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+                icT(k,used)=W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
+                icQ(k,used)=W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
+                icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
              enddo
                 
              k=kpres+2
              a=1-mod(JJ(i,j),2)
 
-             icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
-             icPD(1,used)=W1(i,j)*cPD(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cPD(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
-             icFIS(1,used)=W1(i,j)*cFIS(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
+             icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+             icPD(1,used)=W1(i,j)*cPD(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cPD(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
+             icFIS(1,used)=W1(i,j)*cFIS(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
 
              inFIS(1,used)=nFIS(i,j,1)
 
@@ -2077,17 +2007,17 @@ contains
              used=used+1
              do k=nkts,kpres+1
                 a=1-mod(JJ(i,j),2)
-                icT(k,used)=W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
-                icQ(k,used)=W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
-                icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+                icT(k,used)=W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
+                icQ(k,used)=W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
+                icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
              enddo
                 
              k=kpres+2
              a=1-mod(JJ(i,j),2)
 
-             icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
-             icPD(1,used)=W1(i,j)*cPD(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cPD(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
-             icFIS(1,used)=W1(i,j)*cFIS(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
+             icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+             icPD(1,used)=W1(i,j)*cPD(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cPD(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
+             icFIS(1,used)=W1(i,j)*cFIS(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
 
              inFIS(1,used)=nFIS(i,j,1)
           enddo
@@ -2124,8 +2054,8 @@ contains
        do k=kpres+1,nkde-1
           do j=j1,j2,2
              a=1-mod(JJ(i,j),2)
-             tbxs(j,k,1)=(W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
-             qbxs(j,k,1)=(W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
+             tbxs(j,k,1)=(W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
+             qbxs(j,k,1)=(W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
              ibxs(j,k,1)=k
              wbxs(j,k,1)=1.0
           enddo
@@ -2149,8 +2079,8 @@ contains
        do k=kpres+1,nkde-1
           do j=j1,j2,2
              a=1-mod(JJ(i,j),2)
-             tbxe(j,k,1)=(W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
-             qbxe(j,k,1)=(W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
+             tbxe(j,k,1)=(W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
+             qbxe(j,k,1)=(W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
              ibxe(j,k,1)=k
              wbxe(j,k,1)=1.0
           enddo
@@ -2174,8 +2104,8 @@ contains
        do k=kpres+1,nkde-1
           do i=max(nits-1,nids),min(nite+1,nide-1)
              a=1-mod(JJ(i,j),2)
-             tbys(i,k,1)=(W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
-             qbys(i,k,1)=(W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
+             tbys(i,k,1)=(W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
+             qbys(i,k,1)=(W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
              ibys(i,k,1)=k
              wbys(i,k,1)=1.0
           enddo
@@ -2199,8 +2129,8 @@ contains
        do k=kpres+1,nkde-1
           do i=max(nits-1,nids),min(nite+1,nide-1)
              a=1-mod(JJ(i,j),2)
-             tbye(i,k,1)=(W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
-             qbye(i,k,1)=(W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) + W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
+             tbye(i,k,1)=(W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k))
+             qbye(i,k,1)=(W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    + W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    + W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    + W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k))
              ibye(i,k,1)=k
              wbye(i,k,1)=1.0
           enddo
@@ -2208,7 +2138,7 @@ contains
     endif if_bye
 
     if(used/=used1) then
-       call wrf_error_fatal3("<stdin>",2211,&
+       call wrf_error_fatal3("<stdin>",2141,&
 'Number of input and output points does not match.')
     endif
 
@@ -2273,17 +2203,17 @@ contains
 
           qtloop: do k=nkts,nkte-1
              a=1-mod(JJ(i,j),2)
-             icT(k,used)=W1(i,j)*cT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
-             icQ(k,used)=W1(i,j)*cQ(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cQ(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
-             icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+             icT(k,used)=W1(i,j)*cT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cT(II(i,j)+a,JJ(i,j)+1,k)
+             icQ(k,used)=W1(i,j)*cQ(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cQ(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cQ(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cQ(II(i,j)+a,JJ(i,j)+1,k)
+             icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
           enddo qtloop
 
           k=nkte
           a=1-mod(JJ(i,j),2)
 
-          icPINT(k,used)=W1(i,j)*cPINT(II(i,j) ,JJ(i,j) ,k) +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j) ,k) +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k) +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
-          icPD(1,used)=W1(i,j)*cPD(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cPD(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
-          icFIS(1,used)=W1(i,j)*cFIS(II(i,j) ,JJ(i,j) ,1) +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j) ,1) +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1) +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
+          icPINT(k,used)=W1(i,j)*cPINT(II(i,j)  ,JJ(i,j)  ,k)    +W2(i,j)*cPINT(II(i,j)+1,JJ(i,j)  ,k)    +W3(i,j)*cPINT(II(i,j)+a,JJ(i,j)-1,k)    +W4(i,j)*cPINT(II(i,j)+a,JJ(i,j)+1,k)
+          icPD(1,used)=W1(i,j)*cPD(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cPD(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cPD(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cPD(II(i,j)+a,JJ(i,j)+1,1)
+          icFIS(1,used)=W1(i,j)*cFIS(II(i,j)  ,JJ(i,j)  ,1)    +W2(i,j)*cFIS(II(i,j)+1,JJ(i,j)  ,1)    +W3(i,j)*cFIS(II(i,j)+a,JJ(i,j)-1,1)    +W4(i,j)*cFIS(II(i,j)+a,JJ(i,j)+1,1)
 
 
  
@@ -2406,7 +2336,7 @@ contains
     real, parameter :: RHmin=1.0E-6     
 
     if(method/=nmm_method_linear) then
-       call wrf_error_fatal3("<stdin>",2409,&
+       call wrf_error_fatal3("<stdin>",2339,&
 'only linear interpolation is supported')
     endif
 
@@ -2527,13 +2457,13 @@ contains
 
 201       format('interp_T_PD_Q: Target domain surface height ',F0.4,'m is higher than the model top ',F0.4,'m of the source domain.  ABORTING')
           write(message,201) zB,znext
-          call wrf_error_fatal3("<stdin>",2530,&
+          call wrf_error_fatal3("<stdin>",2460,&
 message)
        enddo xloop
     else
 202    format('Invalid value ',I0,' for pd_interp in interp_T_PD_Q')
        write(message,202) pd_interp
-       call wrf_error_fatal3("<stdin>",2536,&
+       call wrf_error_fatal3("<stdin>",2466,&
 message)
     endif if_pd_interp
 
@@ -2568,7 +2498,7 @@ message)
        
        if(iz>nz) then
 
-          call wrf_error_fatal3("<stdin>",2571,&
+          call wrf_error_fatal3("<stdin>",2501,&
 'ERROR: WRF-NMM does not support pure sigma levels (only sigma-pressure hybrid)')
        endif
 
@@ -2722,7 +2652,7 @@ message)
     real, parameter :: RHmin=1.0E-6     
 
     if(method/=nmm_method_linear) then
-       call wrf_error_fatal3("<stdin>",2725,&
+       call wrf_error_fatal3("<stdin>",2655,&
 'only linear interpolation is supported')
     endif
 
@@ -2845,13 +2775,13 @@ message)
 
 201       format('interp_T_PD_Q_kpres: Target domain surface height ',F0.4,'m is higher than the model top ',F0.4,'m of the source domain.  ABORTING')
           write(message,201) zB,znext
-          call wrf_error_fatal3("<stdin>",2848,&
+          call wrf_error_fatal3("<stdin>",2778,&
 message)
        enddo xloop
     else
 202    format('Invalid value ',I0,' for pd_interp in interp_T_PD_Q')
        write(message,202) pd_interp
-       call wrf_error_fatal3("<stdin>",2854,&
+       call wrf_error_fatal3("<stdin>",2784,&
 message)
     endif if_pd_interp
 
@@ -2886,7 +2816,7 @@ message)
        
        if(iz>nz2) then
 
-          call wrf_error_fatal3("<stdin>",2889,&
+          call wrf_error_fatal3("<stdin>",2819,&
 'ERROR: WRF-NMM does not support pure sigma levels (only sigma-pressure hybrid)')
        endif
 
@@ -3167,5 +3097,3 @@ subroutine ext_c2b_fulldom  (II,JJ,W1,W2,W3,W4,&
        tbxs,    tbxe,    tbys,    tbye,      &
        qbxs,    qbxe,    qbys,    qbye)
 end subroutine ext_c2b_fulldom
-
-

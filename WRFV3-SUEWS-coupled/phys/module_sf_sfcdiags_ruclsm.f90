@@ -204,5 +204,3 @@ CONTAINS
       END FUNCTION RSIF
 
 END MODULE module_sf_sfcdiags_ruclsm
-
-

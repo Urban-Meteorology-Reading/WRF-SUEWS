@@ -62,9 +62,7 @@ CONTAINS
               , TSWDN, TSWUP                        & 
               , SSWDN, SSWUP                        & 
               , CLDFRA,CLDFRA_MP_ALL,CLDT,ZNU       &
-
               , lradius,iradius                     &
-
               , cldfra_dp, cldfra_sh                & 
               , re_cloud, re_ice, re_snow           & 
               , has_reqc, has_reqi, has_reqs        & 
@@ -156,18 +154,13 @@ CONTAINS
                                        ,SWRADSCHEME, GSFCSWSCHEME       &
                                        ,GFDLSWSCHEME, CAMLWSCHEME, CAMSWSCHEME &
                                        ,HELDSUAREZ                      &
-
-
-
                                        ,goddardlwscheme                 & 
                                        ,goddardswscheme                 &  
                                        ,KFCUPSCHEME                     & 
                                        ,FLGLWSCHEME, FLGSWSCHEME
 
    USE module_model_constants
-
    USE module_wrf_error , ONLY : wrf_err_message
-
 
 
 
@@ -180,9 +173,6 @@ CONTAINS
    USE module_ra_rrtmg_swf  , ONLY : rrtmg_swrad_fast
    USE module_ra_cam        , ONLY : camrad
    USE module_ra_gfdleta    , ONLY : etara
-
-
-
    USE module_ra_hs         , ONLY : hsrad
 
    USE module_ra_goddard    , ONLY : goddardrad
@@ -640,13 +630,11 @@ CONTAINS
                                                          F_RAIN_PHY, &
                                                       CLDFRA_MP_ALL
 
-
    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ),                     &
          OPTIONAL,                                                   &
          INTENT(IN   ) ::                                            &
                                                             LRADIUS, &
                                                             IRADIUS
-
 
    REAL, DIMENSION( ims:ime, jms:jme ),                           &
          OPTIONAL,                                                &
@@ -736,9 +724,6 @@ CONTAINS
      INTEGER, PARAMETER:: taer_angexp_opt = 3                            
      INTEGER, PARAMETER:: taer_ssa_opt = 3                               
      INTEGER, PARAMETER:: taer_asy_opt = 3                               
-
-
-
 
 
 
@@ -1225,7 +1210,7 @@ CONTAINS
      &                 its,ite, jts,jte, kts,kte)
 
         ELSE
-           CALL wrf_error_fatal3("<stdin>",1228,&
+           CALL wrf_error_fatal3("<stdin>",1213,&
 'Can not use icloud = 3 option, missing QC or QI field.')
         ENDIF
 
@@ -1427,14 +1412,13 @@ CONTAINS
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                     )
                ELSE
-                 CALL wrf_error_fatal3("<stdin>",1430,&
+                 CALL wrf_error_fatal3("<stdin>",1415,&
 'Can not call ETARA (1a). Missing moisture fields.')
                ENDIF
              ELSE
-               CALL wrf_error_fatal3("<stdin>",1434,&
+               CALL wrf_error_fatal3("<stdin>",1419,&
 'Can not call ETARA (1b). Missing moisture fields.')
              ENDIF
-
 
 
         CASE (CAMLWSCHEME)
@@ -1492,7 +1476,7 @@ CONTAINS
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                  ,coszen=coszen                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1495,&
+                CALL wrf_error_fatal3("<stdin>",1479,&
 'arguments not present for calling cam radiation' )
              ENDIF
 
@@ -1509,9 +1493,7 @@ CONTAINS
                   P8W=p8w,P3D=p,PI3D=pi,DZ8W=dz8w,TSK=tsk,T3D=t,    &
                   T8W=t8w,RHO3D=rho,R=R_d,G=G,                      &
                   ICLOUD=icloud,WARM_RAIN=warm_rain,CLDFRA3D=CLDFRA,&
-
                   LRADIUS=lradius, IRADIUS=iradius,                 &
-
                   IS_CAMMGMP_USED=is_cammgmp_used,                  &
 
 
@@ -1525,7 +1507,6 @@ CONTAINS
                   F_QI=F_QI,F_QS=F_QS,F_QG=F_QG,                    &
                   RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  & 
                   has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, & 
-
                   QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
 
                   YR=YR,JULIAN=JULIAN,                              &
@@ -1551,9 +1532,7 @@ CONTAINS
                   P8W=p8w,P3D=p,PI3D=pi,DZ8W=dz8w,TSK=tsk,T3D=t,    &
                   T8W=t8w,RHO3D=rho,R=R_d,G=G,                      &
                   ICLOUD=icloud,WARM_RAIN=warm_rain,CLDFRA3D=CLDFRA,&
-
                   LRADIUS=lradius, IRADIUS=iradius,                 &
-
                   IS_CAMMGMP_USED=is_cammgmp_used,                  &
 
 
@@ -1567,7 +1546,6 @@ CONTAINS
                   F_QI=F_QI,F_QS=F_QS,F_QG=F_QG,                    &
                   RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  & 
                   has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, & 
-
                   QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
 
                   YR=YR,JULIAN=JULIAN,                              &
@@ -1634,7 +1612,7 @@ CONTAINS
         CASE DEFAULT
   
              WRITE( wrf_err_message , * ) 'The longwave option does not exist: lw_physics = ', lw_physics
-             CALL wrf_error_fatal3("<stdin>",1637,&
+             CALL wrf_error_fatal3("<stdin>",1615,&
 wrf_err_message )
            
      END SELECT lwrad_select    
@@ -1725,10 +1703,6 @@ wrf_err_message )
              CALL SWRAD(                                               &
                      DT=dt,RTHRATEN=rthraten,GSW=gsw                   &
                     ,XLAT=xlat,XLONG=xlong,ALBEDO=albedo               &
-
-
-
-
                     ,RHO_PHY=rho,T3D=t                                 &
                     ,P3D=p,PI3D=pi,DZ8W=dz8w,GMT=gmt                   &
                     ,R=r_d,CP=cp,G=g,JULDAY=julday                     &
@@ -1761,7 +1735,6 @@ wrf_err_message )
 
                     ,TAUCLDI=taucldi,TAUCLDC=taucldc                   &
                     ,WARM_RAIN=warm_rain                               &
-
 
                     ,IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde &     
                     ,IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme &
@@ -1871,7 +1844,7 @@ wrf_err_message )
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                  ,coszen=coszen                                     )
              ELSE
-                CALL wrf_error_fatal3("<stdin>",1874,&
+                CALL wrf_error_fatal3("<stdin>",1847,&
 'arguments not present for calling cam radiation' )
              ENDIF
              DO j=jts,jte
@@ -1897,9 +1870,7 @@ wrf_err_message )
                      ALBEDO=ALBEDO,t3d=t,t8w=t8w,TSK=TSK,              &
                      p3d=p,p8w=p8w,pi3d=pi,rho3d=rho,                  &
                      dz8w=dz8w,CLDFRA3D=CLDFRA,                        &
-
                      LRADIUS=lradius, IRADIUS=iradius,                 &
-
                      IS_CAMMGMP_USED=is_cammgmp_used,                  &
                      R=R_D,G=G,              &
 
@@ -1920,7 +1891,6 @@ wrf_err_message )
                      F_QI=f_qi,F_QS=f_qs,F_QG=f_qg,                    &
                      RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  & 
                      has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, & 
-
                      QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
                      IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
                      IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
@@ -1956,9 +1926,7 @@ wrf_err_message )
                      ALBEDO=ALBEDO,t3d=t,t8w=t8w,TSK=TSK,              &
                      p3d=p,p8w=p8w,pi3d=pi,rho3d=rho,                  &
                      dz8w=dz8w,CLDFRA3D=CLDFRA,                        &
-
                      LRADIUS=lradius, IRADIUS=iradius,                 &
-
                      IS_CAMMGMP_USED=is_cammgmp_used,                  &
                      R=R_D,G=G,              &
 
@@ -1979,7 +1947,6 @@ wrf_err_message )
                      F_QI=f_qi,F_QS=f_qs,F_QG=f_qg,                    &
                      RE_CLOUD=re_cloud,RE_ICE=re_ice,RE_SNOW=re_snow,  & 
                      has_reqc=has_reqc,has_reqi=has_reqi,has_reqs=has_reqs, & 
-
                      QNDROP3D=qndrop,F_QNDROP=f_qndrop,                &
                      IDS=ids,IDE=ide, JDS=jds,JDE=jde, KDS=kds,KDE=kde,&
                      IMS=ims,IME=ime, JMS=jms,JME=jme, KMS=kms,KME=kme,&
@@ -2034,14 +2001,13 @@ wrf_err_message )
                  ,ITS=its,ITE=ite, JTS=jts,JTE=jte, KTS=kts,KTE=kte &
                                                                     )
                ELSE
-                 CALL wrf_error_fatal3("<stdin>",2037,&
+                 CALL wrf_error_fatal3("<stdin>",2004,&
 'Can not call ETARA (2a). Missing moisture fields.')
                ENDIF
              ELSE
-               CALL wrf_error_fatal3("<stdin>",2041,&
+               CALL wrf_error_fatal3("<stdin>",2008,&
 'Can not call ETARA (2b). Missing moisture fields.')
              ENDIF
-
 
 
         CASE (0)
@@ -2051,7 +2017,7 @@ wrf_err_message )
            IF (lw_physics /= HELDSUAREZ) THEN
              WRITE( wrf_err_message , * ) &
 'You have selected a longwave radiation option, but not a shortwave option (sw_physics = 0, lw_physics = ',lw_physics,')'
-             CALL wrf_error_fatal3("<stdin>",2054,&
+             CALL wrf_error_fatal3("<stdin>",2020,&
 wrf_err_message )
            END IF
 
@@ -2065,7 +2031,7 @@ wrf_err_message )
         CASE DEFAULT
 
              WRITE( wrf_err_message , * ) 'The shortwave option does not exist: sw_physics = ', sw_physics
-             CALL wrf_error_fatal3("<stdin>",2068,&
+             CALL wrf_error_fatal3("<stdin>",2034,&
 wrf_err_message )
 
      END SELECT swrad_select    
@@ -2216,11 +2182,7 @@ wrf_err_message )
      CASE (CAMLWSCHEME,RRTMG_LWSCHEME,RRTMG_LWSCHEME_FAST)
    IF(PRESENT(LWUPTC))THEN
 
-
    DTaccum = DT
-
-
-
    !$OMP PARALLEL DO   &
    !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte)
 
@@ -2253,11 +2215,7 @@ wrf_err_message )
      CASE (CAMSWSCHEME,RRTMG_SWSCHEME,RRTMG_SWSCHEME_FAST)
    IF(PRESENT(SWUPTC))THEN
 
-
    DTaccum = DT
-
-
-
    !$OMP PARALLEL DO   &
    !$OMP PRIVATE ( ij ,i,j,k,its,ite,jts,jte)
 
@@ -2336,12 +2294,6 @@ wrf_err_message )
               ,num_tiles                                                  )
 
    USE module_domain  , ONLY : domain
-
-
-
-
-
-
    USE module_bc
    USE module_model_constants
 
@@ -2399,13 +2351,6 @@ wrf_err_message )
      idum = 0
      jdum = 0
    endif
-
-
-
-
-
-
-
 
 
 
@@ -2485,9 +2430,6 @@ wrf_err_message )
 
        enddo
    !$OMP END PARALLEL DO
-
-
-
 
      enddo
    endif
@@ -2798,11 +2740,7 @@ wrf_err_message )
           its,ite, jts,jte, kts,kte                                  )
      USE module_state_description, ONLY : KFCUPSCHEME, KFETASCHEME       
 
-
-
-
    USE module_state_description, ONLY : FER_MP_HIRES, FER_MP_HIRES_ADVECT
-
 
    IMPLICIT NONE
 
@@ -2959,14 +2897,8 @@ wrf_err_message )
          ENDIF
 
 
-
-
-
-
-
          IF ( mp_physics .eq. FER_MP_HIRES .or. &
               mp_physics==fer_mp_hires_advect) THEN
-
            QIMID = QI(i,k,j)     
            QWMID = QC(i,k,j)     
            QCLD=QWMID+QIMID      
@@ -4129,7 +4061,7 @@ SUBROUTINE ozn_p_int(p ,pin, levsiz, ozmixt, o3vmr, &
 
       if (kount.gt.ncol) then
 
-         call wrf_error_fatal3("<stdin>",4132,&
+         call wrf_error_fatal3("<stdin>",4064,&
 'OZN_P_INT: Bad ozone data: non-monotonicity suspected')
       end if
 35    continue
@@ -4385,7 +4317,7 @@ SUBROUTINE aer_p_int(p ,pin, levsiz, aerodt, aerod, no_src, pf, totaod,   &
       end do
 
       if (kount.gt.ncol) then
-         call wrf_error_fatal3("<stdin>",4388,&
+         call wrf_error_fatal3("<stdin>",4320,&
 'AER_P_INT: Bad aerosol data: non-monotonicity suspected')
       end if
 35    continue
@@ -4608,5 +4540,3 @@ END SUBROUTINE aer_p_int
 
 
 END MODULE module_radiation_driver
-
-

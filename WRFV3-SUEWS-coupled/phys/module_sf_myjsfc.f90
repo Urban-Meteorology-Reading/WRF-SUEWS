@@ -17,9 +17,6 @@
 
 
 
-
-
-
       INTEGER :: ITRMX=5 
 
       REAL,PARAMETER :: VKARMAN=0.4
@@ -184,11 +181,7 @@ CONTAINS
 
       NTSD=ITIMESTEP
 
-
-
-
      IF(NTSD==1)THEN
-
 
         DO J=JTS,JTE
         DO I=ITS,ITE
@@ -292,11 +285,7 @@ CONTAINS
 
           APESFC=(PSFC/P1000mb)**CAPA
 
-
-
-
      IF(NTSD==1)THEN
-
 
           TZ0=TSK(I,J)
        else
@@ -452,11 +441,7 @@ CONTAINS
 
             IF(USTAR<USTR)THEN
 
-
-
-
      IF(NTSD==1)THEN
-
 
                 AKMS=CXCHS
                 AKHS=CXCHS
@@ -474,11 +459,7 @@ CONTAINS
               WGHTT=AKHS*ZT*RTVISC
               WGHTQ=AKHS*ZQ*RQVISC
 
-
-
-
      IF(NTSD>1)THEN
-
 
                 THZ0=((WGHTT*THLOW+THS)/(WGHTT+1.)+THZ0)*0.5
                 QZ0=((WGHTQ*QLOW+QS)/(WGHTQ+1.)+QZ0)*0.5
@@ -499,11 +480,7 @@ CONTAINS
               WGHTT=AKHS*ZT*RTVISC
               WGHTQ=AKHS*ZQ*RQVISC
 
-
-
-
      IF(NTSD>1)THEN
-
 
 
                 THZ0=((WGHTT*THLOW+THS)/(WGHTT+1.)+THZ0)*0.5
@@ -1118,7 +1095,6 @@ CONTAINS
       ENDDO
 
 
-
       IF(.NOT.RESTART)THEN
         DO J=JTS,JTE
         DO I=ITS,ITF
@@ -1251,7 +1227,5 @@ CONTAINS
 
 
       END MODULE MODULE_SF_MYJSFC
-
-
 
 

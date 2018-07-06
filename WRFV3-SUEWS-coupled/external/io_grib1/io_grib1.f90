@@ -106,7 +106,6 @@ subroutine ext_gr1_ioinit(SysDepInfo,Status)
 
   USE gr1_data_info
   implicit none
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -240,24 +239,18 @@ subroutine ext_gr1_ioinit(SysDepInfo,Status)
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   CHARACTER*(*), INTENT(IN) :: SysDepInfo
   integer ,intent(out) :: Status
   integer :: i
@@ -299,7 +292,6 @@ subroutine ext_gr1_ioexit(Status)
 
   USE gr1_data_info
   implicit none
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -432,7 +424,6 @@ subroutine ext_gr1_ioexit(Status)
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   integer istat
   integer ,intent(out) :: Status
@@ -461,7 +452,6 @@ SUBROUTINE ext_gr1_open_for_read_begin ( FileName , Comm_compute, Comm_io, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -595,24 +585,18 @@ SUBROUTINE ext_gr1_open_for_read_begin ( FileName , Comm_compute, Comm_io, &
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   CHARACTER*(*) :: FileName
   INTEGER ,       INTENT(IN)  :: Comm_compute , Comm_io
   CHARACTER*(*) :: SysDepInfo
@@ -761,7 +745,6 @@ SUBROUTINE ext_gr1_open_for_read_commit( DataHandle , Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -895,24 +878,18 @@ SUBROUTINE ext_gr1_open_for_read_commit( DataHandle , Status )
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   character(len=1000) :: msg
   INTEGER ,       INTENT(IN ) :: DataHandle
   INTEGER ,       INTENT(OUT) :: Status
@@ -941,7 +918,6 @@ SUBROUTINE ext_gr1_open_for_read ( FileName , Comm_compute, Comm_io, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -1075,24 +1051,18 @@ SUBROUTINE ext_gr1_open_for_read ( FileName , Comm_compute, Comm_io, &
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   CHARACTER*(*) :: FileName
   INTEGER ,       INTENT(IN)  :: Comm_compute , Comm_io
   CHARACTER*(*) :: SysDepInfo
@@ -1121,7 +1091,6 @@ SUBROUTINE ext_gr1_open_for_write_begin(FileName, Comm, IOComm, SysDepInfo, &
   
   USE gr1_data_info
   implicit none
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -1255,24 +1224,18 @@ SUBROUTINE ext_gr1_open_for_write_begin(FileName, Comm, IOComm, SysDepInfo, &
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
 
   character*(*)        ,intent(in)  :: FileName
   integer              ,intent(in)  :: Comm
@@ -1327,7 +1290,6 @@ SUBROUTINE ext_gr1_open_for_write_commit( DataHandle , Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -1461,24 +1423,18 @@ SUBROUTINE ext_gr1_open_for_write_commit( DataHandle , Status )
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   INTEGER ,       INTENT(IN ) :: DataHandle
   INTEGER ,       INTENT(OUT) :: Status
 
@@ -1501,7 +1457,6 @@ END SUBROUTINE ext_gr1_open_for_write_commit
 subroutine ext_gr1_inquiry (Inquiry, Result, Status)
   use gr1_data_info
   implicit none
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -1634,7 +1589,6 @@ subroutine ext_gr1_inquiry (Inquiry, Result, Status)
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   character *(*), INTENT(IN)    :: Inquiry
   character *(*), INTENT(OUT)   :: Result
@@ -1665,7 +1619,6 @@ SUBROUTINE ext_gr1_inquire_opened ( DataHandle, FileName , FileStat, Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -1799,24 +1752,18 @@ SUBROUTINE ext_gr1_inquire_opened ( DataHandle, FileName , FileStat, Status )
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: FileName
   INTEGER ,       INTENT(OUT) :: FileStat
@@ -1843,7 +1790,6 @@ SUBROUTINE ext_gr1_ioclose ( DataHandle, Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -1976,7 +1922,6 @@ SUBROUTINE ext_gr1_ioclose ( DataHandle, Status )
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER DataHandle, Status
   INTEGER istat
@@ -2030,7 +1975,6 @@ SUBROUTINE ext_gr1_write_field( DataHandle , DateStrIn , VarName , &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -2164,25 +2108,18 @@ SUBROUTINE ext_gr1_write_field( DataHandle , DateStrIn , VarName , &
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
-
 
   INTEGER ,       INTENT(IN)    :: DataHandle 
   CHARACTER*(*) :: DateStrIn
@@ -2272,7 +2209,6 @@ SUBROUTINE ext_gr1_write_field( DataHandle , DateStrIn , VarName , &
   !   around slowness in WRF that occurs when opening a new data file the
   !   standard way.
   !
-
 
   output = .true.
   zsize = 1
@@ -2427,8 +2363,6 @@ SUBROUTINE ext_gr1_write_field( DataHandle , DateStrIn , VarName , &
 
 
   if (opened(DataHandle) .and. committed(DataHandle)) then
-
-
 
 
 
@@ -2591,8 +2525,6 @@ SUBROUTINE ext_gr1_write_field( DataHandle , DateStrIn , VarName , &
 
 
 
-
-
            !
            !    Output current level
            !
@@ -2690,7 +2622,6 @@ SUBROUTINE ext_gr1_read_field ( DataHandle , DateStr , VarName , Field , &
 
   USE gr1_data_info
   IMPLICIT NONE  
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -2824,24 +2755,18 @@ SUBROUTINE ext_gr1_read_field ( DataHandle , DateStr , VarName , Field , &
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   INTEGER ,       INTENT(IN)    :: DataHandle 
   CHARACTER*(*) :: DateStr
   CHARACTER*(*) :: VarName
@@ -2992,7 +2917,6 @@ SUBROUTINE ext_gr1_get_next_var ( DataHandle, VarName, Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -3125,7 +3049,6 @@ SUBROUTINE ext_gr1_get_next_var ( DataHandle, VarName, Status )
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: VarName
@@ -3146,7 +3069,6 @@ subroutine ext_gr1_end_of_frame(DataHandle, Status)
 
   USE gr1_data_info
   implicit none
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -3279,7 +3201,6 @@ subroutine ext_gr1_end_of_frame(DataHandle, Status)
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   integer               ,intent(in)     :: DataHandle
   integer               ,intent(out)    :: Status
@@ -3297,7 +3218,6 @@ SUBROUTINE ext_gr1_iosync ( DataHandle, Status )
 
   USE gr1_data_info  
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -3430,7 +3350,6 @@ SUBROUTINE ext_gr1_iosync ( DataHandle, Status )
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   INTEGER ,       INTENT(OUT) :: Status
@@ -3454,7 +3373,6 @@ SUBROUTINE ext_gr1_inquire_filename ( DataHandle, FileName , FileStat, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -3588,24 +3506,18 @@ SUBROUTINE ext_gr1_inquire_filename ( DataHandle, FileName , FileStat, &
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
-
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: FileName
   INTEGER ,       INTENT(OUT) :: FileStat
@@ -3635,7 +3547,6 @@ SUBROUTINE ext_gr1_get_var_info ( DataHandle , VarName , NDim , &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -3768,7 +3679,6 @@ SUBROUTINE ext_gr1_get_var_info ( DataHandle , VarName , NDim , &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   integer               ,intent(in)     :: DataHandle
   character*(*)         ,intent(in)     :: VarName
@@ -3792,7 +3702,6 @@ SUBROUTINE ext_gr1_set_time ( DataHandle, DateStr, Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -3925,7 +3834,6 @@ SUBROUTINE ext_gr1_set_time ( DataHandle, DateStr, Status )
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: DateStr
@@ -3957,7 +3865,6 @@ SUBROUTINE ext_gr1_get_next_time ( DataHandle, DateStr, Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -4090,7 +3997,6 @@ SUBROUTINE ext_gr1_get_next_time ( DataHandle, DateStr, Status )
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(OUT) :: DateStr
@@ -4115,7 +4021,6 @@ SUBROUTINE ext_gr1_get_previous_time ( DataHandle, DateStr, Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -4248,7 +4153,6 @@ SUBROUTINE ext_gr1_get_previous_time ( DataHandle, DateStr, Status )
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: DateStr
@@ -4276,7 +4180,6 @@ SUBROUTINE ext_gr1_get_var_ti_real ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -4409,7 +4312,6 @@ SUBROUTINE ext_gr1_get_var_ti_real ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)    :: DataHandle
   CHARACTER*(*) :: Element
@@ -4452,7 +4354,6 @@ SUBROUTINE ext_gr1_get_var_ti_real8 ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -4585,7 +4486,6 @@ SUBROUTINE ext_gr1_get_var_ti_real8 ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)      :: DataHandle
   CHARACTER*(*) :: Element
@@ -4627,7 +4527,6 @@ SUBROUTINE ext_gr1_get_var_ti_double ( DataHandle,Element,  Varname, Data, &
      Count, Outcount, Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -4760,7 +4659,6 @@ SUBROUTINE ext_gr1_get_var_ti_double ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -4804,7 +4702,6 @@ SUBROUTINE ext_gr1_get_var_ti_integer ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -4937,7 +4834,6 @@ SUBROUTINE ext_gr1_get_var_ti_integer ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)       :: DataHandle
   CHARACTER*(*) :: Element
@@ -4980,7 +4876,6 @@ SUBROUTINE ext_gr1_get_var_ti_logical ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -5113,7 +5008,6 @@ SUBROUTINE ext_gr1_get_var_ti_logical ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)       :: DataHandle
   CHARACTER*(*) :: Element
@@ -5156,7 +5050,6 @@ SUBROUTINE ext_gr1_get_var_ti_char ( DataHandle,Element,  Varname, Data,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -5289,7 +5182,6 @@ SUBROUTINE ext_gr1_get_var_ti_char ( DataHandle,Element,  Varname, Data,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -5327,7 +5219,6 @@ SUBROUTINE ext_gr1_put_var_ti_real ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -5460,7 +5351,6 @@ SUBROUTINE ext_gr1_put_var_ti_real ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -5492,7 +5382,6 @@ SUBROUTINE ext_gr1_put_var_ti_double ( DataHandle,Element,  Varname, Data, &
      Count,  Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -5625,7 +5514,6 @@ SUBROUTINE ext_gr1_put_var_ti_double ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -5657,7 +5545,6 @@ SUBROUTINE ext_gr1_put_var_ti_real8 ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -5790,7 +5677,6 @@ SUBROUTINE ext_gr1_put_var_ti_real8 ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -5822,7 +5708,6 @@ SUBROUTINE ext_gr1_put_var_ti_integer ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -5955,7 +5840,6 @@ SUBROUTINE ext_gr1_put_var_ti_integer ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -5987,7 +5871,6 @@ SUBROUTINE ext_gr1_put_var_ti_logical ( DataHandle,Element,  Varname, Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -6120,7 +6003,6 @@ SUBROUTINE ext_gr1_put_var_ti_logical ( DataHandle,Element,  Varname, Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -6153,7 +6035,6 @@ SUBROUTINE ext_gr1_put_var_ti_char ( DataHandle,Element,  Varname, Data,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -6286,7 +6167,6 @@ SUBROUTINE ext_gr1_put_var_ti_char ( DataHandle,Element,  Varname, Data,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER(len=*) :: Element
@@ -6323,7 +6203,6 @@ SUBROUTINE ext_gr1_get_var_td_double ( DataHandle,Element,  DateStr, &
      Varname, Data, Count, Outcount, Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -6456,7 +6335,6 @@ SUBROUTINE ext_gr1_get_var_td_double ( DataHandle,Element,  DateStr, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -6500,7 +6378,6 @@ SUBROUTINE ext_gr1_get_var_td_real ( DataHandle,Element,  DateStr,Varname, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -6633,7 +6510,6 @@ SUBROUTINE ext_gr1_get_var_td_real ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -6677,7 +6553,6 @@ SUBROUTINE ext_gr1_get_var_td_real8 ( DataHandle,Element,  DateStr,Varname, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -6810,7 +6685,6 @@ SUBROUTINE ext_gr1_get_var_td_real8 ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -6854,7 +6728,6 @@ SUBROUTINE ext_gr1_get_var_td_integer ( DataHandle,Element,  DateStr,Varname, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -6987,7 +6860,6 @@ SUBROUTINE ext_gr1_get_var_td_integer ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -7031,7 +6903,6 @@ SUBROUTINE ext_gr1_get_var_td_logical ( DataHandle,Element,  DateStr,Varname, &
   
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -7164,7 +7035,6 @@ SUBROUTINE ext_gr1_get_var_td_logical ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -7208,7 +7078,6 @@ SUBROUTINE ext_gr1_get_var_td_char ( DataHandle,Element,  DateStr,Varname, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -7341,7 +7210,6 @@ SUBROUTINE ext_gr1_get_var_td_char ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -7378,7 +7246,6 @@ SUBROUTINE ext_gr1_put_var_td_double ( DataHandle, Element, DateStr, Varname, &
      Data, Count,  Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -7511,7 +7378,6 @@ SUBROUTINE ext_gr1_put_var_td_double ( DataHandle, Element, DateStr, Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -7547,7 +7413,6 @@ SUBROUTINE ext_gr1_put_var_td_integer ( DataHandle,Element,  DateStr, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -7680,7 +7545,6 @@ SUBROUTINE ext_gr1_put_var_td_integer ( DataHandle,Element,  DateStr, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -7715,7 +7579,6 @@ SUBROUTINE ext_gr1_put_var_td_real ( DataHandle,Element,  DateStr,Varname, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -7848,7 +7711,6 @@ SUBROUTINE ext_gr1_put_var_td_real ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -7883,7 +7745,6 @@ SUBROUTINE ext_gr1_put_var_td_real8 ( DataHandle,Element,  DateStr,Varname, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -8016,7 +7877,6 @@ SUBROUTINE ext_gr1_put_var_td_real8 ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -8049,7 +7909,6 @@ SUBROUTINE ext_gr1_put_var_td_logical ( DataHandle,Element,  DateStr, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -8182,7 +8041,6 @@ SUBROUTINE ext_gr1_put_var_td_logical ( DataHandle,Element,  DateStr, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -8217,7 +8075,6 @@ SUBROUTINE ext_gr1_put_var_td_char ( DataHandle,Element,  DateStr,Varname, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -8350,7 +8207,6 @@ SUBROUTINE ext_gr1_put_var_td_char ( DataHandle,Element,  DateStr,Varname, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -8395,7 +8251,6 @@ SUBROUTINE ext_gr1_get_dom_ti_real ( DataHandle,Element,   Data, Count, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -8528,7 +8383,6 @@ SUBROUTINE ext_gr1_get_dom_ti_real ( DataHandle,Element,   Data, Count, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -8570,7 +8424,6 @@ SUBROUTINE ext_gr1_get_dom_ti_real8 ( DataHandle,Element,   Data, Count, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -8703,7 +8556,6 @@ SUBROUTINE ext_gr1_get_dom_ti_real8 ( DataHandle,Element,   Data, Count, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -8745,7 +8597,6 @@ SUBROUTINE ext_gr1_get_dom_ti_integer ( DataHandle,Element,   Data, Count, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -8878,7 +8729,6 @@ SUBROUTINE ext_gr1_get_dom_ti_integer ( DataHandle,Element,   Data, Count, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -8918,7 +8768,6 @@ SUBROUTINE ext_gr1_get_dom_ti_logical ( DataHandle,Element,   Data, Count, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -9051,7 +8900,6 @@ SUBROUTINE ext_gr1_get_dom_ti_logical ( DataHandle,Element,   Data, Count, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -9092,7 +8940,6 @@ SUBROUTINE ext_gr1_get_dom_ti_char ( DataHandle,Element,   Data,  Status )
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -9225,7 +9072,6 @@ SUBROUTINE ext_gr1_get_dom_ti_char ( DataHandle,Element,   Data,  Status )
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -9255,7 +9101,6 @@ SUBROUTINE ext_gr1_get_dom_ti_double ( DataHandle,Element,   Data, Count, &
      Outcount, Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -9388,7 +9233,6 @@ SUBROUTINE ext_gr1_get_dom_ti_double ( DataHandle,Element,   Data, Count, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -9437,7 +9281,6 @@ SUBROUTINE ext_gr1_put_dom_ti_real ( DataHandle,Element,   Data, Count,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -9570,7 +9413,6 @@ SUBROUTINE ext_gr1_put_dom_ti_real ( DataHandle,Element,   Data, Count,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -9629,7 +9471,6 @@ SUBROUTINE ext_gr1_put_dom_ti_real8 ( DataHandle,Element,   Data, Count,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -9762,7 +9603,6 @@ SUBROUTINE ext_gr1_put_dom_ti_real8 ( DataHandle,Element,   Data, Count,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -9794,7 +9634,6 @@ SUBROUTINE ext_gr1_put_dom_ti_integer ( DataHandle,Element,   Data, Count,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -9927,7 +9766,6 @@ SUBROUTINE ext_gr1_put_dom_ti_integer ( DataHandle,Element,   Data, Count,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -9975,7 +9813,6 @@ SUBROUTINE ext_gr1_put_dom_ti_logical ( DataHandle,Element,   Data, Count,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -10108,7 +9945,6 @@ SUBROUTINE ext_gr1_put_dom_ti_logical ( DataHandle,Element,   Data, Count,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -10140,7 +9976,6 @@ SUBROUTINE ext_gr1_put_dom_ti_char ( DataHandle,Element,   Data,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -10273,7 +10108,6 @@ SUBROUTINE ext_gr1_put_dom_ti_char ( DataHandle,Element,   Data,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -10305,7 +10139,6 @@ SUBROUTINE ext_gr1_put_dom_ti_double ( DataHandle,Element, Data, Count, &
      Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -10438,7 +10271,6 @@ SUBROUTINE ext_gr1_put_dom_ti_double ( DataHandle,Element, Data, Count, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -10477,7 +10309,6 @@ SUBROUTINE ext_gr1_get_dom_td_real ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -10610,7 +10441,6 @@ SUBROUTINE ext_gr1_get_dom_td_real ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -10653,7 +10483,6 @@ SUBROUTINE ext_gr1_get_dom_td_real8 ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -10786,7 +10615,6 @@ SUBROUTINE ext_gr1_get_dom_td_real8 ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -10829,7 +10657,6 @@ SUBROUTINE ext_gr1_get_dom_td_integer ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -10962,7 +10789,6 @@ SUBROUTINE ext_gr1_get_dom_td_integer ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -11005,7 +10831,6 @@ SUBROUTINE ext_gr1_get_dom_td_logical ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -11138,7 +10963,6 @@ SUBROUTINE ext_gr1_get_dom_td_logical ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -11181,7 +11005,6 @@ SUBROUTINE ext_gr1_get_dom_td_char ( DataHandle,Element, DateStr,  Data,  &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -11314,7 +11137,6 @@ SUBROUTINE ext_gr1_get_dom_td_char ( DataHandle,Element, DateStr,  Data,  &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -11344,7 +11166,6 @@ SUBROUTINE ext_gr1_get_dom_td_double ( DataHandle,Element, DateStr,  Data, &
      Count, Outcount, Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -11477,7 +11298,6 @@ SUBROUTINE ext_gr1_get_dom_td_double ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -11528,7 +11348,6 @@ SUBROUTINE ext_gr1_put_dom_td_real8 ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -11661,7 +11480,6 @@ SUBROUTINE ext_gr1_put_dom_td_real8 ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -11695,7 +11513,6 @@ SUBROUTINE ext_gr1_put_dom_td_integer ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -11828,7 +11645,6 @@ SUBROUTINE ext_gr1_put_dom_td_integer ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -11862,7 +11678,6 @@ SUBROUTINE ext_gr1_put_dom_td_logical ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -11995,7 +11810,6 @@ SUBROUTINE ext_gr1_put_dom_td_logical ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -12029,7 +11843,6 @@ SUBROUTINE ext_gr1_put_dom_td_char ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -12162,7 +11975,6 @@ SUBROUTINE ext_gr1_put_dom_td_char ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -12191,7 +12003,6 @@ SUBROUTINE ext_gr1_put_dom_td_double ( DataHandle,Element, DateStr,  Data, &
      Count,  Status )
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -12324,7 +12135,6 @@ SUBROUTINE ext_gr1_put_dom_td_double ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) , INTENT(IN)  :: Element
@@ -12358,7 +12168,6 @@ SUBROUTINE ext_gr1_put_dom_td_real ( DataHandle,Element, DateStr,  Data, &
 
   USE gr1_data_info
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -12491,7 +12300,6 @@ SUBROUTINE ext_gr1_put_dom_td_real ( DataHandle,Element, DateStr,  Data, &
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
   INTEGER ,       INTENT(IN)  :: DataHandle
   CHARACTER*(*) :: Element
@@ -12529,7 +12337,6 @@ END SUBROUTINE ext_gr1_put_dom_td_real
 SUBROUTINE gr1_build_string (string, Element, Value, Count, Status)
 
   IMPLICIT NONE
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -12662,7 +12469,6 @@ SUBROUTINE gr1_build_string (string, Element, Value, Count, Status)
 
   integer, parameter :: WRF_HDF5_ERR_OTHERS             = -320
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
-
 
 
   CHARACTER (LEN=*) , INTENT(INOUT) :: string
@@ -12922,5 +12728,4 @@ SUBROUTINE gr1_fill_eta_levels(fileindex, FileFd, grib_tables, VarName, eta_leve
   enddo sortloop
 
 end subroutine gr1_fill_eta_levels
-
 

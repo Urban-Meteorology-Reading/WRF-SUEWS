@@ -78,19 +78,9 @@ PROGRAM nup_em
 
 
 
-
-
-
    USE module_bc
    USE module_big_step_utilities_em
    USE module_get_file_names
-
-
-
-
-
-
-
 
    IMPLICIT NONE
  
@@ -159,12 +149,6 @@ PROGRAM nup_em
    CHARACTER (LEN=19) :: date_string
 
 
-
-
-
-
-
-
    INTEGER                 :: idsi, in_id, out_id
    INTEGER                 :: e_sn, e_we, pgr
    CHARACTER (LEN=80)      :: inpname , outname , bdyname
@@ -177,9 +161,7 @@ PROGRAM nup_em
    CHARACTER (LEN=80)      :: message
 integer :: ii
 
-
    CHARACTER (LEN=10) :: release_version = 'V3.9.1.1  '
-
 
    
    
@@ -204,20 +186,13 @@ integer :: ii
    program_name = "NUP_EM " // TRIM(release_version) // " PREPROCESSOR"
 
 
-
-
-
    
    
    
    
 
    CALL init_modules(1)   
-
-
-
    CALL WRFU_Initialize( defaultCalKind=WRFU_CAL_GREGORIAN, rc=rc )
-
    CALL init_modules(2)   
 
    
@@ -225,9 +200,7 @@ integer :: ii
    
    
 
-
    CALL initial_config
-
 
    
 
@@ -257,7 +230,7 @@ integer :: ii
    
 
    e_we = e_we / pgr + 2
-   e_sn = e_sn / pgr + 2 
+   e_sn = e_sn / pgr + 2
    CALL       nl_set_e_we( 1, e_we )
    CALL       nl_set_e_sn( 1, e_sn )
 
@@ -309,7 +282,7 @@ integer :: ii
    CALL WRFU_AlarmGet( nested_grid%alarms(HISTORY_ALARM), RingInterval=RingInterval )
    CALL WRFU_ClockSet( nested_grid%domain_clock, TimeStep=RingInterval, rc=rc )
    CALL WRFU_ClockSet( parent_grid%domain_clock, TimeStep=RingInterval, rc=rc )
-   
+
    
 
 
@@ -319,11 +292,6 @@ integer :: ii
 
    
    
-
-
-
-
-
 
 
    
@@ -401,7 +369,7 @@ integer :: ii
 
 END PROGRAM nup_em
 
-SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened ) 
+SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened )
   USE module_domain
   USE module_io_domain
   USE module_utility
@@ -442,19 +410,19 @@ SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened )
   END INTERFACE
 
   IF ( newly_opened ) THEN
-    CALL wrf_get_dom_ti_integer ( in_id , 'MAP_PROJ' , map_proj , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'DX'  , dx  , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'DY'  , dy  , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'CEN_LAT' , cen_lat , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'CEN_LON' , cen_lon , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'TRUELAT1' , truelat1 , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'TRUELAT2' , truelat2 , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , icnt , ierr ) 
-    CALL wrf_get_dom_ti_real    ( in_id , 'STAND_LON' , stand_lon , 1 , icnt , ierr ) 
+    CALL wrf_get_dom_ti_integer ( in_id , 'MAP_PROJ' , map_proj , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'DX'  , dx  , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'DY'  , dy  , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'CEN_LAT' , cen_lat , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'CEN_LON' , cen_lon , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'TRUELAT1' , truelat1 , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'TRUELAT2' , truelat2 , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , icnt , ierr )
+    CALL wrf_get_dom_ti_real    ( in_id , 'STAND_LON' , stand_lon , 1 , icnt , ierr )
 
 
 
-    CALL wrf_get_dom_ti_integer ( in_id , 'ISWATER' , iswater , 1 , icnt , ierr ) 
+    CALL wrf_get_dom_ti_integer ( in_id , 'ISWATER' , iswater , 1 , icnt , ierr )
   ENDIF
 
   parent_grid%fnm    = nested_grid%fnm
@@ -462,7 +430,7 @@ SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened )
   parent_grid%rdnw   = nested_grid%rdnw
   parent_grid%rdn    = nested_grid%rdn
   parent_grid%dnw    = nested_grid%dnw
-  parent_grid%dn     = nested_grid%dn 
+  parent_grid%dn     = nested_grid%dn
   parent_grid%znu    = nested_grid%znu
   parent_grid%znw    = nested_grid%znw
 
@@ -478,12 +446,8 @@ SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened )
   parent_grid%cf2       = nested_grid%cf2
   parent_grid%cf3       = nested_grid%cf3
 
-  parent_grid%cfn       = nested_grid%cfn 
+  parent_grid%cfn       = nested_grid%cfn
   parent_grid%cfn1      = nested_grid%cfn1
-
-
-
-
 
 
 
@@ -524,24 +488,23 @@ SUBROUTINE nup ( nested_grid, parent_grid , in_id, out_id, newly_opened )
 
 
 
-
          
-   
+
   IF ( newly_opened ) THEN
-    CALL wrf_put_dom_ti_integer ( out_id , 'MAP_PROJ' , map_proj , 1 , ierr ) 
+    CALL wrf_put_dom_ti_integer ( out_id , 'MAP_PROJ' , map_proj , 1 , ierr )
 
 
-    CALL wrf_put_dom_ti_real    ( out_id , 'CEN_LAT' , cen_lat , 1 , ierr ) 
-    CALL wrf_put_dom_ti_real    ( out_id , 'CEN_LON' , cen_lon , 1 , ierr ) 
-    CALL wrf_put_dom_ti_real    ( out_id , 'TRUELAT1' , truelat1 , 1 , ierr ) 
-    CALL wrf_put_dom_ti_real    ( out_id , 'TRUELAT2' , truelat2 , 1 , ierr ) 
-    CALL wrf_put_dom_ti_real    ( out_id , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , ierr ) 
-    CALL wrf_put_dom_ti_real    ( out_id , 'STAND_LON' , stand_lon , 1 , ierr ) 
-    CALL wrf_put_dom_ti_integer ( out_id , 'ISWATER' , iswater , 1 , ierr ) 
+    CALL wrf_put_dom_ti_real    ( out_id , 'CEN_LAT' , cen_lat , 1 , ierr )
+    CALL wrf_put_dom_ti_real    ( out_id , 'CEN_LON' , cen_lon , 1 , ierr )
+    CALL wrf_put_dom_ti_real    ( out_id , 'TRUELAT1' , truelat1 , 1 , ierr )
+    CALL wrf_put_dom_ti_real    ( out_id , 'TRUELAT2' , truelat2 , 1 , ierr )
+    CALL wrf_put_dom_ti_real    ( out_id , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , ierr )
+    CALL wrf_put_dom_ti_real    ( out_id , 'STAND_LON' , stand_lon , 1 , ierr )
+    CALL wrf_put_dom_ti_integer ( out_id , 'ISWATER' , iswater , 1 , ierr )
 
-    CALL wrf_put_dom_ti_real    ( out_id , 'GMT' , gmt , 1 , ierr ) 
-    CALL wrf_put_dom_ti_integer ( out_id , 'JULYR' , julyr , 1 , ierr ) 
-    CALL wrf_put_dom_ti_integer ( out_id , 'JULDAY' , julday , 1 , ierr ) 
+    CALL wrf_put_dom_ti_real    ( out_id , 'GMT' , gmt , 1 , ierr )
+    CALL wrf_put_dom_ti_integer ( out_id , 'JULYR' , julyr , 1 , ierr )
+    CALL wrf_put_dom_ti_integer ( out_id , 'JULDAY' , julday , 1 , ierr )
   ENDIF
 
 END SUBROUTINE nup
@@ -637,7 +600,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
 
    INTEGER , INTENT(IN) :: ids , ide , jds , jde , kds , kde , &
                            ims , ime , jms , jme , kms , kme , &
-                           its , ite , jts , jte , kts , kte 
+                           its , ite , jts , jte , kts , kte
    INTEGER , INTENT(IN) :: num_soil_layers , id
 
    INTEGER , DIMENSION(ims:ime,jms:jme) :: ivgtyp , isltyp
@@ -649,7 +612,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
 
       fix_tsk_tmn : SELECT CASE ( model_config_rec%sf_surface_physics(id) )
 
-         CASE ( SLABSCHEME , LSMSCHEME , RUCLSMSCHEME )
+         CASE ( SLABSCHEME , SUEWSSCHEME , LSMSCHEME , RUCLSMSCHEME )
             DO j = jts, MIN(jde-1,jte)
                DO i = its, MIN(ide-1,ite)
                   IF ( ( landmask(i,j) .LT. 0.5 ) .AND. ( flag_sst .EQ. 1 ) ) THEN
@@ -676,7 +639,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                else if(sst(i,j).gt.170. .and. sst(i,j).lt.400.)then
                   tsk(i,j)=sst(i,j)
                else
-                  CALL wrf_error_fatal3("<stdin>",679,&
+                  CALL wrf_error_fatal3("<stdin>",642,&
 'TSK unreasonable' )
                end if
             END IF
@@ -697,7 +660,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                else if(sst(i,j).gt.170. .and. sst(i,j).lt.400.)then
                   tmn(i,j)=sst(i,j)
                else
-                  CALL wrf_error_fatal3("<stdin>",700,&
+                  CALL wrf_error_fatal3("<stdin>",663,&
 'TMN unreasonable' )
                endif
             END IF
@@ -734,7 +697,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                         tslb(i,l,j)=tmn(i,j)
                      END DO
                   else
-                     CALL wrf_error_fatal3("<stdin>",737,&
+                     CALL wrf_error_fatal3("<stdin>",700,&
 'TSLB unreasonable' )
                   endif
             END IF
@@ -770,7 +733,7 @@ oops2=oops2+1
                   print *,'iswater=', iswater
                   print *,'tslb=',tslb(i,:,j)
                   print *,'sst=',sst(i,j)
-                  CALL wrf_error_fatal3("<stdin>",773,&
+                  CALL wrf_error_fatal3("<stdin>",736,&
 'mismatch_landmask_ivgtyp' )
                END IF
             END IF
@@ -784,5 +747,3 @@ print *,'points artificially set to water: ',oops2
 endif
 
 END SUBROUTINE check_consistency2
-
-

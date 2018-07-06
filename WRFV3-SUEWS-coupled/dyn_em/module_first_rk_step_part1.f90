@@ -1,8 +1,6 @@
 
 
 
-
-
 MODULE module_first_rk_step_part1
 
 CONTAINS
@@ -48,11 +46,6 @@ CONTAINS
     USE module_force_scm
     USE module_convtrans_prep
     USE module_big_step_utilities_em, ONLY : phy_prep
-
-
-
-
-
 
     USE module_utility
     IMPLICIT NONE
@@ -137,9 +130,6 @@ CONTAINS
    CHARACTER (LEN=1000) :: message
 
 
-
-
-
   CALL get_ijk_from_subgrid (  grid ,                   &
                             sids, side, sjds, sjde, skds, skde,    &
                             sims, sime, sjms, sjme, skms, skme,    &
@@ -178,9 +168,6 @@ CONTAINS
 
 
 
-
-
-
       !$OMP PARALLEL DO   &
       !$OMP PRIVATE ( ij )
       DO ij = 1 , grid%num_tiles
@@ -210,7 +197,7 @@ CONTAINS
                             current_timestr=mesg )
      CALL WRFU_TimeGet( currentTime, YY=yr, dayOfYear=day, H=hr, M=minute, S=sec, rc=rc)
          IF( rc/= WRFU_SUCCESS)THEN
-         CALL wrf_error_fatal3("<stdin>",213,&
+         CALL wrf_error_fatal3("<stdin>",200,&
 'WRFU_TimeGet failed')
          ENDIF
 
@@ -293,22 +280,12 @@ CALL radiation_driver(p_top=grid%p_top,ACFRCV=grid%acfrcv,ACFRST=grid%acfrst,ALB
 
 
 
-
-
-
-
-
-
-
       num_roof_layers = grid%num_soil_layers 
       num_wall_layers = grid%num_soil_layers 
       num_road_layers = grid%num_soil_layers 
       CALL nl_get_iswater(grid%id, iswater)
       CALL nl_get_isurban(grid%id, isurban)
       call nl_get_mminlu(grid%id, mminlu)
-
-
-
 
 
       CALL wrf_debug ( 200 , ' call surface_driver' )
@@ -321,149 +298,147 @@ CALL radiation_driver(p_top=grid%p_top,ACFRCV=grid%acfrcv,ACFRST=grid%acfrst,ALB
 
 CALL surface_driver(HYDRO_dt=HYDRO_dt,sfcheadrt=grid%sfcheadrt,INFXSRT=grid%INFXSRT,soldrain=grid%soldrain,ACGRDFLX=grid%acgrdflx,&
 &ACHFX=grid%achfx,ACLHF=grid%aclhf,ACSNOM=grid%acsnom,ACSNOW=grid%acsnow,AKHS=grid%akhs,AKMS=grid%akms,ALBBCK=grid%albbck,ALBEDO=gr&
-&id%albedo,EMBCK=grid%embck,BR=grid%br,CANWAT=grid%canwat,CHKLOWQ=chklowq,CT=grid%ct,DT=grid%dt,DX=grid%dx,DZ8W=dz8w,DZS=grid%dzs,F&
-&LHC=grid%flhc,FM=grid%fm,FHH=grid%fh,FLQC=grid%flqc,GLW=grid%glw,GRDFLX=grid%grdflx,GSW=grid%gsw,SWDOWN=grid%swdown,GZ1OZ0=gz1oz0,&
-&HFX=grid%hfx,HT=grid%ht,IFSNOW=config_flags%ifsnow,ISFFLX=config_flags%isfflx,FRACTIONAL_SEAICE=config_flags%fractional_seaice,SEA&
-&ICE_ALBEDO_OPT=config_flags%seaice_albedo_opt,SEAICE_ALBEDO_DEFAULT=config_flags%seaice_albedo_default,SEAICE_THICKNESS_OPT=config&
-&_flags%seaice_thickness_opt,SEAICE_THICKNESS_DEFAULT=config_flags%seaice_thickness_default,SEAICE_SNOWDEPTH_OPT=config_flags%seaic&
-&e_snowdepth_opt,SEAICE_SNOWDEPTH_MAX=config_flags%seaice_snowdepth_max,SEAICE_SNOWDEPTH_MIN=config_flags%seaice_snowdepth_min,TICE&
-&2TSK_IF2COLD=config_flags%tice2tsk_if2cold,IFNDALBSI=grid%ifndalbsi,IFNDICEDEPTH=grid%ifndicedepth,IFNDSNOWSI=grid%ifndsnowsi,ISLT&
-&YP=grid%isltyp,ITIMESTEP=grid%itimestep,JULIAN_IN=grid%julian,IVGTYP=grid%ivgtyp,LH=grid%lh,LOWLYR=grid%lowlyr,MAVAIL=grid%mavail,&
-&NUM_SOIL_LAYERS=config_flags%num_soil_layers,P8W=grid%p_hyd_w,PBLH=grid%pblh,PI_PHY=pi_phy,PSFC=grid%psfc,PSHLTR=grid%pshltr,PSIH=&
-&psih,BLDT=grid%bldt,CURR_SECS=curr_secs,ADAPT_STEP_FLAG=adapt_step_flag,BLDTACTTIME=grid%bldtacttime,PSIM=psim,P_PHY=grid%p_hyd,Q1&
-&0=grid%q10,Q2=grid%q2,QFX=grid%qfx,QSFC=grid%qsfc,QSHLTR=grid%qshltr,QZ0=grid%qz0,RAINCV=grid%raincv,RA_LW_PHYSICS=config_flags%ra&
-&_lw_physics,RHO=grid%rho,RMOL=grid%rmol,SFCEVP=grid%sfcevp,SFCEXC=grid%sfcexc,SFCRUNOFF=grid%sfcrunoff,ACRUNOFF=grid%ACRUNOFF,opt_&
-&thcnd=config_flags%opt_thcnd,SF_SFCLAY_PHYSICS=config_flags%sf_sfclay_physics,SF_SURFACE_PHYSICS=config_flags%sf_surface_physics,S&
-&H2O=grid%sh2o,SHDMAX=grid%shdmax,SHDMIN=grid%shdmin,SMOIS=grid%smois,SMSTAV=grid%smstav,SMSTOT=grid%smstot,SNOALB=grid%snoalb,SNOW&
-&=grid%snow,SNOWC=grid%snowc,SNOWH=grid%snowh,SMCREL=grid%smcrel,SST=grid%sst,SST_INPUT=grid%sst_input,SST_UPDATE=grid%sst_update,S&
-&STSK=grid%sstsk,DTW=grid%dtw,SST_SKIN=grid%sst_skin,SCM_FORCE_SKINTEMP=grid%scm_force_skintemp,SCM_FORCE_FLUX=grid%scm_force_flux,&
-&STEPBL=grid%stepbl,TH10=grid%th10,TH2=grid%th2,THZ0=grid%thz0,TH_PHY=th_phy,TKE_PBL=grid%tke_pbl,TMN=grid%tmn,TSHLTR=grid%tshltr,T&
-&SK=grid%tsk,TYR=grid%tyr,TYRA=grid%tyra,TDLY=grid%tdly,TLAG=grid%tlag,LAGDAY=config_flags%lagday,NYEAR=grid%nyear,NDAY=grid%nday,T&
-&MN_UPDATE=grid%tmn_update,YR=yr,TSLB=grid%tslb,T_PHY=t_phy,U10=grid%u10,URATX=grid%uratx,VRATX=grid%vratx,TRATX=grid%tratx,UDRUNOF&
-&F=grid%udrunoff,UST=grid%ust,UZ0=grid%uz0,U_FRAME=grid%u_frame,U_PHY=grid%u_phy,V10=grid%v10,UOCE=grid%uoce,VOCE=grid%voce,VEGFRA=&
-&grid%vegfra,VZ0=grid%vz0,V_FRAME=grid%v_frame,V_PHY=grid%v_phy,WARM_RAIN=grid%warm_rain,WSPD=wspd,XICE=grid%xice,XLAND=grid%xland,&
-&MAX_EDOM=grid%num_ext_model_couple_dom,CPLMASK=grid%cplmask,Z0=grid%z0,Z=grid%z,ZNT=grid%znt,ZS=grid%zs,ALBSI=grid%albsi,ICEDEPTH=&
-&grid%icedepth,SNOWSI=grid%snowsi,XICEM=grid%xicem,ISICE=grid%landuse_isice,USTM=grid%ustm,CK=grid%ck,CKA=grid%cka,CD=grid%cd,CDA=g&
-&rid%cda,ISFTCFLX=config_flags%isftcflx,IZ0TLND=config_flags%iz0tlnd,SF_OCEAN_PHYSICS=config_flags%sf_ocean_physics,OML_HML0=config&
-&_flags%oml_hml0,OML_GAMMA=config_flags%oml_gamma,TML=grid%tml,T0ML=grid%t0ml,HML=grid%hml,H0ML=grid%h0ml,HUML=grid%huml,HVML=grid%&
-&hvml,F=grid%f,TMOML=grid%TMOML,ISWATER=iswater,OML_RELAXATION_TIME=grid%OML_RELAXATION_TIME,lakedepth2d=grid%lakedepth2d,savedtke1&
-&2d=grid%savedtke12d,snowdp2d=grid%snowdp2d,h2osno2d=grid%h2osno2d,snl2d=grid%snl2d,t_grnd2d=grid%t_grnd2d,t_lake3d=grid%t_lake3d,l&
-&ake_icefrac3d=grid%lake_icefrac3d,z_lake3d=grid%z_lake3d,dz_lake3d=grid%dz_lake3d,t_soisno3d=grid%t_soisno3d,h2osoi_ice3d=grid%h2o&
-&soi_ice3d,h2osoi_liq3d=grid%h2osoi_liq3d,h2osoi_vol3d=grid%h2osoi_vol3d,z3d=grid%z3d,dz3d=grid%dz3d,zi3d=grid%zi3d,watsat3d=grid%w&
-&atsat3d,csol3d=grid%csol3d,tkmg3d=grid%tkmg3d,tkdry3d=grid%tkdry3d,tksatu3d=grid%tksatu3d,LakeModel=grid%sf_lake_physics,lake_min_&
-&elev=grid%lake_min_elev,LakeMask=grid%LakeMask,NUMC=grid%numc,NUMP=grid%nump,SABV=grid%sabv,SABG=grid%sabg,LWUP=grid%lwup,SNL=grid&
-&%snl,HISTORY_INTERVAL=config_flags%history_interval,SNOWDP=grid%snowdp,WTC=grid%wtc,WTP=grid%wtp,H2OSNO=grid%h2osno,T_GRND=grid%t_&
-&grnd,T_VEG=grid%t_veg,H2OCAN=grid%h2ocan,H2OCAN_COL=grid%h2ocan_col,T2M_MAX=grid%t2m_max,T2M_MIN=grid%t2m_min,T2CLM=grid%t2clm,T_R&
-&EF2M=grid%t_ref2m,H2OSOI_LIQ_S1=grid%h2osoi_liq_s1,H2OSOI_LIQ_S2=grid%h2osoi_liq_s2,H2OSOI_LIQ_S3=grid%h2osoi_liq_s3,H2OSOI_LIQ_S4&
-&=grid%h2osoi_liq_s4,H2OSOI_LIQ_S5=grid%h2osoi_liq_s5,H2OSOI_LIQ1=grid%h2osoi_liq1,H2OSOI_LIQ2=grid%h2osoi_liq2,H2OSOI_LIQ3=grid%h2&
-&osoi_liq3,H2OSOI_LIQ4=grid%h2osoi_liq4,H2OSOI_LIQ5=grid%h2osoi_liq5,H2OSOI_LIQ6=grid%h2osoi_liq6,H2OSOI_LIQ7=grid%h2osoi_liq7,H2OS&
-&OI_LIQ8=grid%h2osoi_liq8,H2OSOI_LIQ9=grid%h2osoi_liq9,H2OSOI_LIQ10=grid%h2osoi_liq10,H2OSOI_ICE_S1=grid%h2osoi_ice_s1,H2OSOI_ICE_S&
-&2=grid%h2osoi_ice_s2,H2OSOI_ICE_S3=grid%h2osoi_ice_s3,H2OSOI_ICE_S4=grid%h2osoi_ice_s4,H2OSOI_ICE_S5=grid%h2osoi_ice_s5,H2OSOI_ICE&
-&1=grid%h2osoi_ice1,H2OSOI_ICE2=grid%h2osoi_ice2,H2OSOI_ICE3=grid%h2osoi_ice3,H2OSOI_ICE4=grid%h2osoi_ice4,H2OSOI_ICE5=grid%h2osoi_&
-&ice5,H2OSOI_ICE6=grid%h2osoi_ice6,H2OSOI_ICE7=grid%h2osoi_ice7,H2OSOI_ICE8=grid%h2osoi_ice8,H2OSOI_ICE9=grid%h2osoi_ice9,H2OSOI_IC&
-&E10=grid%h2osoi_ice10,T_SOISNO_S1=grid%t_soisno_s1,T_SOISNO_S2=grid%t_soisno_s2,T_SOISNO_S3=grid%t_soisno_s3,T_SOISNO_S4=grid%t_so&
-&isno_s4,T_SOISNO_S5=grid%t_soisno_s5,T_SOISNO1=grid%t_soisno1,T_SOISNO2=grid%t_soisno2,T_SOISNO3=grid%t_soisno3,T_SOISNO4=grid%t_s&
-&oisno4,T_SOISNO5=grid%t_soisno5,T_SOISNO6=grid%t_soisno6,T_SOISNO7=grid%t_soisno7,T_SOISNO8=grid%t_soisno8,T_SOISNO9=grid%t_soisno&
-&9,T_SOISNO10=grid%t_soisno10,DZSNOW1=grid%dzsnow1,DZSNOW2=grid%dzsnow2,DZSNOW3=grid%dzsnow3,DZSNOW4=grid%dzsnow4,DZSNOW5=grid%dzsn&
-&ow5,SNOWRDS1=grid%snowrds1,SNOWRDS2=grid%snowrds2,SNOWRDS3=grid%snowrds3,SNOWRDS4=grid%snowrds4,SNOWRDS5=grid%snowrds5,T_LAKE1=gri&
-&d%t_lake1,T_LAKE2=grid%t_lake2,T_LAKE3=grid%t_lake3,T_LAKE4=grid%t_lake4,T_LAKE5=grid%t_lake5,T_LAKE6=grid%t_lake6,T_LAKE7=grid%t_&
-&lake7,T_LAKE8=grid%t_lake8,T_LAKE9=grid%t_lake9,T_LAKE10=grid%t_lake10,H2OSOI_VOL1=grid%h2osoi_vol1,H2OSOI_VOL2=grid%h2osoi_vol2,H&
-&2OSOI_VOL3=grid%h2osoi_vol3,H2OSOI_VOL4=grid%h2osoi_vol4,H2OSOI_VOL5=grid%h2osoi_vol5,H2OSOI_VOL6=grid%h2osoi_vol6,H2OSOI_VOL7=gri&
-&d%h2osoi_vol7,H2OSOI_VOL8=grid%h2osoi_vol8,H2OSOI_VOL9=grid%h2osoi_vol9,H2OSOI_VOL10=grid%h2osoi_vol10,MAXPATCH=config_flags%maxpa&
-&tch,INEST=grid%id,ALBEDOsubgrid=grid%ALBEDOsubgrid,LHsubgrid=grid%LHsubgrid,HFXsubgrid=grid%HFXsubgrid,LWUPsubgrid=grid%LWUPsubgri&
-&d,Q2subgrid=grid%Q2subgrid,SABVsubgrid=grid%SABVsubgrid,SABGsubgrid=grid%SABGsubgrid,NRAsubgrid=grid%NRAsubgrid,SWUPsubgrid=grid%S&
-&WUPsubgrid,LHsoi=grid%LHsoi,LHveg=grid%LHveg,LHtran=grid%LHtran,year=yr,day_int=day,hour=hr,minute=minute,SLOPE_RAD=config_flags%s&
-&lope_rad,TOPO_SHADING=config_flags%topo_shading,SHADOWMASK=grid%shadowmask,DIFFUSE_FRAC=grid%diffuse_frac,SLOPE=grid%slope,SLP_AZI&
-&=grid%slp_azi,SWNORM=grid%swnorm,DECLIN=grid%declin,SOLCON=grid%solcon,COSZEN=grid%coszen,HRANG=grid%hrang,xlat_urb2d=grid%XLAT,NU&
-&M_ROOF_LAYERS=num_roof_layers,NUM_WALL_LAYERS=num_wall_layers,NUM_ROAD_LAYERS=num_road_layers,DZR=grid%dzr,DZB=grid%dzb,DZG=grid%d&
-&zg,TR_URB2D=grid%tr_urb2d,TB_URB2D=grid%tb_urb2d,TG_URB2D=grid%tg_urb2d,TC_URB2D=grid%tc_urb2d,QC_URB2D=grid%qc_urb2d,UC_URB2D=gri&
-&d%uc_urb2d,XXXR_URB2D=grid%xxxr_urb2d,XXXB_URB2D=grid%xxxb_urb2d,XXXG_URB2D=grid%xxxg_urb2d,XXXC_URB2D=grid%xxxc_urb2d,CMCR_URB2D=&
-&grid%cmcr_urb2d,TGR_URB2D=grid%tgr_urb2d,TGRL_URB3D=grid%tgrl_urb3d,SMR_URB3D=grid%smr_urb3d,JULIAN=grid%julday,JULYR=grid%julyr,D&
-&RELR_URB2D=grid%drelr_urb2d,DRELB_URB2D=grid%drelb_urb2d,DRELG_URB2D=grid%drelg_urb2d,FLXHUMR_URB2D=grid%flxhumr_urb2d,FLXHUMB_URB&
-&2D=grid%flxhumb_urb2d,FLXHUMG_URB2D=grid%flxhumg_urb2d,TRL_URB3D=grid%trl_urb3d,TBL_URB3D=grid%tbl_urb3d,TGL_URB3D=grid%tgl_urb3d,&
-&SH_URB2D=grid%sh_urb2d,LH_URB2D=grid%lh_urb2d,G_URB2D=grid%g_urb2d,RN_URB2D=grid%rn_urb2d,TS_URB2D=grid%ts_urb2d,FRC_URB2D=grid%fr&
-&c_urb2d,UTYPE_URB2D=grid%utype_urb2d,SF_URBAN_PHYSICS=config_flags%sf_urban_physics,NUM_URBAN_LAYERS=config_flags%num_urban_layers&
-&,NUM_URBAN_HI=config_flags%num_urban_hi,TRB_URB4D=grid%trb_urb4d,TW1_URB4D=grid%tw1_urb4d,TW2_URB4D=grid%tw2_urb4d,TGB_URB4D=grid%&
-&tgb_urb4d,TLEV_URB3D=grid%tlev_urb3d,QLEV_URB3D=grid%qlev_urb3d,TW1LEV_URB3D=grid%tw1lev_urb3d,TW2LEV_URB3D=grid%tw2lev_urb3d,TGLE&
-&V_URB3D=grid%tglev_urb3d,TFLEV_URB3D=grid%tflev_urb3d,SF_AC_URB3D=grid%sf_ac_urb3d,LF_AC_URB3D=grid%lf_ac_urb3d,CM_AC_URB3D=grid%c&
-&m_ac_urb3d,SFVENT_URB3D=grid%sfvent_urb3d,LFVENT_URB3D=grid%lfvent_urb3d,SFWIN1_URB3D=grid%sfwin1_urb3d,SFWIN2_URB3D=grid%sfwin2_u&
-&rb3d,SFW1_URB3D=grid%sfw1_urb3d,SFW2_URB3D=grid%sfw2_urb3d,SFR_URB3D=grid%sfr_urb3d,SFG_URB3D=grid%sfg_urb3d,LP_URB2D=grid%lp_urb2&
-&d,HI_URB2D=grid%hi_urb2d,LB_URB2D=grid%lb_urb2d,HGT_URB2D=grid%hgt_urb2d,MH_URB2D=grid%mh_urb2d,STDH_URB2D=grid%stdh_urb2d,LF_URB2&
-&D=grid%lf_urb2d,GMT=grid%gmt,XLAT=grid%xlat,XLONG=grid%xlong,JULDAY=grid%julday,A_U_BEP=grid%a_u_bep,A_V_BEP=grid%a_v_bep,A_T_BEP=&
-&grid%a_t_bep,A_Q_BEP=grid%a_q_bep,B_U_BEP=grid%b_u_bep,B_V_BEP=grid%b_v_bep,B_T_BEP=grid%b_t_bep,B_Q_BEP=grid%b_q_bep,SF_BEP=grid%&
-&sf_bep,VL_BEP=grid%vl_bep,A_E_BEP=grid%a_e_bep,B_E_BEP=grid%b_e_bep,DLG_BEP=grid%dlg_bep,DL_U_BEP=grid%dl_u_bep,CMR_SFCDIF=grid%cm&
-&r_sfcdif,CHR_SFCDIF=grid%chr_sfcdif,CMC_SFCDIF=grid%cmc_sfcdif,CHC_SFCDIF=grid%chc_sfcdif,CMGR_SFCDIF=grid%cmgr_sfcdif,CHGR_SFCDIF&
-&=grid%chgr_sfcdif,LANDUSEF=grid%landusef,SOILCTOP=grid%soilctop,SOILCBOT=grid%soilcbot,RA=grid%ra,RS=grid%rs,LAI=grid%lai,IMPERV=g&
-&rid%imperv,CANFRA=grid%canfra,NLCAT=grid%num_land_cat,NSCAT=grid%num_soil_cat,VEGF_PX=grid%vegf_px,SNOWNCV=grid%snowncv,ANAL_INTER&
-&VAL=config_flags%auxinput9_interval_s+config_flags%auxinput9_interval_m*60,PXLSM_SMOIS_INIT=config_flags%pxlsm_smois_init,PXLSM_SO&
-&IL_NUDGE=config_flags%pxlsm_soil_nudge,alswvisdir=grid%alswvisdir,alswvisdif=grid%alswvisdif,alswnirdir=grid%alswnirdir,alswnirdif&
-&=grid%alswnirdif,swvisdir=grid%swvisdir,swvisdif=grid%swvisdif,swnirdir=grid%swnirdir,swnirdif=grid%swnirdif,ssib_br=grid%ssib_br,&
-&ssib_fm=grid%ssib_fm,ssib_fh=grid%ssib_fh,ssib_cm=grid%ssib_cm,ssibxdd=grid%ssibxdd,ssib_lhf=grid%ssib_lhf,ssib_shf=grid%ssib_shf,&
-&ssib_ghf=grid%ssib_ghf,ssib_egs=grid%ssib_egs,ssib_eci=grid%ssib_eci,ssib_ect=grid%ssib_ect,ssib_egi=grid%ssib_egi,ssib_egt=grid%s&
-&sib_egt,ssib_sdn=grid%ssib_sdn,ssib_sup=grid%ssib_sup,ssib_ldn=grid%ssib_ldn,ssib_lup=grid%ssib_lup,ssib_wat=grid%ssib_wat,ssib_sh&
-&c=grid%ssib_shc,ssib_shg=grid%ssib_shg,ssib_lai=grid%ssib_lai,ssib_vcf=grid%ssib_vcf,ssib_z00=grid%ssib_z00,ssib_veg=grid%ssib_veg&
-&,cldfra=grid%cldfra,ISNOW=grid%isnow,SWE=grid%swe,SNOWDEN=grid%snowden,SNOWDEPTH=grid%snowdepth,TKAIR=grid%tkair,DZO1=grid%dzo1,WO&
-&1=grid%wo1,TSSN1=grid%tssn1,TSSNO1=grid%tssno1,BWO1=grid%bwo1,BTO1=grid%bto1,CTO1=grid%cto1,FIO1=grid%fio1,FLO1=grid%flo1,BIO1=gri&
-&d%bio1,BLO1=grid%blo1,HO1=grid%ho1,DZO2=grid%dzo2,WO2=grid%wo2,TSSN2=grid%tssn2,TSSNO2=grid%tssno2,BWO2=grid%bwo2,BTO2=grid%bto2,C&
-&TO2=grid%cto2,FIO2=grid%fio2,FLO2=grid%flo2,BIO2=grid%bio2,BLO2=grid%blo2,HO2=grid%ho2,DZO3=grid%dzo3,WO3=grid%wo3,TSSN3=grid%tssn&
-&3,TSSNO3=grid%tssno3,BWO3=grid%bwo3,BTO3=grid%bto3,CTO3=grid%cto3,FIO3=grid%fio3,FLO3=grid%flo3,BIO3=grid%bio3,BLO3=grid%blo3,HO3=&
-&grid%ho3,DZO4=grid%dzo4,WO4=grid%wo4,TSSN4=grid%tssn4,TSSNO4=grid%tssno4,BWO4=grid%bwo4,BTO4=grid%bto4,CTO4=grid%cto4,FIO4=grid%fi&
-&o4,FLO4=grid%flo4,BIO4=grid%bio4,BLO4=grid%blo4,HO4=grid%ho4,RA_SW_PHYSICS=config_flags%ra_sw_physics,t2_ndg_old=grid%t2_ndg_old,q&
-&2_ndg_old=grid%q2_ndg_old,t2_ndg_new=grid%t2_ndg_new,q2_ndg_new=grid%q2_ndg_new,sn_ndg_old=grid%sn_ndg_old,sn_ndg_new=grid%sn_ndg_&
-&new,idveg=config_flags%dveg,iopt_crs=config_flags%opt_crs,iopt_btr=config_flags%opt_btr,iopt_run=config_flags%opt_run,iopt_sfc=con&
-&fig_flags%opt_sfc,iopt_frz=config_flags%opt_frz,iopt_inf=config_flags%opt_inf,iopt_rad=config_flags%opt_rad,iopt_alb=config_flags%&
-&opt_alb,iopt_snf=config_flags%opt_snf,iopt_tbot=config_flags%opt_tbot,iopt_stc=config_flags%opt_stc,iopt_gla=config_flags%opt_gla,&
-&iopt_rsf=config_flags%opt_rsf,isnowxy=grid%isnowxy,tvxy=grid%tvxy,tgxy=grid%tgxy,canicexy=grid%canicexy,canliqxy=grid%canliqxy,eah&
-&xy=grid%eahxy,tahxy=grid%tahxy,cmxy=grid%cmxy,chxy=grid%chxy,fwetxy=grid%fwetxy,sneqvoxy=grid%sneqvoxy,alboldxy=grid%alboldxy,qsno&
-&wxy=grid%qsnowxy,wslakexy=grid%wslakexy,zwtxy=grid%zwtxy,waxy=grid%waxy,wtxy=grid%wtxy,tsnoxy=grid%tsnoxy,zsnsoxy=grid%zsnsoxy,sni&
-&cexy=grid%snicexy,snliqxy=grid%snliqxy,lfmassxy=grid%lfmassxy,rtmassxy=grid%rtmassxy,stmassxy=grid%stmassxy,woodxy=grid%woodxy,stb&
-&lcpxy=grid%stblcpxy,fastcpxy=grid%fastcpxy,grainxy=grid%grainxy,gddxy=grid%gddxy,pgsxy=grid%pgsxy,cropcat=grid%cropcat,planting=gr&
-&id%planting,harvest=grid%harvest,season_gdd=grid%season_gdd,xsaixy=grid%xsaixy,taussxy=grid%taussxy,t2mvxy=grid%t2mvxy,t2mbxy=grid&
-&%t2mbxy,q2mvxy=grid%q2mvxy,q2mbxy=grid%q2mbxy,tradxy=grid%tradxy,neexy=grid%neexy,gppxy=grid%gppxy,nppxy=grid%nppxy,fvegxy=grid%fv&
-&egxy,runsfxy=grid%runsfxy,runsbxy=grid%runsbxy,ecanxy=grid%ecanxy,edirxy=grid%edirxy,etranxy=grid%etranxy,fsaxy=grid%fsaxy,firaxy=&
-&grid%firaxy,aparxy=grid%aparxy,psnxy=grid%psnxy,savxy=grid%savxy,sagxy=grid%sagxy,rssunxy=grid%rssunxy,rsshaxy=grid%rsshaxy,bgapxy&
-&=grid%bgapxy,wgapxy=grid%wgapxy,tgvxy=grid%tgvxy,tgbxy=grid%tgbxy,chvxy=grid%chvxy,chbxy=grid%chbxy,shgxy=grid%shgxy,shcxy=grid%sh&
-&cxy,shbxy=grid%shbxy,evgxy=grid%evgxy,evbxy=grid%evbxy,ghvxy=grid%ghvxy,ghbxy=grid%ghbxy,irgxy=grid%irgxy,ircxy=grid%ircxy,irbxy=g&
-&rid%irbxy,trxy=grid%trxy,evcxy=grid%evcxy,chleafxy=grid%chleafxy,chucxy=grid%chucxy,chv2xy=grid%chv2xy,chb2xy=grid%chb2xy,chstarxy&
-&=grid%chstarxy,smcwtdxy=grid%smcwtdxy,rechxy=grid%rechxy,deeprechxy=grid%deeprechxy,fdepthxy=grid%fdepthxy,areaxy=grid%areaxy,rive&
-&rcondxy=grid%rivercondxy,riverbedxy=grid%riverbedxy,eqzwt=grid%eqzwt,pexpxy=grid%pexpxy,qrfxy=grid%qrfxy,qspringxy=grid%qspringxy,&
-&qslatxy=grid%qslatxy,qrfsxy=grid%qrfsxy,qspringsxy=grid%qspringsxy,smoiseq=grid%smoiseq,wtddt=config_flags%wtddt,stepwtd=grid%step&
-&wtd,ua_phys=config_flags%ua_phys,flx4=grid%flx4,fvb=grid%fvb,fbur=grid%fbur,fgsn=grid%fgsn,IDS=ids,IDE=ide,JDS=jds,JDE=jde,KDS=kds&
-&,KDE=kde,IMS=ims,IME=ime,JMS=jms,JME=jme,KMS=kms,KME=kme,IPS=ips,IPE=ipe,JPS=jps,JPE=jpe,KPS=kps,KPE=kpe,I_START=grid%i_start,I_EN&
-&D=min(grid%i_end,ide-1),J_START=grid%j_start,J_END=min(grid%j_end,jde-1),KTS=k_start,KTE=min(k_end,kde-1),NUM_TILES=grid%num_tiles&
-&,te_temf=grid%te_temf,hd_temf=grid%hd_temf,fCor=grid%f,exch_temf=exch_temf,wm_temf=grid%wm_temf,hfx_force=grid%hfx_force,lh_force=&
-&grid%lh_force,tsk_force=grid%tsk_force,hfx_force_tend=grid%hfx_force_tend,lh_force_tend=grid%lh_force_tend,tsk_force_tend=grid%tsk&
-&_force_tend,QV_CURR=moist(ims,kms,jms,P_QV),F_QV=F_QV,QC_CURR=moist(ims,kms,jms,P_QC),F_QC=F_QC,QR_CURR=moist(ims,kms,jms,P_QR),F_&
-&QR=F_QR,QI_CURR=moist(ims,kms,jms,P_QI),F_QI=F_QI,QS_CURR=moist(ims,kms,jms,P_QS),F_QS=F_QS,QG_CURR=moist(ims,kms,jms,P_QG),F_QG=F&
-&_QG,CAPG=grid%capg,EMISS=grid%emiss,HOL=hol,MOL=grid%mol,T2OBS=grid%t2obs,Q2OBS=grid%q2obs,RAINBL=grid%rainbl,SR=grid%sr,RAINSHV=g&
-&rid%rainshv,GRAUPELNCV=grid%graupelncv,HAILNCV=grid%hailncv,RAINNCV=grid%rainncv,REGIME=grid%regime,T2=grid%t2,THC=grid%thc,QSG=gr&
-&id%qsg,QVG=grid%qvg,QCG=grid%qcg,SOILT1=grid%soilt1,TSNAV=grid%tsnav,SMFR3D=grid%smfr3d,KEEPFR3DFLAG=grid%keepfr3dflag,DEW=grid%de&
-&w,POTEVP=grid%POTEVP,SNOPCX=grid%SNOPCX,SOILTB=grid%SOILTB,rhosnf=grid%rhosnf,precipfr=grid%precipfr,snowfallac=grid%snowfallac,MO&
-&SAIC_LU=config_flags%mosaic_lu,MOSAIC_SOIL=config_flags%mosaic_soil,ISURBAN=isurban,MMINLU=TRIM(mminlu),SNOTIME=grid%SNOTIME,RDLAI&
-&2D=config_flags%rdlai2d,usemonalb=config_flags%usemonalb,NOAHRES=grid%noahres,TSK_SAVE=grid%tsk_save,ch=grid%ch,tsq=grid%tsq,qsq=g&
-&rid%qsq,cov=grid%cov,Sh3d=grid%sh3d,EL_PBL=grid%el_pbl,bl_mynn_cloudpdf=config_flags%bl_mynn_cloudpdf,icloud_bl=config_flags%iclou&
-&d_bl,qc_bl=grid%qc_bl,cldfra_bl=grid%cldfra_bl,fgdp=grid%fgdp,dfgdp=grid%dfgdp,vdfg=grid%vdfg,grav_settling=config_flags%grav_sett&
-&ling,OM_TMP=grid%om_tmp,OM_S=grid%om_s,OM_U=grid%om_u,OM_V=grid%om_v,OM_DEPTH=grid%om_depth,OM_ML=grid%OM_ML,OM_LON=grid%om_lon,OM&
-&_LAT=grid%om_lat,okms=1,okme=config_flags%ocean_levels,rdx=grid%rdx,rdy=grid%rdy,msfu=grid%msfu,msfv=grid%msfv,msft=grid%msft,XTIM&
-&E=grid%xtime,OM_TINI=grid%om_tini,OM_SINI=grid%om_sini,id=grid%id,omdt=config_flags%omdt,sf_surface_mosaic=config_flags%sf_surface&
-&_mosaic,mosaic_cat=config_flags%mosaic_cat,mosaic_cat_index=grid%mosaic_cat_index,landusef2=grid%landusef2,TSK_mosaic=grid%TSK_mos&
-&aic,QSFC_mosaic=grid%QSFC_mosaic,TSLB_mosaic=grid%TSLB_mosaic,SMOIS_mosaic=grid%SMOIS_mosaic,SH2O_mosaic=grid%SH2O_mosaic,CANWAT_m&
-&osaic=grid%CANWAT_mosaic,SNOW_mosaic=grid%SNOW_mosaic,SNOWH_mosaic=grid%SNOWH_mosaic,SNOWC_mosaic=grid%SNOWC_mosaic,ALBEDO_mosaic=&
-&grid%ALBEDO_mosaic,ALBBCK_mosaic=grid%ALBBCK_mosaic,EMISS_mosaic=grid%EMISS_mosaic,EMBCK_mosaic=grid%EMBCK_mosaic,ZNT_mosaic=grid%&
-&ZNT_mosaic,Z0_mosaic=grid%Z0_mosaic,HFX_mosaic=grid%HFX_mosaic,QFX_mosaic=grid%QFX_mosaic,LH_mosaic=grid%LH_mosaic,GRDFLX_mosaic=g&
-&rid%GRDFLX_mosaic,SNOTIME_mosaic=grid%SNOTIME_mosaic,TR_URB2D_mosaic=grid%TR_URB2D_mosaic,TB_URB2D_mosaic=grid%TB_URB2D_mosaic,TG_&
-&URB2D_mosaic=grid%TG_URB2D_mosaic,TC_URB2D_mosaic=grid%TC_URB2D_mosaic,QC_URB2D_mosaic=grid%QC_URB2D_mosaic,UC_URB2D_mosaic=grid%U&
-&C_URB2D_mosaic,TRL_URB3D_mosaic=grid%TRL_URB3D_mosaic,TBL_URB3D_mosaic=grid%TBL_URB3D_mosaic,TGL_URB3D_mosaic=grid%TGL_URB3D_mosai&
-&c,SH_URB2D_mosaic=grid%SH_URB2D_mosaic,LH_URB2D_mosaic=grid%LH_URB2D_mosaic,G_URB2D_mosaic=grid%G_URB2D_mosaic,RN_URB2D_mosaic=gri&
-&d%RN_URB2D_mosaic,TS_URB2D_mosaic=grid%TS_URB2D_mosaic,TS_RUL2D_mosaic=grid%TS_RUL2D_mosaic,ZOL=grid%ZOL,SDA_HFX=grid%SDA_HFX,SDA_&
-&QFX=grid%SDA_QFX,HFX_BOTH=grid%HFX_BOTH,QFX_BOTH=grid%QFX_BOTH,QNORM=grid%QNORM,fasdas=config_flags%fasdas,spp_lsm=config_flags%sp&
-&p_lsm,pattern_spp_lsm=grid%pattern_spp_lsm,field_sf=grid%field_sf,spp_pbl=config_flags%spp_pbl,pattern_spp_pbl=grid%pattern_spp_pb&
-&l)
-
-
-
-
-
+&id%albedo,EMBCK=grid%embck,BR=grid%br,CANWAT=grid%canwat,CHKLOWQ=chklowq,CT=grid%ct,DT=grid%dt,DT_prev=grid%dt_prev,DX=grid%dx,DZ8&
+&W=dz8w,DZS=grid%dzs,FLHC=grid%flhc,FM=grid%fm,FHH=grid%fh,FLQC=grid%flqc,GLW=grid%glw,GRDFLX=grid%grdflx,GSW=grid%gsw,SWDOWN=grid%&
+&swdown,GZ1OZ0=gz1oz0,HFX=grid%hfx,HT=grid%ht,IFSNOW=config_flags%ifsnow,ISFFLX=config_flags%isfflx,FRACTIONAL_SEAICE=config_flags%&
+&fractional_seaice,SEAICE_ALBEDO_OPT=config_flags%seaice_albedo_opt,SEAICE_ALBEDO_DEFAULT=config_flags%seaice_albedo_default,SEAICE&
+&_THICKNESS_OPT=config_flags%seaice_thickness_opt,SEAICE_THICKNESS_DEFAULT=config_flags%seaice_thickness_default,SEAICE_SNOWDEPTH_O&
+&PT=config_flags%seaice_snowdepth_opt,SEAICE_SNOWDEPTH_MAX=config_flags%seaice_snowdepth_max,SEAICE_SNOWDEPTH_MIN=config_flags%seai&
+&ce_snowdepth_min,TICE2TSK_IF2COLD=config_flags%tice2tsk_if2cold,IFNDALBSI=grid%ifndalbsi,IFNDICEDEPTH=grid%ifndicedepth,IFNDSNOWSI&
+&=grid%ifndsnowsi,ISLTYP=grid%isltyp,ITIMESTEP=grid%itimestep,JULIAN_IN=grid%julian,IVGTYP=grid%ivgtyp,LH=grid%lh,LOWLYR=grid%lowly&
+&r,MAVAIL=grid%mavail,NUM_SOIL_LAYERS=config_flags%num_soil_layers,P8W=grid%p_hyd_w,PBLH=grid%pblh,PI_PHY=pi_phy,PSFC=grid%psfc,PSH&
+&LTR=grid%pshltr,PSIH=psih,BLDT=grid%bldt,CURR_SECS=curr_secs,ADAPT_STEP_FLAG=adapt_step_flag,BLDTACTTIME=grid%bldtacttime,PSIM=psi&
+&m,P_PHY=grid%p_hyd,Q10=grid%q10,Q2=grid%q2,QFX=grid%qfx,QSFC=grid%qsfc,QSHLTR=grid%qshltr,QZ0=grid%qz0,RAINCV=grid%raincv,RA_LW_PH&
+&YSICS=config_flags%ra_lw_physics,RHO=grid%rho,RMOL=grid%rmol,SFCEVP=grid%sfcevp,SFCEXC=grid%sfcexc,SFCRUNOFF=grid%sfcrunoff,ACRUNO&
+&FF=grid%ACRUNOFF,opt_thcnd=config_flags%opt_thcnd,SF_SFCLAY_PHYSICS=config_flags%sf_sfclay_physics,SF_SURFACE_PHYSICS=config_flags&
+&%sf_surface_physics,SH2O=grid%sh2o,SHDMAX=grid%shdmax,SHDMIN=grid%shdmin,SMOIS=grid%smois,SMSTAV=grid%smstav,SMSTOT=grid%smstot,SN&
+&OALB=grid%snoalb,SNOW=grid%snow,SNOWC=grid%snowc,SNOWH=grid%snowh,SMCREL=grid%smcrel,SST=grid%sst,SST_INPUT=grid%sst_input,SST_UPD&
+&ATE=grid%sst_update,SSTSK=grid%sstsk,DTW=grid%dtw,SST_SKIN=grid%sst_skin,SCM_FORCE_SKINTEMP=grid%scm_force_skintemp,SCM_FORCE_FLUX&
+&=grid%scm_force_flux,STEPBL=grid%stepbl,TH10=grid%th10,TH2=grid%th2,THZ0=grid%thz0,TH_PHY=th_phy,TKE_PBL=grid%tke_pbl,TMN=grid%tmn&
+&,TSHLTR=grid%tshltr,TSK=grid%tsk,TYR=grid%tyr,TYRA=grid%tyra,TDLY=grid%tdly,TLAG=grid%tlag,LAGDAY=config_flags%lagday,NYEAR=grid%n&
+&year,NDAY=grid%nday,TMN_UPDATE=grid%tmn_update,YR=yr,TSLB=grid%tslb,T_PHY=t_phy,U10=grid%u10,URATX=grid%uratx,VRATX=grid%vratx,TRA&
+&TX=grid%tratx,UDRUNOFF=grid%udrunoff,UST=grid%ust,UZ0=grid%uz0,U_FRAME=grid%u_frame,U_PHY=grid%u_phy,V10=grid%v10,UOCE=grid%uoce,V&
+&OCE=grid%voce,VEGFRA=grid%vegfra,VZ0=grid%vz0,V_FRAME=grid%v_frame,V_PHY=grid%v_phy,WARM_RAIN=grid%warm_rain,WSPD=wspd,XICE=grid%x&
+&ice,XLAND=grid%xland,MAX_EDOM=grid%num_ext_model_couple_dom,CPLMASK=grid%cplmask,Z0=grid%z0,Z=grid%z,ZNT=grid%znt,ZS=grid%zs,ALBSI&
+&=grid%albsi,ICEDEPTH=grid%icedepth,SNOWSI=grid%snowsi,XICEM=grid%xicem,ISICE=grid%landuse_isice,USTM=grid%ustm,CK=grid%ck,CKA=grid&
+&%cka,CD=grid%cd,CDA=grid%cda,ISFTCFLX=config_flags%isftcflx,IZ0TLND=config_flags%iz0tlnd,SF_OCEAN_PHYSICS=config_flags%sf_ocean_ph&
+&ysics,OML_HML0=config_flags%oml_hml0,OML_GAMMA=config_flags%oml_gamma,TML=grid%tml,T0ML=grid%t0ml,HML=grid%hml,H0ML=grid%h0ml,HUML&
+&=grid%huml,HVML=grid%hvml,F=grid%f,TMOML=grid%TMOML,ISWATER=iswater,OML_RELAXATION_TIME=grid%OML_RELAXATION_TIME,lakedepth2d=grid%&
+&lakedepth2d,savedtke12d=grid%savedtke12d,snowdp2d=grid%snowdp2d,h2osno2d=grid%h2osno2d,snl2d=grid%snl2d,t_grnd2d=grid%t_grnd2d,t_l&
+&ake3d=grid%t_lake3d,lake_icefrac3d=grid%lake_icefrac3d,z_lake3d=grid%z_lake3d,dz_lake3d=grid%dz_lake3d,t_soisno3d=grid%t_soisno3d,&
+&h2osoi_ice3d=grid%h2osoi_ice3d,h2osoi_liq3d=grid%h2osoi_liq3d,h2osoi_vol3d=grid%h2osoi_vol3d,z3d=grid%z3d,dz3d=grid%dz3d,zi3d=grid&
+&%zi3d,watsat3d=grid%watsat3d,csol3d=grid%csol3d,tkmg3d=grid%tkmg3d,tkdry3d=grid%tkdry3d,tksatu3d=grid%tksatu3d,LakeModel=grid%sf_l&
+&ake_physics,lake_min_elev=grid%lake_min_elev,LakeMask=grid%LakeMask,NUMC=grid%numc,NUMP=grid%nump,SABV=grid%sabv,SABG=grid%sabg,LW&
+&UP=grid%lwup,SNL=grid%snl,HISTORY_INTERVAL=config_flags%history_interval,SNOWDP=grid%snowdp,WTC=grid%wtc,WTP=grid%wtp,H2OSNO=grid%&
+&h2osno,T_GRND=grid%t_grnd,T_VEG=grid%t_veg,H2OCAN=grid%h2ocan,H2OCAN_COL=grid%h2ocan_col,T2M_MAX=grid%t2m_max,T2M_MIN=grid%t2m_min&
+&,T2CLM=grid%t2clm,T_REF2M=grid%t_ref2m,H2OSOI_LIQ_S1=grid%h2osoi_liq_s1,H2OSOI_LIQ_S2=grid%h2osoi_liq_s2,H2OSOI_LIQ_S3=grid%h2osoi&
+&_liq_s3,H2OSOI_LIQ_S4=grid%h2osoi_liq_s4,H2OSOI_LIQ_S5=grid%h2osoi_liq_s5,H2OSOI_LIQ1=grid%h2osoi_liq1,H2OSOI_LIQ2=grid%h2osoi_liq&
+&2,H2OSOI_LIQ3=grid%h2osoi_liq3,H2OSOI_LIQ4=grid%h2osoi_liq4,H2OSOI_LIQ5=grid%h2osoi_liq5,H2OSOI_LIQ6=grid%h2osoi_liq6,H2OSOI_LIQ7=&
+&grid%h2osoi_liq7,H2OSOI_LIQ8=grid%h2osoi_liq8,H2OSOI_LIQ9=grid%h2osoi_liq9,H2OSOI_LIQ10=grid%h2osoi_liq10,H2OSOI_ICE_S1=grid%h2oso&
+&i_ice_s1,H2OSOI_ICE_S2=grid%h2osoi_ice_s2,H2OSOI_ICE_S3=grid%h2osoi_ice_s3,H2OSOI_ICE_S4=grid%h2osoi_ice_s4,H2OSOI_ICE_S5=grid%h2o&
+&soi_ice_s5,H2OSOI_ICE1=grid%h2osoi_ice1,H2OSOI_ICE2=grid%h2osoi_ice2,H2OSOI_ICE3=grid%h2osoi_ice3,H2OSOI_ICE4=grid%h2osoi_ice4,H2O&
+&SOI_ICE5=grid%h2osoi_ice5,H2OSOI_ICE6=grid%h2osoi_ice6,H2OSOI_ICE7=grid%h2osoi_ice7,H2OSOI_ICE8=grid%h2osoi_ice8,H2OSOI_ICE9=grid%&
+&h2osoi_ice9,H2OSOI_ICE10=grid%h2osoi_ice10,T_SOISNO_S1=grid%t_soisno_s1,T_SOISNO_S2=grid%t_soisno_s2,T_SOISNO_S3=grid%t_soisno_s3,&
+&T_SOISNO_S4=grid%t_soisno_s4,T_SOISNO_S5=grid%t_soisno_s5,T_SOISNO1=grid%t_soisno1,T_SOISNO2=grid%t_soisno2,T_SOISNO3=grid%t_soisn&
+&o3,T_SOISNO4=grid%t_soisno4,T_SOISNO5=grid%t_soisno5,T_SOISNO6=grid%t_soisno6,T_SOISNO7=grid%t_soisno7,T_SOISNO8=grid%t_soisno8,T_&
+&SOISNO9=grid%t_soisno9,T_SOISNO10=grid%t_soisno10,DZSNOW1=grid%dzsnow1,DZSNOW2=grid%dzsnow2,DZSNOW3=grid%dzsnow3,DZSNOW4=grid%dzsn&
+&ow4,DZSNOW5=grid%dzsnow5,SNOWRDS1=grid%snowrds1,SNOWRDS2=grid%snowrds2,SNOWRDS3=grid%snowrds3,SNOWRDS4=grid%snowrds4,SNOWRDS5=grid&
+&%snowrds5,T_LAKE1=grid%t_lake1,T_LAKE2=grid%t_lake2,T_LAKE3=grid%t_lake3,T_LAKE4=grid%t_lake4,T_LAKE5=grid%t_lake5,T_LAKE6=grid%t_&
+&lake6,T_LAKE7=grid%t_lake7,T_LAKE8=grid%t_lake8,T_LAKE9=grid%t_lake9,T_LAKE10=grid%t_lake10,H2OSOI_VOL1=grid%h2osoi_vol1,H2OSOI_VO&
+&L2=grid%h2osoi_vol2,H2OSOI_VOL3=grid%h2osoi_vol3,H2OSOI_VOL4=grid%h2osoi_vol4,H2OSOI_VOL5=grid%h2osoi_vol5,H2OSOI_VOL6=grid%h2osoi&
+&_vol6,H2OSOI_VOL7=grid%h2osoi_vol7,H2OSOI_VOL8=grid%h2osoi_vol8,H2OSOI_VOL9=grid%h2osoi_vol9,H2OSOI_VOL10=grid%h2osoi_vol10,MAXPAT&
+&CH=config_flags%maxpatch,INEST=grid%id,ALBEDOsubgrid=grid%ALBEDOsubgrid,LHsubgrid=grid%LHsubgrid,HFXsubgrid=grid%HFXsubgrid,LWUPsu&
+&bgrid=grid%LWUPsubgrid,Q2subgrid=grid%Q2subgrid,SABVsubgrid=grid%SABVsubgrid,SABGsubgrid=grid%SABGsubgrid,NRAsubgrid=grid%NRAsubgr&
+&id,SWUPsubgrid=grid%SWUPsubgrid,LHsoi=grid%LHsoi,LHveg=grid%LHveg,LHtran=grid%LHtran,year=yr,day_int=day,hour=hr,minute=minute,sec&
+&ond=sec,OHMcoef=grid%OHMcoef,qn1_av_SUEWS=grid%qn1_av_SUEWS,LAI_SUEWS=grid%LAI_SUEWS,albDecTr_SUEWS=grid%albDecTr_SUEWS,albEveTr_S&
+&UEWS=grid%albEveTr_SUEWS,albGrass_SUEWS=grid%albGrass_SUEWS,DecidCap_SUEWS=grid%DecidCap_SUEWS,porosity_SUEWS=grid%porosity_SUEWS,&
+&GDD_SUEWS=grid%GDD_SUEWS,HDD_SUEWS=grid%HDD_SUEWS,HDD_PREV_SUEWS=grid%HDD_PREV_SUEWS,state_SUEWS=grid%state_SUEWS,soilmoist_SUEWS=&
+&grid%soilmoist_SUEWS,surf_var_SUEWS=grid%surf_var_SUEWS,dqndt_SUEWS=grid%dqndt_SUEWS,SLOPE_RAD=config_flags%slope_rad,TOPO_SHADING&
+&=config_flags%topo_shading,SHADOWMASK=grid%shadowmask,DIFFUSE_FRAC=grid%diffuse_frac,SLOPE=grid%slope,SLP_AZI=grid%slp_azi,SWNORM=&
+&grid%swnorm,DECLIN=grid%declin,SOLCON=grid%solcon,COSZEN=grid%coszen,HRANG=grid%hrang,xlat_urb2d=grid%XLAT,NUM_ROOF_LAYERS=num_roo&
+&f_layers,NUM_WALL_LAYERS=num_wall_layers,NUM_ROAD_LAYERS=num_road_layers,DZR=grid%dzr,DZB=grid%dzb,DZG=grid%dzg,TR_URB2D=grid%tr_u&
+&rb2d,TB_URB2D=grid%tb_urb2d,TG_URB2D=grid%tg_urb2d,TC_URB2D=grid%tc_urb2d,QC_URB2D=grid%qc_urb2d,UC_URB2D=grid%uc_urb2d,XXXR_URB2D&
+&=grid%xxxr_urb2d,XXXB_URB2D=grid%xxxb_urb2d,XXXG_URB2D=grid%xxxg_urb2d,XXXC_URB2D=grid%xxxc_urb2d,CMCR_URB2D=grid%cmcr_urb2d,TGR_U&
+&RB2D=grid%tgr_urb2d,TGRL_URB3D=grid%tgrl_urb3d,SMR_URB3D=grid%smr_urb3d,JULIAN=grid%julday,JULYR=grid%julyr,DRELR_URB2D=grid%drelr&
+&_urb2d,DRELB_URB2D=grid%drelb_urb2d,DRELG_URB2D=grid%drelg_urb2d,FLXHUMR_URB2D=grid%flxhumr_urb2d,FLXHUMB_URB2D=grid%flxhumb_urb2d&
+&,FLXHUMG_URB2D=grid%flxhumg_urb2d,TRL_URB3D=grid%trl_urb3d,TBL_URB3D=grid%tbl_urb3d,TGL_URB3D=grid%tgl_urb3d,SH_URB2D=grid%sh_urb2&
+&d,LH_URB2D=grid%lh_urb2d,G_URB2D=grid%g_urb2d,RN_URB2D=grid%rn_urb2d,TS_URB2D=grid%ts_urb2d,FRC_URB2D=grid%frc_urb2d,UTYPE_URB2D=g&
+&rid%utype_urb2d,SF_URBAN_PHYSICS=config_flags%sf_urban_physics,NUM_URBAN_LAYERS=config_flags%num_urban_layers,NUM_URBAN_HI=config_&
+&flags%num_urban_hi,TRB_URB4D=grid%trb_urb4d,TW1_URB4D=grid%tw1_urb4d,TW2_URB4D=grid%tw2_urb4d,TGB_URB4D=grid%tgb_urb4d,TLEV_URB3D=&
+&grid%tlev_urb3d,QLEV_URB3D=grid%qlev_urb3d,TW1LEV_URB3D=grid%tw1lev_urb3d,TW2LEV_URB3D=grid%tw2lev_urb3d,TGLEV_URB3D=grid%tglev_ur&
+&b3d,TFLEV_URB3D=grid%tflev_urb3d,SF_AC_URB3D=grid%sf_ac_urb3d,LF_AC_URB3D=grid%lf_ac_urb3d,CM_AC_URB3D=grid%cm_ac_urb3d,SFVENT_URB&
+&3D=grid%sfvent_urb3d,LFVENT_URB3D=grid%lfvent_urb3d,SFWIN1_URB3D=grid%sfwin1_urb3d,SFWIN2_URB3D=grid%sfwin2_urb3d,SFW1_URB3D=grid%&
+&sfw1_urb3d,SFW2_URB3D=grid%sfw2_urb3d,SFR_URB3D=grid%sfr_urb3d,SFG_URB3D=grid%sfg_urb3d,LP_URB2D=grid%lp_urb2d,HI_URB2D=grid%hi_ur&
+&b2d,LB_URB2D=grid%lb_urb2d,HGT_URB2D=grid%hgt_urb2d,MH_URB2D=grid%mh_urb2d,STDH_URB2D=grid%stdh_urb2d,LF_URB2D=grid%lf_urb2d,GMT=g&
+&rid%gmt,XLAT=grid%xlat,XLONG=grid%xlong,JULDAY=grid%julday,A_U_BEP=grid%a_u_bep,A_V_BEP=grid%a_v_bep,A_T_BEP=grid%a_t_bep,A_Q_BEP=&
+&grid%a_q_bep,B_U_BEP=grid%b_u_bep,B_V_BEP=grid%b_v_bep,B_T_BEP=grid%b_t_bep,B_Q_BEP=grid%b_q_bep,SF_BEP=grid%sf_bep,VL_BEP=grid%vl&
+&_bep,A_E_BEP=grid%a_e_bep,B_E_BEP=grid%b_e_bep,DLG_BEP=grid%dlg_bep,DL_U_BEP=grid%dl_u_bep,CMR_SFCDIF=grid%cmr_sfcdif,CHR_SFCDIF=g&
+&rid%chr_sfcdif,CMC_SFCDIF=grid%cmc_sfcdif,CHC_SFCDIF=grid%chc_sfcdif,CMGR_SFCDIF=grid%cmgr_sfcdif,CHGR_SFCDIF=grid%chgr_sfcdif,LAN&
+&DUSEF=grid%landusef,SOILCTOP=grid%soilctop,SOILCBOT=grid%soilcbot,RA=grid%ra,RS=grid%rs,LAI=grid%lai,IMPERV=grid%imperv,CANFRA=gri&
+&d%canfra,NLCAT=grid%num_land_cat,NSCAT=grid%num_soil_cat,VEGF_PX=grid%vegf_px,SNOWNCV=grid%snowncv,ANAL_INTERVAL=config_flags%auxi&
+&nput9_interval_s+config_flags%auxinput9_interval_m*60,PXLSM_SMOIS_INIT=config_flags%pxlsm_smois_init,PXLSM_SOIL_NUDGE=config_flags&
+&%pxlsm_soil_nudge,alswvisdir=grid%alswvisdir,alswvisdif=grid%alswvisdif,alswnirdir=grid%alswnirdir,alswnirdif=grid%alswnirdif,swvi&
+&sdir=grid%swvisdir,swvisdif=grid%swvisdif,swnirdir=grid%swnirdir,swnirdif=grid%swnirdif,ssib_br=grid%ssib_br,ssib_fm=grid%ssib_fm,&
+&ssib_fh=grid%ssib_fh,ssib_cm=grid%ssib_cm,ssibxdd=grid%ssibxdd,ssib_lhf=grid%ssib_lhf,ssib_shf=grid%ssib_shf,ssib_ghf=grid%ssib_gh&
+&f,ssib_egs=grid%ssib_egs,ssib_eci=grid%ssib_eci,ssib_ect=grid%ssib_ect,ssib_egi=grid%ssib_egi,ssib_egt=grid%ssib_egt,ssib_sdn=grid&
+&%ssib_sdn,ssib_sup=grid%ssib_sup,ssib_ldn=grid%ssib_ldn,ssib_lup=grid%ssib_lup,ssib_wat=grid%ssib_wat,ssib_shc=grid%ssib_shc,ssib_&
+&shg=grid%ssib_shg,ssib_lai=grid%ssib_lai,ssib_vcf=grid%ssib_vcf,ssib_z00=grid%ssib_z00,ssib_veg=grid%ssib_veg,cldfra=grid%cldfra,I&
+&SNOW=grid%isnow,SWE=grid%swe,SNOWDEN=grid%snowden,SNOWDEPTH=grid%snowdepth,TKAIR=grid%tkair,DZO1=grid%dzo1,WO1=grid%wo1,TSSN1=grid&
+&%tssn1,TSSNO1=grid%tssno1,BWO1=grid%bwo1,BTO1=grid%bto1,CTO1=grid%cto1,FIO1=grid%fio1,FLO1=grid%flo1,BIO1=grid%bio1,BLO1=grid%blo1&
+&,HO1=grid%ho1,DZO2=grid%dzo2,WO2=grid%wo2,TSSN2=grid%tssn2,TSSNO2=grid%tssno2,BWO2=grid%bwo2,BTO2=grid%bto2,CTO2=grid%cto2,FIO2=gr&
+&id%fio2,FLO2=grid%flo2,BIO2=grid%bio2,BLO2=grid%blo2,HO2=grid%ho2,DZO3=grid%dzo3,WO3=grid%wo3,TSSN3=grid%tssn3,TSSNO3=grid%tssno3,&
+&BWO3=grid%bwo3,BTO3=grid%bto3,CTO3=grid%cto3,FIO3=grid%fio3,FLO3=grid%flo3,BIO3=grid%bio3,BLO3=grid%blo3,HO3=grid%ho3,DZO4=grid%dz&
+&o4,WO4=grid%wo4,TSSN4=grid%tssn4,TSSNO4=grid%tssno4,BWO4=grid%bwo4,BTO4=grid%bto4,CTO4=grid%cto4,FIO4=grid%fio4,FLO4=grid%flo4,BIO&
+&4=grid%bio4,BLO4=grid%blo4,HO4=grid%ho4,RA_SW_PHYSICS=config_flags%ra_sw_physics,t2_ndg_old=grid%t2_ndg_old,q2_ndg_old=grid%q2_ndg&
+&_old,t2_ndg_new=grid%t2_ndg_new,q2_ndg_new=grid%q2_ndg_new,sn_ndg_old=grid%sn_ndg_old,sn_ndg_new=grid%sn_ndg_new,idveg=config_flag&
+&s%dveg,iopt_crs=config_flags%opt_crs,iopt_btr=config_flags%opt_btr,iopt_run=config_flags%opt_run,iopt_sfc=config_flags%opt_sfc,iop&
+&t_frz=config_flags%opt_frz,iopt_inf=config_flags%opt_inf,iopt_rad=config_flags%opt_rad,iopt_alb=config_flags%opt_alb,iopt_snf=conf&
+&ig_flags%opt_snf,iopt_tbot=config_flags%opt_tbot,iopt_stc=config_flags%opt_stc,iopt_gla=config_flags%opt_gla,iopt_rsf=config_flags&
+&%opt_rsf,isnowxy=grid%isnowxy,tvxy=grid%tvxy,tgxy=grid%tgxy,canicexy=grid%canicexy,canliqxy=grid%canliqxy,eahxy=grid%eahxy,tahxy=g&
+&rid%tahxy,cmxy=grid%cmxy,chxy=grid%chxy,fwetxy=grid%fwetxy,sneqvoxy=grid%sneqvoxy,alboldxy=grid%alboldxy,qsnowxy=grid%qsnowxy,wsla&
+&kexy=grid%wslakexy,zwtxy=grid%zwtxy,waxy=grid%waxy,wtxy=grid%wtxy,tsnoxy=grid%tsnoxy,zsnsoxy=grid%zsnsoxy,snicexy=grid%snicexy,snl&
+&iqxy=grid%snliqxy,lfmassxy=grid%lfmassxy,rtmassxy=grid%rtmassxy,stmassxy=grid%stmassxy,woodxy=grid%woodxy,stblcpxy=grid%stblcpxy,f&
+&astcpxy=grid%fastcpxy,grainxy=grid%grainxy,gddxy=grid%gddxy,pgsxy=grid%pgsxy,cropcat=grid%cropcat,planting=grid%planting,harvest=g&
+&rid%harvest,season_gdd=grid%season_gdd,xsaixy=grid%xsaixy,taussxy=grid%taussxy,t2mvxy=grid%t2mvxy,t2mbxy=grid%t2mbxy,q2mvxy=grid%q&
+&2mvxy,q2mbxy=grid%q2mbxy,tradxy=grid%tradxy,neexy=grid%neexy,gppxy=grid%gppxy,nppxy=grid%nppxy,fvegxy=grid%fvegxy,runsfxy=grid%run&
+&sfxy,runsbxy=grid%runsbxy,ecanxy=grid%ecanxy,edirxy=grid%edirxy,etranxy=grid%etranxy,fsaxy=grid%fsaxy,firaxy=grid%firaxy,aparxy=gr&
+&id%aparxy,psnxy=grid%psnxy,savxy=grid%savxy,sagxy=grid%sagxy,rssunxy=grid%rssunxy,rsshaxy=grid%rsshaxy,bgapxy=grid%bgapxy,wgapxy=g&
+&rid%wgapxy,tgvxy=grid%tgvxy,tgbxy=grid%tgbxy,chvxy=grid%chvxy,chbxy=grid%chbxy,shgxy=grid%shgxy,shcxy=grid%shcxy,shbxy=grid%shbxy,&
+&evgxy=grid%evgxy,evbxy=grid%evbxy,ghvxy=grid%ghvxy,ghbxy=grid%ghbxy,irgxy=grid%irgxy,ircxy=grid%ircxy,irbxy=grid%irbxy,trxy=grid%t&
+&rxy,evcxy=grid%evcxy,chleafxy=grid%chleafxy,chucxy=grid%chucxy,chv2xy=grid%chv2xy,chb2xy=grid%chb2xy,chstarxy=grid%chstarxy,smcwtd&
+&xy=grid%smcwtdxy,rechxy=grid%rechxy,deeprechxy=grid%deeprechxy,fdepthxy=grid%fdepthxy,areaxy=grid%areaxy,rivercondxy=grid%rivercon&
+&dxy,riverbedxy=grid%riverbedxy,eqzwt=grid%eqzwt,pexpxy=grid%pexpxy,qrfxy=grid%qrfxy,qspringxy=grid%qspringxy,qslatxy=grid%qslatxy,&
+&qrfsxy=grid%qrfsxy,qspringsxy=grid%qspringsxy,smoiseq=grid%smoiseq,wtddt=config_flags%wtddt,stepwtd=grid%stepwtd,ua_phys=config_fl&
+&ags%ua_phys,flx4=grid%flx4,fvb=grid%fvb,fbur=grid%fbur,fgsn=grid%fgsn,IDS=ids,IDE=ide,JDS=jds,JDE=jde,KDS=kds,KDE=kde,IMS=ims,IME=&
+&ime,JMS=jms,JME=jme,KMS=kms,KME=kme,IPS=ips,IPE=ipe,JPS=jps,JPE=jpe,KPS=kps,KPE=kpe,I_START=grid%i_start,I_END=min(grid%i_end,ide-&
+&1),J_START=grid%j_start,J_END=min(grid%j_end,jde-1),KTS=k_start,KTE=min(k_end,kde-1),NUM_TILES=grid%num_tiles,te_temf=grid%te_temf&
+&,hd_temf=grid%hd_temf,fCor=grid%f,exch_temf=exch_temf,wm_temf=grid%wm_temf,hfx_force=grid%hfx_force,lh_force=grid%lh_force,tsk_for&
+&ce=grid%tsk_force,hfx_force_tend=grid%hfx_force_tend,lh_force_tend=grid%lh_force_tend,tsk_force_tend=grid%tsk_force_tend,QV_CURR=m&
+&oist(ims,kms,jms,P_QV),F_QV=F_QV,QC_CURR=moist(ims,kms,jms,P_QC),F_QC=F_QC,QR_CURR=moist(ims,kms,jms,P_QR),F_QR=F_QR,QI_CURR=moist&
+&(ims,kms,jms,P_QI),F_QI=F_QI,QS_CURR=moist(ims,kms,jms,P_QS),F_QS=F_QS,QG_CURR=moist(ims,kms,jms,P_QG),F_QG=F_QG,CAPG=grid%capg,EM&
+&ISS=grid%emiss,HOL=hol,MOL=grid%mol,T2OBS=grid%t2obs,Q2OBS=grid%q2obs,RAINBL=grid%rainbl,SR=grid%sr,RAINSHV=grid%rainshv,GRAUPELNC&
+&V=grid%graupelncv,HAILNCV=grid%hailncv,RAINNCV=grid%rainncv,REGIME=grid%regime,T2=grid%t2,THC=grid%thc,QSG=grid%qsg,QVG=grid%qvg,Q&
+&CG=grid%qcg,SOILT1=grid%soilt1,TSNAV=grid%tsnav,SMFR3D=grid%smfr3d,KEEPFR3DFLAG=grid%keepfr3dflag,DEW=grid%dew,POTEVP=grid%POTEVP,&
+&SNOPCX=grid%SNOPCX,SOILTB=grid%SOILTB,rhosnf=grid%rhosnf,precipfr=grid%precipfr,snowfallac=grid%snowfallac,MOSAIC_LU=config_flags%&
+&mosaic_lu,MOSAIC_SOIL=config_flags%mosaic_soil,ISURBAN=isurban,MMINLU=TRIM(mminlu),SNOTIME=grid%SNOTIME,RDLAI2D=config_flags%rdlai&
+&2d,usemonalb=config_flags%usemonalb,NOAHRES=grid%noahres,TSK_SAVE=grid%tsk_save,ch=grid%ch,tsq=grid%tsq,qsq=grid%qsq,cov=grid%cov,&
+&Sh3d=grid%sh3d,EL_PBL=grid%el_pbl,bl_mynn_cloudpdf=config_flags%bl_mynn_cloudpdf,icloud_bl=config_flags%icloud_bl,qc_bl=grid%qc_bl&
+&,cldfra_bl=grid%cldfra_bl,fgdp=grid%fgdp,dfgdp=grid%dfgdp,vdfg=grid%vdfg,grav_settling=config_flags%grav_settling,OM_TMP=grid%om_t&
+&mp,OM_S=grid%om_s,OM_U=grid%om_u,OM_V=grid%om_v,OM_DEPTH=grid%om_depth,OM_ML=grid%OM_ML,OM_LON=grid%om_lon,OM_LAT=grid%om_lat,okms&
+&=1,okme=config_flags%ocean_levels,rdx=grid%rdx,rdy=grid%rdy,msfu=grid%msfu,msfv=grid%msfv,msft=grid%msft,XTIME=grid%xtime,OM_TINI=&
+&grid%om_tini,OM_SINI=grid%om_sini,id=grid%id,omdt=config_flags%omdt,sf_surface_mosaic=config_flags%sf_surface_mosaic,mosaic_cat=co&
+&nfig_flags%mosaic_cat,mosaic_cat_index=grid%mosaic_cat_index,landusef2=grid%landusef2,TSK_mosaic=grid%TSK_mosaic,QSFC_mosaic=grid%&
+&QSFC_mosaic,TSLB_mosaic=grid%TSLB_mosaic,SMOIS_mosaic=grid%SMOIS_mosaic,SH2O_mosaic=grid%SH2O_mosaic,CANWAT_mosaic=grid%CANWAT_mos&
+&aic,SNOW_mosaic=grid%SNOW_mosaic,SNOWH_mosaic=grid%SNOWH_mosaic,SNOWC_mosaic=grid%SNOWC_mosaic,ALBEDO_mosaic=grid%ALBEDO_mosaic,AL&
+&BBCK_mosaic=grid%ALBBCK_mosaic,EMISS_mosaic=grid%EMISS_mosaic,EMBCK_mosaic=grid%EMBCK_mosaic,ZNT_mosaic=grid%ZNT_mosaic,Z0_mosaic=&
+&grid%Z0_mosaic,HFX_mosaic=grid%HFX_mosaic,QFX_mosaic=grid%QFX_mosaic,LH_mosaic=grid%LH_mosaic,GRDFLX_mosaic=grid%GRDFLX_mosaic,SNO&
+&TIME_mosaic=grid%SNOTIME_mosaic,TR_URB2D_mosaic=grid%TR_URB2D_mosaic,TB_URB2D_mosaic=grid%TB_URB2D_mosaic,TG_URB2D_mosaic=grid%TG_&
+&URB2D_mosaic,TC_URB2D_mosaic=grid%TC_URB2D_mosaic,QC_URB2D_mosaic=grid%QC_URB2D_mosaic,UC_URB2D_mosaic=grid%UC_URB2D_mosaic,TRL_UR&
+&B3D_mosaic=grid%TRL_URB3D_mosaic,TBL_URB3D_mosaic=grid%TBL_URB3D_mosaic,TGL_URB3D_mosaic=grid%TGL_URB3D_mosaic,SH_URB2D_mosaic=gri&
+&d%SH_URB2D_mosaic,LH_URB2D_mosaic=grid%LH_URB2D_mosaic,G_URB2D_mosaic=grid%G_URB2D_mosaic,RN_URB2D_mosaic=grid%RN_URB2D_mosaic,TS_&
+&URB2D_mosaic=grid%TS_URB2D_mosaic,TS_RUL2D_mosaic=grid%TS_RUL2D_mosaic,ZOL=grid%ZOL,SDA_HFX=grid%SDA_HFX,SDA_QFX=grid%SDA_QFX,HFX_&
+&BOTH=grid%HFX_BOTH,QFX_BOTH=grid%QFX_BOTH,QNORM=grid%QNORM,fasdas=config_flags%fasdas,spp_lsm=config_flags%spp_lsm,pattern_spp_lsm&
+&=grid%pattern_spp_lsm,field_sf=grid%field_sf,spp_pbl=config_flags%spp_pbl,pattern_spp_pbl=grid%pattern_spp_pbl)
 
 
 
@@ -524,7 +499,6 @@ CALL pbl_driver(AKHS=grid%akhs,AKMS=grid%akms,BL_PBL_PHYSICS=config_flags%bl_pbl
 
 
 
-
       IF ((grid%sr_x > 0 .OR. grid%sr_y > 0) .AND. config_flags%ifire == 2) THEN
 
 
@@ -550,11 +524,6 @@ CALL pbl_driver(AKHS=grid%akhs,AKMS=grid%akms,BL_PBL_PHYSICS=config_flags%bl_pbl
 
 
       CALL wrf_debug ( 200 , ' call cumulus_driver' )
-
-
-
-
-
 
 
 
@@ -659,9 +628,6 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
      &             ,QG_CURR=moist(ims,kms,jms,P_QG)                       &
      &             ,QNC_CURR=scalar(ims,kms,jms,P_QNC)                    & 
      &             ,QNI_CURR=scalar(ims,kms,jms,P_QNI)                    & 
-
-
-
      &             ,DLF=grid%dlf, RLIQ=grid%rliq, RLIQ2=grid%rliq2        &
      &             ,DLF2=grid%dlf2                                        & 
      &             ,CMFMC=grid%cmfmc, CMFMC2=grid%cmfmc2                  &
@@ -688,7 +654,6 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
      &                                                                    )
 
 
-                          
 
 
       CALL force_scm(itimestep=grid%itimestep,dt=grid%dt                  &
@@ -775,9 +740,6 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
      &             ,KTS=k_start, KTE=min(k_end,kde-1)                     &
      &              )
 
-
-
-
       CALL wrf_debug ( 200 , ' call fddagd_driver' )
 
 
@@ -851,5 +813,3 @@ CALL cumulus_driver(grid,U=grid%u_phy,V=grid%v_phy,TH=th_phy,T=grid%t_phy,W=grid
   END SUBROUTINE first_rk_step_part1
 
 END MODULE module_first_rk_step_part1
-
-

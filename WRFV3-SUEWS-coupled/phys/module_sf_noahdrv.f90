@@ -20,9 +20,6 @@ MODULE module_sf_noahdrv
 
 
 
-
-
-
 CONTAINS
 
 
@@ -695,9 +692,6 @@ CONTAINS
           IF((XLAND(I,J)-1.5).GE.0.)THEN
 
 
-
-
-
             SMSTAV(I,J)=1.0
             SMSTOT(I,J)=1.0
             DO NS=1,NSOIL
@@ -840,10 +834,6 @@ CONTAINS
           IF(VEGTYP.EQ.27) SHDFAC=0.0000
           ENDIF
           IF(SOILTYP.EQ.14.AND.XICE(I,J).EQ.0.)THEN
-
-
-
-
             SOILTYP=7
           ENDIF
           SNOALB1 = SNOALB(I,J)
@@ -938,15 +928,14 @@ CONTAINS
 
 	  IF(SF_URBAN_PHYSICS == 2 .or. SF_URBAN_PHYSICS == 3) THEN
           IF(AOASIS > 1.0) THEN
-          CALL wrf_error_fatal3("<stdin>",941,&
+          CALL wrf_error_fatal3("<stdin>",931,&
 'Urban oasis option is for SF_URBAN_PHYSICS == 1 only')
           ENDIF
           IF(IRIOPTION == 1) THEN
-          CALL wrf_error_fatal3("<stdin>",945,&
+          CALL wrf_error_fatal3("<stdin>",935,&
 'Urban irrigation option is for SF_URBAN_PHYSICS == 1 only')
           ENDIF
           ENDIF
-
 
 
           IF (rdlai2d) THEN
@@ -1010,9 +999,6 @@ CONTAINS
                  )
 
 
-
-
-
     ELSEIF (ICE == -1) THEN
 
        
@@ -1064,7 +1050,6 @@ CONTAINS
 
 
 
-
           CANWAT(I,J)=CMC
           SNOW(I,J)=SNEQV*1000.
 
@@ -1101,12 +1086,6 @@ CONTAINS
         POTEVP(I,J)=POTEVP(I,J)+ETP*FDTW
           QFX(I,J)=ETA_KINEMATIC
           QFX_RURAL(I,J)=ETA_KINEMATIC
-
-
-
-
-
-
 
 
 
@@ -1290,7 +1269,6 @@ CONTAINS
                        DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB)                            
 
 
-
             TS_URB2D(I,J) = TS_URB
 
             ALBEDO(I,J) = FRC_URB2D(I,J)*ALB_URB+(1-FRC_URB2D(I,J))*ALBEDOK   
@@ -1304,7 +1282,6 @@ CONTAINS
 
             QSFC(I,J)= Q1/(1.0-Q1)
             UST(I,J)= FRC_URB2D(I,J)*UST_URB+(1-FRC_URB2D(I,J))*UST(I,J)      
-
 
 
 
@@ -1678,14 +1655,9 @@ CONTAINS
      ENDDO
    ENDDO
    IF ( errflag .EQ. 1 ) THEN
-
-
-
-
-      CALL wrf_error_fatal3("<stdin>",1685,&
+      CALL wrf_error_fatal3("<stdin>",1658,&
 "module_sf_noahdrv.F: lsminit: out of range value "// &
                             "of ISLTYP. Is this field in the input?" )
-
    ENDIF
 
 
@@ -1818,7 +1790,7 @@ CONTAINS
         IF(ierr .NE. OPEN_OK ) THEN
           WRITE(message,FMT='(A)') &
           'module_sf_noahlsm.F: soil_veg_gen_parm: failure opening VEGPARM.TBL'
-          CALL wrf_error_fatal3("<stdin>",1821,&
+          CALL wrf_error_fatal3("<stdin>",1793,&
 message )
         END IF
 
@@ -1843,7 +1815,7 @@ message )
                  IF ( a_string(1:21) .EQ. 'Vegetation Parameters' ) THEN
                     EXIT FIND_VEGETATION_PARAMETER_FLAG
                  ELSE IF ( loop_count .GE. loop_max ) THEN
-                    CALL wrf_error_fatal3("<stdin>",1846,&
+                    CALL wrf_error_fatal3("<stdin>",1818,&
 'Too many loops in VEGPARM.TBL')
                  ENDIF
               ENDDO FIND_VEGETATION_PARAMETER_FLAG
@@ -1867,7 +1839,7 @@ message )
              SIZE(ZBOTVTBL) < LUCATS .OR. &
              SIZE(EMISSMINTBL ) < LUCATS .OR. &
              SIZE(EMISSMAXTBL ) < LUCATS ) THEN
-           CALL wrf_error_fatal3("<stdin>",1870,&
+           CALL wrf_error_fatal3("<stdin>",1842,&
 'Table sizes too small for value of LUCATS in module_sf_noahdrv.F')
         ENDIF
 
@@ -1899,7 +1871,7 @@ message )
           READ (19,FMT='(A)') a_string
           IF ( a_string(1:21) .EQ. 'Vegetation Parameters' ) THEN
              CALL wrf_message     ("Expected low and high density residential, and high density industrial information in VEGPARM.TBL")
-             CALL wrf_error_fatal3("<stdin>",1902,&
+             CALL wrf_error_fatal3("<stdin>",1874,&
 "This could be caused by using an older VEGPARM.TBL file with a newer WRF source code.")
           ENDIF
           READ (19,*)LOW_DENSITY_RESIDENTIAL
@@ -1913,7 +1885,7 @@ message )
 
         CLOSE (19)
         IF (LUMATCH == 0) then
-           CALL wrf_error_fatal3("<stdin>",1916,&
+           CALL wrf_error_fatal3("<stdin>",1888,&
 "Land Use Dataset '"//MMINLU//"' not found in VEGPARM.TBL.")
         ENDIF
       ENDIF
@@ -1957,7 +1929,7 @@ message )
         IF(ierr .NE. OPEN_OK ) THEN
           WRITE(message,FMT='(A)') &
           'module_sf_noahlsm.F: soil_veg_gen_parm: failure opening SOILPARM.TBL'
-          CALL wrf_error_fatal3("<stdin>",1960,&
+          CALL wrf_error_fatal3("<stdin>",1932,&
 message )
         END IF
 
@@ -1987,7 +1959,7 @@ message )
              SIZE(SATDW ) < SLCATS .OR. &
              SIZE(WLTSMC) < SLCATS .OR. &
              SIZE(QTZ   ) < SLCATS  ) THEN
-           CALL wrf_error_fatal3("<stdin>",1990,&
+           CALL wrf_error_fatal3("<stdin>",1962,&
 'Table sizes too small for value of SLCATS in module_sf_noahdrv.F')
         ENDIF
         IF(SLTYPE.EQ.MMINSL)THEN
@@ -2022,7 +1994,7 @@ message )
       IF(LUMATCH.EQ.0)THEN
           CALL wrf_message( 'SOIl TEXTURE IN INPUT FILE DOES NOT ' )
           CALL wrf_message( 'MATCH SOILPARM TABLE'                 )
-          CALL wrf_error_fatal3("<stdin>",2025,&
+          CALL wrf_error_fatal3("<stdin>",1997,&
 'INCONSISTENT OR MISSING SOILPARM FILE' )
       ENDIF
 
@@ -2034,7 +2006,7 @@ message )
         IF(ierr .NE. OPEN_OK ) THEN
           WRITE(message,FMT='(A)') &
           'module_sf_noahlsm.F: soil_veg_gen_parm: failure opening GENPARM.TBL'
-          CALL wrf_error_fatal3("<stdin>",2037,&
+          CALL wrf_error_fatal3("<stdin>",2009,&
 message )
         END IF
 
@@ -2045,7 +2017,7 @@ message )
           SLPCATS=NUM_SLOPE
 
           IF ( SIZE(slope_data) < NUM_SLOPE ) THEN
-            CALL wrf_error_fatal3("<stdin>",2048,&
+            CALL wrf_error_fatal3("<stdin>",2020,&
 'NUM_SLOPE too large for slope_data array in module_sf_noahdrv')
           ENDIF
 
@@ -2826,9 +2798,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
           IF((XLAND(I,J)-1.5).GE.0.)THEN
 
 
-
-
-
             SMSTAV(I,J)=1.0
             SMSTOT(I,J)=1.0
             DO NS=1,NSOIL
@@ -3046,10 +3015,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                 IF(VEGTYP.EQ.26) SHDFAC=0.0000
                 IF(VEGTYP.EQ.27) SHDFAC=0.0000
                 IF(SOILTYP.EQ.14.AND.XICE(I,J).EQ.0.)THEN
-
-
-
-
                   SOILTYP=7
                 ENDIF
                 SNOALB1 = SNOALB(I,J)
@@ -3174,11 +3139,11 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
 
 	  IF(SF_URBAN_PHYSICS == 2 .or. SF_URBAN_PHYSICS == 3) THEN
           IF(AOASIS > 1.0) THEN
-          CALL wrf_error_fatal3("<stdin>",3177,&
+          CALL wrf_error_fatal3("<stdin>",3142,&
 'Urban oasis option is for SF_URBAN_PHYSICS == 1 only')
           ENDIF
           IF(IRIOPTION == 1) THEN
-          CALL wrf_error_fatal3("<stdin>",3181,&
+          CALL wrf_error_fatal3("<stdin>",3146,&
 'Urban irrigation option is for SF_URBAN_PHYSICS == 1 only')
           ENDIF
           ENDIF
@@ -3188,7 +3153,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
             ENDIF
       
          IF (Noah_call) THEN
-
       
                 IF (rdlai2d) THEN
                    xlai = lai(i,j)
@@ -3236,9 +3200,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                 ,XSDA_QFX, HFX_PHY, QFX_PHY, XQNORM, fasdas, HCPCT_FASDAS    & 
                        )
       
-
-
-
           ELSEIF (ICE == -1) THEN
       
              
@@ -3273,7 +3234,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
       
              lai(i,j) = xlai
       
-
       
       
                 CANWAT(I,J)=CMC
@@ -3297,12 +3257,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                 QFX(I,J)=ETA_KINEMATIC
                 QFX_RURAL(I,J)=ETA_KINEMATIC
       
-
-
-
-
-
-
       
                 LH(I,J)=ETA
                 LH_RURAL(I,J)=ETA
@@ -3510,7 +3464,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              DRELR_URB,DRELB_URB,                             & 
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB)     
       
-
       
                   TS_URB2D(I,J) = TS_URB
       
@@ -3526,7 +3479,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   QSFC(I,J)= Q1/(1.0-Q1)
                   UST(I,J)= FRC_URB2D(I,J)*UST_URB+(1-FRC_URB2D(I,J))*UST(I,J)      
                   ZNT(I,J)= EXP(FRC_URB2D(I,J)*ALOG(ZNT_URB)+(1-FRC_URB2D(I,J))* ALOG(ZNT(I,J)))   
-
 
       
       
@@ -3673,7 +3625,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
       
                   ENDDO
                   
-
                   
       
 
@@ -3859,10 +3810,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                 IF(VEGTYP.EQ.26) SHDFAC=0.0000
                 IF(VEGTYP.EQ.27) SHDFAC=0.0000
                 IF(SOILTYP.EQ.14.AND.XICE(I,J).EQ.0.)THEN
-
-
-
-
                   SOILTYP=7
                 ENDIF
                 SNOALB1 = SNOALB(I,J)
@@ -3956,15 +3903,14 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
 
 	  IF(SF_URBAN_PHYSICS == 2 .or. SF_URBAN_PHYSICS == 3) THEN
           IF(AOASIS > 1.0) THEN
-          CALL wrf_error_fatal3("<stdin>",3959,&
+          CALL wrf_error_fatal3("<stdin>",3906,&
 'Urban oasis option is for SF_URBAN_PHYSICS == 1 only')
           ENDIF
           IF(IRIOPTION == 1) THEN
-          CALL wrf_error_fatal3("<stdin>",3963,&
+          CALL wrf_error_fatal3("<stdin>",3910,&
 'Urban irrigation option is for SF_URBAN_PHYSICS == 1 only')
           ENDIF
           ENDIF
-
 
       
                 IF (rdlai2d) THEN
@@ -4013,9 +3959,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                 ,XSDA_QFX, HFX_PHY, QFX_PHY, XQNORM, fasdas, HCPCT_FASDAS    & 
                        )
       
-
-
-
           ELSEIF (ICE == -1) THEN
       
              
@@ -4050,7 +3993,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
       
              lai(i,j) = xlai
       
-
       
       
                 CANWAT(I,J)=CMC
@@ -4074,12 +4016,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                 QFX(I,J)=ETA_KINEMATIC
                 QFX_RURAL(I,J)=ETA_KINEMATIC
       
-
-
-
-
-
-
       
                 LH(I,J)=ETA
                 LH_RURAL(I,J)=ETA
@@ -4254,7 +4190,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                              DRELR_URB,DRELB_URB,                             & 
                              DRELG_URB,FLXHUMR_URB,FLXHUMB_URB,FLXHUMG_URB)  
       
-
       
                   TS_URB2D(I,J) = TS_URB
       
@@ -4270,7 +4205,6 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
                   QSFC(I,J)= Q1/(1.0-Q1)
                   UST(I,J)= FRC_URB2D(I,J)*UST_URB+(1-FRC_URB2D(I,J))*UST(I,J)      
       
-
       
       
       
@@ -4777,5 +4711,3 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
 
 
 END MODULE module_sf_noahdrv
-
-

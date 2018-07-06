@@ -979,5 +979,3 @@ SUBROUTINE absorb(i,j, ims, ime, jms, jme, okms,okme,beta1, &
 
 
 END MODULE module_sf_3dpwp
-
-

@@ -122,7 +122,6 @@ mess)
                         domain_start,domain_end,patch_start,patch_end,  &
                         memory_start,memory_end                          )
 
-
     Status = 0
 
     CALL wrf_read_field (   &
@@ -150,6 +149,4 @@ mess)
     ENDIF
 
   END SUBROUTINE wrf_ext_read_field
-
-
 

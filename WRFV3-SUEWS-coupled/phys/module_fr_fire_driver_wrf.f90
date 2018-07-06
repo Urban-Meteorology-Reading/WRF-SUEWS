@@ -2,7 +2,6 @@
 
 
 
-
 module module_fr_fire_driver_wrf
 
 
@@ -143,6 +142,4 @@ subroutine fire_driver_em_step (grid , config_flags               &
 end subroutine fire_driver_em_step
 
 end module module_fr_fire_driver_wrf
-
-
 

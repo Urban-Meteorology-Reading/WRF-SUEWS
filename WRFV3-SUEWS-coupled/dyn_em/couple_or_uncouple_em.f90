@@ -2,9 +2,7 @@
 
 
 
-
 SUBROUTINE couple_or_uncouple_em ( grid , config_flags , couple &
-
 
 
 
@@ -20,7 +18,6 @@ advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,trace
 tracer_btye &
 
 
-
                  )
 
 
@@ -32,12 +29,7 @@ tracer_btye &
    USE module_driver_constants
    USE module_machine
    USE module_tiles
-
-
-
-
    USE module_dm
-
    USE module_bc
 
 
@@ -50,7 +42,6 @@ tracer_btye &
    TYPE(domain) , TARGET         :: grid
 
    
-
 
 
 
@@ -113,9 +104,6 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btxe
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
-
-
-
 
 
    
@@ -186,10 +174,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
                              ips,ipe, jps,jpe,   & 
                              ips,ipe, jps,jpe   )
    ENDIF
-
-
-
-
 
 
 
@@ -545,10 +529,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
    ENDIF
 
 
-
-
-
-
 END SUBROUTINE couple_or_uncouple_em
 
 LOGICAL FUNCTION cd_feedback_mask( pig, ips_save, ipe_save , pjg, jps_save, jpe_save, xstag, ystag )
@@ -570,6 +550,4 @@ LOGICAL FUNCTION cd_feedback_mask( pig, ips_save, ipe_save , pjg, jps_save, jpe_
 
 
 END FUNCTION cd_feedback_mask
-
-
 

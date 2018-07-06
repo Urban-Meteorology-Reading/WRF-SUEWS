@@ -256,7 +256,6 @@ real(r8) :: gdst(ndstsz, nspint)
 
 
 
-
    real(r8) :: co2vmr = 3.550e-4         
    real(r8) :: n2ovmr = 0.311e-6         
    real(r8) :: ch4vmr = 1.714e-6         
@@ -335,7 +334,6 @@ integer, parameter :: cyr = 233
     723.308, 730.1008, 736.9958, 743.993, 751.0975, 758.3183, 765.6594,     &
     773.1207, 780.702, 788.4033, 796.2249, 804.1667, 812.2289, 820.4118,    &
     828.6444, 828.6444 /)
-
 
       integer  :: ntoplw      
 
@@ -1427,7 +1425,6 @@ end subroutine trcmix
 
 
 
-
 subroutine trcplk(lchnk   ,ncol    ,pcols, pver, pverp,         &
                   tint    ,tlayr   ,tplnke  ,emplnk  ,abplnk1 , &
                   abplnk2 )
@@ -1947,10 +1944,6 @@ subroutine vert_interpolate (Match_ps, aerosolc, m_hybi, paerlev, naer_c, pint, 
 
 
 
-
-
-
-
    do i=1,ncol
       kupper(i) = 1
    end do
@@ -2078,7 +2071,6 @@ subroutine vert_interpolate (Match_ps, aerosolc, m_hybi, paerlev, naer_c, pint, 
                write(6,*)'vert_interpolate: aerosol(k),(k+1)',AEROSOL(i,k,m),AEROSOL(i,k+1,m)
                write(6,*)'vert_interpolate: pint(k+1),(k)',pint(i,k+1),pint(i,k)
                write(6,*)'n,c',n,c
-
 
 
                call endrun()
@@ -3203,9 +3195,6 @@ subroutine radini(gravx   ,cpairx  ,epsilox ,stebolx, pstdx )
 
 
 
-
-
-
    implicit none
 
 
@@ -3285,10 +3274,6 @@ subroutine oznini(ozmixm,pin,levsiz,num_months,XLAT,                &
 
 
 
-
-
-
-
       IMPLICIT NONE
 
    INTEGER,      INTENT(IN   )    ::   ids,ide, jds,jde, kds,kde, &
@@ -3331,10 +3316,6 @@ subroutine oznini(ozmixm,pin,levsiz,num_months,XLAT,                &
     ozmixin=>ozmixin_save
 
 
-
-
-
-
      WRITE(message,*)'num_months = ',num_months
      CALL wrf_debug(50,message)
 
@@ -3375,19 +3356,18 @@ subroutine oznini(ozmixm,pin,levsiz,num_months,XLAT,                &
       enddo
       enddo
       close(29)
-
    else 
     
     if(levsiz/=levsiz_ozone_save) then
 3081   format('Logic error in caller: levsiz=',I0,' but prior call used ',I0,'.')
        write(message,3081) levsiz,levsiz_ozone_save
-       call wrf_error_fatal3("<stdin>",3384,&
+       call wrf_error_fatal3("<stdin>",3364,&
 message)
     endif
     if(.not.(associated(plev_ozone_save) .and. &
              associated(lat_ozone_save) .and. &
              associated(ozmixin_save))) then
-       call wrf_error_fatal3("<stdin>",3390,&
+       call wrf_error_fatal3("<stdin>",3370,&
 'Ozone save arrays are not allocated.')
     endif
     
@@ -3625,7 +3605,7 @@ USE module_wrf_error
       ENDIF
       CALL wrf_dm_bcast_bytes ( cam_aer_unit , 4 )
       IF ( cam_aer_unit < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",3628,&
+        CALL wrf_error_fatal3("<stdin>",3608,&
 'module_ra_cam: aer_optics_initialize: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
 
@@ -3634,7 +3614,6 @@ USE module_wrf_error
                FORM='UNFORMATTED',STATUS='OLD',ERR=9010)
           call wrf_debug(50,'reading CAM_AEROPT_DATA')
         ENDIF
-
 
 
          IF ( wrf_dm_on_monitor() ) then
@@ -3750,7 +3729,7 @@ USE module_wrf_error
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A35,I4)' ) 'module_ra_cam: error reading unit ',cam_aer_unit
-     CALL wrf_error_fatal3("<stdin>",3753,&
+     CALL wrf_error_fatal3("<stdin>",3732,&
 errmess)
 
 END subroutine aer_optics_initialize
@@ -3863,7 +3842,7 @@ USE module_wrf_error
       ENDIF
       CALL wrf_dm_bcast_bytes ( cam_abs_unit , 4 )
       IF ( cam_abs_unit < 0 ) THEN
-        CALL wrf_error_fatal3("<stdin>",3866,&
+        CALL wrf_error_fatal3("<stdin>",3845,&
 'module_ra_cam: radaeinit: Can not find unused fortran unit to read in lookup table.' )
       ENDIF
 
@@ -3872,7 +3851,6 @@ USE module_wrf_error
                FORM='UNFORMATTED',STATUS='OLD',ERR=9010)
           call wrf_debug(50,'reading CAM_ABS_DATA')
         ENDIF
-
 
 
          IF ( wrf_dm_on_monitor() ) then
@@ -3914,11 +3892,9 @@ USE module_wrf_error
      RETURN
 9010 CONTINUE
      WRITE( errmess , '(A35,I4)' ) 'module_ra_cam: error reading unit ',cam_abs_unit
-     CALL wrf_error_fatal3("<stdin>",3917,&
+     CALL wrf_error_fatal3("<stdin>",3895,&
 errmess)
 end subroutine radaeini
 
  
 end MODULE module_ra_cam_support
-
-

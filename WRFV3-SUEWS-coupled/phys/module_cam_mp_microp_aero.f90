@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 module microp_aero
 
 
@@ -24,31 +17,14 @@ module microp_aero
 
 
   use shr_kind_mod,  only: r8=>shr_kind_r8
-
-
-
-
   use module_cam_support, only: masterproc, pcols, pver, pverp
-
   use physconst,     only: gravit, rair, tmelt, cpair, rh2o, r_universal, mwh2o, rhoh2o
   use physconst,     only: latvap, latice
-
-
-
    use module_cam_support, only: endrun
-
   use error_function, only: erf,erfc
   use wv_saturation,  only: estblf, hlatv, tmin, hlatf, rgasv, pcf, cp, epsqs, ttrice, &
                             vqsatd2, vqsatd2_single,polysvp
-
-
-
-
-
-
-
   use module_cam_support, only: addfld, add_default, phys_decomp, outfld, iulog
-
 
 
  implicit none
@@ -128,22 +104,13 @@ subroutine ini_microp_aero
 
 
 
-
     use ndrop,           only: activate_init
     use constituents,    only: cnst_name
-
-
-
-
-
-
-
     use module_cam_support, only: fieldname_len, masterproc
     use modal_aero_data,    only: cnst_name_cw => cnst_name_cw_mp, &
          lmassptr_amode => lmassptr_amode_mp, lmassptrcw_amode => lmassptrcw_amode_mp , &
          nspec_amode    => nspec_amode_mp   , ntot_amode       => ntot_amode_mp,        &
          numptr_amode   => numptr_amode_mp  , numptrcw_amode   => numptrcw_amode_mp
-
       
     integer                        :: lphase, lspec
     character(len=fieldname_len)   :: tmpname
@@ -151,7 +118,6 @@ subroutine ini_microp_aero
     character(128)                 :: long_name
     character(8)                   :: unit
     logical                        :: history_aerosol      
-
 
 
    integer k
@@ -163,20 +129,11 @@ subroutine ini_microp_aero
 
    character(len=16) :: eddy_scheme = ' '
    logical           :: history_microphysics     
-
-
-
-
-
-
-
    history_microphysics =.FALSE.
    wsubTKE              =.TRUE.
 
-
    
    
-
    call addfld ('CCN1    ','#/cm3   ',pver, 'A','CCN concentration at S=0.02%',phys_decomp)
    call addfld ('CCN2    ','#/cm3   ',pver, 'A','CCN concentration at S=0.05%',phys_decomp)
    call addfld ('CCN3    ','#/cm3   ',pver, 'A','CCN concentration at S=0.1%',phys_decomp)
@@ -225,7 +182,6 @@ subroutine ini_microp_aero
       alog2=log(2._r8)
       alog3=log(3._r8)
       super(:)=0.01*supersat(:)
-
  return
  end subroutine ini_microp_aero
 
@@ -239,37 +195,20 @@ subroutine ini_microp_aero
    nc, ni, p, pdel, cldn,                   &
    liqcldf, icecldf,                        &
    cldo, pint, rpdel, zm, omega,            &
-
    qaer, cflx, qaertend, dgnumwet,dgnum, &
-
-
-
    kkvh, tke, turbtype, smaw, wsub, wsubi, &
    naai, naai_hom, npccn, rndst, nacon     &
-
    ,qqcw                                   &
-
                                            )
 
    use wv_saturation, only: vqsatd, vqsatd_water
-
-
-
    use module_cam_support, only: pcnst => pcnst_mp
-
-
    use ndrop,         only: dropmixnuc
-
-
-
-
    use modal_aero_data, only:numptr_amode => numptr_amode_mp, modeptr_accum => modeptr_accum_mp, &
         modeptr_coarse    => modeptr_coarse_mp   , modeptr_aitken    => modeptr_aitken_mp, &
         lptr_dust_a_amode => lptr_dust_a_amode_mp, lptr_nacl_a_amode => lptr_nacl_a_amode_mp, &
         ntot_amode        => ntot_amode_mp, modeptr_coardust => modeptr_coardust_mp  
      
-
-
 
    
    integer,  intent(in) :: lchnk
@@ -293,18 +232,12 @@ subroutine ini_microp_aero
    real(r8), intent(in) :: rpdel(pcols,pver)    
    real(r8), intent(in) :: zm(pcols,pver)       
    real(r8), intent(in) :: omega(pcols,pver)    
-
    real(r8), intent(in) :: qaer(pcols,pver,pcnst) 
    real(r8), intent(in) :: cflx(pcols,pcnst)      
    real(r8), intent(inout) :: qaertend(pcols,pver,pcnst) 
-
    real(r8), intent(inout) :: qqcw(pcols,pver,pcnst) 
-
    real(r8), intent(in) :: dgnumwet(pcols,pver,ntot_amode) 
    real(r8), intent(in) :: dgnum(pcols,pver,ntot_amode) 
-
-
-
    real(r8), intent(in) :: kkvh(pcols,pver+1) 
    real(r8), intent(in) :: tke(pcols,pver+1)    
    real(r8), intent(in) :: turbtype(pcols,pver+1) 
@@ -521,18 +454,13 @@ subroutine ini_microp_aero
 
 
 
-
         if (t(i,k).lt.tmelt - 5._r8) then
 
 
 
 
            call nucleati(wsubi(i,k),t(i,k),relhum(i,k),icldm(i,k),qc(i,k),nfice(i,k),rho(i,k),  &
-
                          qaer(i,k,:)*rho(i,k),dgnum(i,k,:),1,naer_all,dum2,nihf2,niimm2,nidep2,nimey2)
-
-
-
 
            naai(i,k)=dum2
            naai_hom(i,k)=nihf2
@@ -547,10 +475,8 @@ subroutine ini_microp_aero
 
 
 
-
 	end do 
 	end do 
-
 
 
 
@@ -573,13 +499,10 @@ subroutine ini_microp_aero
       call dropmixnuc(lchnk, ncol, ncloc, nctend_mixnuc, t, omega,  &
                     p, pint, pdel, rpdel, zm, kkvh, wsub, lcldn, lcldo,     &
                     qaer, cflx, qaertend, deltat                    &
-
                     , qqcw                                          &
-
                                                                     )
 
       npccn(:ncol,:)= nctend_mixnuc(:ncol,:)
-
 
 
 
@@ -591,11 +514,6 @@ subroutine ini_microp_aero
       do i=1,ncol
 
          if (t(i,k).lt.269.15_r8) then
-
-
-
-
-
 
 
 
@@ -614,16 +532,13 @@ subroutine ini_microp_aero
                rndst(i,k,3)=0.5_r8*dgnumwet(i,k,modeptr_coarse)
 
 
-
            if (rndst(i,k,3).le.0._r8) then 
               rndst(i,k,3)=rn_dst3
            endif
 
-
         endif
       enddo
       enddo
-
 
 
 
@@ -702,14 +617,7 @@ end subroutine microp_aero_ts
 
 
 
-
-
-
-
-
-
       real(r8) derf,derfc
-
 
       integer, parameter:: nx=200
       integer :: maxmodes
@@ -768,9 +676,7 @@ end subroutine microp_aero_ts
 
       if(maxmodes<pmode)then
          write(iulog,*)'maxmodes,pmode in activate =',maxmodes,pmode
-
          call wrf_message(iulog)
-
 	 call endrun('activate')
       endif
 
@@ -911,19 +817,8 @@ end subroutine microp_aero_ts
 
 
 subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
-
        qaerpt, dgnum, ptype, naer_all, nuci, onihf, oniimm, onidep, onimey)
-
-
-
  
-
-
-
-
-
-
-
 
 
 
@@ -945,8 +840,6 @@ subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
 
 
 
-
-
   integer ptype, naer_all
   real(r8), intent(in) :: wbar                
   real(r8), intent(in) :: tair                
@@ -955,12 +848,8 @@ subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
   real(r8), intent(in) :: qc                  
   real(r8), intent(in) :: nfice               
   real(r8), intent(in) :: rhoair              
-
   real(r8), intent(in) :: qaerpt(pcnst) 
   real(r8), intent(in) :: dgnum(ntot_amode)   
-
-
-
 
 
 
@@ -1004,11 +893,7 @@ subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
 
 
 
-
       soot_num = qaerpt(numptr_amode(modeptr_accum))*1.0e-6_r8 
-
-
-
 
       dmc= qaerpt(lptr_dust_a_amode(modeptr_coarse))
       ssmc=qaerpt(lptr_nacl_a_amode(modeptr_coarse))
@@ -1018,7 +903,6 @@ subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
          dst_num=0.0_r8
       endif
 
-
       if (dgnum(modeptr_aitken) .gt. 0._r8  ) then
          so4_num  = qaerpt(numptr_amode(modeptr_aitken))*1.0e-6_r8 & 
                * (0.5_r8 - 0.5_r8*erf(log(0.1e-6_r8/dgnum(modeptr_aitken))/  &
@@ -1027,7 +911,6 @@ subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
          so4_num = 0.0_r8 
       endif
       so4_num = max(0.0_r8,so4_num)
-
 
 
     soot_num=0.0_r8
@@ -1111,13 +994,9 @@ subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
     nuci=ni+nimey
     if(nuci.gt.9999._r8.or.nuci.lt.0._r8) then
        write(iulog, *) 'Warning: incorrect ice nucleation number (nuci reset =0)'
-
        call wrf_message(iulog)
-
        write(iulog, *) ni, tair, relhum, wbar, nihf, niimm, nidep,deles,esi,dst2_num,dst3_num,dst4_num
-
        call wrf_message(iulog)
-
        nuci=0._r8
     endif
 
@@ -1369,6 +1248,4 @@ subroutine nucleati(wbar, tair, relhum, cldn, qc, nfice, rhoair, &
 
 
 end module microp_aero
-
-
 

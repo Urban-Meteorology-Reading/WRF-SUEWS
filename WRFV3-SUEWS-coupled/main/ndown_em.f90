@@ -20,19 +20,9 @@ PROGRAM ndown_em
 
 
 
-
-
-
    USE module_bc
    USE module_big_step_utilities_em
    USE module_get_file_names
-
-
-
-
-
-
-
 
    IMPLICIT NONE
  
@@ -115,12 +105,6 @@ PROGRAM ndown_em
    CHARACTER (LEN=19) :: date_string
 
 
-
-
-
-
-
-
    INTEGER                 :: idsi
    CHARACTER (LEN=256)     :: inpname , outname , bdyname
    CHARACTER (LEN=256)     :: si_inpname
@@ -131,9 +115,7 @@ character(len=24) :: start_date_hold
    CHARACTER (LEN=256)     :: message
 integer :: ii
 
-
    CHARACTER (LEN=10) :: release_version = 'V3.9.1.1  '
-
 
 
     integer ::  n_ref_m,k_dim_c,k_dim_n
@@ -170,12 +152,8 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
 
    program_name = "NDOWN_EM " // TRIM(release_version) // " PREPROCESSOR"
 
-
-
-
-   CALL wrf_error_fatal3("<stdin>",176,&
+   CALL wrf_error_fatal3("<stdin>",155,&
 'NDOWN :  HAVE TO BUILD FOR NESTING' )
-
 
    
    
@@ -183,11 +161,7 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
    
 
    CALL init_modules(1)   
-
-
-
    CALL WRFU_Initialize( defaultCalKind=WRFU_CAL_GREGORIAN, rc=rc )
-
    CALL init_modules(2)   
 
    
@@ -195,9 +169,7 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
    
    
 
-
    CALL initial_config
-
 
    CALL check_nml_consistency
    CALL setup_physics_suite
@@ -207,7 +179,7 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
    
 
    IF ( model_config_rec%io_form_auxinput2 .EQ. 0 ) THEN
-      CALL wrf_error_fatal3("<stdin>",210,&
+      CALL wrf_error_fatal3("<stdin>",182,&
 'ndown: Please set io_form_auxinput2 in the time_control namelist record (probably to 2).')
    END IF
 
@@ -267,14 +239,8 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
    
 
 
-
-
-
-
-
    
    
-
 
    WRITE ( start_date_char , FMT = '(I4.4,"-",I2.2,"-",I2.2,"_",I2.2,":",I2.2,":",I2.2)' ) &
            model_config_rec%start_year  (parent_grid%id) , &
@@ -282,7 +248,7 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
            model_config_rec%start_day   (parent_grid%id) , &
            model_config_rec%start_hour  (parent_grid%id) , &
            model_config_rec%start_minute(parent_grid%id) , &
-           model_config_rec%start_second(parent_grid%id) 
+           model_config_rec%start_second(parent_grid%id)
 
    WRITE (   end_date_char , FMT = '(I4.4,"-",I2.2,"-",I2.2,"_",I2.2,":",I2.2,":",I2.2)' ) &
            model_config_rec%  end_year  (parent_grid%id) , &
@@ -290,19 +256,18 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
            model_config_rec%  end_day   (parent_grid%id) , &
            model_config_rec%  end_hour  (parent_grid%id) , &
            model_config_rec%  end_minute(parent_grid%id) , &
-           model_config_rec%  end_second(parent_grid%id) 
-
+           model_config_rec%  end_second(parent_grid%id)
 
    
    CALL domain_clock_set( parent_grid, stop_timestr=end_date_char )
 
-   CALL geth_idts ( end_date_char , start_date_char , total_time_sec ) 
+   CALL geth_idts ( end_date_char , start_date_char , total_time_sec )
 
    new_bdy_frq = model_config_rec%interval_seconds
    time_loop_max = total_time_sec / model_config_rec%interval_seconds + 1
 
-   start_date        = start_date_char // '.0000' 
-   current_date      = start_date_char // '.0000' 
+   start_date        = start_date_char // '.0000'
+   current_date      = start_date_char // '.0000'
    start_date_hold   = start_date_char // '.0000'
    current_date_char = start_date_char
 
@@ -315,13 +280,13 @@ real :: cf1_c,cf2_c,cf3_c,cfn_c,cfn1_c
    CALL unix_ls ( 'wrfout' , parent_grid%id )
 
    
-   
+
    CALL wrf_debug          ( 100 , 'ndown_em main: calling open_r_dataset for ' // TRIM(eligible_file_name(file_counter)) )
    CALL open_r_dataset     ( fid, TRIM(eligible_file_name(file_counter)) , head_grid , config_flags , "DATASET=AUXINPUT1", ierr )
    IF ( ierr .NE. 0 ) THEN
       WRITE( wrf_err_message , FMT='(A,A,A,I8)' ) 'program ndown: error opening ',TRIM(eligible_file_name(file_counter)), &
                                                   ' for reading ierr=',ierr
-      CALL wrf_error_fatal3("<stdin>",324,&
+      CALL wrf_error_fatal3("<stdin>",289,&
 wrf_err_message )
    ENDIF
 
@@ -347,7 +312,7 @@ wrf_err_message )
       
 
       get_the_right_time : DO
-      
+
          CALL wrf_get_next_time ( fid , date_string , status_next_var )
          WRITE ( message , FMT = '(A,A,A,A,A,I5)' ) 'file date/time = ',date_string,'     desired date = ',&
          current_date_char,'     status = ', status_next_var
@@ -367,7 +332,7 @@ wrf_err_message )
                WRITE( wrf_err_message , FMT='(A)' ) 'The ndown program uses the start and end times, the WRF model for d01 likely used the run times option.'
                CALL wrf_message ( TRIM(wrf_err_message) )
                WRITE( wrf_err_message , FMT='(A)' ) 'Check the namelist.input time_control section for inconsistencies.'
-               CALL wrf_error_fatal3("<stdin>",370,&
+               CALL wrf_error_fatal3("<stdin>",335,&
 wrf_err_message )
             END IF
             CALL wrf_debug      ( 100 , 'ndown_em main: calling open_r_dataset for ' // TRIM(eligible_file_name(file_counter)) )
@@ -375,7 +340,7 @@ wrf_err_message )
             IF ( ierr .NE. 0 ) THEN
                WRITE( wrf_err_message , FMT='(A,A,A,I8)' ) 'program ndown: error opening ',TRIM(eligible_file_name(file_counter)), &
                                                            ' for reading ierr=',ierr
-               CALL wrf_error_fatal3("<stdin>",378,&
+               CALL wrf_error_fatal3("<stdin>",343,&
 wrf_err_message )
             ENDIF
             CYCLE get_the_right_time
@@ -385,10 +350,10 @@ wrf_err_message )
             EXIT get_the_right_time
          ELSE IF ( TRIM(date_string) .GT. TRIM(current_date_char) ) THEN
             WRITE( wrf_err_message , FMT='(A,A,A,A,A)' ) 'Found ',TRIM(date_string),' before I found ',TRIM(current_date_char),'.'
-            CALL wrf_error_fatal3("<stdin>",388,&
+            CALL wrf_error_fatal3("<stdin>",353,&
 wrf_err_message )
          END IF
-      END DO get_the_right_time 
+      END DO get_the_right_time
 
       CALL wrf_debug          ( 100 , 'wrf: calling input_history' )
       CALL wrf_get_previous_time ( fid , date_string , status_next_var )
@@ -424,19 +389,19 @@ wrf_err_message )
 
       
 
-      CALL wrf_get_dom_ti_integer ( fid , 'MAP_PROJ' , map_proj , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'DX'  , dx  , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'DY'  , dy  , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'CEN_LAT' , cen_lat , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'CEN_LON' , cen_lon , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'TRUELAT1' , truelat1 , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'TRUELAT2' , truelat2 , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , icnt , ierr ) 
-      CALL wrf_get_dom_ti_real    ( fid , 'STAND_LON' , stand_lon , 1 , icnt , ierr ) 
+      CALL wrf_get_dom_ti_integer ( fid , 'MAP_PROJ' , map_proj , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'DX'  , dx  , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'DY'  , dy  , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'CEN_LAT' , cen_lat , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'CEN_LON' , cen_lon , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'TRUELAT1' , truelat1 , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'TRUELAT2' , truelat2 , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , icnt , ierr )
+      CALL wrf_get_dom_ti_real    ( fid , 'STAND_LON' , stand_lon , 1 , icnt , ierr )
 
 
 
-      CALL wrf_get_dom_ti_integer ( fid , 'ISWATER' , iswater , 1 , icnt , ierr ) 
+      CALL wrf_get_dom_ti_integer ( fid , 'ISWATER' , iswater , 1 , icnt , ierr )
 
       
       
@@ -450,7 +415,7 @@ wrf_err_message )
                                            grid       = nested_grid ,        &
                                            parent     = parent_grid ,        &
                                            kid        = 1                   )
-   
+
          CALL       wrf_debug ( 100 , 'wrf: calling model_to_grid_config_rec ' )
          CALL model_to_grid_config_rec ( nested_grid%id , model_config_rec , config_flags )
          CALL       wrf_debug ( 100 , 'wrf: calling set_scalar_indices_from_config ' )
@@ -473,22 +438,18 @@ wrf_err_message )
          config_flags%bdyfrq = new_bdy_frq
 
 
-
-
-
-
          
 
-         CALL init_domain_constants_em_ptr ( parent_grid , nested_grid ) 
+         CALL init_domain_constants_em_ptr ( parent_grid , nested_grid )
 
 
-   
+
          CALL wrf_debug          ( 100 , 'ndown_em main: calling open_w_dataset for wrfinput' )
          CALL construct_filename1( outname , 'wrfinput' , nested_grid%id , 2 )
          CALL open_w_dataset     ( fido, TRIM(outname) , nested_grid , config_flags , output_input , "DATASET=INPUT", ierr )
          IF ( ierr .NE. 0 ) THEN
             WRITE( wrf_err_message , FMT='(A,A,A,I8)' ) 'program ndown: error opening ',TRIM(outname),' for reading ierr=',ierr
-            CALL wrf_error_fatal3("<stdin>",491,&
+            CALL wrf_error_fatal3("<stdin>",452,&
 wrf_err_message )
          ENDIF
 
@@ -589,23 +550,23 @@ wrf_err_message )
                                nips , nipe , njps , njpe , 1   , 1   )
 
          
-   
+
          CALL construct_filename1( si_inpname , 'wrfndi' , nested_grid%id , 2 )
          CALL       wrf_debug ( 100 , 'med_sidata_input: calling open_r_dataset for ' // TRIM(si_inpname) )
          CALL open_r_dataset ( idsi, TRIM(si_inpname) , nested_grid , config_flags , "DATASET=INPUT", ierr )
          IF ( ierr .NE. 0 ) THEN
-            CALL wrf_error_fatal3("<stdin>",597,&
+            CALL wrf_error_fatal3("<stdin>",558,&
 'real: error opening FG input for reading: ' // TRIM (si_inpname) )
          END IF
 
          
-   
+
          CALL       wrf_debug ( 100 , 'ndown_em: calling input_auxinput2' )
          CALL input_auxinput2 ( idsi , nested_grid , config_flags , ierr )
          nested_grid%ht_input = nested_grid%ht
-   
+
          
-   
+
          CALL       wrf_debug ( 100 , 'ndown_em: closing fine grid static input' )
          CALL close_dataset ( idsi , config_flags , "DATASET=INPUT" )
 
@@ -644,7 +605,7 @@ wrf_err_message )
             num_veg_cat      = SIZE ( nested_grid%landusef , DIM=2 )
             num_soil_top_cat = SIZE ( nested_grid%soilctop , DIM=2 )
             num_soil_bot_cat = SIZE ( nested_grid%soilcbot , DIM=2 )
-   
+
             CALL land_percentages (  nested_grid%xland , &
                                      nested_grid%landusef , nested_grid%soilctop , nested_grid%soilcbot , &
                                      nested_grid%isltyp , nested_grid%ivgtyp , &
@@ -662,7 +623,6 @@ wrf_err_message )
             END DO
          END DO
 
-
          CALL check_consistency ( nested_grid%ivgtyp , nested_grid%isltyp , nested_grid%landmask , &
                                   ids , ide , jds , jde , kds , kde , &
                                   ims , ime , jms , jme , kms , kme , &
@@ -678,11 +638,10 @@ wrf_err_message )
                                   ips , ipe , jps , jpe , kps , kpe , &
                                   model_config_rec%iswater(nested_grid%id) )
 
-
       END IF
 
 
-   
+
       
       
 
@@ -693,7 +652,7 @@ wrf_err_message )
       
       
 
-      CALL rebalance_driver ( nested_grid ) 
+      CALL rebalance_driver ( nested_grid )
 
       
       
@@ -708,21 +667,20 @@ wrf_err_message )
          CALL domain_clock_set( nested_grid, &
                                 current_timestr=current_date(1:19) )
 
-
          
-   
+
          CALL output_input ( fido , nested_grid , config_flags , ierr )
 
-         CALL wrf_put_dom_ti_integer ( fido , 'MAP_PROJ' , map_proj , 1 , ierr ) 
+         CALL wrf_put_dom_ti_integer ( fido , 'MAP_PROJ' , map_proj , 1 , ierr )
 
 
-         CALL wrf_put_dom_ti_real    ( fido , 'CEN_LAT' , cen_lat , 1 , ierr ) 
-         CALL wrf_put_dom_ti_real    ( fido , 'CEN_LON' , cen_lon , 1 , ierr ) 
-         CALL wrf_put_dom_ti_real    ( fido , 'TRUELAT1' , truelat1 , 1 , ierr ) 
-         CALL wrf_put_dom_ti_real    ( fido , 'TRUELAT2' , truelat2 , 1 , ierr ) 
-         CALL wrf_put_dom_ti_real    ( fido , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , ierr ) 
-         CALL wrf_put_dom_ti_real    ( fido , 'STAND_LON' , stand_lon , 1 , ierr ) 
-         CALL wrf_put_dom_ti_integer ( fido , 'ISWATER' , iswater , 1 , ierr ) 
+         CALL wrf_put_dom_ti_real    ( fido , 'CEN_LAT' , cen_lat , 1 , ierr )
+         CALL wrf_put_dom_ti_real    ( fido , 'CEN_LON' , cen_lon , 1 , ierr )
+         CALL wrf_put_dom_ti_real    ( fido , 'TRUELAT1' , truelat1 , 1 , ierr )
+         CALL wrf_put_dom_ti_real    ( fido , 'TRUELAT2' , truelat2 , 1 , ierr )
+         CALL wrf_put_dom_ti_real    ( fido , 'MOAD_CEN_LAT' , moad_cen_lat , 1 , ierr )
+         CALL wrf_put_dom_ti_real    ( fido , 'STAND_LON' , stand_lon , 1 , ierr )
+         CALL wrf_put_dom_ti_integer ( fido , 'ISWATER' , iswater , 1 , ierr )
 
          
          
@@ -734,17 +692,17 @@ wrf_err_message )
          CALL nl_set_julyr  ( nested_grid%id , julyr  )
          CALL nl_set_julday ( nested_grid%id , julday )
          CALL nl_set_gmt    ( nested_grid%id , gmt    )
-         CALL wrf_put_dom_ti_real    ( fido , 'GMT' , gmt , 1 , ierr ) 
-         CALL wrf_put_dom_ti_integer ( fido , 'JULYR' , julyr , 1 , ierr ) 
-         CALL wrf_put_dom_ti_integer ( fido , 'JULDAY' , julday , 1 , ierr ) 
+         CALL wrf_put_dom_ti_real    ( fido , 'GMT' , gmt , 1 , ierr )
+         CALL wrf_put_dom_ti_integer ( fido , 'JULYR' , julyr , 1 , ierr )
+         CALL wrf_put_dom_ti_integer ( fido , 'JULDAY' , julday , 1 , ierr )
 
 
 
 
-         
 
 
-   
+
+
          CALL close_dataset      ( fido , config_flags , "DATASET=INPUT" )
 
          
@@ -845,7 +803,6 @@ wrf_err_message )
                                                                            ids , ide , jds , jde , 1 , 1 , &
                                                                            ims , ime , jms , jme , 1 , 1 , &
                                                                            ips , ipe , jps , jpe , 1 , 1 )
-
       ELSE IF ( ( time_loop .GT. 1 ) .AND. ( time_loop .LT. time_loop_max ) ) THEN
 
          
@@ -960,9 +917,8 @@ wrf_err_message )
                                                                   ids , ide , jds , jde , 1 , 1 , &
                                                                   ims , ime , jms , jme , 1 , 1 , &
                                                                   ips , ipe , jps , jpe , 1 , 1 )
-
          IF ( time_loop .EQ. 2 ) THEN
-   
+
             
 
             CALL wrf_debug          ( 100 , 'ndown_em main: calling open_w_dataset for wrfbdy' )
@@ -971,14 +927,14 @@ wrf_err_message )
                                       "DATASET=BOUNDARY", ierr )
             IF ( ierr .NE. 0 ) THEN
                WRITE( wrf_err_message , FMT='(A,A,A,I8)' ) 'program ndown: error opening ',TRIM(bdyname),' for reading ierr=',ierr
-               CALL wrf_error_fatal3("<stdin>",974,&
+               CALL wrf_error_fatal3("<stdin>",930,&
 wrf_err_message )
             ENDIF
 
          END IF
 
          
-         
+
       CALL domain_clock_set( nested_grid, &
                              current_timestr=current_date(1:19) )
       temp24= current_date
@@ -990,9 +946,9 @@ wrf_err_message )
       CALL nl_set_julyr  ( nested_grid%id , julyr  )
       CALL nl_set_julday ( nested_grid%id , julday )
       CALL nl_set_gmt    ( nested_grid%id , gmt    )
-      CALL wrf_put_dom_ti_real    ( fidb , 'GMT' , gmt , 1 , ierr ) 
-      CALL wrf_put_dom_ti_integer ( fidb , 'JULYR' , julyr , 1 , ierr ) 
-      CALL wrf_put_dom_ti_integer ( fidb , 'JULDAY' , julday , 1 , ierr ) 
+      CALL wrf_put_dom_ti_real    ( fidb , 'GMT' , gmt , 1 , ierr )
+      CALL wrf_put_dom_ti_integer ( fidb , 'JULYR' , julyr , 1 , ierr )
+      CALL wrf_put_dom_ti_integer ( fidb , 'JULDAY' , julday , 1 , ierr )
       CALL domain_clock_set( nested_grid, &
                              current_timestr=current_date(1:19) )
 print *,'bdy time = ',time_loop-1,'  bdy date = ',current_date,' ',start_date
@@ -1003,7 +959,7 @@ print *,'bdy time = ',time_loop-1,'  bdy date = ',current_date,' ',start_date
                              current_timestr=current_date(1:19) )
 
          IF ( time_loop .EQ. 2 ) THEN
-            CALL wrf_put_dom_ti_real    ( fidb , 'BDYFRQ' , new_bdy_frq , 1 , ierr ) 
+            CALL wrf_put_dom_ti_real    ( fidb , 'BDYFRQ' , new_bdy_frq , 1 , ierr )
          END IF
 
          
@@ -1084,8 +1040,7 @@ print *,'bdy time = ',time_loop-1,'  bdy date = ',current_date,' ',start_date
                                                                            ids , ide , jds , jde , kds , kde , &
                                                                            ims , ime , jms , jme , kms , kme , &
                                                                            ips , ipe , jps , jpe , kps , kpe )
-         END DO 
-
+         END DO
 
 
          CALL stuff_bdy     ( mbdy2dtemp1 , &
@@ -1134,7 +1089,6 @@ print *,'bdy time = ',time_loop-1,'  bdy date = ',current_date,' ',start_date
          
          
          
-
 
          CALL stuff_bdytend ( ubdy3dtemp2 , ubdy3dtemp1 , new_bdy_frq , &
                               nested_grid%u_btxs  , nested_grid%u_btxe , &
@@ -1196,7 +1150,7 @@ print *,'bdy time = ',time_loop-1,'  bdy date = ',current_date,' ',start_date
                                                                   ids , ide , jds , jde , kds , kde , &
                                                                   ims , ime , jms , jme , kms , kme , &
                                                                   ips , ipe , jps , jpe , kps , kpe )
-         END DO  
+         END DO
 
          CALL stuff_bdytend ( mbdy2dtemp2 , mbdy2dtemp1 , new_bdy_frq , &
                               nested_grid%mu_btxs  , nested_grid%mu_btxe , &
@@ -1208,7 +1162,7 @@ print *,'bdy time = ',time_loop-1,'  bdy date = ',current_date,' ',start_date
                                                                   ips , ipe , jps , jpe , 1 , 1 )
 
          IF ( time_loop .EQ. 2 ) THEN
-   
+
             
 
             CALL wrf_debug          ( 100 , 'ndown_em main: calling open_w_dataset for wrfbdy' )
@@ -1217,7 +1171,7 @@ print *,'bdy time = ',time_loop-1,'  bdy date = ',current_date,' ',start_date
                                       "DATASET=BOUNDARY", ierr )
             IF ( ierr .NE. 0 ) THEN
                WRITE( wrf_err_message , FMT='(A,A,A,I8)' ) 'program ndown: error opening ',TRIM(bdyname),' for reading ierr=',ierr
-               CALL wrf_error_fatal3("<stdin>",1220,&
+               CALL wrf_error_fatal3("<stdin>",1174,&
 wrf_err_message )
             ENDIF
 
@@ -1236,9 +1190,9 @@ wrf_err_message )
       CALL nl_set_julyr  ( nested_grid%id , julyr  )
       CALL nl_set_julday ( nested_grid%id , julday )
       CALL nl_set_gmt    ( nested_grid%id , gmt    )
-      CALL wrf_put_dom_ti_real    ( fidb , 'GMT' , gmt , 1 , ierr ) 
-      CALL wrf_put_dom_ti_integer ( fidb , 'JULYR' , julyr , 1 , ierr ) 
-      CALL wrf_put_dom_ti_integer ( fidb , 'JULDAY' , julday , 1 , ierr ) 
+      CALL wrf_put_dom_ti_real    ( fidb , 'GMT' , gmt , 1 , ierr )
+      CALL wrf_put_dom_ti_integer ( fidb , 'JULYR' , julyr , 1 , ierr )
+      CALL wrf_put_dom_ti_integer ( fidb , 'JULDAY' , julday , 1 , ierr )
       CALL domain_clock_set( nested_grid, &
                              current_timestr=current_date(1:19) )
       CALL output_boundary ( fidb , nested_grid , config_flags , ierr )
@@ -1248,7 +1202,7 @@ wrf_err_message )
                              current_timestr=current_date(1:19) )
 
          IF ( time_loop .EQ. 2 ) THEN
-            CALL wrf_put_dom_ti_real    ( fidb , 'BDYFRQ' , new_bdy_frq , 1 , ierr ) 
+            CALL wrf_put_dom_ti_real    ( fidb , 'BDYFRQ' , new_bdy_frq , 1 , ierr )
          END IF
 
          
@@ -1366,7 +1320,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
 
    INTEGER , INTENT(IN) :: ids , ide , jds , jde , kds , kde , &
                            ims , ime , jms , jme , kms , kme , &
-                           its , ite , jts , jte , kts , kte 
+                           its , ite , jts , jte , kts , kte
    INTEGER , INTENT(IN) :: num_soil_layers , id
 
    INTEGER , DIMENSION(ims:ime,jms:jme) :: ivgtyp , isltyp
@@ -1378,7 +1332,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
 
       fix_tsk_tmn : SELECT CASE ( model_config_rec%sf_surface_physics(id) )
 
-         CASE ( SLABSCHEME , LSMSCHEME , RUCLSMSCHEME )
+         CASE ( SLABSCHEME , SUEWSSCHEME , LSMSCHEME , RUCLSMSCHEME )
             DO j = jts, MIN(jde-1,jte)
                DO i = its, MIN(ide-1,ite)
                   IF ( ( landmask(i,j) .LT. 0.5 ) .AND. ( flag_sst .EQ. 1 ) ) THEN
@@ -1405,7 +1359,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                else if(sst(i,j).gt.170. .and. sst(i,j).lt.400.)then
                   tsk(i,j)=sst(i,j)
                else
-                  CALL wrf_error_fatal3("<stdin>",1408,&
+                  CALL wrf_error_fatal3("<stdin>",1362,&
 'TSK unreasonable' )
                end if
             END IF
@@ -1426,7 +1380,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                else if(sst(i,j).gt.170. .and. sst(i,j).lt.400.)then
                   tmn(i,j)=sst(i,j)
                else
-                  CALL wrf_error_fatal3("<stdin>",1429,&
+                  CALL wrf_error_fatal3("<stdin>",1383,&
 'TMN unreasonable' )
                endif
             END IF
@@ -1463,7 +1417,7 @@ SUBROUTINE check_consistency2( ivgtyp , isltyp , landmask , &
                         tslb(i,l,j)=tmn(i,j)
                      END DO
                   else
-                     CALL wrf_error_fatal3("<stdin>",1466,&
+                     CALL wrf_error_fatal3("<stdin>",1420,&
 'TSLB unreasonable' )
                   endif
             END IF
@@ -1499,7 +1453,7 @@ oops2=oops2+1
                   print *,'iswater=', iswater
                   print *,'tslb=',tslb(i,:,j)
                   print *,'sst=',sst(i,j)
-                  CALL wrf_error_fatal3("<stdin>",1502,&
+                  CALL wrf_error_fatal3("<stdin>",1456,&
 'mismatch_landmask_ivgtyp' )
                END IF
             END IF
@@ -1568,18 +1522,18 @@ END SUBROUTINE check_consistency2
       END SUBROUTINE vert_cor
 
 
-SUBROUTINE init_domain_constants_em_ptr ( parent , nest ) 
+SUBROUTINE init_domain_constants_em_ptr ( parent , nest )
    USE module_domain
    USE module_configure
    IMPLICIT NONE
    TYPE(domain), POINTER  :: parent , nest
-   INTERFACE 
+   INTERFACE
    SUBROUTINE init_domain_constants_em ( parent , nest )
       USE module_domain
       USE module_configure
       TYPE(domain)  :: parent , nest
    END SUBROUTINE init_domain_constants_em
-   END INTERFACE 
+   END INTERFACE
    CALL init_domain_constants_em ( parent , nest )
 END SUBROUTINE init_domain_constants_em_ptr
 
@@ -1605,7 +1559,7 @@ END SUBROUTINE init_domain_constants_em_ptr
               nims, nime, njms, njme, nkms, nkme, &
               nips, nipe, njps, njpe, nkps, nkpe
 
-      
+
          hsca_m = 6.7
          n_refine = model_config_rec % vert_refine_fact
          kde_c = k_dim_c
@@ -1640,48 +1594,32 @@ END SUBROUTINE init_domain_constants_em_ptr
 
 
          do  k = 1,kde_c
-
          pre_c = mu_m * znw_c(k) + p_top_m
-
-
-
          alt_w_c(k) =  -hsca_m * alog(pre_c/p_surf_m)
          enddo
          do  k = 1,kde_c-1
-
          pre_c = mu_m * znu_c(k) + p_top_m
-
-
-
          alt_u_c(k+1) =  -hsca_m * alog(pre_c/p_surf_m)
          enddo
-         alt_u_c(1) =  alt_w_c(1) 
-         alt_u_c(kde_c+1) =  alt_w_c(kde_c) 
+         alt_u_c(1) =  alt_w_c(1)
+         alt_u_c(kde_c+1) =  alt_w_c(kde_c)
 
          do  k = 1,kde_n
-
          pre_n = mu_m * parent_grid%znw(k) + p_top_m
-
-
-
          alt_w_n(k) =  -hsca_m * alog(pre_n/p_surf_m)
          enddo
          do  k = 1,kde_n-1
-
          pre_n = mu_m * parent_grid%znu(k) + p_top_m
-
-
-
          alt_u_n(k+1) =  -hsca_m * alog(pre_n/p_surf_m)
          enddo
          alt_u_n(1) =  alt_w_n(1)
          alt_u_n(kde_n+1) =  alt_w_n(kde_n)
 
 
-IF ( SIZE( parent_grid%u_2, 1 ) * SIZE( parent_grid%u_2, 3 ) .GT. 1 ) THEN 
+IF ( SIZE( parent_grid%u_2, 1 ) * SIZE( parent_grid%u_2, 3 ) .GT. 1 ) THEN
 do j = njms , njme
 do i = nims , nime
-    
+
     do k = 1,kde_c-1
     pro_u_c(k+1) = parent_grid%u_2(i,k,j)
     enddo
@@ -1690,7 +1628,7 @@ do i = nims , nime
                      + cf3_c*parent_grid%u_2(i,3,j)
 
     pro_u_c(kde_c+1) = cfn_c *parent_grid%u_2(i,kde_c-1,j) &
-                     + cfn1_c*parent_grid%u_2(i,kde_c-2,j) 
+                     + cfn1_c*parent_grid%u_2(i,kde_c-2,j)
 
     call inter(pro_u_c,alt_u_c,kde_c+1,pro_u_n,alt_u_n,kde_n+1)
 
@@ -2092,7 +2030,3 @@ ENDIF
       enddo
 
       end  subroutine  coeff_mon
-
-
-
-

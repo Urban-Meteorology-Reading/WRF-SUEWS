@@ -1,6 +1,4 @@
 
-
-
 module upper_bc
 
 
@@ -12,12 +10,7 @@ module upper_bc
 
 
   use shr_kind_mod, only: r8 => shr_kind_r8
-
-
-
-
   use module_cam_support,       only: pcols, pverp, pcnst =>pcnst_runtime
-
 
   implicit none
   private
@@ -28,9 +21,6 @@ module upper_bc
   public :: ubc_defaultopts    
   public :: ubc_setopts        
   public :: ubc_init           
-
-
-
   public :: ubc_get_vals       
 
 
@@ -74,7 +64,6 @@ end subroutine ubc_setopts
 
 
 
-
   subroutine ubc_get_vals (lchnk, ncol, ntop_molec, pint, zi, msis_temp, ubc_mmr)
 
 
@@ -93,5 +82,3 @@ end subroutine ubc_setopts
   end subroutine ubc_get_vals
 
 end module upper_bc
-
-

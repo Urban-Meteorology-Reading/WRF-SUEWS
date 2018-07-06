@@ -10,9 +10,6 @@ CONTAINS
    SUBROUTINE SF_GFDL(U3D,V3D,T3D,QV3D,P3D,                     &
                      CP,ROVCP,R,XLV,PSFC,CHS,CHS2,CQS2, CPM,    &
                      DT, SMOIS,num_soil_layers,ISLTYP,ZNT,      &
-
-
-
                      UST,PSIM,PSIH,                             &   
                      XLAND,HFX,QFX,TAUX,TAUY,LH,GSW,GLW,TSK,FLHC,FLQC,    & 
                      QGH,QSFC,U10,V10,                          &
@@ -152,9 +149,6 @@ CONTAINS
                                         QSFC,                           &
                                         UST,                            &
                                         ZNT,                            &
-
-
-
                                         WSPD,                           &
                                         TAUX,                           & 
                                         TAUY
@@ -436,9 +430,6 @@ CONTAINS
 
 
         znt(i,j)= 0.01*abs(zoc(i))
-
-
-
         wspd(i,j) = SQRT(upc(kts,i)*upc(kts,i) + vpc(kts,i)*vpc(kts,i))
         wspd(i,j) = amax1(wspd(i,j)    ,100.)/100.
         u10m(i) = u1(i)*(wind10(i)/wspd(i,j))/100.
@@ -892,7 +883,6 @@ CONTAINS
       real,parameter :: rgas  = 2.87e6
       real,parameter :: og    = 1./g
       integer :: ntstep = 0
-
 
 
 
@@ -1728,13 +1718,6 @@ CONTAINS
 
 
 
-
-
-
-
-
-
-
       enddo
       ntstep = ntstep + 1
       return
@@ -1820,5 +1803,3 @@ CONTAINS
   END SUBROUTINE hwrfsfcinit
 
 END MODULE module_sf_gfdl
-
-

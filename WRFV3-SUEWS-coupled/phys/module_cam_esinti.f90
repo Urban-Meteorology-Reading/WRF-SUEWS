@@ -6,9 +6,6 @@
 
 
 
-
-
-
 module module_cam_esinti
 
   implicit none
@@ -17,7 +14,6 @@ module module_cam_esinti
   public esinti
 
 contains
-
 
 subroutine esinti(epslon  ,latvap  ,latice  ,rh2o    ,cpair   ,tmelt   )
 
@@ -57,11 +53,7 @@ subroutine esinti(epslon  ,latvap  ,latice  ,rh2o    ,cpair   ,tmelt   )
 
 
 
-
-
-
    tmn   = 173.16_r8
-
    tmx   = 375.16_r8
    trice =  20.00_r8
    ip    = .true.
@@ -73,10 +65,6 @@ subroutine esinti(epslon  ,latvap  ,latice  ,rh2o    ,cpair   ,tmelt   )
 
    return
 end subroutine esinti
-
 end module module_cam_esinti
-
-
-
 
 

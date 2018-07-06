@@ -247,7 +247,6 @@ CONTAINS
 
 
 
-
   if (config_flags%grid_fdda .eq. 0 .AND. config_flags%grid_sfdda .eq. 0) return
 
   IF (itimestep == 1) THEN
@@ -363,31 +362,31 @@ CONTAINS
       IF( config_flags%gfdda_begin_y /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
         'start time and so analysis nudging start time cannot be specified via gfdda_begin_y'
-       CALL wrf_error_fatal3("<stdin>",366,&
+       CALL wrf_error_fatal3("<stdin>",365,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_begin_d /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
         'start time and so analysis nudging start time cannot be specified via gfdda_begin_d'
-       CALL wrf_error_fatal3("<stdin>",372,&
+       CALL wrf_error_fatal3("<stdin>",371,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_begin_h /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
         'start time and so analysis nudging start time cannot be specified via gfdda_begin_h'
-       CALL wrf_error_fatal3("<stdin>",378,&
+       CALL wrf_error_fatal3("<stdin>",377,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_begin_m /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
         'start time and so analysis nudging start time cannot be specified via gfdda_begin_m'
-       CALL wrf_error_fatal3("<stdin>",384,&
+       CALL wrf_error_fatal3("<stdin>",383,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_begin_s /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
         'start time and so analysis nudging start time cannot be specified via gfdda_begin_s'
-       CALL wrf_error_fatal3("<stdin>",390,&
+       CALL wrf_error_fatal3("<stdin>",389,&
 wrf_err_message )
       ENDIF
        
@@ -396,44 +395,44 @@ wrf_err_message )
       
       IF( config_flags%gfdda_end_y /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_end_y is ignored, use gfdda_end_h instead'
-       CALL wrf_error_fatal3("<stdin>",399,&
+       CALL wrf_error_fatal3("<stdin>",398,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_end_d /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_end_d is ignored, use gfdda_end_h instead'
-       CALL wrf_error_fatal3("<stdin>",404,&
+       CALL wrf_error_fatal3("<stdin>",403,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_end_m /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_end_m is ignored, use gfdda_end_h instead'
-       CALL wrf_error_fatal3("<stdin>",409,&
+       CALL wrf_error_fatal3("<stdin>",408,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_end_s /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_end_s is ignored, use gfdda_end_h instead'
-       CALL wrf_error_fatal3("<stdin>",414,&
+       CALL wrf_error_fatal3("<stdin>",413,&
 wrf_err_message )
       ENDIF
 
       
       IF( config_flags%gfdda_interval_y /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_interval_y is ignored, use gfdda_interval_m instead'
-       CALL wrf_error_fatal3("<stdin>",421,&
+       CALL wrf_error_fatal3("<stdin>",420,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_interval_d /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_interval_d is ignored, use gfdda_interval_m instead'
-       CALL wrf_error_fatal3("<stdin>",426,&
+       CALL wrf_error_fatal3("<stdin>",425,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_interval_h /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_interval_h is ignored, use gfdda_interval_m instead'
-       CALL wrf_error_fatal3("<stdin>",431,&
+       CALL wrf_error_fatal3("<stdin>",430,&
 wrf_err_message )
       ENDIF
       IF( config_flags%gfdda_interval_s /= 0 ) THEN
        WRITE( wrf_err_message , * ) 'The option gfdda_interval_s is ignored, use gfdda_interval_m instead'
-       CALL wrf_error_fatal3("<stdin>",436,&
+       CALL wrf_error_fatal3("<stdin>",435,&
 wrf_err_message )
       ENDIF
 
@@ -450,31 +449,31 @@ wrf_err_message )
        IF( config_flags%sgfdda_begin_y /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
          'start time and so analysis nudging start time cannot be specified via sgfdda_begin_y'
-        CALL wrf_error_fatal3("<stdin>",453,&
+        CALL wrf_error_fatal3("<stdin>",452,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_begin_d /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
          'start time and so analysis nudging start time cannot be specified via sgfdda_begin_d'
-        CALL wrf_error_fatal3("<stdin>",459,&
+        CALL wrf_error_fatal3("<stdin>",458,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_begin_h /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
          'start time and so analysis nudging start time cannot be specified via sgfdda_begin_h'
-        CALL wrf_error_fatal3("<stdin>",465,&
+        CALL wrf_error_fatal3("<stdin>",464,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_begin_m /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
          'start time and so analysis nudging start time cannot be specified via sgfdda_begin_m'
-        CALL wrf_error_fatal3("<stdin>",471,&
+        CALL wrf_error_fatal3("<stdin>",470,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_begin_s /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'WRF currently assumes analysis nudging starts at the model ',&
          'start time and so analysis nudging start time cannot be specified via sgfdda_begin_s'
-        CALL wrf_error_fatal3("<stdin>",477,&
+        CALL wrf_error_fatal3("<stdin>",476,&
 wrf_err_message )
        ENDIF
         
@@ -483,44 +482,44 @@ wrf_err_message )
        
        IF( config_flags%sgfdda_end_y /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_end_y is ignored, use sgfdda_end_h instead'
-        CALL wrf_error_fatal3("<stdin>",486,&
+        CALL wrf_error_fatal3("<stdin>",485,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_end_d /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_end_d is ignored, use sgfdda_end_h instead'
-        CALL wrf_error_fatal3("<stdin>",491,&
+        CALL wrf_error_fatal3("<stdin>",490,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_end_m /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_end_m is ignored, use sgfdda_end_h instead'
-        CALL wrf_error_fatal3("<stdin>",496,&
+        CALL wrf_error_fatal3("<stdin>",495,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_end_s /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_end_s is ignored, use sgfdda_end_h instead'
-        CALL wrf_error_fatal3("<stdin>",501,&
+        CALL wrf_error_fatal3("<stdin>",500,&
 wrf_err_message )
        ENDIF
  
        
        IF( config_flags%sgfdda_interval_y /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_interval_y is ignored, use sgfdda_interval_m instead'
-        CALL wrf_error_fatal3("<stdin>",508,&
+        CALL wrf_error_fatal3("<stdin>",507,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_interval_d /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_interval_d is ignored, use sgfdda_interval_m instead'
-        CALL wrf_error_fatal3("<stdin>",513,&
+        CALL wrf_error_fatal3("<stdin>",512,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_interval_h /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_interval_h is ignored, use sgfdda_interval_m instead'
-        CALL wrf_error_fatal3("<stdin>",518,&
+        CALL wrf_error_fatal3("<stdin>",517,&
 wrf_err_message )
        ENDIF
        IF( config_flags%sgfdda_interval_s /= 0 ) THEN
         WRITE( wrf_err_message , * ) 'The option sgfdda_interval_s is ignored, use sgfdda_interval_m instead'
-        CALL wrf_error_fatal3("<stdin>",523,&
+        CALL wrf_error_fatal3("<stdin>",522,&
 wrf_err_message )
        ENDIF
 
@@ -635,7 +634,7 @@ wrf_err_message )
      CASE DEFAULT
 
        WRITE( wrf_err_message , * ) 'The fdda option does not exist: grid_fdda = ', config_flags%grid_fdda
-       CALL wrf_error_fatal3("<stdin>",638,&
+       CALL wrf_error_fatal3("<stdin>",637,&
 wrf_err_message )
 
    END SELECT fdda_select
@@ -644,8 +643,5 @@ wrf_err_message )
    ENDIF
 
 
-
    END SUBROUTINE fddagd_driver
 END MODULE module_fddagd_driver
-
-

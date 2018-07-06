@@ -1,6 +1,5 @@
 
 
-
 MODULE module_sf_ruclsm
 
 
@@ -48,14 +47,10 @@ CONTAINS
 
 
     SUBROUTINE LSMRUC(spp_lsm,                                   &
-
                    pattern_spp_lsm,field_sf,                     &
-
                    DT,KTAU,NSL,                                  &
-
                    lakemodel,lakemask,                           &
                    graupelncv,snowncv,rainncv,                   &
-
                    ZS,RAINBL,SNOW,SNOWH,SNOWC,FRZFRAC,frpcpn,    &
                    rhosnf,precipfr,                              & 
                    Z3D,P8W,T3D,QV3D,QC3D,RHO3D,                  & 
@@ -168,10 +163,8 @@ CONTAINS
                                        ids,ide, jds,jde, kds,kde, &
                                        its,ite, jts,jte, kts,kte
 
-
    REAL,    DIMENSION( ims:ime, kms:kme, jms:jme ),OPTIONAL::    pattern_spp_lsm
    REAL,    DIMENSION( ims:ime, kms:kme, jms:jme ),OPTIONAL::    field_sf
-
    REAL,    DIMENSION( ims:ime, 1  :nsl, jms:jme )         ::    field_sf_loc
 
    REAL,    DIMENSION( ims:ime, kms:kme, jms:jme )            , &
@@ -196,7 +189,6 @@ CONTAINS
                                                          VEGFRA, &
                                                            TBOT
 
-
    REAL,       DIMENSION( ims:ime , jms:jme ),                   &
                INTENT(IN   )    ::                   GRAUPELNCV, &
                                                         SNOWNCV, &
@@ -204,7 +196,6 @@ CONTAINS
    REAL,       DIMENSION( ims:ime , jms:jme ),                   &
                INTENT(IN   )    ::                     lakemask
    INTEGER,    INTENT(IN   )    ::                    LakeModel
-
 
    REAL, DIMENSION( ims:ime , jms:jme ), INTENT(IN )::   SHDMAX
    REAL, DIMENSION( ims:ime , jms:jme ), INTENT(IN )::   SHDMIN
@@ -400,7 +391,6 @@ CONTAINS
          rstoch=0.0
          field_sf_loc=0.0
 
-
        if (spp_lsm==1) then
          do J=jts,jte
            do i=its,ite
@@ -411,7 +401,6 @@ CONTAINS
            enddo
          enddo 
        endif  
-
 
         CQ=173.15-.05
         R273=1./273.15
@@ -436,11 +425,7 @@ CONTAINS
 
 
 
-
-
-
      if(ktau.eq.1) then
-
      DO J=jts,jte
          DO i=its,ite
             do k=1,nsl
@@ -574,7 +559,6 @@ CONTAINS
          icerat = 0.
          curat = 0.
        IF(FRPCPN) THEN
-
          prcpncliq = rainncv(i,j)*(1.-frzfrac(i,j))
          prcpncfr = rainncv(i,j)*frzfrac(i,j)
 
@@ -604,7 +588,6 @@ CONTAINS
                /(prcpncfr + prcpcufr)))
          curat=min(1.,max(0.,(prcpcufr/(prcpncfr + prcpcufr))))
          endif
-
 
        ELSE  
           if (tabs.le.273.15) then
@@ -781,9 +764,7 @@ CONTAINS
 
 
 
-
      if(lakemodel==1. .and. lakemask(i,j)==1.) goto 2999
-
 
 
         IF((XLAND(I,J)-1.5).GE.0.)THEN
@@ -877,11 +858,7 @@ CONTAINS
               LMAVAIL(I,J)=max(0.00001,min(1.,soilm1d(1)/(REF-QMIN)))
 
 
-
-
-
      if(ktau.gt.1) then
-
 
 
 
@@ -987,13 +964,11 @@ print * ,'Soil moisture is below wilting in mixed grassland/cropland category at
     ENDIF
 
 
-
        if (spp_lsm==1) then
          do k=1,nsl
            field_sf(i,k,j)=field_sf_loc(i,k,j)
          enddo
        endif
-
 
 
 
@@ -7075,9 +7050,6 @@ print *,'INFMAX,INFMAX1,HYDRO(1)*SOILIQW(1),-TOTLIQ', &
                      ids,ide, jds,jde, kds,kde,                    &
                      ims,ime, jms,jme, kms,kme,                    &
                      its,ite, jts,jte, kts,kte                     )
-
-
-
    IMPLICIT NONE
 
 
@@ -7630,4 +7602,3 @@ message )
   END SUBROUTINE SOILIN
 
 END MODULE module_sf_ruclsm
-

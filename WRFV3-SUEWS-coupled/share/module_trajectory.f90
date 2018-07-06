@@ -2,19 +2,15 @@
    module module_trajectory
 
    use module_driver_constants,  only : max_domains
-
    use module_state_description, only : num_chem
-
 
    implicit none
 
    private
    public :: trajectory_init
-
    public :: trajectory_driver
    public :: trajectory_dchm_tstep_init
    public :: trajectory_dchm_tstep_set
-
    public :: traject
    public :: traj_cnt
 
@@ -155,9 +151,6 @@
 
 
 
-
-
-
    integer, intent(in)      :: ims,ime, jms,jme, kms,kme
    type(domain), intent(inout)            :: grid
    type(grid_config_rec_type), intent(in) :: config_flags
@@ -211,9 +204,6 @@
    namelist / traj_default / traj_def
 
 
-
-
-
    offset = param_first_scalar - 1
 
    if( .not. allocated( dm_has_traj ) ) then
@@ -221,7 +211,7 @@
      allocate( dm_has_traj(n_dom),traj_cnt(n_dom),stat=astat )
      if( astat /= 0 ) then
        write(err_mes,'(''trajectory_init('',i2.2,''): failed to allocate dm_has_traj,traj_cnt; error = '',i6)') dm,astat
-       call wrf_error_fatal3("<stdin>",224,&
+       call wrf_error_fatal3("<stdin>",214,&
 trim( err_mes  ) )
      endif
      traj_cnt(:) = 0
@@ -263,7 +253,7 @@ trim( err_mes  ) )
                num_msc_dm(n_dom), is_initialized(n_dom),stat=astat )
      if( astat /= 0 ) then
        write(err_mes,'(''trajectory_init('',i2.2,''): failed to allocate traject...num_msc_dm; error = '',i6)') dm,astat
-       call wrf_error_fatal3("<stdin>",266,&
+       call wrf_error_fatal3("<stdin>",256,&
 trim( err_mes  ) )
      endif
      is_initialized(:) = .false.
@@ -299,7 +289,7 @@ trim( err_mes  ) )
       write(filename,'(''wrfinput_traj_d'',i2.2)',iostat=ios) dm
       if( ios /= 0 ) then
         write(err_mes,'(''trajectory_init('',i2.2,''): failed to set filename: error = '',i6)') dm,ios
-        call wrf_error_fatal3("<stdin>",302,&
+        call wrf_error_fatal3("<stdin>",292,&
 trim( err_mes  ) )
       endif
       inquire( file=trim(filename),exist=exists )
@@ -307,7 +297,7 @@ input_file: &
       if( exists ) then
         unitno = get_unused_unit()
         if( unitno <= 0 ) then
-          call wrf_error_fatal3("<stdin>",310,&
+          call wrf_error_fatal3("<stdin>",300,&
 'trajectory_init: failed to get unit number' )
         endif
 
@@ -316,7 +306,7 @@ input_file: &
         open( unit = unitno,file=trim(filename),iostat=ios )
         if( ios /= 0 ) then
           write(err_mes,'(''trajectory_init('',i2.2,''): failed to open '',a,''; error = '',i6)') dm,trim(filename),ios
-          call wrf_error_fatal3("<stdin>",319,&
+          call wrf_error_fatal3("<stdin>",309,&
 trim( err_mes  ) )
         endif
 
@@ -364,14 +354,14 @@ trim( err_mes  ) )
         if( ios /= 0 ) then
           close( unit=unitno )
           write(err_mes,'(''trajectory_init('',i2.2,''): failed to read '',a,''; error = '',i6)') dm,trim(filename),ios
-          call wrf_error_fatal3("<stdin>",367,&
+          call wrf_error_fatal3("<stdin>",357,&
 trim( err_mes  ) )
         endif
         read(unit=unitno,nml=traj_spec,iostat=ios)
         if( ios /= 0 ) then
           close( unit=unitno )
           write(err_mes,'(''trajectory_init('',i2.2,''): failed to read '',a,''; error = '',i6)') dm,trim(filename),ios
-          call wrf_error_fatal3("<stdin>",374,&
+          call wrf_error_fatal3("<stdin>",364,&
 trim( err_mes  ) )
         endif
         close( unit=unitno )
@@ -422,12 +412,6 @@ trim( err_mes  ) )
           write(*,*) ' '
           write(*,'(''trajectory_init('',i2.2,''): default '',a,'' variables'')') dm,pkg_tag(pkg)
           select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
             case( 'hyd' )
               wrk_def_name(:) = traj_def%hyd_name(:)
             case( 'trc' )
@@ -472,12 +456,6 @@ has_trajectories: &
 
         do pkg = 1,pkg_max
           select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
             case( 'hyd' )
               wrk_def_name(:) = traj_def%hyd_name(:)
             case( 'trc' )
@@ -489,12 +467,6 @@ has_trajectories: &
           end select
           do trj = 1,n_traj
             select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
               case( 'hyd' )
                 wrk_var_name = traj_type(trj)%hyd_spc(1)
               case( 'trc' )
@@ -507,12 +479,6 @@ has_trajectories: &
             if( wrk_var_name == ' ' ) then
               m1 = n_def_var(pkg)
               select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
                 case( 'hyd' )
                   traj_type(trj)%hyd_spc(:m1) = traj_def%hyd_name(:m1)
                 case( 'trc' )
@@ -574,10 +540,6 @@ has_trajectories: &
 
         do trj = 1,n_traj
           if( num_chem > 1 ) then
-
-
-
-
           else
             traj_type(trj)%n_chm_var  = 0
             traj_type(trj)%n_dchm_var = 0
@@ -603,7 +565,7 @@ has_trajectories: &
         if( any( traj_type(:n_traj)%n_msc_var > 0 ) ) then
           allocate( msc_tbl(num_msc),stat=astat )
           if( astat /= 0 ) then
-            call wrf_error_fatal3("<stdin>",606,&
+            call wrf_error_fatal3("<stdin>",568,&
 'trajectory_init: failed to find allocate msc_tbl' )
           endif
           do m = 1,num_msc
@@ -614,7 +576,6 @@ has_trajectories: &
 
 
         do trj = 1,n_traj
-
           if( traj_type(trj)%n_hyd_var > 0 .and. num_moist > 1 ) then
             mask(:) = .false.
             call scan_vars( traj_type(trj)%n_hyd_var, traj_type(trj)%hyd_spc, traj_type(trj)%hyd_ndx, &
@@ -686,15 +647,13 @@ has_trajectories: &
             allocate( trj_buff(traj_max,n_dom),stat=astat )
             if( astat /= 0 ) then
               write(err_mes,'(''trajectory_init: failed to allocate traj_buff; error = '',i6)') astat
-              call wrf_error_fatal3("<stdin>",689,&
+              call wrf_error_fatal3("<stdin>",650,&
 trim( err_mes  ) )
             endif
           endif
           trj_pbf => trj_buff(:,dm)
         endif
       endif has_trajectories
-
-
 
 
 
@@ -727,17 +686,9 @@ traj_loop: &
            traj_type(trj)%in_dom = &
                   (x >= real(ids) .and. x <= real(ide-1) .and. &
                    y >= real(jds) .and. y <= real(jde-1))
-
-
-
-
          else
            traj_type(trj)%in_dom = .false.
          endif
-
-
-
-
 
 
 
@@ -855,30 +806,16 @@ has_trajectories_b: &
 
    if( .not. rstrt ) then
      do trj = 1,n_traj
-
-
-
-
-
-
-
        grid%traj_i(trj) = grid%traj_i(trj)
        grid%traj_j(trj) = grid%traj_j(trj)
        grid%traj_k(trj) = grid%traj_k(trj)
        grid%traj_long(trj) = grid%traj_long(trj)
        grid%traj_lat(trj)  = grid%traj_lat(trj)
-
      end do
    endif
 
    do pkg = 1,pkg_max
      select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
        case( 'hyd' )
          pkg_has_vars(:n_traj,pkg) = trjects(:n_traj)%n_hyd_var > 0
        case( 'trc' )
@@ -891,7 +828,6 @@ has_trajectories_b: &
    end do
 
 
-
 master_proc_a: &
    if( is_root_proc ) then
      if( dm == 1 ) then
@@ -900,7 +836,7 @@ master_proc_a: &
          allocate( trj_msk_dm(traj_max,n,pkg_max,n_dom),stat=astat )
          if( astat /= 0 ) then
            write(err_mes,'(''trajectory_init: failed to allocate trj_msk_dm; error = '',i6)') astat
-           call wrf_error_fatal3("<stdin>",903,&
+           call wrf_error_fatal3("<stdin>",839,&
 trim( err_mes  ) )
          endif
          trj_msk_dm(:,:,:,:) = .false.
@@ -916,7 +852,6 @@ trj_loop: &
 pkg_loop:  do pkg = 1,pkg_max
              astat = 0
              select case( trim(pkg_tag(pkg)) )
-
                case( 'hyd' )
                  trj_msk => trj_msk_dm(:,:,hyd_pkg,dm)
                  m1 = trjects(trj)%n_hyd_var
@@ -957,7 +892,7 @@ pkg_loop:  do pkg = 1,pkg_max
              if( astat /= 0 ) then
                write(err_mes,'(''trajectory_init: failed to allocate buffer%'',a,''; error = '',i6)') &
                    pkg_tag(pkg),astat
-               call wrf_error_fatal3("<stdin>",960,&
+               call wrf_error_fatal3("<stdin>",895,&
 trim( err_mes  ) )
              endif
            end do pkg_loop
@@ -965,14 +900,6 @@ trim( err_mes  ) )
 
        do pkg = 1,pkg_max
          select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
-
-
            case( 'hyd' )
              trj_msk => trj_msk_dm(:,:,hyd_pkg,dm)
              u_lim = num_moist
@@ -996,9 +923,6 @@ trim( err_mes  ) )
        endif
      endif is_initial
    endif master_proc_a
-
-
-
 
    CONTAINS
 
@@ -1081,14 +1005,14 @@ trim( err_mes  ) )
      if( .not. allocated( St_Vars_dm ) ) then
        allocate( St_Vars_dm(cnt,n_dom),St_Vars_msk_dm(cnt,n_dom),stat=astat )
        if( astat /= 0 ) then
-         call wrf_error_fatal3("<stdin>",1084,&
+         call wrf_error_fatal3("<stdin>",1008,&
 'reg_scan: failed to allocate St_Vars,St_Vars_msk' )
        endif
      elseif( cnt > maxval(num_msc_dm(1:dm-1)) ) then
        n = size( St_vars_dm,dim=1 )
        allocate( St_Vars_wrk(n,dm-1),St_Vars_msk_wrk(n,dm-1),stat=astat )
        if( astat /= 0 ) then
-         call wrf_error_fatal3("<stdin>",1091,&
+         call wrf_error_fatal3("<stdin>",1015,&
 'reg_scan: failed to allocate St_Vars,St_Vars_msk wrk arrays' )
        endif
        do dm_ndx = 1,dm-1
@@ -1100,7 +1024,7 @@ trim( err_mes  ) )
        deallocate( St_vars_dm,St_Vars_msk_dm )
        allocate( St_Vars_dm(cnt,n_dom),St_Vars_msk_dm(cnt,n_dom),stat=astat )
        if( astat /= 0 ) then
-         call wrf_error_fatal3("<stdin>",1103,&
+         call wrf_error_fatal3("<stdin>",1027,&
 'reg_scan: failed to allocate St_Vars,St_Vars_msk' )
        endif
        do dm_ndx = 1,dm-1
@@ -1297,13 +1221,13 @@ include 'netcdf.inc'
    write(filename,'(''wrfout_traj_d'',i2.2)',iostat=ios) dm
    if( ios /= 0 ) then
      write(err_mes,'(''set_in_dom: failed to set filename: error = '',i6)') ios
-     call wrf_error_fatal3("<stdin>",1300,&
+     call wrf_error_fatal3("<stdin>",1224,&
 trim( err_mes  ) )
    endif
    ios = nf_open( trim(filename), nf_nowrite, ncid )
    if( ios /= 0 ) then
      write(err_mes,'(''set_in_dom: failed to open '',a,'': error = '',i6)') trim(filename),ios
-     call wrf_error_fatal3("<stdin>",1306,&
+     call wrf_error_fatal3("<stdin>",1230,&
 trim( err_mes  ) )
    endif
 
@@ -1342,15 +1266,7 @@ trim( err_mes  ) )
 
    end subroutine trajectory_init
 
-
    subroutine trajectory_driver( grid )
-
-
-
-
-
-
-
 
    use module_domain
    use module_date_time
@@ -1382,9 +1298,7 @@ trim( err_mes  ) )
    integer, pointer :: dchm_buf_ndx(:)
    integer :: St_Vars_ndx
    integer, allocatable :: St_Vars_buf_ndx(:)
-
    integer :: mytask
-
    integer :: traj_proc(traj_max), glb_traj_proc(traj_max)
    real :: dchm_fill_val(traj_max)
    real :: x, y, zi
@@ -1417,9 +1331,7 @@ trim( err_mes  ) )
 
 include 'netcdf.inc'
 
-
    mytask = 0
-
    dm = grid%id
    n_traj = traj_cnt(dm)
 has_trajectories: &
@@ -1506,13 +1418,7 @@ has_trajectories: &
          endif
        endif
      end do
-
-
-
-
-
      glb_traj_proc(1:n_traj) = traj_proc(1:n_traj)
-
 
 
 
@@ -1572,14 +1478,6 @@ pkg_has_active_traj: &
 
 
          select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
-
-
            case( 'hyd' )
              allocate( moist(ims:ime,kms:kme,jms:jme,num_moist),stat=ios )
            case( 'trc' )
@@ -1597,11 +1495,10 @@ pkg_has_active_traj: &
          end select
          if( ios /= 0 ) then
            write(err_mes,'(''trajectory_driver: failed to allocate wrk4d: error = '',i6)') ios
-           call wrf_error_fatal3("<stdin>",1600,&
+           call wrf_error_fatal3("<stdin>",1498,&
 trim( err_mes  ) )
          endif
          select case( trim(pkg_tag(pkg)) )
-
            case( 'hyd' )
              do m = 1,num_moist
                do j = jps,jpe
@@ -1635,7 +1532,6 @@ trim( err_mes  ) )
              end do
          end select
 
-
 traj_loop: &
          do trj = 1,n_traj
            select case( trim(pkg_tag(pkg)) )
@@ -1655,10 +1551,6 @@ traj_loop: &
 pkg_is_active_in_traj: &
            if( pkg_is_active(trj,pkg) ) then
              select case( trim(pkg_tag(pkg)) )
-
-
-
-
                case( 'dyn', 'msc' )
                  wrk4d => chem
                case( 'hyd' )
@@ -1719,11 +1611,7 @@ var_loop:      do n = 1,n_vars
              endif in_patch
              traj_conc => traj_val(:,trj)
              do n = 1,n_vars
-
-
-
                max_conc = traject(trj,dm)%traj_var(n)
-
                if( is_root_proc ) then
                  traj_conc(n) = max_conc
                endif
@@ -1739,12 +1627,6 @@ var_loop:      do n = 1,n_vars
 
            if( is_root_proc .and. n_vars > 0 ) then
              select case( pkg_tag(pkg) )
-
-
-
-
-
-
                case( 'hyd' )
                  trj_pbf(trj)%hyd_vals(n_vals,:n_vars) = traj_conc(:n_vars)
                case( 'trc' )
@@ -1775,12 +1657,6 @@ var_loop:      do n = 1,n_vars
          if( is_root_proc ) then
            do trj = 1,n_traj
              select case( trim(pkg_tag(pkg)) )
-
-
-
-
-
-
                case( 'hyd' )
                  n_vars = traject(trj,dm)%n_hyd_var
                case( 'trc' )
@@ -1792,12 +1668,6 @@ var_loop:      do n = 1,n_vars
              end select
              if( n_vars > 0 ) then
                select case( pkg_tag(pkg) )
-
-
-
-
-
-
                  case( 'hyd' )
                    trj_pbf(trj)%hyd_vals(n_vals,:n_vars) = missing_val
                  case( 'trc' )
@@ -1880,7 +1750,6 @@ var_loop:      do n = 1,n_vars
              chem(ips:ipe,k,j,mp1) = grid%phb(ips:ipe,k,j)
            end do
          end do
-
      end select
    end do
 
@@ -1971,7 +1840,6 @@ var_loop:      do n = 1,n_vars
        wrk4d(iu,kl,ju,1) = .5*(chem(iu,kl,ju,7) + chem(iu,klp1,ju,7))
        wrk4d(il,ku,ju,1) = .5*(chem(il,ku,ju,7) + chem(il,kup1,ju,7))
        wrk4d(iu,ku,ju,1) = .5*(chem(iu,ku,ju,7) + chem(iu,kup1,ju,7))
-
    end select
 
    end subroutine set_dyn_vals
@@ -2069,7 +1937,7 @@ var_loop:      do n = 1,n_vars
        allocate( dchm_buff(ims:ime,kms:kme,jms:jme,n_dchm+offset),stat=astat )
        if( astat /= 0 ) then
          write(err_mes,'(''trajectory_dchm_tstep_init('',i2.2,''): failed to allocate wrk4d: error = '',i6)') dm,astat
-         call wrf_error_fatal3("<stdin>",2072,&
+         call wrf_error_fatal3("<stdin>",1940,&
 trim( err_mes  ) )
        endif
        dchm_buf_ndx => dchm_buf_ndx_dm(:,dm)
@@ -2173,14 +2041,14 @@ master_proc: &
      write(filename,'(''wrfout_traj_d'',i2.2)',iostat=ios) dm
      if( ios /= 0 ) then
        write(err_mes,'(''trajectory_create_file: failed to set filename: error = '',i6)') ios
-       call wrf_error_fatal3("<stdin>",2176,&
+       call wrf_error_fatal3("<stdin>",2044,&
 trim( err_mes  ) )
      endif
 
      ios = nf_create( trim(filename), nf_clobber, ncid )
      if( ios /= nf_noerr ) then
        write(err_mes,'(''trajectory_create_file: failed to create '',a,'': error = '',i6)') trim(filename),ios
-       call wrf_error_fatal3("<stdin>",2183,&
+       call wrf_error_fatal3("<stdin>",2051,&
 trim( err_mes  ) )
      endif
 
@@ -2413,13 +2281,13 @@ include 'netcdf.inc'
    write(filename,'(''wrfout_traj_d'',i2.2)',iostat=ios) dm
    if( ios /= 0 ) then
      write(err_mes,'(''trajectory_write_file: failed to set filename: error = '',i6)') ios
-     call wrf_error_fatal3("<stdin>",2416,&
+     call wrf_error_fatal3("<stdin>",2284,&
 trim( err_mes  ) )
    endif
    ios = nf_open( trim(filename), nf_write, ncid )
    if( ios /= 0 ) then
      write(err_mes,'(''trajectory_write_file: failed to open '',a,'': error = '',i6)') trim(filename),ios
-     call wrf_error_fatal3("<stdin>",2422,&
+     call wrf_error_fatal3("<stdin>",2290,&
 trim( err_mes  ) )
    endif
 
@@ -2429,7 +2297,7 @@ trim( err_mes  ) )
    allocate( holder(n_traj,n_vals),stat=astat )
    if( astat /= 0 ) then
      write(err_mes,'(''trajectory_write_file: failed to allocate holder; error = '',i6)') astat
-     call wrf_error_fatal3("<stdin>",2432,&
+     call wrf_error_fatal3("<stdin>",2300,&
 trim( err_mes  ) )
    endif
 
@@ -2700,7 +2568,6 @@ include 'netcdf.inc'
 
    end subroutine handle_ncerr
 
-
    subroutine trajmapproj (grid,config_flags,ts_proj)
 
    use module_domain
@@ -2852,7 +2719,4 @@ include 'netcdf.inc'
    end subroutine UPCASE
 
 
-
    end module module_trajectory
-
-

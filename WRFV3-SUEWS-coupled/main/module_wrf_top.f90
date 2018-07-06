@@ -20,11 +20,7 @@ MODULE module_wrf_top
    USE module_wrf_error
    USE module_nesting
 
-
-
-
    USE module_dm, ONLY : domain_active_this_task
-
 
    USE module_cpl, ONLY : coupler_on, cpl_finalize, cpl_defdomain
 
@@ -46,12 +42,6 @@ MODULE module_wrf_top
    INTEGER :: max_dom , domain_id , fid , oid , idum1 , idum2 , ierr
    INTEGER :: debug_level
    LOGICAL :: input_from_file
-
-
-
-
-
-
 
 
    CHARACTER (LEN=256)     :: rstname
@@ -104,26 +94,12 @@ CONTAINS
 
 
 
-
-
-
-
-
-
      LOGICAL, OPTIONAL, INTENT(IN) :: no_init1
      INTEGER i, myproc, nproc, hostid, loccomm, ierr, buddcounter, mydevice, save_comm
      INTEGER, ALLOCATABLE :: hostids(:), budds(:)
      CHARACTER*512 hostname
      CHARACTER*512 mminlu_loc
-
-
-
-
-
-
-
    CHARACTER (LEN=10) :: release_version = 'V3.9.1.1  '
-
 
 
 
@@ -146,11 +122,7 @@ CONTAINS
    CALL init_modules(1)
    IF ( .NOT. PRESENT( no_init1 ) ) THEN
      
-
-
-
      CALL WRFU_Initialize( defaultCalKind=WRFU_CAL_GREGORIAN )
-
    ENDIF
    
    CALL init_modules(2)
@@ -169,16 +141,12 @@ CONTAINS
 
 
 
-
    CALL initial_config
-
 
    CALL set_derived_rconfigs
    CALL check_nml_consistency
    CALL setup_physics_suite
    CALL set_physics_rconfigs
-
-
 
 
 
@@ -212,10 +180,8 @@ CONTAINS
 
    CALL nl_get_max_dom( 1, max_dom )
    IF ( max_dom > 1 ) THEN
-
-   CALL wrf_error_fatal3("<stdin>",216,&
+   CALL wrf_error_fatal3("<stdin>",183,&
      'nesting requires either an MPI build or use of the -DSTUBMPI option' ) 
-
    END IF
 
 
@@ -248,14 +214,6 @@ CONTAINS
    CALL set_scalar_indices_from_config ( head_grid%id , idum1, idum2 )
    CALL       wrf_debug ( 100 , 'wrf: calling init_wrfio' )
    CALL init_wrfio
-
-
-
-
-
-
-
-
 
 
 
@@ -294,14 +252,12 @@ CONTAINS
    IF ( config_flags%write_restart_at_0h ) THEN
       CALL med_restart_out ( head_grid, config_flags )
 
-
       CALL wrf_debug ( 0 , ' 0 h restart only wrf: SUCCESS COMPLETE WRF' )
 
 
 
 
       CALL wrf_finalize( )
-
    END IF
   ENDIF  
 
@@ -316,11 +272,9 @@ CONTAINS
    
    
 
-
    IF ( head_grid%dfi_opt .NE. DFI_NODFI ) THEN
       CALL alloc_doms_for_dfi ( head_grid )
    END IF
-
 
    IF (coupler_on) CALL cpl_defdomain( head_grid ) 
   ENDIF  
@@ -476,7 +430,7 @@ CONTAINS
    
             CASE DEFAULT
                wrf_err_message = 'Unrecognized DFI_OPT in namelist'
-               CALL wrf_error_fatal3("<stdin>",479,&
+               CALL wrf_error_fatal3("<stdin>",433,&
 TRIM(wrf_err_message))
    
          END SELECT
@@ -512,7 +466,6 @@ TRIM(wrf_err_message))
       END IF
 
 
-
       IF ( model_config_rec % dfi_opt .EQ. DFI_NODFI ) THEN
         DO i = 1, model_config_rec % max_dom
            model_config_rec % bl_pbl_physics_dfi(i) = -1
@@ -522,8 +475,6 @@ TRIM(wrf_err_message))
            model_config_rec % bl_pbl_physics_dfi(i) = model_config_rec % bl_pbl_physics(i)
         ENDDO
       END IF
-
-
 
 
    END SUBROUTINE set_derived_rconfigs
@@ -579,5 +530,3 @@ print *,'for parent domain id #',grid%id,', found child domain #',nestid_loc
    END SUBROUTINE alloc_doms_for_dfi
 
 END MODULE module_wrf_top
-
-

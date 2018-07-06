@@ -10,11 +10,7 @@ MODULE module_interp_info
      INTEGER             :: interp_method_type = 0
 CONTAINS
    SUBROUTINE interp_info_init
-
      CALL nl_get_interp_method_type ( 1 , interp_method_type )
-
-
-
    END SUBROUTINE interp_info_init
 END MODULE module_interp_info
 
@@ -28,7 +24,6 @@ END MODULE module_interp_info
       USE module_interp_info
       CALL interp_info_init
    END SUBROUTINE interp_init
-
 
 
 
@@ -126,7 +121,7 @@ END MODULE module_interp_info
                                ipos, jpos,                           &  
                                nri, nrj)                                
      ELSE
-        CALL wrf_error_fatal3("<stdin>",129,&
+        CALL wrf_error_fatal3("<stdin>",124,&
 'Hold on there cowboy, we need to know which interpolation option you want')
      END IF
 
@@ -378,7 +373,7 @@ END MODULE module_interp_info
      END IF
 
      IF ( ( probably_by_pole ) .AND. ( .NOT. ninput_from_file ) ) THEN
-        CALL wrf_error_fatal3("<stdin>",381,&
+        CALL wrf_error_fatal3("<stdin>",376,&
 'Nest over the pole, single input domain, longitudes will be wrong' )
      END IF
 
@@ -860,7 +855,7 @@ END MODULE module_interp_info
       ELSE IF ( istag .EQ. MASS_POINT_STAG ) THEN
          location_of_LL_wrt_this_CG = ( MOD ( ( ni - 1 ) , nri ) + ioff ) / ( ( nri + ioff ) / 2 ) - istag
       ELSE
-         CALL wrf_error_fatal3("<stdin>",863,&
+         CALL wrf_error_fatal3("<stdin>",858,&
 'Hold on there pard, there are only two staggerings I accept.' )
       END IF
 
@@ -1391,7 +1386,7 @@ END MODULE module_interp_info
          END IF
       END DO
 
-      CALL wrf_error_fatal3("<stdin>",1394,&
+      CALL wrf_error_fatal3("<stdin>",1389,&
 'ERROR -- vertical interpolation for nest interp cannot find trapping pressures' )
    
    END FUNCTION v_interp_col
@@ -2392,7 +2387,7 @@ END MODULE module_interp_info
                                                                  )
 
      ELSE
-        CALL wrf_error_fatal3("<stdin>",2395,&
+        CALL wrf_error_fatal3("<stdin>",2390,&
 'Hold on there cowboy #2, we need to know which nested lateral boundary interpolation option you want')
      END IF
 
@@ -2951,7 +2946,6 @@ END MODULE module_interp_info
 
      INTEGER i, ci, cj, ck, ni, nj, nk, ip, jp, ierr
 
-
    
    
      DO nj = njts, njte
@@ -2970,9 +2964,6 @@ END MODULE module_interp_info
            ENDDO
         ENDDO
      ENDDO
-
-
-
      RETURN
 
    END SUBROUTINE interp_fcnm_lu
@@ -3040,7 +3031,6 @@ END MODULE module_interp_info
      RETURN
 
    END SUBROUTINE interp_fcnm_imask
-
 
 
 
@@ -3290,7 +3280,7 @@ END MODULE module_interp_info
          ENDIF
        ENDIF
       ELSE
-         CALL wrf_error_fatal3("<stdin>",3293,&
+         CALL wrf_error_fatal3("<stdin>",3283,&
 "only unstaggered fields right now" )
       END IF
 
@@ -3534,12 +3524,11 @@ END MODULE module_interp_info
          ENDIF
        ENDIF
       ELSE
-         CALL wrf_error_fatal3("<stdin>",3537,&
+         CALL wrf_error_fatal3("<stdin>",3527,&
 "only unstaggered fields right now" )
       END IF
 
    END SUBROUTINE interp_mask_water_field
-
 
 
    SUBROUTINE p2c_mask (   cfld,                                 &  
@@ -3703,7 +3692,7 @@ END MODULE module_interp_info
          END DO
 
       ELSE
-         CALL wrf_error_fatal3("<stdin>",3706,&
+         CALL wrf_error_fatal3("<stdin>",3695,&
 "only unstaggered fields right now" )
       END IF
 
@@ -3997,9 +3986,6 @@ END MODULE module_interp_info
 
 
 
-
-
-
    SUBROUTINE interp_mask_field ( enable,                  &  
                                        cfld,                     &  
                            cids, cide, ckds, ckde, cjds, cjde,   &
@@ -4197,7 +4183,7 @@ END MODULE module_interp_info
 
         END IF
       ELSE
-         CALL wrf_error_fatal3("<stdin>",4200,&
+         CALL wrf_error_fatal3("<stdin>",4186,&
 "only unstaggered fields right now" )
       END IF
 
@@ -4313,7 +4299,6 @@ END MODULE module_interp_info
              END DO
           END DO
 
-
           IF ( ANY(nfld .EQ. -1) ) THEN
             DO nj = njts, njte
                DO nk = nkts, nkte
@@ -4329,7 +4314,7 @@ END MODULE module_interp_info
 
         END IF  
       ELSE
-         CALL wrf_error_fatal3("<stdin>",4332,&
+         CALL wrf_error_fatal3("<stdin>",4317,&
 "only unstaggered fields right now" )
       END IF
 
@@ -4451,7 +4436,7 @@ END MODULE module_interp_info
      END IF
 
      IF ( ( probably_by_pole ) .AND. ( .NOT. ninput_from_file ) ) THEN
-        CALL wrf_error_fatal3("<stdin>",4454,&
+        CALL wrf_error_fatal3("<stdin>",4439,&
 'Nest over the pole, single input domain, longitudes will be wrong' )
      END IF
 
@@ -4684,7 +4669,4 @@ END MODULE module_interp_info
    END SUBROUTINE interp_fcn_lagr_ll
 
 
-
  
-
-

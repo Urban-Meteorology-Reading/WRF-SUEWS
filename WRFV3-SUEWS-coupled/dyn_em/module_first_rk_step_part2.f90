@@ -1,8 +1,6 @@
 
 
 
-
-
 MODULE module_first_rk_step_part2
 
 CONTAINS
@@ -37,7 +35,6 @@ CONTAINS
     USE module_model_constants
     USE module_domain, ONLY : domain
     USE module_configure, ONLY : grid_config_rec_type, model_config_rec
-
 
     USE module_driver_constants
     USE module_diffusion_em, ONLY : phy_bc, cal_deform_and_div, compute_diff_metrics, &
@@ -127,9 +124,6 @@ CONTAINS
     INTEGER  num_road_layers
     INTEGER  iswater
     INTEGER  rk_step 
-
-
-
 
 
  
@@ -355,10 +349,6 @@ CONTAINS
 
 
 
-
-
-
-
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij )
 
@@ -446,9 +436,6 @@ CONTAINS
 
 
 
-
-
-
        IF ( ( config_flags%nwp_diagnostics .eq. 1 ) .OR. &
             ( ( config_flags%afwa_diag_opt .eq. 1 ) .AND. ( config_flags%afwa_severe_opt .EQ. 1 ) ) ) THEN
 
@@ -477,9 +464,6 @@ CONTAINS
        !$OMP END PARALLEL DO
 
        ENDIF
-
-
-
 
 
 
@@ -514,17 +498,7 @@ CONTAINS
 
 
 
-
-
-
        ENDIF
-
-
-
-
-
-
-
 
 
 
@@ -562,14 +536,12 @@ ENDIF
 
 
 
-
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
 
        DO ij = 1 , grid%num_tiles
 
          CALL wrf_debug ( 200 , ' call update_phy_ten' )
-
          CALL update_phy_ten(ph_tendf,t_tendf, ru_tendf, rv_tendf,moist_tend ,&
                            scalar_tend, mu_tendf,                           &
                            grid%rthraten,grid%rthblten,grid%rthcuten,grid%rthshten, &
@@ -637,7 +609,6 @@ ENDIF
            ENDDO
           !$OMP END PARALLEL DO
   ENDIF
-
 
 
        IF( config_flags%diff_opt .eq. 2 .and. config_flags%km_opt .eq. 2 ) THEN
@@ -751,9 +722,6 @@ ENDIF
        IF ( grid%obs_nudge_opt .EQ. 1 .AND. grid%xtime <= grid%fdda_end ) THEN
 
 
-
-
-
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij )
 
@@ -817,6 +785,4 @@ ENDIF
   END SUBROUTINE first_rk_step_part2
 
 END MODULE module_first_rk_step_part2
-
-
 

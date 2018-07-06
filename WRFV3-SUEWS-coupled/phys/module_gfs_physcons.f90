@@ -38,5 +38,3 @@ module module_gfs_physcons
   real(kind=kind_phys),parameter:: con_xpona   =-con_dldt/con_rv
   real(kind=kind_phys),parameter:: con_xponb   =-con_dldt/con_rv+con_hvap/(con_rv*con_ttp)
 end module module_gfs_physcons
-
-

@@ -2388,5 +2388,3 @@ contains
 
 end module module_bl_shinhong
 
-
-

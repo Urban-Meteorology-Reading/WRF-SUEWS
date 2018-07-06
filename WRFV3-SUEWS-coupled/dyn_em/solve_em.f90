@@ -8,14 +8,12 @@ SUBROUTINE solve_em ( grid , config_flags  &
 
 
 
-
 ,moist,moist_bxs,moist_bxe,moist_bys,moist_bye,moist_btxs,moist_btxe,moist_btys,moist_btye,dfi_moist,dfi_moist_bxs,dfi_moist_bxe, &
 dfi_moist_bys,dfi_moist_bye,dfi_moist_btxs,dfi_moist_btxe,dfi_moist_btys,dfi_moist_btye,scalar,scalar_bxs,scalar_bxe,scalar_bys, &
 scalar_bye,scalar_btxs,scalar_btxe,scalar_btys,scalar_btye,dfi_scalar,dfi_scalar_bxs,dfi_scalar_bxe,dfi_scalar_bys, &
 dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,aerod,ozmixm,aerosolc_1,aerosolc_2,fdda3d,fdda2d, &
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
-
 
 
                     )
@@ -31,7 +29,6 @@ tracer_btye &
    USE module_driver_constants
    USE module_machine
    USE module_tiles, ONLY : set_tiles
-
    USE module_utility
 
 
@@ -50,11 +47,6 @@ tracer_btye &
 
    USE module_fddaobs_driver
 
-
-
-
-
-
    USE module_first_rk_step_part1
    USE module_first_rk_step_part2
    USE module_after_all_rk_steps
@@ -69,7 +61,6 @@ tracer_btye &
    TYPE(domain) , TARGET          :: grid
 
    
-
 
 
 
@@ -134,9 +125,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
 
 
-
-
-
    
    TYPE (grid_config_rec_type) , INTENT(IN)          :: config_flags
 
@@ -166,21 +154,16 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width
    LOGICAL                         :: specified_bdy, channel_bdy
 
    REAL                            :: t_new, time_duration_of_lbcs
-   
+
    
    real ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33) :: h_tendency, &
                                                                                    z_tendency
-                                                                                   
+
    
    LOGICAL                        :: tenddec
-   
+
    
    LOGICAL                        :: diag_flag
-   
-
-
-
-
 
 
 
@@ -235,27 +218,16 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
 logical   ,DIMENSION(grid%sm31:grid%em31,grid%sm33:grid%em33)           :: cu_act_flag
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm33:grid%em33)           :: hol
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist)           :: moist_tend
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_moist)           :: moist_old
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_moist)           :: dfi_moist_tend
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_moist)           :: dfi_moist_old
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_scalar)           :: scalar_tend
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_scalar)           :: scalar_old
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_scalar)           :: dfi_scalar_tend
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_dfi_scalar)           :: dfi_scalar_old
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_chem)           :: chem_tend
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_chem)           :: chem_old
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_tracer)           :: tracer_tend
-
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_tracer)           :: tracer_old
 
 
@@ -264,9 +236,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
 
 
 
-
-
-   INTEGER :: rc 
+   INTEGER :: rc
    INTEGER :: number_of_small_timesteps, rk_step
    INTEGER :: klevel,ijm,ijp,i,j,k,size1,size2    
    INTEGER :: idum1, idum2, dynamics_option
@@ -343,9 +313,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
 
 
 
-                         
-
-
 
 
 
@@ -414,7 +381,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
                              ipsx, ipex, jpsx, jpex, kpsx, kpex,    &
                              imsy, imey, jmsy, jmey, kmsy, kmey,    &
                              ipsy, ipey, jpsy, jpey, kpsy, kpey )
- 
+
    CALL get_ijk_from_subgrid (  grid ,                   &
                              sids, side, sjds, sjde, skds, skde,    &
                              sims, sime, sjms, sjme, skms, skme,    &
@@ -456,6 +423,7 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
    curr_secs2 = real_time(tmpTimeInterval2)
 
    old_dt = grid%dt   
+   grid%dt_prev = grid%dt
 
 
 
@@ -488,7 +456,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
    IF (config_flags%polar) dclat = 90./REAL(jde-jds) 
 
 
-
    rk_order = config_flags%rk_ord
 
    IF ( grid%time_step_sound == 0 ) THEN
@@ -513,12 +480,9 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
    dts = grid%dt/float(num_sound_steps)
 
    IF (config_flags%use_adaptive_time_step) THEN
-  
+
      CALL get_wrf_debug_level( debug_level )
      IF ((config_flags%time_step < 0) .AND. (debug_level.GE.50)) THEN
-
-
-
        WRITE(wrf_err_message,*)'variable dt, max horiz cfl, max vert cfl: ',&
             grid%dt, grid%max_horiz_cfl, grid%max_vert_cfl
        CALL wrf_debug ( 0 , wrf_err_message )
@@ -580,10 +544,6 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
      
      
      IF ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) ) THEN
-
-
-
-
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -631,10 +591,10 @@ real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33
    
 
      dtm = grid%dt
-     IF ( rk_order == 1 ) THEN   
+     IF ( rk_order == 1 ) THEN
 
        write(wrf_err_message,*)' leapfrog removed, error exit for dynamics_option = ',dynamics_option
-       CALL wrf_error_fatal3("<stdin>",637,&
+       CALL wrf_error_fatal3("<stdin>",597,&
 wrf_err_message )
 
      ELSE IF ( rk_order == 2 ) THEN   
@@ -668,13 +628,13 @@ wrf_err_message )
      ELSE
 
        write(wrf_err_message,*)' unknown solver, error exit for dynamics_option = ',dynamics_option
-       CALL wrf_error_fatal3("<stdin>",671,&
+       CALL wrf_error_fatal3("<stdin>",631,&
 wrf_err_message )
 
      END IF
 
 
-     IF (config_flags%polar) THEN 
+     IF (config_flags%polar) THEN
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -732,10 +692,6 @@ wrf_err_message )
 
 
 
-
-
-
-
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij, ii, jj, kk )
 
@@ -743,7 +699,7 @@ wrf_err_message )
 
        CALL wrf_debug ( 200 , ' call rk_phys_bc_dry_1' )
 
-       CALL rk_phys_bc_dry_1( config_flags, grid%ru, grid%rv, grid%rw, grid%ww,      & 
+       CALL rk_phys_bc_dry_1( config_flags, grid%ru, grid%rv, grid%rw, grid%ww,      &
                               grid%muu, grid%muv, grid%mut, grid%php, grid%alt, grid%p,        &
                               ids, ide, jds, jde, kds, kde,      &
                               ims, ime, jms, jme, kms, kme,      &
@@ -766,7 +722,7 @@ wrf_err_message )
                               grid%j_start(ij), grid%j_end(ij),        &
                               k_start, k_end                )
 
-       IF (config_flags%polar) THEN 
+       IF (config_flags%polar) THEN
 
 
 
@@ -778,14 +734,14 @@ wrf_err_message )
                               grid%i_start(ij), grid%i_end(ij), &
                               grid%j_start(ij), grid%j_end(ij), &
                               k_start, k_end                   )
- 
+
          CALL pole_point_bc ( grid%v_2,                      &
                               ids, ide, jds, jde, kds, kde,     &
                               ims, ime, jms, jme, kms, kme,     &
                               grid%i_start(ij), grid%i_end(ij), &
                               grid%j_start(ij), grid%j_end(ij), &
                               k_start, k_end                   )
- 
+
 
 
 
@@ -845,12 +801,6 @@ wrf_err_message )
                             )
 
 
-
-
-
-
-
-
        CALL first_rk_step_part2 (    grid, config_flags         &
                              , moist , moist_tend               &
                              , chem  , chem_tend                &
@@ -890,14 +840,10 @@ wrf_err_message )
                                grid%t_2 , moist(ims,kms,jms,P_qv) ,      &
                                grid%h_diabatic ,                         &
                                grid%itimestep ,                          &
-                               rk_step ,                                 & 
+                               rk_step ,                                 &
                                ids, ide, jds, jde, kds, kde ,            &
                                ims, ime, jms, jme, kms, kme ,            &
                                ips, ipe, jps, jpe, kps, kpe              )
-
-
-
-
         its=ips ; ite = ipe
         jts=jps ; jte = jpe
         CALL set_physical_bc3d( grid%h_diabatic, 'p', config_flags,      &
@@ -972,7 +918,7 @@ wrf_err_message )
            grid%max_vert_cfl = max_vert_cfl_tmp(ij)
          ENDIF
        END DO
-     
+
        IF (grid%max_horiz_cfl .GT. grid%max_cfl_val) THEN
          grid%max_cfl_val = grid%max_horiz_cfl
        ENDIF
@@ -986,7 +932,7 @@ wrf_err_message )
      !$OMP PRIVATE ( ij )
      DO ij = 1 , grid%num_tiles
 
-       IF ( (config_flags%specified .or. config_flags%nested) .and. ( rk_step == 1 ) ) THEN 
+       IF ( (config_flags%specified .or. config_flags%nested) .and. ( rk_step == 1 ) ) THEN
 
 
 
@@ -997,7 +943,7 @@ wrf_err_message )
            ELSE
               time_duration_of_lbcs = grid%parent_time_step_ratio * grid%dt
            END IF
-           CALL theta_and_thetam_lbc_only (                                                   & 
+           CALL theta_and_thetam_lbc_only (                                                   &
                                 .TRUE.,                                                       &
                                 grid%mub,                                                     &
                                 grid%mu_bxs,grid%mu_bxe,grid%mu_bys,grid%mu_bye,              &
@@ -1064,7 +1010,7 @@ wrf_err_message )
                             grid%j_start(ij), grid%j_end(ij),                &
                             k_start, k_end                                  )
 
-       IF( config_flags%specified .or. config_flags%nested ) THEN 
+       IF( config_flags%specified .or. config_flags%nested ) THEN
          CALL spec_bdy_dry ( config_flags,                                    &
                              grid%ru_tend, grid%rv_tend, ph_tend, t_tend,               &
                              rw_tend, mu_tend,                                &
@@ -1093,8 +1039,8 @@ wrf_err_message )
 
 
          IF   ( ( config_flags%use_theta_m .EQ. 1 ) .AND. (P_Qv .GE. PARAM_FIRST_SCALAR) .AND. ( rk_step == rk_order ) ) THEN
-           CALL theta_and_thetam_lbc_only (                                                   & 
-                                .FALSE.,                                                      &           
+           CALL theta_and_thetam_lbc_only (                                                   &
+                                .FALSE.,                                                      &
                                 grid%mub,                                                     &
                                 grid%mu_bxs,grid%mu_bxe,grid%mu_bys,grid%mu_bye,              &
                                 grid%mu_btxs,grid%mu_btxe,grid%mu_btys,grid%mu_btye,          &
@@ -1125,7 +1071,7 @@ wrf_err_message )
 
 
 
-       IF( config_flags%specified .and. config_flags%perturb_bdy==1 ) THEN 
+       IF( config_flags%specified .and. config_flags%perturb_bdy==1 ) THEN
          CALL spec_bdy_dry_perturb ( config_flags,                                 &
                              grid%ru_tend, grid%rv_tend, t_tend,                   &
                              grid%mu_2, grid%mub, grid%c1h, grid%c2h,              &
@@ -1139,7 +1085,7 @@ wrf_err_message )
                              grid%i_start(ij), grid%i_end(ij),                &
                              grid%j_start(ij), grid%j_end(ij),                &
                              k_start, k_end                                  )
-     
+
        ENDIF
 
        IF( config_flags%specified .and. config_flags%perturb_bdy==2 ) THEN
@@ -1156,7 +1102,7 @@ wrf_err_message )
                              grid%i_start(ij), grid%i_end(ij),                &
                              grid%j_start(ij), grid%j_end(ij),                &
                              k_start, k_end                                  )
-  
+
        ENDIF
 
      END DO
@@ -1219,7 +1165,7 @@ wrf_err_message )
                              grid%i_start(ij), grid%i_end(ij),                        &
                              grid%j_start(ij), grid%j_end(ij),                        &
                              k_start    , k_end                                       )
- 
+
        CALL calc_p_rho( grid%al, grid%p, grid%ph_2,                 &
                         grid%alt, grid%t_2, grid%t_save, c2a, pm1,  &
                         grid%mu_2, grid%muts,                       &
@@ -1251,7 +1197,6 @@ wrf_err_message )
 
      ENDDO
      !$OMP END PARALLEL DO
-
 
 
 
@@ -1345,9 +1290,6 @@ wrf_err_message )
 
        
 
-
-
-
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
 
@@ -1384,7 +1326,7 @@ wrf_err_message )
        IF (config_flags%polar) THEN
 
          CALL pxft ( grid=grid                                              &
-               ,lineno=1330                                             &
+               ,lineno=1331                                             &
                ,flag_uv            = 1                                      &
                ,flag_rurv          = 0                                      &
                ,flag_wph           = 0                                      &
@@ -1447,7 +1389,6 @@ wrf_err_message )
        !$OMP END PARALLEL DO
 
 
-
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -1484,7 +1425,7 @@ wrf_err_message )
        IF ( (config_flags%polar) ) THEN
 
          CALL pxft ( grid=grid                                               &
-                ,lineno=1442                                             &
+                ,lineno=1443                                             &
                 ,flag_uv            = 0                                      &
                 ,flag_rurv          = 0                                      &
                 ,flag_wph           = 0                                      &
@@ -1509,7 +1450,7 @@ wrf_err_message )
                 ,ipsx=ipsx,ipex=ipex,jpsx=jmsx,jpex=jpex,kpsx=kpsx,kpex=kpex )
 
          grid%muts = grid%mut + grid%mu_2  
- 
+
        END IF
 
 
@@ -1594,7 +1535,7 @@ wrf_err_message )
        IF ( (config_flags%polar) .AND. (config_flags%non_hydrostatic) ) THEN
 
          CALL pxft ( grid=grid                                               &
-                ,lineno=1552                                             &
+                ,lineno=1553                                             &
                 ,flag_uv            = 0                                      &
                 ,flag_rurv          = 0                                      &
                 ,flag_wph           = 1                                      &
@@ -1706,7 +1647,6 @@ wrf_err_message )
 
 
 
-
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -1787,7 +1727,7 @@ wrf_err_message )
        CALL small_step_finish( grid%u_2, grid%u_1, grid%v_2, grid%v_1, grid%w_2, grid%w_1,     &
                                grid%t_2, grid%t_1, grid%ph_2, grid%ph_1, grid%ww, ww1,    &
                                grid%mu_2, grid%mu_1,                       &
-                               grid%mut, grid%muts, grid%muu, grid%muus, grid%muv, grid%muvs,  & 
+                               grid%mut, grid%muts, grid%muu, grid%muus, grid%muv, grid%muvs,  &
                                grid%c1h, grid%c2h, grid%c1f, grid%c2f, &
                                grid%c3h, grid%c4h, grid%c3f, grid%c4f, &
                                grid%u_save, grid%v_save, w_save,           &
@@ -1842,7 +1782,7 @@ wrf_err_message )
                                  ips, ipe, jps, jpe,                &
                                  grid%i_start(ij), grid%i_end(ij),  &
                                  grid%j_start(ij), grid%j_end(ij) )
- 
+
        END IF
 
 
@@ -1857,7 +1797,7 @@ wrf_err_message )
      IF (config_flags%polar) THEN
 
        CALL pxft ( grid=grid                                                   &
-                  ,lineno=1835                                             &
+                  ,lineno=1836                                             &
                   ,flag_uv            = 1                                      &
                   ,flag_rurv          = 1                                      &
                   ,flag_wph           = 1                                      &
@@ -1920,10 +1860,6 @@ wrf_err_message )
 
 
 
-
-
-
-
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -1968,10 +1904,6 @@ wrf_err_message )
          ENDDO
        ENDDO
        !$OMP END PARALLEL DO
-
-
-
-
 
 
 
@@ -2023,10 +1955,6 @@ wrf_err_message )
 
 
 
-
-
-
-
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij )
          DO ij = 1 , grid%num_tiles
@@ -2039,7 +1967,7 @@ wrf_err_message )
                                         grid%i_start(ij), grid%i_end(ij),                &
                                         grid%j_start(ij), grid%j_end(ij),                &
                                         k_start    , k_end                              )
-             END DO 
+             END DO
            ENDIF
          END DO
          !$OMP END PARALLEL DO
@@ -2074,10 +2002,6 @@ wrf_err_message )
 
 
 
-
-
-
-
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij )
          DO ij = 1 , grid%num_tiles
@@ -2090,7 +2014,7 @@ wrf_err_message )
                                         grid%i_start(ij), grid%i_end(ij),                &
                                         grid%j_start(ij), grid%j_end(ij),                &
                                         k_start    , k_end                              )
-             END DO 
+             END DO
            ENDIF
          END DO
          !$OMP END PARALLEL DO
@@ -2120,10 +2044,6 @@ wrf_err_message )
                                      k_start    , k_end                       )
          ENDDO
          !$OMP END PARALLEL DO
-
-
-
-
 
 
 
@@ -2160,7 +2080,6 @@ wrf_err_message )
 
 
 
-
        moist_scalar_advance: IF (num_3d_m >= PARAM_FIRST_SCALAR )  THEN
 
          moist_variable_loop: DO im = PARAM_FIRST_SCALAR, num_3d_m
@@ -2178,7 +2097,7 @@ wrf_err_message )
                tenddec = .false.
 
 
-               CALL rk_scalar_tend (  im, im, config_flags, tenddec,         & 
+               CALL rk_scalar_tend (  im, im, config_flags, tenddec,         &
                            rk_step, dt_rk,                                   &
                            grid%ru_m, grid%rv_m, grid%ww_m,                  &
                            grid%muts, grid%mub, grid%mu_1,                   &
@@ -2187,10 +2106,10 @@ wrf_err_message )
                            moist_old(ims,kms,jms,im),                        &
                            moist(ims,kms,jms,im),                            &
                            moist_tend(ims,kms,jms,im),                       &
-                           advect_tend,h_tendency,z_tendency,grid%rqvften,   & 
+                           advect_tend,h_tendency,z_tendency,grid%rqvften,   &
                            grid%qv_base, .true., grid%fnm, grid%fnp,         &
                            grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv,&
-                           grid%msfvy, grid%msftx,grid%msfty,                & 
+                           grid%msfvy, grid%msftx,grid%msfty,                &
                            grid%rdx, grid%rdy, grid%rdn, grid%rdnw, grid%khdif, &
                            grid%kvdif, grid%xkhh,                            &
                            grid%diff_6th_opt, grid%diff_6th_factor,          &
@@ -2203,7 +2122,7 @@ wrf_err_message )
 
                IF( rk_step == 1 .AND. config_flags%use_q_diabatic == 1 )THEN
                IF( im.eq.p_qv .or. im.eq.p_qc )THEN
-                   CALL q_diabatic_add  ( im, im,            & 
+                   CALL q_diabatic_add  ( im, im,            &
                            dt_rk, grid%mut,                  &
                            grid%c1h, grid%c2h,               &
                            grid%qv_diabatic,                 &
@@ -2220,10 +2139,10 @@ wrf_err_message )
 
 
 
-               IF( ( config_flags%specified .or. config_flags%nested ) .and. rk_step == 1 ) THEN 
+               IF( ( config_flags%specified .or. config_flags%nested ) .and. rk_step == 1 ) THEN
                  IF ( im .EQ. P_QV .OR. config_flags%nested .OR. &
                     ( config_flags%specified .AND. config_flags%have_bcs_moist ) ) THEN
-                   CALL relax_bdy_scalar ( moist_tend(ims,kms,jms,im),            & 
+                   CALL relax_bdy_scalar ( moist_tend(ims,kms,jms,im),            &
                                      moist(ims,kms,jms,im),  grid%mut,         &
                                      grid%c1h, grid%c2h,                       &
                                      moist_bxs(jms,kms,1,im),moist_bxe(jms,kms,1,im), &
@@ -2273,12 +2192,12 @@ wrf_err_message )
                                scalar_2=moist(ims,kms,jms,im),                         &
                                sc_tend=moist_tend(ims,kms,jms,im),                     &
                                advect_tend=advect_tend,                                &
-                               h_tendency=h_tendency, z_tendency=z_tendency,           & 
+                               h_tendency=h_tendency, z_tendency=z_tendency,           &
                                msftx=grid%msftx,msfty=grid%msfty,                      &
                                c1=grid%c1h, c2=grid%c2h,                               &
                                mu_old=grid%mu_1, mu_new=grid%mu_2, mu_base=grid%mub,   &
                                rk_step=rk_step, dt=dt_rk, spec_zone=grid%spec_zone,    &
-                               config_flags=config_flags, tenddec=tenddec,             & 
+                               config_flags=config_flags, tenddec=tenddec,             &
                                ids=ids, ide=ide, jds=jds, jde=jde, kds=kds, kde=kde,   &
                                ims=ims, ime=ime, jms=jms, jme=jme, kms=kms, kme=kme,   &
                                its=grid%i_start(ij), ite=grid%i_end(ij),               &
@@ -2286,7 +2205,7 @@ wrf_err_message )
                                kts=k_start    , kte=k_end                              )
                IF( rk_step == rk_order .AND. config_flags%use_q_diabatic == 1 )THEN
                IF( im.eq.p_qv .or. im.eq.p_qc )THEN
-                   CALL q_diabatic_subtr( im, im,            & 
+                   CALL q_diabatic_subtr( im, im,            &
                            dt_rk,                            &
                            grid%qv_diabatic,                 &
                            grid%qc_diabatic,                 &
@@ -2327,14 +2246,13 @@ wrf_err_message )
 
 
        TKE_advance: IF (config_flags%km_opt .eq. 2) then
-
          !$OMP PARALLEL DO   &
          !$OMP PRIVATE ( ij, tenddec )
          tke_tile_loop_1: DO ij = 1 , grid%num_tiles
 
            CALL wrf_debug ( 200 , ' call rk_scalar_tend for tke' )
            tenddec = .false.
-           CALL rk_scalar_tend ( 1, 1, config_flags, tenddec,                      & 
+           CALL rk_scalar_tend ( 1, 1, config_flags, tenddec,                      &
                             rk_step, dt_rk,                                        &
                             grid%ru_m, grid%rv_m, grid%ww_m,                       &
                             grid%muts, grid%mub, grid%mu_1,                        &
@@ -2343,7 +2261,7 @@ wrf_err_message )
                             grid%tke_1,                                            &
                             grid%tke_2,                                            &
                             tke_tend(ims,kms,jms),                                 &
-                            advect_tend,h_tendency,z_tendency,grid%rqvften,        & 
+                            advect_tend,h_tendency,z_tendency,grid%rqvften,        &
                             grid%qv_base, .false., grid%fnm, grid%fnp,             &
                             grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv,     &
                             grid%msfvy, grid%msftx,grid%msfty,                     &
@@ -2371,12 +2289,12 @@ wrf_err_message )
                                   scalar_2=grid%tke_2,                                    &
                                   sc_tend=tke_tend(ims,kms,jms),                          &
                                   advect_tend=advect_tend,                                &
-                                  h_tendency=h_tendency, z_tendency=z_tendency,           & 
+                                  h_tendency=h_tendency, z_tendency=z_tendency,           &
                                   msftx=grid%msftx,msfty=grid%msfty,                      &
                                   c1=grid%c1h, c2=grid%c2h,                               &
                                   mu_old=grid%mu_1, mu_new=grid%mu_2, mu_base=grid%mub,   &
                                   rk_step=rk_step, dt=dt_rk, spec_zone=grid%spec_zone,    &
-                                  config_flags=config_flags, tenddec=tenddec,             & 
+                                  config_flags=config_flags, tenddec=tenddec,             &
                                   ids=ids, ide=ide, jds=jds, jde=jde, kds=kds, kde=kde,   &
                                   ims=ims, ime=ime, jms=jms, jme=jme, kms=kms, kme=kme,   &
                                   its=grid%i_start(ij), ite=grid%i_end(ij),               &
@@ -2411,7 +2329,6 @@ wrf_err_message )
 
 
 
-
        tracer_advance: IF (num_tracer >= PARAM_FIRST_SCALAR)  THEN
 
          tracer_variable_loop: DO ic = PARAM_FIRST_SCALAR, num_tracer
@@ -2422,7 +2339,7 @@ wrf_err_message )
 
              CALL wrf_debug ( 15 , ' call rk_scalar_tend in tracer_tile_loop_1' )
              tenddec = .false.
-             CALL rk_scalar_tend ( ic, ic, config_flags, tenddec,                & 
+             CALL rk_scalar_tend ( ic, ic, config_flags, tenddec,                &
                               rk_step, dt_rk,                                    &
                               grid%ru_m, grid%rv_m, grid%ww_m,                   &
                               grid%muts, grid%mub, grid%mu_1,                    &
@@ -2431,7 +2348,7 @@ wrf_err_message )
                               tracer_old(ims,kms,jms,ic),                        &
                               tracer(ims,kms,jms,ic),                            &
                               tracer_tend(ims,kms,jms,ic),                       &
-                              advect_tend,h_tendency,z_tendency,grid%rqvften,    & 
+                              advect_tend,h_tendency,z_tendency,grid%rqvften,    &
                               grid%qv_base, .false., grid%fnm, grid%fnp,         &
                               grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv, &
                               grid%msfvy, grid%msftx,grid%msfty,                 &
@@ -2500,12 +2417,12 @@ wrf_err_message )
 
 
                                   advect_tend=advect_tend,                                &
-                                  h_tendency=h_tendency, z_tendency=z_tendency,           & 
+                                  h_tendency=h_tendency, z_tendency=z_tendency,           &
                                   msftx=grid%msftx,msfty=grid%msfty,                      &
                                   c1=grid%c1h, c2=grid%c2h,                               &
                                   mu_old=grid%mu_1, mu_new=grid%mu_2, mu_base=grid%mub,   &
                                   rk_step=rk_step, dt=dt_rk, spec_zone=grid%spec_zone,    &
-                                  config_flags=config_flags, tenddec=tenddec,             & 
+                                  config_flags=config_flags, tenddec=tenddec,             &
                                   ids=ids, ide=ide, jds=jds, jde=jde, kds=kds, kde=kde,   &
                                   ims=ims, ime=ime, jms=jms, jme=jme, kms=kms, kme=kme,   &
                                   its=grid%i_start(ij), ite=grid%i_end(ij),               &
@@ -2513,7 +2430,6 @@ wrf_err_message )
                                   kts=k_start    , kte=k_end                              )
 
            IF( config_flags%specified  ) THEN
-
              CALL flow_dep_bdy  ( tracer(ims,kms,jms,ic),     &
                                   grid%ru_m, grid%rv_m, config_flags,   &
                                   grid%spec_zone,                  &
@@ -2523,7 +2439,6 @@ wrf_err_message )
                                   grid%i_start(ij), grid%i_end(ij),  &
                                   grid%j_start(ij), grid%j_end(ij),  &
                                   k_start, k_end                    )
-
            ENDIF
          ENDDO tracer_tile_loop_2
          !$OMP END PARALLEL DO
@@ -2542,7 +2457,7 @@ wrf_err_message )
 
            CALL wrf_debug ( 200 , ' call rk_scalar_tend' )
            tenddec = .false.
-           CALL rk_scalar_tend ( is, is, config_flags, tenddec,                   & 
+           CALL rk_scalar_tend ( is, is, config_flags, tenddec,                   &
                                  rk_step, dt_rk,                                  &
                                  grid%ru_m, grid%rv_m, grid%ww_m,                 &
                                  grid%muts, grid%mub, grid%mu_1,                  &
@@ -2551,7 +2466,7 @@ wrf_err_message )
                                  scalar_old(ims,kms,jms,is),                      &
                                  scalar(ims,kms,jms,is),                          &
                                  scalar_tend(ims,kms,jms,is),                     &
-                                 advect_tend,h_tendency,z_tendency,grid%rqvften,  & 
+                                 advect_tend,h_tendency,z_tendency,grid%rqvften,  &
                                  grid%qv_base, .false., grid%fnm, grid%fnp,       &
                                  grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv, &
                                  grid%msfvy, grid%msftx,grid%msfty,               &
@@ -2620,12 +2535,12 @@ wrf_err_message )
 
 
                                   advect_tend=advect_tend,                                &
-                                  h_tendency=h_tendency, z_tendency=z_tendency,           & 
+                                  h_tendency=h_tendency, z_tendency=z_tendency,           &
                                   msftx=grid%msftx,msfty=grid%msfty,                      &
                                   c1=grid%c1h, c2=grid%c2h,                               &
                                   mu_old=grid%mu_1, mu_new=grid%mu_2, mu_base=grid%mub,   &
                                   rk_step=rk_step, dt=dt_rk, spec_zone=grid%spec_zone,    &
-                                  config_flags=config_flags, tenddec=tenddec,             & 
+                                  config_flags=config_flags, tenddec=tenddec,             &
                                   ids=ids, ide=ide, jds=jds, jde=jde, kds=kds, kde=kde,   &
                                   ims=ims, ime=ime, jms=jms, jme=jme, kms=kms, kme=kme,   &
                                   its=grid%i_start(ij), ite=grid%i_end(ij),               &
@@ -2703,10 +2618,6 @@ wrf_err_message )
                                ids, ide, jds, jde, kds, kde ,            &
                                ims, ime, jms, jme, kms, kme ,            &
                                ips, ipe, jps, jpe, kps, kpe              )
-
-
-
-
         its=ips ; ite = ipe
         jts=jps ; jte = jpe
         CALL set_physical_bc3d( grid%t_1, 'p', config_flags,      &
@@ -2761,7 +2672,7 @@ wrf_err_message )
 
 
 
-       IF (config_flags%polar) THEN 
+       IF (config_flags%polar) THEN
          IF ( num_3d_m >= PARAM_FIRST_SCALAR ) THEN
            CALL wrf_debug ( 200 , ' call filter moist ' )
            DO im = PARAM_FIRST_SCALAR, num_3d_m
@@ -2774,7 +2685,7 @@ wrf_err_message )
                     ,ips=ips,ipe=ipe,jps=jps,jpe=jpe,kps=kps,kpe=kpe          )
              END IF
              CALL pxft ( grid=grid                                               &
-                    ,lineno=3009                                             &
+                    ,lineno=3010                                             &
                     ,flag_uv            = 0                                      &
                     ,flag_rurv          = 0                                      &
                     ,flag_wph           = 0                                      &
@@ -2807,7 +2718,7 @@ wrf_err_message )
              END IF
            END DO
          END IF
-   
+
          IF ( num_3d_c >= PARAM_FIRST_SCALAR ) THEN
            CALL wrf_debug ( 200 , ' call filter chem ' )
            DO im = PARAM_FIRST_SCALAR, num_3d_c
@@ -2820,7 +2731,7 @@ wrf_err_message )
                     ,ips=ips,ipe=ipe,jps=jps,jpe=jpe,kps=kps,kpe=kpe           )
              END IF
              CALL pxft ( grid=grid                                               &
-                    ,lineno=3055                                             &
+                    ,lineno=3056                                             &
                     ,flag_uv            = 0                                      &
                     ,flag_rurv          = 0                                      &
                     ,flag_wph           = 0                                      &
@@ -2865,7 +2776,7 @@ wrf_err_message )
                     ,ips=ips,ipe=ipe,jps=jps,jpe=jpe,kps=kps,kpe=kpe           )
              END IF
              CALL pxft ( grid=grid                                               &
-                    ,lineno=3100                                             &
+                    ,lineno=3101                                             &
                     ,flag_uv            = 0                                      &
                     ,flag_rurv          = 0                                      &
                     ,flag_wph           = 0                                      &
@@ -2898,7 +2809,7 @@ wrf_err_message )
              END IF
            END DO
          END IF
-   
+
          IF ( num_3d_s >= PARAM_FIRST_SCALAR ) THEN
            CALL wrf_debug ( 200 , ' call filter scalar ' )
            DO im = PARAM_FIRST_SCALAR, num_3d_s
@@ -2911,7 +2822,7 @@ wrf_err_message )
                   ,ips=ips,ipe=ipe,jps=jps,jpe=jpe,kps=kps,kpe=kpe          )
              END IF
              CALL pxft ( grid=grid                                             &
-                  ,lineno=3146                                             &
+                  ,lineno=3147                                             &
                   ,flag_uv            = 0                                      &
                   ,flag_rurv          = 0                                      &
                   ,flag_wph           = 0                                      &
@@ -2992,7 +2903,6 @@ wrf_err_message )
 
 
 
-
        !$OMP PARALLEL DO   &
        !$OMP PRIVATE ( ij )
        tile_bc_loop_1: DO ij = 1 , grid%num_tiles
@@ -3025,7 +2935,7 @@ wrf_err_message )
          IF (num_3d_m >= PARAM_FIRST_SCALAR) THEN
 
            moisture_loop_bdy_1 : DO im = PARAM_FIRST_SCALAR , num_3d_m
-  
+
              CALL set_physical_bc3d( moist(ims,kms,jms,im), 'p', config_flags,   &
                                      ids, ide, jds, jde, kds, kde,             &
                                      ims, ime, jms, jme, kms, kme,             &
@@ -3102,7 +3012,6 @@ wrf_err_message )
 
 
 
-
      ENDIF rk_step_1_check
 
 
@@ -3116,7 +3025,6 @@ wrf_err_message )
 
 
    IF      ( config_flags%traj_opt .EQ. UM_TRAJECTORY ) THEN
-
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij )
        DO ij = 1 , grid%num_tiles
@@ -3158,7 +3066,7 @@ wrf_err_message )
       IF (CurrTime .lt. temp_time + dtInterval) THEN
          WRITE ( message , FMT = '("solve_em: initializing avgflx at time ",A," on domain ",I3)' ) &
               & TRIM(message2), grid%id
-         CALL wrf_message(trim(message)) 
+         CALL wrf_message(trim(message))
          grid%avgflx_count = 0
 
    !$OMP PARALLEL DO   &
@@ -3194,7 +3102,7 @@ wrf_err_message )
               &   grid%avgflx_cfu1,grid%avgflx_cfd1,grid%avgflx_dfu1, &
               &   grid%avgflx_efu1,grid%avgflx_dfd1,grid%avgflx_efd1 )
          CALL wrf_debug(200,'In solve_em, after upd_avgflx call')
-         
+
       ENDDO
       grid%avgflx_count = grid%avgflx_count + 1
    ENDIF
@@ -3331,9 +3239,6 @@ wrf_err_message )
 
 
 
-
-
-
      CALL microphysics_driver(                                            &
       &         DT=dtm             ,DX=grid%dx              ,DY=grid%dy   &
       &        ,DZ8W=dz8w          ,F_ICE_PHY=grid%f_ice_phy              &
@@ -3349,7 +3254,6 @@ wrf_err_message )
       &        ,T8W=t8w                                                   &
       &        ,CLDFRA=grid%cldfra, EXCH_H=grid%exch_h &
       &        ,NSOURCE=grid%qndropsource                                 &
-
       &        ,XLAND=grid%xland,SNOWH=grid%SNOW                           &  
       &        ,SPECIFIED=specified_bdy, CHANNEL_SWITCH=channel_bdy       &
       &        ,F_RAIN_PHY=grid%f_rain_phy                                &
@@ -3405,11 +3309,6 @@ wrf_err_message )
       &        , QIP_CURR=moist(ims,kms,jms,P_QIP), F_QIP=F_QIP               &
       &        , QID_CURR=moist(ims,kms,jms,P_QID), F_QID=F_QID               &
       &        , QNDROP_CURR=scalar(ims,kms,jms,P_QNDROP), F_QNDROP=F_QNDROP &
-
-
-
-
-
       &        , QT_CURR=scalar(ims,kms,jms,P_QT), F_QT=F_QT              &
       &        , QNN_CURR=scalar(ims,kms,jms,P_QNN), F_QNN=F_QNN          &
       &        , QNI_CURR=scalar(ims,kms,jms,P_QNI), F_QNI=F_QNI          &
@@ -3474,7 +3373,6 @@ wrf_err_message )
       &        ,ccn_conc=grid%ccn_conc                                   & 
 
                                                                           )
-
 
 
 
@@ -3561,9 +3459,6 @@ wrf_err_message )
                                       moist(ims,kms,jms,P_QV),grid%qv_diabatic, &
                                       moist(ims,kms,jms,P_QC),grid%qc_diabatic, &
                                       config_flags,                            &
-
-
-
                                       ids, ide, jds, jde, kds, kde,     &
                                       ims, ime, jms, jme, kms, kme,     &
                                       its, ite, jts, jte,               &
@@ -3590,9 +3485,9 @@ wrf_err_message )
                     ,ims=ims,ime=ime,jms=jms,jme=jme,kms=kms,kme=kme             &
                     ,ips=ips,ipe=ipe,jps=jps,jpe=jpe,kps=kps,kpe=kpe          )
          END IF
- 
+
          CALL pxft ( grid=grid                                                 &
-                  ,lineno=3973                                             &
+                  ,lineno=3974                                             &
                   ,flag_uv            = 0                                      &
                   ,flag_rurv          = 0                                      &
                   ,flag_wph           = 0                                      &
@@ -3615,7 +3510,7 @@ wrf_err_message )
                   ,ips=ips,ipe=ipe,jps=jps,jpe=jpe,kps=kps,kpe=kpe             &
                   ,imsx=imsx,imex=imex,jmsx=jmsx,jmex=jmex,kmsx=kmsx,kmex=kmex &
                   ,ipsx=ipsx,ipex=ipex,jpsx=jmsx,jpex=jpex,kpsx=kpsx,kpex=kpex )
- 
+
          IF ( config_flags%coupled_filtering ) THEN
            CALL uncouple_scalars_for_filter ( FIELD=moist(ims,kms,jms,im)      &
                     ,MU=grid%mu_2 , MUB=grid%mub                                 &
@@ -3663,10 +3558,6 @@ wrf_err_message )
 
 
    IF (.not. config_flags%non_hydrostatic) THEN
-
-
-
-
      !$OMP PARALLEL DO   &
      !$OMP PRIVATE ( ij )
      DO ij = 1 , grid%num_tiles
@@ -3705,7 +3596,7 @@ wrf_err_message )
          END IF
 
          CALL pxft ( grid=grid                                                 &
-                  ,lineno=4086                                             &
+                  ,lineno=4087                                             &
                   ,flag_uv            = 0                                      &
                   ,flag_rurv          = 0                                      &
                   ,flag_wph           = 0                                      &
@@ -3751,7 +3642,7 @@ wrf_err_message )
          END IF
 
          CALL pxft ( grid=grid                                                 &
-                  ,lineno=4132                                             &
+                  ,lineno=4133                                             &
                   ,flag_uv            = 0                                      &
                   ,flag_rurv          = 0                                      &
                   ,flag_wph           = 0                                      &
@@ -3798,7 +3689,7 @@ wrf_err_message )
          END IF
 
          CALL pxft ( grid=grid                                                 &
-                  ,lineno=4179                                             &
+                  ,lineno=4180                                             &
                   ,flag_uv            = 0                                      &
                   ,flag_rurv          = 0                                      &
                   ,flag_wph           = 0                                      &
@@ -3849,7 +3740,6 @@ wrf_err_message )
    
 
    
-
 
 
 
@@ -3979,7 +3869,7 @@ wrf_err_message )
 
 
 
-   IF( config_flags%specified .or. config_flags%nested ) THEN 
+   IF( config_flags%specified .or. config_flags%nested ) THEN
    !$OMP PARALLEL DO   &
    !$OMP PRIVATE ( ij )
    tile_bc_loop_3: DO ij = 1 , grid%num_tiles
@@ -4092,7 +3982,6 @@ wrf_err_message )
      END DO moisture_loop_bdy_3
 
 
-
      tracer_species_bdy_loop_3 : DO im = PARAM_FIRST_SCALAR , num_tracer
 
      IF( ( config_flags%nested ) ) THEN
@@ -4145,10 +4034,6 @@ wrf_err_message )
 
 
 
-
-
-
-
    CALL wrf_debug ( 10 , ' call set_w_surface' )
    fill_w_flag = .false.
 
@@ -4176,7 +4061,7 @@ wrf_err_message )
 
   CALL after_all_rk_steps ( grid, config_flags,                  &
                             moist, chem, tracer, scalar,         &
-                            th_phy, pi_phy, p_phy, rho_phy,      &   
+                            th_phy, pi_phy, p_phy, rho_phy,      &
                             p8w, t8w, dz8w,                      &
                             curr_secs2,                          &
                             diag_flag,                           &
@@ -4187,8 +4072,6 @@ wrf_err_message )
                             ipsx, ipex, jpsx, jpex, kpsx, kpex,  &
                             imsy, imey, jmsy, jmey, kmsy, kmey,  &
                             ipsy, ipey, jpsy, jpey, kpsy, kpey   )
-
-
 
 
 
@@ -4209,8 +4092,6 @@ wrf_err_message )
    IF ( grid%id .EQ. 1 ) grid%just_read_boundary = Is_alarm_tstep(grid%domain_clock, grid%alarms(BOUNDARY_ALARM))
 
 
-
-         
 
 
 
@@ -4271,5 +4152,3 @@ wrf_err_message )
    RETURN
 
 END SUBROUTINE solve_em
-
-

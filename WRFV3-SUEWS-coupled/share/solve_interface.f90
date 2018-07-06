@@ -8,18 +8,13 @@ SUBROUTINE solve_interface ( grid )
    USE module_driver_constants
    USE module_configure
    USE module_wrf_error
-
    USE module_trajectory, only : trajectory_driver
-
 
    IMPLICIT NONE
 
    INTERFACE
-
-
 SUBROUTINE solve_em      ( grid , config_flags     &
 !
-
 !STARTOFREGISTRYGENERATEDINCLUDE 'inc/dummy_new_args.inc'
 !
 ! WARNING This file is generated automatically by use_registry
@@ -33,7 +28,6 @@ dfi_scalar_bye,dfi_scalar_btxs,dfi_scalar_btxe,dfi_scalar_btys,dfi_scalar_btye,a
 advh_t,advz_t,nba_mij,nba_rij,chem,tracer,tracer_bxs,tracer_bxe,tracer_bys,tracer_bye,tracer_btxs,tracer_btxe,tracer_btys, &
 tracer_btye &
 !ENDOFREGISTRYGENERATEDINCLUDE
-
 !
                  )
 
@@ -44,7 +38,6 @@ tracer_btye &
    !  Input data.
    TYPE(domain) , INTENT(INOUT)                  :: grid
    TYPE (grid_config_rec_type) , INTENT(IN)      :: config_flags
-
 
 !STARTOFREGISTRYGENERATEDINCLUDE 'inc/dummy_new_decl.inc'
 !
@@ -108,13 +101,9 @@ real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width
 real      ,DIMENSION(grid%sm33:grid%em33,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btxe
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btys
 real      ,DIMENSION(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%spec_bdy_width,num_tracer)           :: tracer_btye
-
-
 !ENDOFREGISTRYGENERATEDINCLUDE
 
-
 END SUBROUTINE solve_em
-
 
    END INTERFACE
 
@@ -127,9 +116,7 @@ END SUBROUTINE solve_em
    CALL model_to_grid_config_rec ( grid%id , model_config_rec , config_flags )
    CALL set_scalar_indices_from_config ( grid%id , idum1 , idum2 )
 
-
    CALL solve_em  ( grid , config_flags  &
-
 
 !STARTOFREGISTRYGENERATEDINCLUDE 'inc/actual_new_args.inc'
 !
@@ -147,10 +134,7 @@ grid%nba_mij,grid%nba_rij,grid%chem,grid%tracer,grid%tracer_bxs,grid%tracer_bxe,
 grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 !ENDOFREGISTRYGENERATEDINCLUDE
 
-
                )
-
-
 
 
    if( grid%traj_opt /= no_trajectory ) then
@@ -165,15 +149,5 @@ grid%tracer_btxs,grid%tracer_btxe,grid%tracer_btys,grid%tracer_btye &
 
 
 
-
-
-
-
-
-
-
-
-
 END SUBROUTINE solve_interface
-
 

@@ -277,19 +277,8 @@ CONTAINS
 
 
 
-
      call init_random_seed()
      call random_number(XKT2)
-
-
-
-
-
-
-
-
-
-
 
 
       DO i=its,ite
@@ -338,9 +327,7 @@ CONTAINS
 
 
 
-
       CALL SHALCV(IM,IM,KX,DELT,DEL,PRSI,PRSL,PRSLK,KUO,Q1,T1,DPSHC)
-
 
       DO I=ITS,ITE
         RAINCV(I,J)=RN(I)*1000./STEPCU
@@ -355,14 +342,6 @@ CONTAINS
           RQVCUTEN(I,K,J)=(Q1(I,K)/(1.-q1(i,k))-QV3D(I,K,J))*RDELT
         ENDDO
       ENDDO
-
-
-
-
-
-
-
-
 
 
 
@@ -425,13 +404,7 @@ CONTAINS
    ktf=min0(kte,kde-1)
    itf=min0(ite,ide-1)
 
-
-
-
-
-
    IF(.not.restart)THEN
-
      DO j=jts,jtf
      DO k=kts,ktf
      DO i=its,itf
@@ -634,14 +607,12 @@ CONTAINS
          evfact = 0.6
          evfactl = .6
 
-
       ALPHAl  = .5
       ALPHAs  = .75
       BETAl   = .05
       betas   = .05
       evfact  = 0.5
       evfactl = 0.5
-
       PDPDWN  = 0.
       PDETRN  = 200.
       xlambu  = 1.e-4
@@ -2489,7 +2460,6 @@ CONTAINS
       END SUBROUTINE MSTADBT3
 
 
-
       SUBROUTINE init_random_seed()
             INTEGER :: i, n, clock
             INTEGER, DIMENSION(:), ALLOCATABLE :: seed
@@ -2504,7 +2474,4 @@ CONTAINS
 
             DEALLOCATE(seed)
       END SUBROUTINE 
-
       END MODULE module_cu_osas
-
-

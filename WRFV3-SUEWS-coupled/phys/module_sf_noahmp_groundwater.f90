@@ -612,5 +612,3 @@ END  SUBROUTINE UPDATEWTD
 
 
 END MODULE module_sf_noahmp_groundwater
-
-

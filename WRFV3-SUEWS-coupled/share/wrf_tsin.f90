@@ -5,18 +5,13 @@ SUBROUTINE wrf_tsin ( grid , ierr )
 
     IMPLICIT NONE
 
-
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
-
-
-
       integer, parameter  :: WRF_FLOAT=WRF_REAL
-
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
@@ -25,7 +20,6 @@ SUBROUTINE wrf_tsin ( grid , ierr )
 ! This bit is for backwards compatibility with old variants of these flags 
 ! that are still being used in io_grib1 and io_phdf5.  It should be removed!  
       integer, parameter  :: WRF_FILE_OPENED_AND_COMMITTED        = 102
-
   
 !WRF Error and Warning messages (1-999)
 !All i/o package-specific status codes you may want to add must be handled by your package (see below)
@@ -88,7 +82,7 @@ SUBROUTINE wrf_tsin ( grid , ierr )
   integer, parameter  :: WRF_WARN_MORE_DATA_IN_FILE  = -1023    
   integer, parameter  :: WRF_WARN_DATE_LT_LAST_DATE  = -1024
 
-! For 1 only
+! For HDF5 only
   integer, parameter  :: WRF_HDF5_ERR_FILE                 = -200
   integer, parameter  :: WRF_HDF5_ERR_MD                   = -201
   integer, parameter  :: WRF_HDF5_ERR_TIME                 = -202
@@ -160,7 +154,6 @@ SUBROUTINE wrf_tsin ( grid , ierr )
   integer, parameter :: WRF_HDF5_ERR_ATTRIBUTE_OTHERS   = -321
 
 
-
     TYPE(domain), INTENT(INOUT) :: grid
     INTEGER, INTENT(INOUT) :: ierr
 
@@ -174,9 +167,7 @@ SUBROUTINE wrf_tsin ( grid , ierr )
 
     ierr = 0
 
-
     IF ( grid%dfi_opt == DFI_NODFI .OR. (grid%dfi_opt /= DFI_NODFI .AND. grid%dfi_stage == DFI_SETUP) ) THEN
-
 
        grid%ntsloc = 0
        grid%have_calculated_tslocs = .FALSE.
@@ -235,14 +226,7 @@ SUBROUTINE wrf_tsin ( grid , ierr )
    
        END IF
 
-
-
-
-
-
-
     END IF
-
 
 END SUBROUTINE wrf_tsin
 
@@ -272,4 +256,3 @@ INTEGER FUNCTION get_unused_unit()
     RETURN
     
 END FUNCTION get_unused_unit
-

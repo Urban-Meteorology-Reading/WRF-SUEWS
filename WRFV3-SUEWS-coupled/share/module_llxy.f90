@@ -2239,5 +2239,3 @@ MODULE module_llxy
    END SUBROUTINE llij_gauss 
   
 END MODULE module_llxy
-
-

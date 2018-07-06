@@ -555,5 +555,3 @@ message )
    END SUBROUTINE force_scm
 
 END MODULE module_force_scm
-
-

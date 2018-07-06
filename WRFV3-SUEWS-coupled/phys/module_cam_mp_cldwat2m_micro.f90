@@ -1,6 +1,4 @@
 
-
-
 module cldwat2m_micro
 
 
@@ -20,34 +18,19 @@ module cldwat2m_micro
 
 
   use shr_kind_mod,  only: r8=>shr_kind_r8
-
-
-
-
   use module_cam_support, only: masterproc, pcols, pver, pverp
-
   use physconst,     only: gravit, rair, tmelt, cpair, rh2o, rhoh2o
   use physconst,     only: latvap, latice
   use wv_saturation,  only: polysvp, epsqs 
-
-
-
-
-
-
-
   use module_cam_support, only: addfld, add_default, phys_decomp, outfld, &
        fillvalue, iulog
-
 
   implicit none
   private
   save
 
 
-
   real(r8), public,  parameter :: rhmini       = 0.80_r8       
-
   logical, public :: liu_in = .true.   
                                        
 
@@ -154,13 +137,7 @@ subroutine ini_micro
 
    character(len=16) :: eddy_scheme = ' '
    logical           :: history_microphysics     
-
-
-
-
-
    history_microphysics = .FALSE.
-
    
    call addfld ('QRAIN   ','kg/kg   ',pver, 'A','Diagnostic grid-mean rain mixing ratio'         ,phys_decomp)	
    call addfld ('QSNOW   ','kg/kg   ',pver, 'A','Diagnostic grid-mean snow mixing ratio'         ,phys_decomp)	
@@ -400,9 +377,7 @@ subroutine mmicro_pcond ( sub_column,       &
    prao,prco,mnuccco,mnuccto,msacwio,psacwso,&
    bergso,bergo,melto,homoo,qcreso,prcio,praio,qireso,&
    mnuccro,pracso,meltsdt,frzrdt,mnuccdo    &
-
    , nsout, nrout                           &
-
                                             )
 
 
@@ -741,14 +716,9 @@ subroutine mmicro_pcond ( sub_column,       &
 	real(r8), intent(out) :: reff_rain(pcols,pver) 
 	real(r8), intent(out) :: reff_snow(pcols,pver) 
 	real(r8) 	      :: drout(pcols,pver)     
-
-
-
-
         
         real(r8), intent(out) :: nrout(pcols,pver) 
 	real(r8), intent(out) :: nsout(pcols,pver) 
-
 	real(r8), intent(out) :: dsout(pcols,pver) 
 	real(r8), intent(out) :: qsout(pcols,pver) 
 
@@ -3813,5 +3783,3 @@ end subroutine mmicro_pcond
 
 
 end module cldwat2m_micro
-
-

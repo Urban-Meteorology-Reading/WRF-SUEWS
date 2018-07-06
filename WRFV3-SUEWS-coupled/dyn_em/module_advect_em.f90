@@ -2,7 +2,6 @@
 
 
 
-
 MODULE module_advect_em
 
   USE module_bc
@@ -1125,7 +1124,7 @@ SUBROUTINE advect_u   ( u, u_old, tendency,            &
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_u_6a:  h_order not known ',horz_order
-      CALL wrf_error_fatal3("<stdin>",1128,&
+      CALL wrf_error_fatal3("<stdin>",1127,&
 TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
@@ -1410,7 +1409,7 @@ TRIM( wrf_err_message ) )
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_u_6a: v_order not known ',vert_order
-      CALL wrf_error_fatal3("<stdin>",1413,&
+      CALL wrf_error_fatal3("<stdin>",1412,&
 TRIM( wrf_err_message ) )
 
    ENDIF vert_order_test
@@ -2577,7 +2576,7 @@ SUBROUTINE advect_v   ( v, v_old, tendency,            &
 
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_v_6a: h_order not known ',horz_order
-      CALL wrf_error_fatal3("<stdin>",2580,&
+      CALL wrf_error_fatal3("<stdin>",2579,&
 TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
@@ -2910,13 +2909,12 @@ TRIM( wrf_err_message ) )
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_v_6a: v_order not known ',vert_order
-      CALL wrf_error_fatal3("<stdin>",2913,&
+      CALL wrf_error_fatal3("<stdin>",2912,&
 TRIM( wrf_err_message ) )
 
    ENDIF vert_order_test
 
 END SUBROUTINE advect_v
-
 
 
 
@@ -3991,7 +3989,7 @@ SUBROUTINE advect_scalar   ( field, field_old, tendency,    &
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_6a, h_order not known ',horz_order
-      CALL wrf_error_fatal3("<stdin>",3994,&
+      CALL wrf_error_fatal3("<stdin>",3992,&
 TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
@@ -4247,13 +4245,12 @@ TRIM( wrf_err_message ) )
    ELSE
 
       WRITE (wrf_err_message,*) ' advect_scalar_6a, v_order not known ',vert_order
-      CALL wrf_error_fatal3("<stdin>",4250,&
+      CALL wrf_error_fatal3("<stdin>",4248,&
 wrf_err_message )
 
    ENDIF vert_order_test
 
 END SUBROUTINE advect_scalar
-
 
 
 
@@ -5578,7 +5575,7 @@ ELSE IF (horz_order == 2 ) THEN
    ELSE
 
       WRITE ( wrf_err_message ,*) ' advect_w_6a, h_order not known ',horz_order
-      CALL wrf_error_fatal3("<stdin>",5581,&
+      CALL wrf_error_fatal3("<stdin>",5578,&
 wrf_err_message )
 
    ENDIF horizontal_order_test
@@ -5954,13 +5951,12 @@ wrf_err_message )
    ELSE
 
       WRITE (wrf_err_message ,*) ' advect_w, v_order not known ',vert_order
-      CALL wrf_error_fatal3("<stdin>",5957,&
+      CALL wrf_error_fatal3("<stdin>",5954,&
 wrf_err_message )
 
    ENDIF vert_order_test
 
 END SUBROUTINE advect_w
-
 
 
 
@@ -7146,7 +7142,7 @@ SUBROUTINE advect_scalar_pd   ( field, field_old, tendency,    &
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_pd, h_order not known ',horz_order
-      CALL wrf_error_fatal3("<stdin>",7149,&
+      CALL wrf_error_fatal3("<stdin>",7145,&
 TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
@@ -7555,7 +7551,7 @@ TRIM( wrf_err_message ) )
    ELSE
 
       WRITE (wrf_err_message,*) ' advect_scalar_pd, v_order not known ',vert_order
-      CALL wrf_error_fatal3("<stdin>",7558,&
+      CALL wrf_error_fatal3("<stdin>",7554,&
 wrf_err_message )
 
    ENDIF vert_order_test
@@ -7605,11 +7601,7 @@ wrf_err_message )
 
    DO j=j_start, j_end
    DO k=kts, ktf
-
-
-
 !DIR$ vector always
-
    DO i=i_start, i_end
 
      ph_low(i,k,j) = (mub(i,j)+mu_old(i,j))*field_old(i,k,j) &
@@ -9253,11 +9245,7 @@ SUBROUTINE advect_scalar_wenopd ( field, field_old, tendency,    &
 
    DO j=j_start, j_end
    DO k=kts, ktf
-
-
-
 !DIR$ vector always
-
    DO i=i_start, i_end
 
      ph_low(i,k,j) = (mub(i,j)+mu_old(i,j))*field_old(i,k,j)        &
@@ -9895,7 +9883,7 @@ SUBROUTINE advect_scalar_mono   ( field, field_old, tendency,    &
    ELSE
 
       WRITE ( wrf_err_message , * ) 'module_advect: advect_scalar_mono, h_order not known ',horz_order
-      CALL wrf_error_fatal3("<stdin>",9898,&
+      CALL wrf_error_fatal3("<stdin>",9886,&
 TRIM( wrf_err_message ) )
 
    ENDIF horizontal_order_test
@@ -10070,7 +10058,7 @@ TRIM( wrf_err_message ) )
    ELSE
 
       WRITE (wrf_err_message,*) ' advect_scalar_mono, v_order not known ',vert_order
-      CALL wrf_error_fatal3("<stdin>",10073,&
+      CALL wrf_error_fatal3("<stdin>",10061,&
 wrf_err_message )
 
    ENDIF vert_order_test
@@ -10325,7 +10313,6 @@ wrf_err_message )
   END IF
 
 END SUBROUTINE advect_scalar_mono
-
 
 
 
@@ -12501,6 +12488,4 @@ END SUBROUTINE advect_weno_w
 
 
 END MODULE module_advect_em
-
-
 

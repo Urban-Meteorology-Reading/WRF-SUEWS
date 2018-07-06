@@ -1,6 +1,4 @@
 
-
-
   module molec_diff
 
   
@@ -19,20 +17,12 @@
   
   
   
-
-
-
-
   use module_cam_support,   only: iulog, t_stopf, t_startf
-
   implicit none
   private       
   save
 
   public init_molec_diff 
-
-
-
   public compute_molec_diff 
   public vd_lu_qdecomp
 
@@ -86,9 +76,7 @@
     
     if( kind .ne. r8 ) then
         write(iulog,*) 'KIND of reals passed to init_molec_diff -- exiting.'
-
         call wrf_message(iulog)
-
         stop 'init_molec_diff'
     endif
     
@@ -118,7 +106,6 @@
   
   
   
-
   
   
   
@@ -389,5 +376,3 @@
   end function vd_lu_qdecomp
 
   end module molec_diff
-
-
