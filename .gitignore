@@ -40,3 +40,6 @@ freezeH2O.dat
 qr_acr_qg.dat
 qr_acr_qs.dat
 namelist.input.backup.*
+
+# delete log files
+*.log
