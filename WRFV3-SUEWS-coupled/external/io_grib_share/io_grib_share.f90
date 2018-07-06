@@ -507,18 +507,24 @@ SUBROUTINE Transpose_grib(MemoryOrder, di, FieldType, Field, &
 
   IMPLICIT NONE
 
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
+
 
   CHARACTER (LEN=*),INTENT(IN)    :: MemoryOrder
   INTEGER          ,INTENT(IN)    :: Start1,End1,Start2,End2,Start3,End3
@@ -576,18 +582,24 @@ SUBROUTINE Transpose1D_grib(MemoryOrder, di, FieldType, Field, &
 
   IMPLICIT NONE
 
+
       integer, parameter  :: WRF_FILE_NOT_OPENED                  = 100
       integer, parameter  :: WRF_FILE_OPENED_NOT_COMMITTED        = 101
       integer, parameter  :: WRF_FILE_OPENED_FOR_WRITE            = 102
       integer, parameter  :: WRF_FILE_OPENED_FOR_READ             = 103
       integer, parameter  :: WRF_REAL                             = 104
       integer, parameter  :: WRF_DOUBLE                           = 105
+
+
+
       integer, parameter  :: WRF_FLOAT=WRF_REAL
+
       integer, parameter  :: WRF_INTEGER                          = 106
       integer, parameter  :: WRF_LOGICAL                          = 107
       integer, parameter  :: WRF_COMPLEX                          = 108
       integer, parameter  :: WRF_DOUBLE_COMPLEX                   = 109
       integer, parameter  :: WRF_FILE_OPENED_FOR_UPDATE           = 110
+
 
   CHARACTER (LEN=*),INTENT(IN)    :: MemoryOrder
   INTEGER          ,INTENT(IN)    :: Start1,End1,Start2,End2,Start3,End3
@@ -702,3 +714,4 @@ subroutine advance_wrf_time(startTime, addsecs, endTime)
   return
 
 end subroutine
+

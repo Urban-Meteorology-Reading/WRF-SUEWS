@@ -11,7 +11,9 @@
 # USE CAUTION WHEN ADDING WILDCARDS, as some builds use different filename   #
 # conventions than others                                                    #
 ##############################################################################
-*.f
+# commentted by TS, 06 Jul 2018: otherwise this folder won't be synced properly
+# *.f
+
 
 # Exceptions to top-level .gitignore: many external/ source code files use .f90 extension
 !*.f90
