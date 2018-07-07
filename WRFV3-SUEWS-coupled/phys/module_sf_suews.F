@@ -672,7 +672,7 @@ CONTAINS
           state_SUEWS(i,j,:) = 20.
           soilmoist_SUEWS(i,j,:) = 150.
           surf_var_SUEWS(i,j,:) = 10.
-          dqndt_SUEWS(i,j) = 5.
+          dqndt_SUEWS(i,j) = 0.
         ENDDO
       ENDDO
 

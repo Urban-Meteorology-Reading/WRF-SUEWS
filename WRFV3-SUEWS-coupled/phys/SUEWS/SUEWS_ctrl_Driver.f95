@@ -51,8 +51,9 @@ CONTAINS
        NumCapita,OHM_coef,OHMIncQF,OHM_threshSW,&
        OHM_threshWD,PipeCapacity,PopDensDaytime,&
        PopDensNighttime,PopProf_24hr,PorMax_dec,PorMin_dec,&
-       Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,QF0_BEU,Qf_A,Qf_B,&
-       Qf_C,qh_obs,qn1_obs,&
+       Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,&
+       QF0_BEU,Qf_A,Qf_B,Qf_C,&
+       qn1_obs,qh_obs,qs_obs,qf_obs,&
        RadMeltFact,RAINCOVER,RainMaxRes,resp_a,resp_b,&
        RoughLenHeatMethod,RoughLenMomMethod,RunoffToWater,S1,S2,&
        SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
@@ -172,6 +173,8 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::Press_hPa
     REAL(KIND(1D0)),INTENT(IN)::qh_obs
     REAL(KIND(1D0)),INTENT(IN)::qn1_obs
+    REAL(KIND(1D0)),INTENT(IN)::qs_obs
+    REAL(KIND(1D0)),INTENT(IN)::qf_obs
     REAL(KIND(1D0)),INTENT(IN)::RadMeltFact
     REAL(KIND(1D0)),INTENT(IN)::RAINCOVER
     REAL(KIND(1D0)),INTENT(IN)::RainMaxRes
@@ -592,6 +595,7 @@ CONTAINS
 
     ! ===================ANTHROPOGENIC HEAT FLUX================================
     CALL SUEWS_cal_AnthropogenicEmission(&
+         QF_obs,&
          AH_MIN,AHProf_24hr,AH_SLOPE_Cooling,AH_SLOPE_Heating,alpha_bioCO2,&
          alpha_enh_bioCO2,avkdn,beta_bioCO2,beta_enh_bioCO2,dayofWeek_id,&
          Diagnose,DLS,EF_umolCO2perJ,EmissionsMethod,EnEF_v_Jkm,Fc,Fc_anthro,Fc_biogen,&
@@ -605,7 +609,7 @@ CONTAINS
 
     ! =================STORAGE HEAT FLUX=======================================
     CALL SUEWS_cal_Qs(&
-         StorageHeatMethod,OHMIncQF,Gridiv,&!input
+         StorageHeatMethod,qs_obs,OHMIncQF,Gridiv,&!input
          id,tstep,dt_since_start,Diagnose,sfr,&
          OHM_coef,OHM_threshSW,OHM_threshWD,&
          soilmoist,soilstoreCap,state,nsh,SnowUse,DiagQS,&
@@ -805,6 +809,7 @@ CONTAINS
 
   ! ===================ANTHROPOGENIC HEAT + CO2 FLUX================================
   SUBROUTINE SUEWS_cal_AnthropogenicEmission(&
+       QF_obs,&
        AH_MIN,AHProf_24hr,AH_SLOPE_Cooling,AH_SLOPE_Heating,alpha_bioCO2,&
        alpha_enh_bioCO2,avkdn,beta_bioCO2,beta_enh_bioCO2,dayofWeek_id,&
        Diagnose,DLS,EF_umolCO2perJ,EmissionsMethod,EnEF_v_Jkm,Fc,Fc_anthro,Fc_biogen,&
@@ -854,6 +859,7 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(in)::PopDensDaytime
     REAL(KIND(1D0)),INTENT(in)::PopDensNighttime
     REAL(KIND(1D0)),INTENT(in)::Temp_C
+    REAL(KIND(1D0)),INTENT(in)::QF_obs
     REAL(KIND(1D0)),INTENT(out)::QF
     REAL(KIND(1D0)),INTENT(out)::QF_SAHP
     REAL(KIND(1D0)),INTENT(out)::Fc_anthro
@@ -948,8 +954,9 @@ CONTAINS
     ! ELSE
     !    CALL ErrorHint(73,'RunControl.nml:EmissionsMethod unusable',notUsed,notUsed,EmissionsMethod)
     ! ENDIF
-
-    IF ( (EmissionsMethod>0 .AND. EmissionsMethod<=6) .OR. EmissionsMethod>=11) THEN
+    IF ( EmissionsMethod==0 ) THEN ! use observed qf
+       qf = QF_obs
+    ELSEIF ( (EmissionsMethod>0 .AND. EmissionsMethod<=6) .OR. EmissionsMethod>=11) THEN
        CALL AnthropogenicEmissions(&
             EmissionsMethod,&
             id,it,imin,DLS,nsh,DayofWeek_id,&
@@ -965,20 +972,8 @@ CONTAINS
             Fc_anthro,Fc_metab,Fc_traff,Fc_build,&
             AHProf_24hr,HumActivity_24hr,TraffProf_24hr,PopProf_24hr)
 
-       IF(EmissionsMethod>0 .AND. EmissionsMethod<=6)THEN
-          Fc_anthro=0
-          Fc_metab=0
-          Fc_traff=0
-          Fc_build=0
-          Fc_biogen=0
-          Fc_respi=0
-          Fc_photo=0
-
-       ENDIF
-
     ELSE
        CALL ErrorHint(73,'RunControl.nml:EmissionsMethod unusable',notUsed,notUsed,EmissionsMethod)
-
     ENDIF
 
 
@@ -993,6 +988,17 @@ CONTAINS
             alpha_bioCO2,beta_bioCO2,theta_bioCO2,alpha_enh_bioCO2,beta_enh_bioCO2,&
             resp_a,resp_b,min_res_bioCO2,Fc_biogen,Fc_respi,Fc_photo,&
             notUsed,notUsedI)
+    ENDIF
+
+    IF(EmissionsMethod>=0 .AND. EmissionsMethod<=6)THEN
+       Fc_anthro=0
+       Fc_metab=0
+       Fc_traff=0
+       Fc_build=0
+       Fc_biogen=0
+       Fc_respi=0
+       Fc_photo=0
+
     ENDIF
     ! Sum anthropogenic and biogenic CO2 flux components to find overall CO2 flux
     Fc = Fc_anthro + Fc_biogen
@@ -1145,7 +1151,7 @@ CONTAINS
 
   !=============storage heat flux=========================================
   SUBROUTINE SUEWS_cal_Qs(&
-       StorageHeatMethod,OHMIncQF,Gridiv,&!input
+       StorageHeatMethod,qs_obs,OHMIncQF,Gridiv,&!input
        id,tstep,dt_since_start,Diagnose,sfr,&
        OHM_coef,OHM_threshSW,OHM_threshWD,&
        soilmoist,soilstoreCap,state,nsh,SnowUse,DiagQS,&
@@ -1164,7 +1170,7 @@ CONTAINS
     INTEGER,INTENT(in)  ::Gridiv
     INTEGER,INTENT(in)  ::id
     INTEGER,INTENT(in)  ::tstep ! time step [s]
-    INTEGER, INTENT(in) ::dt_since_start  ! time since simulation starts [s]
+    INTEGER,INTENT(in) ::dt_since_start  ! time since simulation starts [s]
     INTEGER,INTENT(in)  ::Diagnose
     INTEGER,INTENT(in)  ::nsh              ! number of timesteps in one hour
     INTEGER,INTENT(in)  ::SnowUse          ! option for snow related calculations
@@ -1183,6 +1189,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(6),INTENT(in)::HDD_id_use
     REAL(KIND(1d0)),INTENT(in)::qf
     REAL(KIND(1d0)),INTENT(in)::qn1
+    REAL(KIND(1d0)),INTENT(in)::qs_obs
     REAL(KIND(1d0)),INTENT(in)::avkdn, avu1, temp_c, zenith_deg, avrh, press_hpa, ldown
     REAL(KIND(1d0)),INTENT(in)::bldgh
 
@@ -1242,7 +1249,11 @@ CONTAINS
        qn1_use= qn1
     ENDIF
 
-    IF(StorageHeatMethod==1) THEN           !Use OHM to calculate QS
+    IF(StorageHeatMethod==0) THEN           !Use observed QS
+       qs=qs_obs
+
+
+    ELSEIF(StorageHeatMethod==1) THEN           !Use OHM to calculate QS
        Tair_mav_5d=HDD_id_use(4)
        IF(Diagnose==1) WRITE(*,*) 'Calling OHM...'
        CALL OHM(qn1,qn1_av,dqndt,&
@@ -1258,10 +1269,10 @@ CONTAINS
             DiagQS,&
             a1,a2,a3,qs,deltaQi)
 
-    ENDIF
 
-    ! use AnOHM to calculate QS, TS 14 Mar 2016
-    IF (StorageHeatMethod==3) THEN
+
+       ! use AnOHM to calculate QS, TS 14 Mar 2016
+    ELSEIF (StorageHeatMethod==3) THEN
        IF(Diagnose==1) WRITE(*,*) 'Calling AnOHM...'
        ! CALL AnOHM(qn1_use,qn1_store_grid,qn1_av_store_grid,qf,&
        !      MetForcingData_grid,state/surf(6,:),&
@@ -1276,11 +1287,11 @@ CONTAINS
             sfr,nsurf,EmissionsMethod,id,Gridiv,&
             a1,a2,a3,qs,deltaQi)! output
 
-    END IF
 
 
-    ! !Calculate QS using ESTM
-    IF(StorageHeatMethod==4 .OR. StorageHeatMethod==14) THEN
+
+       ! !Calculate QS using ESTM
+    ELSEIF(StorageHeatMethod==4 .OR. StorageHeatMethod==14) THEN
        !    !CALL ESTM(QSestm,iMB)
        IF(Diagnose==1) WRITE(*,*) 'Calling ESTM...'
        CALL ESTM(&

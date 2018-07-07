@@ -1068,7 +1068,7 @@ MODULE data_in
        q2_gkg,&    ! Specific humidity at 2 m
        qe,&        !Observed latent heat flux
        qe_obs,&
-       qf,&        !Observed anthropogenic heat flux
+       qf_obs,&        !Observed anthropogenic heat flux
        QF_SAHP,&    !Anthropogenic heat flux calculated by SAHP
        QF_SAHP_base,&    !Anthropogenic heat flux calculated by SAHP (temp independent part)
        QF_SAHP_heat,&    !Anthropogenic heat flux calculated by SAHP (heating part only)
@@ -1081,7 +1081,7 @@ MODULE data_in
        qn1_obs,&   !Observed new all-wave radiation
        qn1_S,&     !Total net all-wave radiation for the SnowPack
        qn1_SF,&    !Total net all-wave radiation for the snowfree surface
-       qs,&        !Observed storage heat flux
+       qs_obs,&        !Observed storage heat flux
        QSanOHM,&   !Simulated storage heat flux by AnOHM, TS 30 May 2016
        QSestm,&    !Simulated storage heat flux by ESTM, TS 30 May 2016
        snow,&      !snow cover

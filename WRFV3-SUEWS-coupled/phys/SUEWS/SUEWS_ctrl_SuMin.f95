@@ -26,7 +26,7 @@ CONTAINS
        emis,endDLS,EveTreeH,FAIBldg,&
        FAIDecTree,FAIEveTree,FlowChange,&
        G1,G2,G3,G4,G5,G6,GDD_id,&
-       GDDFull,HDD_id,HDD_id_prev,&
+       GDDFull,HDD_id,HDD_id_use,&
        id,imin,it,iy,Kmax,LAI_id,LAIMax,LAIMin,&
        LAIPower,LAIType,lat,lng,MaxConductance,&
        OHM_coef,OHMIncQF,OHM_threshSW,&
@@ -54,14 +54,12 @@ CONTAINS
     INTEGER::Gridiv
     INTEGER,PARAMETER::gsModel=2
     INTEGER,INTENT(IN)::id
-    INTEGER::id_prev_t
     INTEGER::Ie_end
     INTEGER::Ie_start
     INTEGER,INTENT(IN)::imin
     INTEGER,INTENT(IN)::it
     INTEGER::ity
     INTEGER,INTENT(IN)::iy
-    INTEGER::iy_prev_t
     INTEGER::LAICalcYes
     INTEGER::NetRadiationMethod
     INTEGER,INTENT(IN)::OHMIncQF
@@ -141,6 +139,8 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::Press_hPa
     REAL(KIND(1D0))::qh_obs
     REAL(KIND(1D0))::qn1_obs
+    REAL(KIND(1D0))::qf_obs
+    REAL(KIND(1D0))::qs_obs
     REAL(KIND(1D0))::RadMeltFact
     REAL(KIND(1D0)),INTENT(IN)::RAINCOVER
     REAL(KIND(1D0)),INTENT(IN)::RainMaxRes
@@ -182,12 +182,12 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(3) ::Ie_a
     REAL(KIND(1D0)),DIMENSION(3) ::Ie_m
     REAL(KIND(1D0)),DIMENSION(3),INTENT(IN) ::MaxConductance
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::AHProf_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::HumActivity_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::PopProf_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::TraffProf_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfA_tstep
-    REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfM_tstep
+    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::AHProf_tstep
+    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::HumActivity_tstep
+    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::PopProf_tstep
+    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::TraffProf_tstep
+    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfA_tstep
+    ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfM_tstep
     REAL(KIND(1D0)),DIMENSION(7)             ::DayWat
     REAL(KIND(1D0)),DIMENSION(7)           ::DayWatPer
     REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)         ::OHM_threshSW
@@ -216,7 +216,7 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::resp_a
     REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::resp_b
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::SDDFull
-    REAL(KIND(1D0)),DIMENSION(0:23,2)          ::snowProf
+    REAL(KIND(1D0)),DIMENSION(0:23,2)          ::snowProf_24hr
     REAL(KIND(1D0)),DIMENSION(NVEGSURF)     ::theta_bioCO2
     REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE             ::Ts5mindata_ir
     REAL(KIND(1D0)),DIMENSION(NSURF+1,NSURF-1),INTENT(IN) ::WaterDist
@@ -232,7 +232,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(24*3600/tstep)  ::Tair24HR
     ! REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
     ! REAL(KIND(1D0)),DIMENSION(2*360+1),INTENT(INOUT)   ::qn1_av_store !NB:reduced size
-    REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1)  ::qn1_S_av_store
+    ! REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1)  ::qn1_S_av_store
     ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albDecTr
     ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albEveTr
     ! REAL(KIND(1D0)),DIMENSION(0:NDAYS),INTENT(INOUT)          ::albGrass
@@ -244,13 +244,15 @@ CONTAINS
     ! REAL(KIND(1D0)),DIMENSION(-4:NDAYS,6),INTENT(INOUT)       ::HDD
     ! REAL(KIND(1D0)),DIMENSION(-4:NDAYS,NVEGSURF),INTENT(INOUT)::LAI
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::alb
-    REAL(KIND(1D0)),DIMENSION(NSURF)            ::IceFrac
-    REAL(KIND(1D0)),DIMENSION(NSURF)            ::MeltWaterStore
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::SnowDens
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::snowFrac
-    REAL(KIND(1D0)),DIMENSION(NSURF)        ::SnowPack
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::soilmoist_id
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::state_id
+
+    REAL(KIND(1D0)),DIMENSION(NSURF) ::IceFrac
+    REAL(KIND(1D0)),DIMENSION(NSURF) ::MeltWaterStore
+    REAL(KIND(1D0)),DIMENSION(NSURF) ::SnowDens
+    REAL(KIND(1D0)),DIMENSION(NSURF) ::snowFrac
+    REAL(KIND(1D0)),DIMENSION(NSURF) ::SnowPack
+
+    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT) ::soilmoist_id
+    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT) ::state_id
     ! REAL(KIND(1D0)),DIMENSION(3600/tstep)      ::qn1_S_store
     ! REAL(KIND(1D0)),DIMENSION(3600/tstep),INTENT(INOUT)       ::qn1_store
     ! REAL(KIND(1D0)),DIMENSION(360),INTENT(INOUT)       ::qn1_store ! NB: reduced size
@@ -276,7 +278,7 @@ CONTAINS
 
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       :: HDD_id_prev !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       :: HDD_id_use !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT):: LAI_id      !LAI for each veg surface [m2 m-2]
     REAL(KIND(1d0)),DIMENSION(9)        :: WUDay_id
 
@@ -285,6 +287,15 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: albEveTr_id
     REAL(KIND(1d0)),INTENT(INOUT) :: albGrass_id
     REAL(KIND(1d0)),INTENT(INOUT) :: porosity_id
+
+    ! TODO: temporary setting for the profiles
+    REAL(KIND(1D0)),DIMENSION(0:23,2) ::AHProf_24hr=1.5
+    REAL(KIND(1D0)),DIMENSION(0:23,2) ::HumActivity_24hr=1.5
+    REAL(KIND(1D0)),DIMENSION(0:23,2) ::PopProf_24hr=1.5
+    REAL(KIND(1D0)),DIMENSION(0:23,2) ::TraffProf_24hr=1.5
+    REAL(KIND(1D0)),DIMENSION(0:23,2) ::WUProfA_24hr=1.5
+    REAL(KIND(1D0)),DIMENSION(0:23,2) ::WUProfM_24hr=1.5
+
 
 
     Diagnose=0
@@ -306,6 +317,8 @@ CONTAINS
     snow_obs=0
     qn1_obs=0
     qh_obs=0
+    qf_obs=0
+    qs_obs=0
 
     MeltWaterStore=0
 
@@ -314,8 +327,13 @@ CONTAINS
     z0m_in=0.05
     zdm_in=0.1
 
+    PRINT*,''
+    print*, 'soilmoist_id',soilmoist_id
+    print*, 'state_id',state_id
+
+
     CALL SUEWS_cal_Main(&
-         AerodynamicResistanceMethod,AH_MIN,AHProf_tstep,AH_SLOPE_Cooling,& ! input&inout in alphabetical order
+         AerodynamicResistanceMethod,AH_MIN,AHProf_24hr,AH_SLOPE_Cooling,& ! input&inout in alphabetical order
          AH_SLOPE_Heating,&
          alb,AlbMax_DecTr,AlbMax_EveTr,AlbMax_Grass,&
          AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
@@ -327,7 +345,7 @@ CONTAINS
          EF_umolCO2perJ,emis,EmissionsMethod,EnEF_v_Jkm,endDLS,EveTreeH,FAIBldg,&
          FAIDecTree,FAIEveTree,Faut,FcEF_v_kgkm,fcld_obs,FlowChange,&
          FrFossilFuel_Heat,FrFossilFuel_NonHeat,G1,G2,G3,G4,G5,G6,GDD_id,&
-         GDDFull,Gridiv,gsModel,HDD_id,HDD_id_prev,HumActivity_tstep,&
+         GDDFull,Gridiv,gsModel,HDD_id,HDD_id_use,HumActivity_24hr,&
          IceFrac,id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
          InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,isec,it,ity,&
          iy,kkAnOHM,Kmax,LAI_id,LAICalcYes,LAIMax,LAIMin,LAI_obs,&
@@ -336,19 +354,20 @@ CONTAINS
          NARP_EMIS_SNOW,NARP_TRANS_SITE,NetRadiationMethod,&
          NumCapita,OHM_coef,OHMIncQF,OHM_threshSW,&
          OHM_threshWD,PipeCapacity,PopDensDaytime,&
-         PopDensNighttime,PopProf_tstep,PorMax_dec,PorMin_dec,&
-         Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,QF0_BEU,Qf_A,Qf_B,&
-         Qf_C,qh_obs,qn1_obs,&
+         PopDensNighttime,PopProf_24hr,PorMax_dec,PorMin_dec,&
+         Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,&
+         QF0_BEU,Qf_A,Qf_B,Qf_C,&
+         qn1_obs,qh_obs,qs_obs,qf_obs,&
          RadMeltFact,RAINCOVER,RainMaxRes,resp_a,resp_b,&
          RoughLenHeatMethod,RoughLenMomMethod,RunoffToWater,S1,S2,&
          SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
          SnowAlbMin,snowD,SnowDens,SnowDensMax,SnowDensMin,SnowfallCum,snowFrac,&
-         SnowLimBuild,SnowLimPaved,snow_obs,SnowPack,SnowProf,snowUse,SoilDepth,&
+         SnowLimBuild,SnowLimPaved,snow_obs,SnowPack,SnowProf_24hr,snowUse,SoilDepth,&
          soilmoist_id,soilstoreCap,StabilityMethod,startDLS,state_id,StateLimit,&
          StorageHeatMethod,surf,SurfaceArea,Tair24HR,tau_a,tau_f,tau_r,&
          T_CRITIC_Cooling,T_CRITIC_Heating,Temp_C,TempMeltFact,TH,&
          theta_bioCO2,timezone,TL,TrafficRate,TrafficUnits,&
-         TraffProf_tstep,Ts5mindata_ir,tstep,tstep_prev,veg_type,&
+         TraffProf_24hr,Ts5mindata_ir,tstep,tstep_prev,veg_type,&
          WaterDist,WaterUseMethod,WetThresh,&
          WUDay_id,&
          DecidCap_id,&
@@ -356,8 +375,8 @@ CONTAINS
          albEveTr_id,&
          albGrass_id,&
          porosity_id,&
-         WUProfA_tstep,&
-         WUProfM_tstep,xsmd,Z,z0m_in,zdm_in,&
+         WUProfA_24hr,&
+         WUProfM_24hr,xsmd,Z,z0m_in,zdm_in,&
          datetimeLine,dataOutLineSUEWS,dataOutLineSnow,dataOutLineESTM,&!output
          DailyStateLine)!output
 

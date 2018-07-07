@@ -40,7 +40,8 @@ SUBROUTINE SUEWS_Calculations(Gridiv, ir, iMB, irMax)
        frfossilfuel_heat, frfossilfuel_nonheat, ity, &
        LAIcalcyes, LAI_obs, lat, ldown_obs, lng, maxqfmetab, minqfmetab, &
        netradiationmethod, numcapita, ohmincqf, popdensdaytime, popdensnighttime, &
-       precip, press_hpa, qf0_beu, qf_a, qf_b, qf_c, qh_obs, qn1_obs, &
+       precip, press_hpa, qf0_beu, qf_a, qf_b, qf_c, &
+       qh_obs, qn1_obs, qs_obs, qf_obs,&
        raincover, rainmaxres, &
        roughlenmommethod, smdmethod, snow_obs, snowuse, startdls, &
        storageheatmethod, t_critic_cooling, t_critic_heating, temp_c, &
@@ -74,7 +75,7 @@ SUBROUTINE SUEWS_Calculations(Gridiv, ir, iMB, irMax)
        waterdist, wetthresh, &
        WUDay_id,&
        AHProf_24Hr,HumActivity_24Hr,PopProf_24Hr,TraffProf_24Hr,WUProfA_24hr, WUProfM_24hr, &
-       ! popprof_tstep, traffprof_tstep, humactivity_tstep, ahprof_tstep, wuprofa_tstep, wuprofm_tstep, &
+                                ! popprof_tstep, traffprof_tstep, humactivity_tstep, ahprof_tstep, wuprofa_tstep, wuprofm_tstep, &
        datetimeline, dataoutlinesuews, dataoutlinesnow, &
        dataoutlineestm, dailystateline, dataoutdailystate, &
        dataoutsuews, dataoutsnow, dataoutestm
@@ -139,8 +140,9 @@ SUBROUTINE SUEWS_Calculations(Gridiv, ir, iMB, irMax)
        NumCapita,OHM_coef,OHMIncQF,OHM_threshSW,&
        OHM_threshWD,PipeCapacity,PopDensDaytime,&
        PopDensNighttime,PopProf_24hr,PorMax_dec,PorMin_dec,&
-       Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,QF0_BEU,Qf_A,Qf_B,&
-       Qf_C,qh_obs,qn1_obs,&
+       Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,&
+       QF0_BEU,Qf_A,Qf_B,Qf_C,&
+       qn1_obs,qh_obs,qs_obs,qf_obs,&
        RadMeltFact,RAINCOVER,RainMaxRes,resp_a,resp_b,&
        RoughLenHeatMethod,RoughLenMomMethod,RunoffToWater,S1,S2,&
        SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
@@ -162,7 +164,6 @@ SUBROUTINE SUEWS_Calculations(Gridiv, ir, iMB, irMax)
        WUProfM_24hr,xsmd,Z,z0m_in,zdm_in,&
        datetimeLine,dataOutLineSUEWS,dataOutLineSnow,dataOutLineESTM,&!output
        DailyStateLine)!output
-
 
   !============ update and write out SUEWS_cal_DailyState ===============
   ! only works at the last timestep of a day
