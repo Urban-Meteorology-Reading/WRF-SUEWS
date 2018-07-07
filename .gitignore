@@ -24,7 +24,6 @@ test_run/
 *.mod
 *.smod
 *.f90
-*.F90
 
 # Compiled Static libraries
 *.lai
