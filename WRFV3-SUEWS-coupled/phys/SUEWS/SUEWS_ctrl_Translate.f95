@@ -983,10 +983,10 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
      ! === Translate inputs from ModelOutputData to variable names used in model ===
      ! =============================================================================
      ! ---- Above-ground state
-     State(1:nsurf)             = ModelOutputData(0,cMOD_State(1:nsurf),Gridiv)
+     state_id(1:nsurf)             = ModelOutputData(0,cMOD_State(1:nsurf),Gridiv)
      !     stateDay(0,Gridiv,1:nsurf) = ModelOutputData(0,cMOD_State(1:nsurf),Gridiv)
-     ! ---- Below-ground state
-     SoilMoist(1:nsurf)             = ModelOutputData(0,cMOD_SoilState(1:nsurf),Gridiv)
+     ! ---- Below-ground
+     soilmoist_id(1:nsurf)             = ModelOutputData(0,cMOD_SoilState(1:nsurf),Gridiv)
      !     soilmoistDay(0,Gridiv,1:nsurf) = ModelOutputData(0,cMOD_SoilState(1:nsurf),Gridiv)
      ! ---- Snow fraction
      SnowFrac(1:nsurf)  = ModelOutputData(0,cMOD_SnowFrac(1:nsurf), Gridiv)
@@ -1249,9 +1249,9 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
      ! === Translate values from ModelOutputData to variable names used in model ===
      ! =============================================================================
      ! ---- Above-ground state
-     State(1:nsurf)          = ModelOutputData(ir-1,cMOD_State(1:nsurf),Gridiv)
+     state_id(1:nsurf)       = ModelOutputData(ir-1,cMOD_State(1:nsurf),Gridiv)
      ! ---- Below-ground state
-     SoilMoist(1:nsurf)      = ModelOutputData(ir-1,cMOD_SoilState(1:nsurf),Gridiv)
+     soilmoist_id(1:nsurf)      = ModelOutputData(ir-1,cMOD_SoilState(1:nsurf),Gridiv)
      ! ---- Snow fraction
      SnowFrac(1:nsurf)       = ModelOutputData(ir-1,cMOD_SnowFrac(1:nsurf), Gridiv)
      ! ---- Snow water equivalent in SnowPack
@@ -1381,15 +1381,15 @@ SUBROUTINE SUEWS_TranslateBack(Gridiv,ir,irMax)
   ! === Translate values from variable names used in model to ModelOutputData ===
   ! =============================================================================
 
-  ModelOutputData(ir,cMOD_State(1:nsurf),Gridiv)           = State(1:nsurf)
-  ModelOutputData(ir,cMOD_SoilState(1:nsurf),Gridiv)       = SoilMoist(1:nsurf)
+  ModelOutputData(ir,cMOD_State(1:nsurf),Gridiv)           = state_id(1:nsurf)
+  ModelOutputData(ir,cMOD_SoilState(1:nsurf),Gridiv)       = soilmoist_id(1:nsurf)
   ModelOutputData(ir,cMOD_SnowFrac(1:nsurf), Gridiv)       = SnowFrac(1:nsurf)
   ModelOutputData(ir,cMOD_SnowPack(1:nsurf), Gridiv)       = SnowPack(1:nsurf)
   ModelOutputData(ir,cMOD_SnowWaterState(1:nsurf), Gridiv) = MeltWaterStore(1:nsurf)
 
   IF(ir==irMax) THEN   !Store variables ready for next chunk of met data
-     ModelOutputData(0,cMOD_State(1:nsurf),Gridiv)          = State(1:nsurf)
-     ModelOutputData(0,cMOD_SoilState(1:nsurf),Gridiv)      = SoilMoist(1:nsurf)
+     ModelOutputData(0,cMOD_State(1:nsurf),Gridiv)          = state_id(1:nsurf)
+     ModelOutputData(0,cMOD_SoilState(1:nsurf),Gridiv)      = soilmoist_id(1:nsurf)
      ModelOutputData(0,cMOD_SnowFrac(1:nsurf),Gridiv)       = SnowFrac(1:nsurf)
      ModelOutputData(0,cMOD_SnowPack(1:nsurf),Gridiv)       = SnowPack(1:nsurf)
      ModelOutputData(0,cMOD_SnowWaterState(1:nsurf),Gridiv) = MeltWaterStore(1:nsurf)

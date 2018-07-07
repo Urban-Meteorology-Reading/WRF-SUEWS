@@ -188,41 +188,41 @@ CONTAINS
     ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::TraffProf_tstep
     ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfA_tstep
     ! REAL(KIND(1D0)),DIMENSION(24*3600/tstep,2) ::WUProfM_tstep
-    REAL(KIND(1D0)),DIMENSION(7)             ::DayWat
-    REAL(KIND(1D0)),DIMENSION(7)           ::DayWatPer
+    REAL(KIND(1D0)),DIMENSION(7)                          ::DayWat
+    REAL(KIND(1D0)),DIMENSION(7)                          ::DayWatPer
     REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)         ::OHM_threshSW
     REAL(KIND(1D0)),DIMENSION(nsurf+1),INTENT(IN)         ::OHM_threshWD
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::chAnOHM
-    REAL(KIND(1D0)),DIMENSION(NSURF)          ::cpAnOHM
+    REAL(KIND(1D0)),DIMENSION(NSURF)                      ::chAnOHM
+    REAL(KIND(1D0)),DIMENSION(NSURF)                      ::cpAnOHM
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::emis
-    REAL(KIND(1D0)),DIMENSION(NSURF)        ::kkAnOHM
-    REAL(KIND(1D0)),DIMENSION(NSURF)          ::SatHydraulicConduct
+    REAL(KIND(1D0)),DIMENSION(NSURF)                      ::kkAnOHM
+    REAL(KIND(1D0)),DIMENSION(NSURF)                      ::SatHydraulicConduct
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::sfr
-    REAL(KIND(1D0)),DIMENSION(NSURF)           ::snowD
-    REAL(KIND(1D0)),DIMENSION(NSURF),PARAMETER           ::SoilDepth=0.2
+    REAL(KIND(1D0)),DIMENSION(NSURF)                      ::snowD
+    REAL(KIND(1D0)),DIMENSION(NSURF),PARAMETER            ::SoilDepth=0.2
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::soilstoreCap
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::StateLimit
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(IN)           ::WetThresh
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::alpha_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::alpha_enh_bioCO2
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::alpha_bioCO2
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::alpha_enh_bioCO2
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::BaseT
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::BaseTe
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::beta_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::beta_enh_bioCO2
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::beta_bioCO2
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::beta_enh_bioCO2
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::GDDFull
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::LAIMax
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::LAIMin
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::min_res_bioCO2
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::resp_a
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)        ::resp_b
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::min_res_bioCO2
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::resp_a
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::resp_b
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::SDDFull
-    REAL(KIND(1D0)),DIMENSION(0:23,2)          ::snowProf_24hr
-    REAL(KIND(1D0)),DIMENSION(NVEGSURF)     ::theta_bioCO2
-    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE             ::Ts5mindata_ir
+    REAL(KIND(1D0)),DIMENSION(0:23,2)                     ::snowProf_24hr
+    REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::theta_bioCO2
+    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE              ::Ts5mindata_ir
     REAL(KIND(1D0)),DIMENSION(NSURF+1,NSURF-1),INTENT(IN) ::WaterDist
     REAL(KIND(1D0)),DIMENSION(nsurf+1,4,3),INTENT(IN)     ::OHM_coef
     REAL(KIND(1D0)),DIMENSION(4,NVEGSURF),INTENT(IN)      ::LAIPower
-    REAL(KIND(1D0)),DIMENSION(:,:),ALLOCATABLE          ::MetForcingData_grid
+    REAL(KIND(1D0)),DIMENSION(:,:),ALLOCATABLE            ::MetForcingData_grid
 
     REAL(KIND(1D0)) ::SnowfallCum
     REAL(KIND(1D0)) ::SnowAlb
@@ -298,28 +298,28 @@ CONTAINS
 
 
 
-    Diagnose=0
-    snowCalcSwitch=0
-    snowUse=0
-    DiagQN=0
-    DiagQS=0
-    WaterUseMethod=1 ! use observed, don't model it
-    ity=2
-    LAICalcYes=1
-    RoughLenHeatMethod=2
-    RoughLenMomMethod=2
-    EmissionsMethod=0
-    NetRadiationMethod=3
-    StorageHeatMethod=1
+    Diagnose           = 0
+    snowCalcSwitch     = 0
+    snowUse            = 0
+    DiagQN             = 0
+    DiagQS             = 0
+    WaterUseMethod     = 1 ! use observed, don't model it
+    ity                = 2
+    LAICalcYes         = 1
+    RoughLenHeatMethod = 2
+    RoughLenMomMethod  = 2
+    EmissionsMethod    = 0
+    NetRadiationMethod = 3
+    StorageHeatMethod  = 1
 
-    LAI_obs=0
-    ldown_obs=0
-    fcld_obs=0
-    snow_obs=0
-    qn1_obs=0
-    qh_obs=0
-    qf_obs=0
-    qs_obs=0
+    LAI_obs   = 0
+    ldown_obs = 0
+    fcld_obs  = 0
+    snow_obs  = 0
+    qn1_obs   = 0
+    qh_obs    = 0
+    qf_obs    = 0
+    qs_obs    = 0
 
     MeltWaterStore=0
 
@@ -330,8 +330,8 @@ CONTAINS
 
     PRINT*,''
     print*, 'soilmoist_id',soilmoist_id
-    soilmoist_id=MERGE(soilmoist_id,soilmoist_id*0,soilmoist_id>0)
-    print*, 'soilmoist_id modified',soilmoist_id
+    ! soilmoist_id=MERGE(soilmoist_id,soilmoist_id*0,soilmoist_id>0)
+    ! print*, 'soilmoist_id modified',soilmoist_id
     print*, 'state_id',state_id
 
 

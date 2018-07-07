@@ -59,7 +59,7 @@ CONTAINS
        SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
        SnowAlbMin,snowD,SnowDens,SnowDensMax,SnowDensMin,SnowfallCum,snowFrac,&
        SnowLimBuild,SnowLimPaved,snow_obs,SnowPack,SnowProf_24hr,snowUse,SoilDepth,&
-       soilmoist,soilstoreCap,StabilityMethod,startDLS,state,StateLimit,&
+       soilmoist_id,soilstoreCap,StabilityMethod,startDLS,state_id,StateLimit,&
        StorageHeatMethod,surf,SurfaceArea,Tair24HR,tau_a,tau_f,tau_r,&
        T_CRITIC_Cooling,T_CRITIC_Heating,Temp_C,TempMeltFact,TH,&
        theta_bioCO2,timezone,TL,TrafficRate,TrafficUnits,&
@@ -300,8 +300,8 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::SnowDens
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::snowFrac
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::SnowPack
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::soilmoist
-    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::state
+    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::soilmoist_id
+    REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::state_id
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       ::GDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       ::HDD_id !Heating Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       ::HDD_id_use !Heating Degree Days (see SUEWS_DailyState.f95)
@@ -575,7 +575,7 @@ CONTAINS
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_update_SoilMoist...'
     CALL SUEWS_update_SoilMoist(&
          NonWaterFraction,&!input
-         soilstoreCap,sfr,soilmoist,&
+         soilstoreCap,sfr,soilmoist_id,&
          SoilMoistCap,SoilState,&!output
          vsmd,smd)
 
@@ -612,7 +612,7 @@ CONTAINS
          StorageHeatMethod,qs_obs,OHMIncQF,Gridiv,&!input
          id,tstep,dt_since_start,Diagnose,sfr,&
          OHM_coef,OHM_threshSW,OHM_threshWD,&
-         soilmoist,soilstoreCap,state,nsh,SnowUse,DiagQS,&
+         soilmoist_id,soilstoreCap,state_id,nsh,SnowUse,DiagQS,&
          HDD_id_use,MetForcingData_grid,Ts5mindata_ir,qf,qn1,&
          avkdn, avu1, temp_c, zenith_deg, avrh, press_hpa, ldown,&
          bldgh,alb,emis,cpAnOHM,kkAnOHM,chAnOHM,EmissionsMethod,&
@@ -628,7 +628,7 @@ CONTAINS
          snowUse,&!input
          lvS_J_kg,lv_J_kg,tstep_real,RadMeltFact,TempMeltFact,SnowAlbMax,&
          SnowDensMin,Temp_C,Precip,PrecipLimit,PrecipLimitAlb,&
-         nsh_real,sfr,Tsurf_ind,Tsurf_ind_snow,state,qn1_ind_snow,&
+         nsh_real,sfr,Tsurf_ind,Tsurf_ind_snow,state_id,qn1_ind_snow,&
          kup_ind_snow,Meltwaterstore,deltaQi,&
          SnowPack,snowFrac,SnowAlb,SnowDens,SnowfallCum,&!inout
          mwh,fwh,Qm,QmFreez,QmRain,&! output
@@ -684,14 +684,14 @@ CONTAINS
     CALL SUEWS_cal_Water(&
          Diagnose,&!input
          snowUse,NonWaterFraction,addPipes,addImpervious,addVeg,addWaterBody,&
-         state,soilmoist,sfr,surf,WaterDist,nsh_real,&
+         state_id,soilmoist_id,sfr,surf,WaterDist,nsh_real,&
          drain_per_tstep,&  !output
          drain,AddWaterRunoff,&
          AdditionalWater,runoffPipes,runoff_per_interval,&
          AddWater,stateOld,soilmoistOld)
     !============= calculate water balance end =============
 
-    !======== Evaporation and surface state ========
+    !======== Evaporation and surface state_id ========
     CALL SUEWS_cal_QE(&
          Diagnose,&!input
          id,tstep,imin,it,ity,snowCalcSwitch,DayofWeek_id,CRWmin,CRWmax,&
@@ -703,7 +703,7 @@ CONTAINS
          SurfaceArea,FlowChange,drain,WetThresh,stateOld,mw_ind,soilstorecap,rainonsnow,&
          freezmelt,freezstate,freezstatevol,Qm_Melt,Qm_rain,Tsurf_ind,sfr,&
          StateLimit,AddWater,addwaterrunoff,surf,snowD,&
-         runoff_per_interval,state,soilmoist,SnowPack,snowFrac,MeltWaterStore,&! inout:
+         runoff_per_interval,state_id,soilmoist_id,SnowPack,snowFrac,MeltWaterStore,&! inout:
          iceFrac,SnowDens,&
          SnowProf_24hr,& ! output:
          runoffSnow,runoff,runoffSoil,chang,changSnow,&
@@ -712,7 +712,7 @@ CONTAINS
          swe,ev,chSnow_per_interval,ev_per_tstep,qe_per_tstep,runoff_per_tstep,&
          surf_chang_per_tstep,runoffPipes,mwstore,runoffwaterbody,&
          runoffAGveg,runoffAGimpervious,runoffWaterBody_m3,runoffPipes_m3)
-    !======== Evaporation and surface state end========
+    !======== Evaporation and surface state_id end========
 
     !============ Sensible heat flux ===============
     IF(Diagnose==1) WRITE(*,*) 'Calling SUEWS_cal_QH...'
@@ -733,7 +733,7 @@ CONTAINS
          SurfaceArea,&!Surface area of the study area [m2]
          NonWaterFraction,&! sum of surface cover fractions for all except water surfaces
          tstep_real,& !tstep cast as a real for use in calculations
-         SoilMoist,&! inout:!Soil moisture of each surface type [mm]
+         soilmoist_id,&! inout:!Soil moisture of each surface type [mm]
          runoffSoil,&!Soil runoff from each soil sub-surface [mm]
          runoffSoil_per_tstep&!  output:!Runoff to deep soil per timestep [mm] (for whole surface, excluding water body)
          )
@@ -743,7 +743,7 @@ CONTAINS
     CALL SUEWS_cal_SoilMoist(&
          SMDMethod,xsmd,NonWaterFraction,SoilMoistCap,&!input
          SoilStoreCap,surf_chang_per_tstep,&
-         soilmoist,soilmoistOld,sfr,&
+         soilmoist_id,soilmoistOld,sfr,&
          smd,smd_nsurf,tot_chang_per_tstep,SoilState)!output
 
 
@@ -780,14 +780,14 @@ CONTAINS
          resistsurf,runoffAGimpervious,runoffAGveg,&
          runoff_per_tstep,runoffPipes,runoffSoil_per_tstep,&
          runoffWaterBody,sfr,smd,smd_nsurf,SnowAlb,SnowRemoval,&
-         state,state_per_tstep,surf_chang_per_tstep,swe,t2_C,&
+         state_id,state_per_tstep,surf_chang_per_tstep,swe,t2_C,&
          tot_chang_per_tstep,tsurf,UStar,wu_DecTr,&
          wu_EveTr,wu_Grass,z0m,zdm,zenith_deg,&
          datetimeLine,dataOutLineSUEWS)!output
 
-    ! model state:
+    ! model state_id:
 
-    ! daily state:
+    ! daily state_id:
     CALL update_DailyState(&
          it,imin,nsh_real,&!input
          GDD_id,HDD_id,LAI_id,&
@@ -1154,7 +1154,7 @@ CONTAINS
        StorageHeatMethod,qs_obs,OHMIncQF,Gridiv,&!input
        id,tstep,dt_since_start,Diagnose,sfr,&
        OHM_coef,OHM_threshSW,OHM_threshWD,&
-       soilmoist,soilstoreCap,state,nsh,SnowUse,DiagQS,&
+       soilmoist_id,soilstoreCap,state_id,nsh,SnowUse,DiagQS,&
        HDD_id_use,MetForcingData_grid,Ts5mindata_ir,qf,qn1,&
        avkdn, avu1, temp_c, zenith_deg, avrh, press_hpa, ldown,&
        bldgh,alb,emis,cpAnOHM,kkAnOHM,chAnOHM,EmissionsMethod,&
@@ -1181,9 +1181,9 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::OHM_coef(nsurf+1,4,3)                 ! OHM coefficients
     REAL(KIND(1d0)),INTENT(in)::OHM_threshSW(nsurf+1) ! OHM thresholds
     REAL(KIND(1d0)),INTENT(in)::OHM_threshWD(nsurf+1) ! OHM thresholds
-    REAL(KIND(1d0)),INTENT(in)::soilmoist(nsurf)                ! soil moisture
+    REAL(KIND(1d0)),INTENT(in)::soilmoist_id(nsurf)                ! soil moisture
     REAL(KIND(1d0)),INTENT(in)::soilstoreCap(nsurf)             ! capacity of soil store
-    REAL(KIND(1d0)),INTENT(in)::state(nsurf) ! wetness status
+    REAL(KIND(1d0)),INTENT(in)::state_id(nsurf) ! wetness status
 
 
     REAL(KIND(1d0)),DIMENSION(6),INTENT(in)::HDD_id_use
@@ -1263,7 +1263,7 @@ CONTAINS
             Tair_mav_5d,&
             OHM_coef,&
             OHM_threshSW,OHM_threshWD,&
-            soilmoist,soilstoreCap,state,&
+            soilmoist_id,soilstoreCap,state_id,&
             BldgSurf,WaterSurf,&
             SnowUse,SnowFrac,&
             DiagQS,&
@@ -1275,14 +1275,14 @@ CONTAINS
     ELSEIF (StorageHeatMethod==3) THEN
        IF(Diagnose==1) WRITE(*,*) 'Calling AnOHM...'
        ! CALL AnOHM(qn1_use,qn1_store_grid,qn1_av_store_grid,qf,&
-       !      MetForcingData_grid,state/surf(6,:),&
+       !      MetForcingData_grid,state_id/surf(6,:),&
        !      alb, emis, cpAnOHM, kkAnOHM, chAnOHM,&
        !      sfr,nsurf,nsh,EmissionsMethod,id,Gridiv,&
        !      a1,a2,a3,qs,deltaQi)
        CALL AnOHM(&
             tstep,dt_since_start,&
             qn1_use,qn1_av,dqndt,qf,&
-            MetForcingData_grid,state/surf(6,:),&
+            MetForcingData_grid,state_id/surf(6,:),&
             alb, emis, cpAnOHM, kkAnOHM, chAnOHM,&! input
             sfr,nsurf,EmissionsMethod,id,Gridiv,&
             a1,a2,a3,qs,deltaQi)! output
@@ -1312,7 +1312,7 @@ CONTAINS
   SUBROUTINE SUEWS_cal_Water(&
        Diagnose,&!input
        snowUse,NonWaterFraction,addPipes,addImpervious,addVeg,addWaterBody,&
-       state,soilmoist,sfr,surf,WaterDist,nsh_real,&
+       state_id,soilmoist_id,sfr,surf,WaterDist,nsh_real,&
        drain_per_tstep,&  !output
        drain,AddWaterRunoff,&
        AdditionalWater,runoffPipes,runoff_per_interval,&
@@ -1331,8 +1331,8 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::addWaterBody
     REAL(KIND(1d0)),INTENT(in)::nsh_real !nsh cast as a real for use in calculations
 
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)          ::state
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)          ::soilmoist
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)          ::state_id
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)          ::soilmoist_id
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)          ::sfr
     REAL(KIND(1d0)),DIMENSION(6,nsurf),INTENT(in)        ::surf
     REAL(KIND(1d0)),DIMENSION(nsurf+1,nsurf-1),INTENT(in)::WaterDist
@@ -1349,9 +1349,9 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(out)::runoff_per_interval
     INTEGER:: is
 
-    ! Retain previous surface state and soil moisture state
-    stateOld     = state     !State of each surface [mm] for the previous timestep
-    soilmoistOld = soilmoist !Soil moisture of each surface [mm] for the previous timestep
+    ! Retain previous surface state_id and soil moisture state_id
+    stateOld     = state_id     !state_id of each surface [mm] for the previous timestep
+    soilmoistOld = soilmoist_id !Soil moisture of each surface [mm] for the previous timestep
 
 
     !============= Grid-to-grid runoff =============
@@ -1377,7 +1377,7 @@ CONTAINS
 
           CALL drainage(&
                is,&! input:
-               state(is),&
+               state_id(is),&
                surf(6,is),&
                surf(2,is),&
                surf(3,is),&
@@ -1455,7 +1455,7 @@ CONTAINS
        SurfaceArea,FlowChange,drain,WetThresh,stateOld,mw_ind,soilstorecap,rainonsnow,&
        freezmelt,freezstate,freezstatevol,Qm_Melt,Qm_rain,Tsurf_ind,sfr,&
        StateLimit,AddWater,addwaterrunoff,surf,snowD,&
-       runoff_per_interval,state,soilmoist,SnowPack,snowFrac,MeltWaterStore,&! inout:
+       runoff_per_interval,state_id,soilmoist_id,SnowPack,snowFrac,MeltWaterStore,&! inout:
        iceFrac,SnowDens,&
        SnowProf_24hr,& ! output:
        runoffSnow,runoff,runoffSoil,chang,changSnow,&
@@ -1533,7 +1533,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::Tsurf_ind
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::sfr
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::snowD
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::StateLimit !Limit for state of each surface type [mm] (specified in input files)
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::StateLimit !Limit for state_id of each surface type [mm] (specified in input files)
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::AddWater
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(in)::addwaterrunoff
     REAL(KIND(1d0)),DIMENSION(6,nsurf),INTENT(in)::surf
@@ -1542,8 +1542,8 @@ CONTAINS
     !Updated status: input and output
     REAL(KIND(1d0)),INTENT(inout)::runoff_per_interval! Total water transported to each grid for grid-to-grid connectivity
 
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::state
-    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::soilmoist
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::state_id
+    REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::soilmoist_id
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::SnowPack
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::snowFrac
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(inout)::MeltWaterStore
@@ -1644,8 +1644,7 @@ CONTAINS
           IF (sfr(is)/=0) THEN
              IF(Diagnose==1) WRITE(*,*) 'Calling SnowCalc...'
              CALL SnowCalc(&
-                  id,& !input
-                  tstep,imin,it,dectime,is,&
+                  tstep,imin,it,dectime,is,&!input
                   ity,CRWmin,CRWmax,nsh_real,lvS_J_kg,lv_j_kg,avdens,&
                   avRh,Press_hPa,Temp_C,RAsnow,psyc_hPa,avcp,sIce_hPa,&
                   PervFraction,vegfraction,addimpervious,&
@@ -1659,7 +1658,7 @@ CONTAINS
                   SnowPack,SurplusEvap,&!inout
                   snowFrac,MeltWaterStore,iceFrac,SnowDens,&
                   runoffSnow,& ! output
-                  runoff,runoffSoil,chang,changSnow,SnowToSurf,state,ev_snow,soilmoist,&
+                  runoff,runoffSoil,chang,changSnow,SnowToSurf,state_id,ev_snow,soilmoist_id,&
                   SnowDepth,SnowRemoval,swe,ev,chSnow_per_interval,&
                   ev_per_tstep,qe_per_tstep,runoff_per_tstep,surf_chang_per_tstep,&
                   runoffPipes,mwstore,runoffwaterbody)
@@ -1673,8 +1672,8 @@ CONTAINS
           !Calculates ev [mm]
           CALL Evap_SUEWS(&
                ity,&! input: !Evaporation calculated according to Rutter (1) or Shuttleworth (2)
-               state(is),& ! wetness status
-               WetThresh(is),&!When State > WetThresh, RS=0 limit in SUEWS_evap [mm] (specified in input files)
+               state_id(is),& ! wetness status
+               WetThresh(is),&!When state_id > WetThresh, RS=0 limit in SUEWS_evap [mm] (specified in input files)
                surf(6,is),& ! = surf(6,is), current storage capacity [mm]
                numPM,&!numerator of P-M eqn
                s_hPa,&!Vapour pressure versus temperature slope in hPa
@@ -1691,7 +1690,7 @@ CONTAINS
 
           rss_nsurf(is) = rss !Store rss for each surface
 
-          !Surface water balance and soil store updates (can modify ev, updates state)
+          !Surface water balance and soil store updates (can modify ev, updates state_id)
           CALL soilstore(&
                is,& ! input: ! surface type
                sfr,&! surface fractions
@@ -1712,36 +1711,36 @@ CONTAINS
                soilstoreCap,&!Capacity of soil store for each surface [mm]
                addWaterBody,&!Water from water surface of other grids [mm] for whole surface area
                FlowChange,&!Difference between the input and output flow in the water body
-               StateLimit,&!Limit for state of each surface type [mm] (specified in input files)
+               StateLimit,&!Limit for state_id of each surface type [mm] (specified in input files)
                runoffAGimpervious,&!  inout:!Above ground runoff from impervious surface [mm] for whole surface area
                surplusWaterBody,&!Extra runoff that goes to water body [mm] as specified by RunoffToWater
                runoffAGveg,&!Above ground runoff from vegetated surfaces [mm] for whole surface area
                runoffPipes,&!Runoff in pipes [mm] for whole surface area
                ev,&!Evaporation
-               soilmoist,&!Soil moisture of each surface type [mm]
+               soilmoist_id,&!Soil moisture of each surface type [mm]
                SurplusEvap,&!Surplus for evaporation in 5 min timestep
                runoffWaterBody,&!Above ground runoff from water surface [mm] for whole surface area
                runoff_per_interval,&! Total water transported to each grid for grid-to-grid connectivity
                p_mm,&!output: !Inputs to surface water balance
-               chang,&!Change in state [mm]
+               chang,&!Change in state_id [mm]
                runoff,&!Runoff from each surface type [mm]
-               state&!Wetness status of each surface type [mm]
+               state_id&!Wetness status of each surface type [mm]
                )
 
           evap(is) = ev !Store ev for each surface
 
           ! Sum evaporation from different surfaces to find total evaporation [mm]
           ev_per_tstep = ev_per_tstep+evap(is)*sfr(is)
-          ! Sum change from different surfaces to find total change to surface state
-          surf_chang_per_tstep = surf_chang_per_tstep+(state(is)-stateOld(is))*sfr(is)
+          ! Sum change from different surfaces to find total change to surface state_id
+          surf_chang_per_tstep = surf_chang_per_tstep+(state_id(is)-stateOld(is))*sfr(is)
           ! Sum runoff from different surfaces to find total runoff
           runoff_per_tstep = runoff_per_tstep+runoff(is)*sfr(is)
-          ! Calculate total state (including water body)
-          state_per_tstep = state_per_tstep+state(is)*sfr(is)
-          ! Calculate total state (excluding water body)
+          ! Calculate total state_id (including water body)
+          state_per_tstep = state_per_tstep+state_id(is)*sfr(is)
+          ! Calculate total state_id (excluding water body)
 
           IF (NonWaterFraction/=0 .AND. is/=WaterSurf) THEN
-             NWstate_per_tstep=NWstate_per_tstep+(state(is)*sfr(is)/NonWaterFraction)
+             NWstate_per_tstep=NWstate_per_tstep+(state_id(is)*sfr(is)/NonWaterFraction)
           ENDIF
 
           ChangSnow(is)  = 0
@@ -1974,7 +1973,7 @@ CONTAINS
        resistsurf,runoffAGimpervious,runoffAGveg,&
        runoff_per_tstep,runoffPipes,runoffSoil_per_tstep,&
        runoffWaterBody,sfr,smd,smd_nsurf,SnowAlb,SnowRemoval,&
-       state,state_per_tstep,surf_chang_per_tstep,swe,t2_C,&
+       state_id,state_per_tstep,surf_chang_per_tstep,swe,t2_C,&
        tot_chang_per_tstep,tsurf,UStar,wu_DecTr,&
        wu_EveTr,wu_Grass,z0m,zdm,zenith_deg,&
        datetimeLine,dataOutLineSUEWS)!output
@@ -2044,7 +2043,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in) :: smd_nsurf(nsurf)
     REAL(KIND(1d0)),INTENT(in) :: SnowAlb
     REAL(KIND(1d0)),INTENT(in) :: SnowRemoval(2)
-    REAL(KIND(1d0)),INTENT(in) :: state(nsurf)
+    REAL(KIND(1d0)),INTENT(in) :: state_id(nsurf)
     REAL(KIND(1d0)),INTENT(in) :: state_per_tstep
     REAL(KIND(1d0)),INTENT(in) :: surf_chang_per_tstep
     REAL(KIND(1d0)),INTENT(in) :: swe
@@ -2080,7 +2079,7 @@ CONTAINS
     ! values outside of reasonable range are set as NAN-like numbers. TS 10 Jun 2018
 
     ! Remove non-existing surface type from surface and soil outputs   ! Added back in with NANs by HCW 24 Aug 2016
-    state_x=UNPACK(SPREAD(NAN, dim=1, ncopies=SIZE(sfr)), mask=(sfr<0.00001), field=state)
+    state_x=UNPACK(SPREAD(NAN, dim=1, ncopies=SIZE(sfr)), mask=(sfr<0.00001), field=state_id)
     smd_nsurf_x=UNPACK(SPREAD(NAN, dim=1, ncopies=SIZE(sfr)), mask=(sfr<0.00001), field=smd_nsurf)
 
     ResistSurf_x=MIN(9999.,ResistSurf)

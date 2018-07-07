@@ -208,15 +208,15 @@ MODULE allocateArray
   REAL(KIND(1d0)),DIMENSION(nsurf):: runoffSoil     !Soil runoff from each soil sub-surface [mm]
   REAL(KIND(1d0)),DIMENSION(nsurf):: smd_nsurf      !Soil moisture deficit of each sub-surface [mm]
   REAL(KIND(1d0)),DIMENSION(nsurf):: smd_nsurfOut   !Soil moisture deficit of each sub-surface (written out) [mm]
-  REAL(KIND(1d0)),DIMENSION(nsurf):: soilmoist      !Soil moisture of each surface type [mm]
+  REAL(KIND(1d0)),DIMENSION(nsurf):: soilmoist_id      !Soil moisture of each surface type [mm]
   REAL(KIND(1d0)),DIMENSION(nsurf):: soilmoistOld   !Soil moisture of each surface type from previous timestep [mm]
-  REAL(KIND(1d0)),DIMENSION(nsurf):: state          !Wetness status of each surface type [mm]
+  REAL(KIND(1d0)),DIMENSION(nsurf):: state_id          !Wetness status of each surface type [mm]
   REAL(KIND(1d0)),DIMENSION(nsurf):: stateOut       !Wetness status of each surface type (written out) [mm]
   REAL(KIND(1d0)),DIMENSION(nsurf):: stateOld       !Wetness status of each surface type from previous timestep [mm]
   REAL(KIND(1D0)),DIMENSION(nsurf):: rss_nsurf      !Surface resistance after wet/partially wet adjustment for each surface
 
-  REAL(KIND(1d0)),DIMENSION(nsurf):: WetThresh      !When State > WetThresh, RS=0 limit in SUEWS_evap [mm] (specified in input files)
-  REAL(KIND(1d0)),DIMENSION(nsurf):: StateLimit     !Limit for state of each surface type [mm] (specified in input files)
+  REAL(KIND(1d0)),DIMENSION(nsurf):: WetThresh      !When state_id > WetThresh, RS=0 limit in SUEWS_evap [mm] (specified in input files)
+  REAL(KIND(1d0)),DIMENSION(nsurf):: StateLimit     !Limit for state_id of each surface type [mm] (specified in input files)
 
   REAL(KIND(1d0)),DIMENSION(1)::     WaterDepth     !Depth of open water
 
