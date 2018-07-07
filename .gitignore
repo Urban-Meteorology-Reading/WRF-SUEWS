@@ -47,3 +47,7 @@ namelist.input.backup.*
 
 # ignore local configurations
 configure.wrf
+configure.wrf.backup
+warnings.txt
+namelist.output
+registry
