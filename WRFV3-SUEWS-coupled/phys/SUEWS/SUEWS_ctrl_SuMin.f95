@@ -311,6 +311,7 @@ CONTAINS
     EmissionsMethod=0
     NetRadiationMethod=3
     StorageHeatMethod=1
+
     LAI_obs=0
     ldown_obs=0
     fcld_obs=0
@@ -329,6 +330,8 @@ CONTAINS
 
     PRINT*,''
     print*, 'soilmoist_id',soilmoist_id
+    soilmoist_id=MERGE(soilmoist_id,soilmoist_id*0,soilmoist_id>0)
+    print*, 'soilmoist_id modified',soilmoist_id
     print*, 'state_id',state_id
 
 
