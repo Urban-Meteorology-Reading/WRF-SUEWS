@@ -51,3 +51,4 @@ configure.wrf.backup
 warnings.txt
 namelist.output
 registry
+wrfout_d0*
