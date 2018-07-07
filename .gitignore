@@ -33,6 +33,7 @@ test_run/
 *.lib
 
 # Executables
+SUEWS_V201*
 *.exe
 *.out
 *.app
