@@ -42,15 +42,21 @@ CONTAINS
        tstep,tstep_prev,&
        WaterDist,WetThresh,&
        Z,&
+       AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
+       WUProfA_24hr, WUProfM_24hr, Diagnose, snowCalcSwitch, snowUse, &
+       DiagQN, DiagQS, WaterUseMethod, ity, LAICalcYes, RoughLenHeatMethod, &
+       RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, StorageHeatMethod, &
+       LAI_obs, ldown_obs, fcld_obs, snow_obs, qn1_obs, qh_obs, qf_obs, qs_obs, &
+       MeltWaterStore, SnowAlb, WUDay_id, z0m_in, zdm_in,&
        qh,qe,qsfc,tsk)!output
 
     INTEGER::AerodynamicResistanceMethod
-    INTEGER::Diagnose
-    INTEGER::DiagQN
-    INTEGER::DiagQS
+    ! INTEGER::Diagnose
+    ! INTEGER::DiagQN
+    ! INTEGER::DiagQS
     INTEGER,INTENT(IN)::startDLS
     INTEGER,INTENT(IN)::endDLS
-    INTEGER::EmissionsMethod
+    ! INTEGER::EmissionsMethod
     INTEGER::Gridiv
     INTEGER,PARAMETER::gsModel=2
     INTEGER,INTENT(IN)::id
@@ -58,21 +64,21 @@ CONTAINS
     INTEGER::Ie_start
     INTEGER,INTENT(IN)::imin
     INTEGER,INTENT(IN)::it
-    INTEGER::ity
+    ! INTEGER::ity
     INTEGER,INTENT(IN)::iy
-    INTEGER::LAICalcYes
-    INTEGER::NetRadiationMethod
+    ! INTEGER::LAICalcYes
+    ! INTEGER::NetRadiationMethod
     INTEGER,INTENT(IN)::OHMIncQF
-    INTEGER::RoughLenHeatMethod
-    INTEGER::RoughLenMomMethod
+    ! INTEGER::RoughLenHeatMethod
+    ! INTEGER::RoughLenMomMethod
     INTEGER::SMDMethod
-    INTEGER::snowUse
+    ! INTEGER::snowUse
     INTEGER::StabilityMethod
-    INTEGER::StorageHeatMethod
+    ! INTEGER::StorageHeatMethod
     INTEGER,INTENT(IN)::tstep
     INTEGER,INTENT(IN)::tstep_prev ! tstep size of the previous step
     INTEGER,PARAMETER::veg_type=1
-    INTEGER::WaterUseMethod
+    ! INTEGER::WaterUseMethod
 
     INTEGER,INTENT(in)::dt_since_start ! time since simulation starts [s]
     INTEGER,INTENT(in)::isec
@@ -104,7 +110,7 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::FAIEveTree
     REAL(KIND(1D0))::Faut
     REAL(KIND(1D0))::FcEF_v_kgkm
-    REAL(KIND(1D0))::fcld_obs
+    ! REAL(KIND(1D0))::fcld_obs
     REAL(KIND(1D0)),INTENT(IN)::FlowChange
     REAL(KIND(1D0))::FrFossilFuel_Heat
     REAL(KIND(1D0))::FrFossilFuel_NonHeat
@@ -119,9 +125,9 @@ CONTAINS
     REAL(KIND(1D0))::IrrFracDecid
     REAL(KIND(1D0))::IrrFracGrass
     REAL(KIND(1D0)),INTENT(IN)::Kmax
-    REAL(KIND(1D0))::LAI_obs
+    ! REAL(KIND(1D0))::LAI_obs
     REAL(KIND(1D0)),INTENT(IN)::lat
-    REAL(KIND(1D0))::ldown_obs
+    ! REAL(KIND(1D0))::ldown_obs
     REAL(KIND(1D0)),INTENT(IN)::lng
     REAL(KIND(1D0))::MaxQFMetab
     REAL(KIND(1D0))::MinQFMetab
@@ -137,10 +143,10 @@ CONTAINS
     REAL(KIND(1D0))::PrecipLimit
     REAL(KIND(1D0))::PrecipLimitAlb
     REAL(KIND(1D0)),INTENT(IN)::Press_hPa
-    REAL(KIND(1D0))::qh_obs
-    REAL(KIND(1D0))::qn1_obs
-    REAL(KIND(1D0))::qf_obs
-    REAL(KIND(1D0))::qs_obs
+    ! REAL(KIND(1D0))::qh_obs
+    ! REAL(KIND(1D0))::qn1_obs
+    ! REAL(KIND(1D0))::qf_obs
+    ! REAL(KIND(1D0))::qs_obs
     REAL(KIND(1D0))::RadMeltFact
     REAL(KIND(1D0)),INTENT(IN)::RAINCOVER
     REAL(KIND(1D0)),INTENT(IN)::RainMaxRes
@@ -153,7 +159,7 @@ CONTAINS
     REAL(KIND(1D0))::SnowDensMin
     REAL(KIND(1D0))::SnowLimBuild
     REAL(KIND(1D0))::SnowLimPaved
-    REAL(KIND(1D0))::snow_obs
+    ! REAL(KIND(1D0))::snow_obs
     REAL(KIND(1D0)),INTENT(IN)::SurfaceArea
     REAL(KIND(1D0))::tau_a
     REAL(KIND(1D0))::tau_f
@@ -168,6 +174,38 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::Z
 
     INTEGER,DIMENSION(NVEGSURF),INTENT(IN)::LAIType
+
+    REAL(KIND(1D0)),DIMENSION(0:23,2),intent(inout)       :: AHProf_24hr
+    REAL(KIND(1D0)),DIMENSION(0:23,2),intent(inout)       :: HumActivity_24hr
+    REAL(KIND(1D0)),DIMENSION(0:23,2),intent(inout)       :: PopProf_24hr
+    REAL(KIND(1D0)),DIMENSION(0:23,2),intent(inout)       :: TraffProf_24hr
+    REAL(KIND(1D0)),DIMENSION(0:23,2),intent(inout)       :: WUProfA_24hr
+    REAL(KIND(1D0)),DIMENSION(0:23,2),intent(inout)       :: WUProfM_24hr
+    INTEGER,intent(in)                                    :: Diagnose
+    INTEGER,DIMENSION(7),intent(in)                    :: snowCalcSwitch
+    INTEGER,intent(in)                                 :: snowUse
+    INTEGER,intent(in)                                 :: DiagQN
+    INTEGER,intent(in)                                 :: DiagQS
+    INTEGER,intent(in)                                 :: WaterUseMethod
+    INTEGER,intent(in)                                 :: ity
+    INTEGER,intent(in)                                 :: LAICalcYes
+    INTEGER,intent(in)                                 :: RoughLenHeatMethod
+    INTEGER,intent(in)                                 :: RoughLenMomMethod
+    INTEGER,intent(in)                                 :: EmissionsMethod
+    INTEGER,intent(in)                                 :: NetRadiationMethod
+    INTEGER,intent(in)                                 :: StorageHeatMethod
+    REAL(KIND(1D0)),intent(inout)                      :: LAI_obs
+    REAL(KIND(1D0)),intent(inout)                      :: ldown_obs
+    REAL(KIND(1D0)),intent(inout)                      :: fcld_obs
+    REAL(KIND(1D0)),intent(inout)                      :: snow_obs
+    REAL(KIND(1D0)),intent(inout)                      :: qn1_obs
+    REAL(KIND(1D0)),intent(inout)                      :: qh_obs
+    REAL(KIND(1D0)),intent(inout)                      :: qf_obs
+    REAL(KIND(1D0)),intent(inout)                      :: qs_obs
+    REAL(KIND(1D0)),DIMENSION(7),intent(inout)         :: MeltWaterStore
+    REAL(KIND(1D0)),intent(inout)                      :: SnowAlb
+    REAL(KIND(1D0)),intent(inout)                      :: z0m_in
+    REAL(KIND(1D0)),intent(inout)                      :: zdm_in
 
     REAL(KIND(1D0)),DIMENSION(2)            ::AH_MIN
     REAL(KIND(1D0)),DIMENSION(2)            ::AH_SLOPE_Cooling
@@ -218,16 +256,16 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NVEGSURF),INTENT(IN)        ::SDDFull
     REAL(KIND(1D0)),DIMENSION(0:23,2)                     ::snowProf_24hr
     REAL(KIND(1D0)),DIMENSION(NVEGSURF)                   ::theta_bioCO2
-    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE              ::Ts5mindata_ir
+    REAL(KIND(1d0)),DIMENSION(:),ALLOCATABLE              ::Ts5mindata_ir !TODO:allocatable array can't serve as argument?
     REAL(KIND(1D0)),DIMENSION(NSURF+1,NSURF-1),INTENT(IN) ::WaterDist
     REAL(KIND(1D0)),DIMENSION(nsurf+1,4,3),INTENT(IN)     ::OHM_coef
     REAL(KIND(1D0)),DIMENSION(4,NVEGSURF),INTENT(IN)      ::LAIPower
     REAL(KIND(1D0)),DIMENSION(:,:),ALLOCATABLE            ::MetForcingData_grid
 
     REAL(KIND(1D0)) ::SnowfallCum
-    REAL(KIND(1D0)) ::SnowAlb
-    REAL(KIND(1D0)) ::z0m_in
-    REAL(KIND(1D0)) ::zdm_in
+    ! REAL(KIND(1D0)) ::SnowAlb
+    ! REAL(KIND(1D0)) ::z0m_in
+    ! REAL(KIND(1D0)) ::zdm_in
     ! INTEGER,DIMENSION(0:NDAYS,3),INTENT(INOUT)                ::DayofWeek
     REAL(KIND(1d0)),DIMENSION(24*3600/tstep)  ::Tair24HR
     ! REAL(KIND(1D0)),DIMENSION(2*3600/tstep+1),INTENT(INOUT)   ::qn1_av_store
@@ -246,7 +284,7 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)            ::alb
 
     REAL(KIND(1D0)),DIMENSION(NSURF) ::IceFrac
-    REAL(KIND(1D0)),DIMENSION(NSURF) ::MeltWaterStore
+    ! REAL(KIND(1D0)),DIMENSION(NSURF) ::MeltWaterStore
     REAL(KIND(1D0)),DIMENSION(NSURF) ::SnowDens
     REAL(KIND(1D0)),DIMENSION(NSURF) ::snowFrac
     REAL(KIND(1D0)),DIMENSION(NSURF) ::SnowPack
@@ -266,7 +304,7 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(out)::qh
 
 
-    INTEGER,DIMENSION(NSURF)::snowCalcSwitch
+    ! INTEGER,DIMENSION(NSURF)::snowCalcSwitch
     REAL(KIND(1D0)),INTENT(out)::qe
     REAL(KIND(1D0)),INTENT(out)::qsfc
     REAL(KIND(1D0)),INTENT(out)::tsk
@@ -280,7 +318,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       :: HDD_id_use !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT):: LAI_id      !LAI for each veg surface [m2 m-2]
-    REAL(KIND(1d0)),DIMENSION(9)        :: WUDay_id
+    REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)       :: WUDay_id
 
     REAL(KIND(1d0)),INTENT(INOUT) :: DecidCap_id
     REAL(KIND(1d0)),INTENT(INOUT) :: albDecTr_id
@@ -289,44 +327,44 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: porosity_id
 
     ! TODO: temporary setting for the profiles
-    REAL(KIND(1D0)),DIMENSION(0:23,2) ::AHProf_24hr=1.5
-    REAL(KIND(1D0)),DIMENSION(0:23,2) ::HumActivity_24hr=1.5
-    REAL(KIND(1D0)),DIMENSION(0:23,2) ::PopProf_24hr=1.5
-    REAL(KIND(1D0)),DIMENSION(0:23,2) ::TraffProf_24hr=1.5
-    REAL(KIND(1D0)),DIMENSION(0:23,2) ::WUProfA_24hr=1.5
-    REAL(KIND(1D0)),DIMENSION(0:23,2) ::WUProfM_24hr=1.5
+    ! REAL(KIND(1D0)),DIMENSION(0:23,2) ::AHProf_24hr=1.5
+    ! REAL(KIND(1D0)),DIMENSION(0:23,2) ::HumActivity_24hr=1.5
+    ! REAL(KIND(1D0)),DIMENSION(0:23,2) ::PopProf_24hr=1.5
+    ! REAL(KIND(1D0)),DIMENSION(0:23,2) ::TraffProf_24hr=1.5
+    ! REAL(KIND(1D0)),DIMENSION(0:23,2) ::WUProfA_24hr=1.5
+    ! REAL(KIND(1D0)),DIMENSION(0:23,2) ::WUProfM_24hr=1.5
 
 
 
-    Diagnose           = 0
-    snowCalcSwitch     = 0
-    snowUse            = 0
-    DiagQN             = 0
-    DiagQS             = 0
-    WaterUseMethod     = 1 ! use observed, don't model it
-    ity                = 2
-    LAICalcYes         = 1
-    RoughLenHeatMethod = 2
-    RoughLenMomMethod  = 2
-    EmissionsMethod    = 0
-    NetRadiationMethod = 3
-    StorageHeatMethod  = 1
+    ! Diagnose           = 0
+    ! snowCalcSwitch     = 0
+    ! snowUse            = 0
+    ! DiagQN             = 0
+    ! DiagQS             = 0
+    ! WaterUseMethod     = 1 ! use observed, don't model it
+    ! ity                = 2
+    ! LAICalcYes         = 1
+    ! RoughLenHeatMethod = 2
+    ! RoughLenMomMethod  = 2
+    ! EmissionsMethod    = 0
+    ! NetRadiationMethod = 3
+    ! StorageHeatMethod  = 1
 
-    LAI_obs   = 0
-    ldown_obs = 0
-    fcld_obs  = 0
-    snow_obs  = 0
-    qn1_obs   = 0
-    qh_obs    = 0
-    qf_obs    = 0
-    qs_obs    = 0
+    ! LAI_obs   = 0
+    ! ldown_obs = 0
+    ! fcld_obs  = 0
+    ! snow_obs  = 0
+    ! qn1_obs   = 0
+    ! qh_obs    = 0
+    ! qf_obs    = 0
+    ! qs_obs    = 0
 
-    MeltWaterStore=0
+    ! MeltWaterStore=0
 
-    SnowAlb=0
-    WUDay_id=0
-    z0m_in=0.05
-    zdm_in=0.1
+    ! SnowAlb=0
+    ! WUDay_id=0
+    ! z0m_in=0.05
+    ! zdm_in=0.1
 
     PRINT*,''
     print*, 'soilmoist_id',soilmoist_id

@@ -1,23 +1,65 @@
 #<Table>  <Dim>  <Order> <How defined>         <Coord-axis>  <Dimname in Datasets>
-dimspec   nohm     -     constant=3                  c        num_ohm
 dimspec   nsurf    -     constant=7                  c        num_surf
+dimspec   nsurfp1  -     constant=8                  c        num_surf_plus_1
+dimspec   nsurfm1  -     constant=6                  c        num_surf_minus_1
 dimspec   nvegsurf -     constant=3                  c        num_vegsurf
 dimspec   dimgdd   -     constant=5                  c        third_dim_gdd
 dimspec   dimhdd   -     constant=6                  c        third_dim_hdd
+dimspec   nhour    -     constant=24                 c        num_hour_per_day
+dimspec   dim2hour -     constant=2                  c        second_dim
+dimspec   dim2ohm  -     constant=4                  c        second_dim_ohm
+dimspec   dim3ohm  -     constant=3                  c        third_dim_ohm
+dimspec   dimwd    -     constant=9                  c        dim_wd_id
+dimspec   dim1d    -     constant=1                  c        const
 
 #<Table> <Type>   <Sym>           <Dims>           <Use>   <NumTLev> <Stagger>    <IO>     <DNAME>                       <DESCRIP>        <UNITS>
-state    real    OHMcoef         {nohm}            mics      1         -           -    "OHM_coefficients"            "OHM_coefficients"    ""
-state    real    qn1_av_SUEWS      ij              mics      1         -           -    "qn1_av_SUEWS"                "qn1_av_SUEWS"        "w m-2"
-state    real    LAI_SUEWS         ij{nvegsurf}    mics      1         -           -    "LAI_SUEWS"                   "LAI_SUEWS"           "m2 m-2"
-state    real    albDecTr_SUEWS    ij              mics      1         -           -    "albDecTr_SUEWS"              "albDecTr_SUEWS"      ""
-state    real    albEveTr_SUEWS    ij              mics      1         -           -    "albEveTr_SUEWS"              "albEveTr_SUEWS"      ""
-state    real    albGrass_SUEWS    ij              mics      1         -           -    "albGrass_SUEWS"              "albGrass_SUEWS"      ""
-state    real    DecidCap_SUEWS    ij              mics      1         -           -    "DecidCap_SUEWS"              "DecidCap_SUEWS"      "mm"
-state    real    porosity_SUEWS    ij              mics      1         -           -    "porosity_SUEWS"              "porosity_SUEWS"      ""
-state    real    GDD_SUEWS         ij{dimgdd}      mics      1         -           -    "GDD_SUEWS"                   "GDD_SUEWS"           ""
-state    real    HDD_SUEWS         ij{dimhdd}      mics      1         -           -    "HDD_SUEWS"                   "HDD_SUEWS"           ""
-state    real    HDD_PREV_SUEWS    ij{dimhdd}      mics      1         -           -    "HDD_PREV_SUEWS"              "HDD_PREV_SUEWS"      ""
-state    real    state_SUEWS       ij{vegsurf}     mics      1         -           -    "state_SUEWS"                 "state_SUEWS"         ""
-state    real    soilmoist_SUEWS   ij{vegsurf}     mics      1         -           -    "soilmoist_SUEWS"             "soilmoist_SUEWS"     ""
-state    real    surf_var_SUEWS    ij{vegsurf}     mics      1         -           -    "surf_var_SUEWS"              "surf_var_SUEWS"      ""
-state    real    dqndt_SUEWS       ij              mics      1         -           -    "dqndt_SUEWS"                 "dqndt_SUEWS"         ""
+state    real    LAI_SUEWS         ij{nvegsurf}    mics      1         -           irh    "LAI_SUEWS"                   "LAI_SUEWS"           "m2 m-2"
+state    real    albDecTr_SUEWS    ij              mics      1         -           irh    "albDecTr_SUEWS"              "albDecTr_SUEWS"      ""
+state    real    albEveTr_SUEWS    ij              mics      1         -           irh    "albEveTr_SUEWS"              "albEveTr_SUEWS"      ""
+state    real    albGrass_SUEWS    ij              mics      1         -           irh    "albGrass_SUEWS"              "albGrass_SUEWS"      ""
+state    real    DecidCap_SUEWS    ij              mics      1         -           irh    "DecidCap_SUEWS"              "DecidCap_SUEWS"      "mm"
+state    real    porosity_SUEWS    ij              mics      1         -           irh    "porosity_SUEWS"              "porosity_SUEWS"      ""
+state    real    GDD_SUEWS         ij{dimgdd}      mics      1         -           irh    "GDD_SUEWS"                   "GDD_SUEWS"           ""
+state    real    HDD_SUEWS         ij{dimhdd}      mics      1         -           irh    "HDD_SUEWS"                   "HDD_SUEWS"           ""
+state    real    HDD_PREV_SUEWS    ij{dimhdd}      mics      1         -           irh    "HDD_PREV_SUEWS"              "HDD_PREV_SUEWS"      ""
+state    real    state_SUEWS       ij{vegsurf}     mics      1         -           irh    "state_SUEWS"                 "state_SUEWS"         ""
+state    real    soilmoist_SUEWS   ij{vegsurf}     mics      1         -           irh    "soilmoist_SUEWS"             "soilmoist_SUEWS"     ""
+state    real    surf_var_SUEWS    ij{vegsurf}     mics      1         -           irh    "surf_var_SUEWS"              "surf_var_SUEWS"      ""
+state    real    qn1_av_SUEWS      ij              mics      1         -           rh     "qn1_av_SUEWS"                "qn1_av_SUEWS"        ""
+state    real    dqndt_SUEWS       ij              mics      1         -           rh     "dqndt_SUEWS"                 "dqndt_SUEWS"         ""
+
+state    real    OHM_coef    {nsurfp1}{dim2ohm}{dim3ohm}     mics      1         -            -     "OHM_coefficients"            "OHM_coefficients"    ""
+state    real    WaterDist   {nsurfp1}{nsurfm1}              mics      1         -            -     "WaterDist"                   "WaterDist"    ""
+state    real    AHProf_24hr       {nhour}{dim2hour}         mics      1         -            -     "AHProf_24hr"                 "AHProf_24hr"         ""
+state    real    HumActivity_24hr  {nhour}{dim2hour}         mics      1         -            -     "HumActivity_24hr"            "HumActivity_24hr"    ""
+state    real    PopProf_24hr      {nhour}{dim2hour}         mics      1         -            -     "PopProf_24hr"                "PopProf_24hr"        ""
+state    real    TraffProf_24hr    {nhour}{dim2hour}         mics      1         -            -     "TraffProf_24hr"              "TraffProf_24hr"      ""
+state    real    WUProfA_24hr      {nhour}{dim2hour}         mics      1         -            -     "WUProfA_24hr"                "WUProfA_24hr"        ""
+state    real    WUProfM_24hr      {nhour}{dim2hour}         mics      1         -            -     "WUProfM_24hr"                "WUProfM_24hr"        ""
+
+state    integer Diagnose           {dim1d}        mics      1         -            -     "Diagnose"                    "Diagnose"            ""
+state    integer snowCalcSwitch     {nsurf}        mics      1         -            -     "snowCalcSwitch"              "snowCalcSwitch"      ""
+state    integer snowUse            {dim1d}        mics      1         -            -     "snowUse"                     "snowUse"             ""
+state    integer DiagQN             {dim1d}        mics      1         -            -     "DiagQN"                      "DiagQN"              ""
+state    integer DiagQS             {dim1d}        mics      1         -            -     "DiagQS"                      "DiagQS"              ""
+state    integer WaterUseMethod     {dim1d}        mics      1         -            -     "WaterUseMethod"              "WaterUseMethod"      ""
+state    integer ity                {dim1d}        mics      1         -            -     "ity"                         "ity"                 ""
+state    integer LAICalcYes         {dim1d}        mics      1         -            -     "LAICalcYes"                  "LAICalcYes"          ""
+state    integer RoughLenHeatMethod {dim1d}        mics      1         -            -     "RoughLenHeatMethod"          "RoughLenHeatMethod"  ""
+state    integer RoughLenMomMethod  {dim1d}        mics      1         -            -     "RoughLenMomMethod"           "RoughLenMomMethod"   ""
+state    integer EmissionsMethod    {dim1d}        mics      1         -            -     "EmissionsMethod"             "EmissionsMethod"     ""
+state    integer NetRadiationMethod {dim1d}        mics      1         -            -     "NetRadiationMethod"          "NetRadiationMethod"  ""
+state    integer StorageHeatMethod  {dim1d}        mics      1         -            -     "StorageHeatMethod"           "StorageHeatMethod"   ""
+state    real    LAI_obs            {dim1d}        mics      1         -            -     "LAI_obs"                     "LAI_obs"             ""
+state    real    ldown_obs          {dim1d}        mics      1         -            -     "ldown_obs"                   "ldown_obs"           ""
+state    real    fcld_obs           {dim1d}        mics      1         -            -     "fcld_obs"                    "fcld_obs"            ""
+state    real    snow_obs           {dim1d}        mics      1         -            -     "snow_obs"                    "snow_obs"            ""
+state    real    qn1_obs            {dim1d}        mics      1         -            -     "qn1_obs"                     "qn1_obs"             ""
+state    real    qh_obs             {dim1d}        mics      1         -            -     "qh_obs"                      "qh_obs"              ""
+state    real    qf_obs             {dim1d}        mics      1         -            -     "qf_obs"                      "qf_obs"              ""
+state    real    qs_obs             {dim1d}        mics      1         -            -     "qs_obs"                      "qs_obs"              ""
+state    real    MeltWaterStore     {nsurf}        mics      1         -            -     "MeltWaterStore"              "MeltWaterStore"      ""
+state    real    SnowAlb            {dim1d}        mics      1         -            -     "SnowAlb"                     "SnowAlb"             ""
+state    real    WUDay_id           {dimwd}        mics      1         -            -     "WUDay_id"                    "WUDay_id"            ""
+state    real    z0m_in             {dim1d}        mics      1         -            -     "z0m_in"                      "z0m_in"              ""
+state    real    zdm_in             {dim1d}        mics      1         -            -     "zdm_in"                      "zdm_in"              ""
