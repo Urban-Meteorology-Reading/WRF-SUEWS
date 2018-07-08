@@ -577,9 +577,7 @@ BENCH_START(surf_driver_tim)
      &         LHveg=grid%LHveg, LHtran=grid%LHtran                                 &
 ! end of CLM variables
      &        ,year=yr, day_int=day, hour=hr, minute=minute, second=sec             & ! add for SUEWS by Zhenkun Li, 5/6/2018
-     &        ,OHMcoef=grid%OHMcoef                                                 & ! add for SUEWS by Zhenkun Li, 27/6/2018
-     &        ,qn1_av_SUEWS=grid%qn1_av_SUEWS                                       & ! add for SUEWS by Zhenkun Li, 5/7/2018
-     &        ,LAI_SUEWS=grid%LAI_SUEWS                                             &
+     &        ,LAI_SUEWS=grid%LAI_SUEWS                                             & ! add for SUEWS by Zhenkun Li, 7/7/2018
      &        ,albDecTr_SUEWS=grid%albDecTr_SUEWS                                   &
      &        ,albEveTr_SUEWS=grid%albEveTr_SUEWS                                   &
      &        ,albGrass_SUEWS=grid%albGrass_SUEWS                                   &
@@ -589,9 +587,44 @@ BENCH_START(surf_driver_tim)
      &        ,HDD_SUEWS=grid%HDD_SUEWS                                             &
      &        ,HDD_PREV_SUEWS=grid%HDD_PREV_SUEWS                                   &
      &        ,state_SUEWS=grid%state_SUEWS                                         &
-     &        ,soilmoist_SUEWS=grid%soilmoist_SUEWS                                  &
+     &        ,soilmoist_SUEWS=grid%soilmoist_SUEWS                                 &
      &        ,surf_var_SUEWS=grid%surf_var_SUEWS                                   &
+     &        ,qn1_av_SUEWS=grid%qn1_av_SUEWS                                       &
      &        ,dqndt_SUEWS=grid%dqndt_SUEWS                                         &
+     &        ,OHM_coef=grid%OHM_coef                                               & ! add for SUEWS by Zhenkun Li, 27/6/2018
+     &        ,WaterDist=grid%WaterDist                                             &
+     &        ,AHProf_24hr=grid%AHProf_24hr                                         &
+     &        ,HumActivity_24hr=grid%HumActivity_24hr                               &
+     &        ,PopProf_24hr=grid%PopProf_24hr                                       &
+     &        ,TraffProf_24hr=grid%TraffProf_24hr                                   &
+     &        ,WUProfA_24hr=grid%WUProfA_24hr                                       &
+     &        ,WUProfM_24hr=grid%WUProfM_24hr                                       &
+     &        ,Diagnose=grid%Diagnose                                               &
+     &        ,snowCalcSwitch=grid%snowCalcSwitch                                   &
+     &        ,snowUse=grid%snowUse                                                 &
+     &        ,DiagQN=grid%DiagQN                                                   &
+     &        ,DiagQS=grid%DiagQS                                                   &
+     &        ,WaterUseMethod=grid%WaterUseMethod                                   &
+     &        ,ity=grid%ity                                                         &
+     &        ,LAICalcYes=grid%LAICalcYes                                           &
+     &        ,RoughLenHeatMethod=grid%RoughLenHeatMethod                           &
+     &        ,RoughLenMomMethod=grid%RoughLenMomMethod                             &
+     &        ,EmissionsMethod=grid%EmissionsMethod                                 &
+     &        ,NetRadiationMethod=grid%NetRadiationMethod                           &
+     &        ,StorageHeatMethod=grid%StorageHeatMethod                             &
+     &        ,LAI_obs=grid%LAI_obs                                                 &
+     &        ,ldown_obs=grid%ldown_obs                                             &
+     &        ,fcld_obs=grid%fcld_obs                                               &
+     &        ,snow_obs=grid%snow_obs                                               &
+     &        ,qn1_obs=grid%qn1_obs                                                 &
+     &        ,qh_obs=grid%qh_obs                                                   &
+     &        ,qf_obs=grid%qf_obs                                                   &
+     &        ,qs_obs=grid%qs_obs                                                   &
+     &        ,MeltWaterStore=grid%MeltWaterStore                                   &
+     &        ,SnowAlb=grid%SnowAlb                                                 &
+     &        ,WUDay_id=grid%WUDay_id                                               &
+     &        ,z0m_in=grid%z0m_in                                                   &
+     &        ,zdm_in=grid%zdm_in                                                   &
      &        ,SLOPE_RAD=config_flags%slope_rad,TOPO_SHADING=config_flags%topo_shading & ! solar
      &        ,SHADOWMASK=grid%shadowmask,DIFFUSE_FRAC=grid%diffuse_frac               & ! solar
      &        ,SLOPE=grid%slope, SLP_AZI=grid%slp_azi, SWNORM=grid%swnorm              & ! solar

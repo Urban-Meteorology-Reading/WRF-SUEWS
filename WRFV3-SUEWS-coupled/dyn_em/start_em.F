@@ -1265,8 +1265,6 @@ endif
                       ,grid%rv_up,grid%rc_up,grid%u_up,grid%v_up,grid%frac_up            &
                       ,grid%ccn_conc                                          & ! RAS
                       ,grid%QKE                                               &!JOE-for mynn
-                      ,grid%OHMcoef                                           & ! added for SUEWS by Zhenkun Li, 15/6/2018
-                      ,grid%qn1_av_SUEWS                                      &
                       ,grid%LAI_SUEWS                                         &
                       ,grid%albDecTr_SUEWS                                    &
                       ,grid%albEveTr_SUEWS                                    &
@@ -1279,7 +1277,42 @@ endif
                       ,grid%state_SUEWS                                       &
                       ,grid%soilmoist_SUEWS                                   &
                       ,grid%surf_var_SUEWS                                    &
+                      ,grid%qn1_av_SUEWS                                      &
                       ,grid%dqndt_SUEWS                                       &
+                      ,grid%OHM_coef                                          & ! added for SUEWS by Zhenkun Li, 15/6/2018
+                      ,grid%WaterDist                                         & ! added for SUEWS by Zhenkun Li, 15/6/2018
+                      ,grid%AHProf_24hr                                       &
+                      ,grid%HumActivity_24hr                                  &
+                      ,grid%PopProf_24hr                                      &
+                      ,grid%TraffProf_24hr                                    &
+                      ,grid%WUProfA_24hr                                      &
+                      ,grid%WUProfM_24hr                                      &
+                      ,grid%Diagnose                                          &
+                      ,grid%snowCalcSwitch                                    &
+                      ,grid%snowUse                                           &
+                      ,grid%DiagQN                                            &
+                      ,grid%DiagQS                                            &
+                      ,grid%WaterUseMethod                                    &
+                      ,grid%ity                                               &
+                      ,grid%LAICalcYes                                        &
+                      ,grid%RoughLenHeatMethod                                &
+                      ,grid%RoughLenMomMethod                                 &
+                      ,grid%EmissionsMethod                                   &
+                      ,grid%NetRadiationMethod                                &
+                      ,grid%StorageHeatMethod                                 &
+                      ,grid%LAI_obs                                           &
+                      ,grid%ldown_obs                                         &
+                      ,grid%fcld_obs                                          &
+                      ,grid%snow_obs                                          &
+                      ,grid%qn1_obs                                           &
+                      ,grid%qh_obs                                            &
+                      ,grid%qf_obs                                            &
+                      ,grid%qs_obs                                            &
+                      ,grid%MeltWaterStore                                    &
+                      ,grid%SnowAlb                                           &
+                      ,grid%WUDay_id                                          &
+                      ,grid%z0m_in                                            &
+                      ,grid%zdm_in                                            &
                       ,grid%landusef,grid%landusef2,grid%mosaic_cat_index                            & ! danli mosaic
                       ,grid%TSK_mosaic,grid%TSLB_mosaic,grid%SMOIS_mosaic,grid%SH2O_mosaic           & ! danli mosaic
                       ,grid%CANWAT_mosaic,grid%SNOW_mosaic,grid%SNOWH_mosaic,grid%SNOWC_mosaic       & ! danli mosaic
