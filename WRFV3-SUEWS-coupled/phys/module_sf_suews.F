@@ -246,7 +246,7 @@ CONTAINS
           porosity_id     = porosity_SUEWS(I,J)
           GDD_id          = GDD_SUEWS(I,:,J)
           HDD_id          = HDD_SUEWS(I,:,J,:)
-          state_id        = state_SUEWS(i,j,:)
+          state_id        = state_SUEWS(I,:,J)
           soilmoist_id    = soilmoist_SUEWS(I,:,J)
           surf_var_id     = surf_var_SUEWS(I,:,J)
           qn1_av_id       = qn1_av_SUEWS(I,J)
