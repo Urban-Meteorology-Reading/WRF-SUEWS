@@ -1131,7 +1131,7 @@ integer myproc
 #endif
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
-                dqndt_SUEWS,dqnsdt_SUEWS,                                    &
+                dqndt_SUEWS,dqnsdt_SUEWS,                       &
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2718,7 +2718,7 @@ integer myproc
            CALL suewsinit(                                     &
                          qn1_av_SUEWS,                         &
                          qn1_s_SUEWS,                          &
-                         dqndt_SUEWS,  dqnsdt_SUEWS,                        &
+                         dqndt_SUEWS,  dqnsdt_SUEWS,           &
                          restart, allowed_to_read,             &
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &

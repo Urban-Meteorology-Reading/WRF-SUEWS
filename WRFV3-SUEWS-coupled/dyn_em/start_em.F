@@ -1267,7 +1267,7 @@ endif
                       ,grid%QKE                                               &!JOE-for mynn
                       ,grid%qn1_av_SUEWS                                      & ! added for SUEWS by Zhenkun Li, 15/6/2018
                       ,grid%qn1_s_SUEWS                                       & ! added for SUEWS by Zhenkun Li, 15/6/2018
-                      ,grid%dqndt_SUEWS                                       &
+                      ,grid%dqndt_SUEWS,grid%dqnsdt_SUEWS                     &
                       ,grid%landusef,grid%landusef2,grid%mosaic_cat_index                            & ! danli mosaic
                       ,grid%TSK_mosaic,grid%TSLB_mosaic,grid%SMOIS_mosaic,grid%SH2O_mosaic           & ! danli mosaic
                       ,grid%CANWAT_mosaic,grid%SNOW_mosaic,grid%SNOWH_mosaic,grid%SNOWC_mosaic       & ! danli mosaic

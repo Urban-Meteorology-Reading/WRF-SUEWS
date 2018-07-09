@@ -7,14 +7,14 @@
 MODULE module_sf_SUEWS
   USE SuMin_Module,ONLY:SuMin,nsurf,nvegsurf
 
-  REAL(KIND(1D0)),DIMENSION(8,4,3)              :: OHM_coef
-  REAL(KIND(1D0)),DIMENSION(8,6)                :: WaterDist
-  REAL(KIND(1D0)),DIMENSION(24,2)               :: AHProf_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)               :: HumActivity_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)               :: PopProf_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)               :: TraffProf_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)               :: WUProfA_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)               :: WUProfM_24hr
+  REAL(KIND(1D0)),DIMENSION(8,4,3)             :: OHM_coef
+  REAL(KIND(1D0)),DIMENSION(8,6)               :: WaterDist
+  REAL(KIND(1D0)),DIMENSION(24,2)              :: AHProf_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)              :: HumActivity_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)              :: PopProf_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)              :: TraffProf_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)              :: WUProfA_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)              :: WUProfM_24hr
   INTEGER                                      :: snowUse
   INTEGER                                      :: RoughLenHeatMethod
   INTEGER                                      :: RoughLenMomMethod
@@ -300,6 +300,7 @@ CONTAINS
           soilmoist_SUEWS(I,:,J) = soilmoist_id
           surf_var_SUEWS(I,:,J)  = surf_var_id
           dqndt_SUEWS(I,J)       = dqndt_id
+          dqnsdt_SUEWS(I,J)      = dqnsdt_id
           MeltWaterStore(I,:,J) = MeltWaterStore_id
           SnowAlb(I,J) = SnowAlb_id
           WUDay(I,:,J)   = WUDay_id
@@ -637,7 +638,7 @@ CONTAINS
   SUBROUTINE suewsinit(                         &
        qn1_av_SUEWS,                            &
        qn1_s_SUEWS,                             &
-       dqndt_SUEWS,dqnsdt_SUEWS, &
+       dqndt_SUEWS,dqnsdt_SUEWS,                &
        restart, allowed_to_read,                &
        ids,ide, jds,jde, kds,kde,               &
        ims,ime, jms,jme, kms,kme,               &
@@ -685,7 +686,7 @@ CONTAINS
              qn1_av_SUEWS(i,j) = 0.
              qn1_S_SUEWS(i,j)  = 0.
              dqndt_SUEWS(i,j)  = 0.
-             dqnsdt_SUEWS(i,j)  = 0.
+             dqnsdt_SUEWS(i,j) = 0.
           ENDDO
        ENDDO
 
