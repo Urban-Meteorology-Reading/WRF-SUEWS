@@ -212,19 +212,8 @@ CONTAINS
                          ,rv_up, rc_up, u_up, v_up, frac_up    & ! Optional for qnse
                          ,ccn_conc                             & ! RAS
                          ,QKE                                  & !for MYNN
-                         ,LAI_SUEWS                            &
-                         ,albDecTr_SUEWS                       &
-                         ,albEveTr_SUEWS                       &
-                         ,albGrass_SUEWS                       &
-                         ,DecidCap_SUEWS                       &
-                         ,porosity_SUEWS                       &
-                         ,GDD_SUEWS                            &
-                         ,HDD_SUEWS                            &
-                         ,HDD_PREV_SUEWS                       &
-                         ,state_SUEWS                          &
-                         ,soilmoist_SUEWS                      &
-                         ,surf_var_SUEWS                       &
                          ,qn1_av_SUEWS                         &
+                         ,qn1_s_SUEWS                          &
                          ,dqndt_SUEWS                          &
                          ,OHM_coef                             & ! added for SUEWS by Zhenkun Li, 15/6/2018
                          ,WaterDist                            &
@@ -234,32 +223,14 @@ CONTAINS
                          ,TraffProf_24hr                       &
                          ,WUProfA_24hr                         &
                          ,WUProfM_24hr                         &
-                         ,Diagnose                             &
-                         ,snowCalcSwitch                       &
                          ,snowUse                              &
-                         ,DiagQN                               &
-                         ,DiagQS                               &
-                         ,WaterUseMethod                       &
-                         ,ity                                  &
-                         ,LAICalcYes                           &
                          ,RoughLenHeatMethod                   &
                          ,RoughLenMomMethod                    &
                          ,EmissionsMethod                      &
                          ,NetRadiationMethod                   &
                          ,StorageHeatMethod                    &
-                         ,LAI_obs                              &
-                         ,ldown_obs                            &
-                         ,fcld_obs                             &
-                         ,snow_obs                             &
-                         ,qn1_obs                              &
-                         ,qh_obs                               &
-                         ,qf_obs                               &
-                         ,qs_obs                               &
-                         ,MeltWaterStore                       &
-                         ,SnowAlb                              &
-                         ,WUDay_id                             &
-                         ,z0m_in                               &
-                         ,zdm_in                               &
+                         ,OHMIncQF                             &
+                         ,AerodynamicResistanceMethod          &
                          ,landusef,landusef2,mosaic_cat_index                                                 & ! danli mosaic
                          ,TSK_mosaic,TSLB_mosaic,SMOIS_mosaic,SH2O_mosaic                                     & ! danli mosaic
                          ,CANWAT_mosaic,SNOW_mosaic,SNOWH_mosaic,SNOWC_mosaic                                 & ! danli mosaic
@@ -443,55 +414,25 @@ CONTAINS
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) ::    & !BSINGH(PNNL)- should be declared inout
              RUBLTEN,RVBLTEN,RTHBLTEN,RQVBLTEN,RQCBLTEN,RQIBLTEN,EXCH_H,TKE_PBL
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
-  REAL,DIMENSION(ims:ime,jms:jme,3),INTENT(INOUT) , OPTIONAL               :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
-  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: albDecTr_SUEWS !Albedo of deciduous trees [-]
-  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: albEveTr_SUEWS !Albedo of evergreen trees [-]
-  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: albGrass_SUEWS !Albedo of grass[-]
-  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
-  REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: porosity_SUEWS !Porosity of deciduous trees [-]
-  REAL,DIMENSION(ims:ime,jms:jme,5),INTENT(INOUT) , OPTIONAL               :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-  REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL               :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-  REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL               :: HDD_PREV_SUEWS      !Heating Degree Days (see SUEWS_DailyState.f95)
-  REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL               :: state_SUEWS
-  REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL               :: soilmoist_SUEWS
-  REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL               :: surf_var_SUEWS
   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
   REAL,OPTIONAL,DIMENSION(8,4,3),INTENT(INOUT)                             :: OHM_coef
   REAL,OPTIONAL,DIMENSION(8,6),INTENT(INOUT)                               :: WaterDist
-  REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: AHProf_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: HumActivity_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: PopProf_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: TraffProf_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: WUProfA_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: WUProfM_24hr
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: Diagnose
-  INTEGER,OPTIONAL,DIMENSION(7),intent(inout)                              :: snowCalcSwitch
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: snowUse
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: DiagQN
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: DiagQS
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: WaterUseMethod
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: ity
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: LAICalcYes
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: RoughLenHeatMethod
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: RoughLenMomMethod
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: EmissionsMethod
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: NetRadiationMethod
-  INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: StorageHeatMethod
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: LAI_obs
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: ldown_obs
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: fcld_obs
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: snow_obs
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qn1_obs
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qh_obs
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qf_obs
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qs_obs
-  REAL,OPTIONAL,DIMENSION(7),intent(inout)                                 :: MeltWaterStore
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: SnowAlb
-  REAL,OPTIONAL,DIMENSION(9),intent(inout)                                 :: WUDay_id
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: z0m_in
-  REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: zdm_in
-
+  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: AHProf_24hr
+  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: HumActivity_24hr
+  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: PopProf_24hr
+  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: TraffProf_24hr
+  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfA_24hr
+  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfM_24hr
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: snowUse
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenHeatMethod
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenMomMethod
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: EmissionsMethod
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: NetRadiationMethod
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: StorageHeatMethod
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: OHMIncQF
+  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: AerodynamicResistanceMethod
 
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                                             massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -1220,20 +1161,9 @@ integer myproc
                 ZNT,XLAND,XICE,                                 &
                 DX, DY, MSFTX, MSFTY,                           &
 #endif
-                LAI_SUEWS      ,&
-                albDecTr_SUEWS ,&
-                albEveTr_SUEWS ,&
-                albGrass_SUEWS ,&
-                DecidCap_SUEWS ,&
-                porosity_SUEWS ,&
-                GDD_SUEWS      ,&
-                HDD_SUEWS      ,&
-                HDD_PREV_SUEWS ,&
-                state_SUEWS,&
-                soilmoist_SUEWS,&
-                surf_var_SUEWS,&
-                qn1_av_SUEWS,&
-                dqndt_SUEWS,&
+                qn1_av_SUEWS,                                   &
+                qn1_s_SUEWS,                                    &
+                dqndt_SUEWS,                                    &
                 OHM_coef,                                       & ! added for SUEWS by Zhenkun Li, 15/6/2018
                 WaterDist,   &
                 AHProf_24hr, &
@@ -1242,32 +1172,14 @@ integer myproc
                 TraffProf_24hr, &
                 WUProfA_24hr, &
                 WUProfM_24hr, &
-                Diagnose, &
-                snowCalcSwitch, &
                 snowUse, &
-                DiagQN, &
-                DiagQS, &
-                WaterUseMethod, &
-                ity, &
-                LAICalcYes, &
                 RoughLenHeatMethod, &
                 RoughLenMomMethod, &
                 EmissionsMethod, &
                 NetRadiationMethod, &
                 StorageHeatMethod, &
-                LAI_obs, &
-                ldown_obs, &
-                fcld_obs, &
-                snow_obs, &
-                qn1_obs, &
-                qh_obs, &
-                qf_obs, &
-                qs_obs, &
-                MeltWaterStore, &
-                SnowAlb, &
-                WUDay_id, &
-                z0m_in, &
-                zdm_in, &
+                OHMIncQF, &
+                AerodynamicResistanceMethod, &
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2182,20 +2094,9 @@ integer myproc
 #else
                 ZNT,XLAND,XICE,DX, DY, MSFTX, MSFTY,            &
 #endif
-                LAI_SUEWS      ,&
-                albDecTr_SUEWS ,&
-                albEveTr_SUEWS ,&
-                albGrass_SUEWS ,&
-                DecidCap_SUEWS ,&
-                porosity_SUEWS ,&
-                GDD_SUEWS      ,&
-                HDD_SUEWS      ,&
-                HDD_PREV_SUEWS ,&
-                state_SUEWS,&
-                soilmoist_SUEWS,&
-                surf_var_SUEWS,&
-                qn1_av_SUEWS,&
-                dqndt_SUEWS,&
+                qn1_av_SUEWS,                                   &
+                qn1_s_SUEWS,                                    &
+                dqndt_SUEWS,                                    &
                 OHM_coef,                                       & ! added for SUEWS by Zhenkun Li, 15/6/2018
                 WaterDist,   &
                 AHProf_24hr, &
@@ -2204,32 +2105,14 @@ integer myproc
                 TraffProf_24hr, &
                 WUProfA_24hr, &
                 WUProfM_24hr, &
-                Diagnose, &
-                snowCalcSwitch, &
                 snowUse, &
-                DiagQN, &
-                DiagQS, &
-                WaterUseMethod, &
-                ity, &
-                LAICalcYes, &
                 RoughLenHeatMethod, &
                 RoughLenMomMethod, &
                 EmissionsMethod, &
                 NetRadiationMethod, &
                 StorageHeatMethod, &
-                LAI_obs, &
-                ldown_obs, &
-                fcld_obs, &
-                snow_obs, &
-                qn1_obs, &
-                qh_obs, &
-                qf_obs, &
-                qs_obs, &
-                MeltWaterStore, &
-                SnowAlb, &
-                WUDay_id, &
-                z0m_in, &
-                zdm_in, &
+                OHMIncQF, &
+                AerodynamicResistanceMethod, &
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 ISNOWXY, ZSNSOXY, TSNOXY,                       &
@@ -2470,55 +2353,25 @@ integer myproc
                                                           RQIBLTEN, &
                                                           TKE_PBL
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
-   REAL,DIMENSION(ims:ime,jms:jme,3),INTENT(INOUT) , OPTIONAL               :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
-   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: albDecTr_SUEWS !Albedo of deciduous trees [-]
-   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: albEveTr_SUEWS !Albedo of evergreen trees [-]
-   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: albGrass_SUEWS !Albedo of grass[-]
-   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
-   REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   , OPTIONAL               :: porosity_SUEWS !Porosity of deciduous trees [-]
-   REAL,DIMENSION(ims:ime,jms:jme,5),INTENT(INOUT) , OPTIONAL               :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-   REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL               :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-   REAL,DIMENSION(ims:ime,jms:jme,6),INTENT(INOUT) , OPTIONAL               :: HDD_PREV_SUEWS      !Heating Degree Days (see SUEWS_DailyState.f95)
-   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL               :: state_SUEWS
-   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL               :: soilmoist_SUEWS
-   REAL,DIMENSION(ims:ime,jms:jme,7),INTENT(INOUT) , OPTIONAL               :: surf_var_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
    REAL,OPTIONAL,DIMENSION(8,4,3),INTENT(INOUT)                             :: OHM_coef
    REAL,OPTIONAL,DIMENSION(8,6),INTENT(INOUT)                               :: WaterDist
-   REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: AHProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: HumActivity_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: PopProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: TraffProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: WUProfA_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),intent(inout)                              :: WUProfM_24hr
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: Diagnose
-   INTEGER,OPTIONAL,DIMENSION(7),intent(inout)                              :: snowCalcSwitch
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: snowUse
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: DiagQN
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: DiagQS
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: WaterUseMethod
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: ity
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: LAICalcYes
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: RoughLenHeatMethod
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: RoughLenMomMethod
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: EmissionsMethod
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: NetRadiationMethod
-   INTEGER,OPTIONAL,DIMENSION(1),intent(inout)                              :: StorageHeatMethod
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: LAI_obs
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: ldown_obs
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: fcld_obs
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: snow_obs
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qn1_obs
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qh_obs
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qf_obs
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: qs_obs
-   REAL,OPTIONAL,DIMENSION(7),intent(inout)                                 :: MeltWaterStore
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: SnowAlb
-   REAL,OPTIONAL,DIMENSION(9),intent(inout)                                 :: WUDay_id
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: z0m_in
-   REAL,OPTIONAL,DIMENSION(1),intent(inout)                                 :: zdm_in
-
+   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: AHProf_24hr
+   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: HumActivity_24hr
+   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: PopProf_24hr
+   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: TraffProf_24hr
+   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfA_24hr
+   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfM_24hr
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: snowUse
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenHeatMethod
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenMomMethod
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: EmissionsMethod
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: NetRadiationMethod
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: StorageHeatMethod
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: OHMIncQF
+   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: AerodynamicResistanceMethod
 
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                               massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -2944,6 +2797,7 @@ integer myproc
 
            CALL suewsinit(                                     &
                          qn1_av_SUEWS,                         &
+                         qn1_s_SUEWS,                          &
                          dqndt_SUEWS,                          &
                          OHM_coef,                             &
                          WaterDist,                            &
@@ -2953,32 +2807,14 @@ integer myproc
                          TraffProf_24hr,                       &
                          WUProfA_24hr,                         &
                          WUProfM_24hr,                         &
-                         Diagnose,                             &
-                         snowCalcSwitch,                       &
                          snowUse,                              &
-                         DiagQN,                               &
-                         DiagQS,                               &
-                         WaterUseMethod,                       &
-                         ity,                                  &
-                         LAICalcYes,                           &
                          RoughLenHeatMethod,                   &
                          RoughLenMomMethod,                    &
                          EmissionsMethod,                      &
                          NetRadiationMethod,                   &
                          StorageHeatMethod,                    &
-                         LAI_obs,                              &
-                         ldown_obs,                            &
-                         fcld_obs,                             &
-                         snow_obs,                             &
-                         qn1_obs,                              &
-                         qh_obs,                               &
-                         qf_obs,                               &
-                         qs_obs,                               &
-                         MeltWaterStore,                       &
-                         SnowAlb,                              &
-                         WUDay_id,                             &
-                         z0m_in,                               &
-                         zdm_in,                               &
+                         OHMIncQF,                             &
+                         AerodynamicResistanceMethod,          &
                          restart, allowed_to_read,             &
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
