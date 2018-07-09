@@ -591,6 +591,7 @@ BENCH_START(surf_driver_tim)
      &        ,qn1_av_SUEWS=grid%qn1_av_SUEWS                                       &
      &        ,qn1_s_SUEWS=grid%qn1_s_SUEWS                                         &
      &        ,dqndt_SUEWS=grid%dqndt_SUEWS                                         &
+     &        ,dqnsdt_SUEWS=grid%dqnsdt_SUEWS                                       &
      &        ,MeltWaterStore=grid%MeltWaterStore                                   &
      &        ,SnowAlb=grid%SnowAlb                                                 &
      &        ,WUDay=grid%WUDay                                                     &

@@ -2048,7 +2048,7 @@ integer myproc
 #endif
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
-                dqndt_SUEWS,   dqnsdt_SUEWS,                                 &
+                dqndt_SUEWS,dqnsdt_SUEWS,                       &
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 ISNOWXY, ZSNSOXY, TSNOXY,                       &
