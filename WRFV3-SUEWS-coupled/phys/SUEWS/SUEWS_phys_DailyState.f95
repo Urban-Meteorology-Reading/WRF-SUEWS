@@ -19,6 +19,7 @@ CONTAINS
   ! N.B. Currently, daily variables are calculated using 00:00-23:55 timestamps (for 5-min resolution); should use 00:05-00:00
   !
   ! Last modified:
+  !  TS 09 Jul 2018  - Modified HDD array to hold values for actual calculation
   !  TS 18 Sep 2017  - Added explicit interface
   !  TS 07 Jun 2017  - Improve the format of output with more friendly alignment
   !  HCW 04 Jul 2016 - GridID can now be up to 10 digits long
@@ -66,16 +67,9 @@ CONTAINS
        CapMax_dec,CapMin_dec,PorMax_dec,PorMin_dec,&
        Ie_a,Ie_m,DayWatPer,DayWat,SnowPack,&
        BaseT,BaseTe,GDDFull,SDDFull,LAIMin,LAIMax,LAIPower,&
-       SnowAlb,&!inout
-       GDD_id,&
-       HDD_id,HDD_id_use,&
-       SnowDens,LAI_id,LAI_id_prev,&
-       WUDay_id,&
-       DecidCap_id,&
-       albDecTr_id,&
-       albEveTr_id,&
-       albGrass_id,&
-       porosity_id,&
+       SnowAlb,SnowDens,&!inout
+       GDD_id,HDD_id,LAI_id,LAI_id_prev,WUDay_id,&
+       DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
        deltaLAI)!output
 
     USE Snow_module,ONLY:SnowUpdate
@@ -156,7 +150,7 @@ CONTAINS
     ! REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albGrass
     ! REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::porosity
     ! REAL(KIND(1d0)),DIMENSION( 0:ndays, 5),INTENT(INOUT):: GDD !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
     ! REAL(KIND(1d0)),DIMENSION(-4:366,6),INTENT(INOUT):: HDD
 
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(INOUT)::SnowDens
@@ -168,7 +162,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(9),INTENT(OUT):: WUDay_id
     REAL(KIND(1d0)),INTENT(OUT)::deltaLAI
     REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT):: LAI_id_prev !LAI for each veg surface [m2 m-2]
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)::HDD_id_use ! HDD of previous day
+    ! REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)::HDD_id_use ! HDD of previous day
 
     REAL(KIND(1d0)),INTENT(INOUT):: DecidCap_id
     REAL(KIND(1d0)),INTENT(INOUT):: albDecTr_id
@@ -183,12 +177,21 @@ CONTAINS
 
     ! --------------------------------------------------------------------------------
     ! ------------- Key to daily arrays ----------------------------------------------
-    ! HDD(,1) ---- Heating [degC]                 ! GDD(,1) ---- Growing [degC]
-    ! HDD(,2) ---- Cooling [degC]                 ! GDD(,2) ---- Senescence [degC]
-    ! HDD(,3) ---- Daily mean temp [degC]         ! GDD(,3) ---- Daily min temp [degC]
-    ! HDD(,4) ---- 5-day running mean temp [degC] ! GDD(,4) ---- Daily max temp [degC]
-    ! HDD(,5) ---- Daily precip total [mm]        ! GDD(,5) ---- Daytime hours [h]
-    ! HDD(,6) ---- Days since rain [d]
+    ! HDD(1,) ---- Heating [degC]: used for accumulation during calculation
+    ! HDD(2,) ---- Cooling [degC]: used for accumulation during calculation
+    ! HDD(3,) ---- Daily mean temp [degC]: used for accumulation during calculation
+    ! HDD(4,) ---- 5-day running mean temp [degC]: used for actual calculation
+    ! HDD(5,) ---- Daily precip total [mm]
+    ! HDD(6,) ---- Days since rain [d]
+    ! HDD(,1) ---- used for agrregation during calculation
+    ! HDD(,2) ---- value for previous day and used for actual calculation
+
+    !
+    ! GDD(,1) ---- Growing [degC]
+    ! GDD(,2) ---- Senescence [degC]
+    ! GDD(,3) ---- Daily min temp [degC]
+    ! GDD(,4) ---- Daily max temp [degC]
+    ! GDD(,5) ---- Daytime hours [h]
     !
     ! LAI(,1:3) -- LAI for each veg surface [m2 m-2]
     !
@@ -252,7 +255,7 @@ CONTAINS
             BaseT,BaseTe,CapMax_dec,CapMin_dec,DayWat,DayWatPer,Faut,GDDFull,&
             Ie_a,Ie_m,LAIMax,LAIMin,LAIPower,lat,PorMax_dec,PorMin_dec,SDDFull,LAI_obs,&
             GDD_id,& !inout
-            HDD_id,HDD_id_use,&
+            HDD_id,&
             LAI_id,LAI_id_prev,&
             WUDay_id,&
             DecidCap_id,&
@@ -282,7 +285,7 @@ CONTAINS
        BaseT,BaseTe,CapMax_dec,CapMin_dec,DayWat,DayWatPer,Faut,GDDFull,&
        Ie_a,Ie_m,LAIMax,LAIMin,LAIPower,lat,PorMax_dec,PorMin_dec,SDDFull,LAI_obs,&
        GDD_id,& !inout
-       HDD_id,HDD_id_use,&
+       HDD_id,&
        LAI_id,LAI_id_prev,&
        WUDay_id,&
        DecidCap_id,&
@@ -330,23 +333,15 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(IN)::SDDFull(nvegsurf)
     REAL(KIND(1d0)),INTENT(IN)::LAI_obs
 
-    ! REAL(KIND(1d0)),INTENT(INOUT)::albDecTr( 0:ndays)
-    ! REAL(KIND(1d0)),INTENT(INOUT)::albEveTr( 0:ndays)
-    ! REAL(KIND(1d0)),INTENT(INOUT)::albGrass( 0:ndays)
-    ! REAL(KIND(1d0)),INTENT(INOUT)::porosity( 0:ndays)
-    ! REAL(KIND(1d0)),INTENT(INOUT)::DecidCap( 0:ndays)
-    ! REAL(KIND(1d0)),INTENT(INOUT)::GDD( 0:ndays, 5)
-    ! REAL(KIND(1d0)),INTENT(INOUT)::HDD(-4:ndays, 6)
-    ! REAL(KIND(1d0)),INTENT(INOUT)::LAI(-4:ndays, nvegsurf)
 
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       ::GDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       ::HDD_id
+    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT)     ::HDD_id
     REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT)::LAI_id !LAI for each veg surface [m2 m-2]
 
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)::HDD_id_use ! HDD of previous day
+    ! REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)::HDD_id_use ! HDD of previous day
     REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT)::LAI_id_prev ! LAI of previous day
 
-    ! REAL(KIND(1d0)),DIMENSION(0:ndays,9),INTENT(INOUT):: WUDay
+
     REAL(KIND(1d0)),DIMENSION(9),INTENT(OUT):: WUDay_id
     REAL(KIND(1d0)),INTENT(OUT)::deltaLAI
 
@@ -364,8 +359,8 @@ CONTAINS
 
     CALL update_HDD_X(&
          dt_since_start,it,imin,tstep,& !input
-         HDD_id,&!inout
-         HDD_id_use)!output
+         HDD_id)!inout
+
 
 
 
@@ -467,7 +462,7 @@ CONTAINS
     ! REAL(KIND(1d0))::tstepcount
     ! REAL(KIND(1d0)),DIMENSION(-4:366,6),INTENT(INOUT):: HDD
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT):: GDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
     ! REAL(KIND(1d0)),DIMENSION(5),INTENT(OUT):: GDD_id_prev !Growing Degree Days (see SUEWS_DailyState.f95)
 
     INTEGER::gamma1
@@ -492,11 +487,11 @@ CONTAINS
     ! HDD(id,5)=HDD(id,5) + Precip                     !Daily precip total
     !      6 ------------------------------------!   !Days since rain
 
-    HDD_id(1)=HDD_id(1) + gamma1*(BaseTHDD-Temp_C)   !Heating
-    HDD_id(2)=HDD_id(2) + gamma2*(Temp_C-BaseTHDD)   !Cooling
-    HDD_id(3)=HDD_id(3) + Temp_C                     !Will become daily average temperature
+    HDD_id(1,1)=HDD_id(1,1) + gamma1*(BaseTHDD-Temp_C)   !Heating
+    HDD_id(2,1)=HDD_id(2,1) + gamma2*(Temp_C-BaseTHDD)   !Cooling
+    HDD_id(3,1)=HDD_id(3,1) + Temp_C                     !Will become daily average temperature
     !      4 ------------------------------------!   !5-day running mean
-    HDD_id(5)=HDD_id(5) + Precip                     !Daily precip total
+    HDD_id(5,1)=HDD_id(5,1) + Precip                     !Daily precip total
     !      6 ------------------------------------!   !Days since rain
 
   END SUBROUTINE update_DailyState_Day
@@ -1120,7 +1115,6 @@ CONTAINS
   ! END SUBROUTINE update_WaterUse
 
 
-
   SUBROUTINE update_WaterUse_X(&
        id,WaterUseMethod,DayofWeek_id,lat,Faut,HDD_id,&!input
        Ie_a,Ie_m,Ie_start,Ie_end,DayWatPer,DayWat,&
@@ -1137,7 +1131,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(IN)::lat
     REAL(KIND(1d0)),INTENT(IN)::Faut          !Fraction of irrigated area using automatic irrigation
 
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(IN)::HDD_id
+    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(IN)::HDD_id
     REAL(KIND(1d0)),DIMENSION(3),INTENT(IN)::Ie_a
     REAL(KIND(1d0)),DIMENSION(3),INTENT(IN)::Ie_m   !Coefficients for automatic and manual irrigation models
     REAL(KIND(1d0)),DIMENSION(7),INTENT(IN)::DayWatPer  !% of houses following daily water
@@ -1147,6 +1141,13 @@ CONTAINS
 
     INTEGER::wd        !Water use calculation is done when calc = 1
     INTEGER::calc        !Water use calculation is done when calc = 1
+
+    REAL(KIND(1d0))::temp_avg
+    REAL(KIND(1d0))::days_since_rain
+
+    ! transfer HDD values
+    temp_avg        = HDD_id(3,2)
+    days_since_rain = HDD_id(6,2)
 
     ! initialise WUDay_id
     WUDay_id=0
@@ -1166,38 +1167,38 @@ CONTAINS
           ENDIF
 
           IF(calc==1) THEN
-             ! Model daily water use based on HDD_id(6)(days since rain) and HDD_id(3)(average temp)
+             ! Model daily water use based on days_since_rain (days since rain) and temp_avg (average temp)
              ! WUDay is the amount of water [mm] per day, applied to each of the irrigated areas
              ! N.B. These are the same for each vegetation type at the moment
 
              ! ---- Automatic irrigation (evergreen trees) ----
-             WUDay_id(2) = Faut*(Ie_a(1)+Ie_a(2)*HDD_id(3)+Ie_a(3)*HDD_id(6))*DayWatPer(wd)
+             WUDay_id(2) = Faut*(Ie_a(1)+Ie_a(2)*temp_avg+Ie_a(3)*days_since_rain)*DayWatPer(wd)
              IF (WUDay_id(2)<0) WUDay_id(2)=0   !If modelled WU is negative -> 0
 
              ! ---- Manual irrigation (evergreen trees) ----
-             WUDay_id(3) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD_id(3)+Ie_m(3)*HDD_id(6))*DayWatPer(wd)
+             WUDay_id(3) = (1-Faut)*(Ie_m(1)+Ie_m(2)*temp_avg+Ie_m(3)*days_since_rain)*DayWatPer(wd)
              IF (WUDay_id(3)<0) WUDay_id(3)=0   !If modelled WU is negative -> 0
 
              ! ---- Total evergreen trees water use (automatic + manual) ----
              WUDay_id(1)=(WUDay_id(2)+WUDay_id(3))
 
              ! ---- Automatic irrigation (deciduous trees) ----
-             WUDay_id(5) = Faut*(Ie_a(1)+Ie_a(2)*HDD_id(3)+Ie_a(3)*HDD_id(6))*DayWatPer(wd)
+             WUDay_id(5) = Faut*(Ie_a(1)+Ie_a(2)*temp_avg+Ie_a(3)*days_since_rain)*DayWatPer(wd)
              IF (WUDay_id(5)<0) WUDay_id(5)=0   !If modelled WU is negative -> 0
 
              ! ---- Manual irrigation (deciduous trees) ----
-             WUDay_id(6) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD_id(3)+Ie_m(3)*HDD_id(6))*DayWatPer(wd)
+             WUDay_id(6) = (1-Faut)*(Ie_m(1)+Ie_m(2)*temp_avg+Ie_m(3)*days_since_rain)*DayWatPer(wd)
              IF (WUDay_id(6)<0) WUDay_id(6)=0   !If modelled WU is negative -> 0
 
              ! ---- Total deciduous trees water use (automatic + manual) ----
              WUDay_id(4)=(WUDay_id(5)+WUDay_id(6))
 
              ! ---- Automatic irrigation (grass) ----
-             WUDay_id(8) = Faut*(Ie_a(1)+Ie_a(2)*HDD_id(3)+Ie_a(3)*HDD_id(6))*DayWatPer(wd)
+             WUDay_id(8) = Faut*(Ie_a(1)+Ie_a(2)*temp_avg+Ie_a(3)*days_since_rain)*DayWatPer(wd)
              IF (WUDay_id(8)<0) WUDay_id(8)=0   !If modelled WU is negative -> 0
 
              ! ---- Manual irrigation (grass) ----
-             WUDay_id(9) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD_id(3)+Ie_m(3)*HDD_id(6))*DayWatPer(wd)
+             WUDay_id(9) = (1-Faut)*(Ie_m(1)+Ie_m(2)*temp_avg+Ie_m(3)*days_since_rain)*DayWatPer(wd)
              IF (WUDay_id(9)<0) WUDay_id(9)=0   !If modelled WU is negative -> 0
 
              ! ---- Total grass water use (automatic + manual) ----
@@ -1256,13 +1257,12 @@ CONTAINS
 
   SUBROUTINE update_HDD_X(&
        dt_since_start,it,imin,tstep,& !input
-       HDD_id,&
-       HDD_id_use) !output
+       HDD_id)!inout
     IMPLICIT NONE
     INTEGER,INTENT(IN)::dt_since_start,it,imin,tstep
 
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT):: HDD_id
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(OUT):: HDD_id_use
+    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT):: HDD_id
+    ! REAL(KIND(1d0)),DIMENSION(6),INTENT(OUT):: HDD_id_use
 
     INTEGER:: days_prev
     REAL(KIND(1d0))::tstepcount
@@ -1270,24 +1270,24 @@ CONTAINS
     ! count of timesteps performed during day `id`
     tstepcount=(it*60+imin)*60/tstep*1.
     ! Heating degree days (HDD) -------------
-    HDD_id(1)=HDD_id(1)/tstepcount   !Heating
-    HDD_id(2)=HDD_id(2)/tstepcount   !Cooling
-    HDD_id(3)=HDD_id(3)/tstepcount   !Average temp
+    HDD_id(1,1)=HDD_id(1,1)/tstepcount   !Heating
+    HDD_id(2,1)=HDD_id(2,1)/tstepcount   !Cooling
+    HDD_id(3,1)=HDD_id(3,1)/tstepcount   !Average temp
 
     ! Calculate a quasi-5-day-running-mean temp
     days_prev= MIN(4,& ! dt_since_start >= 4 days
          FLOOR(dt_since_start/(24*60*60)*1.)) ! dt_since_start < 4 days
-    HDD_id(4) = (HDD_id(4)*days_prev+HDD_id(3))/(days_prev+1)
+    HDD_id(4,1) = (HDD_id(4,1)*days_prev+HDD_id(3,1))/(days_prev+1)
 
     ! Calculate number of days since rain
-    IF(HDD_id(5)>0) THEN        !Rain occurred
-       HDD_id(6)=0
+    IF(HDD_id(5,1)>0) THEN        !Rain occurred
+       HDD_id(6,1)=0
     ELSE
-       HDD_id(6)=HDD_id(6)+1  !Days since rain
+       HDD_id(6,1)=HDD_id(6,1)+1  !Days since rain
     ENDIF
 
-    ! save HDD_id as HDD_id_use
-    HDD_id_use = HDD_id
+    ! save updated HDD_id(:,1) values to the other dimension
+    HDD_id(:,2) = HDD_id(:,1)
 
   END SUBROUTINE update_HDD_X
 

@@ -933,16 +933,9 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
      ! 5 = daily precip total
      ! HDD(id_prev,6) = ModelDailyState(Gridiv,cMDS_DaysSinceRain) ! 6 = days since rain
 
-     ! HDD_id_use   = HDD(id_prev,:)   ! DONE: remove the dependence on HDD array
-     HDD_id_use = 0
-     HDD_id_use(1)=ModelDailyState(Gridiv,cMDS_HDD1)
-     HDD_id_use(2)=ModelDailyState(Gridiv,cMDS_HDD2)
-     HDD_id_use(3)=ModelDailyState(Gridiv,cMDS_TempC)
-     ! 4 = 5 day running mean
-     ! 5 = daily precip total
-     HDD_id_use(6)=ModelDailyState(Gridiv,cMDS_DaysSinceRain)
+
      ! ---- Heating degree days, HDD_id: HDD Values for one day
-     HDD_id=0
+     HDD_id(:,1)=0
 
      ! HDD_id(1)=ModelDailyState(Gridiv,cMDS_HDD1)
      ! HDD_id(2)=ModelDailyState(Gridiv,cMDS_HDD2)
@@ -958,8 +951,7 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
      ! LAI_grids(:,:,Gridiv)    = LAI(:,:)
      ! WUDay_grids(:,:,Gridiv) = WUDay(:,:)
 
-     HDD_id_grids(:,Gridiv) = HDD_id(:)
-     HDD_id_use_grids(:,Gridiv) = HDD_id_use(:)
+     HDD_id_grids(:,:,Gridiv) = HDD_id(:,:)
      GDD_id_grids(:,Gridiv) = GDD_id(:)
      LAI_id_grids(:,Gridiv) = LAI_id(:)
 
@@ -1209,8 +1201,8 @@ SUBROUTINE SUEWS_Translate(Gridiv,ir,iMB)
 
      ! added by TS 29 Jun 2018 to remove annual loops in main calculation
      GDD_id      = GDD_id_grids(:,Gridiv)
-     HDD_id      = HDD_id_grids(:,Gridiv)
-     HDD_id_use = HDD_id_use_grids(:,Gridiv)
+     HDD_id      = HDD_id_grids(:,:,Gridiv)
+     ! HDD_id_use = HDD_id_use_grids(:,Gridiv)
      LAI_id      = LAI_id_grids(:,Gridiv)
      WUDay_id    = WUDay_id_grids(:,Gridiv)
 
@@ -1360,8 +1352,8 @@ SUBROUTINE SUEWS_TranslateBack(Gridiv,ir,irMax)
 
   ! added by TS 29 Jun 2018 to remove annual loops in main calculation
   GDD_id_grids(:,Gridiv)=GDD_id
-  HDD_id_grids(:,Gridiv)=HDD_id
-  HDD_id_use_grids(:,Gridiv)=HDD_id_use
+  HDD_id_grids(:,:,Gridiv)=HDD_id
+  ! HDD_id_use_grids(:,Gridiv)=HDD_id_use
   LAI_id_grids(:,Gridiv)=LAI_id
   WUDay_id_grids(:,Gridiv)=WUDay_id
 

@@ -26,7 +26,7 @@ CONTAINS
        AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
        qn1_av,dqndt,qn1_s_av,dqnsdt,&
        surf,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
-       GDD_id,HDD_id,HDD_id_use,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore,&
+       GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore,&
        avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
        qh,qe,qsfc,tsk,CHKLOWQ)!output
 
@@ -99,8 +99,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) ::albGrass_id
     REAL(KIND(1d0)),INTENT(INOUT) ::porosity_id
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)   ::GDD_id     !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)   ::HDD_id     !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)   ::HDD_id_use !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT)   ::HDD_id     !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(3),INTENT(INOUT)   ::LAI_id     !LAI for each veg surface [m2 m-2]
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)   ::WUDay_id
     REAL(KIND(1D0)),DIMENSION(7),INTENT(INOUT)   ::soilmoist_id
@@ -373,7 +372,7 @@ CONTAINS
          EF_umolCO2perJ,emis,EmissionsMethod,EnEF_v_Jkm,endDLS,EveTreeH,FAIBldg,&
          FAIDecTree,FAIEveTree,Faut,FcEF_v_kgkm,fcld_obs,FlowChange,&
          FrFossilFuel_Heat,FrFossilFuel_NonHeat,G1,G2,G3,G4,G5,G6,GDD_id,&
-         GDDFull,Gridiv,gsModel,HDD_id,HDD_id_use,HumActivity_24hr,&
+         GDDFull,Gridiv,gsModel,HDD_id,HumActivity_24hr,&
          IceFrac,id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
          InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,isec,it,ity,&
          iy,kkAnOHM,Kmax,LAI_id,LAICalcYes,LAIMax,LAIMin,LAI_obs,&

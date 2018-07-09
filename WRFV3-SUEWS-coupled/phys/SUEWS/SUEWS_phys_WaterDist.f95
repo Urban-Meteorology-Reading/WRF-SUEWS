@@ -977,7 +977,7 @@ CONTAINS
          WUProfA_24hr(0:23,2),& !Automatic water use profiles at hourly scales
          WUProfM_24hr(0:23,2),& !Manual water use profiles at hourly scales
          InternalWaterUse_h,& !Internal water use [mm h-1]
-         HDD_id(6),& !HDD(id-1), Heating Degree Days (see SUEWS_DailyState.f95)
+         HDD_id(6,2),& !HDD(id-1), Heating Degree Days (see SUEWS_DailyState.f95)
          WUDay_id(9) !WUDay(id-1), Daily water use for EveTr, DecTr, Grass [mm] (see SUEWS_DailyState.f95)
 
     INTEGER,INTENT(in):: &
@@ -1015,6 +1015,8 @@ CONTAINS
     integer :: tstep ! timestep in second
     REAL(KIND(1d0)),PARAMETER::NAN=-999.
     REAL(KIND(1d0)):: OverUse
+    REAL(KIND(1d0)):: rain_cum_daily ! accumulated daily rainfall
+
     REAL(KIND(1d0)):: get_Prof_SpecTime_sum
 
     ! NB: set OverUse as 0 as done module_constants, TS 22 Oct 2017
@@ -1023,6 +1025,9 @@ CONTAINS
 
     ! timestep in second
     tstep=int(3600/NSH)
+
+    ! accumulated daily rainfall
+    rain_cum_daily=HDD_id(5,2)
 
     ! --------------------------------------------------------------------------------
     ! If water used is observed and provided in the met forcing file, units are m3
@@ -1088,7 +1093,7 @@ CONTAINS
        ! ---- Manual irrigation ----
        WuFr=1 !Initialize WuFr to 1, but if raining, reduce manual fraction of water use
        ! If cumulative daily precipitation exceeds 2 mm
-       IF(HDD_id(5)>2) THEN    !.and.WUDay(id-1,3)>0) then !Commented out HCW 23/01/2015
+       IF(rain_cum_daily>2) THEN    !.and.WUDay(id-1,3)>0) then !Commented out HCW 23/01/2015
           WuFr=0   ! 0 -> No manual irrigation if raining
        ENDIF
 
