@@ -7,6 +7,23 @@
 MODULE module_sf_SUEWS
   USE SuMin_Module,ONLY:SuMin,nsurf,nvegsurf
 
+  REAL(KIND(1D0),DIMENSION(8,4,3)              :: OHM_coef
+  REAL(KIND(1D0),DIMENSION(8,6)                :: WaterDist
+  REAL(KIND(1D0),DIMENSION(24,2)               :: AHProf_24hr
+  REAL(KIND(1D0),DIMENSION(24,2)               :: HumActivity_24hr
+  REAL(KIND(1D0),DIMENSION(24,2)               :: PopProf_24hr
+  REAL(KIND(1D0),DIMENSION(24,2)               :: TraffProf_24hr
+  REAL(KIND(1D0),DIMENSION(24,2)               :: WUProfA_24hr
+  REAL(KIND(1D0),DIMENSION(24,2)               :: WUProfM_24hr
+  INTEGER                                      :: snowUse
+  INTEGER                                      :: RoughLenHeatMethod
+  INTEGER                                      :: RoughLenMomMethod
+  INTEGER                                      :: EmissionsMethod
+  INTEGER                                      :: NetRadiationMethod
+  INTEGER                                      :: StorageHeatMethod
+  INTEGER                                      :: OHMIncQF
+  INTEGER                                      :: AerodynamicResistanceMethod
+
 CONTAINS
 
   !----------------------------------------------------------------
@@ -33,22 +50,6 @@ CONTAINS
        WUDay,                                   &
        z0m_in,                                  &
        zdm_in,                                  &
-       OHM_coef,                                &
-       WaterDist,                               &
-       AHProf_24hr,                             &
-       HumActivity_24hr,                        &
-       PopProf_24hr,                            &
-       TraffProf_24hr,                          &
-       WUProfA_24hr,                            &
-       WUProfM_24hr,                            &
-       snowUse,                                 &
-       RoughLenHeatMethod,                      &
-       RoughLenMomMethod,                       &
-       EmissionsMethod,                         &
-       NetRadiationMethod,                      &
-       StorageHeatMethod,                       &
-       OHMIncQF,                                &
-       AerodynamicResistanceMethod,             &
        xlong, xlat, DT, DT_PREV, DX,            &
        ids, ide, jds, jde, kds, kde,            &
        ims, ime, jms, jme, kms, kme,            &
@@ -173,22 +174,6 @@ CONTAINS
     REAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)                 :: WUDay
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: z0m_in
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: zdm_in
-    REAL,DIMENSION(8,4,3),INTENT(IN)                                :: OHM_coef
-    REAL,DIMENSION(8,6),INTENT(IN)                                  :: WaterDist
-    REAL,DIMENSION(24,2),INTENT(IN)                                 :: AHProf_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                                 :: HumActivity_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                                 :: PopProf_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                                 :: TraffProf_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                                 :: WUProfA_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                                 :: WUProfM_24hr
-    INTEGER,INTENT(IN)                                              :: snowUse
-    INTEGER,INTENT(IN)                                              :: RoughLenHeatMethod
-    INTEGER,INTENT(IN)                                              :: RoughLenMomMethod
-    INTEGER,INTENT(IN)                                              :: EmissionsMethod
-    INTEGER,INTENT(IN)                                              :: NetRadiationMethod
-    INTEGER,INTENT(IN)                                              :: StorageHeatMethod
-    INTEGER,INTENT(IN)                                              :: OHMIncQF
-    INTEGER,INTENT(IN)                                              :: AerodynamicResistanceMethod
 
     ! LOCAL VARS
     REAL, DIMENSION(ims:ime, nsurf, jms:jme)    :: landusef_suews
@@ -290,11 +275,6 @@ CONTAINS
                state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_id,dqndt_id,&
                MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
-               OHM_coef, WaterDist, &
-               AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
-               WUProfA_24hr, WUProfM_24hr, snowUse, RoughLenHeatMethod, RoughLenMomMethod, &
-               EmissionsMethod, NetRadiationMethod, StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod&
-
                                 ! modelled outout:
                qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
                                 ! grid layout:
@@ -358,12 +338,8 @@ CONTAINS
        state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_id,dqndt_id,&
        MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
-       AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
-       WUProfA_24hr, WUProfM_24hr, snowUse, RoughLenHeatMethod, RoughLenMomMethod, &
-       EmissionsMethod, NetRadiationMethod, StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod, &
-
                                 ! modelled outout:
-       qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
+       qh,qe,qsfc,tsk,CHKLOWQ,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -427,23 +403,6 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)            :: WUDay_id
     REAL(KIND(1d0)),INTENT(INOUT)                         :: z0m_in_id
     REAL(KIND(1d0)),INTENT(INOUT)                         :: zdm_in_id
-
-    REAL,DIMENSION(8,4,3),INTENT(IN)                      :: OHM_coef
-    REAL,DIMENSION(8,6),INTENT(IN)                        :: WaterDist
-    REAL,DIMENSION(24,2),INTENT(IN)                       :: AHProf_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                       :: HumActivity_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                       :: PopProf_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                       :: TraffProf_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                       :: WUProfA_24hr
-    REAL,DIMENSION(24,2),INTENT(IN)                       :: WUProfM_24hr
-    INTEGER,INTENT(IN)                                    :: snowUse
-    INTEGER,INTENT(IN)                                    :: RoughLenHeatMethod
-    INTEGER,INTENT(IN)                                    :: RoughLenMomMethod
-    INTEGER,INTENT(IN)                                    :: EmissionsMethod
-    INTEGER,INTENT(IN)                                    :: NetRadiationMethod
-    INTEGER,INTENT(IN)                                    :: StorageHeatMethod
-    INTEGER,INTENT(IN)                                    :: OHMIncQF
-    INTEGER,INTENT(IN)                                    :: AerodynamicResistanceMethod
 
     ! 11. output
     REAL(KIND(1d0)), INTENT(out) ::qh !QH for output
@@ -601,14 +560,6 @@ CONTAINS
     ! 5 - max storage capacity [mm]
     ! 6 - current storage capacity [mm]
     !-----------------------------------------------------------------------------------------------
-    REAL(KIND(1d0)),DIMENSION(8,4,3)                      :: OHM_coef_d
-    REAL(KIND(1d0)),DIMENSION(8,6)                        :: WaterDist_d
-    REAL(KIND(1d0)),DIMENSION(24,2)                       :: AHProf_24hr_d
-    REAL(KIND(1d0)),DIMENSION(24,2)                       :: HumActivity_24hr_d
-    REAL(KIND(1d0)),DIMENSION(24,2)                       :: PopProf_24hr_d
-    REAL(KIND(1d0)),DIMENSION(24,2)                       :: TraffProf_24hr_d
-    REAL(KIND(1d0)),DIMENSION(24,2)                       :: WUProfA_24hr_d
-    REAL(KIND(1d0)),DIMENSION(24,2)                       :: WUProfM_24hr_d
 
     ! OHM_coef=RESHAPE(SPREAD(SPREAD(OHMcoef, 2, 4), dim=2, ncopies=8),&
     !      shape=(/8,4,3/), order=(/3,2,1/))
@@ -657,22 +608,13 @@ CONTAINS
 
     sfr=landusef_suews
 
-    OHM_coef_d = OHM_coef
-    WaterDist_d = WaterDist
-    AHProf_24hr_d = AHProf_24hr
-    HumActivity_24hr_d = HumActivity_24hr
-    PopProf_24hr_d = PopProf_24hr
-    TraffProf_24hr_d = TraffProf_24hr
-    WUProfA_24hr_d = WUProfA_24hr
-    WUProfM_24hr_d = WUProfM_24hr
-
     CALL SuMin(&
        snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
        RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,OHMIncQF,&! model options
        iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
        alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
        z0m_in,zdm_in,&! roughness related settings
-       alb,emis,SnowAlb,OHM_coef_d,WaterDist_d,&
+       alb,emis,SnowAlb,OHM_coef,WaterDist,&
        AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
        qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
        surf,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
@@ -690,22 +632,6 @@ CONTAINS
        qn1_av_SUEWS,                            &
        qn1_s_SUEWS,                             &
        dqndt_SUEWS,                             &
-       OHM_coef,                                &
-       WaterDist,                               &
-       AHProf_24hr,                             &
-       HumActivity_24hr,                        &
-       PopProf_24hr,                            &
-       TraffProf_24hr,                          &
-       WUProfA_24hr,                            &
-       WUProfM_24hr,                            &
-       snowUse,                                 &
-       RoughLenHeatMethod,                      &
-       RoughLenMomMethod,                       &
-       EmissionsMethod,                         &
-       NetRadiationMethod,                      &
-       StorageHeatMethod,                       &
-       OHMIncQF,                                &
-       AerodynamicResistanceMethod,             &
        restart, allowed_to_read,                &
        ids,ide, jds,jde, kds,kde,               &
        ims,ime, jms,jme, kms,kme,               &
@@ -717,22 +643,6 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_S_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
-    REAL,DIMENSION(8,4,3),INTENT(INOUT)                             :: OHM_coef
-    REAL,DIMENSION(8,6),INTENT(INOUT)                               :: WaterDist
-    REAL,DIMENSION(24,2),INTENT(INOUT)                              :: AHProf_24hr
-    REAL,DIMENSION(24,2),INTENT(INOUT)                              :: HumActivity_24hr
-    REAL,DIMENSION(24,2),INTENT(INOUT)                              :: PopProf_24hr
-    REAL,DIMENSION(24,2),INTENT(INOUT)                              :: TraffProf_24hr
-    REAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfA_24hr
-    REAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfM_24hr
-    INTEGER,INTENT(INOUT)                                           :: snowUse
-    INTEGER,INTENT(INOUT)                                           :: RoughLenHeatMethod
-    INTEGER,INTENT(INOUT)                                           :: RoughLenMomMethod
-    INTEGER,INTENT(INOUT)                                           :: EmissionsMethod
-    INTEGER,INTENT(INOUT)                                           :: NetRadiationMethod
-    INTEGER,INTENT(INOUT)                                           :: StorageHeatMethod
-    INTEGER,INTENT(INOUT)                                           :: OHMIncQF
-    INTEGER,INTENT(INOUT)                                           :: AerodynamicResistanceMethod
 
     INTEGER, INTENT(IN   )    ::      ids,ide, jds,jde, kds,kde, &
          ims,ime, jms,jme, kms,kme, &

@@ -1265,24 +1265,9 @@ endif
                       ,grid%rv_up,grid%rc_up,grid%u_up,grid%v_up,grid%frac_up            &
                       ,grid%ccn_conc                                          & ! RAS
                       ,grid%QKE                                               &!JOE-for mynn
-                      ,grid%OHM_coef                                          & ! added for SUEWS by Zhenkun Li, 15/6/2018
                       ,grid%qn1_av_SUEWS                                      & ! added for SUEWS by Zhenkun Li, 15/6/2018
                       ,grid%qn1_s_SUEWS                                       & ! added for SUEWS by Zhenkun Li, 15/6/2018
-                      ,grid%WaterDist                                         & ! added for SUEWS by Zhenkun Li, 15/6/2018
-                      ,grid%AHProf_24hr                                       &
-                      ,grid%HumActivity_24hr                                  &
-                      ,grid%PopProf_24hr                                      &
-                      ,grid%TraffProf_24hr                                    &
-                      ,grid%WUProfA_24hr                                      &
-                      ,grid%WUProfM_24hr                                      &
-                      ,grid%snowUse                                           &
-                      ,grid%RoughLenHeatMethod                                &
-                      ,grid%RoughLenMomMethod                                 &
-                      ,grid%EmissionsMethod                                   &
-                      ,grid%NetRadiationMethod                                &
-                      ,grid%StorageHeatMethod                                 &
-                      ,grid%OHMIncQF                                          &
-                      ,grid%AerodynamicResistanceMethod                       &
+                      ,grid%dqndt_SUEWS                                       &
                       ,grid%landusef,grid%landusef2,grid%mosaic_cat_index                            & ! danli mosaic
                       ,grid%TSK_mosaic,grid%TSLB_mosaic,grid%SMOIS_mosaic,grid%SH2O_mosaic           & ! danli mosaic
                       ,grid%CANWAT_mosaic,grid%SNOW_mosaic,grid%SNOWH_mosaic,grid%SNOWC_mosaic       & ! danli mosaic

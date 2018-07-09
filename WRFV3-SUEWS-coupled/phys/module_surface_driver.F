@@ -180,22 +180,6 @@ CONTAINS
      &          ,WUDay                                                &
      &          ,z0m_in                                               &
      &          ,zdm_in                                               &
-     &          ,OHM_coef                                             & ! add for SUEWS by Zhenkun Li, 15/6/2018
-     &          ,WaterDist                                            &
-     &          ,AHProf_24hr                                          &
-     &          ,HumActivity_24hr                                     &
-     &          ,PopProf_24hr                                         &
-     &          ,TraffProf_24hr                                       &
-     &          ,WUProfA_24hr                                         &
-     &          ,WUProfM_24hr                                         &
-     &          ,snowUse                                              &
-     &          ,RoughLenHeatMethod                                   &
-     &          ,RoughLenMomMethod                                    &
-     &          ,EmissionsMethod                                      &
-     &          ,NetRadiationMethod                                   &
-     &          ,StorageHeatMethod                                    &
-     &          ,OHMIncQF                                             &
-     &          ,AerodynamicResistanceMethod                          &
      &          ,slope_rad,topo_shading,shadowmask                    & !I solar
      &          ,swnorm,slope,slp_azi,diffuse_frac                    & !I solar
      &          ,declin,solcon,coszen,hrang,xlat_urb2d                & !I solar/urban

@@ -215,22 +215,6 @@ CONTAINS
                          ,qn1_av_SUEWS                         &
                          ,qn1_s_SUEWS                          &
                          ,dqndt_SUEWS                          &
-                         ,OHM_coef                             & ! added for SUEWS by Zhenkun Li, 15/6/2018
-                         ,WaterDist                            &
-                         ,AHProf_24hr                          &
-                         ,HumActivity_24hr                     &
-                         ,PopProf_24hr                         &
-                         ,TraffProf_24hr                       &
-                         ,WUProfA_24hr                         &
-                         ,WUProfM_24hr                         &
-                         ,snowUse                              &
-                         ,RoughLenHeatMethod                   &
-                         ,RoughLenMomMethod                    &
-                         ,EmissionsMethod                      &
-                         ,NetRadiationMethod                   &
-                         ,StorageHeatMethod                    &
-                         ,OHMIncQF                             &
-                         ,AerodynamicResistanceMethod          &
                          ,landusef,landusef2,mosaic_cat_index                                                 & ! danli mosaic
                          ,TSK_mosaic,TSLB_mosaic,SMOIS_mosaic,SH2O_mosaic                                     & ! danli mosaic
                          ,CANWAT_mosaic,SNOW_mosaic,SNOWH_mosaic,SNOWC_mosaic                                 & ! danli mosaic
@@ -417,22 +401,6 @@ CONTAINS
   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
-  REAL,OPTIONAL,DIMENSION(8,4,3),INTENT(INOUT)                             :: OHM_coef
-  REAL,OPTIONAL,DIMENSION(8,6),INTENT(INOUT)                               :: WaterDist
-  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: AHProf_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: HumActivity_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: PopProf_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: TraffProf_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfA_24hr
-  REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfM_24hr
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: snowUse
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenHeatMethod
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenMomMethod
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: EmissionsMethod
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: NetRadiationMethod
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: StorageHeatMethod
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: OHMIncQF
-  INTEGER,OPTIONAL,INTENT(INOUT)                                           :: AerodynamicResistanceMethod
 
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                                             massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -1164,22 +1132,6 @@ integer myproc
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
                 dqndt_SUEWS,                                    &
-                OHM_coef,                                       & ! added for SUEWS by Zhenkun Li, 15/6/2018
-                WaterDist,   &
-                AHProf_24hr, &
-                HumActivity_24hr, &
-                PopProf_24hr, &
-                TraffProf_24hr, &
-                WUProfA_24hr, &
-                WUProfM_24hr, &
-                snowUse, &
-                RoughLenHeatMethod, &
-                RoughLenMomMethod, &
-                EmissionsMethod, &
-                NetRadiationMethod, &
-                StorageHeatMethod, &
-                OHMIncQF, &
-                AerodynamicResistanceMethod, &
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2097,22 +2049,6 @@ integer myproc
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
                 dqndt_SUEWS,                                    &
-                OHM_coef,                                       & ! added for SUEWS by Zhenkun Li, 15/6/2018
-                WaterDist,   &
-                AHProf_24hr, &
-                HumActivity_24hr, &
-                PopProf_24hr, &
-                TraffProf_24hr, &
-                WUProfA_24hr, &
-                WUProfM_24hr, &
-                snowUse, &
-                RoughLenHeatMethod, &
-                RoughLenMomMethod, &
-                EmissionsMethod, &
-                NetRadiationMethod, &
-                StorageHeatMethod, &
-                OHMIncQF, &
-                AerodynamicResistanceMethod, &
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 ISNOWXY, ZSNSOXY, TSNOXY,                       &
@@ -2356,22 +2292,6 @@ integer myproc
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
-   REAL,OPTIONAL,DIMENSION(8,4,3),INTENT(INOUT)                             :: OHM_coef
-   REAL,OPTIONAL,DIMENSION(8,6),INTENT(INOUT)                               :: WaterDist
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: AHProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: HumActivity_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: PopProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: TraffProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfA_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(INOUT)                              :: WUProfM_24hr
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: snowUse
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenHeatMethod
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: RoughLenMomMethod
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: EmissionsMethod
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: NetRadiationMethod
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: StorageHeatMethod
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: OHMIncQF
-   INTEGER,OPTIONAL,INTENT(INOUT)                                           :: AerodynamicResistanceMethod
 
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                               massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -2799,22 +2719,6 @@ integer myproc
                          qn1_av_SUEWS,                         &
                          qn1_s_SUEWS,                          &
                          dqndt_SUEWS,                          &
-                         OHM_coef,                             &
-                         WaterDist,                            &
-                         AHProf_24hr,                          &
-                         HumActivity_24hr,                     &
-                         PopProf_24hr,                         &
-                         TraffProf_24hr,                       &
-                         WUProfA_24hr,                         &
-                         WUProfM_24hr,                         &
-                         snowUse,                              &
-                         RoughLenHeatMethod,                   &
-                         RoughLenMomMethod,                    &
-                         EmissionsMethod,                      &
-                         NetRadiationMethod,                   &
-                         StorageHeatMethod,                    &
-                         OHMIncQF,                             &
-                         AerodynamicResistanceMethod,          &
                          restart, allowed_to_read,             &
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &

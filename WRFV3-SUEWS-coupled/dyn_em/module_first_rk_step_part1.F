@@ -596,22 +596,6 @@ BENCH_START(surf_driver_tim)
      &        ,WUDay=grid%WUDay                                                     &
      &        ,z0m_in=grid%z0m_in                                                   &
      &        ,zdm_in=grid%zdm_in                                                   &
-     &        ,OHM_coef=grid%OHM_coef                                               & ! add for SUEWS by Zhenkun Li, 27/6/2018
-     &        ,WaterDist=grid%WaterDist                                             &
-     &        ,AHProf_24hr=grid%AHProf_24hr                                         &
-     &        ,HumActivity_24hr=grid%HumActivity_24hr                               &
-     &        ,PopProf_24hr=grid%PopProf_24hr                                       &
-     &        ,TraffProf_24hr=grid%TraffProf_24hr                                   &
-     &        ,WUProfA_24hr=grid%WUProfA_24hr                                       &
-     &        ,WUProfM_24hr=grid%WUProfM_24hr                                       &
-     &        ,snowUse=grid%snowUse                                                 &
-     &        ,RoughLenHeatMethod=grid%RoughLenHeatMethod                           &
-     &        ,RoughLenMomMethod=grid%RoughLenMomMethod                             &
-     &        ,EmissionsMethod=grid%EmissionsMethod                                 &
-     &        ,NetRadiationMethod=grid%NetRadiationMethod                           &
-     &        ,StorageHeatMethod=grid%StorageHeatMethod                             &
-     &        ,OHMIncQF=grid%OHMIncQF                                               &
-     &        ,AerodynamicResistanceMethod=grid%AerodynamicResistanceMethod         &
      &        ,SLOPE_RAD=config_flags%slope_rad,TOPO_SHADING=config_flags%topo_shading & ! solar
      &        ,SHADOWMASK=grid%shadowmask,DIFFUSE_FRAC=grid%diffuse_frac               & ! solar
      &        ,SLOPE=grid%slope, SLP_AZI=grid%slp_azi, SWNORM=grid%swnorm              & ! solar

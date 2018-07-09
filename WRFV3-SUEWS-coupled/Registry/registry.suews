@@ -1,14 +1,9 @@
 #<Table>  <Dim>  <Order> <How defined>         <Coord-axis>  <Dimname in Datasets>
 dimspec   nsurf    -     constant=7                  c        num_surf
-dimspec   nsurfp1  -     constant=8                  c        num_surf_plus_1
-dimspec   nsurfm1  -     constant=6                  c        num_surf_minus_1
 dimspec   nvegsurf -     constant=3                  c        num_vegsurf
 dimspec   dimgdd   -     constant=5                  c        third_dim_gdd
 dimspec   dimhdd   -     constant=6                  c        third_dim_hdd
-dimspec   nhour    -     constant=24                 c        num_hour_per_day
-dimspec   dim2hour -     constant=2                  c        second_dim
-dimspec   dim2ohm  -     constant=4                  c        second_dim_ohm
-dimspec   dim3ohm  -     constant=3                  c        third_dim_ohm
+dimspec   dim4hdd  -     constant=2                  c        fourth_dim_hdd
 dimspec   dimwd    -     constant=9                  c        dim_wd_id
 
 #<Table> <Type>   <Sym>           <Dims>           <Use>   <NumTLev> <Stagger>    <IO>     <DNAME>                       <DESCRIP>        <UNITS>
@@ -19,7 +14,7 @@ state    real    albGrass_SUEWS    ij              mics      1         -        
 state    real    DecidCap_SUEWS    ij              mics      1         -           irh    "DecidCap_SUEWS"              "DecidCap_SUEWS"      "mm"
 state    real    porosity_SUEWS    ij              mics      1         -           irh    "porosity_SUEWS"              "porosity_SUEWS"      ""
 state    real    GDD_SUEWS         i{dimgdd}j      mics      1         -           irh    "GDD_SUEWS"                   "GDD_SUEWS"           ""
-state    real    HDD_SUEWS         i{dimhdd}j{dim2hour}      mics      1         -           irh    "HDD_SUEWS"                   "HDD_SUEWS"           ""
+state    real    HDD_SUEWS         i{dimhdd}j{dim4hdd}      mics      1         -           irh    "HDD_SUEWS"                   "HDD_SUEWS"           ""
 state    real    state_SUEWS       i{nsurf}j       mics      1         -           irh    "state_SUEWS"                 "state_SUEWS"         ""
 state    real    soilmoist_SUEWS   i{nsurf}j       mics      1         -           irh    "soilmoist_SUEWS"             "soilmoist_SUEWS"     ""
 state    real    surf_var_SUEWS    i{nsurf}j       mics      1         -           irh    "surf_var_SUEWS"              "surf_var_SUEWS"      ""
@@ -31,21 +26,3 @@ state    real    SnowAlb           ij              mics      -         -        
 state    real    WUDay             i{dimwd}j       mics      -         -           irh    "WUDay"                       "WUDay"               ""
 state    real    z0m_in            ij              mics      1         -           irh    "z0m_in"                      "z0m_in"              ""
 state    real    zdm_in            ij              mics      1         -           irh    "zdm_in"                      "zdm_in"              ""
-
-state    real    OHM_coef          {nsurfp1}{dim2ohm}{dim3ohm}     mics      1         -            r     "OHM_coefficients"            "OHM_coefficients"    ""
-state    real    WaterDist         {nsurfp1}{nsurfm1}              mics      1         -            r     "WaterDist"                   "WaterDist"    ""
-state    real    AHProf_24hr       {nhour}{dim2hour}               mics      1         -            r     "AHProf_24hr"                 "AHProf_24hr"         ""
-state    real    HumActivity_24hr  {nhour}{dim2hour}               mics      1         -            r     "HumActivity_24hr"            "HumActivity_24hr"    ""
-state    real    PopProf_24hr      {nhour}{dim2hour}               mics      1         -            r     "PopProf_24hr"                "PopProf_24hr"        ""
-state    real    TraffProf_24hr    {nhour}{dim2hour}               mics      1         -            r     "TraffProf_24hr"              "TraffProf_24hr"      ""
-state    real    WUProfA_24hr      {nhour}{dim2hour}               mics      1         -            r     "WUProfA_24hr"                "WUProfA_24hr"        ""
-state    real    WUProfM_24hr      {nhour}{dim2hour}               mics      1         -            r     "WUProfM_24hr"                "WUProfM_24hr"        ""
-
-state    integer snowUse                       -             mics      -         -            r     "snowUse"                     "snowUse"                       ""
-state    integer RoughLenHeatMethod            -             mics      -         -            r     "RoughLenHeatMethod"          "RoughLenHeatMethod"            ""
-state    integer RoughLenMomMethod             -             mics      -         -            r     "RoughLenMomMethod"           "RoughLenMomMethod"             ""
-state    integer EmissionsMethod               -             mics      -         -            r     "EmissionsMethod"             "EmissionsMethod"               ""
-state    integer NetRadiationMethod            -             mics      -         -            r     "NetRadiationMethod"          "NetRadiationMethod"            ""
-state    integer StorageHeatMethod             -             mics      -         -            r     "StorageHeatMethod"           "StorageHeatMethod"             ""
-state    integer OHMIncQF                      -             mics      -         -            r     "OHMIncQF"                    "OHMIncQF"                      ""
-state    integer AerodynamicResistanceMethod   -             mics      -         -            r     "AerodynamicResistanceMethod" "AerodynamicResistanceMethod"   ""
