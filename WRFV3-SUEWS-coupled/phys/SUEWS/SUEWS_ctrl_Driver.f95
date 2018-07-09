@@ -36,7 +36,7 @@ CONTAINS
        alpha_bioCO2,alpha_enh_bioCO2,alt,avkdn,avRh,avU1,BaseT,BaseTe,&
        BaseTHDD,beta_bioCO2,beta_enh_bioCO2,bldgH,CapMax_dec,CapMin_dec,&
        chAnOHM,cpAnOHM,CRWmax,CRWmin,DayWat,DayWatPer,&
-       dectime,DecTreeH,Diagnose,DiagQN,DiagQS,DRAINRT,&
+       DecTreeH,Diagnose,DiagQN,DiagQS,DRAINRT,&
        dt_since_start,dqndt,qn1_av,dqnsdt,qn1_s_av,&
        EF_umolCO2perJ,emis,EmissionsMethod,EnEF_v_Jkm,endDLS,EveTreeH,FAIBldg,&
        FAIDecTree,FAIEveTree,Faut,FcEF_v_kgkm,fcld_obs,FlowChange,&
@@ -127,7 +127,6 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::CapMin_dec
     REAL(KIND(1D0)),INTENT(IN)::CRWmax
     REAL(KIND(1D0)),INTENT(IN)::CRWmin
-    REAL(KIND(1D0)),INTENT(IN)::dectime
     REAL(KIND(1D0)),INTENT(IN)::DecTreeH
     REAL(KIND(1D0)),INTENT(IN)::DRAINRT
     REAL(KIND(1D0)),INTENT(IN)::EF_umolCO2perJ
@@ -488,12 +487,18 @@ CONTAINS
     INTEGER::nsh ! number of timesteps per hour
     REAL(KIND(1D0))::nsh_real ! nsh in type real
     REAL(KIND(1D0))::tstep_real ! tstep in type real
+    REAL(KIND(1D0))::dectime
 
     ! values that are derived from sfr (surface fractions)
     REAL(KIND(1D0))::VegFraction
     REAL(KIND(1D0))::ImpervFraction
     REAL(KIND(1D0))::PervFraction
     REAL(KIND(1D0))::NonWaterFraction
+
+    ! calculate dectime
+    CALL SUEWS_cal_dectime(&
+         id,it,imin,isec,& ! input
+         dectime) ! output
 
     ! calculate tstep related VARIABLES
     CALL SUEWS_cal_tstep(&
@@ -694,7 +699,7 @@ CONTAINS
     !======== Evaporation and surface state_id ========
     CALL SUEWS_cal_QE(&
          Diagnose,&!input
-         id,tstep,imin,it,ity,snowCalcSwitch,DayofWeek_id,CRWmin,CRWmax,&
+         tstep,imin,it,ity,snowCalcSwitch,DayofWeek_id,CRWmin,CRWmax,&
          nsh_real,dectime,lvS_J_kg,lv_j_kg,avdens,avRh,Press_hPa,Temp_C,&
          RAsnow,psyc_hPa,avcp,sIce_hPa,&
          PervFraction,vegfraction,addimpervious,qn1_SF,qf,qs,vpd_hPa,s_hPa,&
@@ -1269,8 +1274,6 @@ CONTAINS
             DiagQS,&
             a1,a2,a3,qs,deltaQi)
 
-
-
        ! use AnOHM to calculate QS, TS 14 Mar 2016
     ELSEIF (StorageHeatMethod==3) THEN
        IF(Diagnose==1) WRITE(*,*) 'Calling AnOHM...'
@@ -1286,8 +1289,6 @@ CONTAINS
             alb, emis, cpAnOHM, kkAnOHM, chAnOHM,&! input
             sfr,nsurf,EmissionsMethod,id,Gridiv,&
             a1,a2,a3,qs,deltaQi)! output
-
-
 
 
        ! !Calculate QS using ESTM
@@ -1446,7 +1447,7 @@ CONTAINS
   ! TODO: optimise the structure of this function
   SUBROUTINE SUEWS_cal_QE(&
        Diagnose,&!input
-       id,tstep,imin,it,ity,snowCalcSwitch,dayofWeek_id,CRWmin,CRWmax,&
+       tstep,imin,it,ity,snowCalcSwitch,dayofWeek_id,CRWmin,CRWmax,&
        nsh_real,dectime,lvS_J_kg,lv_j_kg,avdens,avRh,Press_hPa,Temp_C,&
        RAsnow,psyc_hPa,avcp,sIce_hPa,&
        PervFraction,vegfraction,addimpervious,qn1_SF,qf,qs,vpd_hPa,s_hPa,&
@@ -1468,7 +1469,6 @@ CONTAINS
     IMPLICIT NONE
 
     INTEGER,INTENT(in) ::Diagnose
-    INTEGER,INTENT(in) ::id
     INTEGER,INTENT(in) ::tstep
     INTEGER,INTENT(in) ::imin
     INTEGER,INTENT(in) ::it
@@ -2257,6 +2257,23 @@ CONTAINS
          qe,UStar,veg_fr,z0m,L_mod,k,avdens,avcp,tlv,q2_gkg,2,RoughLenHeatMethod,StabilityMethod)
 
   END SUBROUTINE SUEWS_cal_Diagnostics
+
+  ! Calculate dectime
+  SUBROUTINE SUEWS_cal_dectime(&
+       id,it,imin,isec,& ! input
+       dectime) ! output
+    IMPLICIT NONE
+    INTEGER,INTENT(in)::id,it,imin,isec
+
+
+    REAL(KIND(1D0)),INTENT(out)::dectime ! nsh in type real
+
+    dectime = REAL(id-1,KIND(1d0))&
+    +REAL(it,KIND(1d0))/24&
+    +REAL(imin,KIND(1d0))/(60*24)&
+    +REAL(isec,KIND(1d0))/(60*60*24)
+
+  END SUBROUTINE SUEWS_cal_dectime
 
 
   ! Calculate tstep-derived variables

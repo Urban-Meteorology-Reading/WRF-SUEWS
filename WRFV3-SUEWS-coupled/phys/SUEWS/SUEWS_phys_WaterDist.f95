@@ -217,7 +217,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(out)::state_id !Wetness status of each surface type [mm]
 
     !Extra evaporation [mm] from impervious surfaces which cannot happen due to lack of water
-    REAL(KIND(1d0)):: EvPart,xx
+    REAL(KIND(1d0)):: EvPart
     REAL(KIND(1d0)),PARAMETER:: NotUsed=-55.5
     REAL(KIND(1d0)),PARAMETER:: IPThreshold_mmhr=10 ! NB:this should be an input and can be specified. SG 25 Apr 2018
 
@@ -367,8 +367,6 @@ CONTAINS
              runoff(is)=runoff(is)+(soilmoist_id(is)-soilstoreCap(is))
              soilmoist_id(is)=soilstoreCap(is)
           ELSEIF (soilmoist_id(is)<0) THEN   !! QUESTION: But where does this lack of water go? !!Can this really happen here?
-            xx=0
-            xx=1/xx
              CALL ErrorHint(62,'SUEWS_store: soilmoist_id(is) < 0 ',soilmoist_id(is),NotUsed,is)
              ! Code this properly - soilmoist_id(is) < 0 shouldn't happen given the above loops
              !soilmoist_id(is)=0   !Groundwater / deeper soil should kick in

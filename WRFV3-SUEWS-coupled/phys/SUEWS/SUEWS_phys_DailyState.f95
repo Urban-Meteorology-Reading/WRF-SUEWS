@@ -79,7 +79,7 @@ CONTAINS
        deltaLAI)!output
 
     USE Snow_module,ONLY:SnowUpdate
-    use datetime_module, only: datetime,timedelta
+    USE datetime_module, ONLY: datetime,timedelta
 
     IMPLICIT NONE
 
@@ -176,9 +176,9 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT):: albGrass_id
     REAL(KIND(1d0)),INTENT(INOUT):: porosity_id
 
-    logical :: first_tstep_Q ! if this is the first tstep of a day
-    logical :: last_tstep_Q ! if this is the last tstep of a day
-    type(datetime) :: time_now,time_prev,time_next
+    LOGICAL :: first_tstep_Q ! if this is the first tstep of a day
+    LOGICAL :: last_tstep_Q ! if this is the last tstep of a day
+    TYPE(datetime) :: time_now,time_prev,time_next
 
 
     ! --------------------------------------------------------------------------------
@@ -1316,19 +1316,19 @@ CONTAINS
   END SUBROUTINE update_DailyState_Start
 
   SUBROUTINE SUEWS_update_DailyState(&
-       iy,id,it,imin,dectime,&!input
+       id,datetimeline,&!input
        Gridiv,NumberOfGrids,&
        DailyStateLine,&
        dataOutDailyState)!inout
 
     IMPLICIT NONE
 
-    INTEGER,INTENT(IN) ::iy
+    ! INTEGER,INTENT(IN) ::iy
     INTEGER,INTENT(IN) ::id
-    INTEGER,INTENT(IN) ::it
-    INTEGER,INTENT(IN) ::imin
-    REAL(KIND(1d0)),INTENT(IN)::dectime
+    ! INTEGER,INTENT(IN) ::it
+    ! INTEGER,INTENT(IN) ::imin
 
+    REAL(KIND(1d0)),DIMENSION(5),INTENT(IN)::datetimeline
 
     INTEGER,INTENT(IN)::Gridiv
     INTEGER,INTENT(IN)::NumberOfGrids
@@ -1336,8 +1336,8 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(ndays,ncolumnsDataOutDailyState,NumberOfGrids),INTENT(INOUT):: dataOutDailyState
 
     ! write out to dataOutDailyState
-    dataOutDailyState(id,1:4,Gridiv)=[iy,id,it,imin]
-    dataOutDailyState(id,5,Gridiv)=dectime
+    dataOutDailyState(id,1:5,Gridiv)=datetimeline
+    ! dataOutDailyState(id,5,Gridiv)=dectime
     ! DailyStateLine will be -999 unless realistic values are calculated at the last timestep of each day
     dataOutDailyState(id,6:ncolumnsDataOutDailyState,Gridiv)=DailyStateLine
 
