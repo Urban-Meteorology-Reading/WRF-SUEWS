@@ -52,3 +52,4 @@ warnings.txt
 namelist.output
 registry
 wrfout_d0*
+mod-input-python/.ipynb_checkpoints
