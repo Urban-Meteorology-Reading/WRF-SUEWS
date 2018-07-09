@@ -214,7 +214,7 @@ CONTAINS
                          ,QKE                                  & !for MYNN
                          ,qn1_av_SUEWS                         &
                          ,qn1_s_SUEWS                          &
-                         ,dqndt_SUEWS                          &
+                         ,dqndt_SUEWS,dqnsdt_SUEWS             &
                          ,landusef,landusef2,mosaic_cat_index                                                 & ! danli mosaic
                          ,TSK_mosaic,TSLB_mosaic,SMOIS_mosaic,SH2O_mosaic                                     & ! danli mosaic
                          ,CANWAT_mosaic,SNOW_mosaic,SNOWH_mosaic,SNOWC_mosaic                                 & ! danli mosaic
@@ -400,7 +400,7 @@ CONTAINS
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
-  REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS,dqnsdt_SUEWS
 
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                                             massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -1131,7 +1131,7 @@ integer myproc
 #endif
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
-                dqndt_SUEWS,                                    &
+                dqndt_SUEWS,dqnsdt_SUEWS,                                    &
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2048,7 +2048,7 @@ integer myproc
 #endif
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
-                dqndt_SUEWS,                                    &
+                dqndt_SUEWS,   dqnsdt_SUEWS,                                 &
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 ISNOWXY, ZSNSOXY, TSNOXY,                       &
@@ -2291,7 +2291,7 @@ integer myproc
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
-   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS,dqnsdt_SUEWS
 
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                               massflux_EDKF, entr_EDKF, detr_EDKF &
@@ -2718,7 +2718,7 @@ integer myproc
            CALL suewsinit(                                     &
                          qn1_av_SUEWS,                         &
                          qn1_s_SUEWS,                          &
-                         dqndt_SUEWS,                          &
+                         dqndt_SUEWS,  dqnsdt_SUEWS,                        &
                          restart, allowed_to_read,             &
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &

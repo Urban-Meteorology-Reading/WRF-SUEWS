@@ -175,6 +175,7 @@ CONTAINS
      &          ,qn1_av_SUEWS                                         &
      &          ,qn1_s_SUEWS                                          &
      &          ,dqndt_SUEWS                                          &
+     &          ,dqnsdt_SUEWS                                         &
      &          ,MeltWaterStore                                       &
      &          ,SnowAlb                                              &
      &          ,WUDay                                                &
@@ -986,27 +987,13 @@ CONTAINS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: MeltWaterStore
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: SnowAlb
    REAL,OPTIONAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)                 :: WUDay
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: z0m_in
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: zdm_in
-   REAL,OPTIONAL,DIMENSION(8,4,3),INTENT(IN)                             :: OHM_coef
-   REAL,OPTIONAL,DIMENSION(8,6),INTENT(IN)                               :: WaterDist
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(IN)                              :: AHProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(IN)                              :: HumActivity_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(IN)                              :: PopProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(IN)                              :: TraffProf_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(IN)                              :: WUProfA_24hr
-   REAL,OPTIONAL,DIMENSION(24,2),INTENT(IN)                              :: WUProfM_24hr
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: snowUse
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: RoughLenHeatMethod
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: RoughLenMomMethod
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: EmissionsMethod
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: NetRadiationMethod
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: StorageHeatMethod
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: OHMIncQF
-   INTEGER,OPTIONAL,INTENT(IN)                                           :: AerodynamicResistanceMethod
+
    INTEGER, OPTIONAL, INTENT(IN )::   slope_rad, topo_shading
    INTEGER, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(IN):: shadowmask
    REAL, DIMENSION( ims:ime, jms:jme ), OPTIONAL, INTENT(INOUT):: swnorm
@@ -2545,27 +2532,12 @@ CONTAINS
              qn1_av_SUEWS,                                         &
              qn1_s_SUEWS,                                          &
              dqndt_SUEWS,                                          &
+             dqnsdt_SUEWS,                                         &
              MeltWaterStore,                                       &
              SnowAlb,                                              &
              WUDay,                                                &
              z0m_in,                                               &
              zdm_in,                                               &
-             OHM_coef,                                             &
-             WaterDist,                                            &
-             AHProf_24hr,                                          &
-             HumActivity_24hr,                                     &
-             PopProf_24hr,                                         &
-             TraffProf_24hr,                                       &
-             WUProfA_24hr,                                         &
-             WUProfM_24hr,                                         &
-             snowUse,                                              &
-             RoughLenHeatMethod,                                   &
-             RoughLenMomMethod,                                    &
-             EmissionsMethod,                                      &
-             NetRadiationMethod,                                   &
-             StorageHeatMethod,                                    &
-             OHMIncQF,                                             &
-             AerodynamicResistanceMethod,                          &
              XLONG, XLAT, DT, DT_PREV, DX,                         &
              ids,ide, jds,jde, kds,kde,                            &
              ims,ime, jms,jme, kms,kme,                            &

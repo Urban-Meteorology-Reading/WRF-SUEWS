@@ -229,7 +229,7 @@ nmm_contrib : $(NMM_OBJS) $(NMM_MODULES) $(MODULES) $(OBJS) $(DIAGNOSTIC_MODULES
 non_nmm : $(MODULES) $(FIRE_MODULES) $(WIND_MODULES) $(OBJS) $(DIAGNOSTIC_MODULES_EM)
 
 suews_model:
-	$(MAKE) -C $(SUEWS_dir) main # make SUEWS with the `main` recipe
+	$(MAKE) -C $(SUEWS_dir) sumin # make SuMin with the `sumin` recipe
 
 clean:
 	@ echo 'use the clean script'

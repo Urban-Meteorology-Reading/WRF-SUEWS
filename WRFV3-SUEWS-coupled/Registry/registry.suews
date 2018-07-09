@@ -21,6 +21,7 @@ state    real    surf_var_SUEWS    i{nsurf}j       mics      1         -        
 state    real    qn1_av_SUEWS      ij              mics      1         -           h      "qn1_av_SUEWS"                "qn1_av_SUEWS"        ""
 state    real    qn1_s_SUEWS       ij              mics      1         -           h      "qn1_s_SUEWS"                 "qn1_s_SUEWS"         ""
 state    real    dqndt_SUEWS       ij              mics      1         -           h      "dqndt_SUEWS"                 "dqndt_SUEWS"         ""
+state    real    dqnsdt_SUEWS      ij              mics      1         -           h      "dqnsdt_SUEWS"                "dqnsdt_SUEWS"        ""
 state    real    MeltWaterStore    i{nsurf}j       mics      1         -           irh    "MeltWaterStore"              "MeltWaterStore"      ""
 state    real    SnowAlb           ij              mics      -         -           irh    "SnowAlb"                     "SnowAlb"             ""
 state    real    WUDay             i{dimwd}j       mics      -         -           irh    "WUDay"                       "WUDay"               ""

@@ -7,14 +7,14 @@
 MODULE module_sf_SUEWS
   USE SuMin_Module,ONLY:SuMin,nsurf,nvegsurf
 
-  REAL(KIND(1D0),DIMENSION(8,4,3)              :: OHM_coef
-  REAL(KIND(1D0),DIMENSION(8,6)                :: WaterDist
-  REAL(KIND(1D0),DIMENSION(24,2)               :: AHProf_24hr
-  REAL(KIND(1D0),DIMENSION(24,2)               :: HumActivity_24hr
-  REAL(KIND(1D0),DIMENSION(24,2)               :: PopProf_24hr
-  REAL(KIND(1D0),DIMENSION(24,2)               :: TraffProf_24hr
-  REAL(KIND(1D0),DIMENSION(24,2)               :: WUProfA_24hr
-  REAL(KIND(1D0),DIMENSION(24,2)               :: WUProfM_24hr
+  REAL(KIND(1D0)),DIMENSION(8,4,3)              :: OHM_coef
+  REAL(KIND(1D0)),DIMENSION(8,6)                :: WaterDist
+  REAL(KIND(1D0)),DIMENSION(24,2)               :: AHProf_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)               :: HumActivity_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)               :: PopProf_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)               :: TraffProf_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)               :: WUProfA_24hr
+  REAL(KIND(1D0)),DIMENSION(24,2)               :: WUProfM_24hr
   INTEGER                                      :: snowUse
   INTEGER                                      :: RoughLenHeatMethod
   INTEGER                                      :: RoughLenMomMethod
@@ -45,6 +45,7 @@ CONTAINS
        qn1_av_SUEWS,                            &
        qn1_s_SUEWS,                             &
        dqndt_SUEWS,                             &
+       dqnsdt_SUEWS,                            &
        MeltWaterStore,                          &
        SnowAlb,                                 &
        WUDay,                                   &
@@ -169,6 +170,7 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: MeltWaterStore
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: SnowAlb
     REAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)                 :: WUDay
@@ -197,6 +199,7 @@ CONTAINS
     REAL(KIND(1d0))                                  :: qn1_av_id
     REAL(KIND(1d0))                                  :: qn1_s_id
     REAL(KIND(1d0))                                  :: dqndt_id
+    REAL(KIND(1d0))                                  :: dqnsdt_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: MeltWaterStore_id
     REAL(KIND(1d0))                                  :: SnowAlb_id
     REAL(KIND(1d0)),DIMENSION(9)                     :: WUDay_id
@@ -249,9 +252,10 @@ CONTAINS
           qn1_av_id       = qn1_av_SUEWS(I,J)
           qn1_s_id        = qn1_s_SUEWS(I,J)
           dqndt_id        = dqndt_SUEWS(I,J)
-          MeltWaterStore_id  = MeltWaterStore(I,J)
+          dqnsdt_id        = dqnsdt_SUEWS(I,J)
+          MeltWaterStore_id  = MeltWaterStore(I,:,J)
           SnowAlb_id = SnowAlb(I,J)
-          WUDay_id   = WUDay(I,J)
+          WUDay_id   = WUDay(I,:,J)
           z0m_in_id  = z0m_in(I,J)
           zdm_in_id  = zdm_in(I,J)
 
@@ -272,7 +276,7 @@ CONTAINS
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
                LAI_id,albDecTr_id,albEveTr_id,albGrass_id,DecidCap_id,porosity_id,GDD_id,HDD_id,&
-               state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_id,dqndt_id,&
+               state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_id,dqndt_id,dqnsdt_id,&
                MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
@@ -296,9 +300,9 @@ CONTAINS
           soilmoist_SUEWS(I,:,J) = soilmoist_id
           surf_var_SUEWS(I,:,J)  = surf_var_id
           dqndt_SUEWS(I,J)       = dqndt_id
-          MeltWaterStore(I,J) = MeltWaterStore_id
+          MeltWaterStore(I,:,J) = MeltWaterStore_id
           SnowAlb(I,J) = SnowAlb_id
-          WUDay(I,J)   = WUDay_id
+          WUDay(I,:,J)   = WUDay_id
           z0m_in(I,J)  = z0m_in_id
           zdm_in(I,J)  = zdm_in_id
 
@@ -335,7 +339,7 @@ CONTAINS
        landusef_suews,ht,XLAT,XLONG,dz8w,DX,&
                                 ! surface properties/states (temporally updated):
        LAI_id,albDecTr_id,albEveTr_id,albGrass_id,DecidCap_id,porosity_id,GDD_id,HDD_id,&
-       state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_id,dqndt_id,&
+       state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_av_id,dqndt_id,dqnsdt_id,&
        MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
@@ -376,6 +380,7 @@ CONTAINS
     REAL, INTENT(IN ) :: dz8w
     REAL, INTENT(IN ) :: DX ! horizontal space interval (m)
 
+
     REAL(KIND(1d0)),DIMENSION(3),INTENT(INOUT):: LAI_id      !LAI for each veg surface [m2 m-2]
     REAL(KIND(1d0)),INTENT(INOUT) :: albDecTr_id !Albedo of deciduous trees [-]
     REAL(KIND(1d0)),INTENT(INOUT) :: albEveTr_id !Albedo of evergreen trees [-]
@@ -389,6 +394,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: soilmoist_id      !Soil moisture of each surface type [mm]
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: surf_var_id   !variable to store the current states
     REAL(KIND(1d0)),INTENT(INOUT) :: dqndt_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: dqnsdt_id
 
     ! 10. OHM related:
     ! REAL(KIND(1d0)):: a1,a2,a3   !OHM coefficients, a1 [-]; a2 [h]; a3 [W m-2]
@@ -397,7 +403,7 @@ CONTAINS
     ! REAL(KIND(1d0)),DIMENSION(360), INTENT(inout):: qn1_store   !Q* values for each timestep over previous hr
     ! REAL(KIND(1d0)),DIMENSION(2*360+1), INTENT(inout):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
     REAL(KIND(1d0)),INTENT(INOUT)                         :: qn1_av_id
-    REAL(KIND(1d0)),INTENT(INOUT)                         :: qn1_s_id
+    REAL(KIND(1d0)),INTENT(INOUT)                         :: qn1_s_av_id
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)            :: MeltWaterStore_id
     REAL(KIND(1d0)),INTENT(INOUT)                         :: SnowAlb_id
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)            :: WUDay_id
@@ -565,7 +571,7 @@ CONTAINS
     !      shape=(/8,4,3/), order=(/3,2,1/))
 
     ! processing variables for SuMin
-    surf(1:5,:)=surf_attr(:,:)
+    surf(1:5,:)=surf_attr
     surf(6,:)=surf_var_id(:)
 
 
@@ -600,30 +606,30 @@ CONTAINS
 
 
     ! surface properties:
-    ! TODO: this should be dynamic
-    alb=alb0
-    emis=emis0
+    ! ! TODO: this should be dynamic
+    ! alb=alb0
+    ! emis=emis0
 
     dectime=id-1+(it+imin/60.)/24
 
     sfr=landusef_suews
 
     CALL SuMin(&
-       snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
-       RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,OHMIncQF,&! model options
-       iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
-       alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
-       z0m_in,zdm_in,&! roughness related settings
-       alb,emis,SnowAlb,OHM_coef,WaterDist,&
-       AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
-       qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
-       surf,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
-       GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
-       avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
-       qh,qe,qsfc,tsk,CHKLOWQ)!output
+         snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
+         RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,OHMIncQF,&! model options
+         iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
+         alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
+         z0m_in_id,zdm_in_id,&! roughness related settings
+         alb,emis,SnowAlb_id,OHM_coef,WaterDist,&
+         AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
+         qn1_av_id,dqndt_id,qn1_s_av_id,dqnsdt_id,&
+         surf,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
+         GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
+         avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
+         qh,qe,qsfc,tsk,CHKLOWQ)!output
 
-    CHKLOWQ_out = 0.02
-    tsk_out=tsk_out+273.15
+    ! CHKLOWQ_out = 0.02
+    ! tsk_out=tsk_out+273.15
 
   END SUBROUTINE SUEWS1D
 
@@ -631,7 +637,7 @@ CONTAINS
   SUBROUTINE suewsinit(                         &
        qn1_av_SUEWS,                            &
        qn1_s_SUEWS,                             &
-       dqndt_SUEWS,                             &
+       dqndt_SUEWS,dqnsdt_SUEWS, &
        restart, allowed_to_read,                &
        ids,ide, jds,jde, kds,kde,               &
        ims,ime, jms,jme, kms,kme,               &
@@ -643,6 +649,7 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_S_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
 
     INTEGER, INTENT(IN   )    ::      ids,ide, jds,jde, kds,kde, &
          ims,ime, jms,jme, kms,kme, &
@@ -658,60 +665,61 @@ CONTAINS
     ! INTEGER , PARAMETER       :: OPEN_OK = 0
     ! INTEGER                   :: ierr, Code
     LOGICAL, EXTERNAL           :: wrf_dm_on_monitor
-    character(len=256)          :: filename ! local file name
-    integer                     :: iunit               ! file unit
-    integer                     :: ierr                ! error code
+    CHARACTER(len=256)          :: filename ! local file name
+    INTEGER                     :: iunit               ! file unit
+    INTEGER                     :: ierr                ! error code
 
     !----------------------------------------------------------------
 
-    namelist /suews/ OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
-                     WUProfA_24hr, WUProfM_24hr, snowUse, RoughLenHeatMethod, RoughLenMomMethod, &
-                     EmissionsMethod, NetRadiationMethod, StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod&
+    NAMELIST /suews/ OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
+         WUProfA_24hr, WUProfM_24hr, snowUse, RoughLenHeatMethod, RoughLenMomMethod, &
+         EmissionsMethod, NetRadiationMethod, StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod
 
-    IF(.not.restart)THEN
+    IF(.NOT.restart)THEN
 
-      itf=min0(ite,ide-1)
-      jtf=min0(jte,jde-1)
+       itf=min0(ite,ide-1)
+       jtf=min0(jte,jde-1)
 
-      DO j = jts,jtf
-        DO i = its,itf
-          qn1_av_SUEWS(i,j) = 0.
-          qn1_S_SUEWS(i,j)  = 0.
-          dqndt_SUEWS(i,j)  = 0.
-        ENDDO
-      ENDDO
+       DO j = jts,jtf
+          DO i = its,itf
+             qn1_av_SUEWS(i,j) = 0.
+             qn1_S_SUEWS(i,j)  = 0.
+             dqndt_SUEWS(i,j)  = 0.
+             dqnsdt_SUEWS(i,j)  = 0.
+          ENDDO
+       ENDDO
 
-      filename = 'namelist.suews'
-      iunit = 10
-      open(iunit, file=filename, form="formatted", status='old', action='read', iostat=ierr)
-      if (ierr /= 0 ) THEN
-        WRITE(message, FMT='(A)') 'module_sf_suews.F: suewsinit: open failure for namelist.suews'
-        CALL wrf_error_fatal ( message )
-      end if
-      read(iunit, nml=suews, iostat=ierr)
-      IF (ierr /= 0) THEN
-        CALL wrf_error_fatal( "ERROR reading namelist namelist_quilt" )
-      ENDIF
-      close(iunit)
+       filename = 'namelist.suews'
+       iunit = 10
+       OPEN(iunit, file=filename, form="formatted", status='old', action='read', iostat=ierr)
+       IF (ierr /= 0 ) THEN
+          WRITE(message, FMT='(A)') 'module_sf_suews.F: suewsinit: open failure for namelist.suews'
+          CALL wrf_error_fatal ( message )
+       END IF
+       READ(iunit, nml=suews, iostat=ierr)
+       IF (ierr /= 0) THEN
+          CALL wrf_error_fatal( "ERROR reading namelist namelist_quilt" )
+       ENDIF
+       CLOSE(iunit)
 
-   !
-   !    IF ( allowed_to_read ) THEN
-   !       OHM_unit = 30
-   !       IF ( wrf_dm_on_monitor() ) THEN
-   !          OPEN(OHM_unit, FILE='SUEWS_OHMCoefficients.txt',FORM='FORMATTED',STATUS='OLD',IOSTAT=ierr)
-   !          IF ( ierr .NE. OPEN_OK ) THEN
-   !             WRITE(message,FMT='(A)') &
-   !                  'module_sf_suews.F: suewsinit: open failure for SUEWS_OHMCoefficients.txt'
-   !             CALL wrf_error_fatal ( message )
-   !          END IF
-   !          READ(OHM_unit, *)
-   !          READ(OHM_unit, *)
-   !          READ(OHM_unit, *)code, OHMcoef
-   !          CLOSE (OHM_unit)
-   !          CALL wrf_dm_bcast_real    ( OHMcoef , nohm )
-   !       ENDIF
-   !    ENDIF
-   !
+       !
+       !    IF ( allowed_to_read ) THEN
+       !       OHM_unit = 30
+       !       IF ( wrf_dm_on_monitor() ) THEN
+       !          OPEN(OHM_unit, FILE='SUEWS_OHMCoefficients.txt',FORM='FORMATTED',STATUS='OLD',IOSTAT=ierr)
+       !          IF ( ierr .NE. OPEN_OK ) THEN
+       !             WRITE(message,FMT='(A)') &
+       !                  'module_sf_suews.F: suewsinit: open failure for SUEWS_OHMCoefficients.txt'
+       !             CALL wrf_error_fatal ( message )
+       !          END IF
+       !          READ(OHM_unit, *)
+       !          READ(OHM_unit, *)
+       !          READ(OHM_unit, *)code, OHMcoef
+       !          CLOSE (OHM_unit)
+       !          CALL wrf_dm_bcast_real    ( OHMcoef , nohm )
+       !       ENDIF
+       !    ENDIF
+       !
     ENDIF
 
   END SUBROUTINE suewsinit
