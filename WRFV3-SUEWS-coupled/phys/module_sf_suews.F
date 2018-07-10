@@ -427,55 +427,55 @@ CONTAINS
 
     ! let's assign the values:
     ! parameters used in SUEWS for now:
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: SoilStoreCap=[150., 150., 150., 150., 150., 150., 0.]        !Capacity of soil store for each surface [mm]
-
-    REAL(KIND(1d0)),PARAMETER:: AlbMin_DecTr=0.12   !Min albedo for deciduous trees [-]
-    REAL(KIND(1d0)),PARAMETER:: AlbMax_DecTr=0.18   !Max albedo for deciduous trees [-]
-    REAL(KIND(1d0)),PARAMETER:: AlbMin_EveTr=0.11   !Min albedo for evergreen trees [-]
-    REAL(KIND(1d0)),PARAMETER:: AlbMax_EveTr=0.12   !Max albedo for evergreen trees [-]
-    REAL(KIND(1d0)),PARAMETER:: AlbMin_Grass=0.18   !Min albedo for grass [-]
-    REAL(KIND(1d0)),PARAMETER:: AlbMax_Grass=0.21    !Max albedo for grass [-]
-
-    REAL(KIND(1d0)),PARAMETER:: CapMin_dec=0.3   !Min storage capacity for deciduous trees [mm] (from input information)
-    REAL(KIND(1d0)),PARAMETER:: CapMax_dec=0.8   !Max storage capacity for deciduous trees [mm] (from input information)
-    REAL(KIND(1d0)),PARAMETER:: PorMin_dec=0.2   !Min porosity for deciduous trees
-    REAL(KIND(1d0)),PARAMETER:: PorMax_dec=0.6   !Max porosity for deciduous trees
-
-    REAL(KIND(1d0)),PARAMETER:: FAIbldg=0.                   !Frontal area fraction of buildings
-    REAL(KIND(1d0)),PARAMETER:: FAIEveTree=0.                !Frontal area fraction of evergreen trees
-    REAL(KIND(1d0)),PARAMETER:: FAIDecTree=0.                !Frontal area fraction of deciduous trees
-
-    REAL (KIND(1d0)),PARAMETER :: bldgH =10   !Mean building height
-    REAL (KIND(1d0)),PARAMETER :: EveTreeH =10!Height of evergreen trees
-    REAL (KIND(1d0)),PARAMETER :: DecTreeH =10!Height of deciduous trees
-
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseT          = [5,5,5]          !Base temperature for growing degree days [degC]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseTe         = [11,11,11]       !Base temperature for senescence degree days [degC]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: GDDFull        = [300,300,300]    !Growing degree days needed for full capacity [degC]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: SDDFull        = [-450,-450,-450] !Senescence degree days needed to initiate leaf off [degC]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMin         = [4.,1.,1.6]      !Min LAI [m2 m-2]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMax         = [5.1,5.5,5.9]    !Max LAI [m2 m-2]
-    REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: MaxConductance = [7.4,11.7,30.1]  !Max conductance [mm s-1]
-
-    REAL(KIND(1d0)),DIMENSION(4,nvegsurf),PARAMETER:: LaiPower=RESHAPE(&       !Coeffs for LAI equation: 1,2 - leaf growth; 3,4 - leaf off
-         [[0.03,0.03,0.03],&
-         [0.0005,0.0005,0.0005],&
-         [0.03,0.03,0.03],&
-         [0.0005,0.0005,0.0005]],&
-         [4,nvegsurf])
-
-    INTEGER,DIMENSION(nvegsurf),PARAMETER:: LAIType=1     !LAI equation to use: original (0) or new (1)
+    ! REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: SoilStoreCap=[150., 150., 150., 150., 150., 150., 0.]        !Capacity of soil store for each surface [mm]
+    !
+    ! REAL(KIND(1d0)),PARAMETER:: AlbMin_DecTr=0.12   !Min albedo for deciduous trees [-]
+    ! REAL(KIND(1d0)),PARAMETER:: AlbMax_DecTr=0.18   !Max albedo for deciduous trees [-]
+    ! REAL(KIND(1d0)),PARAMETER:: AlbMin_EveTr=0.11   !Min albedo for evergreen trees [-]
+    ! REAL(KIND(1d0)),PARAMETER:: AlbMax_EveTr=0.12   !Max albedo for evergreen trees [-]
+    ! REAL(KIND(1d0)),PARAMETER:: AlbMin_Grass=0.18   !Min albedo for grass [-]
+    ! REAL(KIND(1d0)),PARAMETER:: AlbMax_Grass=0.21    !Max albedo for grass [-]
+    !
+    ! REAL(KIND(1d0)),PARAMETER:: CapMin_dec=0.3   !Min storage capacity for deciduous trees [mm] (from input information)
+    ! REAL(KIND(1d0)),PARAMETER:: CapMax_dec=0.8   !Max storage capacity for deciduous trees [mm] (from input information)
+    ! REAL(KIND(1d0)),PARAMETER:: PorMin_dec=0.2   !Min porosity for deciduous trees
+    ! REAL(KIND(1d0)),PARAMETER:: PorMax_dec=0.6   !Max porosity for deciduous trees
+    !
+    ! REAL(KIND(1d0)),PARAMETER:: FAIbldg=0.                   !Frontal area fraction of buildings
+    ! REAL(KIND(1d0)),PARAMETER:: FAIEveTree=0.                !Frontal area fraction of evergreen trees
+    ! REAL(KIND(1d0)),PARAMETER:: FAIDecTree=0.                !Frontal area fraction of deciduous trees
+    !
+    ! REAL (KIND(1d0)),PARAMETER :: bldgH =10   !Mean building height
+    ! REAL (KIND(1d0)),PARAMETER :: EveTreeH =10!Height of evergreen trees
+    ! REAL (KIND(1d0)),PARAMETER :: DecTreeH =10!Height of deciduous trees
+    !
+    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseT          = [5,5,5]          !Base temperature for growing degree days [degC]
+    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseTe         = [11,11,11]       !Base temperature for senescence degree days [degC]
+    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: GDDFull        = [300,300,300]    !Growing degree days needed for full capacity [degC]
+    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: SDDFull        = [-450,-450,-450] !Senescence degree days needed to initiate leaf off [degC]
+    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMin         = [4.,1.,1.6]      !Min LAI [m2 m-2]
+    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMax         = [5.1,5.5,5.9]    !Max LAI [m2 m-2]
+    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: MaxConductance = [7.4,11.7,30.1]  !Max conductance [mm s-1]
+    !
+    ! REAL(KIND(1d0)),DIMENSION(4,nvegsurf),PARAMETER:: LaiPower=RESHAPE(&       !Coeffs for LAI equation: 1,2 - leaf growth; 3,4 - leaf off
+    !      [[0.03,0.03,0.03],&
+    !      [0.0005,0.0005,0.0005],&
+    !      [0.03,0.03,0.03],&
+    !      [0.0005,0.0005,0.0005]],&
+    !      [4,nvegsurf])
+    !
+    ! INTEGER,DIMENSION(nvegsurf),PARAMETER:: LAIType=1     !LAI equation to use: original (0) or new (1)
     INTEGER,PARAMETER::startDLS=85   !DOY when daylight saving starts
     INTEGER,PARAMETER::endDLS=302   !DOY when daylight saving ends
 
-    REAL (KIND(1D0)),PARAMETER ::DRAINRT       = 0.25 !Drainage rate of the water bucket [mm hr-1]
-    REAL (KIND(1D0)),PARAMETER ::RAINCOVER     = 1
-    REAL (KIND(1D0)),PARAMETER ::RAINMAXRES    = 10   !Maximum water bucket reservoir [mm]
-    REAL (KIND(1d0)),PARAMETER ::FlowChange    = 0    !Difference between the input and output flow in the water body
-    REAL (KIND(1d0)),PARAMETER ::PipeCapacity  = 100  !Capacity of pipes to transfer water
-    REAL (KIND(1d0)),PARAMETER ::RunoffToWater = 0.1  !Fraction of surface runoff going to water body
-
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: StateLimit=[0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.]     !Limit for state of each surface type [mm] (specified in input files)
+    ! REAL (KIND(1D0)),PARAMETER ::DRAINRT       = 0.25 !Drainage rate of the water bucket [mm hr-1]
+    ! REAL (KIND(1D0)),PARAMETER ::RAINCOVER     = 1
+    ! REAL (KIND(1D0)),PARAMETER ::RAINMAXRES    = 10   !Maximum water bucket reservoir [mm]
+    ! REAL (KIND(1d0)),PARAMETER ::FlowChange    = 0    !Difference between the input and output flow in the water body
+    ! REAL (KIND(1d0)),PARAMETER ::PipeCapacity  = 100  !Capacity of pipes to transfer water
+    ! REAL (KIND(1d0)),PARAMETER ::RunoffToWater = 0.1  !Fraction of surface runoff going to water body
+    !
+    ! REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: StateLimit=[0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.]     !Limit for state of each surface type [mm] (specified in input files)
 
     ! REAL(KIND(1d0)),DIMENSION(nsurf+1,nsurf-1),PARAMETER::WaterDist=& !Within-grid water distribution to other surfaces and runoff/soil store [-]
     !      RESHAPE(&
@@ -488,7 +488,7 @@ CONTAINS
     !      [0.,0.,0.,0.,0.,0.],&
     !      [0.98,0.9,0.9,0.9,1.,1.]],&
     !      [nsurf+1,nsurf-1])
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: WetThresh = [0.48, 0.25, 1.3, 0.8, 1.9, 1., 0.5]     !When State > WetThresh, rs=0 limit in SUEWS_evap [mm] (specified in input files)
+    ! REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: WetThresh = [0.48, 0.25, 1.3, 0.8, 1.9, 1., 0.5]     !When State > WetThresh, rs=0 limit in SUEWS_evap [mm] (specified in input files)
 
     ! ---- Drainage characteristics ----------------------------------------------------------------
     ! 1 - min storage capacity [mm]
@@ -503,30 +503,30 @@ CONTAINS
          [ 3.   ,  3.   ,  1.71 ,  1.71 ,  1.71 ,  3.   ,  0.   ],&
          [ 0.48 ,  0.25 ,  1.3  ,  0.8  ,  1.9  ,  0.8  ,  0.5  ]],&
          [5,nsurf])
-
-
-    ! these will be assigned locally as data
-    ! use gsodel=2 as in Ward et al. (2016)
-    REAL (KIND(1d0)),PARAMETER::th   = 40   !Maximum temperature limit
-    REAL (KIND(1d0)),PARAMETER::tl   = -10  !Minimum temperature limit
-    REAL (KIND(1d0)),PARAMETER::Kmax = 1200 !Annual maximum hourly solar radiation
-    REAL (KIND(1d0)),PARAMETER::g1   = 3.5  !Fitted parameters related to
-    REAL (KIND(1d0)),PARAMETER::g2   = 200
-    REAL (KIND(1d0)),PARAMETER::g3   = 0.1
-    REAL (KIND(1d0)),PARAMETER::g4   = 0.7
-    REAL (KIND(1d0)),PARAMETER::g5   = 30
-    REAL (KIND(1d0)),PARAMETER::g6   = 0.05 !Fitted parameters related to
-    REAL (KIND(1d0)),PARAMETER::s1   = 5.56
-    REAL (KIND(1d0)),PARAMETER::s2   = 0    !surface res. calculations
-
-
-    ! REAL(KIND(1d0)),DIMENSION(nsurf+1,4,3):: OHM_coef   !Array for OHM coefficients
-
-
-    REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshSW = [10,10,10,10,10,10,10,10]         !Arrays for OHM thresholds
-    REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshWD = [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9] !Arrays for OHM thresholds
-
-    REAL (KIND(1d0)),PARAMETER::  BaseTHDD=18.9  !Base temperature for QF
+    !
+    !
+    ! ! these will be assigned locally as data
+    ! ! use gsodel=2 as in Ward et al. (2016)
+    ! REAL (KIND(1d0)),PARAMETER::th   = 40   !Maximum temperature limit
+    ! REAL (KIND(1d0)),PARAMETER::tl   = -10  !Minimum temperature limit
+    ! REAL (KIND(1d0)),PARAMETER::Kmax = 1200 !Annual maximum hourly solar radiation
+    ! REAL (KIND(1d0)),PARAMETER::g1   = 3.5  !Fitted parameters related to
+    ! REAL (KIND(1d0)),PARAMETER::g2   = 200
+    ! REAL (KIND(1d0)),PARAMETER::g3   = 0.1
+    ! REAL (KIND(1d0)),PARAMETER::g4   = 0.7
+    ! REAL (KIND(1d0)),PARAMETER::g5   = 30
+    ! REAL (KIND(1d0)),PARAMETER::g6   = 0.05 !Fitted parameters related to
+    ! REAL (KIND(1d0)),PARAMETER::s1   = 5.56
+    ! REAL (KIND(1d0)),PARAMETER::s2   = 0    !surface res. calculations
+    !
+    !
+    ! ! REAL(KIND(1d0)),DIMENSION(nsurf+1,4,3):: OHM_coef   !Array for OHM coefficients
+    !
+    !
+    ! REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshSW = [10,10,10,10,10,10,10,10]         !Arrays for OHM thresholds
+    ! REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshWD = [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9] !Arrays for OHM thresholds
+    !
+    ! REAL (KIND(1d0)),PARAMETER::  BaseTHDD=18.9  !Base temperature for QF
 
     ! INTEGER,PARAMETER::OHMIncQF=0             !OHM calculation uses Q* only (0) or Q*+QF (1)
 
@@ -608,8 +608,8 @@ CONTAINS
 
     ! surface properties:
     ! ! TODO: this should be dynamic
-    ! alb=alb0
-    ! emis=emis0
+ alb=alb0
+ emis=emis0
 
     dectime=id-1+(it+imin/60.)/24
 
