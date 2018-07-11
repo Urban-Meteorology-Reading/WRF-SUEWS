@@ -1,0 +1,4 @@
+[submodule "SUEWS"]
+	path = SUEWS
+	url = git@bitbucket.org:grimmond/suews.git
+	branch = v2018b
