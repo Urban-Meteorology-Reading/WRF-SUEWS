@@ -296,7 +296,7 @@ CONTAINS
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::soilmoist_id
     REAL(KIND(1D0)),DIMENSION(NSURF),INTENT(INOUT)   ::state_id
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       ::GDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT)       ::HDD_id !Heating Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(INOUT)       ::HDD_id !Heating Degree Days (see SUEWS_DailyState.f95)
     ! REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)       ::HDD_id_use !Heating Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT)::LAI_id !LAI for each veg surface [m2 m-2]
     REAL(KIND(1d0)),DIMENSION(9),INTENT(OUT)::WUDay_id
@@ -1177,7 +1177,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::state_id(nsurf) ! wetness status
 
 
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(in)::HDD_id
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(in)::HDD_id
     REAL(KIND(1d0)),INTENT(in)::qf
     REAL(KIND(1d0)),INTENT(in)::qn1
     REAL(KIND(1d0)),INTENT(in)::qs_obs
@@ -1245,7 +1245,7 @@ CONTAINS
 
 
     ELSEIF(StorageHeatMethod==1) THEN           !Use OHM to calculate QS
-       Tair_mav_5d=HDD_id(4,2)
+       Tair_mav_5d=HDD_id(10)
        IF(Diagnose==1) WRITE(*,*) 'Calling OHM...'
        CALL OHM(qn1,qn1_av,dqndt,&
             qn1_S,qn1_s_av,dqnsdt,&

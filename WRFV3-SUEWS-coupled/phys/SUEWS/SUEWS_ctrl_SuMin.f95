@@ -5,7 +5,7 @@
 
 
 MODULE SuMin_Module
-  USE SUEWS_Driver,ONLY:SUEWS_cal_Main,nsurf,nvegsurf,&
+  USE SUEWS_Driver,ONLY:SUEWS_cal_Main,&
        PavSurf,BldgSurf,ConifSurf,DecidSurf,GrassSurf,BSoilSurf,WaterSurf,&
        ivConif,ivDecid,ivGrass,&
        ncolumnsDataOutSUEWS,ncolumnsDataOutSnow,&
@@ -26,7 +26,7 @@ CONTAINS
        AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
        qn1_av,dqndt,qn1_s_av,dqnsdt,&
        surf,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
-       GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
+       GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore,&
        avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
        qh,qe,qsfc,tsk,CHKLOWQ)!output
 
@@ -98,13 +98,13 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) ::albEveTr_id
     REAL(KIND(1d0)),INTENT(INOUT) ::albGrass_id
     REAL(KIND(1d0)),INTENT(INOUT) ::porosity_id
-    REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)   ::GDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT) ::HDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(3),INTENT(INOUT)   ::LAI_id !LAI for each veg surface [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)   ::GDD_id     !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT)   ::HDD_id     !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(3),INTENT(INOUT)   ::LAI_id     !LAI for each veg surface [m2 m-2]
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)   ::WUDay_id
     REAL(KIND(1D0)),DIMENSION(7),INTENT(INOUT)   ::soilmoist_id
     REAL(KIND(1D0)),DIMENSION(7),INTENT(INOUT)   ::state_id
-    REAL(KIND(1D0)),DIMENSION(7),INTENT(INOUT)   ::MeltWaterStore_id
+    REAL(KIND(1D0)),DIMENSION(7),INTENT(INOUT)   ::MeltWaterStore
     REAL(KIND(1D0)),DIMENSION(6,7),INTENT(INOUT) ::surf
 
     ! forcing variables
@@ -377,7 +377,7 @@ CONTAINS
          InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,isec,it,ity,&
          iy,kkAnOHM,Kmax,LAI_id,LAICalcYes,LAIMax,LAIMin,LAI_obs,&
          LAIPower,LAIType,lat,ldown_obs,lng,MaxConductance,MaxQFMetab,&
-         MeltWaterStore_id,MetForcingData_grid,MinQFMetab,min_res_bioCO2,&
+         MeltWaterStore,MetForcingData_grid,MinQFMetab,min_res_bioCO2,&
          NARP_EMIS_SNOW,NARP_TRANS_SITE,NetRadiationMethod,&
          NumCapita,OHM_coef,OHMIncQF,OHM_threshSW,&
          OHM_threshWD,PipeCapacity,PopDensDaytime,&

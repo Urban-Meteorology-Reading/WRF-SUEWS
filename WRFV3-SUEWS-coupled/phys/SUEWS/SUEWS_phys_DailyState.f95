@@ -150,7 +150,7 @@ CONTAINS
     ! REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::albGrass
     ! REAL(KIND(1d0)),DIMENSION( 0:ndays),INTENT(INOUT)::porosity
     ! REAL(KIND(1d0)),DIMENSION( 0:ndays, 5),INTENT(INOUT):: GDD !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
     ! REAL(KIND(1d0)),DIMENSION(-4:366,6),INTENT(INOUT):: HDD
 
     REAL(KIND(1d0)),DIMENSION(nsurf),INTENT(INOUT)::SnowDens
@@ -335,7 +335,7 @@ CONTAINS
 
 
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       ::GDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT)     ::HDD_id
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(INOUT)     ::HDD_id
     REAL(KIND(1d0)),DIMENSION(nvegsurf),INTENT(INOUT)::LAI_id !LAI for each veg surface [m2 m-2]
 
     ! REAL(KIND(1d0)),DIMENSION(6),INTENT(INOUT)::HDD_id_use ! HDD of previous day
@@ -462,7 +462,7 @@ CONTAINS
     ! REAL(KIND(1d0))::tstepcount
     ! REAL(KIND(1d0)),DIMENSION(-4:366,6),INTENT(INOUT):: HDD
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT):: GDD_id !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(INOUT):: HDD_id          !Heating Degree Days (see SUEWS_DailyState.f95)
     ! REAL(KIND(1d0)),DIMENSION(5),INTENT(OUT):: GDD_id_prev !Growing Degree Days (see SUEWS_DailyState.f95)
 
     INTEGER::gamma1
@@ -487,11 +487,11 @@ CONTAINS
     ! HDD(id,5)=HDD(id,5) + Precip                     !Daily precip total
     !      6 ------------------------------------!   !Days since rain
 
-    HDD_id(1,1)=HDD_id(1,1) + gamma1*(BaseTHDD-Temp_C)   !Heating
-    HDD_id(2,1)=HDD_id(2,1) + gamma2*(Temp_C-BaseTHDD)   !Cooling
-    HDD_id(3,1)=HDD_id(3,1) + Temp_C                     !Will become daily average temperature
+    HDD_id(1)=HDD_id(1) + gamma1*(BaseTHDD-Temp_C)   !Heating
+    HDD_id(2)=HDD_id(2) + gamma2*(Temp_C-BaseTHDD)   !Cooling
+    HDD_id(3)=HDD_id(3) + Temp_C                     !Will become daily average temperature
     !      4 ------------------------------------!   !5-day running mean
-    HDD_id(5,1)=HDD_id(5,1) + Precip                     !Daily precip total
+    HDD_id(5)=HDD_id(5) + Precip                     !Daily precip total
     !      6 ------------------------------------!   !Days since rain
 
   END SUBROUTINE update_DailyState_Day
@@ -1131,7 +1131,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(IN)::lat
     REAL(KIND(1d0)),INTENT(IN)::Faut          !Fraction of irrigated area using automatic irrigation
 
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(IN)::HDD_id
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(IN)::HDD_id
     REAL(KIND(1d0)),DIMENSION(3),INTENT(IN)::Ie_a
     REAL(KIND(1d0)),DIMENSION(3),INTENT(IN)::Ie_m   !Coefficients for automatic and manual irrigation models
     REAL(KIND(1d0)),DIMENSION(7),INTENT(IN)::DayWatPer  !% of houses following daily water
@@ -1146,8 +1146,8 @@ CONTAINS
     REAL(KIND(1d0))::days_since_rain
 
     ! transfer HDD values
-    temp_avg        = HDD_id(3,2)
-    days_since_rain = HDD_id(6,2)
+    temp_avg        = HDD_id(9)
+    days_since_rain = HDD_id(12)
 
     ! initialise WUDay_id
     WUDay_id=0
@@ -1261,7 +1261,7 @@ CONTAINS
     IMPLICIT NONE
     INTEGER,INTENT(IN)::dt_since_start,it,imin,tstep
 
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT):: HDD_id
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(INOUT):: HDD_id
     ! REAL(KIND(1d0)),DIMENSION(6),INTENT(OUT):: HDD_id_use
 
     INTEGER:: days_prev
@@ -1270,24 +1270,24 @@ CONTAINS
     ! count of timesteps performed during day `id`
     tstepcount=(it*60+imin)*60/tstep*1.
     ! Heating degree days (HDD) -------------
-    HDD_id(1,1)=HDD_id(1,1)/tstepcount   !Heating
-    HDD_id(2,1)=HDD_id(2,1)/tstepcount   !Cooling
-    HDD_id(3,1)=HDD_id(3,1)/tstepcount   !Average temp
+    HDD_id(1)=HDD_id(1)/tstepcount   !Heating
+    HDD_id(2)=HDD_id(2)/tstepcount   !Cooling
+    HDD_id(3)=HDD_id(3)/tstepcount   !Average temp
 
     ! Calculate a quasi-5-day-running-mean temp
     days_prev= MIN(4,& ! dt_since_start >= 4 days
          FLOOR(dt_since_start/(24*60*60)*1.)) ! dt_since_start < 4 days
-    HDD_id(4,1) = (HDD_id(4,1)*days_prev+HDD_id(3,1))/(days_prev+1)
+    HDD_id(4) = (HDD_id(4)*days_prev+HDD_id(3))/(days_prev+1)
 
     ! Calculate number of days since rain
-    IF(HDD_id(5,1)>0) THEN        !Rain occurred
-       HDD_id(6,1)=0
+    IF(HDD_id(5)>0) THEN        !Rain occurred
+       HDD_id(6)=0
     ELSE
-       HDD_id(6,1)=HDD_id(6,1)+1  !Days since rain
+       HDD_id(6)=HDD_id(6)+1  !Days since rain
     ENDIF
 
     ! save updated HDD_id(:,1) values to the other dimension
-    HDD_id(:,2) = HDD_id(:,1)
+    HDD_id(6+1:6+6) = HDD_id(1:6)
 
   END SUBROUTINE update_HDD_X
 

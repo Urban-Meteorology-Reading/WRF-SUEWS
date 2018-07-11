@@ -51,7 +51,7 @@ SUBROUTINE AnthropogenicEmissions(&
 
   INTEGER,DIMENSION(3),INTENT(in)::DayofWeek_id   !1 - day of week; 2 - month; 3 - season
 
-  REAL(KIND(1d0)),DIMENSION(6,2),INTENT(in):: HDD_id !Heating Degree Days (see SUEWS_DailyState.f95)
+  REAL(KIND(1d0)),DIMENSION(12),INTENT(in):: HDD_id !Heating Degree Days (see SUEWS_DailyState.f95)
 
   REAL(KIND(1d0)),DIMENSION(2),INTENT(in)::&
        Qf_A,Qf_B,Qf_C,&    !Qf coefficients
@@ -112,10 +112,10 @@ SUBROUTINE AnthropogenicEmissions(&
        AHDorNorT          ! Anthropogenic heat
 
   ! transfer HDD values to local explict variables
-  HDD_daily= HDD_id(1,2)
-  CDD_daily= HDD_id(2,2)
+  HDD_daily= HDD_id(7)
+  CDD_daily= HDD_id(8)
   ! NB: temporarily use 5-day running mean to test the performance
-  Tair_avg_daily= HDD_id(4,2)
+  Tair_avg_daily= HDD_id(10)
 
   ! Tair_avg_daily= HDD_id_use(3) ! this is daily
 

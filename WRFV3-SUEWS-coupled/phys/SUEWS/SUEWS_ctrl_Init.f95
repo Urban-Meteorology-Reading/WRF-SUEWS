@@ -2142,8 +2142,8 @@ SUBROUTINE NextInitial(GridName,year_int)
   !   id=id+1
   !endif
   WRITE(57,*)'&InitialConditions'
-  WRITE(57,*)'DaysSinceRain=',INT(HDD_id(6,2))
-  WRITE(57,*)'Temp_C0=',HDD_id(3,2)
+  WRITE(57,*)'DaysSinceRain=',INT(HDD_id(12))
+  WRITE(57,*)'Temp_C0=',HDD_id(9)
   !WRITE(57,*)'ID_Prev=',ID_Prev_Out  !No longer included in initial conditions (HCW 13 Jan 2017)
   WRITE(57,*)'GDD_1_0=',GDD_id(1)
   WRITE(57,*)'GDD_2_0=',GDD_id(2)
