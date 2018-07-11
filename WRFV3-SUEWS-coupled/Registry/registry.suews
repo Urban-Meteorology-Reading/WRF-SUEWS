@@ -2,28 +2,30 @@
 dimspec   nsurf    2     constant=7                  z        num_surf
 dimspec   nvegsurf 2     constant=3                  z        num_vegsurf
 dimspec   dimgdd   2     constant=5                  z        third_dim_gdd
-dimspec   dimhdd   2     constant=6                  z        third_dim_hdd
-dimspec   dim4hdd  4     constant=2                  c        fourth_dim_hdd
+dimspec   dimhdd   2     constant=10                 z        third_dim_hdd
 dimspec   dimwd    2     constant=9                  z        dim_wd_id
 
-#<Table>   <Type>   <Sym>             <Dims>                <Use>   <NumTLev>   <Stagger>   <IO>     <DNAME>             <DESCRIP>           <UNITS>
-state      real     LAI_SUEWS         i{nvegsurf}j          misc    1           -           i012rh   "LAI_SUEWS"         "LAI_SUEWS"         "m2 m-2"
-state      real     albDecTr_SUEWS    ij                    misc    1           -           i012rh   "albDecTr_SUEWS"    "albDecTr_SUEWS"    ""
-state      real     albEveTr_SUEWS    ij                    misc    1           -           i012rh   "albEveTr_SUEWS"    "albEveTr_SUEWS"    ""
-state      real     albGrass_SUEWS    ij                    misc    1           -           i012rh   "albGrass_SUEWS"    "albGrass_SUEWS"    ""
-state      real     DecidCap_SUEWS    ij                    misc    1           -           i012rh   "DecidCap_SUEWS"    "DecidCap_SUEWS"    "mm"
-state      real     porosity_SUEWS    ij                    misc    1           -           i012rh   "porosity_SUEWS"    "porosity_SUEWS"    ""
-state      real     GDD_SUEWS         i{dimgdd}j            misc    1           -           i012rh   "GDD_SUEWS"         "GDD_SUEWS"         ""
-state      real     HDD_SUEWS         i{dimhdd}j{dim4hdd}   misc    1           -           i012rh   "HDD_SUEWS"         "HDD_SUEWS"         ""
-state      real     state_SUEWS       i{nsurf}j             misc    1           -           i012rh   "state_SUEWS"       "state_SUEWS"       ""
-state      real     soilmoist_SUEWS   i{nsurf}j             misc    1           -           i012rh   "soilmoist_SUEWS"   "soilmoist_SUEWS"   ""
-state      real     surf_var_SUEWS    i{nsurf}j             misc    1           -           i012rh   "surf_var_SUEWS"    "surf_var_SUEWS"    ""
-state      real     qn1_av_SUEWS      ij                    misc    1           -           rh       "qn1_av_SUEWS"      "qn1_av_SUEWS"      ""
-state      real     qn1_s_SUEWS       ij                    misc    1           -           rh       "qn1_s_SUEWS"       "qn1_s_SUEWS"       ""
-state      real     dqndt_SUEWS       ij                    misc    1           -           rh       "dqndt_SUEWS"       "dqndt_SUEWS"       ""
-state      real     dqnsdt_SUEWS      ij                    misc    1           -           rh       "dqnsdt_SUEWS"      "dqnsdt_SUEWS"      ""
-state      real     MeltWaterStore    i{nsurf}j             misc    1           -           i012rh   "MeltWaterStore"    "MeltWaterStore"    ""
-state      real     SnowAlb           ij                    misc    -           -           i012rh   "SnowAlb"           "SnowAlb"           ""
-state      real     WUDay             i{dimwd}j             misc    -           -           i012rh   "WUDay"             "WUDay"             ""
-state      real     z0m_in            ij                    misc    1           -           i012rh   "z0m_in"            "z0m_in"            ""
-state      real     zdm_in            ij                    misc    1           -           i012rh   "zdm_in"            "zdm_in"            ""
+#<Table>   <Type>   <Sym>             <Dims>                <Use>   <NumTLev>   <Stagger>   <IO>   <DNAME>             <DESCRIP>           <UNITS>
+state      real     LAI_SUEWS         i{nvegsurf}j          misc    1           -           irh    "LAI_SUEWS"         "LAI_SUEWS"         "m2       m-2"
+state      real     albDecTr_SUEWS    ij                    misc    1           -           irh    "albDecTr_SUEWS"    "albDecTr_SUEWS"    ""
+state      real     albEveTr_SUEWS    ij                    misc    1           -           irh    "albEveTr_SUEWS"    "albEveTr_SUEWS"    ""
+state      real     albGrass_SUEWS    ij                    misc    1           -           irh    "albGrass_SUEWS"    "albGrass_SUEWS"    ""
+state      real     DecidCap_SUEWS    ij                    misc    1           -           irh    "DecidCap_SUEWS"    "DecidCap_SUEWS"    "mm"
+state      real     porosity_SUEWS    ij                    misc    1           -           irh    "porosity_SUEWS"    "porosity_SUEWS"    ""
+state      real     GDD_SUEWS         i{dimgdd}j            misc    1           -           irh    "GDD_SUEWS"         "GDD_SUEWS"         ""
+state      real     HDD_SUEWS         i{dimhdd}j            misc    1           -           irh    "HDD_SUEWS"         "HDD_SUEWS"         ""
+state      real     state_SUEWS       i{nsurf}j             misc    1           -           irh    "state_SUEWS"       "state_SUEWS"       ""
+state      real     soilmoist_SUEWS   i{nsurf}j             misc    1           -           irh    "soilmoist_SUEWS"   "soilmoist_SUEWS"   ""
+state      real     surf_var_SUEWS    i{nsurf}j             misc    1           -           irh    "surf_var_SUEWS"    "surf_var_SUEWS"    ""
+state      real     landusef_SUEWS    i{nsurf}j             misc    1           -           rh     "landusef_SUEWS"    "landusef_SUEWS"    ""
+state      real     alb_SUEWS         i{nsurf}j             misc    1           -           rh     "alb_SUEWS"         "alb_SUEWS"         ""
+state      real     emis_SUEWS        i{nsurf}j             misc    1           -           rh     "emis_SUEWS"        "emis_SUEWS"        ""
+state      real     qn1_av_SUEWS      ij                    misc    1           -           rh     "qn1_av_SUEWS"      "qn1_av_SUEWS"      ""
+state      real     qn1_s_SUEWS       ij                    misc    1           -           rh     "qn1_s_SUEWS"       "qn1_s_SUEWS"       ""
+state      real     dqndt_SUEWS       ij                    misc    1           -           rh     "dqndt_SUEWS"       "dqndt_SUEWS"       ""
+state      real     dqnsdt_SUEWS      ij                    misc    1           -           rh     "dqnsdt_SUEWS"      "dqnsdt_SUEWS"      ""
+state      real     MeltWaterStore    i{nsurf}j             misc    1           -           irh    "MeltWaterStore"    "MeltWaterStore"    ""
+state      real     SnowAlb           ij                    misc    -           -           irh    "SnowAlb"           "SnowAlb"           ""
+state      real     WUDay             i{dimwd}j             misc    -           -           irh    "WUDay"             "WUDay"             ""
+state      real     z0m_in            ij                    misc    1           -           irh    "z0m_in"            "z0m_in"            ""
+state      real     zdm_in            ij                    misc    1           -           irh    "zdm_in"            "zdm_in"            ""

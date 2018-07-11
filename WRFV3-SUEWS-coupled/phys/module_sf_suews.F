@@ -42,6 +42,9 @@ CONTAINS
        state_SUEWS,                             &
        soilmoist_SUEWS,                         &
        surf_var_SUEWS,                          &
+       landusef_SUEWS,                          &
+       alb_SUEWS,                               &
+       emis_SUEWS,                              &
        qn1_av_SUEWS,                            &
        qn1_s_SUEWS,                             &
        dqndt_SUEWS,                             &
@@ -167,6 +170,9 @@ CONTAINS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: state_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: soilmoist_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: surf_var_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
@@ -178,7 +184,6 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: zdm_in
 
     ! LOCAL VARS
-    REAL, DIMENSION(ims:ime, nsurf, jms:jme)    :: landusef_suews
     REAL, DIMENSION(nsurf) :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
@@ -636,6 +641,9 @@ CONTAINS
 
   !================================================================
   SUBROUTINE suewsinit(                         &
+       landusef_SUEWS,                          &
+       alb_SUEWS,                               &
+       emis_SUEWS,                              &
        qn1_av_SUEWS,                            &
        qn1_s_SUEWS,                             &
        dqndt_SUEWS,dqnsdt_SUEWS,                &
@@ -647,6 +655,9 @@ CONTAINS
     USE module_wrf_error
     IMPLICIT NONE
     !----------------------------------------------------------------
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_S_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
