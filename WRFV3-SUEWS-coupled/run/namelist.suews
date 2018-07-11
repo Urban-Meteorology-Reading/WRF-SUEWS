@@ -1,18 +1,18 @@
 &suews
-OHM_coef           =
-WaterDist          =
-AHProf_24hr        = 1.5
-HumActivity_24hr   = 1.5
-PopProf_24hr       = 1.5
-TraffProf_24hr     = 1.5
-WUProfA_24hr       = 1.5
-WUProfM_24hr       = 1.5
-snowUse            = 0
-RoughLenHeatMethod = 2
-RoughLenMomMethod  = 2
-EmissionsMethod    = 0
-NetRadiationMethod = 3
-StorageHeatMethod  = 1
-OHMIncQF           = 1
+OHM_coef                    = 0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30,-30
+WaterDist                   = 0.2,0.1,0.1,0.1,0.1,0.4,0.2,0.1,0.1,0.1,0.1,0.4,0.2,0.1,0.1,0.1,0.1,0.4,0.2,0.1,0.1,0.1,0.1,0.4,0.2,0.1,0.1,0.1,0.1,0.4,0.2,0.1,0.1,0.1,0.1,0.4,0.2,0.1,0.1,0.1,0.1,0.4,0.2,0.1,0.1,0.1,0.1,0.4
+AHProf_24hr                 = 1.5
+HumActivity_24hr            = 1.5
+PopProf_24hr                = 1.5
+TraffProf_24hr              = 1.5
+WUProfA_24hr                = 1.5
+WUProfM_24hr                = 1.5
+snowUse                     = 0
+RoughLenHeatMethod          = 2
+RoughLenMomMethod           = 2
+EmissionsMethod             = 0
+NetRadiationMethod          = 3
+StorageHeatMethod           = 1
+OHMIncQF                    = 1
 AerodynamicResistanceMethod = 1
 /

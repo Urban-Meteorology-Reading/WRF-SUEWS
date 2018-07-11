@@ -576,6 +576,7 @@ BENCH_START(surf_driver_tim)
      &         SWUPsubgrid=grid%SWUPsubgrid,LHsoi=grid%LHsoi,                       &
      &         LHveg=grid%LHveg, LHtran=grid%LHtran                                 &
 ! end of CLM variables
+! variables for SUEWS: START
      &        ,year=yr, day_int=day, hour=hr, minute=minute, second=sec             & ! add for SUEWS by Zhenkun Li, 5/6/2018
      &        ,LAI_SUEWS=grid%LAI_SUEWS                                             & ! add for SUEWS by Zhenkun Li, 7/7/2018
      &        ,albDecTr_SUEWS=grid%albDecTr_SUEWS                                   &
@@ -597,6 +598,7 @@ BENCH_START(surf_driver_tim)
      &        ,WUDay=grid%WUDay                                                     &
      &        ,z0m_in=grid%z0m_in                                                   &
      &        ,zdm_in=grid%zdm_in                                                   &
+! variables for SUEWS: End
      &        ,SLOPE_RAD=config_flags%slope_rad,TOPO_SHADING=config_flags%topo_shading & ! solar
      &        ,SHADOWMASK=grid%shadowmask,DIFFUSE_FRAC=grid%diffuse_frac               & ! solar
      &        ,SLOPE=grid%slope, SLP_AZI=grid%slp_azi, SWNORM=grid%swnorm              & ! solar
