@@ -5,7 +5,7 @@
 
 
 MODULE module_sf_SUEWS
-  USE SuMin_Module,ONLY:SuMin,nsurf,nvegsurf
+  USE SuMin_Module,ONLY:SuMin
 
   REAL(KIND(1D0)),DIMENSION(8,4,3)             :: OHM_coef
   REAL(KIND(1D0)),DIMENSION(8,6)               :: WaterDist
@@ -29,7 +29,7 @@ CONTAINS
   !----------------------------------------------------------------
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
-       PSFC, PREC, NLCAT, LANDUSEF, ht,         &
+       PSFC, PREC, ht,                          &
        HFX, QFX, LH, TSK, QSFC, chklowq,        &
        LAI_SUEWS,                               &
        albDecTr_SUEWS,                          &
@@ -148,8 +148,6 @@ CONTAINS
     !
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN, PSFC, PREC, ht
 
-    INTEGER, INTENT(IN)  :: NLCAT
-    REAL, DIMENSION(ims:ime, NLCAT, jms:jme), INTENT(IN)    :: LANDUSEF
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
          HFX, QFX, LH, TSK, QSFC, chklowq
     REAL , INTENT(IN)    :: DT, dt_prev, DX
@@ -166,7 +164,7 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: porosity_SUEWS !Porosity of deciduous trees [-]
     REAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)                 :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL,DIMENSION(ims:ime,6,jms:jme,2),INTENT(INOUT)               :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL,DIMENSION(ims:ime,12,jms:jme),INTENT(INOUT)                :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: state_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: soilmoist_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: surf_var_SUEWS
@@ -184,23 +182,25 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: zdm_in
 
     ! LOCAL VARS
-    REAL, DIMENSION(nsurf) :: landusef_suews1d
+    REAL,DIMENSION(7)                 :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
     REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out
     REAL(KIND(1d0)) :: timezone
 
-    REAL(KIND(1d0)),DIMENSION(nvegsurf)              :: LAI_id      !LAI for each veg surface [m2 m-2]
+    REAL(KIND(1d0)),DIMENSION(3)                     :: LAI_id      !LAI for each veg surface [m2 m-2]
     REAL(KIND(1d0))                                  :: albDecTr_id
     REAL(KIND(1d0))                                  :: albEveTr_id
     REAL(KIND(1d0))                                  :: albGrass_id
     REAL(KIND(1d0))                                  :: DecidCap_id
     REAL(KIND(1d0))                                  :: porosity_id
     REAL(KIND(1d0)),DIMENSION(5)                     :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6,2)                   :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(12)                    :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(7)                     :: state_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: soilmoist_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: surf_var_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: alb_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: emis_id
     REAL(KIND(1d0))                                  :: qn1_av_id
     REAL(KIND(1d0))                                  :: qn1_s_id
     REAL(KIND(1d0))                                  :: dqndt_id
@@ -221,7 +221,7 @@ CONTAINS
     PRINT *, 'minutesSinceStart = ', xtime, 'secondsSinceStart = ', dt_since_start
     PRINT *, 'dt = ', dt, 'dt_prev = ', dt_prev
 
-    CALL MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
+    ! CALL MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
 
     DO J=jts,jte
 
@@ -238,10 +238,10 @@ CONTAINS
           SWDOWN1D = SWDOWN(i,j)
           PSFC1D = PSFC(i,j)
           PREC1D = PREC(i,j)
+          landusef_suews1d = landusef_suews(I,:,J)
           ht1d = ht(i,j)
           XLAT1D = XLAT(i,j)
           XLONG1D = XLONG(i,j)
-          landusef_suews1d = landusef_suews(i, :, j)
 
           LAI_id          = LAI_SUEWS(I,:,J)
           albDecTr_id     = albDecTr_SUEWS(I,J)
@@ -250,10 +250,12 @@ CONTAINS
           DecidCap_id     = DecidCap_SUEWS(I,J)
           porosity_id     = porosity_SUEWS(I,J)
           GDD_id          = GDD_SUEWS(I,:,J)
-          HDD_id          = HDD_SUEWS(I,:,J,:)
+          HDD_id          = HDD_SUEWS(I,:,J)
           state_id        = state_SUEWS(I,:,J)
           soilmoist_id    = soilmoist_SUEWS(I,:,J)
           surf_var_id     = surf_var_SUEWS(I,:,J)
+          alb_id          = alb_SUEWS(I,:,J)
+          emis_id         = emis_SUEWS(I,:,J)
           qn1_av_id       = qn1_av_SUEWS(I,J)
           qn1_s_id        = qn1_s_SUEWS(I,J)
           dqndt_id        = dqndt_SUEWS(I,J)
@@ -281,8 +283,8 @@ CONTAINS
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
                LAI_id,albDecTr_id,albEveTr_id,albGrass_id,DecidCap_id,porosity_id,GDD_id,HDD_id,&
-               state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_id,dqndt_id,dqnsdt_id,&
-               MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
+               state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
+               dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
                qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
@@ -300,17 +302,19 @@ CONTAINS
           DecidCap_SUEWS(I,J)    = DecidCap_id
           porosity_SUEWS(I,J)    = porosity_id
           GDD_SUEWS(I,:,J)       = GDD_id
-          HDD_SUEWS(I,:,J,:)     = HDD_id
+          HDD_SUEWS(I,:,J)       = HDD_id
           state_SUEWS(I,:,J)     = state_id
           soilmoist_SUEWS(I,:,J) = soilmoist_id
           surf_var_SUEWS(I,:,J)  = surf_var_id
+          alb_SUEWS(I,:,J)       = alb_id
+          emis_SUEWS(I,:,J)      = emis_id
           dqndt_SUEWS(I,J)       = dqndt_id
           dqnsdt_SUEWS(I,J)      = dqnsdt_id
-          MeltWaterStore(I,:,J) = MeltWaterStore_id
-          SnowAlb(I,J) = SnowAlb_id
-          WUDay(I,:,J)   = WUDay_id
-          z0m_in(I,J)  = z0m_in_id
-          zdm_in(I,J)  = zdm_in_id
+          MeltWaterStore(I,:,J)  = MeltWaterStore_id
+          SnowAlb(I,J)           = SnowAlb_id
+          WUDay(I,:,J)           = WUDay_id
+          z0m_in(I,J)            = z0m_in_id
+          zdm_in(I,J)            = zdm_in_id
 
 
           ! print *, 'tsk = ', tsk_out
@@ -342,11 +346,11 @@ CONTAINS
                                 ! forcing:
        SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
                                 ! surface properties (temporally invariant):
-       landusef_suews,ht,XLAT,XLONG,dz8w,DX,&
+       landusef_suews1d,ht,XLAT,XLONG,dz8w,DX,&
                                 ! surface properties/states (temporally updated):
        LAI_id,albDecTr_id,albEveTr_id,albGrass_id,DecidCap_id,porosity_id,GDD_id,HDD_id,&
-       state_id,soilmoist_id,surf_var_id,qn1_av_id,qn1_s_av_id,dqndt_id,dqnsdt_id,&
-       MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
+       state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
+       dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
        qh,qe,qsfc,tsk,CHKLOWQ,&
@@ -379,7 +383,7 @@ CONTAINS
     REAL,INTENT(in) :: PSFC !note: unit is Pa
     REAL,INTENT(in) :: PREC1D ! precipitation amount
 
-    REAL, DIMENSION(7) ,INTENT(IN ) :: landusef_suews !add in WRFcat2SUEWScat.f95
+    REAL, DIMENSION(7) ,INTENT(IN ) :: landusef_suews1d !add in WRFcat2SUEWScat.f95
     REAL, INTENT(IN ) :: ht ! elevation
     REAL, INTENT(IN ) :: XLAT
     REAL, INTENT(IN ) :: XLONG
@@ -394,11 +398,14 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: DecidCap_id !Storage capacity of deciduous trees [mm]
     REAL(KIND(1d0)),INTENT(INOUT) :: porosity_id !Porosity of deciduous trees [-]
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL(KIND(1d0)),DIMENSION(6,2),INTENT(INOUT)     :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL(KIND(1d0)),DIMENSION(12),INTENT(INOUT)      :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     ! 6. water balance:
-    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: state_id          !Wetness status of each surface type [mm]
-    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: soilmoist_id      !Soil moisture of each surface type [mm]
-    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: surf_var_id   !variable to store the current states
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)       :: state_id          !Wetness status of each surface type [mm]
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)       :: soilmoist_id      !Soil moisture of each surface type [mm]
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)       :: surf_var_id   !variable to store the current states
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)       :: alb_id
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)       :: emis_id
+
     REAL(KIND(1d0)),INTENT(INOUT) :: dqndt_id
     REAL(KIND(1d0)),INTENT(INOUT) :: dqnsdt_id
 
@@ -409,7 +416,7 @@ CONTAINS
     ! REAL(KIND(1d0)),DIMENSION(360), INTENT(inout):: qn1_store   !Q* values for each timestep over previous hr
     ! REAL(KIND(1d0)),DIMENSION(2*360+1), INTENT(inout):: qn1_av_store  !Hourly Q* values for each timestep over previous 2 hr
     REAL(KIND(1d0)),INTENT(INOUT)                         :: qn1_av_id
-    REAL(KIND(1d0)),INTENT(INOUT)                         :: qn1_s_av_id
+    REAL(KIND(1d0)),INTENT(INOUT)                         :: qn1_s_id
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)            :: MeltWaterStore_id
     REAL(KIND(1d0)),INTENT(INOUT)                         :: SnowAlb_id
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)            :: WUDay_id
@@ -501,13 +508,13 @@ CONTAINS
     ! 3 - Drainage coeff 1 [units depend on choice of eqn]
     ! 4 - Drainage coeff 2 [units depend on choice of eqn]
     ! 5 - max storage capacity [mm]
-    REAL(KIND(1d0)),DIMENSION(5,nsurf),PARAMETER:: surf_attr=RESHAPE(&   ! variable to store the above five properties
+    REAL(KIND(1d0)),DIMENSION(5,7),PARAMETER:: surf_attr=RESHAPE(&   ! variable to store the above five properties
          [[ 0.48 ,  0.25 ,  1.3  ,  0.3  ,  1.9  ,  0.8  ,  0.5  ],&
          [ 3.   ,  3.   ,  2.   ,  2.   ,  2.   ,  3.   ,  0.   ],&
          [10.   , 10.   ,  0.013,  0.013,  0.013, 10.   ,  0.   ],&
          [ 3.   ,  3.   ,  1.71 ,  1.71 ,  1.71 ,  3.   ,  0.   ],&
          [ 0.48 ,  0.25 ,  1.3  ,  0.8  ,  1.9  ,  0.8  ,  0.5  ]],&
-         [5,nsurf])
+         [5,7])
     !
     !
     ! ! these will be assigned locally as data
@@ -538,11 +545,11 @@ CONTAINS
     ! variables:
     ! 1. static properties of land covers:
     ! TODO: this should be handled by WPS/ improved to load user specified values
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: alb0=[0.12,0.15,0.1,0.18,0.138403,0.18,0.1]    !Albedo of each surface type [-]
-    REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: emis0=[0.95,0.91,0.98,0.98,0.988388,0.94,0.95]   !Emissivity of each surface type [-]
-    REAL(KIND(1d0)),DIMENSION(nsurf)::alb,emis
+    REAL(KIND(1d0)),DIMENSION(7),PARAMETER:: alb0=[0.12,0.15,0.1,0.18,0.138403,0.18,0.1]    !Albedo of each surface type [-]
+    REAL(KIND(1d0)),DIMENSION(7),PARAMETER:: emis0=[0.95,0.91,0.98,0.98,0.988388,0.94,0.95]   !Emissivity of each surface type [-]
+    ! REAL(KIND(1d0)),DIMENSION(nsurf)::alb,emis
     ! 2. site info:
-    REAL(KIND(1d0)),DIMENSION(nsurf):: sfr   !Surface fractions [-]
+    REAL(KIND(1d0)),DIMENSION(7):: sfr   !Surface fractions [-]
 
     REAL (KIND(1d0)) :: alt         !Altitude [m]
     REAL (KIND(1d0)) :: lat         !Latitude
@@ -564,7 +571,7 @@ CONTAINS
     INTEGER::tstep_prev    !Timestep [s] at which the model is run (set in RunControl)
 
     ! ---- Drainage characteristics ----------------------------------------------------------------
-    REAL(KIND(1d0)),DIMENSION(6,nsurf):: surf   !Storage capacities and drainage equation info for each surface
+    REAL(KIND(1d0)),DIMENSION(6,7):: surf   !Storage capacities and drainage equation info for each surface
     ! 1 - min storage capacity [mm]
     ! 2 - Drainage equation to use
     ! 3 - Drainage coeff 1 [units depend on choice of eqn]
@@ -613,12 +620,12 @@ CONTAINS
 
     ! surface properties:
     ! ! TODO: this should be dynamic
- alb=alb0
- emis=emis0
+    ! alb=alb0
+    ! emis=emis0
 
     dectime=id-1+(it+imin/60.)/24
 
-    sfr=landusef_suews
+    sfr=landusef_suews1d
 
     CALL SuMin(&
          snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
@@ -626,9 +633,9 @@ CONTAINS
          iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
          alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
          z0m_in_id,zdm_in_id,&! roughness related settings
-         alb,emis,SnowAlb_id,OHM_coef,WaterDist,&
+         alb_id,emis_id,SnowAlb_id,OHM_coef,WaterDist,&
          AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
-         qn1_av_id,dqndt_id,qn1_s_av_id,dqnsdt_id,&
+         qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
          surf,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
@@ -640,21 +647,31 @@ CONTAINS
   END SUBROUTINE SUEWS1D
 
   !================================================================
-  SUBROUTINE suewsinit(                         &
-       landusef_SUEWS,                          &
-       alb_SUEWS,                               &
-       emis_SUEWS,                              &
-       qn1_av_SUEWS,                            &
-       qn1_s_SUEWS,                             &
-       dqndt_SUEWS,dqnsdt_SUEWS,                &
-       restart, allowed_to_read,                &
-       ids,ide, jds,jde, kds,kde,               &
-       ims,ime, jms,jme, kms,kme,               &
-       its,ite, jts,jte, kts,kte                )
+  SUBROUTINE suewsinit(                           &
+         MMINLU,                                  &
+         julday,                                  &
+         cen_lat,                                 &
+         NLCAT,                                   &
+         landusef,                                &
+         landusef_SUEWS,                          &
+         alb_SUEWS,                               &
+         emis_SUEWS,                              &
+         qn1_av_SUEWS,                            &
+         qn1_s_SUEWS,                             &
+         dqndt_SUEWS,dqnsdt_SUEWS,                &
+         restart, allowed_to_read,                &
+         ids,ide, jds,jde, kds,kde,               &
+         ims,ime, jms,jme, kms,kme,               &
+         its,ite, jts,jte, kts,kte                )
     !----------------------------------------------------------------
     USE module_wrf_error
     IMPLICIT NONE
     !----------------------------------------------------------------
+    CHARACTER(LEN=*),INTENT(IN)                                     :: MMINLU
+    INTEGER, INTENT(IN)                                             :: julday
+    REAL, INTENT(IN)                                                :: cen_lat
+    INTEGER,INTENT(IN)                                              :: NLCAT
+    REAL,DIMENSION(ims:ime, NLCAT, jms:jme), INTENT(IN)             :: LANDUSEF
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
@@ -663,34 +680,121 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
 
-    INTEGER, INTENT(IN   )    ::      ids,ide, jds,jde, kds,kde, &
+    INTEGER, INTENT(IN)         :: ids,ide, jds,jde, kds,kde, &
          ims,ime, jms,jme, kms,kme, &
          its,ite, jts,jte, kts,kte
 
-    LOGICAL , INTENT(IN)        :: restart, allowed_to_read
+    LOGICAL, INTENT(IN)         :: restart, allowed_to_read
 
     !  LOCAR VAR
-
-    INTEGER                     ::      L,J,I,itf,jtf
-    CHARACTER*1024 message
-    ! INTEGER                   :: OHM_unit
-    ! INTEGER , PARAMETER       :: OPEN_OK = 0
-    ! INTEGER                   :: ierr, Code
+    INTEGER                     :: i, j, k, itf, jtf
+    CHARACTER(len=1024)         :: message
     LOGICAL, EXTERNAL           :: wrf_dm_on_monitor
     CHARACTER(len=256)          :: filename ! local file name
-    INTEGER                     :: iunit               ! file unit
-    INTEGER                     :: ierr                ! error code
+    INTEGER                     :: namelist_unit       ! file unit
+    INTEGER                     :: ierr, status        ! error code
+    INTEGER                     :: ISN
+    CHARACTER(len=256)          :: LUTYPE
+    INTEGER                     :: landuse_unit, ls, lc, li, LUN, NSN
+    INTEGER, PARAMETER          :: OPEN_OK = 0
+    INTEGER                     :: LUCATS, LUSEAS
+    REAL, DIMENSION(:, :), ALLOCATABLE :: ALBD, SLMO, SFEM, SFZ0, THERIN, SCFX, SFHC
+    LOGICAL                     :: found_lu
 
     !----------------------------------------------------------------
 
     NAMELIST /suews/ OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
-         WUProfA_24hr, WUProfM_24hr, snowUse, RoughLenHeatMethod, RoughLenMomMethod, &
-         EmissionsMethod, NetRadiationMethod, StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod
+         WUProfA_24hr, WUProfM_24hr, snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, &
+         NetRadiationMethod, StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod
 
-    IF(.NOT.restart)THEN
+    filename = 'namelist.suews'
+    namelist_unit = 10
+    OPEN(namelist_unit, file=filename, form="formatted", status='old', action='read', iostat=ierr)
+    IF (ierr /= OPEN_OK ) THEN
+       WRITE(message, FMT='(A)') 'module_sf_suews.F: suewsinit: open failure for namelist.suews'
+       CALL wrf_error_fatal ( message )
+    END IF
+    READ(namelist_unit, nml=suews, iostat=ierr)
+    IF (ierr /= 0) THEN
+       CALL wrf_error_fatal( "ERROR reading namelist namelist_quilt" )
+    ENDIF
+    CLOSE(namelist_unit)
 
-       itf=min0(ite,ide-1)
-       jtf=min0(jte,jde-1)
+    ! initialize suews related table
+    ISN = 1
+    IF(JULDAY <105 .OR. JULDAY > 288) ISN = 2
+    IF(CEN_LAT < 0.0) ISN = 3 - ISN
+
+    IF ( allowed_to_read ) THEN
+       CALL wrf_message( 'INITIALIZE SUEWS RELATED TABLE' )
+       landuse_unit = 29
+
+       IF ( wrf_dm_on_monitor() ) THEN
+
+          OPEN(landuse_unit, FILE='LANDUSE.TBL',FORM='FORMATTED',STATUS='OLD',IOSTAT=ierr)
+          IF ( ierr .NE. OPEN_OK ) THEN
+             WRITE(message,FMT='(A)') 'module_sf_suews.F: suewsinit: open failure for LANDUSE.TBL'
+             CALL wrf_error_fatal ( message )
+          END IF
+          FOUND_LU = .FALSE.
+
+          DO
+
+             READ (landuse_unit,*,iostat=status)LUTYPE
+             IF (status /= 0 ) EXIT
+             FOUND_LU = LUTYPE == MMINLU
+
+             READ (landuse_unit,*,iostat=status)LUCATS,LUSEAS
+             IF (status /= 0 ) EXIT
+
+             DO ls = 1, LUSEAS
+                READ (landuse_unit,*)
+                DO lc = 1, LUCATS
+                   IF (FOUND_LU) THEN
+                      ALLOCATE(ALBD(LUCATS,LUSEAS), SLMO(LUCATS,LUSEAS), SFEM(LUCATS,LUSEAS))
+                      ALLOCATE(SFZ0(LUCATS,LUSEAS), THERIN(LUCATS,LUSEAS), SCFX(LUCATS,LUSEAS), SFHC(LUCATS,LUSEAS))
+                      WRITE(message,*) 'LANDUSE TYPE = "' // TRIM (LUTYPE) // '" FOUND', LUCATS,' CATEGORIES',LUSEAS,' SEASONS'
+                      CALL wrf_message(message)
+                      READ (landuse_unit,*) li,ALBD(lc,ls),SLMO(lc,ls),SFEM(lc,ls), &
+                           SFZ0(lc,ls),THERIN(lc,ls),SCFX(lc,ls),SFHC(lc,ls)
+                      IF (lc /= li) THEN
+                         CLOSE (landuse_unit)
+                         CALL wrf_error_fatal ( 'module_start: MISSING LANDUSE UNIT ' )
+                      END IF
+                   ELSE
+                      READ (landuse_unit,*)
+                   END IF
+                END DO
+             END DO
+
+             IF (FOUND_LU) EXIT
+
+          END DO
+
+          CLOSE (landuse_unit)
+
+          IF (FOUND_LU) THEN
+             IF (LUSEAS == 1) ISN = 1
+          ELSE
+             CALL wrf_error_fatal ( 'LANDUSE IN INPUT FILE DOES NOT MATCH LUTABLE: TABLE NOT USED' )
+          END IF
+
+          CALL wrf_dm_bcast_bytes (albd,   LUCATS * LUSEAS * RWORDSIZE )
+          CALL wrf_dm_bcast_bytes (slmo,   LUCATS * LUSEAS * RWORDSIZE )
+          CALL wrf_dm_bcast_bytes (sfem,   LUCATS * LUSEAS * RWORDSIZE )
+          CALL wrf_dm_bcast_bytes (sfz0,   LUCATS * LUSEAS * RWORDSIZE )
+          CALL wrf_dm_bcast_bytes (therin, LUCATS * LUSEAS * RWORDSIZE )
+          CALL wrf_dm_bcast_bytes (scfx,   LUCATS * LUSEAS * RWORDSIZE )
+          CALL wrf_dm_bcast_bytes (sfhc,   LUCATS * LUSEAS * RWORDSIZE )
+
+       ENDIF
+
+    ENDIF
+
+    IF (.NOT.restart) THEN
+
+       itf = min0(ite, ide-1)
+       jtf = min0(jte, jde-1)
 
        DO j = jts,jtf
           DO i = its,itf
@@ -701,38 +805,18 @@ CONTAINS
           ENDDO
        ENDDO
 
-       filename = 'namelist.suews'
-       iunit = 10
-       OPEN(iunit, file=filename, form="formatted", status='old', action='read', iostat=ierr)
-       IF (ierr /= 0 ) THEN
-          WRITE(message, FMT='(A)') 'module_sf_suews.F: suewsinit: open failure for namelist.suews'
-          CALL wrf_error_fatal ( message )
+       IF (TRIM(MMINLU) == 'MODIFIED_IGBP_MODIS_NOAH') THEN
+          CALL MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
+       ELSE IF (TRIM(MMINLU) == 'USGS') THEN
+          CALL USGScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
+       ELSE
+          CALL wrf_error_fatal ('THE Land Use Categories NOT SUPPORTED By SUEWS Model NOW' )
        END IF
-       READ(iunit, nml=suews, iostat=ierr)
-       IF (ierr /= 0) THEN
-          CALL wrf_error_fatal( "ERROR reading namelist namelist_quilt" )
-       ENDIF
-       CLOSE(iunit)
 
-       !
-       !    IF ( allowed_to_read ) THEN
-       !       OHM_unit = 30
-       !       IF ( wrf_dm_on_monitor() ) THEN
-       !          OPEN(OHM_unit, FILE='SUEWS_OHMCoefficients.txt',FORM='FORMATTED',STATUS='OLD',IOSTAT=ierr)
-       !          IF ( ierr .NE. OPEN_OK ) THEN
-       !             WRITE(message,FMT='(A)') &
-       !                  'module_sf_suews.F: suewsinit: open failure for SUEWS_OHMCoefficients.txt'
-       !             CALL wrf_error_fatal ( message )
-       !          END IF
-       !          READ(OHM_unit, *)
-       !          READ(OHM_unit, *)
-       !          READ(OHM_unit, *)code, OHMcoef
-       !          CLOSE (OHM_unit)
-       !          CALL wrf_dm_bcast_real    ( OHMcoef , nohm )
-       !       ENDIF
-       !    ENDIF
-       !
     ENDIF
+
+    DEALLOCATE(ALBD, SLMO, SFEM)
+    DEALLOCATE(SFZ0, THERIN, SCFX, SFHC)
 
   END SUBROUTINE suewsinit
   !-------------------------------------------------------------------
@@ -741,7 +825,7 @@ CONTAINS
   !    Public subroutine to convert USGS Land Use Categories to SUEWS
   !    surface types
   !----------------------------------------------------------------------
-  SUBROUTINE USGScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
+  SUBROUTINE USGScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
 
     IMPLICIT NONE
 
@@ -750,35 +834,92 @@ CONTAINS
     !------------------------------------------------------------------
     INTEGER, INTENT(in)                ::  ims, ime, NLCAT, jms, jme
     REAL, INTENT(in)                   ::  landusef(ims:ime, NLCAT, jms:jme)
-    REAL, INTENT(out)                  ::  landusef_suews(ims:ime, nsurf, jms:jme)
+    INTEGER, INTENT(in)                ::  ISN, LUCATS, LUSEAS
+    REAL, INTENT(in)                   ::  albd(LUCATS, LUSEAS), sfem(LUCATS, LUSEAS)
+    REAL, INTENT(out)                  ::  landusef_SUEWS(ims:ime, 7, jms:jme)
+    REAL, INTENT(out)                  ::  alb_SUEWS(ims:ime, 7, jms:jme)
+    REAL, INTENT(out)                  ::  emis_SUEWS(ims:ime, 7, jms:jme)
 
     !------------------------------------------------------------------
     !       local variables
     !------------------------------------------------------------------
-    INTEGER                            ::  i, j, k
+    INTEGER                            ::  i, j, k, l
 
     DO i = ims, ime
        DO j = jms, jme
-          landusef_suews(i, :, j) = 0.
-          DO k = 1, NLCAT
+          landusef_SUEWS(i, :, j) = 0.
+          alb_SUEWS(i, :, j) = 0.
+          emis_SUEWS(i, :, j) = 0.
+          DO k = 1, 7
 
              SELECT CASE( k )
              CASE( 1 )
-                landusef_suews(i, 1, j) = landusef_suews(i, 1, j) + landusef(i, k, j) * 0.5
-                landusef_suews(i, 2, j) = landusef_suews(i, 2, j) + landusef(i, k, j) * 0.5
-             CASE( 2:10 )
-                landusef_suews(i, 5, j) = landusef_suews(i, 5, j) + landusef(i, k, j)
-             CASE( 11, 12 )
-                landusef_suews(i, 4, j) = landusef_suews(i, 4, j) + landusef(i, k, j)
-             CASE( 13:15 )
-                landusef_suews(i, 3, j) = landusef_suews(i, 3, j) + landusef(i, k, j)
-             CASE( 16:18 )
-                landusef_suews(i, 7, j) = landusef_suews(i, 7, j) + landusef(i, k, j)
-             CASE( 19:23 )
-                landusef_suews(i, 6, j) = landusef_suews(i, 6, j) + landusef(i, k, j)
-             CASE( 24 )
-                !TODO
+                landusef_SUEWS(i, k, j) = landusef(i, 1, j) * 0.5
+                alb_SUEWS(i, k, j) = albd(1, ISN)
+                emis_SUEWS(i, k, j) = sfem(1, ISN)
+             CASE( 2 )
+                landusef_SUEWS(i, k, j) = landusef(i, 1, j) * 0.5
+                alb_SUEWS(i, k, j) = albd(1, ISN)
+                emis_SUEWS(i, k, j) = sfem(1, ISN)
+             CASE( 3 )
+                DO l = 13, 15
+                    landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, l, j)
+                END DO
+                DO l = 13, 15
+                   alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                   emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                END DO
+             CASE( 4 )
+                DO l = 11, 12
+                    landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, l, j)
+                END DO
+                DO l = 11, 12
+                   alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                   emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                END DO
+             CASE( 5 )
+                DO l = 2, 10
+                    landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, l, j)
+                END DO
+                DO l = 2, 10
+                   alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                   emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                END DO
+             CASE( 6 )
+                DO l = 19, 23
+                    landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, l, j)
+                END DO
+                DO l = 19, 23
+                   alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                   emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                END DO
+             CASE( 7 )
+                DO l = 16, 18
+                    landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, l, j)
+                END DO
+                DO l = 16, 18
+                   alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                   emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                END DO
              END SELECT
+
+             ! SELECT CASE( k )
+             ! CASE( 1 )
+             !    landusef_SUEWS(i, 1, j) = landusef_SUEWS(i, 1, j) + landusef(i, k, j) * 0.5
+             !    landusef_SUEWS(i, 2, j) = landusef_SUEWS(i, 2, j) + landusef(i, k, j) * 0.5
+             ! CASE( 2:10 )
+             !    landusef_SUEWS(i, 5, j) = landusef_SUEWS(i, 5, j) + landusef(i, k, j)
+             ! CASE( 11, 12 )
+             !    landusef_SUEWS(i, 4, j) = landusef_SUEWS(i, 4, j) + landusef(i, k, j)
+             ! CASE( 13:15 )
+             !    landusef_SUEWS(i, 3, j) = landusef_SUEWS(i, 3, j) + landusef(i, k, j)
+             ! CASE( 16:18 )
+             !    landusef_SUEWS(i, 7, j) = landusef_SUEWS(i, 7, j) + landusef(i, k, j)
+             ! CASE( 19:23 )
+             !    landusef_SUEWS(i, 6, j) = landusef_SUEWS(i, 6, j) + landusef(i, k, j)
+             ! CASE( 24 )
+             !    !TODO
+             ! END SELECT
 
           END DO
        END DO
@@ -790,7 +931,7 @@ CONTAINS
   !    Public subroutine to convert MODIS Land Use Categories to SUEWS
   !    surface types
   !----------------------------------------------------------------------
-  SUBROUTINE MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
+  SUBROUTINE MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
 
     IMPLICIT NONE
 
@@ -799,39 +940,102 @@ CONTAINS
     !------------------------------------------------------------------
     INTEGER, INTENT(in)                ::  ims, ime, NLCAT, jms, jme
     REAL, INTENT(in)                   ::  landusef(ims:ime, NLCAT, jms:jme)
-    REAL, INTENT(out)                  ::  landusef_suews(ims:ime, nsurf, jms:jme)
+    INTEGER, INTENT(in)                ::  ISN, LUCATS, LUSEAS
+    REAL, INTENT(in)                   ::  albd(LUCATS, LUSEAS), sfem(LUCATS, LUSEAS)
+    REAL, INTENT(out)                  ::  landusef_SUEWS(ims:ime, 7, jms:jme)
+    REAL, INTENT(out)                  ::  alb_SUEWS(ims:ime, 7, jms:jme)
+    REAL, INTENT(out)                  ::  emis_SUEWS(ims:ime, 7, jms:jme)
 
     !------------------------------------------------------------------
     !       local variables
     !------------------------------------------------------------------
-    INTEGER                            ::  i, j, k
+    INTEGER                            ::  i, j, k, l
 
     DO i = ims, ime
        DO j = jms, jme
-          landusef_suews(i, :, j) = 0.
-          DO k = 1, NLCAT
+          landusef_SUEWS(i, :, j) = 0.
+          alb_SUEWS(i, :, j) = 0.
+          emis_SUEWS(i, :, j) = 0.
+          DO k = 1, 7
 
              SELECT CASE( k )
-             CASE( 1, 2, 5 )
-                landusef_suews(i, 3, j) = landusef_suews(i, 3, j) + landusef(i, k, j)
-             CASE( 3:4 )
-                landusef_suews(i, 4, j) = landusef_suews(i, 4, j) + landusef(i, k, j)
-             CASE( 6:10 )
-                landusef_suews(i, 5, j) = landusef_suews(i, 5, j) + landusef(i, k, j)
-             CASE( 11, 17 )
-                landusef_suews(i, 7, j) = landusef_suews(i, 7, j) + landusef(i, k, j)
-             CASE( 12, 14 )
-                landusef_suews(i, 5, j) = landusef_suews(i, 5, j) + landusef(i, k, j)
-             CASE( 13 )
-                landusef_suews(i, 1, j) = landusef_suews(i, 1, j) + landusef(i, k, j) * 0.5
-                landusef_suews(i, 2, j) = landusef_suews(i, 2, j) + landusef(i, k, j) * 0.5
-             CASE( 15 )
-                !TODO
-             CASE( 16 )
-                landusef_suews(i, 6, j) = landusef_suews(i, 6, j) + landusef(i, k, j)
-             CASE( 18:20 )
-                landusef_suews(i, 6, j) = landusef_suews(i, 6, j) + landusef(i, k, j)
+             CASE( 1 )
+                landusef_SUEWS(i, k, j) = landusef(i, 13, j) * 0.5
+                alb_SUEWS(i, k, j) = albd(13, ISN)
+                emis_SUEWS(i, k, j) = sfem(13, ISN)
+             CASE( 2 )
+                landusef_SUEWS(i, k, j) = landusef(i, 13, j) * 0.5
+                alb_SUEWS(i, k, j) = albd(13, ISN)
+                emis_SUEWS(i, k, j) = sfem(13, ISN)
+             CASE( 3 )
+                landusef_SUEWS(i, k, j) = landusef(i, 1, j) + landusef(i, 2, j) + landusef(i, 5, j)
+                alb_SUEWS(i, k, j) = albd(1, ISN) * landusef(i, 1, j)/landusef_SUEWS(i, k, j) + &
+                                     albd(2, ISN) * landusef(i, 2, j)/landusef_SUEWS(i, k, j) + &
+                                     albd(5, ISN) * landusef(i, 5, j)/landusef_SUEWS(i, k, j)
+                emis_SUEWS(i, k, j) = sfem(1, ISN) * landusef(i, 1, j)/landusef_SUEWS(i, k, j) + &
+                                      sfem(2, ISN) * landusef(i, 2, j)/landusef_SUEWS(i, k, j) + &
+                                      sfem(5, ISN) * landusef(i, 5, j)/landusef_SUEWS(i, k, j)
+             CASE( 4 )
+                landusef_SUEWS(i, k, j) = landusef(i, 3, j) + landusef(i, 4, j)
+                alb_SUEWS(i, k, j) = albd(3, ISN) * landusef(i, 3, j)/landusef_SUEWS(i, k, j) + &
+                                     albd(4, ISN) * landusef(i, 4, j)/landusef_SUEWS(i, k, j)
+                emis_SUEWS(i, k, j) = sfem(3, ISN) * landusef(i, 3, j)/landusef_SUEWS(i, k, j) + &
+                                      sfem(4, ISN) * landusef(i, 4, j)/landusef_SUEWS(i, k, j)
+             CASE( 5 )
+                DO l = 6, 10
+                    landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, l, j)
+                END DO
+                landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, 12, j) + landusef(i, 14, j)
+                DO l = 6, 10
+                   alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                   emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                END DO
+                alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + &
+                                     albd(12, ISN) * landusef(i, 12, j)/landusef_SUEWS(i, k, j) + &
+                                     albd(14, ISN) * landusef(i, 14, j)/landusef_SUEWS(i, k, j)
+                emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + &
+                                      sfem(12, ISN) * landusef(i, 12, j)/landusef_SUEWS(i, k, j) + &
+                                      sfem(14, ISN) * landusef(i, 14, j)/landusef_SUEWS(i, k, j)
+             CASE( 6 )
+               DO l = 18, 20
+                   landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, l, j)
+               END DO
+               landusef_SUEWS(i, k, j) = landusef_SUEWS(i, k, j) + landusef(i, 16, j)
+               DO l = 18, 20
+                  alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+                  emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(l, ISN) * landusef(i, l, j)/landusef_SUEWS(i, k, j)
+               END DO
+                alb_SUEWS(i, k, j) = alb_SUEWS(i, k, j) + albd(16, ISN) * landusef(i, 16, j)/landusef_SUEWS(i, k, j)
+                emis_SUEWS(i, k, j) = emis_SUEWS(i, k, j) + sfem(16, ISN) * landusef(i, 16, j)/landusef_SUEWS(i, k, j)
+             CASE( 7 )
+                landusef_SUEWS(i, k, j) = landusef(i, 11, j) + landusef(i, 17, j)
+                alb_SUEWS(i, k, j) = albd(11, ISN) * landusef(i, 11, j)/landusef_SUEWS(i, k, j) + &
+                                     albd(17, ISN) * landusef(i, 17, j)/landusef_SUEWS(i, k, j)
+                emis_SUEWS(i, k, j) = sfem(11, ISN) * landusef(i, 11, j)/landusef_SUEWS(i, k, j) + &
+                                      sfem(17, ISN) * landusef(i, 17, j)/landusef_SUEWS(i, k, j)
              END SELECT
+
+             ! SELECT CASE( k )
+             ! CASE( 1, 2, 5 )
+             !    landusef_SUEWS(i, 3, j) = landusef_SUEWS(i, 3, j) + landusef(i, k, j)
+             ! CASE( 3:4 )
+             !    landusef_SUEWS(i, 4, j) = landusef_SUEWS(i, 4, j) + landusef(i, k, j)
+             ! CASE( 6:10 )
+             !    landusef_SUEWS(i, 5, j) = landusef_SUEWS(i, 5, j) + landusef(i, k, j)
+             ! CASE( 11, 17 )
+             !    landusef_SUEWS(i, 7, j) = landusef_SUEWS(i, 7, j) + landusef(i, k, j)
+             ! CASE( 12, 14 )
+             !    landusef_SUEWS(i, 5, j) = landusef_SUEWS(i, 5, j) + landusef(i, k, j)
+             ! CASE( 13 )
+             !    landusef_SUEWS(i, 1, j) = landusef_SUEWS(i, 1, j) + landusef(i, k, j) * 0.5
+             !    landusef_SUEWS(i, 2, j) = landusef_SUEWS(i, 2, j) + landusef(i, k, j) * 0.5
+             ! CASE( 15 )
+             !    !TODO
+             ! CASE( 16 )
+             !    landusef_SUEWS(i, 6, j) = landusef_SUEWS(i, 6, j) + landusef(i, k, j)
+             ! CASE( 18:20 )
+             !    landusef_SUEWS(i, 6, j) = landusef_SUEWS(i, 6, j) + landusef(i, k, j)
+             ! END SELECT
 
           END DO
        END DO
@@ -869,23 +1073,5 @@ CONTAINS
          + c*(10**(d*(1-T/Ts))-1)+ f*(10**(h*(Ts/T-1))-1))
 
   END FUNCTION esat
-
-  ! subroutine random_array2d(nx, ny, arr2d, ubound, lbound)
-  !   implicit none
-  !   integer, INTENT(in) :: nx, ny
-  !   real, INTENT(out)   :: arr2d(nx, ny)
-  !   real, INTENT(in)    :: ubound, lbound
-  !   real :: len
-  !   real :: rand
-  !   integer :: i, j
-  !
-  !   len = ubound - lbound
-  !   do j = 1, ny
-  !      do i = 1, nx
-  !         call random_number(rand)
-  !         arr2d(i, j) = lbound + len * rand
-  !      end do
-  !   end do
-  ! end subroutine random_array2d
 
 END MODULE module_sf_suews

@@ -2,11 +2,11 @@
 dimspec   nsurf    2     constant=7                  z        num_surf
 dimspec   nvegsurf 2     constant=3                  z        num_vegsurf
 dimspec   dimgdd   2     constant=5                  z        third_dim_gdd
-dimspec   dimhdd   2     constant=10                 z        third_dim_hdd
-dimspec   dimwd    2     constant=9                  z        dim_wd_id
+dimspec   dimhdd   2     constant=12                 z        third_dim_hdd
+dimspec   dimwd    2     constant=9                  z        dim_wd
 
 #<Table>   <Type>   <Sym>             <Dims>                <Use>   <NumTLev>   <Stagger>   <IO>   <DNAME>             <DESCRIP>           <UNITS>
-state      real     LAI_SUEWS         i{nvegsurf}j          misc    1           -           irh    "LAI_SUEWS"         "LAI_SUEWS"         "m2       m-2"
+state      real     LAI_SUEWS         i{nvegsurf}j          misc    1           -           irh    "LAI_SUEWS"         "LAI_SUEWS"         "m2 m-2"
 state      real     albDecTr_SUEWS    ij                    misc    1           -           irh    "albDecTr_SUEWS"    "albDecTr_SUEWS"    ""
 state      real     albEveTr_SUEWS    ij                    misc    1           -           irh    "albEveTr_SUEWS"    "albEveTr_SUEWS"    ""
 state      real     albGrass_SUEWS    ij                    misc    1           -           irh    "albGrass_SUEWS"    "albGrass_SUEWS"    ""

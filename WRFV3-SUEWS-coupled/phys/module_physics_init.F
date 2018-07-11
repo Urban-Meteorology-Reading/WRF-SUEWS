@@ -1137,6 +1137,8 @@ integer myproc
                 ZNT,XLAND,XICE,                                 &
                 DX, DY, MSFTX, MSFTY,                           &
 #endif
+                julday,                                         &
+                cen_lat,                                        &
                 landusef_SUEWS,                                 &
                 alb_SUEWS,                                      &
                 emis_SUEWS,                                     &
@@ -2058,6 +2060,8 @@ integer myproc
 #else
                 ZNT,XLAND,XICE,DX, DY, MSFTX, MSFTY,            &
 #endif
+                julday,                                         &
+                cen_lat,                                        &
                 landusef_SUEWS,                                 &
                 alb_SUEWS,                                      &
                 emis_SUEWS,                                     &
@@ -2304,6 +2308,8 @@ integer myproc
                                                           RQIBLTEN, &
                                                           TKE_PBL
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
+   INTEGER, INTENT(IN)                                                      :: julday
+   REAL, INTENT(IN)                                                         :: cen_lat
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
@@ -2734,6 +2740,11 @@ integer myproc
       CASE (SUEWSSCHEME) ! add for SUEWS by Zhenkun Li, 6/6/2018
 
            CALL suewsinit(                                     &
+                         MMINLU,                               &
+                         julday,                               &
+                         cen_lat,                              &
+                         NLCAT,                                &
+                         landusef,                             &
                          landusef_SUEWS,                       &
                          alb_SUEWS,                            &
                          emis_SUEWS,                           &

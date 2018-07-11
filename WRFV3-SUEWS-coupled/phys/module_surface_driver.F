@@ -983,7 +983,7 @@ CONTAINS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: porosity_SUEWS !Porosity of deciduous trees [-]
    REAL,OPTIONAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)                 :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-   REAL,OPTIONAL,DIMENSION(ims:ime,6,jms:jme,2),INTENT(INOUT)               :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+   REAL,OPTIONAL,DIMENSION(ims:ime,12,jms:jme),INTENT(INOUT)                :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: state_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: soilmoist_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: surf_var_SUEWS
@@ -2531,7 +2531,7 @@ print*, ''
           !   i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
           CALL suewsdrv(year, day_int, hour, minute, second, xtime, &
              t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
-             psfc, rainbl, NLCAT, LANDUSEF, ht,                    &
+             psfc, rainbl, ht,                                     &
              hfx, qfx, lh, tsk, qsfc, chklowq,                     &
              LAI_SUEWS,                                            &
              albDecTr_SUEWS,                                       &
