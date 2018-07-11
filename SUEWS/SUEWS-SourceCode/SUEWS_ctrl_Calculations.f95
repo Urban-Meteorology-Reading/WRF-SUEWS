@@ -35,61 +35,50 @@
 
 SUBROUTINE SUEWS_Calculations(Gridiv, ir, iMB, irMax)
   USE data_in, ONLY: diagnose, ah_min, ah_slope_cooling, ah_slope_heating, &
-       alt, avkdn, avrh, avu1, basetHDD, diagqn, diagqs, drainrt, ef_umolco2perj, &
+       alt, avkdn, avrh, avu1, basethdd, diagqn, diagqs, drainrt, ef_umolco2perj, &
        emissionsmethod, enef_v_jkm, enddls, fcef_v_kgkm, fcld_obs, &
        frfossilfuel_heat, frfossilfuel_nonheat, ity, &
-       LAIcalcyes, LAI_obs, lat, ldown_obs, lng, maxqfmetab, minqfmetab, &
+       laicalcyes, lai_obs, lat, ldown_obs, lng, maxqfmetab, minqfmetab, &
        netradiationmethod, numcapita, ohmincqf, popdensdaytime, popdensnighttime, &
        precip, press_hpa, qf0_beu, qf_a, qf_b, qf_c, qh_obs, qn1_obs, &
        raincover, rainmaxres, &
        roughlenmommethod, smdmethod, snow_obs, snowuse, startdls, &
        storageheatmethod, t_critic_cooling, t_critic_heating, temp_c, &
        timezone, trafficrate, trafficunits, waterusemethod, xsmd
-  USE time, ONLY : iy, id, it, imin, isec, dectime, dt_since_start
+  USE time, ONLY : iy, iy_prev_t, id, id_prev_t, it, imin, dectime
   USE allocateArray, ONLY: &
-       alb, &
+       ahprof_tstep, alb, albdectr, albevetr, albgrass, &
        AlbMax_DecTr, AlbMax_EveTr, AlbMax_grass, &
        AlbMin_dectr, AlbMin_evetr, AlbMin_grass, &
        alpha_bioco2, alpha_enh_bioco2, baset, basete, &
        beta_bioco2, beta_enh_bioco2, capmax_dec, capmin_dec, &
-       chanohm, cpanohm, emis, GDD_id, GDDfull,&
-       HDD_id,HDD_id_use, &
-       DecidCap_id,&
-       albDecTr_id,&
-       albEveTr_id,&
-       albGrass_id,&
-       porosity_id,&
-       icefrac, kkanohm, &
-       LAI_id, LAImax, LAImin, LAIpower, LAItype, maxconductance, &
+       chanohm, cpanohm, decidcap, emis, gdd, gddfull, hdd, &
+       humactivity_tstep, icefrac, kkanohm, &
+       lai, laimax, laimin, laipower, laitype, maxconductance, &
        meltwaterstore, metforcingdata_grid, min_res_bioco2, &
        narp_emis_snow, narp_trans_site, &
-       ohm_coef, ohm_threshsw, ohm_threshwd, &
-       pormax_dec, pormin_dec, &
-       dqndt,qn1_av,&
-       dqnsdt,qn1_s_av,&
+       ohm_coef, ohm_threshsw, ohm_threshwd, popprof_tstep, &
+       pormax_dec, pormin_dec, porosity, &
+       qn1_av_store_grid, qn1_s_av_store_grid, qn1_s_store_grid, qn1_store_grid, &
        resp_a, resp_b, sathydraulicconduct, sddfull, &
        sfr, snowd, snowdens, snowfrac, snowpack, &
        soildepth, soilmoist, soilstorecap, state, statelimit, &
-       surf, tair24hr, theta_bioco2,ts5mindata_ir, &
-       waterdist, wetthresh, &
-       WUDay_id,&
-       AHProf_24Hr,HumActivity_24Hr,PopProf_24Hr,TraffProf_24Hr,WUProfA_24hr, WUProfM_24hr, &
-       ! popprof_tstep, traffprof_tstep, humactivity_tstep, ahprof_tstep, wuprofa_tstep, wuprofm_tstep, &
+       surf, tair24hr, theta_bioco2, traffprof_tstep, ts5mindata_ir, &
+       waterdist, wetthresh, wu_day, wuprofa_tstep, wuprofm_tstep, &
        datetimeline, dataoutlinesuews, dataoutlinesnow, &
        dataoutlineestm, dailystateline, dataoutdailystate, &
        dataoutsuews, dataoutsnow, dataoutestm
-
   USE sues_data, ONLY: &
        aerodynamicresistancemethod, daywat, daywatper, faut, flowchange, &
        ie_a, ie_end, ie_m, ie_start, internalwateruse_h, &
        irrfracconif, irrfracdecid, irrfracgrass,&
        pipecapacity, roughlenheatmethod, runofftowater, stabilitymethod,&
-       surfacearea, tstep,tstep_prev
+       surfacearea, tstep
   USE snowMod, ONLY: &
        crwmax, crwmin, preciplimit, preciplimitalb, radmeltfact,&
        snowalb, snowAlbMax, snowAlbMin, &
        snowdensmax, snowdensmin, snowfallcum, snowlimbuild, &
-       snowlimpaved, SnowProf_24hr,&
+       snowlimpaved, snowprof,&
        tau_a, tau_f, tau_r, tempmeltfact
   USE gis_data, ONLY: &
        bldgh, dectreeh, evetreeh, faibldg, faidectree, faievetree, veg_type
@@ -115,52 +104,45 @@ SUBROUTINE SUEWS_Calculations(Gridiv, ir, iMB, irMax)
   CALL SUEWS_Translate(Gridiv, ir, iMB)
 
 
-  IF(Diagnose==1) PRINT*, 'Calling SUEWS_cal_Main...'
+  IF(Diagnose==1) print*, 'Calling SUEWS_cal_Main...'
+  IF(Diagnose==1) print*, 'z0m_in =',z0m_in
+
   CALL SUEWS_cal_Main(&
-       AerodynamicResistanceMethod,AH_MIN,AHProf_24hr,AH_SLOPE_Cooling,& ! input&inout in alphabetical order
-       AH_SLOPE_Heating,&
-       alb,AlbMax_DecTr,AlbMax_EveTr,AlbMax_Grass,&
-       AlbMin_DecTr,AlbMin_EveTr,AlbMin_Grass,&
-       alpha_bioCO2,alpha_enh_bioCO2,alt,avkdn,avRh,avU1,BaseT,BaseTe,&
-       BaseTHDD,beta_bioCO2,beta_enh_bioCO2,bldgH,CapMax_dec,CapMin_dec,&
-       chAnOHM,cpAnOHM,CRWmax,CRWmin,DayWat,DayWatPer,&
-       dectime,DecTreeH,Diagnose,DiagQN,DiagQS,DRAINRT,&
-       dt_since_start,dqndt,qn1_av,dqnsdt,qn1_s_av,&
-       EF_umolCO2perJ,emis,EmissionsMethod,EnEF_v_Jkm,endDLS,EveTreeH,FAIBldg,&
-       FAIDecTree,FAIEveTree,Faut,FcEF_v_kgkm,fcld_obs,FlowChange,&
-       FrFossilFuel_Heat,FrFossilFuel_NonHeat,G1,G2,G3,G4,G5,G6,GDD_id,&
-       GDDFull,Gridiv,gsModel,HDD_id,HDD_id_use,HumActivity_24hr,&
-       IceFrac,id,Ie_a,Ie_end,Ie_m,Ie_start,imin,&
-       InternalWaterUse_h,IrrFracConif,IrrFracDecid,IrrFracGrass,isec,it,ity,&
-       iy,kkAnOHM,Kmax,LAI_id,LAICalcYes,LAIMax,LAIMin,LAI_obs,&
-       LAIPower,LAIType,lat,ldown_obs,lng,MaxConductance,MaxQFMetab,&
-       MeltWaterStore,MetForcingData_grid,MinQFMetab,min_res_bioCO2,&
-       NARP_EMIS_SNOW,NARP_TRANS_SITE,NetRadiationMethod,&
-       NumCapita,OHM_coef,OHMIncQF,OHM_threshSW,&
-       OHM_threshWD,PipeCapacity,PopDensDaytime,&
-       PopDensNighttime,PopProf_24hr,PorMax_dec,PorMin_dec,&
-       Precip,PrecipLimit,PrecipLimitAlb,Press_hPa,QF0_BEU,Qf_A,Qf_B,&
-       Qf_C,qh_obs,qn1_obs,&
-       RadMeltFact,RAINCOVER,RainMaxRes,resp_a,resp_b,&
-       RoughLenHeatMethod,RoughLenMomMethod,RunoffToWater,S1,S2,&
-       SatHydraulicConduct,SDDFull,sfr,SMDMethod,SnowAlb,SnowAlbMax,&
-       SnowAlbMin,snowD,SnowDens,SnowDensMax,SnowDensMin,SnowfallCum,snowFrac,&
-       SnowLimBuild,SnowLimPaved,snow_obs,SnowPack,SnowProf_24hr,snowUse,SoilDepth,&
-       soilmoist,soilstoreCap,StabilityMethod,startDLS,state,StateLimit,&
-       StorageHeatMethod,surf,SurfaceArea,Tair24HR,tau_a,tau_f,tau_r,&
-       T_CRITIC_Cooling,T_CRITIC_Heating,Temp_C,TempMeltFact,TH,&
-       theta_bioCO2,timezone,TL,TrafficRate,TrafficUnits,&
-       TraffProf_24hr,Ts5mindata_ir,tstep,tstep_prev,veg_type,&
-       WaterDist,WaterUseMethod,WetThresh,&
-       WUDay_id,&
-       DecidCap_id,&
-       albDecTr_id,&
-       albEveTr_id,&
-       albGrass_id,&
-       porosity_id,&
-       WUProfA_24hr,&
-       WUProfM_24hr,xsmd,Z,z0m_in,zdm_in,&
-       datetimeLine,dataOutLineSUEWS,dataOutLineSnow,dataOutLineESTM,&!output
+       AerodynamicResistanceMethod, AH_MIN, AHProf_tstep, AH_SLOPE_Cooling, & ! input&inout in alphabetical order
+       AH_SLOPE_Heating, alb, albDecTr, albEveTr, albGrass, AlbMax_DecTr, &
+       AlbMax_EveTr, AlbMax_Grass, AlbMin_DecTr, AlbMin_EveTr, AlbMin_Grass, &
+       alpha_bioCO2, alpha_enh_bioCO2, alt, avkdn, avRh, avU1, BaseT, BaseTe, &
+       BaseTHDD, beta_bioCO2, beta_enh_bioCO2, bldgH, CapMax_dec, CapMin_dec, &
+       chAnOHM, cpAnOHM, CRWmax, CRWmin, DayWat, DayWatPer, &
+       DecidCap, dectime, DecTreeH, Diagnose, DiagQN, DiagQS, DRAINRT, &
+       EF_umolCO2perJ, emis, EmissionsMethod, EnEF_v_Jkm, endDLS, EveTreeH, FAIBldg, &
+       FAIDecTree, FAIEveTree, Faut, FcEF_v_kgkm, fcld_obs, FlowChange, &
+       FrFossilFuel_Heat, FrFossilFuel_NonHeat, G1, G2, G3, G4, G5, G6, GDD, &
+       GDDFull, Gridiv, gsModel, HDD, HumActivity_tstep, &
+       IceFrac, id, id_prev_t, Ie_a, Ie_end, Ie_m, Ie_start, imin, &
+       InternalWaterUse_h, IrrFracConif, IrrFracDecid, IrrFracGrass, it, ity, &
+       iy, iy_prev_t, kkAnOHM, Kmax, LAI, LAICalcYes, LAIMax, LAIMin, LAI_obs, &
+       LAIPower, LAIType, lat, ldown_obs, lng, MaxConductance, MaxQFMetab, &
+       MeltWaterStore, MetForcingData_grid, MinQFMetab, min_res_bioCO2, &
+       NARP_EMIS_SNOW, NARP_TRANS_SITE, NetRadiationMethod, &
+       NumCapita, OHM_coef, OHMIncQF, OHM_threshSW, &
+       OHM_threshWD, PipeCapacity, PopDensDaytime, &
+       PopDensNighttime, PopProf_tstep, PorMax_dec, PorMin_dec, porosity, &
+       Precip, PrecipLimit, PrecipLimitAlb, Press_hPa, QF0_BEU, Qf_A, Qf_B, &
+       Qf_C, qh_obs, qn1_av_store_grid, qn1_obs, qn1_S_av_store_grid, qn1_S_store_grid, &
+       qn1_store_grid, RadMeltFact, RAINCOVER, RainMaxRes, resp_a, resp_b, &
+       RoughLenHeatMethod, RoughLenMomMethod, RunoffToWater, S1, S2, &
+       SatHydraulicConduct, SDDFull, sfr, SMDMethod, SnowAlb, SnowAlbMax, &
+       SnowAlbMin, snowD, SnowDens, SnowDensMax, SnowDensMin, SnowfallCum, snowFrac, &
+       SnowLimBuild, SnowLimPaved, snow_obs, SnowPack, SnowProf, snowUse, SoilDepth, &
+       soilmoist, soilstoreCap, StabilityMethod, startDLS, state, StateLimit, &
+       StorageHeatMethod, surf, SurfaceArea, Tair24HR, tau_a, tau_f, tau_r, &
+       T_CRITIC_Cooling, T_CRITIC_Heating, Temp_C, TempMeltFact, TH, &
+       theta_bioCO2, timezone, TL, TrafficRate, TrafficUnits, &
+       TraffProf_tstep, Ts5mindata_ir, tstep, veg_type, &
+       WaterDist, WaterUseMethod, WetThresh, WU_Day, WUProfA_tstep, &
+       WUProfM_tstep, xsmd, z, z0m_in, zdm_in, &
+       datetimeLine, dataOutLineSUEWS, dataOutLineSnow, dataOutLineESTM, &!output
        DailyStateLine)!output
 
 

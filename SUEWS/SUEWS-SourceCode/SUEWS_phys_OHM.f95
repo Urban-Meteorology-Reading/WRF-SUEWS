@@ -9,11 +9,11 @@
 !   IMPLICIT NONE
 ! CONTAINS
 !========================================================================================
-SUBROUTINE OHM(qn1,qn1_av,dqndt,&
-     qn1_S,qn1_s_av,dqnsdt,&
-     tstep,dt_since_start,&
+SUBROUTINE OHM(qn1,qn1_store_grid,qn1_av_store_grid,&
+     qn1_S,qn1_S_store_grid,qn1_S_av_store_grid,&
+     nsh,&
      sfr,nsurf,&
-     Tair_mav_5d,&
+     HDDday,&
      OHM_coef,&
      OHM_threshSW,OHM_threshWD,&
      soilmoist,soilstoreCap,state,&
@@ -28,8 +28,6 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
   ! Snow part changed from summer wet to winter wet coefficients.
   ! Changed -333 checks to -999 checks and added error handling
   ! Gradient now calculated for t-1 (was previously calculated for t-2).
-  ! TS 28 Jun 2018:
-  !  improved and tested the phase-in method for calculating dqndt
   ! TS & SG 30 Apr 2018:
   !  a new calculation scheme of dqndt by using a phase-in approach that releases
   !  the requirement for storeing multiple qn values for adapting SUEWS into WRF
@@ -47,14 +45,13 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
 
 
   IMPLICIT NONE
-  INTEGER, INTENT(in) :: tstep          ! time step [s]
-  INTEGER, INTENT(in) :: dt_since_start ! time since simulation starts [s]
+
 
   REAL(KIND(1d0)),INTENT(in)::qn1                             ! net all-wave radiation
   REAL(KIND(1d0)),INTENT(in)::qn1_S                           ! net all-wave radiation over snow
   REAL(KIND(1d0)),INTENT(in)::sfr(nsurf)                      ! surface fractions
   REAL(KIND(1d0)),INTENT(in)::SnowFrac(nsurf)                 ! snow fractions of each surface
-  REAL(KIND(1d0)),INTENT(in)::Tair_mav_5d                          ! Tair_mav_5d=HDD(id-1,4) HDD at the begining of today (id-1)
+  REAL(KIND(1d0)),INTENT(in)::HDDday                          ! HDDday=HDD(id-1,4) HDD at the begining of today (id-1)
   REAL(KIND(1d0)),INTENT(in)::OHM_coef(nsurf+1,4,3)                 ! OHM coefficients
   REAL(KIND(1d0)),INTENT(in)::OHM_threshSW(nsurf+1),OHM_threshWD(nsurf+1) ! OHM thresholds
   REAL(KIND(1d0)),INTENT(in)::soilmoist(nsurf)                ! soil moisture
@@ -62,7 +59,7 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
   REAL(KIND(1d0)),INTENT(in)::state(nsurf) ! wetness status
 
   INTEGER,INTENT(in)::nsurf     ! number of surfaces
-  ! INTEGER,INTENT(in)::nsh       ! number of timesteps in one hour
+  INTEGER,INTENT(in)::nsh       ! number of timesteps in one hour
   ! integer,intent(in) :: dt      ! current timestep [second]
   ! integer,intent(INOUT) :: dt0  ! period length for qn1 memory
   INTEGER,INTENT(in)::BldgSurf  ! code for specific surfaces
@@ -70,14 +67,11 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
   INTEGER,INTENT(in)::SnowUse   ! option for snow related calculations
   INTEGER,INTENT(in)::DiagQS    ! diagnostic option
 
-  REAL(KIND(1d0)),INTENT(inout)::qn1_av
-  REAL(KIND(1d0)),INTENT(inout)::dqndt  !Rate of change of net radiation [W m-2 h-1] at t-1
-  REAL(KIND(1d0)),INTENT(inout)::qn1_s_av
-  REAL(KIND(1d0)),INTENT(inout)::dqnsdt  !Rate of change of net radiation [W m-2 h-1] at t-1
-  ! REAL(KIND(1d0)),INTENT(inout)::qn1_store_grid(nsh)
-  ! REAL(KIND(1d0)),INTENT(inout)::qn1_av_store_grid(2*nsh+1)
-  ! REAL(KIND(1d0)),INTENT(inout)::qn1_S_store_grid(nsh)
-  ! REAL(KIND(1d0)),INTENT(inout)::qn1_S_av_store_grid(2*nsh+1)
+  ! REAL(KIND(1d0)),INTENT(inout)::dqndt !Rate of change of net radiation [W m-2 h-1] at t-1
+  REAL(KIND(1d0)),INTENT(inout)::qn1_store_grid(nsh)
+  REAL(KIND(1d0)),INTENT(inout)::qn1_av_store_grid(2*nsh+1)
+  REAL(KIND(1d0)),INTENT(inout)::qn1_S_store_grid(nsh)
+  REAL(KIND(1d0)),INTENT(inout)::qn1_S_av_store_grid(2*nsh+1)
 
 
   REAL(KIND(1d0)),INTENT(out):: qs ! storage heat flux
@@ -88,7 +82,7 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
 
   ! REAL(KIND(1d0)):: nsh_nna ! number of timesteps per hour with non -999 values (used for spinup)
 
-  ! REAL(KIND(1d0)):: dqndt    !Rate of change of net radiation [W m-2 h-1] at t-1
+  REAL(KIND(1d0)):: dqndt    !Rate of change of net radiation [W m-2 h-1] at t-1
   ! REAL(KIND(1d0)):: surfrac  !Surface fraction accounting for SnowFrac if appropriate
 
   ! REAL(KIND(1d0)):: qn1_av, qn1_S_av    !Average net radiation over previous hour [W m-2]
@@ -105,7 +99,7 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
   !real(kind(1d0)):: OHM_SMForWet = 0.9  !Use wet coefficients if SM close to soil capacity
 
   CALL OHM_coef_cal(sfr,nsurf,&
-       Tair_mav_5d,OHM_coef,OHM_threshSW,OHM_threshWD,&
+       HDDday,OHM_coef,OHM_threshSW,OHM_threshWD,&
        soilmoist,soilstoreCap,state,&
        BldgSurf,WaterSurf,&
        SnowUse,SnowFrac,&
@@ -113,6 +107,9 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
   ! WRITE(*,*) '----- OHM coeffs new-----'
   ! WRITE(*,*) a1,a2,a3
 
+
+  ! WRITE(*,*) '----- OHM coeffs -----'
+  ! WRITE(*,*) a1,a2,a3
 
   ! Old OHM calculations (up to v2016a)
   !! Calculate radiation part ------------------------------------------------------------
@@ -141,12 +138,8 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
   qs=-999              !qs  = Net storage heat flux  [W m-2]
   IF(qn1>-999) THEN   !qn1 = Net all-wave radiation [W m-2]
      ! Store instantaneous qn1 values for previous hour (qn1_store_grid) and average (qn1_av)
-     ! print*,''
-     ! CALL OHM_dqndt_cal(nsh,qn1,qn1_store_grid,qn1_av_store_grid,dqndt)
-     ! print*, 'old dqndt',dqndt
-     CALL OHM_dqndt_cal_X(tstep,dt_since_start,qn1_av,qn1,dqndt)
-     ! print*, 'new dqndt',dqndt
-
+     ! CALL OHM_dqndt_cal_X(dt,dt0,qn1,dqndt)
+     CALL OHM_dqndt_cal(nsh,qn1,qn1_store_grid,qn1_av_store_grid,dqndt)
 
      ! Calculate net storage heat flux
      CALL OHM_QS_cal(qn1,dqndt,a1,a2,a3,qs)
@@ -176,9 +169,7 @@ SUBROUTINE OHM(qn1,qn1_av,dqndt,&
         !r3_grids(Gridiv)=qn1_S
         ! New OHM calculations
         ! Store instantaneous qn1 values for previous hour (qn1_store_grid) and average (qn1_av)
-        ! CALL OHM_dqndt_cal(nsh,qn1_S,qn1_S_store_grid,qn1_S_av_store_grid,dqndt)
-
-        CALL OHM_dqndt_cal_X(tstep,dt_since_start,qn1_s_av,qn1,dqnsdt)
+        CALL OHM_dqndt_cal(nsh,qn1_S,qn1_S_store_grid,qn1_S_av_store_grid,dqndt)
 
         ! Calculate net storage heat flux for snow surface (winter wet conditions)
         CALL OHM_QS_cal(qn1_S,dqndt,&
@@ -198,7 +189,7 @@ ENDSUBROUTINE OHM
 !========================================================================================
 
 SUBROUTINE OHM_coef_cal(sfr,nsurf,&
-     Tair_mav_5d,OHM_coef,OHM_threshSW,OHM_threshWD,&
+     HDDday,OHM_coef,OHM_threshSW,OHM_threshWD,&
      soilmoist,soilstoreCap,state,&
      BldgSurf,WaterSurf,&
      SnowUse,SnowFrac,&
@@ -211,7 +202,7 @@ SUBROUTINE OHM_coef_cal(sfr,nsurf,&
   REAL(KIND(1d0)), INTENT(in) :: &
        sfr(nsurf),& ! surface cover fractions
        SnowFrac(nsurf),& ! snow fractions of each surface
-       Tair_mav_5d,& ! Tair_mav_5d=HDD(id-1,4) HDD at the begining of today (id-1)
+       HDDday,& ! HDDday=HDD(id-1,4) HDD at the begining of today (id-1)
        OHM_coef(nsurf+1,4,3),&
        OHM_threshSW(nsurf+1),OHM_threshWD(nsurf+1),& ! OHM thresholds
        soilmoist(nsurf),& ! soil moisture
@@ -234,7 +225,7 @@ SUBROUTINE OHM_coef_cal(sfr,nsurf,&
      surfrac=sfr(is)
 
      ! Use 5-day running mean Tair to decide whether it is summer or winter ----------------
-     IF(Tair_mav_5d >= OHM_threshSW(is)) THEN !Summer
+     IF(HDDday >= OHM_threshSW(is)) THEN !Summer
         ii=0
      ELSE          !Winter
         ii=2
@@ -266,37 +257,20 @@ SUBROUTINE OHM_coef_cal(sfr,nsurf,&
 END SUBROUTINE OHM_coef_cal
 
 ! Updated OHM calculations for WRF-SUEWS coupling (v2018b onwards) weighted mean (TS Apr 2018)
-SUBROUTINE OHM_dqndt_cal_X(dt,dt_since_start,qn1_av,qn1,dqndt)
+SUBROUTINE OHM_dqndt_cal_X(dt,dt0,qn1,dqndt)
   IMPLICIT NONE
   INTEGER, INTENT(in)            :: dt              ! time step [s]
-  INTEGER, INTENT(in)            :: dt_since_start  ! time since simulation starts [s]
-  REAL(KIND(1d0)), INTENT(in)    :: qn1             ! new qn1 value [W m-2]
-  REAL(KIND(1d0)), INTENT(inout) :: qn1_av          ! weighted average of qn1 [W m-2]
+  INTEGER, INTENT(inout)         :: dt0             ! period for dqndt0 [s]
+  REAL(KIND(1d0)), INTENT(in)    :: qn1              ! new qn1 value [W m-2]
   REAL(KIND(1d0)), INTENT(inout) :: dqndt           ! dQ* per dt for 60 min [W m-2 h-1]
-  REAL(KIND(1d0)), PARAMETER     :: dt0_thresh=3600 ! threshold for period of dqndt0 [s]
-  REAL(KIND(1d0)), PARAMETER     :: window_hr=2     ! window size for Difference calculation [hr]
-
-  INTEGER :: dt0 ! period of dqndt0 [s]
-
-  REAL(KIND(1d0))  :: qn1_av_0 !, qn1_av_start,qn1_av_end
+  INTEGER, PARAMETER             :: dt0_thresh=3600 ! threshold for period for dqndt0 [s]
 
   ! if previous period shorter than dt0_thresh, expand the storage/memory period
-  IF ( dt_since_start< dt0_thresh)  THEN ! spinup period
-     dt0 = dt_since_start+dt
-
-  ELSE ! effective period
-     dt0 = dt0_thresh
-  ENDIF
-
-  ! get weighted average at a previous time specified by `window_hr`
-  qn1_av_0=qn1_av-dqndt*(window_hr-dt/3600)
-
-  ! averaged qn1 for previous period = dt0_thresh
-  qn1_av=(qn1_av*(dt0-dt)+qn1*dt)/(dt0)
+  IF ( dt0< dt0_thresh)  dt0 = dt0+dt
 
   ! do weighted average to calculate the difference by using the memory value and new forcing value
   ! NB: keep the output dqndt in [W m-2 h-1]
-  dqndt=(qn1_av-qn1_av_0)/window_hr
+  dqndt=(dqndt*(dt0-dt)/3600+qn1)/(dt0/3600)
 
 
 END SUBROUTINE OHM_dqndt_cal_X

@@ -23,7 +23,7 @@ SUBROUTINE OverallRunControl
   USE data_in
   USE defaultNotUsed
   USE FileName
-  USE initial
+  USE Initial
   USE gis_data
   USE mod_z
   USE resist
@@ -33,12 +33,11 @@ SUBROUTINE OverallRunControl
 
   IMPLICIT NONE
 
-  INTEGER:: iv,i,SkipCounter,iFile            !iv and i, ii are integers used in do loops
+  INTEGER:: iv,i,ii,SkipCounter,iFile            !iv and i, ii are integers used in do loops
   CHARACTER(len=50):: FileN
   INTEGER, PARAMETER :: nFile = 13
-  CHARACTER(len=50), DIMENSION(nFile) :: &
-       FileNames = [CHARACTER(len=50) :: &
-       'SUEWS_NonVeg.txt', 'SUEWS_Veg.txt', 'SUEWS_Water.txt', 'SUEWS_Snow.txt', &
+  CHARACTER(len=50), DIMENSION(nFile) :: FileNames = [CHARACTER(len=50) :: 'SUEWS_NonVeg.txt', &
+       'SUEWS_Veg.txt', 'SUEWS_Water.txt', 'SUEWS_Snow.txt', &
        'SUEWS_Soil.txt', 'SUEWS_Conductance.txt', 'SUEWS_OHMCoefficients.txt', &
        'SUEWS_ESTMCoefficients.txt', 'SUEWS_AnthropogenicHeat.txt', 'SUEWS_Irrigation.txt', &
        'SUEWS_Profiles.txt', 'SUEWS_WithinGridWaterDist.txt', 'SUEWS_BiogenCO2.txt']
@@ -119,10 +118,6 @@ SUBROUTINE OverallRunControl
   OPEN(55,File='RunControl.nml',err=200,status='old') !Change with needs
   READ(55,nml=RunControl,err=201)
   CLOSE(55)
-
-  ! set tstep_prev as tstep ! TS 04 Jul 2018
-  ! tstep_prev is NOT used by SUEWS but by WRF-SUEWS through the main interface
-  tstep_prev=tstep
 
   IF(Diagnose==1) WRITE(*,*) 'Diagnosis switched on (model progress will be printed to screen)...'
 
@@ -261,12 +256,12 @@ SUBROUTINE OverallRunControl
         nlinesOHMCoefficients=nlines
         ALLOCATE(OHMCoefficients_Coeff(nlinesOHMCoefficients, ncolumnsOHMCoefficients))
         CALL ReadCoeff(FileNames(iFile), nlinesOHMCoefficients, ncolumnsOHMCoefficients, HeaderOHMCoefficients_File, &
-             OHMCoefficients_Coeff)
+                       OHMCoefficients_Coeff)
      CASE ( 8 )
         nlinesESTMCoefficients=nlines
         ALLOCATE(ESTMCoefficients_Coeff(nlinesESTMCoefficients, ncolumnsESTMCoefficients))
         CALL ReadCoeff(FileNames(iFile), nlinesESTMCoefficients, ncolumnsESTMCoefficients, HeaderESTMCoefficients_File, &
-             ESTMCoefficients_Coeff)
+                       ESTMCoefficients_Coeff)
      CASE ( 9 )
         nlinesAnthropogenic=nlines
         ALLOCATE(Anthropogenic_Coeff(nlinesAnthropogenic, ncolumnsAnthropogenic))
@@ -361,7 +356,7 @@ SUBROUTINE ReadCoeff(FileName, nlines, ncolumns, HeaderFile, Coeff)
   !----------------------------------------------------------------------
   ! local variables
   !----------------------------------------------------------------------
-  INTEGER ::  SkipCounter, iv, i, ii
+  INTEGER ::  SkipCounter, iv, iline, i, ii
 
   !Read input file
   OPEN(22, file=TRIM(FileInputPath)//TRIM(FileName), err=301, status='old')
@@ -383,7 +378,7 @@ SUBROUTINE ReadCoeff(FileName, nlines, ncolumns, HeaderFile, Coeff)
   DO i = 1, nlines
      DO ii = i+1, nlines
         IF(Coeff(i, 1) == Coeff(ii, 1) .AND. i /= ii) THEN
-           WRITE(*, *) 'Code', Coeff(i, 1), 'in ', TRIM(FileName), ' not unique!'
+           WRITE(*, *) 'Code', Coeff(i, 1), 'in ', trim(FileName), ' not unique!'
            CALL ErrorHint(60, FileName, Coeff(i, 1), notUsed, notUsedI)
         ENDIF
      ENDDO
@@ -1383,53 +1378,50 @@ SUBROUTINE InitializeSurfaceCharacteristics(Gridiv,rr)
   CALL CodeMatchProf(gridiv,c_PopProfWE)
   SurfaceChar(gridiv,c_HrProfPopWE) = Profiles_Coeff(iv5,cPr_Hours)
 
+  ! ---- Interpolate Hourly Profiles to model timestep and normalise
+  TstepProfiles(Gridiv,:,:) = -999   !Initialise TstepProfiles
+  ! Energy use
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_EnUseWD,c_HrProfEnUseWD)
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_EnUseWE,c_HrProfEnUseWE)
 
-! TS 05 Jul 2018: No longer needed as interpolation is done through specific subroutines at each required instant
-! the below is commented out by TS 05 Jul 2018
-  ! ! ---- Interpolate Hourly Profiles to model timestep and normalise
-  ! TstepProfiles(Gridiv,:,:) = -999   !Initialise TstepProfiles
-  ! ! Energy use
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_EnUseWD,c_HrProfEnUseWD)
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_EnUseWE,c_HrProfEnUseWE)
-  !
-  ! ! For energy use, normalise so the AVERAGE of the multipliers is equal to 1
-  ! TstepProfiles(Gridiv,cTP_EnUseWD,:) = TstepProfiles(Gridiv,cTP_EnUseWD,:) / SUM(TstepProfiles(Gridiv,cTP_EnUseWD,:))*24*nsh_real
-  ! TstepProfiles(Gridiv,cTP_EnUseWE,:) = TstepProfiles(Gridiv,cTP_EnUseWE,:) / SUM(TstepProfiles(Gridiv,cTP_EnUseWE,:))*24*nsh_real
-  !
-  ! ! Water use
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUManuWD,c_HrProfWUManuWD)
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUManuWE,c_HrProfWUManuWE)
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUAutoWD,c_HrProfWUAutoWD)
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUAutoWE,c_HrProfWUAutoWE)
-  ! ! For water use, normalise so the SUM of the multipliers is equal to 1 (profile is multiplied by daily water use)
-  ! TstepProfiles(Gridiv,cTP_WUManuWD,:) = TstepProfiles(Gridiv,cTP_WUManuWD,:) / SUM(TstepProfiles(Gridiv,cTP_WUManuWD,:))
-  ! TstepProfiles(Gridiv,cTP_WUManuWE,:) = TstepProfiles(Gridiv,cTP_WUManuWE,:) / SUM(TstepProfiles(Gridiv,cTP_WUManuWE,:))
-  ! TstepProfiles(Gridiv,cTP_WUAutoWD,:) = TstepProfiles(Gridiv,cTP_WUAutoWD,:) / SUM(TstepProfiles(Gridiv,cTP_WUAutoWD,:))
-  ! TstepProfiles(Gridiv,cTP_WUAutoWE,:) = TstepProfiles(Gridiv,cTP_WUAutoWE,:) / SUM(TstepProfiles(Gridiv,cTP_WUAutoWE,:))
-  !
-  ! ! Human activity for CO2 calculations
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_HumActivityWD,c_HrProfHumActivityWD)
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_HumActivityWE,c_HrProfHumActivityWE)
-  !
-  ! ! For human activity, check values are between 1 (night) and 2 (day)
-  ! IF(ANY(TstepProfiles(Gridiv,cTP_HumActivityWD,:) < 1 .OR. TstepProfiles(Gridiv,cTP_HumActivityWD,:) > 2)) THEN
-  !    CALL ErrorHint(70,'Profile value for human activity (WD) exceeds allowed range 1-2.',NotUsed,NotUsed,notUsedI)
-  ! ENDIF
-  ! IF(ANY(TstepProfiles(Gridiv,cTP_HumActivityWE,:) < 1 .OR. TstepProfiles(Gridiv,cTP_HumActivityWE,:) > 2)) THEN
-  !    CALL ErrorHint(70,'Profile value for human activity (WE) exceeds allowed range 1-2.',NotUsed,NotUsed,notUsedI)
-  ! ENDIF
-  !
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_TraffProfWD,c_HrProfTraffWD)
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_TraffProfWE,c_HrProfTraffWE)
-  ! ! For traffic, normalise so the AVERAGE of the multipliers is equal to 1
-  ! TstepProfiles(Gridiv,cTP_TraffProfWD,:) = TstepProfiles(Gridiv,cTP_TraffProfWD,:) &
-  !      / SUM(TstepProfiles(Gridiv,cTP_TraffProfWD,:))*24*nsh_real
-  ! TstepProfiles(Gridiv,cTP_TraffProfWE,:) = TstepProfiles(Gridiv,cTP_TraffProfWE,:) &
-  !      / SUM(TstepProfiles(Gridiv,cTP_TraffProfWE,:))*24*nsh_real
-  !
-  ! ! Population for CO2 calculations
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_PopProfWD,c_HrProfPopWD)
-  ! CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_PopProfWE,c_HrProfPopWE)
+  ! For energy use, normalise so the AVERAGE of the multipliers is equal to 1
+  TstepProfiles(Gridiv,cTP_EnUseWD,:) = TstepProfiles(Gridiv,cTP_EnUseWD,:) / SUM(TstepProfiles(Gridiv,cTP_EnUseWD,:))*24*nsh_real
+  TstepProfiles(Gridiv,cTP_EnUseWE,:) = TstepProfiles(Gridiv,cTP_EnUseWE,:) / SUM(TstepProfiles(Gridiv,cTP_EnUseWE,:))*24*nsh_real
+
+  ! Water use
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUManuWD,c_HrProfWUManuWD)
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUManuWE,c_HrProfWUManuWE)
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUAutoWD,c_HrProfWUAutoWD)
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_WUAutoWE,c_HrProfWUAutoWE)
+  ! For water use, normalise so the SUM of the multipliers is equal to 1 (profile is multiplied by daily water use)
+  TstepProfiles(Gridiv,cTP_WUManuWD,:) = TstepProfiles(Gridiv,cTP_WUManuWD,:) / SUM(TstepProfiles(Gridiv,cTP_WUManuWD,:))
+  TstepProfiles(Gridiv,cTP_WUManuWE,:) = TstepProfiles(Gridiv,cTP_WUManuWE,:) / SUM(TstepProfiles(Gridiv,cTP_WUManuWE,:))
+  TstepProfiles(Gridiv,cTP_WUAutoWD,:) = TstepProfiles(Gridiv,cTP_WUAutoWD,:) / SUM(TstepProfiles(Gridiv,cTP_WUAutoWD,:))
+  TstepProfiles(Gridiv,cTP_WUAutoWE,:) = TstepProfiles(Gridiv,cTP_WUAutoWE,:) / SUM(TstepProfiles(Gridiv,cTP_WUAutoWE,:))
+
+  ! Human activity for CO2 calculations
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_HumActivityWD,c_HrProfHumActivityWD)
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_HumActivityWE,c_HrProfHumActivityWE)
+
+  ! For human activity, check values are between 1 (night) and 2 (day)
+  IF(ANY(TstepProfiles(Gridiv,cTP_HumActivityWD,:) < 1 .OR. TstepProfiles(Gridiv,cTP_HumActivityWD,:) > 2)) THEN
+     CALL ErrorHint(70,'Profile value for human activity (WD) exceeds allowed range 1-2.',NotUsed,NotUsed,notUsedI)
+  ENDIF
+  IF(ANY(TstepProfiles(Gridiv,cTP_HumActivityWE,:) < 1 .OR. TstepProfiles(Gridiv,cTP_HumActivityWE,:) > 2)) THEN
+     CALL ErrorHint(70,'Profile value for human activity (WE) exceeds allowed range 1-2.',NotUsed,NotUsed,notUsedI)
+  ENDIF
+
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_TraffProfWD,c_HrProfTraffWD)
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_TraffProfWE,c_HrProfTraffWE)
+  ! For traffic, normalise so the AVERAGE of the multipliers is equal to 1
+  TstepProfiles(Gridiv,cTP_TraffProfWD,:) = TstepProfiles(Gridiv,cTP_TraffProfWD,:) &
+       / SUM(TstepProfiles(Gridiv,cTP_TraffProfWD,:))*24*nsh_real
+  TstepProfiles(Gridiv,cTP_TraffProfWE,:) = TstepProfiles(Gridiv,cTP_TraffProfWE,:) &
+       / SUM(TstepProfiles(Gridiv,cTP_TraffProfWE,:))*24*nsh_real
+
+  ! Population for CO2 calculations
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_PopProfWD,c_HrProfPopWD)
+  CALL SUEWS_InterpHourlyProfiles(Gridiv,cTP_PopProfWE,c_HrProfPopWE)
 
 END SUBROUTINE InitializeSurfaceCharacteristics
 
@@ -1899,7 +1891,7 @@ SUBROUTINE InitialState(GridName,year_int,Gridiv,NumberOfGrids)
   CALL SUEWS_cal_RoughnessParameters(&
        RoughLenMomMethod,sfr,&!input
        bldgH,EveTreeH,DecTreeH,&
-       porosity_id,FAIBldg,FAIEveTree,FAIDecTree,&
+       porosity(id),FAIBldg,FAIEveTree,FAIDecTree,&
        z0m_in,zdm_in,Z,&
        planF,&!output
        Zh,z0m,zdm,ZZD)
@@ -1931,9 +1923,9 @@ SUBROUTINE InitialState(GridName,year_int,Gridiv,NumberOfGrids)
      switch=0
   ENDIF
 
-  ! DayofWeek(id_prev,1)=wd   ! day of week
-  ! DayofWeek(id_prev,2)=mb   ! month
-  ! DayofWeek(id_prev,3)=seas ! season (summer=1, winter=2) needed for accumulation
+  DayofWeek(id_prev,1)=wd   ! day of week
+  DayofWeek(id_prev,2)=mb   ! month
+  DayofWeek(id_prev,3)=seas ! season (summer=1, winter=2) needed for accumulation
 
   ! in case next day goes to next year calculate again the date information for DayofWeek matrix.
   id_next=id_prev+1
@@ -1952,9 +1944,9 @@ SUBROUTINE InitialState(GridName,year_int,Gridiv,NumberOfGrids)
      switch=0
   ENDIF
 
-  ! DayofWeek(id_next,1)=wd  ! day of week
-  ! DayofWeek(id_next,2)=mb  ! month
-  ! DayofWeek(id_next,3)=seas ! season
+  DayofWeek(id_next,1)=wd  ! day of week
+  DayofWeek(id_next,2)=mb  ! month
+  DayofWeek(id_next,3)=seas ! season
 
   !=============================================================================
 
@@ -1970,7 +1962,7 @@ SUBROUTINE InitialState(GridName,year_int,Gridiv,NumberOfGrids)
   ! Calculate daily water use if modelled (i.e. if WaterUseMethod = 0).
   ! Calculated from previous day information given in InitialConditions file
 
-  WUDay_id=0                !Initialize WUDay
+  WU_day=0                !Initialize WU_day
   IF (WaterUseMethod==0) THEN  !Model water use
      calc=0
 
@@ -1982,51 +1974,51 @@ SUBROUTINE InitialState(GridName,year_int,Gridiv,NumberOfGrids)
            IF (id>=Ie_end.AND.id<=Ie_start) calc=0 !if day between irrigation period
         ENDIF
         IF(calc==1) THEN
-           ! Model daily water use based on HDD_id(6)(days since rain) and HDD_id(3)(average temp)
+           ! Model daily water use based on HDD(id,6)(days since rain) and HDD(id,3)(average temp)
 
            ! ---- Automatic irrigation (evergreen trees) ----
-           WUDay_id(2) = Faut*(Ie_a(1)+Ie_a(2)*HDD_id(3)+Ie_a(3)*HDD_id(6))*sfr(ConifSurf)*IrrFracConif*DayWatPer(wd)
-           IF (WUDay_id(2)<0) WUDay_id(2)=0   !If modelled WU is negative -> 0
+           WU_day(id,2) = Faut*(Ie_a(1)+Ie_a(2)*HDD(id,3)+Ie_a(3)*HDD(id,6))*sfr(ConifSurf)*IrrFracConif*DayWatPer(wd)
+           IF (WU_Day(id,2)<0) WU_Day(id,2)=0   !If modelled WU is negative -> 0
 
            ! ---- Manual irrigation (evergreen trees) ----
-           WUDay_id(3) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD_id(3)+Ie_m(3)*HDD_id(6))*sfr(ConifSurf)*IrrFracConif*DayWatPer(wd)
-           IF (WUDay_id(3)<0) WUDay_id(3)=0   !If modelled WU is negative -> 0
+           WU_day(id,3) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD(id,3)+Ie_m(3)*HDD(id,6))*sfr(ConifSurf)*IrrFracConif*DayWatPer(wd)
+           IF (WU_Day(id,3)<0) WU_Day(id,3)=0   !If modelled WU is negative -> 0
 
            ! ---- Total evergreen trees water use (automatic + manual) ----
-           WUDay_id(1)=(WUDay_id(2)+WUDay_id(3))
+           WU_Day(id,1)=(WU_day(id,2)+WU_day(id,3))
 
            ! ---- Automatic irrigation (deciduous trees) ----
-           WUDay_id(5) = Faut*(Ie_a(1)+Ie_a(2)*HDD_id(3)+Ie_a(3)*HDD_id(6))*sfr(DecidSurf)*IrrFracDecid*DayWatPer(wd)
-           IF (WUDay_id(5)<0) WUDay_id(5)=0   !If modelled WU is negative -> 0
+           WU_day(id,5) = Faut*(Ie_a(1)+Ie_a(2)*HDD(id,3)+Ie_a(3)*HDD(id,6))*sfr(DecidSurf)*IrrFracDecid*DayWatPer(wd)
+           IF (WU_Day(id,5)<0) WU_Day(id,5)=0   !If modelled WU is negative -> 0
 
            ! ---- Manual irrigation (deciduous trees) ----
-           WUDay_id(6) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD_id(3)+Ie_m(3)*HDD_id(6))*sfr(DecidSurf)*&
+           WU_day(id,6) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD(id,3)+Ie_m(3)*HDD(id,6))*sfr(DecidSurf)*&
                 IrrFracDecid*DayWatPer(wd)
-           IF (WUDay_id(6)<0) WUDay_id(6)=0   !If modelled WU is negative -> 0
+           IF (WU_Day(id,6)<0) WU_Day(id,6)=0   !If modelled WU is negative -> 0
 
            ! ---- Total deciduous trees water use (automatic + manual) ----
-           WUDay_id(4)=(WUDay_id(5)+WUDay_id(6))
+           WU_Day(id,4)=(WU_day(id,5)+WU_day(id,6))
 
            ! ---- Automatic irrigation (grass) ----
-           WUDay_id(8) = Faut*(Ie_a(1)+Ie_a(2)*HDD_id(3)+Ie_a(3)*HDD_id(6))*sfr(GrassSurf)*&
+           WU_day(id,8) = Faut*(Ie_a(1)+Ie_a(2)*HDD(id,3)+Ie_a(3)*HDD(id,6))*sfr(GrassSurf)*&
                 IrrFracGrass*DayWatPer(wd)
-           IF (WUDay_id(8)<0) WUDay_id(8)=0   !If modelled WU is negative -> 0
+           IF (WU_Day(id,8)<0) WU_Day(id,8)=0   !If modelled WU is negative -> 0
            ! ---- Manual irrigation (grass) ----
-           WUDay_id(9) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD_id(3)+Ie_m(3)*HDD_id(6))*sfr(GrassSurf)*&
+           WU_day(id,9) = (1-Faut)*(Ie_m(1)+Ie_m(2)*HDD(id,3)+Ie_m(3)*HDD(id,6))*sfr(GrassSurf)*&
                 IrrFracGrass*DayWatPer(wd)
-           IF (WUDay_id(9)<0) WUDay_id(9)=0   !If modelled WU is negative -> 0
+           IF (WU_Day(id,9)<0) WU_Day(id,9)=0   !If modelled WU is negative -> 0
            ! ---- Total grass water use (automatic + manual) ----
-           WUDay_id(7)=(WUDay_id(8)+WUDay_id(9))
+           WU_Day(id,7)=(WU_day(id,8)+WU_day(id,9))
         ELSE
-           WUDay_id(1)=0
-           WUDay_id(2)=0
-           WUDay_id(3)=0
-           WUDay_id(4)=0
-           WUDay_id(5)=0
-           WUDay_id(6)=0
-           WUDay_id(7)=0
-           WUDay_id(8)=0
-           WUDay_id(9)=0
+           WU_Day(id,1)=0
+           WU_Day(id,2)=0
+           WU_Day(id,3)=0
+           WU_Day(id,4)=0
+           WU_Day(id,5)=0
+           WU_Day(id,6)=0
+           WU_Day(id,7)=0
+           WU_Day(id,8)=0
+           WU_Day(id,9)=0
         ENDIF
      ENDIF
   ENDIF
@@ -2035,8 +2027,8 @@ SUBROUTINE InitialState(GridName,year_int,Gridiv,NumberOfGrids)
 
   ! ---- AnOHM TS ---------------------
   ! initialize Bowen ratio
-  ! Bo_grids(0,:)=2.
-  ! mAH_grids(0,:)=25.
+  Bo_grids(0,:)=2.
+  mAH_grids(0,:)=25.
 
   ! -----------------------------------
 
@@ -2132,19 +2124,19 @@ SUBROUTINE NextInitial(GridName,year_int)
   !   id=id+1
   !endif
   WRITE(57,*)'&InitialConditions'
-  WRITE(57,*)'DaysSinceRain=',INT(HDD_id(6))
-  WRITE(57,*)'Temp_C0=',HDD_id(3)
+  WRITE(57,*)'DaysSinceRain=',INT(HDD(nofDaysThisYear_ForOutput,6))
+  WRITE(57,*)'Temp_C0=',HDD(nofDaysThisYear_ForOutput,3)
   !WRITE(57,*)'ID_Prev=',ID_Prev_Out  !No longer included in initial conditions (HCW 13 Jan 2017)
-  WRITE(57,*)'GDD_1_0=',GDD_id(1)
-  WRITE(57,*)'GDD_2_0=',GDD_id(2)
-  WRITE(57,*)'LAIinitialEveTr=',LAI_id(ivConif)
-  WRITE(57,*)'LAIinitialDecTr=',LAI_id(ivDecid)
-  WRITE(57,*)'LAIinitialGrass=',LAI_id(ivGrass)
-  WRITE(57,*)'AlbEveTr0=',AlbEveTr_id
-  WRITE(57,*)'AlbDecTr0=',AlbDecTr_id
-  WRITE(57,*)'AlbGrass0=',AlbGrass_id
-  WRITE(57,*)'DecidCap0=',decidCap_id
-  WRITE(57,*)'Porosity0=',porosity_id
+  WRITE(57,*)'GDD_1_0=',GDD(nofDaysThisYear_ForOutput,1)
+  WRITE(57,*)'GDD_2_0=',GDD(nofDaysThisYear_ForOutput,2)
+  WRITE(57,*)'LAIinitialEveTr=',LAI(nofDaysThisYear_ForOutput,ivConif)
+  WRITE(57,*)'LAIinitialDecTr=',LAI(nofDaysThisYear_ForOutput,ivDecid)
+  WRITE(57,*)'LAIinitialGrass=',LAI(nofDaysThisYear_ForOutput,ivGrass)
+  WRITE(57,*)'AlbEveTr0=',AlbEveTr(nofDaysThisYear_ForOutput)
+  WRITE(57,*)'AlbDecTr0=',AlbDecTr(nofDaysThisYear_ForOutput)
+  WRITE(57,*)'AlbGrass0=',AlbGrass(nofDaysThisYear_ForOutput)
+  WRITE(57,*)'DecidCap0=',decidCap(nofDaysThisYear_ForOutput)
+  WRITE(57,*)'Porosity0=',porosity(nofDaysThisYear_ForOutput)
   WRITE(57,*)'SoilStorePavedState=',soilmoist(PavSurf)
   WRITE(57,*)'SoilStoreBldgsState=',soilmoist(BldgSurf)
   WRITE(57,*)'SoilStoreEveTrState=',soilmoist(ConifSurf)

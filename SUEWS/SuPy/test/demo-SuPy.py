@@ -31,7 +31,7 @@ idx = pd.IndexSlice
 # %% initialise SUEWS settings
 # dir_start: the path to the SUEWS simulaiton direcotry where RunControl
 # is placed
-dir_start = '../../SampleRun'
+dir_start = 'SampleRun'
 
 # init_SUEWS_pd initialise the SUEWS by pre-processing the input folder
 # and save all configuration info into two pandas data structures:
@@ -84,9 +84,10 @@ y2 = df_state_time.loc[:, ['Dectime', 'soilmoist']]
 y2 = y2.join(y2['soilmoist'].apply(pd.Series), rsuffix='ss_').drop(
     columns=['soilmoist']).loc[:, ['Dectime', 1, 3]].plot(x='Dectime')
 plt.show()
-
-y3 = df_state_time.loc[100:, ['Dectime', 'qn1_av_store']]
-y3['qn1_av_store'] = y3['qn1_av_store'].apply(np.mean)
+for var in df_state_time.columns:
+    print var
+y3 = df_state_time.loc[100:, ['Dectime', 'qn1_av_store_grid']]
+y3['qn1_av_store_grid'] = y3['qn1_av_store_grid'].apply(np.mean)
 y3 = y3.plot(x='Dectime')
 plt.show()
 

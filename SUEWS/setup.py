@@ -7,9 +7,8 @@ import os
 
 
 def readme():
-    return 'ss'
-    # with open('README.rst') as f:
-        # return f.read()
+    with open('README.rst') as f:
+        return f.read()
 
 
 class BinaryDistribution(Distribution):
@@ -30,12 +29,12 @@ elif sysname == 'Linux':
     lib_name = 'SUEWS_driver.so'
 
 # load SUEWS Fortran source files
-dir_f95 = 'SUEWS'
+dir_f95 = 'SUEWS-SourceCode'
 target_f95 = [
     os.path.join(dir_f95, f)
     for f in
-    ['LUMPS_Module_constants.f95',
-     'SUEWS_driver.f95']]
+    ['SUEWS_ctrl_Const.f95',
+     'SUEWS_ctrl_Driver.f95']]
 all_f95 = glob.glob(os.path.join(dir_f95, '*.f95'))
 exclude_f95 = [
     os.path.join(dir_f95, f)
@@ -50,8 +49,8 @@ other_f95 = list(
 )
 other_obj = [f.replace('.f95', '.o') for f in other_f95]
 src_f95 = target_f95 + other_f95
-for f in src_f95 + other_obj:
-    print f
+for f in target_f95 + other_obj:
+    print(f)
 
 ext_modules = [
     Extension('supy.SUEWS_driver',
@@ -64,7 +63,7 @@ ext_modules = [
               extra_link_args=[(''if sysname == 'Linux' else '-static')])]
 
 setup(name='supy',
-      version='0.2rc1',
+      version='0.3b',
       description='the SUEWS model that speaks python',
       long_description=readme(),
       url='https://github.com/sunt05/SuPy',

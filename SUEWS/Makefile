@@ -1,5 +1,5 @@
 # -*- makefile -*-
-.PHONY:main,clean,test,pip
+.PHONY: main clean test pip supy
 
 # OS-specific configurations
 ifeq ($(OS),Windows_NT)
@@ -25,27 +25,34 @@ endif
 
 MODULE=SUEWS_driver
 
-SUEWS_dir = SUEWS
+SUEWS_dir = SUEWS-SourceCode
 
 PYTHON := $(if $(PYTHON_exe),$(PYTHON_exe),python)
 # All the files which include modules used by other modules (these therefore
-# needs to be compiled first)
-FILES = LUMPS_Module_constants.f95  \
+# need to be compiled first)
+FILES = SUEWS_const.f95  \
 				SUEWS_driver.f95
 
 
+# make fortran exe
 main:
+	$(MAKE) -C $(SUEWS_dir) clean; # clean Fortran SUEWS build
+	$(MAKE) -C $(SUEWS_dir) main; # make SUEWS with the `main` recipe
+	-rm -rf *.o *.mod *.f95 *.a *.dSYM
+
+# make fortran exe and run test cases
+check:
+	$(MAKE) -C $(SUEWS_dir) clean; # clean Fortran SUEWS build
+	$(MAKE) -C $(SUEWS_dir) check; # make SUEWS with the `main` recipe
+	-rm -rf *.o *.mod *.f95 *.a *.dSYM
+
+# make supy dist
+supy:
+	$(info $$PYTHON is [${PYTHON}])
 	$(MAKE) -C $(SUEWS_dir) clean; # clean Fortran SUEWS build
 	$(MAKE) -C $(SUEWS_dir) main; # make SUEWS with the `main` recipe
 	$(PYTHON) setup.py bdist_wheel # all f2py compilation is done by `setup.py`
 	-rm -rf *.o *.mod *.f95 *.a *.dSYM
-
-
-main exe:
-	$(MAKE) -C $(SUEWS_dir) clean; # clean Fortran SUEWS build
-	$(MAKE) -C $(SUEWS_dir) main; # make SUEWS with the `main` recipe
-	-rm -rf *.o *.mod *.f95 *.a *.dSYM
-
 
 # If wanted, clean all *.o files after build
 clean:
@@ -53,13 +60,13 @@ clean:
 	 -$(PYTHON) setup.py clean --all
 
 # clean all existing builds, rebuild f2py libs, build wheels and test
-test:
+test-supy:
 	$(MAKE) clean;
-	$(MAKE) main;
+	$(MAKE) supy;
 	$(PYTHON) setup.py test
 
 # clean all existing builds, rebuild f2py libs, build wheels and submit
 pip:
 	$(MAKE) clean;
-	$(MAKE) main;
+	$(MAKE) supy;
 	$(PYTHON) setup.py bdist_wheel upload
