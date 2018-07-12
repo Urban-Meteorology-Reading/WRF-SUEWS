@@ -1395,15 +1395,6 @@ CONTAINS
 ! Initialize local variables
   q_ref2m = 0.0
 !------------------------------------------------------------------
-print*, ''
-print*, ' in surface_driver, before suewsdrv',sf_surface_physics
-print*, 'LAI_SUEWS',LAI_SUEWS
-print*, 'zdm_in',zdm_in
-print*, 'state_SUEWS',state_SUEWS
-print*, 'albDecTr_SUEWS',albDecTr_SUEWS
-print*, 'albbck',albbck
-! print*, 'embck',1/(embck-embck)
-print*, ''
 !
 ! stop run if using ssib and fractional seaice=0  (fds 12/2010)
 
@@ -2518,6 +2509,19 @@ print*, ''
            IF ( FRACTIONAL_SEAICE == 1 ) THEN
               CALL wrf_error_fatal('SUEWS scheme cannot be used with fractional seaice')
            ENDIF
+          
+WRITE( message,* ) ' in surface_driver, before suewsdrv',sf_surface_physics
+call wrf_debug(100, message)
+WRITE( message,* ) 'LAI_SUEWS',LAI_SUEWS
+call wrf_debug(100, message)
+WRITE( message,* ) 'zdm_in',zdm_in
+call wrf_debug(100, message)
+WRITE( message,* ) 'state_SUEWS',state_SUEWS
+call wrf_debug(100, message)
+WRITE( message,* ) 'albDecTr_SUEWS',albDecTr_SUEWS
+call wrf_debug(100, message)
+WRITE( message,* ) 'albbck',albbck
+call wrf_debug(100, message)
         CALL wrf_debug(100,'in SUEWS')
           !CALL SLAB(t_phy,qv_curr,p_phy,flhc,flqc,  &
           !   psfc,xland,tmn,hfx,qfx,lh,tsk,qsfc,chklowq,          &
