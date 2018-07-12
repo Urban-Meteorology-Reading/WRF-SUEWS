@@ -353,6 +353,9 @@ CONTAINS
 
 
     PRINT*,''
+    PRINT*, 'sfr',sfr
+    PRINT*, 'alb',alb
+    PRINT*, 'emis',emis
     PRINT*, 'soilmoist_id',soilmoist_id
     ! soilmoist_id=MERGE(soilmoist_id,soilmoist_id*0,soilmoist_id>0)
     ! print*, 'soilmoist_id modified',soilmoist_id

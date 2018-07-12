@@ -816,6 +816,11 @@ CONTAINS
              CALL wrf_error_fatal ( 'LANDUSE IN INPUT FILE DOES NOT MATCH LUTABLE: TABLE NOT USED' )
           END IF
 
+          ! rescale loaded values
+          albd=albd/100.
+          sfz0=sfz0/100.
+          therin=therin/100.
+
           CALL wrf_dm_bcast_bytes (albd,   LUCATS * LUSEAS * RWORDSIZE )
           CALL wrf_dm_bcast_bytes (slmo,   LUCATS * LUSEAS * RWORDSIZE )
           CALL wrf_dm_bcast_bytes (sfem,   LUCATS * LUSEAS * RWORDSIZE )
@@ -827,6 +832,8 @@ CONTAINS
        ENDIF
 
     ENDIF
+
+
 
     IF (.NOT. restart) THEN
 
