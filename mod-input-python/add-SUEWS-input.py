@@ -9,6 +9,8 @@ ds_base = xr.open_dataset('wrfinput_d01.base.nc')
 
 
 # funcitons to add new variables with expanded dimensions
+
+
 def gen_var_expand(name, rules, var_base=ds_base['T2'].copy(deep=True)):
     var_new = var_base.rename(name.upper())
     var_attrs = var_base.attrs
@@ -23,25 +25,25 @@ def gen_var_expand(name, rules, var_base=ds_base['T2'].copy(deep=True)):
     var_new.attrs[u'description'] = name
     var_new.attrs['stagger'] = 'Z'
     # set default values
-    var_new = val_init
+    var_new.values = np.ones_like(var_new.values) * val_init
 
     return var_new
 
 
 # funcitons to add new variables with the same dimensionality
 def gen_var_keep(name, rules, var_base=ds_base['T2'].copy(deep=True)):
-    var_new = var_base.rename(name)
+    var_new = var_base.rename(name.upper())
     var_new.attrs[u'description'] = name
     val_init = rules[1]
     # set default values
-    var_new = val_init
+    var_new.values = np.ones_like(var_new.values) * val_init
 
     return var_new
 
 
 # A generic wrapper to generate a variable for SUEWS
 def gen_var(name, rules, var_base=ds_base['T2'].copy()):
-    if type(rules[0]) is list:
+    if type(rules[0]) is tuple:
         var_new = gen_var_expand(name, rules, var_base)
     else:
         var_new = gen_var_keep(name, rules, var_base)
@@ -96,6 +98,6 @@ for var in ds_merged.data_vars.keys():
     if 'coordinates' in ds_merged[var].attrs:
         print var
         del ds_merged[var].attrs['coordinates']
-
+ds_merged['LAI_SUEWS']
 # export merged dataset to a new file
-ds_merged.to_netcdf('wrfinput_d01.new.nc', mode='w', format='NETCDF4_CLASSIC')
+ds_merged.to_netcdf('wrfinput_d01.new.nc', mode='w', format='NETCDF3_64BIT')
