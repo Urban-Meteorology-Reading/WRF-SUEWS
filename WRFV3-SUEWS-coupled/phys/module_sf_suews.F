@@ -792,14 +792,14 @@ CONTAINS
                 READ (landuse_unit,*)
                 DO lc = 1, LUCATS
                    IF (FOUND_LU) THEN
-                      READ (landuse_unit,*) li,ALBD(lc,ls),SLMO(lc,ls),SFEM(lc,ls), &
+                      READ (landuse_unit, *) li,ALBD(lc,ls),SLMO(lc,ls),SFEM(lc,ls), &
                            SFZ0(lc,ls),THERIN(lc,ls),SCFX(lc,ls),SFHC(lc,ls)
                       IF (lc /= li) THEN
                          CLOSE (landuse_unit)
                          CALL wrf_error_fatal ( 'module_start: MISSING LANDUSE UNIT ' )
                       END IF
                    ELSE
-                      READ (landuse_unit,*)
+                      READ (landuse_unit, *)
                    END IF
                 END DO
              END DO
@@ -852,8 +852,13 @@ CONTAINS
 
     ENDIF
 
-    DEALLOCATE(ALBD, SLMO, SFEM)
-    DEALLOCATE(SFZ0, THERIN, SCFX, SFHC)
+    IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD)
+    IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO)
+    IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM)
+    IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0)
+    IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN)
+    IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX)
+    IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC)
 
   END SUBROUTINE suewsinit
   !-------------------------------------------------------------------
