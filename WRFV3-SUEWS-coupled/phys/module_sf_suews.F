@@ -695,7 +695,7 @@ CONTAINS
     INTEGER                            :: ierr ! error code
     INTEGER                            :: ISN
     CHARACTER(len = 256)               :: LUTYPE
-    INTEGER                            :: landuse_unit, ls, lc, li, LUN, NSN
+    INTEGER                            :: landuse_unit, ls, lc, li
     INTEGER                            :: LUCATS, LUSEAS
     REAL, DIMENSION(:, :), ALLOCATABLE :: ALBD, SLMO, SFEM, SFZ0, THERIN, SCFX, SFHC
     LOGICAL                            :: found_lu
