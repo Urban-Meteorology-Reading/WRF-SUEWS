@@ -746,49 +746,52 @@ CONTAINS
              READ (landuse_unit, *, iostat=ierr) LUCATS, LUSEAS
              IF (ierr /= 0 ) EXIT
 
+             IF (FOUND_LU) THEN
+                WRITE(message,*) 'LANDUSE TYPE = "' // TRIM (LUTYPE) // '" FOUND', LUCATS,' CATEGORIES',LUSEAS,' SEASONS'
+                CALL wrf_message(message)
+                IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD, stat=ierr)
+                IF (ierr /= 0 ) THEN
+                   CLOSE (landuse_unit)
+                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE ALBD' )
+                END IF
+                IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO, stat=ierr)
+                IF (ierr /= 0 ) THEN
+                   CLOSE (landuse_unit)
+                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SLMO' )
+                END IF
+                IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM, stat=ierr)
+                IF (ierr /= 0 ) THEN
+                   CLOSE (landuse_unit)
+                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFEM' )
+                END IF
+                IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0, stat=ierr)
+                IF (ierr /= 0 ) THEN
+                   CLOSE (landuse_unit)
+                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFZ0' )
+                END IF
+                IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN, stat=ierr)
+                IF (ierr /= 0 ) THEN
+                   CLOSE (landuse_unit)
+                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE THERIN' )
+                END IF
+                IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX, stat=ierr)
+                IF (ierr /= 0 ) THEN
+                   CLOSE (landuse_unit)
+                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SCFX' )
+                END IF
+                IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC, stat=ierr)
+                IF (ierr /= 0 ) THEN
+                   CLOSE (landuse_unit)
+                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFHC' )
+                END IF
+                ALLOCATE(ALBD(LUCATS,LUSEAS), SLMO(LUCATS,LUSEAS), SFEM(LUCATS,LUSEAS))
+                ALLOCATE(SFZ0(LUCATS,LUSEAS), THERIN(LUCATS,LUSEAS), SCFX(LUCATS,LUSEAS), SFHC(LUCATS,LUSEAS))
+             END IF
+
              DO ls = 1, LUSEAS
                 READ (landuse_unit,*)
                 DO lc = 1, LUCATS
                    IF (FOUND_LU) THEN
-                      IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD, stat=ierr)
-                      IF (ierr /= 0 ) THEN
-                         CLOSE (landuse_unit)
-                         CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE ALBD' )
-                      END IF
-                      IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO, stat=ierr)
-                      IF (ierr /= 0 ) THEN
-                         CLOSE (landuse_unit)
-                         CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SLMO' )
-                      END IF
-                      IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM, stat=ierr)
-                      IF (ierr /= 0 ) THEN
-                         CLOSE (landuse_unit)
-                         CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFEM' )
-                      END IF
-                      IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0, stat=ierr)
-                      IF (ierr /= 0 ) THEN
-                         CLOSE (landuse_unit)
-                         CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFZ0' )
-                      END IF
-                      IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN, stat=ierr)
-                      IF (ierr /= 0 ) THEN
-                         CLOSE (landuse_unit)
-                         CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE THERIN' )
-                      END IF
-                      IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX, stat=ierr)
-                      IF (ierr /= 0 ) THEN
-                         CLOSE (landuse_unit)
-                         CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SCFX' )
-                      END IF
-                      IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC, stat=ierr)
-                      IF (ierr /= 0 ) THEN
-                         CLOSE (landuse_unit)
-                         CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFHC' )
-                      END IF
-                      ALLOCATE(ALBD(LUCATS,LUSEAS), SLMO(LUCATS,LUSEAS), SFEM(LUCATS,LUSEAS))
-                      ALLOCATE(SFZ0(LUCATS,LUSEAS), THERIN(LUCATS,LUSEAS), SCFX(LUCATS,LUSEAS), SFHC(LUCATS,LUSEAS))
-                      WRITE(message,*) 'LANDUSE TYPE = "' // TRIM (LUTYPE) // '" FOUND', LUCATS,' CATEGORIES',LUSEAS,' SEASONS'
-                      CALL wrf_message(message)
                       READ (landuse_unit,*) li,ALBD(lc,ls),SLMO(lc,ls),SFEM(lc,ls), &
                            SFZ0(lc,ls),THERIN(lc,ls),SCFX(lc,ls),SFHC(lc,ls)
                       IF (lc /= li) THEN
@@ -1107,7 +1110,7 @@ CONTAINS
     !------------------------------------------------------------------
     INTEGER                            ::  i, j
 
-    landusef_SUEWS(:, :) = SUM(landusef(:, ind, :))
+    landusef_SUEWS(:, :) = SUM(landusef(:, ind, :), dim = 2)
 
     DO i = its, itf
        DO j = jts, jtf
