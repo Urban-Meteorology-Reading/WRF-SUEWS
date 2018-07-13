@@ -648,6 +648,7 @@ CONTAINS
 
   !================================================================
   SUBROUTINE suewsinit(                           &
+         lu_state,                                &
          MMINLU,                                  &
          julday,                                  &
          cen_lat,                                 &
@@ -667,6 +668,7 @@ CONTAINS
     USE module_wrf_error
     IMPLICIT NONE
     !----------------------------------------------------------------
+    REAL,DIMENSION(:),INTENT(INOUT)                                 :: lu_state
     CHARACTER(LEN=*),INTENT(IN)                                     :: MMINLU
     INTEGER, INTENT(IN)                                             :: julday
     REAL, INTENT(IN)                                                :: cen_lat
@@ -695,9 +697,11 @@ CONTAINS
     INTEGER                            :: ierr ! error code
     INTEGER                            :: ISN
     CHARACTER(len = 256)               :: LUTYPE
-    INTEGER                            :: landuse_unit, ls, lc, li
+    INTEGER                            :: landuse_unit, ls, lc, li, cats, seas, curs
     INTEGER                            :: LUCATS, LUSEAS
-    REAL, DIMENSION(:, :), ALLOCATABLE :: ALBD, SLMO, SFEM, SFZ0, THERIN, SCFX, SFHC
+    INTEGER , PARAMETER :: max_cats = 100 , max_seas = 12
+    REAL    , DIMENSION( max_cats, max_seas ) :: ALBD, SLMO, SFEM, SFZ0, THERIN, SFHC
+    REAL    , DIMENSION( max_cats )    :: SCFX
     LOGICAL                            :: found_lu
 
     !----------------------------------------------------------------
@@ -720,6 +724,22 @@ CONTAINS
     CLOSE(namelist_unit)
 
     ! initialize suews related table
+    IF ( 6*(max_cats*max_seas)+1*max_cats .GT. 7501 ) THEN
+      WRITE(message,*)'suewsinit: lu_state overflow. Make Registry dimspec p > ',6*(max_cats*max_seas)+1*max_cats
+    ENDIF
+    curs = 1
+    DO cats = 1, max_cats
+       SCFX(cats) =           lu_state(curs)         ; curs = curs + 1
+       DO seas = 1, max_seas
+          ALBD(cats,seas) =    lu_state(curs)         ; curs = curs + 1
+          SLMO(cats,seas) =    lu_state(curs)         ; curs = curs + 1
+          SFEM(cats,seas) =    lu_state(curs)         ; curs = curs + 1
+          SFZ0(cats,seas) =    lu_state(curs)         ; curs = curs + 1
+          SFHC(cats,seas) =    lu_state(curs)         ; curs = curs + 1
+          THERIN(cats,seas) =  lu_state(curs)         ; curs = curs + 1
+       ENDDO
+    ENDDO
+
     ISN = 1
     IF(JULDAY <105 .OR. JULDAY > 288) ISN = 2
     IF(CEN_LAT < 0.0) ISN = 3 - ISN
@@ -746,54 +766,54 @@ CONTAINS
              READ (landuse_unit, *, iostat=ierr) LUCATS, LUSEAS
              IF (ierr /= 0 ) EXIT
 
-             IF (FOUND_LU) THEN
-                WRITE(message,*) 'LANDUSE TYPE = "' // TRIM (LUTYPE) // '" FOUND', LUCATS,' CATEGORIES',LUSEAS,' SEASONS'
-                CALL wrf_message(message)
-                IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD, stat=ierr)
-                IF (ierr /= 0 ) THEN
-                   CLOSE (landuse_unit)
-                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE ALBD' )
-                END IF
-                IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO, stat=ierr)
-                IF (ierr /= 0 ) THEN
-                   CLOSE (landuse_unit)
-                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SLMO' )
-                END IF
-                IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM, stat=ierr)
-                IF (ierr /= 0 ) THEN
-                   CLOSE (landuse_unit)
-                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFEM' )
-                END IF
-                IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0, stat=ierr)
-                IF (ierr /= 0 ) THEN
-                   CLOSE (landuse_unit)
-                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFZ0' )
-                END IF
-                IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN, stat=ierr)
-                IF (ierr /= 0 ) THEN
-                   CLOSE (landuse_unit)
-                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE THERIN' )
-                END IF
-                IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX, stat=ierr)
-                IF (ierr /= 0 ) THEN
-                   CLOSE (landuse_unit)
-                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SCFX' )
-                END IF
-                IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC, stat=ierr)
-                IF (ierr /= 0 ) THEN
-                   CLOSE (landuse_unit)
-                   CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFHC' )
-                END IF
-                ALLOCATE(ALBD(LUCATS,LUSEAS), SLMO(LUCATS,LUSEAS), SFEM(LUCATS,LUSEAS))
-                ALLOCATE(SFZ0(LUCATS,LUSEAS), THERIN(LUCATS,LUSEAS), SCFX(LUCATS,LUSEAS), SFHC(LUCATS,LUSEAS))
-             END IF
+             ! IF (FOUND_LU) THEN
+             !    WRITE(message,*) 'LANDUSE TYPE = "' // TRIM (LUTYPE) // '" FOUND', LUCATS,' CATEGORIES',LUSEAS,' SEASONS'
+             !    CALL wrf_message(message)
+             !    IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD, stat=ierr)
+             !    IF (ierr /= 0 ) THEN
+             !       CLOSE (landuse_unit)
+             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE ALBD' )
+             !    END IF
+             !    IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO, stat=ierr)
+             !    IF (ierr /= 0 ) THEN
+             !       CLOSE (landuse_unit)
+             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SLMO' )
+             !    END IF
+             !    IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM, stat=ierr)
+             !    IF (ierr /= 0 ) THEN
+             !       CLOSE (landuse_unit)
+             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFEM' )
+             !    END IF
+             !    IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0, stat=ierr)
+             !    IF (ierr /= 0 ) THEN
+             !       CLOSE (landuse_unit)
+             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFZ0' )
+             !    END IF
+             !    IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN, stat=ierr)
+             !    IF (ierr /= 0 ) THEN
+             !       CLOSE (landuse_unit)
+             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE THERIN' )
+             !    END IF
+             !    IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX, stat=ierr)
+             !    IF (ierr /= 0 ) THEN
+             !       CLOSE (landuse_unit)
+             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SCFX' )
+             !    END IF
+             !    IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC, stat=ierr)
+             !    IF (ierr /= 0 ) THEN
+             !       CLOSE (landuse_unit)
+             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFHC' )
+             !    END IF
+             !    ALLOCATE(ALBD(LUCATS,LUSEAS), SLMO(LUCATS,LUSEAS), SFEM(LUCATS,LUSEAS))
+             !    ALLOCATE(SFZ0(LUCATS,LUSEAS), THERIN(LUCATS,LUSEAS), SCFX(LUCATS,LUSEAS), SFHC(LUCATS,LUSEAS))
+             ! END IF
 
              DO ls = 1, LUSEAS
                 READ (landuse_unit,*)
                 DO lc = 1, LUCATS
                    IF (FOUND_LU) THEN
                       READ (landuse_unit, *) li,ALBD(lc,ls),SLMO(lc,ls),SFEM(lc,ls), &
-                           SFZ0(lc,ls),THERIN(lc,ls),SCFX(lc,ls),SFHC(lc,ls)
+                           SFZ0(lc,ls),THERIN(lc,ls),SCFX(lc),SFHC(lc,ls)
                       IF (lc /= li) THEN
                          CLOSE (landuse_unit)
                          CALL wrf_error_fatal ( 'module_start: MISSING LANDUSE UNIT ' )
@@ -823,13 +843,14 @@ CONTAINS
 
        END IF
 
-       CALL wrf_dm_bcast_bytes (albd,   LUCATS * LUSEAS * RWORDSIZE )
-       CALL wrf_dm_bcast_bytes (slmo,   LUCATS * LUSEAS * RWORDSIZE )
-       CALL wrf_dm_bcast_bytes (sfem,   LUCATS * LUSEAS * RWORDSIZE )
-       CALL wrf_dm_bcast_bytes (sfz0,   LUCATS * LUSEAS * RWORDSIZE )
-       CALL wrf_dm_bcast_bytes (therin, LUCATS * LUSEAS * RWORDSIZE )
-       CALL wrf_dm_bcast_bytes (scfx,   LUCATS * LUSEAS * RWORDSIZE )
-       CALL wrf_dm_bcast_bytes (sfhc,   LUCATS * LUSEAS * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (ISN,    IWORDSIZE )
+       CALL wrf_dm_bcast_bytes (albd,   max_cats * max_seas * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (slmo,   max_cats * max_seas * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (sfem,   max_cats * max_seas * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (sfz0,   max_cats * max_seas * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (therin, max_cats * max_seas * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (scfx,   max_cats *            RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (sfhc,   max_cats * max_seas * RWORDSIZE )
 
     END IF
 
@@ -848,22 +869,22 @@ CONTAINS
        ENDDO
 
        IF (TRIM(MMINLU) == 'MODIFIED_IGBP_MODIS_NOAH') THEN
-          CALL MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
+          CALL MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
        ELSE IF (TRIM(MMINLU) == 'USGS') THEN
-          CALL USGScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
+          CALL USGScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
        ELSE
           CALL wrf_error_fatal ('THE Land Use Categories NOT SUPPORTED By SUEWS Model NOW' )
        END IF
 
     ENDIF
 
-    IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD)
-    IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO)
-    IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM)
-    IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0)
-    IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN)
-    IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX)
-    IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC)
+    ! IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD)
+    ! IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO)
+    ! IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM)
+    ! IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0)
+    ! IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN)
+    ! IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX)
+    ! IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC)
 
   END SUBROUTINE suewsinit
   !-------------------------------------------------------------------

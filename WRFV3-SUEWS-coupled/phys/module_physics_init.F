@@ -1137,6 +1137,7 @@ integer myproc
                 ZNT,XLAND,XICE,                                 &
                 DX, DY, MSFTX, MSFTY,                           &
 #endif
+                lu_state,                                       &
                 julday,                                         &
                 cen_lat,                                        &
                 landusef_SUEWS,                                 &
@@ -2060,6 +2061,7 @@ integer myproc
 #else
                 ZNT,XLAND,XICE,DX, DY, MSFTX, MSFTY,            &
 #endif
+                lu_state,                                       &
                 julday,                                         &
                 cen_lat,                                        &
                 landusef_SUEWS,                                 &
@@ -2308,6 +2310,7 @@ integer myproc
                                                           RQIBLTEN, &
                                                           TKE_PBL
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
+   REAL,OPTIONAL,DIMENSION( : ),INTENT(INOUT)                               :: lu_state
    INTEGER, INTENT(IN)                                                      :: julday
    REAL, INTENT(IN)                                                         :: cen_lat
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
@@ -2743,6 +2746,7 @@ integer myproc
           call wrf_debug(100, wrf_err_message)
 
            CALL suewsinit(                                     &
+                         lu_state,                             &
                          MMINLU,                               &
                          julday,                               &
                          cen_lat,                              &
