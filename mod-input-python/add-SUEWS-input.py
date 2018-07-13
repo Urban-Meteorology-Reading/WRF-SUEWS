@@ -5,7 +5,7 @@ import glob
 
 
 # load base nc file for modification
-ds_base = xr.open_dataset('wrfinput_d01.base.nc')
+ds_base = xr.open_dataset('wrfinput_d03.base.30d.nc')
 
 
 # funcitons to add new variables with expanded dimensions
@@ -100,4 +100,4 @@ for var in ds_merged.data_vars.keys():
         del ds_merged[var].attrs['coordinates']
 ds_merged['LAI_SUEWS']
 # export merged dataset to a new file
-ds_merged.to_netcdf('wrfinput_d01.new.nc', mode='w', format='NETCDF3_64BIT')
+ds_merged.to_netcdf('wrfinput_d03.new.30d.nc', mode='w', format='NETCDF3_64BIT')
