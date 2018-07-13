@@ -817,23 +817,21 @@ CONTAINS
           END IF
 
           ! rescale loaded values
-          albd=albd/100.
-          sfz0=sfz0/100.
-          therin=therin/100.
+          albd = albd/100.
+          sfz0 = sfz0/100.
+          therin = therin/100.
 
-          CALL wrf_dm_bcast_bytes (albd,   LUCATS * LUSEAS * RWORDSIZE )
-          CALL wrf_dm_bcast_bytes (slmo,   LUCATS * LUSEAS * RWORDSIZE )
-          CALL wrf_dm_bcast_bytes (sfem,   LUCATS * LUSEAS * RWORDSIZE )
-          CALL wrf_dm_bcast_bytes (sfz0,   LUCATS * LUSEAS * RWORDSIZE )
-          CALL wrf_dm_bcast_bytes (therin, LUCATS * LUSEAS * RWORDSIZE )
-          CALL wrf_dm_bcast_bytes (scfx,   LUCATS * LUSEAS * RWORDSIZE )
-          CALL wrf_dm_bcast_bytes (sfhc,   LUCATS * LUSEAS * RWORDSIZE )
+       END IF
 
-       ENDIF
+       CALL wrf_dm_bcast_bytes (albd,   LUCATS * LUSEAS * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (slmo,   LUCATS * LUSEAS * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (sfem,   LUCATS * LUSEAS * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (sfz0,   LUCATS * LUSEAS * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (therin, LUCATS * LUSEAS * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (scfx,   LUCATS * LUSEAS * RWORDSIZE )
+       CALL wrf_dm_bcast_bytes (sfhc,   LUCATS * LUSEAS * RWORDSIZE )
 
-    ENDIF
-
-
+    END IF
 
     IF (.NOT. restart) THEN
 
