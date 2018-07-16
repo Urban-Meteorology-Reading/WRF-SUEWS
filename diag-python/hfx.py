@@ -45,8 +45,8 @@ plt.contourf(to_np(lons), to_np(lats), to_np(HFX[160,:,:]), 10, transform=crs.Pl
 plt.colorbar(ax=ax, shrink=.92)
 
 # Set the map limits.  Not really necessary, but used for demonstration.
-ax.set_xlim(cartopy_xlim(HFX[160,:,:]))
-ax.set_ylim(cartopy_ylim(HFX[160,:,:]))
+ax.set_xlim(cartopy_xlim(HFX))
+ax.set_ylim(cartopy_ylim(HFX))
 
 # Add the gridlines
 ax.gridlines(color="black", linestyle="dotted")
