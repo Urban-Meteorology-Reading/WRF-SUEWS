@@ -157,29 +157,29 @@ CONTAINS
          its,ite, jts,jte, kts,kte
 
     ! SUEWS specific variables:
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)                 :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albDecTr_SUEWS !Albedo of deciduous trees [-]
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albEveTr_SUEWS !Albedo of evergreen trees [-]
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albGrass_SUEWS !Albedo of grass[-]
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: porosity_SUEWS !Porosity of deciduous trees [-]
-    REAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)                 :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL,DIMENSION(ims:ime,12,jms:jme),INTENT(INOUT)                :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: state_SUEWS
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: soilmoist_SUEWS
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: surf_var_SUEWS
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: MeltWaterStore
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: SnowAlb
-    REAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)                 :: WUDay
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: z0m_in
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: zdm_in
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)  :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albDecTr_SUEWS !Albedo of deciduous trees [-]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albEveTr_SUEWS !Albedo of evergreen trees [-]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albGrass_SUEWS !Albedo of grass[-]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: porosity_SUEWS !Porosity of deciduous trees [-]
+    REAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)  :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL,DIMENSION(ims:ime,12,jms:jme),INTENT(INOUT) :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: state_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: soilmoist_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: surf_var_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: landusef_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: alb_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: emis_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: qn1_av_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: qn1_s_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: dqndt_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: dqnsdt_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: MeltWaterStore
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: SnowAlb
+    REAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)  :: WUDay
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: z0m_in
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: zdm_in
 
     ! LOCAL VARS
     REAL,DIMENSION(7)                 :: landusef_suews1d
@@ -313,8 +313,8 @@ CONTAINS
           MeltWaterStore(I,:,J)  = MeltWaterStore_id
           SnowAlb(I,J)           = SnowAlb_id
           WUDay(I,:,J)           = WUDay_id
-          z0m_in(I,J)            = z0m_in_id
-          zdm_in(I,J)            = zdm_in_id
+!          z0m_in(I,J)            = z0m_in_id
+!          zdm_in(I,J)            = zdm_in_id
 
 
           ! print *, 'tsk = ', tsk_out
@@ -420,8 +420,8 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)            :: MeltWaterStore_id
     REAL(KIND(1d0)),INTENT(INOUT)                         :: SnowAlb_id
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)            :: WUDay_id
-    REAL(KIND(1d0)),INTENT(INOUT)                         :: z0m_in_id
-    REAL(KIND(1d0)),INTENT(INOUT)                         :: zdm_in_id
+    REAL(KIND(1d0)),INTENT(IN)                         :: z0m_in_id
+    REAL(KIND(1d0)),INTENT(IN)                         :: zdm_in_id
 
     ! 11. output
     REAL(KIND(1d0)), INTENT(out) ::qh !QH for output
@@ -508,13 +508,13 @@ CONTAINS
     ! 3 - Drainage coeff 1 [units depend on choice of eqn]
     ! 4 - Drainage coeff 2 [units depend on choice of eqn]
     ! 5 - max storage capacity [mm]
-    REAL(KIND(1d0)),DIMENSION(5,7),PARAMETER:: surf_attr=RESHAPE(&   ! variable to store the above five properties
-         [[ 0.48 ,  0.25 ,  1.3  ,  0.3  ,  1.9  ,  0.8  ,  0.5  ],&
-         [ 3.   ,  3.   ,  2.   ,  2.   ,  2.   ,  3.   ,  0.   ],&
-         [10.   , 10.   ,  0.013,  0.013,  0.013, 10.   ,  0.   ],&
-         [ 3.   ,  3.   ,  1.71 ,  1.71 ,  1.71 ,  3.   ,  0.   ],&
-         [ 0.48 ,  0.25 ,  1.3  ,  0.8  ,  1.9  ,  0.8  ,  0.5  ]],&
-         [5,7])
+    ! REAL(KIND(1d0)),DIMENSION(5,7),PARAMETER:: surf_attr=RESHAPE(&   ! variable to store the above five properties
+    !      [[ 0.48 ,  0.25 ,  1.3  ,  0.3  ,  1.9  ,  0.8  ,  0.5  ],&
+    !      [ 3.   ,  3.   ,  2.   ,  2.   ,  2.   ,  3.   ,  0.   ],&
+    !      [10.   , 10.   ,  0.013,  0.013,  0.013, 10.   ,  0.   ],&
+    !      [ 3.   ,  3.   ,  1.71 ,  1.71 ,  1.71 ,  3.   ,  0.   ],&
+    !      [ 0.48 ,  0.25 ,  1.3  ,  0.8  ,  1.9  ,  0.8  ,  0.5  ]],&
+    !      [5,7],order=[2,1])
     !
     !
     ! ! these will be assigned locally as data
@@ -545,8 +545,8 @@ CONTAINS
     ! variables:
     ! 1. static properties of land covers:
     ! TODO: this should be handled by WPS/ improved to load user specified values
-    REAL(KIND(1d0)),DIMENSION(7),PARAMETER:: alb0=[0.12,0.15,0.1,0.18,0.138403,0.18,0.1]    !Albedo of each surface type [-]
-    REAL(KIND(1d0)),DIMENSION(7),PARAMETER:: emis0=[0.95,0.91,0.98,0.98,0.988388,0.94,0.95]   !Emissivity of each surface type [-]
+    ! REAL(KIND(1d0)),DIMENSION(7),PARAMETER:: alb0=[0.12,0.15,0.1,0.18,0.138403,0.18,0.1]    !Albedo of each surface type [-]
+    ! REAL(KIND(1d0)),DIMENSION(7),PARAMETER:: emis0=[0.95,0.91,0.98,0.98,0.988388,0.94,0.95]   !Emissivity of each surface type [-]
     ! REAL(KIND(1d0)),DIMENSION(nsurf)::alb,emis
     ! 2. site info:
     REAL(KIND(1d0)),DIMENSION(7):: sfr   !Surface fractions [-]
@@ -584,8 +584,8 @@ CONTAINS
     !      shape=(/8,4,3/), order=(/3,2,1/))
 
     ! processing variables for SuMin
-    surf(1:5,:)=surf_attr
-    surf(6,:)=surf_var_id(:)
+    ! surf(1:5,:)=surf_attr
+    ! surf(6,:)=surf_var_id(:)
 
 
     ! get coordinates:
@@ -636,7 +636,7 @@ CONTAINS
          alb_id,emis_id,SnowAlb_id,OHM_coef,WaterDist,&
          AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
          qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
-         surf,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
+         surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
          qh,qe,qsfc,tsk,CHKLOWQ)!output

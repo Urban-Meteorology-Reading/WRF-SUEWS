@@ -2742,8 +2742,6 @@ integer myproc
 
       CASE (SUEWSSCHEME) ! add for SUEWS by Zhenkun Li, 6/6/2018
           call wrf_debug(100, 'before calling suewsinit')
-          print*,'landusef now is',landusef
-          call wrf_debug(100, wrf_err_message)
 
            CALL suewsinit(                                     &
                          lu_state,                             &
