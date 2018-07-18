@@ -23,6 +23,10 @@ MODULE module_sf_SUEWS
   INTEGER                                      :: StorageHeatMethod
   INTEGER                                      :: OHMIncQF
   INTEGER                                      :: AerodynamicResistanceMethod
+  INTEGER,parameter                            :: num_ind_max = 10
+  INTEGER,parameter                            :: ind_undef = -999
+  INTEGER,DIMENSION(8, num_ind_max)            :: suews_cat_ind
+  REAL(KIND(1D0)),DIMENSION(8, num_ind_max)    :: suews_cat_frac
 
 CONTAINS
 
@@ -214,7 +218,7 @@ CONTAINS
 
     INTEGER :: dt_since_start ! time since simulation starts [s]
 
-    INTEGER ::  I,J,K,l
+    INTEGER ::  I, J
 
     dt_since_start = INT(xtime * 60)
     PRINT *, 'year = ', year, 'day = ', day, 'hour = ', hour, 'minute = ', minute
@@ -223,9 +227,9 @@ CONTAINS
 
     ! CALL MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
 
-    DO J=jts,jte
+    DO J = jts, jte
 
-       DO I=its,ite
+       DO I = its, ite
 
           T1D = T3D(i,1,j)
           QV1D = QV3D(i,1,j)
@@ -704,29 +708,101 @@ CONTAINS
     REAL    , DIMENSION( max_cats )    :: SCFX
     LOGICAL                            :: found_lu
 
+    REAL(KIND(1D0)),DIMENSION(3,4,8)   :: OHM_coefs
+    REAL(KIND(1D0)),DIMENSION(6,8)     :: WaterDists
+
     !----------------------------------------------------------------
 
-    NAMELIST /suews/ OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
-         WUProfA_24hr, WUProfM_24hr, snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, &
-         NetRadiationMethod, StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod
+    NAMELIST /coeff/   OHM_coefs, WaterDists, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
+                       WUProfA_24hr, WUProfM_24hr
+    NAMELIST /method/  snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, &
+                       StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod
+    NAMELIST /landuse/ suews_cat_ind, suews_cat_frac
 
-    filename = 'namelist.suews'
-    namelist_unit = 10
-    OPEN(namelist_unit, file=filename, form="formatted", status='old', action='read', iostat=ierr)
-    IF (ierr /= 0 ) THEN
-       WRITE(message, FMT='(A)') 'module_sf_suews.F: suewsinit: open failure for namelist.suews'
-       CALL wrf_error_fatal ( message )
+    IF ( allowed_to_read ) THEN
+       CALL wrf_message( 'INITIALIZE SUEWS NAMELIST' )
+
+       IF ( wrf_dm_on_monitor() ) THEN
+          filename = 'namelist.suews'
+          namelist_unit = 10
+          OPEN(namelist_unit, file=filename, form="formatted", status='old', action='read', iostat=ierr)
+          IF (ierr /= 0 ) THEN
+            WRITE(message, FMT='(A)') 'module_sf_suews.F: suewsinit: open failure for namelist.suews'
+            CLOSE(namelist_unit)
+            CALL wrf_error_fatal ( message )
+          END IF
+          READ(namelist_unit, nml=coeff, iostat=ierr)
+          IF (ierr /= 0) THEN
+            CLOSE(namelist_unit)
+            CALL wrf_error_fatal( "ERROR reading sector coeff of namelist.suews" )
+          ENDIF
+          OHM_coef = RESHAPE(OHM_coefs, (/8,4,3/), ORDER = (/3,2,1/))
+          WaterDist = RESHAPE(WaterDists, (/8,6/), ORDER = (/2,1/))
+          READ(namelist_unit, nml=method, iostat=ierr)
+          IF (ierr /= 0) THEN
+            CLOSE(namelist_unit)
+            CALL wrf_error_fatal( "ERROR reading sector method of namelist.suews" )
+          ENDIF
+          suews_cat_ind = ind_undef
+          suews_cat_frac = 0.
+          READ(namelist_unit, nml=landuse, iostat=ierr)
+          IF (ierr /= 0) THEN
+            CLOSE(namelist_unit)
+            CALL wrf_error_fatal( "ERROR reading sector landuse of namelist.suews" )
+          ENDIF
+          CLOSE(namelist_unit)
+          DO k = 1, 8
+             IF ( any(suews_cat_ind(k, :) > NLCAT) ) THEN
+               WRITE(message,*) " suews_cat_ind(k, :) > ", NLCAT, " check namelist.suews"
+               CALL wrf_error_fatal( message )
+             END IF
+          END DO
+       END IF
+
+!NOTE: All the real type namelist variables are double precision, but only single precision
+!      real variables have WORDSIZE in WRF, so if the following lines needed, we shoulde redefine
+!      them in single precision and modify the interface in SUEWS1D.
+       ! CALL wrf_dm_bcast_bytes (OHM_coef, 8 * 4 * 3  * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (WaterDist, 8 * 6 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (AHProf_24hr, 24 * 2 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (HumActivity_24hr, 24 * 2 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (PopProf_24hr, 24 * 2 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (TraffProf_24hr, 24 * 2 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (WUProfA_24hr, 24 * 2 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (WUProfM_24hr, 24 * 2 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (snowUse, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (RoughLenHeatMethod, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (RoughLenMomMethod, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (EmissionsMethod, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (NetRadiationMethod, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (StorageHeatMethod, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (OHMIncQF, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (AerodynamicResistanceMethod, IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat1_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat1_frac, 10 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat2_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat2_frac, 10 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat3_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat3_frac, 10 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat4_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat4_frac, 10 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat5_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat5_frac, 10 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat6_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat6_frac, 10 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat7_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat7_frac, 10 * RWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat8_ind, 10 * IWORDSIZE)
+       ! CALL wrf_dm_bcast_bytes (suews_cat8_frac, 10 * RWORDSIZE)
+
     END IF
-    READ(namelist_unit, nml=suews, iostat=ierr)
-    IF (ierr /= 0) THEN
-       CALL wrf_error_fatal( "ERROR reading namelist.suews" )
-    ENDIF
-    CLOSE(namelist_unit)
+    print *, 'suews_cat_ind(1) = ', suews_cat_ind(1, :)
 
     ! initialize suews related table
     IF ( 6*(max_cats*max_seas)+1*max_cats .GT. 7501 ) THEN
       WRITE(message,*)'suewsinit: lu_state overflow. Make Registry dimspec p > ',6*(max_cats*max_seas)+1*max_cats
-    ENDIF
+      CALL wrf_error_fatal ( message )
+    END IF
     curs = 1
     DO cats = 1, max_cats
        SCFX(cats) =           lu_state(curs)         ; curs = curs + 1
@@ -737,8 +813,8 @@ CONTAINS
           SFZ0(cats,seas) =    lu_state(curs)         ; curs = curs + 1
           SFHC(cats,seas) =    lu_state(curs)         ; curs = curs + 1
           THERIN(cats,seas) =  lu_state(curs)         ; curs = curs + 1
-       ENDDO
-    ENDDO
+       END DO
+    END DO
 
     ISN = 1
     IF(JULDAY <105 .OR. JULDAY > 288) ISN = 2
@@ -765,48 +841,6 @@ CONTAINS
 
              READ (landuse_unit, *, iostat=ierr) LUCATS, LUSEAS
              IF (ierr /= 0 ) EXIT
-
-             ! IF (FOUND_LU) THEN
-             !    WRITE(message,*) 'LANDUSE TYPE = "' // TRIM (LUTYPE) // '" FOUND', LUCATS,' CATEGORIES',LUSEAS,' SEASONS'
-             !    CALL wrf_message(message)
-             !    IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD, stat=ierr)
-             !    IF (ierr /= 0 ) THEN
-             !       CLOSE (landuse_unit)
-             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE ALBD' )
-             !    END IF
-             !    IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO, stat=ierr)
-             !    IF (ierr /= 0 ) THEN
-             !       CLOSE (landuse_unit)
-             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SLMO' )
-             !    END IF
-             !    IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM, stat=ierr)
-             !    IF (ierr /= 0 ) THEN
-             !       CLOSE (landuse_unit)
-             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFEM' )
-             !    END IF
-             !    IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0, stat=ierr)
-             !    IF (ierr /= 0 ) THEN
-             !       CLOSE (landuse_unit)
-             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFZ0' )
-             !    END IF
-             !    IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN, stat=ierr)
-             !    IF (ierr /= 0 ) THEN
-             !       CLOSE (landuse_unit)
-             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE THERIN' )
-             !    END IF
-             !    IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX, stat=ierr)
-             !    IF (ierr /= 0 ) THEN
-             !       CLOSE (landuse_unit)
-             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SCFX' )
-             !    END IF
-             !    IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC, stat=ierr)
-             !    IF (ierr /= 0 ) THEN
-             !       CLOSE (landuse_unit)
-             !       CALL wrf_error_fatal ( 'module_sf_suews.F: suewsinit: CANNOT DEALLOCATE SFHC' )
-             !    END IF
-             !    ALLOCATE(ALBD(LUCATS,LUSEAS), SLMO(LUCATS,LUSEAS), SFEM(LUCATS,LUSEAS))
-             !    ALLOCATE(SFZ0(LUCATS,LUSEAS), THERIN(LUCATS,LUSEAS), SCFX(LUCATS,LUSEAS), SFHC(LUCATS,LUSEAS))
-             ! END IF
 
              DO ls = 1, LUSEAS
                 READ (landuse_unit,*)
@@ -854,6 +888,8 @@ CONTAINS
 
     END IF
 
+
+
     IF (.NOT. restart) THEN
 
        itf = min0(ite, ide-1)
@@ -868,23 +904,16 @@ CONTAINS
           ENDDO
        ENDDO
 
-       IF (TRIM(MMINLU) == 'MODIFIED_IGBP_MODIS_NOAH') THEN
-          CALL MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
-       ELSE IF (TRIM(MMINLU) == 'USGS') THEN
-          CALL USGScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
-       ELSE
-          CALL wrf_error_fatal ('THE Land Use Categories NOT SUPPORTED By SUEWS Model NOW' )
-       END IF
+       ! IF (TRIM(MMINLU) == 'MODIFIED_IGBP_MODIS_NOAH') THEN
+       !    CALL MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
+       ! ELSE IF (TRIM(MMINLU) == 'USGS') THEN
+       !    CALL USGScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
+       ! ELSE
+       !    CALL wrf_error_fatal ('THE Land Use Categories NOT SUPPORTED By SUEWS Model NOW' )
+       ! END IF
+       CALL toSUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
 
-    ENDIF
-
-    ! IF (ALLOCATED(ALBD)) DEALLOCATE(ALBD)
-    ! IF (ALLOCATED(SLMO)) DEALLOCATE(SLMO)
-    ! IF (ALLOCATED(SFEM)) DEALLOCATE(SFEM)
-    ! IF (ALLOCATED(SFZ0)) DEALLOCATE(SFZ0)
-    ! IF (ALLOCATED(THERIN)) DEALLOCATE(THERIN)
-    ! IF (ALLOCATED(SCFX)) DEALLOCATE(SCFX)
-    ! IF (ALLOCATED(SFHC)) DEALLOCATE(SFHC)
+    END IF
 
   END SUBROUTINE suewsinit
   !-------------------------------------------------------------------
@@ -893,7 +922,7 @@ CONTAINS
   !    Public subroutine to convert USGS Land Use Categories to SUEWS
   !    surface types
   !----------------------------------------------------------------------
-  SUBROUTINE USGScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
+  SUBROUTINE toSUEWScat(its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
 
     IMPLICIT NONE
 
@@ -911,63 +940,75 @@ CONTAINS
     !------------------------------------------------------------------
     !       local variables
     !------------------------------------------------------------------
-    INTEGER                            ::  k
+    INTEGER                            ::  i, j
     INTEGER                            ::  nind !number of indices
     INTEGER,ALLOCATABLE,DIMENSION(:)   ::  ind  !indices array
+    REAL,ALLOCATABLE,DIMENSION(:)      ::  frac !fraction array
 
     landusef_SUEWS = 0.
     alb_SUEWS = 0.1
     emis_SUEWS = 0.9
 
-    DO k = 1, 7
+    DO i = 1, 7
 
-      SELECT CASE( k )
-      CASE( 1 )
-        landusef_SUEWS(:, k, :) = landusef(:, 1, :) * 0.5
-        alb_SUEWS(:, k, :) = albd(1, ISN)
-        emis_SUEWS(:, k, :) = sfem(1, ISN)
-      CASE( 2 )
-        landusef_SUEWS(:, k, :) = landusef(:, 1, :) * 0.5
-        alb_SUEWS(:, k, :) = albd(1, ISN)
-        emis_SUEWS(:, k, :) = sfem(1, ISN)
-      CASE( 3 )
-        nind = 3
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/13, 14, 15/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 4 )
-        nind = 2
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/11, 12/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 5 )
-        nind = 9
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/2, 3, 4, 5, 6, 7, 8, 9, 10/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 6 )
-        nind = 5
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/19, 20, 21, 22, 23/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 7 )
-        nind = 3
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/16, 17, 18/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      END SELECT
+      nind = count(suews_cat_ind(i,:) /= ind_undef)
+      IF (ALLOCATED(ind)) DEALLOCATE(ind)
+      IF (ALLOCATED(frac)) DEALLOCATE(frac)
+      ALLOCATE(ind(nind), frac(nind))
+
+      ind = pack(suews_cat_ind(i, :), suews_cat_ind(i, :) /= ind_undef)
+      frac = pack(suews_cat_frac(i, :), suews_cat_ind(i, :) /= ind_undef)
+
+      call weightMean(nind, ind, frac, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,i,:), alb_suews(:,i,:), emis_suews(:,i,:))
+      DEALLOCATE(ind, frac)
 
     END DO
+
+      ! SELECT CASE( k )
+      ! CASE( 1 )
+      !   landusef_SUEWS(:, k, :) = landusef(:, 1, :) * 0.5
+      !   alb_SUEWS(:, k, :) = albd(1, ISN)
+      !   emis_SUEWS(:, k, :) = sfem(1, ISN)
+      ! CASE( 2 )
+      !   landusef_SUEWS(:, k, :) = landusef(:, 1, :) * 0.5
+      !   alb_SUEWS(:, k, :) = albd(1, ISN)
+      !   emis_SUEWS(:, k, :) = sfem(1, ISN)
+      ! CASE( 3 )
+      !   nind = 3
+      !   IF (ALLOCATED(ind)) DEALLOCATE(ind)
+      !   ALLOCATE(ind(nind))
+      !   ind = (/13, 14, 15/)
+      !   call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+      !   DEALLOCATE(ind)
+      ! CASE( 4 )
+      !   nind = 2
+      !   IF (ALLOCATED(ind)) DEALLOCATE(ind)
+      !   ALLOCATE(ind(nind))
+      !   ind = (/11, 12/)
+      !   call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+      !   DEALLOCATE(ind)
+      ! CASE( 5 )
+      !   nind = 9
+      !   IF (ALLOCATED(ind)) DEALLOCATE(ind)
+      !   ALLOCATE(ind(nind))
+      !   ind = (/2, 3, 4, 5, 6, 7, 8, 9, 10/)
+      !   call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+      !   DEALLOCATE(ind)
+      ! CASE( 6 )
+      !   nind = 5
+      !   IF (ALLOCATED(ind)) DEALLOCATE(ind)
+      !   ALLOCATE(ind(nind))
+      !   ind = (/19, 20, 21, 22, 23/)
+      !   call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+      !   DEALLOCATE(ind)
+      ! CASE( 7 )
+      !   nind = 3
+      !   IF (ALLOCATED(ind)) DEALLOCATE(ind)
+      !   ALLOCATE(ind(nind))
+      !   ind = (/16, 17, 18/)
+      !   call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+      !   DEALLOCATE(ind)
+      ! END SELECT
 
     ! DO i = its, itf
     !    DO j = jts, jtf
@@ -998,87 +1039,87 @@ CONTAINS
     !    END DO
     ! END DO
 
-  END SUBROUTINE USGScat2SUEWScat
+  END SUBROUTINE toSUEWScat
 
   !----------------------------------------------------------------------
   !    Public subroutine to convert MODIS Land Use Categories to SUEWS
   !    surface types
   !----------------------------------------------------------------------
-  SUBROUTINE MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
+  ! SUBROUTINE MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS)
 
-    IMPLICIT NONE
+    ! IMPLICIT NONE
 
     !------------------------------------------------------------------
     !       dummy arguments
     !------------------------------------------------------------------
-    INTEGER, INTENT(in)                ::  its, itf, NLCAT, jts, jtf
-    REAL, INTENT(in)                   ::  landusef(its:itf, NLCAT, jts:jtf)
-    INTEGER, INTENT(in)                ::  ISN, LUCATS, LUSEAS
-    REAL, INTENT(in)                   ::  albd(LUCATS, LUSEAS), sfem(LUCATS, LUSEAS)
-    REAL, INTENT(out)                  ::  landusef_SUEWS(its:itf, 7, jts:jtf)
-    REAL, INTENT(out)                  ::  alb_SUEWS(its:itf, 7, jts:jtf)
-    REAL, INTENT(out)                  ::  emis_SUEWS(its:itf, 7, jts:jtf)
+    ! INTEGER, INTENT(in)                ::  its, itf, NLCAT, jts, jtf
+    ! REAL, INTENT(in)                   ::  landusef(its:itf, NLCAT, jts:jtf)
+    ! INTEGER, INTENT(in)                ::  ISN, LUCATS, LUSEAS
+    ! REAL, INTENT(in)                   ::  albd(LUCATS, LUSEAS), sfem(LUCATS, LUSEAS)
+    ! REAL, INTENT(out)                  ::  landusef_SUEWS(its:itf, 7, jts:jtf)
+    ! REAL, INTENT(out)                  ::  alb_SUEWS(its:itf, 7, jts:jtf)
+    ! REAL, INTENT(out)                  ::  emis_SUEWS(its:itf, 7, jts:jtf)
 
     !------------------------------------------------------------------
     !       local variables
     !------------------------------------------------------------------
-    INTEGER                            ::  k
-    INTEGER                            ::  nind !number of indices
-    INTEGER,ALLOCATABLE,DIMENSION(:)   ::  ind  !indices array
+    ! INTEGER                            ::  k
+    ! INTEGER                            ::  nind !number of indices
+    ! INTEGER,ALLOCATABLE,DIMENSION(:)   ::  ind  !indices array
 
-    landusef_SUEWS = 0.
-    alb_SUEWS = 0.1
-    emis_SUEWS = 0.9
+    ! landusef_SUEWS = 0.
+    ! alb_SUEWS = 0.1
+    ! emis_SUEWS = 0.9
 
-    DO k = 1, 7
+    ! DO k = 1, 7
 
-      SELECT CASE( k )
-      CASE( 1 )
-        landusef_SUEWS(:, k, :) = landusef(:, 13, :) * 0.5
-        alb_SUEWS(:, k, :) = albd(13, ISN)
-        emis_SUEWS(:, k, :) = sfem(13, ISN)
-      CASE( 2 )
-        landusef_SUEWS(:, k, :) = landusef(:, 13, :) * 0.5
-        alb_SUEWS(:, k, :) = albd(13, ISN)
-        emis_SUEWS(:, k, :) = sfem(13, ISN)
-      CASE( 3 )
-        nind = 3
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/1, 2, 5/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 4 )
-        nind = 2
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/3, 4/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 5 )
-        nind = 7
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/6, 7, 8, 9, 10, 12, 14/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 6 )
-        nind = 4
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/16, 18, 19, 20/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      CASE( 7 )
-        nind = 2
-        IF (ALLOCATED(ind)) DEALLOCATE(ind)
-        ALLOCATE(ind(nind))
-        ind = (/11, 17/)
-        call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
-        DEALLOCATE(ind)
-      END SELECT
+      ! SELECT CASE( k )
+      ! CASE( 1 )
+        ! landusef_SUEWS(:, k, :) = landusef(:, 13, :) * 0.5
+        ! alb_SUEWS(:, k, :) = albd(13, ISN)
+        ! emis_SUEWS(:, k, :) = sfem(13, ISN)
+      ! CASE( 2 )
+        ! landusef_SUEWS(:, k, :) = landusef(:, 13, :) * 0.5
+        ! alb_SUEWS(:, k, :) = albd(13, ISN)
+        ! emis_SUEWS(:, k, :) = sfem(13, ISN)
+      ! CASE( 3 )
+        ! nind = 3
+        ! IF (ALLOCATED(ind)) DEALLOCATE(ind)
+        ! ALLOCATE(ind(nind))
+        ! ind = (/1, 2, 5/)
+        ! call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+        ! DEALLOCATE(ind)
+      ! CASE( 4 )
+        ! nind = 2
+        ! IF (ALLOCATED(ind)) DEALLOCATE(ind)
+        ! ALLOCATE(ind(nind))
+        ! ind = (/3, 4/)
+        ! call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+        ! DEALLOCATE(ind)
+      ! CASE( 5 )
+        ! nind = 7
+        ! IF (ALLOCATED(ind)) DEALLOCATE(ind)
+        ! ALLOCATE(ind(nind))
+        ! ind = (/6, 7, 8, 9, 10, 12, 14/)
+        ! call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+        ! DEALLOCATE(ind)
+      ! CASE( 6 )
+        ! nind = 4
+        ! IF (ALLOCATED(ind)) DEALLOCATE(ind)
+        ! ALLOCATE(ind(nind))
+        ! ind = (/16, 18, 19, 20/)
+        ! call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+        ! DEALLOCATE(ind)
+      ! CASE( 7 )
+        ! nind = 2
+        ! IF (ALLOCATED(ind)) DEALLOCATE(ind)
+        ! ALLOCATE(ind(nind))
+        ! ind = (/11, 17/)
+        ! call weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_suews(:,k,:), alb_suews(:,k,:), emis_suews(:,k,:))
+        ! DEALLOCATE(ind)
+      ! END SELECT
 
-    END DO
+    ! END DO
 
     ! DO i = its, itf
     !    DO j = jts, jtf
@@ -1118,16 +1159,18 @@ CONTAINS
     !    END DO
     ! END DO
 
-  END SUBROUTINE MODIScat2SUEWScat
+  ! END SUBROUTINE MODIScat2SUEWScat
 
-  SUBROUTINE weightMean(nind, ind, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS )
+  SUBROUTINE weightMean(nind, ind, frac, its, itf, NLCAT, jts, jtf, landusef, ISN, LUCATS, LUSEAS, albd, sfem, landusef_SUEWS, alb_SUEWS, emis_SUEWS )
 
     IMPLICIT NONE
 
     !------------------------------------------------------------------
     !       dummy arguments
     !------------------------------------------------------------------
-    INTEGER, INTENT(in)                ::  nind, ind(nind)
+    INTEGER, INTENT(in)                ::  nind
+    INTEGER, INTENT(in)                ::  ind(nind)
+    REAL, INTENT(in)                   ::  frac(nind)
     INTEGER, INTENT(in)                ::  its, itf, NLCAT, jts, jtf
     REAL, INTENT(in)                   ::  landusef(its:itf, NLCAT, jts:jtf)
     INTEGER, INTENT(in)                ::  ISN, LUCATS, LUSEAS
@@ -1139,16 +1182,17 @@ CONTAINS
     !------------------------------------------------------------------
     !       local variables
     !------------------------------------------------------------------
+    REAL                               ::  temp(nind)
     INTEGER                            ::  i, j
-
-    landusef_SUEWS(:, :) = SUM(landusef(:, ind, :), dim = 2)
 
     DO i = its, itf
        DO j = jts, jtf
-         IF ( landusef_SUEWS(i, j) > 0. ) THEN
-           alb_SUEWS(i, j) = DOT_PRODUCT(albd(ind, ISN),landusef(i, ind, j))/landusef_SUEWS(i, j)
-           emis_SUEWS(i, j) = DOT_PRODUCT(sfem(ind, ISN),landusef(i, ind, j))/landusef_SUEWS(i, j)
-         END IF
+          landusef_SUEWS(i, j) = DOT_PRODUCT(landusef(i, ind, j), frac)
+          temp = landusef(i, ind, j) * frac
+          IF ( landusef_SUEWS(i, j) > 0. ) THEN
+             alb_SUEWS(i, j) = DOT_PRODUCT(albd(ind, ISN), temp)/landusef_SUEWS(i, j)
+             emis_SUEWS(i, j) = DOT_PRODUCT(sfem(ind, ISN), temp)/landusef_SUEWS(i, j)
+          END IF
        END DO
     END DO
 
