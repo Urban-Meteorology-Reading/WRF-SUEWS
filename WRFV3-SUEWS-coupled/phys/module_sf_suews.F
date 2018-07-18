@@ -7,14 +7,14 @@
 MODULE module_sf_SUEWS
   USE SuMin_Module,ONLY:SuMin
 
-  REAL(KIND(1D0)),DIMENSION(8,4,3)             :: OHM_coef
-  REAL(KIND(1D0)),DIMENSION(8,6)               :: WaterDist
-  REAL(KIND(1D0)),DIMENSION(24,2)              :: AHProf_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)              :: HumActivity_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)              :: PopProf_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)              :: TraffProf_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)              :: WUProfA_24hr
-  REAL(KIND(1D0)),DIMENSION(24,2)              :: WUProfM_24hr
+  REAL,DIMENSION(8,4,3)                        :: OHM_coef_s
+  REAL,DIMENSION(8,6)                          :: WaterDist_s
+  REAL,DIMENSION(24,2)                         :: AHProf_24hr
+  REAL,DIMENSION(24,2)                         :: HumActivity_24hr
+  REAL,DIMENSION(24,2)                         :: PopProf_24hr
+  REAL,DIMENSION(24,2)                         :: TraffProf_24hr
+  REAL,DIMENSION(24,2)                         :: WUProfA_24hr
+  REAL,DIMENSION(24,2)                         :: WUProfM_24hr
   INTEGER                                      :: snowUse
   INTEGER                                      :: RoughLenHeatMethod
   INTEGER                                      :: RoughLenMomMethod
@@ -26,7 +26,7 @@ MODULE module_sf_SUEWS
   INTEGER,parameter                            :: num_ind_max = 10
   INTEGER,parameter                            :: ind_undef = -999
   INTEGER,DIMENSION(8, num_ind_max)            :: suews_cat_ind
-  REAL(KIND(1D0)),DIMENSION(8, num_ind_max)    :: suews_cat_frac
+  REAL,DIMENSION(8, num_ind_max)               :: suews_cat_frac
 
 CONTAINS
 
@@ -583,7 +583,14 @@ CONTAINS
     ! 5 - max storage capacity [mm]
     ! 6 - current storage capacity [mm]
     !-----------------------------------------------------------------------------------------------
-
+    REAL(KIND(1d0)),DIMENSION(8,4,3)                        :: OHM_coef_d
+    REAL(KIND(1d0)),DIMENSION(8,6)                          :: WaterDist_d
+    REAL(KIND(1d0)),DIMENSION(24,2)                         :: AHProf_24hr_d
+    REAL(KIND(1d0)),DIMENSION(24,2)                         :: HumActivity_24hr_d
+    REAL(KIND(1d0)),DIMENSION(24,2)                         :: PopProf_24hr_d
+    REAL(KIND(1d0)),DIMENSION(24,2)                         :: TraffProf_24hr_d
+    REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfA_24hr_d
+    REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfM_24hr_d
     ! OHM_coef=RESHAPE(SPREAD(SPREAD(OHMcoef, 2, 4), dim=2, ncopies=8),&
     !      shape=(/8,4,3/), order=(/3,2,1/))
 
@@ -631,14 +638,23 @@ CONTAINS
 
     sfr=landusef_suews1d
 
+    OHM_coef_d = OHM_coef_s
+    WaterDist_d = WaterDist_s
+    AHProf_24hr_d = AHProf_24hr
+    HumActivity_24hr_d = HumActivity_24hr
+    PopProf_24hr_d = PopProf_24hr
+    TraffProf_24hr_d = TraffProf_24hr
+    WUProfA_24hr_d = WUProfA_24hr
+    WUProfM_24hr_d = WUProfM_24hr
+
     CALL SuMin(&
          snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
          RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,OHMIncQF,&! model options
          iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
          alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
          z0m_in_id,zdm_in_id,&! roughness related settings
-         alb_id,emis_id,SnowAlb_id,OHM_coef,WaterDist,&
-         AHProf_24hr,HumActivity_24hr,PopProf_24hr,TraffProf_24hr,WUProfA_24hr,WUProfM_24hr,&
+         alb_id,emis_id,SnowAlb_id,OHM_coef_d,WaterDist_d,&
+         AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d,&
          qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
          surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
@@ -708,12 +724,12 @@ CONTAINS
     REAL    , DIMENSION( max_cats )    :: SCFX
     LOGICAL                            :: found_lu
 
-    REAL(KIND(1D0)),DIMENSION(3,4,8)   :: OHM_coefs
-    REAL(KIND(1D0)),DIMENSION(6,8)     :: WaterDists
+    REAL,DIMENSION(3,4,8)              :: OHM_coef
+    REAL,DIMENSION(6,8)                :: WaterDist
 
     !----------------------------------------------------------------
 
-    NAMELIST /coeff/   OHM_coefs, WaterDists, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
+    NAMELIST /coeff/   OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
                        WUProfA_24hr, WUProfM_24hr
     NAMELIST /method/  snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, &
                        StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod
@@ -736,8 +752,8 @@ CONTAINS
             CLOSE(namelist_unit)
             CALL wrf_error_fatal( "ERROR reading sector coeff of namelist.suews" )
           ENDIF
-          OHM_coef = RESHAPE(OHM_coefs, (/8,4,3/), ORDER = (/3,2,1/))
-          WaterDist = RESHAPE(WaterDists, (/8,6/), ORDER = (/2,1/))
+          OHM_coef_s = RESHAPE(OHM_coef, (/8,4,3/), ORDER = (/3,2,1/))
+          WaterDist_s = RESHAPE(WaterDist, (/8,6/), ORDER = (/2,1/))
           READ(namelist_unit, nml=method, iostat=ierr)
           IF (ierr /= 0) THEN
             CLOSE(namelist_unit)
@@ -762,38 +778,24 @@ CONTAINS
 !NOTE: All the real type namelist variables are double precision, but only single precision
 !      real variables have WORDSIZE in WRF, so if the following lines needed, we shoulde redefine
 !      them in single precision and modify the interface in SUEWS1D.
-       ! CALL wrf_dm_bcast_bytes (OHM_coef, 8 * 4 * 3  * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (WaterDist, 8 * 6 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (AHProf_24hr, 24 * 2 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (HumActivity_24hr, 24 * 2 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (PopProf_24hr, 24 * 2 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (TraffProf_24hr, 24 * 2 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (WUProfA_24hr, 24 * 2 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (WUProfM_24hr, 24 * 2 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (snowUse, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (RoughLenHeatMethod, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (RoughLenMomMethod, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (EmissionsMethod, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (NetRadiationMethod, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (StorageHeatMethod, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (OHMIncQF, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (AerodynamicResistanceMethod, IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat1_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat1_frac, 10 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat2_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat2_frac, 10 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat3_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat3_frac, 10 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat4_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat4_frac, 10 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat5_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat5_frac, 10 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat6_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat6_frac, 10 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat7_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat7_frac, 10 * RWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat8_ind, 10 * IWORDSIZE)
-       ! CALL wrf_dm_bcast_bytes (suews_cat8_frac, 10 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (OHM_coef, 8 * 4 * 3  * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (WaterDist, 8 * 6 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (AHProf_24hr, 24 * 2 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (HumActivity_24hr, 24 * 2 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (PopProf_24hr, 24 * 2 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (TraffProf_24hr, 24 * 2 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (WUProfA_24hr, 24 * 2 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (WUProfM_24hr, 24 * 2 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (snowUse, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (RoughLenHeatMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (RoughLenMomMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (EmissionsMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (NetRadiationMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (StorageHeatMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (OHMIncQF, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (AerodynamicResistanceMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (suews_cat_ind, 8 * 10 * IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (suews_cat_frac, 8 * 10 * RWORDSIZE)
 
     END IF
     print *, 'suews_cat_ind(1) = ', suews_cat_ind(1, :)
