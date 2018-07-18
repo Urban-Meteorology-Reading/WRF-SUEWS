@@ -221,9 +221,9 @@ CONTAINS
     INTEGER ::  I, J
 
     dt_since_start = INT(xtime * 60)
-    PRINT *, 'year = ', year, 'day = ', day, 'hour = ', hour, 'minute = ', minute
-    PRINT *, 'minutesSinceStart = ', xtime, 'secondsSinceStart = ', dt_since_start
-    PRINT *, 'dt = ', dt, 'dt_prev = ', dt_prev
+    ! PRINT *, 'year = ', year, 'day = ', day, 'hour = ', hour, 'minute = ', minute
+    ! PRINT *, 'minutesSinceStart = ', xtime, 'secondsSinceStart = ', dt_since_start
+    ! PRINT *, 'dt = ', dt, 'dt_prev = ', dt_prev
 
     ! CALL MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
 
@@ -324,15 +324,15 @@ CONTAINS
           ! print *, 'tsk = ', tsk_out
           tsk(i,j) = tsk_out
           ! update fluxes
-          PRINT *, 'qh_out = ', qh_out
-          PRINT *, 'qe_out = ', qe_out
+          ! PRINT *, 'qh_out = ', qh_out
+          ! PRINT *, 'qe_out = ', qe_out
           ! HFX(I,J)=min(max(qh_out,50.),50.)
           ! LH(I,J)=min(max(qe_out,50.),50.)
           ! QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
           HFX(I,J)=qh_out
           LH(I,J)=qe_out
-          PRINT *, 'HFX(I,J) = ', HFX(I,J)
-          PRINT *, 'LH(I,J) = ', LH(I,J)
+          ! PRINT *, 'HFX(I,J) = ', HFX(I,J)
+          ! PRINT *, 'LH(I,J) = ', LH(I,J)
 
           QFX(I,J)=qsfc_out
           chklowq(I,J)=CHKLOWQ_out
@@ -798,7 +798,6 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (suews_cat_frac, 8 * 10 * RWORDSIZE)
 
     END IF
-    print *, 'suews_cat_ind(1) = ', suews_cat_ind(1, :)
 
     ! initialize suews related table
     IF ( 6*(max_cats*max_seas)+1*max_cats .GT. 7501 ) THEN
