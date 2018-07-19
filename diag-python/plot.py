@@ -16,17 +16,25 @@ ds = salem.open_xr_dataset(fn)
 t2 = ds.T2
 
 
-# get a base map
+# set colormap
 cmap_res = ''  # 'jet'
+
+# choose data for plot
 data_plot = t2[:100:10]
+
+# get a base map
 dl = DataLevels(data_plot, cmap=cmap_res)
+
+# get settings from DataLevels fro colorbar
 kargs_dl = {k: getattr(dl, k) for k in ['vmin', 'vmax', 'levels', 'nlevels']}
+
+# generate a basemap
 map_base = ds.T2[0].salem.get_map()
+
+# set coarser lat-lon spacings
 map_base.set_lonlat_contours(.6)
 
 # add map plots to axes
-# for x in ax_res.flat:
-#     x.clear()
 for x_ax, x_res in zip(ax_res.flat, data_plot):
     map_base.set_data(x_res)
     map_base.set_plot_params(**kargs_dl)
