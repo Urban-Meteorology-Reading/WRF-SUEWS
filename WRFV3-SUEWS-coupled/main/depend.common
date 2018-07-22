@@ -156,8 +156,8 @@ module_clear_halos.o: module_configure.o \
 
 # DEPENDENCIES for phys
 SUEWS_dir = ./SUEWS
-SUEWS_FILES_f95 = $(wildcard $(SUEWS_dir)/*.f95)
-SUEWS_FILES = $(filter-out $(SUEWS_dir)/SUEWS_Program.f95, $(SUEWS_FILES_f95))
+SUEWS_FILES_f95 = $(wildcard $(SUEWS_dir)/suews*.f95)
+SUEWS_FILES = $(filter-out $(SUEWS_dir)/suews_program.f95, $(SUEWS_FILES_f95))
 SUEWS_MODULES = $(patsubst %.f95,%.o,$(SUEWS_FILES))
 module_sf_suews.o: $(SUEWS_MODULES)
 
