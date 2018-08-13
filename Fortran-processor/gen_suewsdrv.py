@@ -49,11 +49,10 @@ def get_file_list(path_Makefile):
     # organise dependencies as dicts for groups
     mod_files = [mod.str.replace('\\', '').str.split('=').sum()
                  for mod in lines_mod]
-    dict_mod_files = {mod[0].strip(): pd.Series(mod[1:]).str.strip()
-                      for mod in mod_files}
+    list_mod_files = [pd.Series(mod[1:]).str.strip() for mod in mod_files]
 
     # combine all files into one list
-    list_files = pd.concat(dict_mod_files.values()).reset_index(
+    list_files = pd.concat(list_mod_files).reset_index(
         drop=True).str.replace('.o', '.f95', regex=False).tolist()
     return list_files
 
