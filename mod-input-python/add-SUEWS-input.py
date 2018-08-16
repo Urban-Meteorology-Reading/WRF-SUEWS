@@ -5,7 +5,7 @@ import glob
 
 
 # load base nc file for modification
-ds_base = xr.open_dataset('wrfinput_d01.base.30d.nc')
+ds_base = xr.open_dataset('wrfinput_d01.nc')
 
 
 # funcitons to add new variables with expanded dimensions
@@ -76,7 +76,7 @@ dict_rules_suews = {
     'zdm_in': [0, .1]}
 
 
-fl_wrfinput_base = glob.glob('wrfinput*base*')
+fl_wrfinput_base = glob.glob('wrfinput_d0?.nc')
 
 
 # modify all files in a loop:
@@ -105,6 +105,6 @@ for x_file in fl_wrfinput_base:
             del ds_merged[var].attrs['coordinates']
     # ds_merged['LAI_SUEWS']
     # export merged dataset to a new file
-    file_out = x_file.replace('.base.', '.new.')
+    file_out = x_file.replace('.nc', '.new.nc')
     ds_merged.to_netcdf(file_out,
                         mode='w', format='NETCDF3_64BIT')
