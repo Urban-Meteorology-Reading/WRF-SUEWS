@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 import salem
 from glob import glob
 import pandas as pd
@@ -8,17 +9,18 @@ import netCDF4 as nc
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import seaborn as sns
+from IQR_plot import plot_day_clm
 
 # load map settings from wps namelist
 fig_map, ax_map = plt.subplots(1, 1)
-fpath = './namelist.wps-london-3'
+fpath = '../wrf_input/London-3domains/namelist.wps-london-3'
 g, maps = salem.geogrid_simulator(fpath)
 maps[0].set_rgb(natural_earth='hr')
 maps[0].visualize(ax=ax_map, title='Domains')
 
 # export the figure
 fig_map.set_size_inches(6, 6)
-fig_map.savefig('map.pdf')
+fig_map.savefig('fig/map.png')
 
 
 # load WRF results
@@ -67,52 +69,6 @@ quar_sel_pos_clm = grp_sel_pos_clm.quantile(
     [.75, .5, .25]).unstack()[['HFX', 'LH']].set_index(idx)
 
 
-# IQR filling plot:
-def plot_day_clm(df_var):
-    """Short summary.
-
-    Parameters
-    ----------
-    df_var : pd.DataFrame
-        DataFrame containing variables to plot with datetime as index
-
-    Returns
-    -------
-    MPL.figure
-        figure showing median lines and IQR in shadings
-
-    """
-    # group by hour and minute
-    grp_sdf_var = df_var.groupby(
-        [df_var.index.hour.rename('hr'),
-         df_var.index.minute.rename('min')])
-    # get index
-    # idx_len = grp_sdf_var.ngroups
-    # idx_keys = sorted(grp_sdf_var.groups.keys())
-    # dt_start=grp_sdf_var.groups[idx_keys[0]]
-    idx = [pd.datetime(2014, 1, 1, h, m)
-           for h, m in sorted(grp_sdf_var.groups.keys())]
-    idx = pd.date_range(idx[0], idx[-1], freq='1h')
-    # calculate quartiles
-    quar_sel_pos_clm = grp_sdf_var.quantile(
-        [.75, .5, .25]).unstack().set_index(idx)
-    fig, ax = plt.subplots(1)
-
-    for var in quar_sel_pos_clm.columns.levels[0]:
-        df_x = quar_sel_pos_clm.loc[:, var]
-        y0 = df_x[0.5]
-        y1, y2 = df_x[0.75], df_x[0.25]
-        y0.plot(ax=ax, label=var).fill_between(
-            quar_sel_pos_clm.index, y1, y2, alpha=0.3)
-    # add legend
-    ax.legend(title='variable')
-    # adjust xticks formar
-    # ax.xaxis.set_major_locator(mdates.HourLocator())
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
-
-    return fig
-
-
 fig_x = plot_day_clm(df_sel_pos[['HFX', 'LH']])
 fig_x.tight_layout()
 fig_x.savefig('QH-QE-climatology.pdf')
@@ -128,14 +84,20 @@ def func_parse_date(year, doy, hour, min):
     return dt
 
 
-res_obs = pd.read_csv('London_KCL_obs_1h.txt', sep=' ',
+path_obs = os.path.join(
+    '/Users/sunt05/Dropbox/8-Research/98.ReadingWork/20180813WRF-SUEWS-London',
+    'London_KCL_obs_1h.txt')
+res_obs = pd.read_csv(path_obs, sep=' ',
                       parse_dates={'datetime': [0, 1, 2, 3]},
                       keep_date_col=True,
                       date_parser=func_parse_date)
 
 df_obs = res_obs.set_index('datetime')
 
-df_obs.loc[:, 'QE'].plot()
+df_obs.loc['2015 8', 'QE'].plot()
+
+# determin QH&QE-availavle periods
+df_obs[['QN','QH','QE']].loc['2015'].resample('1M').count().plot()
 
 
 df_QH_comp = pd.concat([df_obs, df_sel_pos[['HFX', 'LH']]], axis=1,
