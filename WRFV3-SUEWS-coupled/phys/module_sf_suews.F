@@ -424,8 +424,8 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT)            :: MeltWaterStore_id
     REAL(KIND(1d0)),INTENT(INOUT)                         :: SnowAlb_id
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)            :: WUDay_id
-    REAL(KIND(1d0)),INTENT(IN)                         :: z0m_in_id
-    REAL(KIND(1d0)),INTENT(IN)                         :: zdm_in_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: z0m_in_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: zdm_in_id
 
     ! 11. output
     REAL(KIND(1d0)), INTENT(out) ::qh !QH for output
@@ -736,9 +736,9 @@ CONTAINS
     NAMELIST /landuse/ suews_cat_ind, suews_cat_frac
 
     IF ( allowed_to_read ) THEN
-       CALL wrf_message( 'INITIALIZE SUEWS NAMELIST' )
 
        IF ( wrf_dm_on_monitor() ) THEN
+          CALL wrf_message( 'INITIALIZE SUEWS NAMELIST' )
           filename = 'namelist.suews'
           namelist_unit = 10
           OPEN(namelist_unit, file=filename, form="formatted", status='old', action='read', iostat=ierr)
