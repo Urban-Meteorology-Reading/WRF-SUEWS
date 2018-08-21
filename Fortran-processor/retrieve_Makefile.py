@@ -75,7 +75,7 @@ def get_file_list(path_Makefile):
     # combine all files into one list
     files_all = pd.concat(list_mod_files).reset_index(
         drop=True).str.replace('.o', '.f95', regex=False).tolist()
-    return list_files
+    return files_all
 
 
 get_file_list(path_Makefile)

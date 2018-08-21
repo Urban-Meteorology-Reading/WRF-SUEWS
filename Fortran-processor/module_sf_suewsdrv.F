@@ -28635,8 +28635,7 @@ SUBROUTINE AerodynamicResistance(&
        muu=1.46e-5 !molecular viscosity
   REAL(KIND(1d0))::&
        psym,&
-       psyh,z0V
-
+       psyh,z0V,cal_z0V
 
   !1)Monteith (1965)-neutral stability
   IF(AerodynamicResistanceMethod==1) THEN
@@ -28652,17 +28651,18 @@ SUBROUTINE AerodynamicResistance(&
      psyh=stab_fn_heat(StabilityMethod,ZZD/L_mod,zzd/L_mod)
 
      !Z0V roughness length for vapour
-     IF (RoughLenHeatMethod==1) THEN !Brutasert (1982) Z0v=z0/10(see Grimmond & Oke, 1986)
-        z0V=z0m/10
-     ELSEIF (RoughLenHeatMethod==2) THEN ! Kawai et al. (2007)
-       	!z0V=z0m*exp(2-(1.2-0.9*veg_fr**0.29)*(UStar*z0m/muu)**0.25)
-        ! Changed by HCW 05 Nov 2015 (veg_fr includes water; VegFraction = veg + bare soil)
-        z0V=z0m*EXP(2-(1.2-0.9*VegFraction**0.29)*(UStar*z0m/muu)**0.25)
-     ELSEIF (RoughLenHeatMethod==3) THEN
-        z0V=z0m*EXP(-20.) ! Voogt and Grimmond, JAM, 2000
-     ELSEIF (RoughLenHeatMethod==4) THEN
-        z0V=z0m*EXP(2-1.29*(UStar*z0m/muu)**0.25) !See !Kanda and Moriwaki (2007),Loridan et al. (2010)
-     ENDIF
+     z0V=cal_z0V(RoughLenHeatMethod,z0m,VegFraction,UStar)
+     ! IF (RoughLenHeatMethod==1) THEN !Brutasert (1982) Z0v=z0/10(see Grimmond & Oke, 1986)
+     !    z0V=z0m/10
+     ! ELSEIF (RoughLenHeatMethod==2) THEN ! Kawai et al. (2007)
+     !   	!z0V=z0m*exp(2-(1.2-0.9*veg_fr**0.29)*(UStar*z0m/muu)**0.25)
+     !    ! Changed by HCW 05 Nov 2015 (veg_fr includes water; VegFraction = veg + bare soil)
+     !    z0V=z0m*EXP(2-(1.2-0.9*VegFraction**0.29)*(UStar*z0m/muu)**0.25)
+     ! ELSEIF (RoughLenHeatMethod==3) THEN
+     !    z0V=z0m*EXP(-20.) ! Voogt and Grimmond, JAM, 2000
+     ! ELSEIF (RoughLenHeatMethod==4) THEN
+     !    z0V=z0m*EXP(2-1.29*(UStar*z0m/muu)**0.25) !See !Kanda and Moriwaki (2007),Loridan et al. (2010)
+     ! ENDIF
 
      IF(Zzd/L_mod==0.OR.UStar==0) THEN
         RA=(LOG(ZZD/z0m)*LOG(ZZD/z0V))/(k2*AVU1) !Use neutral equation
@@ -29138,7 +29138,7 @@ SUBROUTINE ErrorHint(errh,ProblemFile,VALUE,value2,valueI)
 
   USE data_in
   USE defaultNotUsed
-  USE WhereWhen
+  ! USE WhereWhen
 
   IMPLICIT NONE
 
@@ -29149,8 +29149,9 @@ SUBROUTINE ErrorHint(errh,ProblemFile,VALUE,value2,valueI)
   CHARACTER (len=20)::filename                  !file name for writting out error info
   INTEGER:: errh,ValueI,ValueI2                  ! v7,v8 initialised as false, HCW 28/10/2014
   INTEGER,DIMENSION(80):: ErrhCount = 0             ! Counts each time a error hint is called. Initialise to zero
-  INTEGER:: WhichFile                            ! Used to switch between 500 for error file, 501 for warnings file
-  CHARACTER(len=1024) :: message ! Used to pass through function wrf_message() by Zhenkun Li, 10/08/2018
+  ! INTEGER:: WhichFile                            ! Used to switch between 500 for error file, 501 for warnings file
+  CHARACTER(len=1024) :: message ! Used to pass through function wrf_debug() by Zhenkun Li, 10/08/2018
+  CHARACTER(len=1024) :: Errmessage
 
   ! TS 16 Jul 2018:
   ! these LOGICAL values should NOT be initialised as `SAVE` is implied
@@ -29159,7 +29160,7 @@ SUBROUTINE ErrorHint(errh,ProblemFile,VALUE,value2,valueI)
   LOGICAL:: returnTrue
 
   text1='unknown problem' ! Initialization of text
-  WhichFile = 0 ! Initialization of file code
+  ! WhichFile = 0 ! Initialization of file code
 
   ! Initialise returnTrue as false (HCW 29/10/2014)
   ! - need to do this in Fortran as values assigned in declarations are not applied
@@ -29425,152 +29426,61 @@ SUBROUTINE ErrorHint(errh,ProblemFile,VALUE,value2,valueI)
      ! returnTrue=.TRUE.
      v2=.TRUE.
   ENDIF
+
+  ErrhCount(errh) = ErrhCount(errh) + 1   ! Increase error count by 1
+  ! PRINT*, 'returnTrue',returnTrue
+
   !---------------------------------------------------------------------
+  !This part of the code determines how the error/warning message is written out
+  IF(v1) THEN ! 1 real
+     WRITE(Errmessage,'(a,f9.4)')' Value: ', VALUE
+  ELSEIF(v2) THEN ! 2 real
+     WRITE(Errmessage,'(a,2f9.4)')' Values: ', VALUE, value2
+  ELSEIF(v3) THEN ! 1 integer
+     WRITE(Errmessage,'(a,i10)')' Value: ', valueI
+  ELSEIF(v4) THEN ! 2 real, 1 integer
+     WRITE(Errmessage,'(a,2f9.4,i10)')' Values: ', VALUE, value2, valueI
+  ELSEIF(v5) THEN ! 1 real 1 integer
+     WRITE(Errmessage,'(a,f9.4,i10)')' Values: ', VALUE, valueI
+  ELSEIF(v6) THEN ! 2 integer
+     valueI2=INT(VALUE)
+     WRITE(Errmessage,'(a,2i10)')' Values: ', valueI, valueI2
+  ELSEIF(v7) THEN ! 1 real, 2 integer
+     valueI2=INT(value2)
+     WRITE(Errmessage,'(a,f9.4,2i10)')' Values: ', VALUE, valueI2, valueI
+  ELSEIF(v8) THEN
+     ! no error values
+  ENDIF
 
   ! Write errors (that stop the program) to problems.txt; warnings to warnings.txt
   IF(returnTrue) THEN
      IF(SuppressWarnings==0) THEN
         WRITE(message,*)'Warning: ',TRIM(ProblemFile)
-        CALL wrf_message(message)
+        CALL wrf_debug(100, message)
         WRITE(message,*) TRIM(text1)
-        CALL wrf_message(message)
-     ENDIF
-  ELSE
-     WRITE(message,*)'Problem: ',TRIM(ProblemFile)
-     CALL wrf_message(message)
-     WRITE(message,*)'ERROR! Program stopped: ',TRIM(text1)
-     CALL wrf_message(message)
-  ENDIF
-
-  !This part of the code determines how the error/warning message is written out
-  IF(v1) THEN ! 1 real
-     WRITE(message,'(a,f9.4)')' Value: ', VALUE
-     CALL wrf_message(message)
-  ELSEIF(v2) THEN ! 2 real
-     WRITE(message,'(a,2f9.4)')' Values: ', VALUE, value2
-     CALL wrf_message(message)
-  ELSEIF(v3) THEN ! 1 integer
-     WRITE(message,'(a,i10)')' Value: ', valueI
-     CALL wrf_message(message)
-  ELSEIF(v4) THEN ! 2 real, 1 integer
-     WRITE(message,'(a,2f9.4,i10)')' Values: ', VALUE, value2, valueI
-     CALL wrf_message(message)
-  ELSEIF(v5) THEN ! 1 real 1 integer
-     WRITE(message,'(a,f9.4,i10)')' Values: ', VALUE, valueI
-     CALL wrf_message(message)
-  ELSEIF(v6) THEN ! 2 integer
-     valueI2=INT(VALUE)
-     WRITE(message,'(a,2i10)')' Values: ', valueI, valueI2
-     CALL wrf_message(message)
-  ELSEIF(v7) THEN ! 1 real, 2 integer
-     valueI2=INT(value2)
-     WRITE(message,'(a,f9.4,2i10)')' Values: ', VALUE, valueI2, valueI
-     CALL wrf_message(message)
-  ELSEIF(v8) THEN
-     ! no error values
-  ENDIF
-
-
-  ErrhCount(errh) = ErrhCount(errh) + 1   ! Increase error count by 1
-  ! PRINT*, 'returnTrue',returnTrue
-
-  ! Write errors (that stop the program) to problems.txt; warnings to warnings.txt
-  IF(returnTrue) THEN
-     IF(SuppressWarnings==0) THEN
+        CALL wrf_debug(100, message)
+        CALL wrf_debug(100, Errmessage)
         WRITE(message,'(a,i14)') ' Count: ',ErrhCount(errh)
-        CALL wrf_message(message)
+        CALL wrf_debug(100, message)
      ENDIF
-  ELSE
-     WRITE(message,'(i3)') errh
-     CALL wrf_message(message)
-     WRITE(message,*) 'ERROR! SUEWS run stopped.'
-     CALL wrf_message(message)
-  ENDIF
 
-  ! changed the if-clause bahaviour for WRF coupling, TS 16 Jul 2018
-  !When returnTrue=false, then the program will stop
-  IF(.NOT. returnTrue) THEN
-     !write(*,*)'Problems.txt has been closed and overwritten if other errors occur'
-     CALL wrf_error_fatal ( 'fatal error in SUEWS and recorded in problem.txt' )
-  ENDIF
+   ELSE
 
+      WRITE(message,*)'Problem: ',TRIM(ProblemFile)
+      CALL wrf_debug(100, message)
+      WRITE(message,*)'ERROR! Program stopped: ',TRIM(text1)
+      CALL wrf_debug(100, message)
+      CALL wrf_debug(100, Errmessage)
+      WRITE(message,'(i3)') errh
+      CALL wrf_debug(100, message)
+      WRITE(message,*) 'ERROR! SUEWS run stopped.'
+      CALL wrf_debug(100, message)
+      CALL wrf_error_fatal ( 'fatal error in SUEWS' )
+   ENDIF
 
 END SUBROUTINE ErrorHint
 
 !=============================================================
-
-! --------------------------------------------------------------------
- SUBROUTINE gen_WarningsText(ProblemFile,text1)
-
-    USE defaultNotUsed
-    IMPLICIT NONE
-
-    CHARACTER (len=*):: ProblemFile
-    CHARACTER (len=150)::text1   ! Initialization of text
-
-    text1='unknown problem' ! Initialization of text
-
-    !Opening warnings.txt file: First option is selected if the file is opened for the first time
-    !Second option for later points
-    IF (warningChoice==0) THEN
-        OPEN(501,file='warnings.txt')
-        WRITE(*,*) '>>> See warnings.txt for possible issues in the run <<<'
-        warningChoice=1
-    ELSE
-        OPEN(501,file='warnings.txt',position="append")
-    ENDIF
-
-    !Writing of the warnings file
-    WRITE(501,*)'Warning: ',TRIM(ProblemFile)
-
-    ! write warning info
-    WRITE(501,*) TRIM(text1)
-
-    CLOSE(501)
- END SUBROUTINE gen_WarningsText
-
- ! --------------------------------------------------------------------
- SUBROUTINE gen_ProblemsText(ProblemFile,text1)
-
-    USE defaultNotUsed
-    IMPLICIT NONE
-
-    CHARACTER (len=*):: ProblemFile
-    CHARACTER (len=150)::text1   ! Initialization of text
-
-    text1='unknown problem' ! Initialization of text
-
-    !Opening problems.txt file: First option is selected if the file is opened for the first time
-    !Second option for later points
-    IF (errorChoice==0) THEN
-        OPEN(500,file='problems.txt')
-        WRITE(*,*) '>>> See problems.txt for serious issues in the run <<<'
-        errorChoice=1
-    ELSE
-        OPEN(500,file='problems.txt',position="append")
-    ENDIF
-
-    !Writing of the problem file
-    WRITE(500,*)'Problem: ',TRIM(ProblemFile)
-
-    WRITE(500,*) 'ERROR! Program stopped: ',TRIM(text1)
-
-    CLOSE(500)
-
- END SUBROUTINE gen_ProblemsText
- ! --------------------------------------------------------------------
-
- SUBROUTINE PauseStop(ProblemFile)
-
-   IMPLICIT NONE
-   CHARACTER (len=*):: ProblemFile
-
-   WRITE(*,*)'problem: ',TRIM(ProblemFile)
-   WRITE(*,*)'See problems.txt for more info.'
-
-   !pause
-   STOP
- END SUBROUTINE PauseStop
 
 SUBROUTINE Evap_SUEWS(&
      EvapMethod,state_is,WetThresh_is,capStore_is,&!input
