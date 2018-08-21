@@ -2,10 +2,11 @@
 import xarray as xr
 import numpy as np
 import glob
-
+import os
+os.chdir('mod-input-python')
 
 # load base nc file for modification
-ds_base = xr.open_dataset('wrfinput_d01.nc')
+ds_base = xr.open_dataset('wrfinput_d01')
 
 
 # funcitons to add new variables with expanded dimensions
@@ -76,11 +77,9 @@ dict_rules_suews = {
     'zdm_in': [0, .1]}
 
 
-fl_wrfinput_base = glob.glob('wrfinput_d0?.nc')
-
-
-# modify all files in a loop:
-for x_file in fl_wrfinput_base:
+# added SUEWS required input to a single wrfinput file
+def add_SUEWS_wrfinput_single(x_file):
+    print 'working on:', x_file
     # get base file
     ds_base = xr.open_dataset(x_file)
     # NB: variables in wrfinput have to be named in CAPITALISED strings
@@ -98,13 +97,31 @@ for x_file in fl_wrfinput_base:
     ds_merged.attrs['SF_SURFACE_PHYSICS'] = 9
 
     # delete 'coordinates' attribute as xarray is unhappy with it
-    print('Removing attr coordinates from:')
+    # print('Removing attr coordinates from:')
     for var in ds_merged.data_vars.keys():
         if 'coordinates' in ds_merged[var].attrs:
-            print(var)
+            # print(var)
             del ds_merged[var].attrs['coordinates']
     # ds_merged['LAI_SUEWS']
     # export merged dataset to a new file
-    file_out = x_file.replace('.nc', '.new.nc')
+    file_out = x_file+'.suews'
     ds_merged.to_netcdf(file_out,
                         mode='w', format='NETCDF3_64BIT')
+    print 'SUEWS input has beened added to:', file_out
+
+    return file_out
+
+
+# modify all files in a loop:
+def add_SUEWS_wrfinput(wrfinput_list):
+    fl_out_list = [
+        add_SUEWS_wrfinput_single(
+            x_file) for x_file in wrfinput_list]
+    return fl_out_list
+
+
+# get file list to modify
+fl_wrfinput_base = glob.glob('wrfinput_d0?')
+
+# modify them and save with .suews as suffix
+add_SUEWS_wrfinput(fl_wrfinput_base)
