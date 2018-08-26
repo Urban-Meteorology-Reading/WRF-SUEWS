@@ -20,6 +20,7 @@ state      real     surf_var_SUEWS    i{nsurf}j             misc    1           
 state      real     landusef_SUEWS    i{nsurf}j             misc    1           -           rh     "landusef_SUEWS"    "landusef_SUEWS"    ""
 state      real     alb_SUEWS         i{nsurf}j             misc    1           -           rh     "alb_SUEWS"         "alb_SUEWS"         ""
 state      real     emis_SUEWS        i{nsurf}j             misc    1           -           rh     "emis_SUEWS"        "emis_SUEWS"        ""
+state      real     AH_SUEWS          ij                    misc    1           -           rh     "AH_SUEWS"          "AH_SUEWS"          "W m-2"
 state      real     qn1_av_SUEWS      ij                    misc    1           -           rh     "qn1_av_SUEWS"      "qn1_av_SUEWS"      "W m-2"
 state      real     qn1_s_SUEWS       ij                    misc    1           -           rh     "qn1_s_SUEWS"       "qn1_s_SUEWS"       "W m-2"
 state      real     dqndt_SUEWS       ij                    misc    1           -           rh     "dqndt_SUEWS"       "dqndt_SUEWS"       "W m-2 hr-1"

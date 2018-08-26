@@ -22489,8 +22489,10 @@ CONTAINS
        ! get correct day index
        CALL unique(INT(PACK(dataOutSUEWS(1:irMax,2,Gridiv),&
             mask=(dataOutSUEWS(1:irMax,3,Gridiv)==23 &
-            .AND.dataOutSUEWS(1:irMax,4,Gridiv)==(nsh-1)/nsh*60))),&
+            .AND.dataOutSUEWS(1:irMax,4,Gridiv)==(nsh-1.)/nsh*60))),&
             id_seq)
+
+
        IF (ALLOCATED(dataOutX)) THEN
           DEALLOCATE(dataOutX)
           IF ( err/= 0) PRINT *, "dataOutX: Deallocation request denied"
@@ -22502,6 +22504,9 @@ CONTAINS
        ENDIF
 
        dataOutX=dataOutDailyState(id_seq,1:SIZE(varList),Gridiv)
+       ! print*, id_seq
+       ! print*, dataOutDailyState(id_seq,1:SIZE(varList),Gridiv)
+       ! print*, 1/(nsh-nsh)
     END SELECT
 
     ! aggregation:
@@ -23020,7 +23025,7 @@ CONTAINS
     CHARACTER(len = 15),INTENT(out) :: name,group,aggreg
 
     INTEGER :: nVar
-    n=SIZE(varList, dim=1)
+    nVar=SIZE(varList, dim=1)
     IF ( i<nVar .AND.i>0  ) THEN
        name   = TRIM(varList(i)%header)
        group  = TRIM(varList(i)%group)
@@ -29464,19 +29469,19 @@ SUBROUTINE ErrorHint(errh,ProblemFile,VALUE,value2,valueI)
         CALL wrf_debug(100, message)
      ENDIF
 
-   ELSE
+  ELSE
 
-      WRITE(message,*)'Problem: ',TRIM(ProblemFile)
-      CALL wrf_debug(100, message)
-      WRITE(message,*)'ERROR! Program stopped: ',TRIM(text1)
-      CALL wrf_debug(100, message)
-      CALL wrf_debug(100, Errmessage)
-      WRITE(message,'(i3)') errh
-      CALL wrf_debug(100, message)
-      WRITE(message,*) 'ERROR! SUEWS run stopped.'
-      CALL wrf_debug(100, message)
-      CALL wrf_error_fatal ( 'fatal error in SUEWS' )
-   ENDIF
+     WRITE(message,*)'Problem: ',TRIM(ProblemFile)
+     CALL wrf_debug(100, message)
+     WRITE(message,*)'ERROR! Program stopped: ',TRIM(text1)
+     CALL wrf_debug(100, message)
+     CALL wrf_debug(100, Errmessage)
+     WRITE(message,'(i3)') errh
+     CALL wrf_debug(100, message)
+     WRITE(message,*) 'ERROR! SUEWS run stopped.'
+     CALL wrf_debug(100, message)
+     CALL wrf_error_fatal ( 'fatal error in SUEWS' )
+  ENDIF
 
 END SUBROUTINE ErrorHint
 
@@ -33071,7 +33076,7 @@ CONTAINS
        surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
        GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore,&
        avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
-       qh,qe,qsfc,tsk,CHKLOWQ)!output
+       qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
 
     ! model configurations
     INTEGER,INTENT(in) ::snowUse
@@ -33160,6 +33165,8 @@ CONTAINS
     REAL(KIND(1D0)),INTENT(IN)::Precip
 
     ! output for WRF
+    REAL(KIND(1D0)),INTENT(out)::qf
+    REAL(KIND(1D0)),INTENT(out)::qs
     REAL(KIND(1D0)),INTENT(out)::qh
     REAL(KIND(1D0)),INTENT(out)::qe
     REAL(KIND(1D0)),INTENT(out)::qsfc
@@ -33448,10 +33455,12 @@ CONTAINS
 
 
     surf_var_id=StoreDrainPrm(6,:) ! update surf_var_id
+    qf=dataOutLineSUEWS(7)
+    qs=dataOutLineSUEWS(8)
     qh=dataOutLineSUEWS(9)
     qe=dataOutLineSUEWS(10)
     qsfc=dataOutLineSUEWS(16)
-    tsk=dataOutLineSUEWS(5)+273.15
+    tsk=dataOutLineSUEWS(77)+273.15
     CHKLOWQ=1
 
     ! PRINT*,''

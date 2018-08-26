@@ -34,7 +34,7 @@ CONTAINS
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
        PSFC, PREC, ht,                          &
-       HFX, QFX, LH, TSK, QSFC, chklowq,        &
+       AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
        LAI_SUEWS,                               &
        albDecTr_SUEWS,                          &
        albEveTr_SUEWS,                          &
@@ -153,7 +153,7 @@ CONTAINS
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN, PSFC, PREC, ht
 
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         HFX, QFX, LH, TSK, QSFC, chklowq
+         AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq
     REAL , INTENT(IN)    :: DT, dt_prev, DX
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  XLONG, XLAT
     INTEGER, INTENT(IN)    ::     ids,ide, jds,jde, kds,kde,  &
@@ -189,7 +189,7 @@ CONTAINS
     REAL,DIMENSION(7)                 :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) :: qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out
+    REAL(KIND(1d0)) :: qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(3)                     :: LAI_id      !LAI for each veg surface [m2 m-2]
@@ -291,7 +291,7 @@ CONTAINS
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-               qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
+               qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
                                 ! grid layout:
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
@@ -329,8 +329,10 @@ CONTAINS
           ! HFX(I,J)=min(max(qh_out,50.),50.)
           ! LH(I,J)=min(max(qe_out,50.),50.)
           ! QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
-          HFX(I,J)=qh_out
-          LH(I,J)=qe_out
+          AH_SUEWS(I,J) = qf_out
+          GRDFLX(I,J) = qs_out
+          HFX(I,J)    = qh_out
+          LH(I,J)     = qe_out
           ! PRINT *, 'HFX(I,J) = ', HFX(I,J)
           ! PRINT *, 'LH(I,J) = ', LH(I,J)
 
@@ -357,7 +359,7 @@ CONTAINS
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-       qh,qe,qsfc,tsk,CHKLOWQ,&
+       qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -428,6 +430,8 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(IN)                            :: zdm_in_id
 
     ! 11. output
+    REAL(KIND(1d0)), INTENT(out) ::qf !QF for output
+    REAL(KIND(1d0)), INTENT(out) ::qs !QS for output
     REAL(KIND(1d0)), INTENT(out) ::qh !QH for output
     REAL(KIND(1d0)), INTENT(out) ::qe ! QE for output
     REAL(KIND(1d0)), INTENT(out) ::qsfc ! QE for output
@@ -441,110 +445,8 @@ CONTAINS
          its,ite, jts,jte, kts,kte
 
 
-    ! let's assign the values:
-    ! parameters used in SUEWS for now:
-    ! REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: SoilStoreCap=[150., 150., 150., 150., 150., 150., 0.]        !Capacity of soil store for each surface [mm]
-    !
-    ! REAL(KIND(1d0)),PARAMETER:: AlbMin_DecTr=0.12   !Min albedo for deciduous trees [-]
-    ! REAL(KIND(1d0)),PARAMETER:: AlbMax_DecTr=0.18   !Max albedo for deciduous trees [-]
-    ! REAL(KIND(1d0)),PARAMETER:: AlbMin_EveTr=0.11   !Min albedo for evergreen trees [-]
-    ! REAL(KIND(1d0)),PARAMETER:: AlbMax_EveTr=0.12   !Max albedo for evergreen trees [-]
-    ! REAL(KIND(1d0)),PARAMETER:: AlbMin_Grass=0.18   !Min albedo for grass [-]
-    ! REAL(KIND(1d0)),PARAMETER:: AlbMax_Grass=0.21    !Max albedo for grass [-]
-    !
-    ! REAL(KIND(1d0)),PARAMETER:: CapMin_dec=0.3   !Min storage capacity for deciduous trees [mm] (from input information)
-    ! REAL(KIND(1d0)),PARAMETER:: CapMax_dec=0.8   !Max storage capacity for deciduous trees [mm] (from input information)
-    ! REAL(KIND(1d0)),PARAMETER:: PorMin_dec=0.2   !Min porosity for deciduous trees
-    ! REAL(KIND(1d0)),PARAMETER:: PorMax_dec=0.6   !Max porosity for deciduous trees
-    !
-    ! REAL(KIND(1d0)),PARAMETER:: FAIbldg=0.                   !Frontal area fraction of buildings
-    ! REAL(KIND(1d0)),PARAMETER:: FAIEveTree=0.                !Frontal area fraction of evergreen trees
-    ! REAL(KIND(1d0)),PARAMETER:: FAIDecTree=0.                !Frontal area fraction of deciduous trees
-    !
-    ! REAL (KIND(1d0)),PARAMETER :: bldgH =10   !Mean building height
-    ! REAL (KIND(1d0)),PARAMETER :: EveTreeH =10!Height of evergreen trees
-    ! REAL (KIND(1d0)),PARAMETER :: DecTreeH =10!Height of deciduous trees
-    !
-    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseT          = [5,5,5]          !Base temperature for growing degree days [degC]
-    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: BaseTe         = [11,11,11]       !Base temperature for senescence degree days [degC]
-    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: GDDFull        = [300,300,300]    !Growing degree days needed for full capacity [degC]
-    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: SDDFull        = [-450,-450,-450] !Senescence degree days needed to initiate leaf off [degC]
-    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMin         = [4.,1.,1.6]      !Min LAI [m2 m-2]
-    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: LaiMax         = [5.1,5.5,5.9]    !Max LAI [m2 m-2]
-    ! REAL(KIND(1d0)),DIMENSION(nvegsurf),PARAMETER:: MaxConductance = [7.4,11.7,30.1]  !Max conductance [mm s-1]
-    !
-    ! REAL(KIND(1d0)),DIMENSION(4,nvegsurf),PARAMETER:: LaiPower=RESHAPE(&       !Coeffs for LAI equation: 1,2 - leaf growth; 3,4 - leaf off
-    !      [[0.03,0.03,0.03],&
-    !      [0.0005,0.0005,0.0005],&
-    !      [0.03,0.03,0.03],&
-    !      [0.0005,0.0005,0.0005]],&
-    !      [4,nvegsurf])
-    !
-    ! INTEGER,DIMENSION(nvegsurf),PARAMETER:: LAIType=1     !LAI equation to use: original (0) or new (1)
     INTEGER,PARAMETER::startDLS=85   !DOY when daylight saving starts
     INTEGER,PARAMETER::endDLS=302   !DOY when daylight saving ends
-
-    ! REAL (KIND(1D0)),PARAMETER ::DRAINRT       = 0.25 !Drainage rate of the water bucket [mm hr-1]
-    ! REAL (KIND(1D0)),PARAMETER ::RAINCOVER     = 1
-    ! REAL (KIND(1D0)),PARAMETER ::RAINMAXRES    = 10   !Maximum water bucket reservoir [mm]
-    ! REAL (KIND(1d0)),PARAMETER ::FlowChange    = 0    !Difference between the input and output flow in the water body
-    ! REAL (KIND(1d0)),PARAMETER ::PipeCapacity  = 100  !Capacity of pipes to transfer water
-    ! REAL (KIND(1d0)),PARAMETER ::RunoffToWater = 0.1  !Fraction of surface runoff going to water body
-    !
-    ! REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: StateLimit=[0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.]     !Limit for state of each surface type [mm] (specified in input files)
-
-    ! REAL(KIND(1d0)),DIMENSION(nsurf+1,nsurf-1),PARAMETER::WaterDist=& !Within-grid water distribution to other surfaces and runoff/soil store [-]
-    !      RESHAPE(&
-    !      [[0.,0.1,0.1,0.1,0.,0.],&
-    !      [0.,0.,0.,0.,0.,0.],&
-    !      [0.,0.,0.,0.,0.,0.],&
-    !      [0.,0.,0.,0.,0.,0.],&
-    !      [0.02,0.,0.,0.,0.,0.],&
-    !      [0.,0.,0.,0.,0.,0.],&
-    !      [0.,0.,0.,0.,0.,0.],&
-    !      [0.98,0.9,0.9,0.9,1.,1.]],&
-    !      [nsurf+1,nsurf-1])
-    ! REAL(KIND(1d0)),DIMENSION(nsurf),PARAMETER:: WetThresh = [0.48, 0.25, 1.3, 0.8, 1.9, 1., 0.5]     !When State > WetThresh, rs=0 limit in SUEWS_evap [mm] (specified in input files)
-
-    ! ---- Drainage characteristics ----------------------------------------------------------------
-    ! 1 - min storage capacity [mm]
-    ! 2 - Drainage equation to use
-    ! 3 - Drainage coeff 1 [units depend on choice of eqn]
-    ! 4 - Drainage coeff 2 [units depend on choice of eqn]
-    ! 5 - max storage capacity [mm]
-    ! REAL(KIND(1d0)),DIMENSION(5,7),PARAMETER:: surf_attr=RESHAPE(&   ! variable to store the above five properties
-    !      [[ 0.48 ,  0.25 ,  1.3  ,  0.3  ,  1.9  ,  0.8  ,  0.5  ],&
-    !      [ 3.   ,  3.   ,  2.   ,  2.   ,  2.   ,  3.   ,  0.   ],&
-    !      [10.   , 10.   ,  0.013,  0.013,  0.013, 10.   ,  0.   ],&
-    !      [ 3.   ,  3.   ,  1.71 ,  1.71 ,  1.71 ,  3.   ,  0.   ],&
-    !      [ 0.48 ,  0.25 ,  1.3  ,  0.8  ,  1.9  ,  0.8  ,  0.5  ]],&
-    !      [5,7],order=[2,1])
-    !
-    !
-    ! ! these will be assigned locally as data
-    ! ! use gsodel=2 as in Ward et al. (2016)
-    ! REAL (KIND(1d0)),PARAMETER::th   = 40   !Maximum temperature limit
-    ! REAL (KIND(1d0)),PARAMETER::tl   = -10  !Minimum temperature limit
-    ! REAL (KIND(1d0)),PARAMETER::Kmax = 1200 !Annual maximum hourly solar radiation
-    ! REAL (KIND(1d0)),PARAMETER::g1   = 3.5  !Fitted parameters related to
-    ! REAL (KIND(1d0)),PARAMETER::g2   = 200
-    ! REAL (KIND(1d0)),PARAMETER::g3   = 0.1
-    ! REAL (KIND(1d0)),PARAMETER::g4   = 0.7
-    ! REAL (KIND(1d0)),PARAMETER::g5   = 30
-    ! REAL (KIND(1d0)),PARAMETER::g6   = 0.05 !Fitted parameters related to
-    ! REAL (KIND(1d0)),PARAMETER::s1   = 5.56
-    ! REAL (KIND(1d0)),PARAMETER::s2   = 0    !surface res. calculations
-    !
-    !
-    ! ! REAL(KIND(1d0)),DIMENSION(nsurf+1,4,3):: OHM_coef   !Array for OHM coefficients
-    !
-    !
-    ! REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshSW = [10,10,10,10,10,10,10,10]         !Arrays for OHM thresholds
-    ! REAL(KIND(1d0)),DIMENSION(nsurf+1):: OHM_threshWD = [0.9,0.9,0.9,0.9,0.9,0.9,0.9,0.9] !Arrays for OHM thresholds
-    !
-    ! REAL (KIND(1d0)),PARAMETER::  BaseTHDD=18.9  !Base temperature for QF
-
-    ! INTEGER,PARAMETER::OHMIncQF=0             !OHM calculation uses Q* only (0) or Q*+QF (1)
 
     ! variables:
     ! 1. static properties of land covers:
@@ -591,12 +493,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: TraffProf_24hr_d
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfA_24hr_d
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfM_24hr_d
-    ! OHM_coef=RESHAPE(SPREAD(SPREAD(OHMcoef, 2, 4), dim=2, ncopies=8),&
-    !      shape=(/8,4,3/), order=(/3,2,1/))
 
-    ! processing variables for SuMin
-    ! surf(1:5,:)=surf_attr
-    ! surf(6,:)=surf_var_id(:)
 
 
     ! get coordinates:
@@ -659,10 +556,8 @@ CONTAINS
          surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
-         qh,qe,qsfc,tsk,CHKLOWQ)!output
+         qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
 
-    ! CHKLOWQ_out = 0.02
-    ! tsk_out=tsk_out+273.15
 
   END SUBROUTINE SUEWS1D
 
