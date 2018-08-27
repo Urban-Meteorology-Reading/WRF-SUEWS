@@ -503,6 +503,9 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfM_24hr_d
 
 
+    CHARACTER*256 :: message
+
+
 
     ! get coordinates:
     lat=XLAT
@@ -565,6 +568,9 @@ CONTAINS
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
          qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
+
+    WRITE( message,* ) 'after SuMin,  qs_SUEWS= ', qs
+    CALL wrf_debug(100,message)
 
 
   END SUBROUTINE SUEWS1D
