@@ -29480,7 +29480,8 @@ SUBROUTINE ErrorHint(errh,ProblemFile,VALUE,value2,valueI)
      CALL wrf_debug(100, message)
      WRITE(message,*) 'ERROR! SUEWS run stopped.'
      CALL wrf_debug(100, message)
-     CALL wrf_error_fatal ( 'fatal error in SUEWS' )
+     WRITE(message,*) 'fatal error in SUEWS:',TRIM(text1)
+     CALL wrf_error_fatal ( message )
   ENDIF
 
 END SUBROUTINE ErrorHint

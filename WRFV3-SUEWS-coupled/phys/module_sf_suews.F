@@ -220,6 +220,8 @@ CONTAINS
 
     INTEGER ::  I, J
 
+    CHARACTER*256 :: message
+
     dt_since_start = INT(xtime * 60)
     ! PRINT *, 'year = ', year, 'day = ', day, 'hour = ', hour, 'minute = ', minute
     ! PRINT *, 'minutesSinceStart = ', xtime, 'secondsSinceStart = ', dt_since_start
@@ -324,8 +326,14 @@ CONTAINS
           ! print *, 'tsk = ', tsk_out
           tsk(i,j) = tsk_out
           ! update fluxes
-          ! PRINT *, 'qh_out = ', qh_out
-          ! PRINT *, 'qe_out = ', qe_out
+          WRITE( message,* ) 'qf_out = ', qf_out
+          CALL wrf_debug(100,message)
+          WRITE( message,* ) 'qs_out = ', qs_out
+          CALL wrf_debug(100,message)
+          WRITE( message,* ) 'qh_out = ', qh_out
+          CALL wrf_debug(100,message)
+          WRITE( message,* ) 'qe_out = ', qe_out
+          CALL wrf_debug(100,message)
           ! HFX(I,J)=min(max(qh_out,50.),50.)
           ! LH(I,J)=min(max(qe_out,50.),50.)
           ! QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
