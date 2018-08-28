@@ -591,7 +591,8 @@ BENCH_START(surf_driver_tim)
      &        ,surf_var_SUEWS=grid%surf_var_SUEWS                                   &
      &        ,landusef_SUEWS=grid%landusef_SUEWS                                   &
      &        ,alb_SUEWS=grid%alb_SUEWS                                             &
-     &        ,AH_SUEWS=grid%AH_SUEWS                                             &
+     &        ,QN_SUEWS=grid%QN_SUEWS                                               &
+     &        ,AH_SUEWS=grid%AH_SUEWS                                               &
      &        ,emis_SUEWS=grid%emis_SUEWS                                           &
      &        ,qn1_av_SUEWS=grid%qn1_av_SUEWS                                       &
      &        ,qn1_s_SUEWS=grid%qn1_s_SUEWS                                         &

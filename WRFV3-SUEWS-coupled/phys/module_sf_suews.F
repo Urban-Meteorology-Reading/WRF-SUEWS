@@ -34,7 +34,7 @@ CONTAINS
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
        PSFC, PREC, ht,                          &
-       AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
+       QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
        LAI_SUEWS,                               &
        albDecTr_SUEWS,                          &
        albEveTr_SUEWS,                          &
@@ -153,7 +153,7 @@ CONTAINS
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN, PSFC, PREC, ht
 
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq
+         QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq
     REAL , INTENT(IN)    :: DT, dt_prev, DX
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  XLONG, XLAT
     INTEGER, INTENT(IN)    ::     ids,ide, jds,jde, kds,kde,  &
@@ -189,7 +189,7 @@ CONTAINS
     REAL,DIMENSION(7)                 :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) :: qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out
+    REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(3)                     :: LAI_id      !LAI for each veg surface [m2 m-2]
@@ -293,7 +293,7 @@ CONTAINS
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-               qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
+               qn_out,qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
                                 ! grid layout:
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
@@ -326,6 +326,8 @@ CONTAINS
           ! print *, 'tsk = ', tsk_out
           tsk(i,j) = tsk_out
           ! update fluxes
+          WRITE( message,* ) 'qn_out = ', qn_out
+          CALL wrf_debug(100,message)
           WRITE( message,* ) 'qf_out = ', qf_out
           CALL wrf_debug(100,message)
           WRITE( message,* ) 'qs_out = ', qs_out
@@ -337,6 +339,7 @@ CONTAINS
           ! HFX(I,J)=min(max(qh_out,50.),50.)
           ! LH(I,J)=min(max(qe_out,50.),50.)
           ! QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
+          QN_SUEWS(I,J) = qn_out
           AH_SUEWS(I,J) = qf_out
           GRDFLX(I,J) = qs_out
           HFX(I,J)    = qh_out
@@ -367,7 +370,7 @@ CONTAINS
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-       qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,&
+       qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -438,6 +441,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(IN)                            :: zdm_in_id
 
     ! 11. output
+    REAL(KIND(1d0)), INTENT(out) ::qn !QN for output
     REAL(KIND(1d0)), INTENT(out) ::qf !QF for output
     REAL(KIND(1d0)), INTENT(out) ::qs !QS for output
     REAL(KIND(1d0)), INTENT(out) ::qh !QH for output
@@ -567,8 +571,11 @@ CONTAINS
          surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
-         qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
+         qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
 
+
+    WRITE( message,* ) 'after SuMin,  qn_SUEWS= ', qn
+    CALL wrf_debug(100,message)
     WRITE( message,* ) 'after SuMin,  qf_SUEWS= ', qf
     CALL wrf_debug(100,message)
     WRITE( message,* ) 'after SuMin,  qs_SUEWS= ', qs
@@ -693,8 +700,8 @@ CONTAINS
 !NOTE: All the real type namelist variables are double precision, but only single precision
 !      real variables have WORDSIZE in WRF, so if the following lines needed, we shoulde redefine
 !      them in single precision and modify the interface in SUEWS1D.
-       CALL wrf_dm_bcast_bytes (OHM_coef, 8 * 4 * 3  * RWORDSIZE)
-       CALL wrf_dm_bcast_bytes (WaterDist, 8 * 6 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (OHM_coef_s, 8 * 4 * 3  * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (WaterDist_s, 8 * 6 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (AHProf_24hr, 24 * 2 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (HumActivity_24hr, 24 * 2 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (PopProf_24hr, 24 * 2 * RWORDSIZE)

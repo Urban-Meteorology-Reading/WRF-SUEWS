@@ -175,7 +175,8 @@ CONTAINS
      &          ,landusef_SUEWS                                       &
      &          ,alb_SUEWS                                            &
      &          ,emis_SUEWS                                           &
-     &          ,AH_SUEWS                                         &
+     &          ,QN_SUEWS                                             &
+     &          ,AH_SUEWS                                             &
      &          ,qn1_av_SUEWS                                         &
      &          ,qn1_s_SUEWS                                          &
      &          ,dqndt_SUEWS                                          &
@@ -991,6 +992,7 @@ CONTAINS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: QN_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: ah_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
    REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
@@ -2529,7 +2531,7 @@ call wrf_debug(100, message)
           CALL suewsdrv(year, day_int, hour, minute, second, xtime, &
              t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
              psfc, rainbl, ht,                                     &
-             AH_SUEWS, grdflx, hfx, qfx, lh, tsk, qsfc, chklowq,                     &
+             QN_SUEWS,AH_SUEWS, grdflx, hfx, qfx, lh, tsk, qsfc, chklowq,                     &
              LAI_SUEWS,                                            &
              albDecTr_SUEWS,                                       &
              albEveTr_SUEWS,                                       &
