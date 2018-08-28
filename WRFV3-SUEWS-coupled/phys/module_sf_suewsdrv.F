@@ -33203,7 +33203,7 @@ CONTAINS
     INTEGER::Gridiv
     INTEGER::Ie_end
     INTEGER::Ie_start
-    CHARACTER*1024 :: message
+    CHARACTER(len=1024) :: message ! Used to pass through function wrf_debug() by Zhenkun Li, 10/08/2018
 
     ! parameters used in SUEWS for now:
     REAL(KIND(1d0)),DIMENSION(7),PARAMETER ::SoilStoreCap        = [150., 150., 150., 150., 150., 150., 0.] !Capacity of soil store for each surface [mm]
@@ -33405,7 +33405,7 @@ CONTAINS
     ! soilmoist_id=MERGE(soilmoist_id,soilmoist_id*0,soilmoist_id>0)
     ! print*, 'soilmoist_id modified',soilmoist_id
     ! PRINT*, 'state_id',state_id
-    WRITE( message,* ) 'in SuMin, before calculation, OHM_coef:',OHM_coef
+    WRITE( message,* ) 'in SuMin, before calculation, OHM_coef:',OHM_coef(1,:,:)
     CALL wrf_debug(100, message)
 
 
@@ -33477,7 +33477,7 @@ CONTAINS
     !    zdm_in=0.
     !    PRINT*, 10./zdm_in
     ! END IF
-    WRITE( message,* ) ' in SuMin, after calculation, OHM_coef:',OHM_coef
+    WRITE( message,* ) ' in SuMin, after calculation, OHM_coef:',OHM_coef(1,:,:)
     CALL wrf_debug(100, message)
 
 
