@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #####################################################################
 # generator of module_sf_suewsdrv.F by combining source files
 # authors:

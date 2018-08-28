@@ -569,7 +569,13 @@ CONTAINS
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
          qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
 
+    WRITE( message,* ) 'after SuMin,  qf_SUEWS= ', qf
+    CALL wrf_debug(100,message)
     WRITE( message,* ) 'after SuMin,  qs_SUEWS= ', qs
+    CALL wrf_debug(100,message)
+    WRITE( message,* ) 'after SuMin,  qh_SUEWS= ', qh
+    CALL wrf_debug(100,message)
+    WRITE( message,* ) 'after SuMin,  qe_SUEWS= ', qe
     CALL wrf_debug(100,message)
 
 
