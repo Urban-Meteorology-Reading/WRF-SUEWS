@@ -1,4 +1,4 @@
 [submodule "SUEWS"]
 	path = SUEWS
-	url = git@bitbucket.org:grimmond/suews.git
-	branch = v2018b
+	url = git@github.com:Urban-Meteorology-Reading/SUEWS.git
+	branch = test-dev
