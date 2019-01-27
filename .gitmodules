@@ -2,3 +2,8 @@
 	path = SUEWS
 	url = git@github.com:Urban-Meteorology-Reading/SUEWS.git
 	branch = test-dev
+
+[submodule "WRF"]
+	path = WRF
+	url = git@github.com:wrf-model/WRF.git
+	branch = master
