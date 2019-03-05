@@ -6,3 +6,6 @@
 	path = SUEWS
 	url = git@github.com:Urban-Meteorology-Reading/SUEWS.git
 	branch = test-dev
+[submodule "wiki"]
+	path = wiki
+	url = git@github.com:Urban-Meteorology-Reading/WRF-SUEWS.wiki.git
