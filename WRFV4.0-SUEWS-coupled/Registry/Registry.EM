@@ -2,6 +2,7 @@
 
 #INCLUDES
 include registry.dimspec
+include registry.suews
 include registry.em_shared_collection
 
 # added to output 5 for ESMF
