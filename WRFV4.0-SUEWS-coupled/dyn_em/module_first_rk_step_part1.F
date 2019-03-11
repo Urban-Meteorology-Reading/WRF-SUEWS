@@ -593,6 +593,36 @@ BENCH_START(surf_driver_tim)
      &         SWUPsubgrid=grid%SWUPsubgrid,LHsoi=grid%LHsoi,                       &
      &         LHveg=grid%LHveg, LHtran=grid%LHtran                                 &
 ! end of CLM variables
+
+! variables for SUEWS: START
+     &        ,year=yr, day_int=day, hour=hr, minute=minute, second=sec             & ! add for SUEWS by Hamid Omidvar, 11/3/2019
+     &        ,LAI_SUEWS=grid%LAI_SUEWS                                             & ! add for SUEWS by Hamid Omidvar, 11/3/2019
+     &        ,albDecTr_SUEWS=grid%albDecTr_SUEWS                                   &
+     &        ,albEveTr_SUEWS=grid%albEveTr_SUEWS                                   &
+     &        ,albGrass_SUEWS=grid%albGrass_SUEWS                                   &
+     &        ,DecidCap_SUEWS=grid%DecidCap_SUEWS                                   &
+     &        ,porosity_SUEWS=grid%porosity_SUEWS                                   &
+     &        ,GDD_SUEWS=grid%GDD_SUEWS                                             &
+     &        ,HDD_SUEWS=grid%HDD_SUEWS                                             &
+     &        ,state_SUEWS=grid%state_SUEWS                                         &
+     &        ,soilmoist_SUEWS=grid%soilmoist_SUEWS                                 &
+     &        ,surf_var_SUEWS=grid%surf_var_SUEWS                                   &
+     &        ,landusef_SUEWS=grid%landusef_SUEWS                                   &
+     &        ,alb_SUEWS=grid%alb_SUEWS                                             &
+     &        ,QN_SUEWS=grid%QN_SUEWS                                               &
+     &        ,AH_SUEWS=grid%AH_SUEWS                                               &
+     &        ,emis_SUEWS=grid%emis_SUEWS                                           &
+     &        ,qn1_av_SUEWS=grid%qn1_av_SUEWS                                       &
+     &        ,qn1_s_SUEWS=grid%qn1_s_SUEWS                                         &
+     &        ,dqndt_SUEWS=grid%dqndt_SUEWS                                         &
+     &        ,dqnsdt_SUEWS=grid%dqnsdt_SUEWS                                       &
+     &        ,MeltWaterStore=grid%MeltWaterStore                                   &
+     &        ,SnowAlb=grid%SnowAlb                                                 &
+     &        ,WUDay=grid%WUDay                                                     &
+     &        ,z0m_in=grid%z0m_in                                                   &
+     &        ,zdm_in=grid%zdm_in                                                   &
+! variables for SUEWS: End
+
      &        ,SLOPE_RAD=config_flags%slope_rad,TOPO_SHADING=config_flags%topo_shading & ! solar
      &        ,SHADOWMASK=grid%shadowmask,DIFFUSE_FRAC=grid%diffuse_frac               & ! solar
      &        ,SLOPE=grid%slope, SLP_AZI=grid%slp_azi, SWNORM=grid%swnorm              & ! solar
