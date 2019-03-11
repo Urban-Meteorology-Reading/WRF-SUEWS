@@ -1160,6 +1160,13 @@ endif
                       ,grid%rv_up,grid%rc_up,grid%u_up,grid%v_up,grid%frac_up            &
                       ,grid%ccn_conc                                          & ! RAS
                       ,grid%QKE                                               &!JOE-for mynn
+                      ,grid%landusef_SUEWS                                    &
+                      ,grid%alb_SUEWS                                         &
+                      ,grid%emis_SUEWS                                        &
+                      ,grid%qn1_av_SUEWS                                      & ! added for SUEWS by Hamid Omidvar, 11/3/2019
+                      ,grid%qn1_s_SUEWS                                       & ! added for SUEWS by Hamid Omidvar, 11/3/2019
+                      ,grid%dqndt_SUEWS                                       &
+                      ,grid%dqnsdt_SUEWS                                                                      &!JOE-for mynn
                       ,grid%landusef,grid%landusef2,grid%mosaic_cat_index                            & ! danli mosaic
                       ,grid%TSK_mosaic,grid%TSLB_mosaic,grid%SMOIS_mosaic,grid%SH2O_mosaic           & ! danli mosaic
                       ,grid%CANWAT_mosaic,grid%SNOW_mosaic,grid%SNOWH_mosaic,grid%SNOWC_mosaic       & ! danli mosaic
