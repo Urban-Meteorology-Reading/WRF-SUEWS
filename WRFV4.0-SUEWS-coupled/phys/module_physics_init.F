@@ -1219,7 +1219,7 @@ integer myproc
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
                 dqndt_SUEWS,                                    &
-                dqnsdt_SUEWS, 
+                dqnsdt_SUEWS,                                   &
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2177,7 +2177,7 @@ integer myproc
                 emis_SUEWS,                                     &
                 qn1_av_SUEWS,                                   &
                 qn1_s_SUEWS,                                    &
-                dqndt_SUEWS,dqnsdt_SUEWS,
+                dqndt_SUEWS,dqnsdt_SUEWS,                       &
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 XLAT,                                           &
