@@ -162,6 +162,32 @@ CONTAINS
      &           ,dwt_livecrootn_to_cwdn,dwt_deadcrootn_to_cwdn,retransn &
 #endif
             !  Optional urban
+     &          ,year, day_int, hour, minute, second                  & ! add for SUEWS by Hamid Omidvar, 11/3/2019
+     &          ,LAI_SUEWS                                            &
+     &          ,albDecTr_SUEWS                                       &
+     &          ,albEveTr_SUEWS                                       &
+     &          ,albGrass_SUEWS                                       &
+     &          ,DecidCap_SUEWS                                       &
+     &          ,porosity_SUEWS                                       &
+     &          ,GDD_SUEWS                                            &
+     &          ,HDD_SUEWS                                            &
+     &          ,state_SUEWS                                          &
+     &          ,soilmoist_SUEWS                                      &
+     &          ,surf_var_SUEWS                                       &
+     &          ,landusef_SUEWS                                       &
+     &          ,alb_SUEWS                                            &
+     &          ,emis_SUEWS                                           &
+     &          ,QN_SUEWS                                             &
+     &          ,AH_SUEWS                                             &
+     &          ,qn1_av_SUEWS                                         &
+     &          ,qn1_s_SUEWS                                          &
+     &          ,dqndt_SUEWS                                          &
+     &          ,dqnsdt_SUEWS                                         &
+     &          ,MeltWaterStore                                       &
+     &          ,SnowAlb                                              &
+     &          ,WUDay                                                &
+     &          ,z0m_in                                               &
+     &          ,zdm_in                                               &
      &          ,slope_rad,topo_shading,shadowmask                    & !I solar
      &          ,swnorm,slope,slp_azi,diffuse_frac                    & !I solar
      &          ,declin,solcon,coszen,hrang,xlat_urb2d                & !I solar/urban
@@ -292,6 +318,7 @@ CONTAINS
                                        ,TEMFSFCSCHEME             &
                                        ,IDEALSCMSFCSCHEME         &
                                        ,SLABSCHEME                &
+                                       ,SUEWSSCHEME               & ! added for SUEWS by Hamid Omidvar, 11/3/2019
                                        ,LSMSCHEME                 &
                                        ,RUCLSMSCHEME              &
                                        ,PXLSMSCHEME               &
@@ -356,6 +383,7 @@ CONTAINS
 #endif
 
    USE module_sf_slab
+   USE module_sf_suews ! add for SUEWS by Hamid Omidvar, 11/3/2019
 !
    USE module_sf_sfcdiags
    USE module_sf_sfcdiags_ruclsm
@@ -954,6 +982,34 @@ CONTAINS
    INTEGER, OPTIONAL, INTENT(IN)                                :: bl_mynn_cloudpdf, &
                                                                    icloud_bl
 #endif
+
+   INTEGER, OPTIONAL, INTENT(IN )::   year, day_int, hour, minute, second ! add for SUEWS by Hamid Omidvar, 11/3/2019
+   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)                 :: LAI_SUEWS      !LAI for each veg surface [m2 m-2]
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albDecTr_SUEWS !Albedo of deciduous trees [-]
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albEveTr_SUEWS !Albedo of evergreen trees [-]
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: albGrass_SUEWS !Albedo of grass[-]
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: porosity_SUEWS !Porosity of deciduous trees [-]
+   REAL,OPTIONAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)                 :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+   REAL,OPTIONAL,DIMENSION(ims:ime,12,jms:jme),INTENT(INOUT)                :: HDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: state_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: soilmoist_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: surf_var_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: QN_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: ah_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: MeltWaterStore
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: SnowAlb
+   REAL,OPTIONAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)                 :: WUDay
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: z0m_in
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: zdm_in
+
 
 
    INTEGER, OPTIONAL, INTENT(IN )::   slope_rad, topo_shading
@@ -2444,6 +2500,85 @@ CONTAINS
              ids,ide, jds,jde, kds,kde,                           &
              ims,ime, jms,jme, kms,kme,                           &
              i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
+
+           DO j=j_start(ij),j_end(ij)
+           DO i=i_start(ij),i_end(ij)
+              SFCEVP(I,J)= SFCEVP(I,J) + QFX(I,J)*DTBL
+              IF(PRESENT(ACHFX))ACHFX(I,J)=ACHFX(I,J) + HFX(I,J)*DT
+              IF(PRESENT(ACLHF))ACLHF(I,J)=ACLHF(I,J) + LH(I,J)*DT
+           ENDDO
+           ENDDO
+
+        CALL wrf_debug(100,'in SFCDIAGS')
+          CALL SFCDIAGS(hfx,qfx,tsk,qsfc,chs2,cqs2,t2,th2,q2,      &
+                     psfc,cp,r_d,rcp,CHS,t_phy,qv_curr,ua_phys,    &
+                     ids,ide, jds,jde, kds,kde,                    &
+                     ims,ime, jms,jme, kms,kme,                    &
+             i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte    )
+
+       ENDIF
+
+     CASE (SUEWSSCHEME) ! add for SUEWS by Hamid Omidvar, 11/3/2019
+
+       IF (PRESENT(qv_curr)                            .AND.    &
+           PRESENT(capg)        .AND.    &
+                                                      .TRUE. ) THEN
+           DO j=j_start(ij),j_end(ij)
+           DO i=i_start(ij),i_end(ij)
+     !          CQS2 ACCOUNTS FOR MAVAIL FOR SFCDIAGS 2M Q
+              CQS2(I,J)= CQS2(I,J)*MAVAIL(I,J)
+           ENDDO
+           ENDDO
+
+           IF ( FRACTIONAL_SEAICE == 1 ) THEN
+              CALL wrf_error_fatal('SUEWS scheme cannot be used with fractional seaice')
+           ENDIF
+
+WRITE( message,* ) ' calling suewsdrv',sf_surface_physics
+call wrf_debug(100, message)
+
+
+          !CALL SLAB(t_phy,qv_curr,p_phy,flhc,flqc,  &
+          !   psfc,xland,tmn,hfx,qfx,lh,tsk,qsfc,chklowq,          &
+          !   gsw,glw,capg,thc,snowc,emiss,mavail,                 &
+          !   dtbl,rcp,xlv,dtmin,ifsnow,                           &
+          !   svp1,svp2,svp3,svpt0,ep_2,karman,eomeg,stbolt,       &
+          !   tslb,zs,dzs,num_soil_layers,radiation,               &
+          !   p1000mb,                                             &
+          !   ids,ide, jds,jde, kds,kde,                           &
+          !   ims,ime, jms,jme, kms,kme,                           &
+          !   i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts,kte)
+          CALL suewsdrv(year, day_int, hour, minute, second, xtime, &
+             t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &
+             psfc, rainbl, ht,                                     &
+             QN_SUEWS,AH_SUEWS, grdflx, hfx, qfx, lh, tsk, qsfc, chklowq,                     &
+             LAI_SUEWS,                                            &
+             albDecTr_SUEWS,                                       &
+             albEveTr_SUEWS,                                       &
+             albGrass_SUEWS,                                       &
+             DecidCap_SUEWS,                                       &
+             porosity_SUEWS,                                       &
+             GDD_SUEWS,                                            &
+             HDD_SUEWS,                                            &
+             state_SUEWS,                                          &
+             soilmoist_SUEWS,                                      &
+             surf_var_SUEWS,                                       &
+             landusef_SUEWS,                                       &
+             alb_SUEWS,                                            &
+             emis_SUEWS,                                           &
+             qn1_av_SUEWS,                                         &
+             qn1_s_SUEWS,                                          &
+             dqndt_SUEWS,                                          &
+             dqnsdt_SUEWS,                                         &
+             MeltWaterStore,                                       &
+             SnowAlb,                                              &
+             WUDay,                                                &
+             z0m_in,                                               &
+             zdm_in,                                               &
+             XLONG, XLAT, DT, DT_PREV, DX,                         &
+             ids,ide, jds,jde, kds,kde,                            &
+             ims,ime, jms,jme, kms,kme,                            &
+             i_start(ij),i_end(ij), j_start(ij),j_end(ij), kts, kte)
 
            DO j=j_start(ij),j_end(ij)
            DO i=i_start(ij),i_end(ij)
