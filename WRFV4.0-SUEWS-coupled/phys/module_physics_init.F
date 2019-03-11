@@ -214,6 +214,13 @@ CONTAINS
                          ,rv_up, rc_up, u_up, v_up, frac_up    & ! Optional for qnse
                          ,ccn_conc                             & ! RAS
                          ,QKE                                  & !for MYNN
+                         ,landusef_SUEWS                       &
+                         ,alb_SUEWS                            &
+                         ,emis_SUEWS                           &
+                         ,qn1_av_SUEWS                         &
+                         ,qn1_s_SUEWS                          &
+                         ,dqndt_SUEWS                          &
+                         ,dqnsdt_SUEWS                         &
                          ,landusef,landusef2,mosaic_cat_index                                                 & ! danli mosaic
                          ,TSK_mosaic,TSLB_mosaic,SMOIS_mosaic,SH2O_mosaic                                     & ! danli mosaic
                          ,CANWAT_mosaic,SNOW_mosaic,SNOWH_mosaic,SNOWC_mosaic                                 & ! danli mosaic
@@ -418,6 +425,13 @@ CONTAINS
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT) ::    & !BSINGH(PNNL)- should be declared inout
              RUBLTEN,RVBLTEN,RTHBLTEN,RQVBLTEN,RQCBLTEN,RQIBLTEN,EXCH_H,TKE_PBL
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
+  REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
+  REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
 
   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                                             massflux_EDKF, entr_EDKF, detr_EDKF & 
@@ -1196,6 +1210,16 @@ integer myproc
                 ZNT,XLAND,XICE,                                 &
                 DX, DY, MSFTX, MSFTY,                           &
 #endif
+                lu_state,                                       &
+                julday,                                         &
+                cen_lat,                                        &
+                landusef_SUEWS,                                 &
+                alb_SUEWS,                                      &
+                emis_SUEWS,                                     &
+                qn1_av_SUEWS,                                   &
+                qn1_s_SUEWS,                                    &
+                dqndt_SUEWS,                                    &
+                dqnsdt_SUEWS, 
                 QKE,                                            &
                 SFCEVP,GRDFLX,                                  &
                 TRIM (MMINLU_LOC),                              &
@@ -2145,6 +2169,15 @@ integer myproc
 #else
                 ZNT,XLAND,XICE,DX, DY, MSFTX, MSFTY,            &
 #endif
+                lu_state,                                       &
+                julday,                                         &
+                cen_lat,                                        &
+                landusef_SUEWS,                                 &
+                alb_SUEWS,                                      &
+                emis_SUEWS,                                     &
+                qn1_av_SUEWS,                                   &
+                qn1_s_SUEWS,                                    &
+                dqndt_SUEWS,dqnsdt_SUEWS,
                 QKE, SFCEVP,GRDFLX,                             &
                 MMINLU,                                         &
                 XLAT,                                           &
@@ -2270,6 +2303,7 @@ integer myproc
    USE module_sf_sfclay
    USE module_sf_sfclayrev
    USE module_sf_slab
+   USE module_sf_suews
    USE module_sf_pxsfclay
    USE module_bl_ysu
    USE module_bl_shinhong
@@ -2390,7 +2424,16 @@ integer myproc
                                                           RQIBLTEN, &
                                                           TKE_PBL
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE
-
+   REAL,OPTIONAL,DIMENSION( : ),INTENT(INOUT)                               :: lu_state
+   INTEGER, INTENT(IN)                                                      :: julday
+   REAL, INTENT(IN)                                                         :: cen_lat
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS
+   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS,dqnsdt_SUEWS
+   
    REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(OUT), OPTIONAL :: &
                               massflux_EDKF, entr_EDKF, detr_EDKF & 
                                      ,thl_up, thv_up, rt_up       &
@@ -2813,6 +2856,28 @@ integer myproc
                          ids, ide, jds, jde, kds, kde,         &
                          ims, ime, jms, jme, kms, kme,         &
                          its, ite, jts, jte, kts, kte          )
+      
+      CASE (SUEWSSCHEME) ! add for SUEWS by Hamid Omidvar, 11/03/2019
+          call wrf_debug(100, 'before calling suewsinit')
+
+           CALL suewsinit(                                     &
+                         lu_state,                             &
+                         MMINLU,                               &
+                         julday,                               &
+                         cen_lat,                              &
+                         NLCAT,                                &
+                         landusef,                             &
+                         landusef_SUEWS,                       &
+                         alb_SUEWS,                            &
+                         emis_SUEWS,                           &
+                         qn1_av_SUEWS,                         &
+                         qn1_s_SUEWS,                          &
+                         dqndt_SUEWS,  dqnsdt_SUEWS,           &
+                         restart, allowed_to_read,             &
+                         ids, ide, jds, jde, kds, kde,         &
+                         ims, ime, jms, jme, kms, kme,         &
+                         its, ite, jts, jte, kts, kte          )
+
 
 #if (NMM_CORE == 1)
      CASE (GFDLSLAB)
