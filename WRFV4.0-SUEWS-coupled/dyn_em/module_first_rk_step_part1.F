@@ -453,7 +453,7 @@ BENCH_START(surf_driver_tim)
      &        ,AKMS=grid%akms          ,ALBBCK=grid%albbck      ,ALBEDO=grid%albedo      &
      &        ,EMBCK=grid%embck                                                          &
      &        ,BR=grid%br              ,CANWAT=grid%canwat      ,CHKLOWQ=chklowq    &
-     &        ,CT=grid%ct              ,DT=grid%dt         ,DX=grid%dx         &
+     &        ,CT=grid%ct              ,DT=grid%dt, DT_prev=grid%dt_prev ,DX=grid%dx         &
      &        ,DZ8W=dz8w          ,DZS=grid%dzs            ,FLHC=grid%flhc          &
      &        ,FM=grid%fm         ,FHH=grid%fh                                      &
      &        ,FLQC=grid%flqc          ,GLW=grid%glw            ,GRDFLX=grid%grdflx      &

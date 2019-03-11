@@ -121,6 +121,7 @@ MODULES = \
 	module_sf_gfdl.o \
 	module_sf_slab.o  \
 	module_sf_suews.o  \
+	module_sf_suewsdrv.o  \
 	module_sf_noahdrv.o  \
 	module_sf_noahlsm.o  \
 	module_sf_clm.o  \
