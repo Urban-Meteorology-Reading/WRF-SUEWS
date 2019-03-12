@@ -156,6 +156,7 @@ module_clear_halos.o: module_configure.o \
 # End of DEPENDENCIES for frame
 
 # DEPENDENCIES for phys
+module_sf_suews.o: module_sf_suewsdrv.o
 
 module_bl_myjpbl.o: ../share/module_model_constants.o
 
@@ -521,6 +522,7 @@ module_physics_init.o : \
 		module_sf_sfclay.o		\
 		module_sf_sfclayrev.o		\
 		module_sf_slab.o		\
+		module_sf_suews.o   \
 		module_sf_myjsfc.o		\
 		module_sf_mynn.o                \
 		module_sf_fogdes.o              \
@@ -714,6 +716,7 @@ module_surface_driver.o: \
 		module_sf_sfclay.o		\
 		module_sf_sfclayrev.o		\
 		module_sf_slab.o		\
+		module_sf_suews.o   \
 		module_sf_myjsfc.o		\
 		module_sf_qnsesfc.o		\
 		module_sf_pxsfclay.o		\
