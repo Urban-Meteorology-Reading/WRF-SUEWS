@@ -2240,6 +2240,8 @@
 #if ((EM_CORE == 1) || (NMM_CORE == 1))
       IF      (   model_config_rec % sf_surface_physics(1) .EQ. NOLSMSCHEME  ) THEN
          model_config_rec % num_soil_layers = 5
+      ELSE IF (   model_config_rec % sf_surface_physics(1) .EQ. SUEWSSCHEME   ) THEN
+         model_config_rec % num_soil_layers = 5
       ELSE IF (   model_config_rec % sf_surface_physics(1) .EQ. SLABSCHEME   ) THEN
          model_config_rec % num_soil_layers = 5
       ELSE IF (   model_config_rec % sf_surface_physics(1) .EQ. LSMSCHEME    ) THEN
