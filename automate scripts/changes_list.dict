@@ -1,0 +1,70 @@
+{
+    "Registry.EM_COMMON":{
+        "filePath": "/Users/hamidrezaomidvar/Dropbox/WRF-SUEWS/automate scripts/",
+        "query" :{ "package   ssibscheme     sf_surface_physics==8":"package   suewsscheme    sf_surface_physics==9       -             state:LAI_SUEWS,albDecTr_SUEWS,albEveTr_SUEWS,albGrass_SUEWS,DecidCap_SUEWS,porosity_SUEWS,GDD_SUEWS,HDD_SUEWS,state_SUEWS,soilmoist_SUEWS,surf_var_SUEWS,landusef_SUEWS,alb_SUEWS,emis_SUEWS,qn1_av_SUEWS,qn1_s_SUEWS,dqndt_SUEWS,dqnsdt_SUEWS,MeltWaterStore,SnowAlb,WUDay,z0m_in,zdm_in",
+                   "config   real    dt                      derived              max_domains    2.":"rconfig   real    dt_prev                 derived              max_domains    2.      h     \"dt_prev\"   \"TEMPORAL RESOLUTION\"      \"SECONDS\""
+        }
+    },
+
+    "module_check_a_mundo.F":{
+        "filePath": "/Users/hamidrezaomidvar/Dropbox/WRF-SUEWS/automate scripts/",
+        "query" :{ "ELSE IF (   model_config_rec % sf_surface_physics(1) .EQ. SLABSCHEME   ) THEN":"         model_config_rec % num_soil_layers = 5\n      ELSE IF (   model_config_rec % sf_surface_physics(1) .EQ. SUEWSSCHEME   ) THEN"
+        }
+    },
+
+    "start_em.F":{
+        "filePath": "/Users/hamidrezaomidvar/Dropbox/WRF-SUEWS/automate scripts/",
+        "query" :{ ",grid%QKE":"                      ,grid%landusef_SUEWS                                    &\n                      ,grid%alb_SUEWS                                         &\n                      ,grid%emis_SUEWS                                        &\n                      ,grid%qn1_av_SUEWS                                      &\n                      ,grid%qn1_s_SUEWS                                       &\n                      ,grid%dqndt_SUEWS                                       &\n                      ,grid%dqnsdt_SUEWS                                      &"
+        }
+    },
+
+    "module_physics_init.F":{
+        "filePath": "/Users/hamidrezaomidvar/Dropbox/WRF-SUEWS/automate scripts/",
+        "query" :{ ",QKE":"                         ,landusef_SUEWS                                    &\n                         ,alb_SUEWS                                         &\n                         ,emis_SUEWS                                        &\n                         ,qn1_av_SUEWS                                      &\n                         ,qn1_s_SUEWS                                       &\n                         ,dqndt_SUEWS                                       &\n                         ,dqnsdt_SUEWS                                      &",
+                   "REAL,     DIMENSION(1:num_soil_layers),      INTENT(INOUT) :: ZS,DZS":"   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS",
+                   "TRIM (MMINLU_LOC),":"                lu_state,                                       &\n                julday,                                         &\n                cen_lat,                                        &\n                landusef_SUEWS,                                 &\n                alb_SUEWS,                                      &\n                emis_SUEWS,                                     &\n                qn1_av_SUEWS,                                   &\n                qn1_s_SUEWS,                                    &\n                dqndt_SUEWS,                                    &\n                dqnsdt_SUEWS,                                   &",
+                   "QKE, SFCEVP,GRDFLX,":"                lu_state,                                       &\n                julday,                                         &\n                cen_lat,                                        &\n                landusef_SUEWS,                                 &\n                alb_SUEWS,                                      &\n                emis_SUEWS,                                     &\n                qn1_av_SUEWS,                                   &\n                qn1_s_SUEWS,                                    &\n                dqndt_SUEWS,                                    &\n                dqnsdt_SUEWS,                                   &",
+                   "USE module_sf_slab":"   USE module_sf_suews",
+                   "   REAL,     DIMENSION( ims:ime , kms:kme , jms:jme ) , INTENT(INOUT), OPTIONAL :: QKE":"   REAL,OPTIONAL,DIMENSION( : ),INTENT(INOUT)                               :: lu_state\n   INTEGER, INTENT(IN)                                                      :: julday\n   REAL, INTENT(IN)                                                         :: cen_lat\n   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_av_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_s_SUEWS\n   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS,dqnsdt_SUEWS",
+                   "   sfc_select: SELECT CASE(config_flags%sf_surface_physics)":"      CASE (SUEWSSCHEME)\n          call wrf_debug(100, 'before calling suewsinit')\n           CALL suewsinit(                                     &\n                         lu_state,                             &\n                         MMINLU,                               &\n                         julday,                               &\n                         cen_lat,                              &\n                         NLCAT,                                &\n                         landusef,                             &\n                         landusef_SUEWS,                       &\n                         alb_SUEWS,                            &\n                         emis_SUEWS,                           &\n                         qn1_av_SUEWS,                         &\n                         qn1_s_SUEWS,                          &\n                         dqndt_SUEWS,  dqnsdt_SUEWS,           &\n                         restart, allowed_to_read,             &\n                         ids, ide, jds, jde, kds, kde,         &\n                         ims, ime, jms, jme, kms, kme,         &\n                         its, ite, jts, jte, kts, kte          )"
+        }
+    },
+
+    "module_first_rk_step_part1.F":{
+        "filePath": "/Users/hamidrezaomidvar/Dropbox/WRF-SUEWS/automate scripts/",
+        "query" :{ "&        ,CUPPT=grid%cuppt        ,CZMEAN=grid%czmean      ,DT=grid%dt          &":"     &                                 ,DT_prev=grid%dt_prev                         &",
+                   "! end of CLM variables":"\n! variables for SUEWS: START\n     &        ,year=yr, day_int=day, hour=hr, minute=minute, second=sec             &\n     &        ,LAI_SUEWS=grid%LAI_SUEWS                                             &\n     &        ,albDecTr_SUEWS=grid%albDecTr_SUEWS                                   &\n     &        ,albEveTr_SUEWS=grid%albEveTr_SUEWS                                   &\n     &        ,albGrass_SUEWS=grid%albGrass_SUEWS                                   &\n     &        ,DecidCap_SUEWS=grid%DecidCap_SUEWS                                   &\n     &        ,porosity_SUEWS=grid%porosity_SUEWS                                   &\n     &        ,GDD_SUEWS=grid%GDD_SUEWS                                             &\n     &        ,HDD_SUEWS=grid%HDD_SUEWS                                             &\n     &        ,state_SUEWS=grid%state_SUEWS                                         &\n     &        ,soilmoist_SUEWS=grid%soilmoist_SUEWS                                 &\n     &        ,surf_var_SUEWS=grid%surf_var_SUEWS                                   &\n     &        ,landusef_SUEWS=grid%landusef_SUEWS                                   &\n     &        ,alb_SUEWS=grid%alb_SUEWS                                             &\n     &        ,QN_SUEWS=grid%QN_SUEWS                                               &\n     &        ,AH_SUEWS=grid%AH_SUEWS                                               &\n     &        ,emis_SUEWS=grid%emis_SUEWS                                           &\n     &        ,qn1_av_SUEWS=grid%qn1_av_SUEWS                                       &\n     &        ,qn1_s_SUEWS=grid%qn1_s_SUEWS                                         &\n     &        ,dqndt_SUEWS=grid%dqndt_SUEWS                                         &\n     &        ,dqnsdt_SUEWS=grid%dqnsdt_SUEWS                                       &\n     &        ,MeltWaterStore=grid%MeltWaterStore                                   &\n     &        ,SnowAlb=grid%SnowAlb                                                 &\n     &        ,WUDay=grid%WUDay                                                     &\n     &        ,z0m_in=grid%z0m_in                                                   &\n     &        ,zdm_in=grid%zdm_in                                                   &\n! variables for SUEWS: End"
+        }
+    }    
+
+} 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
