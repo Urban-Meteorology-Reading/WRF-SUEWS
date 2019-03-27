@@ -4,7 +4,7 @@ import sub_modules_automate as sa
 import json
 
 
-change_list=json.load(open('changes_list.dict'))
+change_list=json.load(open('changes_list.json'))
 
 for key in change_list.keys():
     in_file = key
