@@ -32,7 +32,7 @@ dswrf = nc.Dataset(fl_WRF[0])
 x_pos, y_pos = wrf.ll_to_xy(dswrf, latitude=[51.], longitude=[-0.1])
 
 # ds.HFX[:, y_pos, x_pos].time
-ds.HFX[:, y_pos, x_pos].plot.line(add_legend=True)
+# ds.HFX[:, y_pos, x_pos].plot.line(add_legend=True)
 ds_sel = ds[['HFX', 'LH', 'GRDFLX', 'SWDOWN', 'GLW']].resample(
     time='1h', label='left').mean()
 
@@ -71,7 +71,7 @@ quar_sel_pos_clm = grp_sel_pos_clm.quantile(
 
 fig_x = plot_day_clm(df_sel_pos[['HFX', 'LH']])
 fig_x.tight_layout()
-fig_x.savefig('QH-QE-climatology.pdf')
+fig_x.savefig('fig/2015-QH-QE-climatology.pdf')
 
 
 # load KSSW observations
@@ -94,10 +94,10 @@ res_obs = pd.read_csv(path_obs, sep=' ',
 
 df_obs = res_obs.set_index('datetime')
 
-df_obs.loc['2015 8', 'QE'].plot()
+df_obs.loc[:, 'QE'].plot()
 
 # determin QH&QE-availavle periods
-df_obs[['QN','QH','QE']].loc['2015'].resample('1M').count().plot()
+df_obs.loc[:, ['QH','QE']].resample('14D').count().loc['2014 8']
 
 
 df_QH_comp = pd.concat([df_obs, df_sel_pos[['HFX', 'LH']]], axis=1,
@@ -114,4 +114,20 @@ ax = fig_comp.axes[0]
 x0, x1 = ax.get_xlim()
 y0, y1 = ax.get_ylim()
 ax.set_aspect(abs(x1 - x0) / abs(y1 - y0))
-fig_comp.savefig('comp.pdf')
+fig_comp.savefig('fig/2015-QH-comp.pdf')
+
+df_QE_comp = pd.concat([df_obs, df_sel_pos[['HFX', 'LH']]], axis=1,
+                       join='inner').loc[:, ['LH', 'QE']]
+
+df_QE_comp.plot()
+
+fig_comp = sns.regplot(x='Obs', y='Sim',
+                       data=df_QE_comp.rename(
+                           columns={'QE': 'Obs', 'LH': 'Sim'}),
+                       fit_reg=True).figure
+
+ax = fig_comp.axes[0]
+x0, x1 = ax.get_xlim()
+y0, y1 = ax.get_ylim()
+ax.set_aspect(abs(x1 - x0) / abs(y1 - y0))
+fig_comp.savefig('fig/2015-QE-comp.pdf')
