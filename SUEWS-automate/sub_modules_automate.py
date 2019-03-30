@@ -13,4 +13,4 @@ def find_add(filePath,in_file,query,to_add):
                 line=line+to_add+'\n'
             ofile.write(line)
 
-    print('Modifiying file='+in_file+' is finished\n')
+    print('Modifying file='+in_file+' is finished\n')
