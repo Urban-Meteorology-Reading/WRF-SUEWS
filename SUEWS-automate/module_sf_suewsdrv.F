@@ -11966,6 +11966,8 @@ CONTAINS
     ! NB: NARP_G is not assigned with a value in SUEWS_translate.
     ! 3.0 is used here as annual average for mid-latitude areas. TS 24 Oct 2017
     REAL(KIND(1D0)),DIMENSION(365),PARAMETER ::  NARP_G=3.0
+    CHARACTER(len=1024) :: message ! Used to pass through function wrf_debug() by Hamid Omidvar
+
     !Initialize variables
     ! RH=avrh
     ! DTIME=dectime
@@ -12140,6 +12142,21 @@ CONTAINS
        Tsurf_ind(is)=tsurf_is
 
        IF(DiagQN==1) WRITE(*,*) 'qn1_is: ',qn1_is
+
+      WRITE( message,* ) 'is = ', is
+      CALL wrf_debug(100,message)
+      WRITE( message,* ) 'sfr(is) = ', sfr(is)
+      CALL wrf_debug(100,message)
+      WRITE( message,* ) 'kdown = ', KDOWN
+      CALL wrf_debug(100,message)
+      WRITE( message,* ) 'kup = ', KUP
+      CALL wrf_debug(100,message)
+      WRITE( message,* ) 'ldown = ', LDOWN
+      CALL wrf_debug(100,message)
+      WRITE( message,* ) 'lup = ', LUP
+      CALL wrf_debug(100,message)
+      WRITE( message,* ) 'qn1_cum = ', qn1_cum
+      CALL wrf_debug(100,message)      
 
     ENDDO !End of the surface types
 
