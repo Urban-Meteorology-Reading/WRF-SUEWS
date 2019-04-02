@@ -12143,20 +12143,20 @@ CONTAINS
 
        IF(DiagQN==1) WRITE(*,*) 'qn1_is: ',qn1_is
 
-      WRITE( message,* ) 'is = ', is
-      CALL wrf_debug(100,message)
-      WRITE( message,* ) 'sfr(is) = ', sfr(is)
-      CALL wrf_debug(100,message)
-      WRITE( message,* ) 'kdown = ', KDOWN
-      CALL wrf_debug(100,message)
-      WRITE( message,* ) 'kup = ', KUP
-      CALL wrf_debug(100,message)
-      WRITE( message,* ) 'ldown = ', LDOWN
-      CALL wrf_debug(100,message)
-      WRITE( message,* ) 'lup = ', LUP
-      CALL wrf_debug(100,message)
-      WRITE( message,* ) 'qn1_cum = ', qn1_cum
-      CALL wrf_debug(100,message)      
+      ! WRITE( message,* ) 'is = ', is
+      ! CALL wrf_debug(100,message)
+      ! WRITE( message,* ) 'sfr(is) = ', sfr(is)
+      ! CALL wrf_debug(100,message)
+      ! WRITE( message,* ) 'kdown = ', KDOWN
+      ! CALL wrf_debug(100,message)
+      ! WRITE( message,* ) 'kup = ', KUP
+      ! CALL wrf_debug(100,message)
+      ! WRITE( message,* ) 'ldown = ', LDOWN
+      ! CALL wrf_debug(100,message)
+      ! WRITE( message,* ) 'lup = ', LUP
+      ! CALL wrf_debug(100,message)
+      ! WRITE( message,* ) 'qn1_cum = ', qn1_cum
+      ! CALL wrf_debug(100,message)      
 
     ENDDO !End of the surface types
 

@@ -1107,25 +1107,26 @@ CONTAINS
     !------------------------------------------------------------------
     REAL                               ::  temp(nind)
     INTEGER                            ::  i, j, jmx
-    REAL                   ::  landusef_t(its:itf, NLCAT, jts:jtf)
-    landusef_t=landusef
+    CHARACTER(len = 1024)              :: message
+
     DO i = its, itf
-       DO j = jts, jtf
-          !just a quick fix for landuseef problem by Hamid Omidvar
+      DO j = jts, jtf
+          !To check if landuse fraction have acceptable values by Hamid Omidvar
           do jmx=1,NLCAT
-            if (landusef_t(i, jmx, j).GT.1) then
-                landusef_t(i, jmx, j)=0.047
+            if ((landusef(i, jmx, j).GT.1).OR.(landusef(i, jmx, j).LT.0)) then
+              WRITE(message,*) "Bad values for LANDUSEF. LANDUSEF values should be between 0 and 1"
+              CALL wrf_error_fatal( message )
             end if
           end do
 
-          landusef_SUEWS(i, j) = DOT_PRODUCT(landusef_t(i, ind, j), frac)
+          landusef_SUEWS(i, j) = DOT_PRODUCT(landusef(i, ind, j), frac)
 
-          temp = landusef_t(i, ind, j) * frac
+          temp = landusef(i, ind, j) * frac
           IF ( landusef_SUEWS(i, j) > 0. ) THEN
-             alb_SUEWS(i, j) = DOT_PRODUCT(albd(ind, ISN), temp)/landusef_SUEWS(i, j)
-             emis_SUEWS(i, j) = DOT_PRODUCT(sfem(ind, ISN), temp)/landusef_SUEWS(i, j)
+            alb_SUEWS(i, j) = DOT_PRODUCT(albd(ind, ISN), temp)/landusef_SUEWS(i, j)
+            emis_SUEWS(i, j) = DOT_PRODUCT(sfem(ind, ISN), temp)/landusef_SUEWS(i, j)
           END IF
-       END DO
+      END DO
     END DO
 
   END SUBROUTINE weightMean
