@@ -1106,12 +1106,21 @@ CONTAINS
     !       local variables
     !------------------------------------------------------------------
     REAL                               ::  temp(nind)
-    INTEGER                            ::  i, j
-
+    INTEGER                            ::  i, j, jmx
+    REAL                   ::  landusef_t(its:itf, NLCAT, jts:jtf)
+    landusef_t=landusef
     DO i = its, itf
        DO j = jts, jtf
-          landusef_SUEWS(i, j) = DOT_PRODUCT(landusef(i, ind, j), frac)
-          temp = landusef(i, ind, j) * frac
+          !just a quick fix for landuseef problem by Hamid Omidvar
+          do jmx=1,NLCAT
+            if (landusef_t(i, jmx, j).GT.1) then
+                landusef_t(i, jmx, j)=0.047
+            end if
+          end do
+
+          landusef_SUEWS(i, j) = DOT_PRODUCT(landusef_t(i, ind, j), frac)
+
+          temp = landusef_t(i, ind, j) * frac
           IF ( landusef_SUEWS(i, j) > 0. ) THEN
              alb_SUEWS(i, j) = DOT_PRODUCT(albd(ind, ISN), temp)/landusef_SUEWS(i, j)
              emis_SUEWS(i, j) = DOT_PRODUCT(sfem(ind, ISN), temp)/landusef_SUEWS(i, j)
