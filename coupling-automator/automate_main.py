@@ -30,8 +30,8 @@ def find_add(path_file, in_file, query, to_add):
         for line in buf:
             if(query in line):
                 # do this later on `to_add` as a list to store multiline strings
-                # line = line+'\n'.join(to_add)+'\n'
-                line = line+to_add+'\n'
+                line = line+'\n'.join(to_add)+'\n'
+                #line = line+to_add+'\n'
             ofile.write(line)
 
     print(f'Modifying {in_file} is finished\n')
