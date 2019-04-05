@@ -56,45 +56,26 @@ path_src_SUEWS = Path('../SUEWS/SUEWS-SourceCode')
 # to hold all the coupling modifications
 path_working = Path('../xx-test-xx')
 
+
 # %%
 # suggested workflow:
 # 1. make $dir_WRF_SUEWS if not existing
 if path_working.exists():
     rmtree(path_working)
 
-# %%
-# 2. softlink all files/dirs from `path_src_WRF` to `path_working`
-# except for those dot files
-# import os
-# os.chdir(path_working)
-# Path().cwd()
-# for sub in Path(path_src_WRF).glob('*'):
-#     if not sub.name.startswith('.'):
-#         print(sub.name)
-#         sub_target = path_working/(sub.name)
-#         print(sub_target, sub_target.exists())
-#         # force link by deleting existing
-#         if sub_target.exists():
-#             sub_target.unlink()
-#         sub_target.symlink_to(sub)
 
+# %%
+# 2. copy all files/dirs from `path_src_WRF` to `path_working`
 copytree(path_src_WRF, path_working, ignore_dangling_symlinks=True)
 
+
 # %%
-# 3.1 delete the symlinks to files to modify: copy those files
-# 3.2 then run script to modify the files
-
-
+# 3 run script to modify the files
 for in_file in change_list.keys():
     path_file = path_working/change_list[in_file]["filePath"]
     # path_file = path_file.resolve()
     path_file_WRF = path_src_WRF/change_list[in_file]["filePath"]
-    print(path_file,'existing?' ,path_file.exists())
-
-    # if path_file.is_symlink():
-    #     path_file.unlink()
-    #     copytree(path_file_WRF, path_file)
-    #     print(path_file.resolve())
+    print(path_file, 'existing?', path_file.exists())
 
     query = change_list[in_file]["query"]
     for qkey, qval in query.items():
@@ -105,21 +86,17 @@ for in_file in change_list.keys():
 # 4. generate SUEWS related source files from $dir_src_SUEWS and add them to $dir_WRF_SUEWS
 path_sf_suewsdrv = path_working/'phys'/'module_sf_suewsdrv.F'
 merge_source(path_src_SUEWS, path_sf_suewsdrv)
-# path_sf_suewsdrv
 
 
 # %%
 # 5. copy SUEWS wrapper and registry files to WRF directory
-list_file_to_copy=[
+list_file_to_copy = [
     # (file to copy, destination in working folder)
-    ('module_sf_suews.F','phys'),
-    ('registry.suews','Registry'),
+    ('module_sf_suews.F', 'phys'),
+    ('registry.suews', 'Registry'),
 ]
 for file, dst in list_file_to_copy:
     copy(file, path_working/dst)
     file_copied = path_working/dst/file
     print(file_copied, 'copied?', file_copied.exists())
 
-
-
-# %%
