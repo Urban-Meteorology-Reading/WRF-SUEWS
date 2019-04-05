@@ -4,7 +4,7 @@
 import json
 import os
 from pathlib import Path
-from shutil import copy, copytree, rmtree
+from shutil import copy, copytree, rmtree, ignore_patterns
 
 import numpy as np
 import pandas as pd
@@ -61,12 +61,20 @@ path_working = Path('../xx-test-xx')
 # suggested workflow:
 # 1. make $dir_WRF_SUEWS if not existing
 if path_working.exists():
+    print(str(path_working),' already exists. Removing ',str(path_working))
     rmtree(path_working)
 
 
 # %%
 # 2. copy all files/dirs from `path_src_WRF` to `path_working`
-copytree(path_src_WRF, path_working, ignore_dangling_symlinks=True)
+print('copying from '+str(path_src_WRF)+' to '+str(path_working))
+try:
+    copytree(path_src_WRF, path_working, ignore_dangling_symlinks=True,
+            ignore=ignore_patterns('.git*'))
+except:
+    print('some of the files are not copied. Check Symlinks files')
+    pass
+
 
 
 # %%
@@ -85,6 +93,7 @@ for in_file in change_list.keys():
 # %%
 # 4. generate SUEWS related source files from $dir_src_SUEWS and add them to $dir_WRF_SUEWS
 path_sf_suewsdrv = path_working/'phys'/'module_sf_suewsdrv.F'
+print('calling merge_source to generate module_sf_suewsdrve.F')
 merge_source(path_src_SUEWS, path_sf_suewsdrv)
 
 
@@ -96,6 +105,7 @@ list_file_to_copy = [
     ('registry.suews', 'Registry'),
 ]
 for file, dst in list_file_to_copy:
+    print('copying '+file+' to '+dst)
     copy(file, path_working/dst)
     file_copied = path_working/dst/file
     print(file_copied, 'copied?', file_copied.exists())
