@@ -10,6 +10,7 @@ state      real     LAI_SUEWS         i{nvegsurf}j          misc    1           
 state      real     albDecTr_SUEWS    ij                    misc    1           -           irh    "albDecTr_SUEWS"    "albDecTr_SUEWS"    ""
 state      real     albEveTr_SUEWS    ij                    misc    1           -           irh    "albEveTr_SUEWS"    "albEveTr_SUEWS"    ""
 state      real     albGrass_SUEWS    ij                    misc    1           -           irh    "albGrass_SUEWS"    "albGrass_SUEWS"    ""
+state      real     NumCapita         ij                    misc    1           -           irh    "NumCapita"         "NumCapita"         "ha-1"
 state      real     DecidCap_SUEWS    ij                    misc    1           -           irh    "DecidCap_SUEWS"    "DecidCap_SUEWS"    "mm"
 state      real     porosity_SUEWS    ij                    misc    1           -           irh    "porosity_SUEWS"    "porosity_SUEWS"    ""
 state      real     GDD_SUEWS         i{dimgdd}j            misc    1           -           irh    "GDD_SUEWS"         "GDD_SUEWS"         ""
