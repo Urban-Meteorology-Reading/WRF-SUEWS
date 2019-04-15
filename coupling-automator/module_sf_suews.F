@@ -202,6 +202,7 @@ CONTAINS
     REAL(KIND(1d0))                                  :: albDecTr_id
     REAL(KIND(1d0))                                  :: albEveTr_id
     REAL(KIND(1d0))                                  :: albGrass_id
+    REAL(KIND(1d0))                                  :: NumCapita_id
     REAL(KIND(1d0))                                  :: PopDensDaytime_id
     REAL(KIND(1d0))                                  :: PopDensNighttime_id
     REAL(KIND(1d0))                                  :: DecidCap_id
