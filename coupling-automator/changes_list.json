@@ -3,7 +3,7 @@
         "filePath": "Registry/",
         "query": {
             "package   ssibscheme     sf_surface_physics==8": [
-                "package   suewsscheme    sf_surface_physics==9       -             state:LAI_SUEWS,albDecTr_SUEWS,albEveTr_SUEWS,albGrass_SUEWS,NumCapita,DecidCap_SUEWS,porosity_SUEWS,GDD_SUEWS,HDD_SUEWS,state_SUEWS,soilmoist_SUEWS,surf_var_SUEWS,landusef_SUEWS,alb_SUEWS,emis_SUEWS,qn1_av_SUEWS,qn1_s_SUEWS,dqndt_SUEWS,dqnsdt_SUEWS,MeltWaterStore,SnowAlb,WUDay,z0m_in,zdm_in"],
+                "package   suewsscheme    sf_surface_physics==9       -             state:LAI_SUEWS,albDecTr_SUEWS,albEveTr_SUEWS,albGrass_SUEWS,NumCapita,PopDensDaytime ,PopDensNighttime ,DecidCap_SUEWS,porosity_SUEWS,GDD_SUEWS,HDD_SUEWS,state_SUEWS,soilmoist_SUEWS,surf_var_SUEWS,landusef_SUEWS,alb_SUEWS,emis_SUEWS,qn1_av_SUEWS,qn1_s_SUEWS,dqndt_SUEWS,dqnsdt_SUEWS,MeltWaterStore,SnowAlb,WUDay,z0m_in,zdm_in"],
             "config   real    dt                      derived              max_domains    2.": [
                 "rconfig   real    dt_prev                 derived              max_domains    2.      h     \"dt_prev\"   \"TEMPORAL RESOLUTION\"      \"SECONDS\""
             ]
@@ -143,6 +143,8 @@
                 " & ,albEveTr_SUEWS=grid%albEveTr_SUEWS &",
                 " & ,albGrass_SUEWS=grid%albGrass_SUEWS &",
                 " & ,NumCapita=grid%NumCapita &",
+                " & ,PopDensDaytime =grid%PopDensDaytime  &",
+                " & ,PopDensNighttime =grid%PopDensNighttime  &",
                 " & ,DecidCap_SUEWS=grid%DecidCap_SUEWS &",
                 " & ,porosity_SUEWS=grid%porosity_SUEWS &",
                 " & ,GDD_SUEWS=grid%GDD_SUEWS &",
@@ -182,6 +184,8 @@
                 " & ,albEveTr_SUEWS &",
                 " & ,albGrass_SUEWS &",
                 " & ,NumCapita &",
+                " & ,PopDensDaytime  &",
+                " & ,PopDensNighttime  &",
                 " & ,DecidCap_SUEWS &",
                 " & ,porosity_SUEWS &",
                 " & ,GDD_SUEWS &",
@@ -220,6 +224,8 @@
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: albEveTr_SUEWS !Albedo of evergreen trees [-]",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: albGrass_SUEWS !Albedo of grass[-]",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: NumCapita !Number of people in the study area per hectare [ha-1]",
+            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: PopDensDaytime !Daytime population density [ha-1] (i.e. workers)",
+            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: PopDensNighttime !Nighttime population density [ha-1] (i.e. residents)",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: porosity_SUEWS !Porosity of deciduous trees [-]",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)   :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)",
@@ -267,6 +273,8 @@
                 "             albEveTr_SUEWS,                                       &",
                 "             albGrass_SUEWS,                                       &",
                 "             NumCapita,                                            &",
+                "             PopDensDaytime ,                                      &",
+                "             PopDensNighttime ,                                    &",
                 "             DecidCap_SUEWS,                                       &",
                 "             porosity_SUEWS,                                       &",
                 "             GDD_SUEWS,                                            &",

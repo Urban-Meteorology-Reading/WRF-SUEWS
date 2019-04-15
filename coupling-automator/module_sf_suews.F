@@ -40,6 +40,8 @@ CONTAINS
        albEveTr_SUEWS,                          &
        albGrass_SUEWS,                          &
        NumCapita,                               &
+       PopDensDaytime,                          &
+       PopDensNighttime,                        &
        DecidCap_SUEWS,                          &
        porosity_SUEWS,                          &
        GDD_SUEWS,                               &
@@ -166,7 +168,9 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albDecTr_SUEWS !Albedo of deciduous trees [-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albEveTr_SUEWS !Albedo of evergreen trees [-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albGrass_SUEWS !Albedo of grass[-]
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita !!Number of people in the study area per hectare [ha-1]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita !Number of people in the study area per hectare [ha-1]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensDaytime !Daytime population density [ha-1] (i.e. workers)
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensNighttime ! Nighttime population density [ha-1] (i.e. residents)
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: porosity_SUEWS !Porosity of deciduous trees [-]
     REAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)  :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
@@ -198,7 +202,8 @@ CONTAINS
     REAL(KIND(1d0))                                  :: albDecTr_id
     REAL(KIND(1d0))                                  :: albEveTr_id
     REAL(KIND(1d0))                                  :: albGrass_id
-    REAL(KIND(1d0))                                  :: NumCapita_id
+    REAL(KIND(1d0))                                  :: PopDensDaytime_id
+    REAL(KIND(1d0))                                  :: PopDensNighttime_id
     REAL(KIND(1d0))                                  :: DecidCap_id
     REAL(KIND(1d0))                                  :: porosity_id
     REAL(KIND(1d0)),DIMENSION(5)                     :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
@@ -257,6 +262,8 @@ CONTAINS
           albEveTr_id     = albEveTr_SUEWS(I,J)
           albGrass_id     = albGrass_SUEWS(I,J)
           NumCapita_id    = NumCapita(I,J)
+          PopDensDaytime_id    = PopDensDaytime(I,J)
+          PopDensNighttime_id    = PopDensNighttime(I,J)
           DecidCap_id     = DecidCap_SUEWS(I,J)
           porosity_id     = porosity_SUEWS(I,J)
           GDD_id          = GDD_SUEWS(I,:,J)
@@ -292,7 +299,8 @@ CONTAINS
                                 ! surface properties (temporally invariant):
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
-               LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,DecidCap_id,porosity_id,GDD_id,HDD_id,&
+               LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,PopDensDaytime_id,PopDensNighttime_id,&
+               DecidCap_id,porosity_id,GDD_id,HDD_id,&
                state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
@@ -310,6 +318,8 @@ CONTAINS
           albEveTr_SUEWS(I,J)    = albEveTr_id
           albGrass_SUEWS(I,J)    = albGrass_id
           NumCapita(I,J)   = NumCapita_id
+          PopDensDaytime(I,J)   = PopDensDaytime_id
+          PopDensNighttime(I,J)   = PopDensNighttime_id
           DecidCap_SUEWS(I,J)    = DecidCap_id
           porosity_SUEWS(I,J)    = porosity_id
           GDD_SUEWS(I,:,J)       = GDD_id
@@ -370,7 +380,8 @@ CONTAINS
                                 ! surface properties (temporally invariant):
        landusef_suews1d,ht,XLAT,XLONG,dz8w,DX,&
                                 ! surface properties/states (temporally updated):
-       LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,DecidCap_id,porosity_id,GDD_id,HDD_id,&
+       LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,PopDensDaytime_id,PopDensNighttime_id,&
+       DecidCap_id,porosity_id,GDD_id,HDD_id,&
        state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
@@ -418,6 +429,8 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: albEveTr_id !Albedo of evergreen trees [-]
     REAL(KIND(1d0)),INTENT(INOUT) :: albGrass_id !Albedo of grass[-]
     REAL(KIND(1d0)),INTENT(INOUT) :: NumCapita_id !Number of people in the study area per hectare [ha-1]
+    REAL(KIND(1d0)),INTENT(INOUT) :: PopDensDaytime_id !Daytime population density [ha-1] (i.e. workers)
+    REAL(KIND(1d0)),INTENT(INOUT) :: PopDensNighttime_id !Nighttime population density [ha-1] (i.e. residents)
     REAL(KIND(1d0)),INTENT(INOUT) :: DecidCap_id !Storage capacity of deciduous trees [mm]
     REAL(KIND(1d0)),INTENT(INOUT) :: porosity_id !Porosity of deciduous trees [-]
     REAL(KIND(1d0)),DIMENSION(5),INTENT(INOUT)       :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
@@ -574,7 +587,7 @@ CONTAINS
          alb_id,emis_id,SnowAlb_id,OHM_coef_d,WaterDist_d,&
          AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d,&
          qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
-         surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,porosity_id,&
+         surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,PopDensDaytime_id,PopDensNighttime_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
          qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
