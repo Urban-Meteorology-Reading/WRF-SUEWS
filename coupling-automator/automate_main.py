@@ -103,6 +103,7 @@ list_file_to_copy = [
     # (file to copy, destination in working folder)
     ('module_sf_suews.F', 'phys'),
     ('registry.suews', 'Registry'),
+    ('namelist.suews', 'test/em_real'),
 ]
 for file, dst in list_file_to_copy:
     print('copying '+file+' to '+dst)
