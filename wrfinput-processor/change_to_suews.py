@@ -63,6 +63,8 @@ dict_rules_suews = {
     'albEveTr_SUEWS': [0, 0.1,''],
     'albGrass_SUEWS': [0, 0.1,''],
     'NumCapita': [0, 54,'ha-1'],
+    'PopDensDaytime': [0, 54, 'ha-1'],
+    'PopDensNighttime': [0, 54, 'ha-1'],
     'DecidCap_SUEWS': [0, 10,''],
     'porosity_SUEWS': [0, 0.1,''],
     'GDD_SUEWS': [('gdd', 1, 5), 0,''],
