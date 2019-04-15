@@ -256,7 +256,7 @@ CONTAINS
           albDecTr_id     = albDecTr_SUEWS(I,J)
           albEveTr_id     = albEveTr_SUEWS(I,J)
           albGrass_id     = albGrass_SUEWS(I,J)
-          NumCapita_id     = NumCapita_SUEWS(I,J)
+          NumCapita_id    = NumCapita(I,J)
           DecidCap_id     = DecidCap_SUEWS(I,J)
           porosity_id     = porosity_SUEWS(I,J)
           GDD_id          = GDD_SUEWS(I,:,J)
@@ -309,7 +309,7 @@ CONTAINS
           albDecTr_SUEWS(I,J)    = albDecTr_id
           albEveTr_SUEWS(I,J)    = albEveTr_id
           albGrass_SUEWS(I,J)    = albGrass_id
-          NumCapita_SUEWS(I,J)   = NumCapita_id
+          NumCapita(I,J)   = NumCapita_id
           DecidCap_SUEWS(I,J)    = DecidCap_id
           porosity_SUEWS(I,J)    = porosity_id
           GDD_SUEWS(I,:,J)       = GDD_id
