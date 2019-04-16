@@ -192,8 +192,8 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albGrass_SUEWS !Albedo of grass[-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita !Number of people in the study area per hectare [ha-1]
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: SoilStoreCap       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: SoilDepth          
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: SatHydraulicConduct
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SoilDepth          
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SatHydraulicConduct
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_DecTr       
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_DecTr       
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_EveTr       
@@ -248,8 +248,8 @@ CONTAINS
     REAL(KIND(1d0))                                  :: albGrass_id
     REAL(KIND(1d0))                                  :: NumCapita_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: SoilStoreCap_id
-    REAL(KIND(1d0))                                  :: SoilDepth_id
-    REAL(KIND(1d0))                                  :: SatHydraulicConduct_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: SoilDepth_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: SatHydraulicConduct_id
     REAL(KIND(1d0))                                  :: AlbMin_DecTr_id
     REAL(KIND(1d0))                                  :: AlbMax_DecTr_id
     REAL(KIND(1d0))                                  :: AlbMin_EveTr_id
@@ -334,8 +334,8 @@ CONTAINS
           albGrass_id            = albGrass_SUEWS(I,J)
           NumCapita_id           = NumCapita(I,J)
           SoilStoreCap_id        = SoilStoreCap(I,:,J)          
-          SoilDepth_id           = SoilDepth(I,J)          
-          SatHydraulicConduct_id = SatHydraulicConduct(I,J)
+          SoilDepth_id           = SoilDepth(I,:,J)          
+          SatHydraulicConduct_id = SatHydraulicConduct(I,:,J)
           AlbMin_DecTr_id        = AlbMin_DecTr(I,J)        
           AlbMax_DecTr_id        = AlbMax_DecTr(I,J)        
           AlbMin_EveTr_id        = AlbMin_EveTr(I,J)        
@@ -436,8 +436,8 @@ CONTAINS
           albGrass_SUEWS(I,J)      =   albGrass_id
           NumCapita(I,J)           =   NumCapita_id
           SoilStoreCap(I,:,J)      =   SoilStoreCap_id            
-          SoilDepth(I,J)           =   SoilDepth_id           
-          SatHydraulicConduct(I,J) =   SatHydraulicConduct_id 
+          SoilDepth(I,:,J)           =   SoilDepth_id           
+          SatHydraulicConduct(I,:,J) =   SatHydraulicConduct_id 
           AlbMin_DecTr(I,J)        =   AlbMin_DecTr_id        
           AlbMax_DecTr(I,J)        =   AlbMax_DecTr_id        
           AlbMin_EveTr(I,J)        =   AlbMin_EveTr_id        
@@ -592,8 +592,8 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: albGrass_id !Albedo of grass[-]
     REAL(KIND(1d0)),INTENT(INOUT) :: NumCapita_id !Number of people in the study area per hectare [ha-1]
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: SoilStoreCap_id       
-    REAL(KIND(1d0)),INTENT(INOUT) :: SoilDepth_id          
-    REAL(KIND(1d0)),INTENT(INOUT) :: SatHydraulicConduct_id
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: SoilDepth_id          
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: SatHydraulicConduct_id
     REAL(KIND(1d0)),INTENT(INOUT) :: AlbMin_DecTr_id       
     REAL(KIND(1d0)),INTENT(INOUT) :: AlbMax_DecTr_id       
     REAL(KIND(1d0)),INTENT(INOUT) :: AlbMin_EveTr_id       
