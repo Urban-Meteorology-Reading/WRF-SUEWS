@@ -25,8 +25,9 @@ def gen_var_expand(name, rules, var_base=ds_base['T2'].copy(deep=True)):
     var_new.attrs['stagger'] = 'Z'
     var_new.attrs['units'] = rules[2]
     # set default values
-    var_new.values = np.ones_like(var_new.values) * val_init
-
+    # var_new.values = np.ones_like(var_new.values) * val_init
+    for i in range(0,rep):
+    	var_new.values[:,i,:,:]=val_init[i]
     return var_new
 
 
@@ -58,15 +59,14 @@ def gen_var(name, rules, var_base=ds_base['T2'].copy()):
 # var_name: [('new_dim', new_pos_axis, number_in_axis),value,units] if the first one is tuple
 # then it gives information for furthur dimensions
 dict_rules_suews = {
-    'LAI_SUEWS': [('lai', 1, 3), 2,''],
+    'LAI_SUEWS': [('lai', 1, 3), [2,2,2],''],
     'albDecTr_SUEWS': [0, 0.1,''],
     'albEveTr_SUEWS': [0, 0.1,''],
     'albGrass_SUEWS': [0, 0.1,''],
     'NumCapita': [0, 54,'ha-1'],
-
     'SoilStoreCap': [('nsurf', 1, 7), [150., 150., 150., 150., 150., 150., 0.], 'mm'],
-    'SoilDepth': [0, 350, 'mm'],
-    'SatHydraulicConduct': [0, 5E-4, 'mm s-1'],
+    'SoilDepth': [('nsurf', 1, 7), [350,350,350,350,350,350,350], 'mm'],
+    'SatHydraulicConduct': [('nsurf', 1, 7), [5E-4,5E-4,5E-4,5E-4,5E-4,5E-4,5E-4], 'mm s-1'],
     'AlbMin_DecTr': [0, 0.12,''],
     'AlbMax_DecTr': [0, 0.18,''],
     'AlbMin_EveTr': [0, 0.11,''],
@@ -83,28 +83,25 @@ dict_rules_suews = {
     'FlowChange': [0, 0, ''],
     'PipeCapacity': [0, 100,''],
     'RunoffToWater': [0, 0.1, ''],
-    'StateLimit': [0, 54,''],
-    'WetThresh': [('nsurf', 1, 7), 54, 'mm'],
-    'BaseTHDD': [('nsurf', 1, 7), 54, 'mm'],
-
-
-
+    'StateLimit': [('nsurf', 1, 7), [0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.],'mm'],
+    'WetThresh': [('nsurf', 1, 7), [0.48, 0.25, 1.3, 0.8, 1.9, 1., 0.5], 'mm'],
+    'BaseTHDD': [0, 18.9, 'degC'],
     'PopDensDaytime': [0, 54, 'ha-1'],
     'PopDensNighttime': [0, 54, 'ha-1'],
     'DecidCap_SUEWS': [0, 10,''],
     'porosity_SUEWS': [0, 0.1,''],
-    'GDD_SUEWS': [('gdd', 1, 5), 0,''],
-    'HDD_SUEWS': [('hdd', 1, 12), 0,''],
-    'state_SUEWS': [('nsurf', 1, 7), 1,''],
-    'soilmoist_SUEWS': [('nsurf', 1, 7), 150,''],
-    'surf_var_SUEWS': [('nsurf', 1, 7), 10,''],
+    'GDD_SUEWS': [('gdd', 1, 5), [0,0,0,0,0],''],
+    'HDD_SUEWS': [('hdd', 1, 12), [0,0,0,0,0,0,0,0,0,0,0,0],''],
+    'state_SUEWS': [('nsurf', 1, 7), [1,1,1,1,1,1,1],''],
+    'soilmoist_SUEWS': [('nsurf', 1, 7), [150.,150.,150.,150.,150.,150.,150.],''],
+    'surf_var_SUEWS': [('nsurf', 1, 7), [10,10,10,10,10,10,10],''],
     'qn1_av_SUEWS': [0, 0,''],
     'qn1_s_SUEWS': [0, 0,''],
     'dqndt_SUEWS': [0, 0,''],
     'dqnsdt_SUEWS': [0, 0,''],
-    'MeltWaterStore': [('nsurf', 1, 7), 10,''],
+    'MeltWaterStore': [('nsurf', 1, 7), [10,10,10,10,10,10,10],''],
     'SnowAlb': [0, 0.1,''],
-    'WUDay': [('wu', 1, 9), 10,''],
+    'WUDay': [('wu', 1, 9), [10,10,10,10,10,10,10,10,10],''],
     'z0m_in': [0, .1,''],
     'zdm_in': [0, .1,'']}
 
