@@ -150,7 +150,7 @@
                 " & ,LaiMin_SUEWS                = grid%LaiMin_SUEWS               &",
                 " & ,LaiMax_SUEWS                = grid%LaiMax_SUEWS               &",
                 " & ,MaxConductance_SUEWS        = grid%MaxConductance_SUEWS       &",
-                " & ,FAIbldg_SUEWS_SUEWS         = grid%FAIbldg_SUEWS              &",
+                " & ,FAIbldg_SUEWS               = grid%FAIbldg_SUEWS              &",
                 " & ,FAIEveTree_SUEWS            = grid%FAIEveTree_SUEWS           &",
                 " & ,FAIDecTree_SUEWS            = grid%FAIDecTree_SUEWS           &",
                 " & ,bldgH_SUEWS                 = grid%bldgH_SUEWS                &",

@@ -48,7 +48,7 @@ state      real     AlbMax_DecTr_SUEWS                          ij              
 state      real     AlbMin_EveTr_SUEWS                          ij                    misc    1           -           irh    "AlbMin_EveTr_SUEWS"           "AlbMin_EveTr_SUEWS"              ""
 state      real     AlbMax_EveTr_SUEWS                          ij                    misc    1           -           irh    "AlbMax_EveTr_SUEWS"           "AlbMax_EveTr_SUEWS"              ""
 state      real     AlbMin_Grass_SUEWS                          ij                    misc    1           -           irh    "AlbMin_Grass_SUEWS"           "AlbMin_Grass_SUEWS"              ""
-state       real     AlbMax_Grass_SUEWS                          ij                    misc    1           -           irh    "AlbMax_Grass_SUEWS"           "AlbMax_Grass_SUEWS"              ""
+state      real     AlbMax_Grass_SUEWS                          ij                    misc    1           -           irh    "AlbMax_Grass_SUEWS"           "AlbMax_Grass_SUEWS"              ""
 state      real     CapMin_dec_SUEWS                            ij                    misc    1           -           irh    "CapMin_dec_SUEWS"             "CapMin_dec_SUEWS"                "mm"
 state      real     CapMax_dec_SUEWS                            ij                    misc    1           -           irh    "CapMax_dec_SUEWS"             "CapMax_dec_SUEWS"                "mm"
 state      real     PorMin_dec_SUEWS                            ij                    misc    1           -           irh    "PorMin_dec_SUEWS"             "PorMin_dec_SUEWS"                ""
