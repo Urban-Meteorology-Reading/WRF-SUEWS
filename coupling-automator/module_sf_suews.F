@@ -39,62 +39,62 @@ CONTAINS
        albDecTr_SUEWS,                          &
        albEveTr_SUEWS,                          &
        albGrass_SUEWS,                          &
-       NumCapita,                               &
+       NumCapita_SUEWS,                               &
 
-       BaseT                 ,&
-       BaseTe                ,&
-       GDDFull               ,&
-       SDDFull               ,&
-       LaiMin                ,&
-       LaiMax                ,&
-       MaxConductance        ,&
-       FAIbldg               ,&
-       FAIEveTree            ,&
-       FAIDecTree            ,&
-       bldgH                 ,&
-       EveTreeH              ,&
-       DecTreeH              ,&
-       AH_MIN                ,&
-       AH_SLOPE_Cooling      ,&
-       AH_SLOPE_Heating      ,&
-       QF0_BEU               ,&
-       Qf_A                  ,&
-       Qf_B                  ,&
-       Qf_C                  ,&
-       T_CRITIC_Cooling      ,&
-       T_CRITIC_Heating      ,&
-       TrafficRate           ,&
-       surf_attr_MinStorCap  ,&
-       surf_attr_DrainEquat  ,&
-       surf_attr_DrainCoef1  ,&
-       surf_attr_DrainCoef2  ,&
-       surf_attr_MaxStorCap  ,&
+       BaseT_SUEWS                 ,&
+       BaseTe_SUEWS                ,&
+       GDDFull_SUEWS               ,&
+       SDDFull_SUEWS               ,&
+       LaiMin_SUEWS                ,&
+       LaiMax_SUEWS                ,&
+       MaxConductance_SUEWS        ,&
+       FAIbldg_SUEWS               ,&
+       FAIEveTree_SUEWS            ,&
+       FAIDecTree_SUEWS            ,&
+       bldgH_SUEWS                 ,&
+       EveTreeH_SUEWS              ,&
+       DecTreeH_SUEWS              ,&
+       AH_MIN_SUEWS                ,&
+       AH_SLOPE_Cooling_SUEWS      ,&
+       AH_SLOPE_Heating_SUEWS      ,&
+       QF0_BEU_SUEWS               ,&
+       Qf_A_SUEWS                  ,&
+       Qf_B_SUEWS                  ,&
+       Qf_C_SUEWS                  ,&
+       T_CRITIC_Cooling_SUEWS      ,&
+       T_CRITIC_Heating_SUEWS      ,&
+       TrafficRate_SUEWS           ,&
+       surf_attr_MinStorCap_SUEWS  ,&
+       surf_attr_DrainEquat_SUEWS  ,&
+       surf_attr_DrainCoef1_SUEWS  ,&
+       surf_attr_DrainCoef2_SUEWS  ,&
+       surf_attr_MaxStorCap_SUEWS  ,&
 
 
-       SoilStoreCap,&
-       SoilDepth,&
-       SatHydraulicConduct,&
-       AlbMin_DecTr,&
-       AlbMax_DecTr,&
-       AlbMin_EveTr,&
-       AlbMax_EveTr,&
-       AlbMin_Grass,&
-       AlbMax_Grass,&
-       CapMin_dec,&
-       CapMax_dec,&
-       PorMin_dec,&
-       PorMax_dec,&
-       DRAINRT,&
-       RAINCOVER,&
-       RAINMAXRES,&
-       FlowChange,&
-       PipeCapacity,&
-       RunoffToWater,&
-       StateLimit,&
-       WetThresh,&
-       BaseTHDD,&
-       PopDensDaytime,                          &
-       PopDensNighttime,                        &
+       SoilStoreCap_SUEWS,&
+       SoilDepth_SUEWS,&
+       SatHydraulicConduct_SUEWS,&
+       AlbMin_DecTr_SUEWS,&
+       AlbMax_DecTr_SUEWS,&
+       AlbMin_EveTr_SUEWS,&
+       AlbMax_EveTr_SUEWS,&
+       AlbMin_Grass_SUEWS,&
+       AlbMax_Grass_SUEWS,&
+       CapMin_dec_SUEWS,&
+       CapMax_dec_SUEWS,&
+       PorMin_dec_SUEWS,&
+       PorMax_dec_SUEWS,&
+       DRAINRT_SUEWS,&
+       RAINCOVER_SUEWS,&
+       RAINMAXRES_SUEWS,&
+       FlowChange_SUEWS,&
+       PipeCapacity_SUEWS,&
+       RunoffToWater_SUEWS,&
+       StateLimit_SUEWS,&
+       WetThresh_SUEWS,&
+       BaseTHDD_SUEWS,&
+       PopDensDaytime_SUEWS,                          &
+       PopDensNighttime_SUEWS,                        &
        DecidCap_SUEWS,                          &
        porosity_SUEWS,                          &
        GDD_SUEWS,                               &
@@ -109,11 +109,11 @@ CONTAINS
        qn1_s_SUEWS,                             &
        dqndt_SUEWS,                             &
        dqnsdt_SUEWS,                            &
-       MeltWaterStore,                          &
-       SnowAlb,                                 &
-       WUDay,                                   &
-       z0m_in,                                  &
-       zdm_in,                                  &
+       MeltWaterStore_SUEWS,                          &
+       SnowAlb_SUEWS,                                 &
+       WUDay_SUEWS,                                   &
+       z0m_in_SUEWS,                                  &
+       zdm_in_SUEWS,                                  &
        xlong, xlat, DT, DT_PREV, DX,            &
        ids, ide, jds, jde, kds, kde,            &
        ims, ime, jms, jme, kms, kme,            &
@@ -221,63 +221,63 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albDecTr_SUEWS !Albedo of deciduous trees [-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albEveTr_SUEWS !Albedo of evergreen trees [-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albGrass_SUEWS !Albedo of grass[-]
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita !Number of people in the study area per hectare [ha-1]
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita_SUEWS !Number of people in the study area per hectare [ha-1]
 
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT               
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe              
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull             
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull             
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: LaiMin              
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: LaiMax              
-    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: MaxConductance      
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIbldg             
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIEveTree          
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIDecTree          
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: bldgH               
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: EveTreeH            
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecTreeH            
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_MIN              
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_SLOPE_Cooling    
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_SLOPE_Heating    
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: QF0_BEU             
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_A                
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_B                
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_C                
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: T_CRITIC_Cooling    
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: T_CRITIC_Heating    
-    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: TrafficRate         
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_MinStorCap
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainEquat
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainCoef1
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainCoef2
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_MaxStorCap
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT_SUEWS               
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe_SUEWS              
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull_SUEWS             
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull_SUEWS             
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: LaiMin_SUEWS              
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: LaiMax_SUEWS              
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: MaxConductance_SUEWS      
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIbldg_SUEWS             
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIEveTree_SUEWS          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIDecTree_SUEWS          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: bldgH_SUEWS               
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: EveTreeH_SUEWS            
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecTreeH_SUEWS            
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_MIN_SUEWS              
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_SLOPE_Cooling_SUEWS    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_SLOPE_Heating_SUEWS    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: QF0_BEU_SUEWS    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_A_SUEWS                
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_B_SUEWS                
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_C_SUEWS                
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: T_CRITIC_Cooling_SUEWS    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: T_CRITIC_Heating_SUEWS    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: TrafficRate_SUEWS         
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_MinStorCap_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainEquat_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainCoef1_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainCoef2_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_MaxStorCap_SUEWS
 
 
 
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: SoilStoreCap       
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SoilDepth          
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SatHydraulicConduct
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_DecTr       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_DecTr       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_EveTr       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_EveTr       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_Grass       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_Grass       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: CapMin_dec         
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: CapMax_dec         
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PorMin_dec         
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PorMax_dec         
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DRAINRT            
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RAINCOVER          
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RAINMAXRES         
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FlowChange         
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PipeCapacity       
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RunoffToWater      
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: StateLimit         
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: WetThresh          
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: BaseTHDD           
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensDaytime !Daytime population density [ha-1] (i.e. workers)
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensNighttime ! Nighttime population density [ha-1] (i.e. residents)
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: SoilStoreCap_SUEWS       
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SoilDepth_SUEWS          
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SatHydraulicConduct_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_DecTr_SUEWS       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_DecTr_SUEWS       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_EveTr_SUEWS       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_EveTr_SUEWS       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_Grass_SUEWS       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_Grass_SUEWS       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: CapMin_dec_SUEWS         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: CapMax_dec_SUEWS         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PorMin_dec_SUEWS         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PorMax_dec_SUEWS         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DRAINRT_SUEWS            
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RAINCOVER_SUEWS          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RAINMAXRES_SUEWS         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FlowChange_SUEWS         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PipeCapacity_SUEWS       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RunoffToWater_SUEWS      
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: StateLimit_SUEWS         
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: WetThresh_SUEWS          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: BaseTHDD_SUEWS           
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensDaytime_SUEWS !Daytime population density [ha-1] (i.e. workers)
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensNighttime_SUEWS ! Nighttime population density [ha-1] (i.e. residents)
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: porosity_SUEWS !Porosity of deciduous trees [-]
     REAL,DIMENSION(ims:ime,5,jms:jme),INTENT(INOUT)  :: GDD_SUEWS      !Growing Degree Days (see SUEWS_DailyState.f95)
@@ -292,11 +292,11 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: qn1_s_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: dqndt_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: dqnsdt_SUEWS
-    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: MeltWaterStore
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: SnowAlb
-    REAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)  :: WUDay
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: z0m_in
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: zdm_in
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: MeltWaterStore_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: SnowAlb_SUEWS
+    REAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)  :: WUDay_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: z0m_in_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: zdm_in_SUEWS
 
     ! LOCAL VARS
     REAL,DIMENSION(7)                 :: landusef_suews1d
@@ -427,63 +427,63 @@ CONTAINS
           albDecTr_id            = albDecTr_SUEWS(I,J)
           albEveTr_id            = albEveTr_SUEWS(I,J)
           albGrass_id            = albGrass_SUEWS(I,J)
-          NumCapita_id           = NumCapita(I,J)
+          NumCapita_id           = NumCapita_SUEWS(I,J)
 
 
-          BaseT_id                 =    BaseT(I,:,J)                 
-          BaseTe_id                =    BaseTe(I,:,J)                
-          GDDFull_id               =    GDDFull(I,:,J)               
-          SDDFull_id               =    SDDFull(I,:,J)               
-          LaiMin_id                =    LaiMin(I,:,J)                
-          LaiMax_id                =    LaiMax(I,:,J)                
-          MaxConductance_id        =    MaxConductance(I,:,J)        
-          FAIbldg_id               =    FAIbldg(I,J)                 
-          FAIEveTree_id            =    FAIEveTree(I,J)              
-          FAIDecTree_id            =    FAIDecTree(I,J)              
-          bldgH_id                 =    bldgH(I,J)                   
-          EveTreeH_id              =    EveTreeH(I,J)                
-          DecTreeH_id              =    DecTreeH(I,J)                
-          AH_MIN_id                =    AH_MIN(I,:,J)                
-          AH_SLOPE_Cooling_id      =    AH_SLOPE_Cooling(I,:,J)      
-          AH_SLOPE_Heating_id      =    AH_SLOPE_Heating(I,:,J)      
-          QF0_BEU_id               =    QF0_BEU(I,:,J)               
-          Qf_A_id                  =    Qf_A(I,:,J)                  
-          Qf_B_id                  =    Qf_B(I,:,J)                  
-          Qf_C_id                  =    Qf_C(I,:,J)                  
-          T_CRITIC_Cooling_id      =    T_CRITIC_Cooling(I,:,J)      
-          T_CRITIC_Heating_id      =    T_CRITIC_Heating(I,:,J)      
-          TrafficRate_id           =    TrafficRate(I,:,J)           
-          surf_attr_MinStorCap_id  =    surf_attr_MinStorCap(I,:,J)  
-          surf_attr_DrainEquat_id  =    surf_attr_DrainEquat(I,:,J)  
-          surf_attr_DrainCoef1_id  =    surf_attr_DrainCoef1(I,:,J)  
-          surf_attr_DrainCoef2_id  =    surf_attr_DrainCoef2(I,:,J)  
-          surf_attr_MaxStorCap_id  =    surf_attr_MaxStorCap(I,:,J)  
+          BaseT_id                 =    BaseT_SUEWS(I,:,J)                 
+          BaseTe_id                =    BaseTe_SUEWS(I,:,J)                
+          GDDFull_id               =    GDDFull_SUEWS(I,:,J)               
+          SDDFull_id               =    SDDFull_SUEWS(I,:,J)               
+          LaiMin_id                =    LaiMin_SUEWS(I,:,J)                
+          LaiMax_id                =    LaiMax_SUEWS(I,:,J)                
+          MaxConductance_id        =    MaxConductance_SUEWS(I,:,J)        
+          FAIbldg_id               =    FAIbldg_SUEWS(I,J)                 
+          FAIEveTree_id            =    FAIEveTree_SUEWS(I,J)              
+          FAIDecTree_id            =    FAIDecTree_SUEWS(I,J)              
+          bldgH_id                 =    bldgH_SUEWS(I,J)                   
+          EveTreeH_id              =    EveTreeH_SUEWS(I,J)                
+          DecTreeH_id              =    DecTreeH_SUEWS(I,J)                
+          AH_MIN_id                =    AH_MIN_SUEWS(I,:,J)                
+          AH_SLOPE_Cooling_id      =    AH_SLOPE_Cooling_SUEWS(I,:,J)      
+          AH_SLOPE_Heating_id      =    AH_SLOPE_Heating_SUEWS(I,:,J)      
+          QF0_BEU_id               =    QF0_BEU_SUEWS(I,:,J)               
+          Qf_A_id                  =    Qf_A_SUEWS(I,:,J)                  
+          Qf_B_id                  =    Qf_B_SUEWS(I,:,J)                  
+          Qf_C_id                  =    Qf_C_SUEWS(I,:,J)                  
+          T_CRITIC_Cooling_id      =    T_CRITIC_Cooling_SUEWS(I,:,J)      
+          T_CRITIC_Heating_id      =    T_CRITIC_Heating_SUEWS(I,:,J)      
+          TrafficRate_id           =    TrafficRate_SUEWS(I,:,J)           
+          surf_attr_MinStorCap_id  =    surf_attr_MinStorCap_SUEWS(I,:,J)  
+          surf_attr_DrainEquat_id  =    surf_attr_DrainEquat_SUEWS(I,:,J)  
+          surf_attr_DrainCoef1_id  =    surf_attr_DrainCoef1_SUEWS(I,:,J)  
+          surf_attr_DrainCoef2_id  =    surf_attr_DrainCoef2_SUEWS(I,:,J)  
+          surf_attr_MaxStorCap_id  =    surf_attr_MaxStorCap_SUEWS(I,:,J)  
 
-          SoilStoreCap_id        = SoilStoreCap(I,:,J)          
-          SoilDepth_id           = SoilDepth(I,:,J)          
-          SatHydraulicConduct_id = SatHydraulicConduct(I,:,J)
-          AlbMin_DecTr_id        = AlbMin_DecTr(I,J)        
-          AlbMax_DecTr_id        = AlbMax_DecTr(I,J)        
-          AlbMin_EveTr_id        = AlbMin_EveTr(I,J)        
-          AlbMax_EveTr_id        = AlbMax_EveTr(I,J)        
-          AlbMin_Grass_id        = AlbMin_Grass(I,J)        
-          AlbMax_Grass_id        = AlbMax_Grass(I,J)        
-          CapMin_dec_id          = CapMin_dec(I,J)                              
-          CapMax_dec_id          = CapMax_dec(I,J)                    
-          PorMin_dec_id          = PorMin_dec(I,J)                    
-          PorMax_dec_id          = PorMax_dec(I,J)                    
-          DRAINRT_id             = DRAINRT(I,J)                    
-          RAINCOVER_id           = RAINCOVER(I,J)                    
-          RAINMAXRES_id          = RAINMAXRES(I,J)                    
-          FlowChange_id          = FlowChange(I,J)                    
-          PipeCapacity_id        = PipeCapacity(I,J)                    
-          RunoffToWater_id       = RunoffToWater(I,J)                    
-          StateLimit_id          = StateLimit(I,:,J)                    
-          WetThresh_id           = WetThresh(I,:,J)                    
-          BaseTHDD_id            = BaseTHDD(I,J)
+          SoilStoreCap_id        = SoilStoreCap_SUEWS(I,:,J)          
+          SoilDepth_id           = SoilDepth_SUEWS(I,:,J)          
+          SatHydraulicConduct_id = SatHydraulicConduct_SUEWS(I,:,J)
+          AlbMin_DecTr_id        = AlbMin_DecTr_SUEWS(I,J)        
+          AlbMax_DecTr_id        = AlbMax_DecTr_SUEWS(I,J)        
+          AlbMin_EveTr_id        = AlbMin_EveTr_SUEWS(I,J)        
+          AlbMax_EveTr_id        = AlbMax_EveTr_SUEWS(I,J)        
+          AlbMin_Grass_id        = AlbMin_Grass_SUEWS(I,J)        
+          AlbMax_Grass_id        = AlbMax_Grass_SUEWS(I,J)        
+          CapMin_dec_id          = CapMin_dec_SUEWS(I,J)                              
+          CapMax_dec_id          = CapMax_dec_SUEWS(I,J)                    
+          PorMin_dec_id          = PorMin_dec_SUEWS(I,J)                    
+          PorMax_dec_id          = PorMax_dec_SUEWS(I,J)                    
+          DRAINRT_id             = DRAINRT_SUEWS(I,J)                    
+          RAINCOVER_id           = RAINCOVER_SUEWS(I,J)                    
+          RAINMAXRES_id          = RAINMAXRES_SUEWS(I,J)                    
+          FlowChange_id          = FlowChange_SUEWS(I,J)                    
+          PipeCapacity_id        = PipeCapacity_SUEWS(I,J)                    
+          RunoffToWater_id       = RunoffToWater_SUEWS(I,J)                    
+          StateLimit_id          = StateLimit_SUEWS(I,:,J)                    
+          WetThresh_id           = WetThresh_SUEWS(I,:,J)                    
+          BaseTHDD_id            = BaseTHDD_SUEWS(I,J)
 
-          PopDensDaytime_id    = PopDensDaytime(I,J)
-          PopDensNighttime_id    = PopDensNighttime(I,J)
+          PopDensDaytime_id    = PopDensDaytime_SUEWS(I,J)
+          PopDensNighttime_id    = PopDensNighttime_SUEWS(I,J)
           DecidCap_id     = DecidCap_SUEWS(I,J)
           porosity_id     = porosity_SUEWS(I,J)
           GDD_id          = GDD_SUEWS(I,:,J)
@@ -497,11 +497,11 @@ CONTAINS
           qn1_s_id        = qn1_s_SUEWS(I,J)
           dqndt_id        = dqndt_SUEWS(I,J)
           dqnsdt_id        = dqnsdt_SUEWS(I,J)
-          MeltWaterStore_id  = MeltWaterStore(I,:,J)
-          SnowAlb_id = SnowAlb(I,J)
-          WUDay_id   = WUDay(I,:,J)
-          z0m_in_id  = z0m_in(I,J)
-          zdm_in_id  = zdm_in(I,J)
+          MeltWaterStore_id  = MeltWaterStore_SUEWS(I,:,J)
+          SnowAlb_id = SnowAlb_SUEWS(I,J)
+          WUDay_id   = WUDay_SUEWS(I,:,J)
+          z0m_in_id  = z0m_in_SUEWS(I,J)
+          zdm_in_id  = zdm_in_SUEWS(I,J)
 
           ! the indices to the PSFC argument in the following call look
           ! wrong; however, it is correct to call with its (and not ims)
@@ -591,63 +591,63 @@ CONTAINS
           albDecTr_SUEWS(I,J)      =   albDecTr_id
           albEveTr_SUEWS(I,J)      =   albEveTr_id
           albGrass_SUEWS(I,J)      =   albGrass_id
-          NumCapita(I,J)           =   NumCapita_id
+          NumCapita_SUEWS(I,J)           =   NumCapita_id
 
-          BaseT(I,:,J)                  =   BaseT_id               
-          BaseTe(I,:,J)                 =   BaseTe_id              
-          GDDFull(I,:,J)                =   GDDFull_id             
-          SDDFull(I,:,J)                =   SDDFull_id             
-          LaiMin(I,:,J)                 =   LaiMin_id              
-          LaiMax(I,:,J)                 =   LaiMax_id              
-          MaxConductance(I,:,J)         =   MaxConductance_id      
-          FAIbldg(I,J)                  =   FAIbldg_id             
-          FAIEveTree(I,J)               =   FAIEveTree_id          
-          FAIDecTree(I,J)               =   FAIDecTree_id          
-          bldgH(I,J)                    =   bldgH_id               
-          EveTreeH(I,J)                 =   EveTreeH_id            
-          DecTreeH(I,J)                 =   DecTreeH_id            
-          AH_MIN(I,:,J)                 =   AH_MIN_id              
-          AH_SLOPE_Cooling(I,:,J)       =   AH_SLOPE_Cooling_id    
-          AH_SLOPE_Heating(I,:,J)       =   AH_SLOPE_Heating_id    
-          QF0_BEU(I,:,J)                =   QF0_BEU_id             
-          Qf_A(I,:,J)                   =   Qf_A_id                
-          Qf_B(I,:,J)                   =   Qf_B_id                
-          Qf_C(I,:,J)                   =   Qf_C_id                
-          T_CRITIC_Cooling(I,:,J)       =   T_CRITIC_Cooling_id    
-          T_CRITIC_Heating(I,:,J)       =   T_CRITIC_Heating_id    
-          TrafficRate(I,:,J)            =   TrafficRate_id         
-          surf_attr_MinStorCap(I,:,J)   =   surf_attr_MinStorCap_id
-          surf_attr_DrainEquat(I,:,J)   =   surf_attr_DrainEquat_id
-          surf_attr_DrainCoef1(I,:,J)   =   surf_attr_DrainCoef1_id
-          surf_attr_DrainCoef2(I,:,J)   =   surf_attr_DrainCoef2_id
-          surf_attr_MaxStorCap(I,:,J)   =   surf_attr_MaxStorCap_id
+          BaseT_SUEWS(I,:,J)                  =   BaseT_id               
+          BaseTe_SUEWS(I,:,J)                 =   BaseTe_id              
+          GDDFull_SUEWS(I,:,J)                =   GDDFull_id             
+          SDDFull_SUEWS(I,:,J)                =   SDDFull_id             
+          LaiMin_SUEWS(I,:,J)                 =   LaiMin_id              
+          LaiMax_SUEWS(I,:,J)                 =   LaiMax_id              
+          MaxConductance_SUEWS(I,:,J)         =   MaxConductance_id      
+          FAIbldg_SUEWS(I,J)                  =   FAIbldg_id             
+          FAIEveTree_SUEWS(I,J)               =   FAIEveTree_id          
+          FAIDecTree_SUEWS(I,J)               =   FAIDecTree_id          
+          bldgH_SUEWS(I,J)                    =   bldgH_id               
+          EveTreeH_SUEWS(I,J)                 =   EveTreeH_id            
+          DecTreeH_SUEWS(I,J)                 =   DecTreeH_id            
+          AH_MIN_SUEWS(I,:,J)                 =   AH_MIN_id              
+          AH_SLOPE_Cooling_SUEWS(I,:,J)       =   AH_SLOPE_Cooling_id    
+          AH_SLOPE_Heating_SUEWS(I,:,J)       =   AH_SLOPE_Heating_id    
+          QF0_BEU_SUEWS(I,:,J)                =   QF0_BEU_id             
+          Qf_A_SUEWS(I,:,J)                   =   Qf_A_id                
+          Qf_B_SUEWS(I,:,J)                   =   Qf_B_id                
+          Qf_C_SUEWS(I,:,J)                   =   Qf_C_id                
+          T_CRITIC_Cooling_SUEWS(I,:,J)       =   T_CRITIC_Cooling_id    
+          T_CRITIC_Heating_SUEWS(I,:,J)       =   T_CRITIC_Heating_id    
+          TrafficRate_SUEWS(I,:,J)            =   TrafficRate_id         
+          surf_attr_MinStorCap_SUEWS(I,:,J)   =   surf_attr_MinStorCap_id
+          surf_attr_DrainEquat_SUEWS(I,:,J)   =   surf_attr_DrainEquat_id
+          surf_attr_DrainCoef1_SUEWS(I,:,J)   =   surf_attr_DrainCoef1_id
+          surf_attr_DrainCoef2_SUEWS(I,:,J)   =   surf_attr_DrainCoef2_id
+          surf_attr_MaxStorCap_SUEWS(I,:,J)   =   surf_attr_MaxStorCap_id
 
 
 
-          SoilStoreCap(I,:,J)      =   SoilStoreCap_id            
-          SoilDepth(I,:,J)           =   SoilDepth_id           
-          SatHydraulicConduct(I,:,J) =   SatHydraulicConduct_id 
-          AlbMin_DecTr(I,J)        =   AlbMin_DecTr_id        
-          AlbMax_DecTr(I,J)        =   AlbMax_DecTr_id        
-          AlbMin_EveTr(I,J)        =   AlbMin_EveTr_id        
-          AlbMax_EveTr(I,J)        =   AlbMax_EveTr_id        
-          AlbMin_Grass(I,J)        =   AlbMin_Grass_id        
-          AlbMax_Grass(I,J)        =   AlbMax_Grass_id        
-          CapMin_dec(I,J)          =   CapMin_dec_id                              
-          CapMax_dec(I,J)          =   CapMax_dec_id                    
-          PorMin_dec(I,J)          =   PorMin_dec_id                    
-          PorMax_dec(I,J)          =   PorMax_dec_id                    
-          DRAINRT(I,J)             =   DRAINRT_id                    
-          RAINCOVER(I,J)           =   RAINCOVER_id                    
-          RAINMAXRES(I,J)          =   RAINMAXRES_id                    
-          FlowChange(I,J)          =   FlowChange_id                    
-          PipeCapacity(I,J)        =   PipeCapacity_id                    
-          RunoffToWater(I,J)       =   RunoffToWater_id                    
-          StateLimit(I,:,J)          =   StateLimit_id                    
-          WetThresh(I,:,J)         =   WetThresh_id                      
-          BaseTHDD(I,J)          =   BaseTHDD_id            
-          PopDensDaytime(I,J)      =   PopDensDaytime_id
-          PopDensNighttime(I,J)    =   PopDensNighttime_id
+          SoilStoreCap_SUEWS(I,:,J)      =   SoilStoreCap_id            
+          SoilDepth_SUEWS(I,:,J)           =   SoilDepth_id           
+          SatHydraulicConduct_SUEWS(I,:,J) =   SatHydraulicConduct_id 
+          AlbMin_DecTr_SUEWS(I,J)        =   AlbMin_DecTr_id        
+          AlbMax_DecTr_SUEWS(I,J)        =   AlbMax_DecTr_id        
+          AlbMin_EveTr_SUEWS(I,J)        =   AlbMin_EveTr_id        
+          AlbMax_EveTr_SUEWS(I,J)        =   AlbMax_EveTr_id        
+          AlbMin_Grass_SUEWS(I,J)        =   AlbMin_Grass_id        
+          AlbMax_Grass_SUEWS(I,J)        =   AlbMax_Grass_id        
+          CapMin_dec_SUEWS(I,J)          =   CapMin_dec_id                              
+          CapMax_dec_SUEWS(I,J)          =   CapMax_dec_id                    
+          PorMin_dec_SUEWS(I,J)          =   PorMin_dec_id                    
+          PorMax_dec_SUEWS(I,J)          =   PorMax_dec_id                    
+          DRAINRT_SUEWS(I,J)             =   DRAINRT_id                    
+          RAINCOVER_SUEWS(I,J)           =   RAINCOVER_id                    
+          RAINMAXRES_SUEWS(I,J)          =   RAINMAXRES_id                    
+          FlowChange_SUEWS(I,J)          =   FlowChange_id                    
+          PipeCapacity_SUEWS(I,J)        =   PipeCapacity_id                    
+          RunoffToWater_SUEWS(I,J)       =   RunoffToWater_id                    
+          StateLimit_SUEWS(I,:,J)          =   StateLimit_id                    
+          WetThresh_SUEWS(I,:,J)         =   WetThresh_id                      
+          BaseTHDD_SUEWS(I,J)          =   BaseTHDD_id            
+          PopDensDaytime_SUEWS(I,J)      =   PopDensDaytime_id
+          PopDensNighttime_SUEWS(I,J)    =   PopDensNighttime_id
           DecidCap_SUEWS(I,J)      =   DecidCap_id
           porosity_SUEWS(I,J)      =   porosity_id
           GDD_SUEWS(I,:,J)         =   GDD_id
@@ -659,9 +659,9 @@ CONTAINS
           emis_SUEWS(I,:,J)        =   emis_id
           dqndt_SUEWS(I,J)         =   dqndt_id
           dqnsdt_SUEWS(I,J)        =   dqnsdt_id
-          MeltWaterStore(I,:,J)    =   MeltWaterStore_id
-          SnowAlb(I,J)             =   SnowAlb_id
-          WUDay(I,:,J)             =   WUDay_id
+          MeltWaterStore_SUEWS(I,:,J)    =   MeltWaterStore_id
+          SnowAlb_SUEWS(I,J)             =   SnowAlb_id
+          WUDay_SUEWS(I,:,J)             =   WUDay_id
 !          z0m_in(I,J)            = z0m_in_id
 !          zdm_in(I,J)            = zdm_in_id
 
