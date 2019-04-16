@@ -4,6 +4,7 @@ dimspec   nvegsurf 2     constant=3                  z        num_vegsurf
 dimspec   dimgdd   2     constant=5                  z        third_dim_gdd
 dimspec   dimhdd   2     constant=12                 z        third_dim_hdd
 dimspec   dimwd    2     constant=9                  z        dim_wd
+dimspec   ahd      2     constant=2                  z        AHd
 
 #<Table>   <Type>   <Sym>                                       <Dims>                <Use>   <NumTLev>   <Stagger>   <IO>   <DNAME>                        <DESCRIP>                   <UNITS>
 state      real     LAI_SUEWS                                   i{nvegsurf}j          misc    1           -           irh    "LAI_SUEWS"                    "LAI_SUEWS"                 "m2 m-2"
@@ -11,6 +12,36 @@ state      real     albDecTr_SUEWS                              ij              
 state      real     albEveTr_SUEWS                              ij                    misc    1           -           irh    "albEveTr_SUEWS"               "albEveTr_SUEWS"            ""
 state      real     albGrass_SUEWS                              ij                    misc    1           -           irh    "albGrass_SUEWS"               "albGrass_SUEWS"            ""
 state      real     NumCapita                                   ij                    misc    1           -           irh    "NumCapita"                    "NumCapita"                 "ha-1"
+
+state      real     BaseT                                       i{nvegsurf}j          misc    1           -           irh    "BaseT"                        "BaseT"                     "degC"
+state      real     BaseTe                                      i{nvegsurf}j          misc    1           -           irh    "BaseTe"                       "BaseTe"                    "degC"
+state      real     GDDFull                                     i{nvegsurf}j          misc    1           -           irh    "GDDFull"                      "GDDFull"                   "degC"
+state      real     SDDFull                                     i{nvegsurf}j          misc    1           -           irh    "SDDFull"                      "SDDFull"                   "degC"
+state      real     LaiMin                                      i{nvegsurf}j          misc    1           -           irh    "LaiMin"                       "LaiMin"                    "m2 m-2"
+state      real     LaiMax                                      i{nvegsurf}j          misc    1           -           irh    "LaiMax"                       "LaiMax"                    "m2 m-2"
+state      real     MaxConductance                              i{nvegsurf}j          misc    1           -           irh    "MaxConductance"               "MaxConductance"            "mm s-1"
+state      real     FAIbldg                                     ij                    misc    1           -           irh    "FAIbldg"                      "FAIbldg"                   ""
+state      real     FAIEveTree                                  ij                    misc    1           -           irh    "FAIEveTree"                   "FAIEveTree"                ""
+state      real     FAIDecTree                                  ij                    misc    1           -           irh    "FAIDecTree"                   "FAIDecTree"                ""
+state      real     bldgH                                       ij                    misc    1           -           irh    "bldgH"                        "bldgH"                     ""
+state      real     EveTreeH                                    ij                    misc    1           -           irh    "EveTreeH"                     "EveTreeH"                  ""
+state      real     DecTreeH                                    ij                    misc    1           -           irh    "DecTreeH"                     "DecTreeH"                  ""
+state      real     AH_MIN                                      i{ahd}j               misc    1           -           irh    "AH_MIN"                       "AH_MIN"                    ""
+state      real     AH_SLOPE_Cooling                            i{ahd}j               misc    1           -           irh    "AH_SLOPE_Cooling"             "AH_SLOPE_Cooling"          ""
+state      real     AH_SLOPE_Heating                            i{ahd}j               misc    1           -           irh    "AH_SLOPE_Heating"             "AH_SLOPE_Heating"          ""
+state      real     QF0_BEU                                     i{ahd}j               misc    1           -           irh    "QF0_BEU"                      "QF0_BEU"                   ""
+state      real     Qf_A                                        i{ahd}j               misc    1           -           irh    "Qf_A"                         "Qf_A"                      ""
+state      real     Qf_B                                        i{ahd}j               misc    1           -           irh    "Qf_B"                         "Qf_B"                      ""
+state      real     Qf_C                                        i{ahd}j               misc    1           -           irh    "Qf_C"                         "Qf_C"                      ""
+state      real     T_CRITIC_Cooling                            i{ahd}j               misc    1           -           irh    "T_CRITIC_Cooling"             "T_CRITIC_Cooling"          ""
+state      real     T_CRITIC_Heating                            i{ahd}j               misc    1           -           irh    "T_CRITIC_Heating"             "T_CRITIC_Heating"          ""
+state      real     TrafficRate                                 i{ahd}j               misc    1           -           irh    "TrafficRate"                  "TrafficRate"               ""
+state      real     surf_attr_MinStorCap                        i{nsurf}j             misc    1           -           irh    "surf_attr_MinStorCap"         "surf_attr_MinStorCap"      "mm"
+state      real     surf_attr_DrainEquat                        i{nsurf}j             misc    1           -           irh    "surf_attr_DrainEquat"         "surf_attr_DrainEquat"      ""
+state      real     surf_attr_DrainCoef1                        i{nsurf}j             misc    1           -           irh    "surf_attr_DrainCoef1"         "surf_attr_DrainCoef1"      ""
+state      real     surf_attr_DrainCoef2                        i{nsurf}j             misc    1           -           irh    "surf_attr_DrainCoef2"         "surf_attr_DrainCoef2"      ""
+state      real     surf_attr_MaxStorCap                        i{nsurf}j             misc    1           -           irh    "surf_attr_MaxStorCap"         "surf_attr_MaxStorCap"      "mm"
+
 state      real     SoilStoreCap                                i{nsurf}j             misc    1           -           irh    "SoilStoreCap"                 "SoilStoreCap"              "mm"
 state      real     SoilDepth                                   i{nsurf}j             misc    1           -           irh    "SoilDepth"                    "SoilDepth"                 "mm"
 state      real     SatHydraulicConduct                         i{nsurf}j             misc    1           -           irh    "SatHydraulicConduct"          "SatHydraulicConduct"       "mm s-1"
@@ -32,7 +63,7 @@ state      real     PipeCapacity                                ij              
 state      real     RunoffToWater                               ij                    misc    1           -           irh    "RunoffToWater"                "RunoffToWater"             ""
 state      real     StateLimit                                  i{nsurf}j             misc    1           -           irh    "StateLimit"                   "StateLimit"                "mm"
 state      real     WetThresh                                   i{nsurf}j             misc    1           -           irh    "WetThresh"                    "WetThresh"                 "mm"
-state      real     BaseTHDD                                    ij                    misc    1           -           irh    "BaseTHDD"                     "BaseTHDD"                  "C"
+state      real     BaseTHDD                                    ij                    misc    1           -           irh    "BaseTHDD"                     "BaseTHDD"                  "degC"
 state      real     PopDensDaytime                              ij                    misc    1           -           irh    "PopDensDaytime"               "PopDensDaytime"            "ha-1"
 state      real     PopDensNighttime                            ij                    misc    1           -           irh    "PopDensNighttime"             "PopDensNighttime"          "ha-1"
 state      real     DecidCap_SUEWS                              ij                    misc    1           -           irh    "DecidCap_SUEWS"               "DecidCap_SUEWS"            "mm"

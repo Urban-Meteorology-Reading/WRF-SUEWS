@@ -40,6 +40,37 @@ CONTAINS
        albEveTr_SUEWS,                          &
        albGrass_SUEWS,                          &
        NumCapita,                               &
+
+       BaseT                 ,&
+       BaseTe                ,&
+       GDDFull               ,&
+       SDDFull               ,&
+       LaiMin                ,&
+       LaiMax                ,&
+       MaxConductance        ,&
+       FAIbldg               ,&
+       FAIEveTree            ,&
+       FAIDecTree            ,&
+       bldgH                 ,&
+       EveTreeH              ,&
+       DecTreeH              ,&
+       AH_MIN                ,&
+       AH_SLOPE_Cooling      ,&
+       AH_SLOPE_Heating      ,&
+       QF0_BEU               ,&
+       Qf_A                  ,&
+       Qf_B                  ,&
+       Qf_C                  ,&
+       T_CRITIC_Cooling      ,&
+       T_CRITIC_Heating      ,&
+       TrafficRate           ,&
+       surf_attr_MinStorCap  ,&
+       surf_attr_DrainEquat  ,&
+       surf_attr_DrainCoef1  ,&
+       surf_attr_DrainCoef2  ,&
+       surf_attr_MaxStorCap  ,&
+
+
        SoilStoreCap,&
        SoilDepth,&
        SatHydraulicConduct,&
@@ -58,7 +89,7 @@ CONTAINS
        RAINMAXRES,&
        FlowChange,&
        PipeCapacity,&
-       RunoffToWate,&
+       RunoffToWater,&
        StateLimit,&
        WetThresh,&
        BaseTHDD,&
@@ -191,6 +222,38 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albEveTr_SUEWS !Albedo of evergreen trees [-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albGrass_SUEWS !Albedo of grass[-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita !Number of people in the study area per hectare [ha-1]
+
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT               
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe              
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull             
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull             
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: LaiMin              
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: LaiMax              
+    REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: MaxConductance      
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIbldg             
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIEveTree          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FAIDecTree          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: bldgH               
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: EveTreeH            
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecTreeH            
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_MIN              
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_SLOPE_Cooling    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: AH_SLOPE_Heating    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: QF0_BEU             
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_A                
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_B                
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: Qf_C                
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: T_CRITIC_Cooling    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: T_CRITIC_Heating    
+    REAL,DIMENSION(ims:ime,2,jms:jme),INTENT(INOUT)    :: TrafficRate         
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_MinStorCap
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainEquat
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainCoef1
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_DrainCoef2
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: surf_attr_MaxStorCap
+
+
+
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: SoilStoreCap       
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SoilDepth          
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)    :: SatHydraulicConduct
@@ -247,6 +310,38 @@ CONTAINS
     REAL(KIND(1d0))                                  :: albEveTr_id
     REAL(KIND(1d0))                                  :: albGrass_id
     REAL(KIND(1d0))                                  :: NumCapita_id
+
+
+    REAL(KIND(1d0)), DIMENSION(3):: BaseT_id               
+    REAL(KIND(1d0)), DIMENSION(3):: BaseTe_id              
+    REAL(KIND(1d0)), DIMENSION(3):: GDDFull_id             
+    REAL(KIND(1d0)), DIMENSION(3):: SDDFull_id             
+    REAL(KIND(1d0)), DIMENSION(3):: LaiMin_id              
+    REAL(KIND(1d0)), DIMENSION(3):: LaiMax_id              
+    REAL(KIND(1d0)), DIMENSION(3):: MaxConductance_id      
+    REAL(KIND(1d0)):: FAIbldg_id             
+    REAL(KIND(1d0)):: FAIEveTree_id          
+    REAL(KIND(1d0)):: FAIDecTree_id          
+    REAL(KIND(1d0)):: bldgH_id               
+    REAL(KIND(1d0)):: EveTreeH_id            
+    REAL(KIND(1d0)):: DecTreeH_id            
+    REAL(KIND(1d0)), DIMENSION(2):: AH_MIN_id              
+    REAL(KIND(1d0)), DIMENSION(2):: AH_SLOPE_Cooling_id    
+    REAL(KIND(1d0)), DIMENSION(2):: AH_SLOPE_Heating_id    
+    REAL(KIND(1d0)), DIMENSION(2):: QF0_BEU_id             
+    REAL(KIND(1d0)), DIMENSION(2):: Qf_A_id                
+    REAL(KIND(1d0)), DIMENSION(2):: Qf_B_id                
+    REAL(KIND(1d0)), DIMENSION(2):: Qf_C_id                
+    REAL(KIND(1d0)), DIMENSION(2):: T_CRITIC_Cooling_id    
+    REAL(KIND(1d0)), DIMENSION(2):: T_CRITIC_Heating_id    
+    REAL(KIND(1d0)), DIMENSION(2):: TrafficRate_id         
+    REAL(KIND(1d0)), DIMENSION(7):: surf_attr_MinStorCap_id
+    REAL(KIND(1d0)), DIMENSION(7):: surf_attr_DrainEquat_id
+    REAL(KIND(1d0)), DIMENSION(7):: surf_attr_DrainCoef1_id
+    REAL(KIND(1d0)), DIMENSION(7):: surf_attr_DrainCoef2_id
+    REAL(KIND(1d0)), DIMENSION(7):: surf_attr_MaxStorCap_id
+
+
     REAL(KIND(1d0)),DIMENSION(7)                     :: SoilStoreCap_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: SoilDepth_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: SatHydraulicConduct_id
@@ -333,6 +428,37 @@ CONTAINS
           albEveTr_id            = albEveTr_SUEWS(I,J)
           albGrass_id            = albGrass_SUEWS(I,J)
           NumCapita_id           = NumCapita(I,J)
+
+
+          BaseT_id                 =    BaseT(I,:,J)                 
+          BaseTe_id                =    BaseTe(I,:,J)                
+          GDDFull_id               =    GDDFull(I,:,J)               
+          SDDFull_id               =    SDDFull(I,:,J)               
+          LaiMin_id                =    LaiMin(I,:,J)                
+          LaiMax_id                =    LaiMax(I,:,J)                
+          MaxConductance_id        =    MaxConductance(I,:,J)        
+          FAIbldg_id               =    FAIbldg(I,J)                 
+          FAIEveTree_id            =    FAIEveTree(I,J)              
+          FAIDecTree_id            =    FAIDecTree(I,J)              
+          bldgH_id                 =    bldgH(I,J)                   
+          EveTreeH_id              =    EveTreeH(I,J)                
+          DecTreeH_id              =    DecTreeH(I,J)                
+          AH_MIN_id                =    AH_MIN(I,:,J)                
+          AH_SLOPE_Cooling_id      =    AH_SLOPE_Cooling(I,:,J)      
+          AH_SLOPE_Heating_id      =    AH_SLOPE_Heating(I,:,J)      
+          QF0_BEU_id               =    QF0_BEU(I,:,J)               
+          Qf_A_id                  =    Qf_A(I,:,J)                  
+          Qf_B_id                  =    Qf_B(I,:,J)                  
+          Qf_C_id                  =    Qf_C(I,:,J)                  
+          T_CRITIC_Cooling_id      =    T_CRITIC_Cooling(I,:,J)      
+          T_CRITIC_Heating_id      =    T_CRITIC_Heating(I,:,J)      
+          TrafficRate_id           =    TrafficRate(I,:,J)           
+          surf_attr_MinStorCap_id  =    surf_attr_MinStorCap(I,:,J)  
+          surf_attr_DrainEquat_id  =    surf_attr_DrainEquat(I,:,J)  
+          surf_attr_DrainCoef1_id  =    surf_attr_DrainCoef1(I,:,J)  
+          surf_attr_DrainCoef2_id  =    surf_attr_DrainCoef2(I,:,J)  
+          surf_attr_MaxStorCap_id  =    surf_attr_MaxStorCap(I,:,J)  
+
           SoilStoreCap_id        = SoilStoreCap(I,:,J)          
           SoilDepth_id           = SoilDepth(I,:,J)          
           SatHydraulicConduct_id = SatHydraulicConduct(I,:,J)
@@ -394,6 +520,37 @@ CONTAINS
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
                LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
+
+               BaseT_id               ,&
+               BaseTe_id              ,&
+               GDDFull_id             ,&
+               SDDFull_id             ,&
+               LaiMin_id              ,&
+               LaiMax_id              ,&
+               MaxConductance_id      ,&
+               FAIbldg_id             ,&
+               FAIEveTree_id          ,&
+               FAIDecTree_id          ,&
+               bldgH_id               ,&
+               EveTreeH_id            ,&
+               DecTreeH_id            ,&
+               AH_MIN_id              ,&
+               AH_SLOPE_Cooling_id    ,&
+               AH_SLOPE_Heating_id    ,&
+               QF0_BEU_id             ,&
+               Qf_A_id                ,&
+               Qf_B_id                ,&
+               Qf_C_id                ,&
+               T_CRITIC_Cooling_id    ,&
+               T_CRITIC_Heating_id    ,&
+               TrafficRate_id         ,&
+               surf_attr_MinStorCap_id,&
+               surf_attr_DrainEquat_id,&
+               surf_attr_DrainCoef1_id,&
+               surf_attr_DrainCoef2_id,&
+               surf_attr_MaxStorCap_id,&
+
+
                SoilStoreCap_id        ,&
                SoilDepth_id           ,&
                SatHydraulicConduct_id ,&
@@ -435,6 +592,38 @@ CONTAINS
           albEveTr_SUEWS(I,J)      =   albEveTr_id
           albGrass_SUEWS(I,J)      =   albGrass_id
           NumCapita(I,J)           =   NumCapita_id
+
+          BaseT(I,:,J)                  =   BaseT_id               
+          BaseTe(I,:,J)                 =   BaseTe_id              
+          GDDFull(I,:,J)                =   GDDFull_id             
+          SDDFull(I,:,J)                =   SDDFull_id             
+          LaiMin(I,:,J)                 =   LaiMin_id              
+          LaiMax(I,:,J)                 =   LaiMax_id              
+          MaxConductance(I,:,J)         =   MaxConductance_id      
+          FAIbldg(I,J)                  =   FAIbldg_id             
+          FAIEveTree(I,J)               =   FAIEveTree_id          
+          FAIDecTree(I,J)               =   FAIDecTree_id          
+          bldgH(I,J)                    =   bldgH_id               
+          EveTreeH(I,J)                 =   EveTreeH_id            
+          DecTreeH(I,J)                 =   DecTreeH_id            
+          AH_MIN(I,:,J)                 =   AH_MIN_id              
+          AH_SLOPE_Cooling(I,:,J)       =   AH_SLOPE_Cooling_id    
+          AH_SLOPE_Heating(I,:,J)       =   AH_SLOPE_Heating_id    
+          QF0_BEU(I,:,J)                =   QF0_BEU_id             
+          Qf_A(I,:,J)                   =   Qf_A_id                
+          Qf_B(I,:,J)                   =   Qf_B_id                
+          Qf_C(I,:,J)                   =   Qf_C_id                
+          T_CRITIC_Cooling(I,:,J)       =   T_CRITIC_Cooling_id    
+          T_CRITIC_Heating(I,:,J)       =   T_CRITIC_Heating_id    
+          TrafficRate(I,:,J)            =   TrafficRate_id         
+          surf_attr_MinStorCap(I,:,J)   =   surf_attr_MinStorCap_id
+          surf_attr_DrainEquat(I,:,J)   =   surf_attr_DrainEquat_id
+          surf_attr_DrainCoef1(I,:,J)   =   surf_attr_DrainCoef1_id
+          surf_attr_DrainCoef2(I,:,J)   =   surf_attr_DrainCoef2_id
+          surf_attr_MaxStorCap(I,:,J)   =   surf_attr_MaxStorCap_id
+
+
+
           SoilStoreCap(I,:,J)      =   SoilStoreCap_id            
           SoilDepth(I,:,J)           =   SoilDepth_id           
           SatHydraulicConduct(I,:,J) =   SatHydraulicConduct_id 
@@ -520,6 +709,37 @@ CONTAINS
        landusef_suews1d,ht,XLAT,XLONG,dz8w,DX,&
                                 ! surface properties/states (temporally updated):
        LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
+
+       BaseT_id                 ,&
+       BaseTe_id                ,&
+       GDDFull_id               ,&
+       SDDFull_id               ,&
+       LaiMin_id                ,&
+       LaiMax_id                ,&
+       MaxConductance_id        ,&
+       FAIbldg_id               ,&
+       FAIEveTree_id            ,&
+       FAIDecTree_id            ,&
+       bldgH_id                 ,&
+       EveTreeH_id              ,&
+       DecTreeH_id              ,&
+       AH_MIN_id                ,&
+       AH_SLOPE_Cooling_id      ,&
+       AH_SLOPE_Heating_id      ,&
+       QF0_BEU_id               ,&
+       Qf_A_id                  ,&
+       Qf_B_id                  ,&
+       Qf_C_id                  ,&
+       T_CRITIC_Cooling_id      ,&
+       T_CRITIC_Heating_id      ,&
+       TrafficRate_id           ,&
+       surf_attr_MinStorCap_id  ,&
+       surf_attr_DrainEquat_id  ,&
+       surf_attr_DrainCoef1_id  ,&
+       surf_attr_DrainCoef2_id  ,&
+       surf_attr_MaxStorCap_id  ,&
+
+
        SoilStoreCap_id        ,&
        SoilDepth_id           ,&
        SatHydraulicConduct_id ,&
@@ -591,6 +811,38 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: albEveTr_id !Albedo of evergreen trees [-]
     REAL(KIND(1d0)),INTENT(INOUT) :: albGrass_id !Albedo of grass[-]
     REAL(KIND(1d0)),INTENT(INOUT) :: NumCapita_id !Number of people in the study area per hectare [ha-1]
+
+    REAL(KIND(1d0)), DIMENSION(3),INTENT(INOUT) :: BaseT_id               
+    REAL(KIND(1d0)), DIMENSION(3),INTENT(INOUT) :: BaseTe_id              
+    REAL(KIND(1d0)), DIMENSION(3),INTENT(INOUT) :: GDDFull_id             
+    REAL(KIND(1d0)), DIMENSION(3),INTENT(INOUT) :: SDDFull_id             
+    REAL(KIND(1d0)), DIMENSION(3),INTENT(INOUT) :: LaiMin_id              
+    REAL(KIND(1d0)), DIMENSION(3),INTENT(INOUT) :: LaiMax_id              
+    REAL(KIND(1d0)), DIMENSION(3),INTENT(INOUT) :: MaxConductance_id      
+    REAL(KIND(1d0)), INTENT(INOUT)              :: FAIbldg_id             
+    REAL(KIND(1d0)), INTENT(INOUT)              :: FAIEveTree_id          
+    REAL(KIND(1d0)), INTENT(INOUT)              :: FAIDecTree_id          
+    REAL(KIND(1d0)), INTENT(INOUT)              :: bldgH_id               
+    REAL(KIND(1d0)), INTENT(INOUT)              :: EveTreeH_id            
+    REAL(KIND(1d0)), INTENT(INOUT)              :: DecTreeH_id            
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: AH_MIN_id              
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: AH_SLOPE_Cooling_id    
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: AH_SLOPE_Heating_id    
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: QF0_BEU_id             
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: Qf_A_id                
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: Qf_B_id                
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: Qf_C_id                
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: T_CRITIC_Cooling_id    
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: T_CRITIC_Heating_id    
+    REAL(KIND(1d0)), DIMENSION(2),INTENT(INOUT) :: TrafficRate_id         
+    REAL(KIND(1d0)), DIMENSION(7),INTENT(INOUT) :: surf_attr_MinStorCap_id
+    REAL(KIND(1d0)), DIMENSION(7),INTENT(INOUT) :: surf_attr_DrainEquat_id
+    REAL(KIND(1d0)), DIMENSION(7),INTENT(INOUT) :: surf_attr_DrainCoef1_id
+    REAL(KIND(1d0)), DIMENSION(7),INTENT(INOUT) :: surf_attr_DrainCoef2_id
+    REAL(KIND(1d0)), DIMENSION(7),INTENT(INOUT) :: surf_attr_MaxStorCap_id
+
+
+
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: SoilStoreCap_id       
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: SoilDepth_id          
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: SatHydraulicConduct_id
@@ -772,6 +1024,36 @@ CONTAINS
          AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d,&
          qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
          surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
+
+         BaseT_id               ,&
+         BaseTe_id              ,&
+         GDDFull_id             ,&
+         SDDFull_id             ,&
+         LaiMin_id              ,&
+         LaiMax_id              ,&
+         MaxConductance_id      ,&
+         FAIbldg_id             ,&
+         FAIEveTree_id          ,&
+         FAIDecTree_id          ,&
+         bldgH_id               ,&
+         EveTreeH_id            ,&
+         DecTreeH_id            ,&
+         AH_MIN_id              ,&
+         AH_SLOPE_Cooling_id    ,&
+         AH_SLOPE_Heating_id    ,&
+         QF0_BEU_id             ,&
+         Qf_A_id                ,&
+         Qf_B_id                ,&
+         Qf_C_id                ,&
+         T_CRITIC_Cooling_id    ,&
+         T_CRITIC_Heating_id    ,&
+         TrafficRate_id         ,&
+         surf_attr_MinStorCap_id,&
+         surf_attr_DrainEquat_id,&
+         surf_attr_DrainCoef1_id,&
+         surf_attr_DrainCoef2_id,&
+         surf_attr_MaxStorCap_id,&
+
          SoilStoreCap_id,&
          SoilDepth_id,&
          SatHydraulicConduct_id,&
@@ -790,7 +1072,7 @@ CONTAINS
          RAINMAXRES_id,&
          FlowChange_id,&
          PipeCapacity_id,&
-         RunoffToWate_id,&
+         RunoffToWater_id,&
          StateLimit_id,&
          WetThresh_id,&
          BaseTHDD_id,&
