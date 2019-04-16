@@ -40,6 +40,28 @@ CONTAINS
        albEveTr_SUEWS,                          &
        albGrass_SUEWS,                          &
        NumCapita,                               &
+       SoilStoreCap,&
+       SoilDepth,&
+       SatHydraulicConduct,&
+       AlbMin_DecTr,&
+       AlbMax_DecTr,&
+       AlbMin_EveTr,&
+       AlbMax_EveTr,&
+       AlbMin_Grass,&
+       AlbMax_Grass,&
+       CapMin_dec,&
+       CapMax_dec,&
+       PorMin_dec,&
+       PorMax_dec,&
+       DRAINRT,&
+       RAINCOVER,&
+       RAINMAXRES,&
+       FlowChange,&
+       PipeCapacity,&
+       RunoffToWate,&
+       StateLimit,&
+       WetThresh,&
+       BaseTHDD,&
        PopDensDaytime,                          &
        PopDensNighttime,                        &
        DecidCap_SUEWS,                          &
@@ -169,6 +191,28 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albEveTr_SUEWS !Albedo of evergreen trees [-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: albGrass_SUEWS !Albedo of grass[-]
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita !Number of people in the study area per hectare [ha-1]
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: SoilStoreCap       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: SoilDepth          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: SatHydraulicConduct
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_DecTr       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_DecTr       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_EveTr       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_EveTr       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMin_Grass       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: AlbMax_Grass       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: CapMin_dec         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: CapMax_dec         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PorMin_dec         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PorMax_dec         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DRAINRT            
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RAINCOVER          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RAINMAXRES         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: FlowChange         
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PipeCapacity       
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RunoffToWater      
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: StateLimit         
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: WetThresh          
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: BaseTHDD           
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensDaytime !Daytime population density [ha-1] (i.e. workers)
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensNighttime ! Nighttime population density [ha-1] (i.e. residents)
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
@@ -203,6 +247,32 @@ CONTAINS
     REAL(KIND(1d0))                                  :: albEveTr_id
     REAL(KIND(1d0))                                  :: albGrass_id
     REAL(KIND(1d0))                                  :: NumCapita_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: SoilStoreCap_id
+    REAL(KIND(1d0))                                  :: SoilDepth_id
+    REAL(KIND(1d0))                                  :: SatHydraulicConduct_id
+    REAL(KIND(1d0))                                  :: AlbMin_DecTr_id
+    REAL(KIND(1d0))                                  :: AlbMax_DecTr_id
+    REAL(KIND(1d0))                                  :: AlbMin_EveTr_id
+    REAL(KIND(1d0))                                  :: AlbMax_EveTr_id
+    REAL(KIND(1d0))                                  :: AlbMin_Grass_id
+    REAL(KIND(1d0))                                  :: AlbMax_Grass_id
+    REAL(KIND(1d0))                                  :: CapMin_dec_id
+    REAL(KIND(1d0))                                  :: CapMax_dec_id
+    REAL(KIND(1d0))                                  :: PorMin_dec_id
+    REAL(KIND(1d0))                                  :: PorMax_dec_id
+    REAL(KIND(1d0))                                  :: DRAINRT_id
+    REAL(KIND(1d0))                                  :: RAINCOVER_id
+    REAL(KIND(1d0))                                  :: RAINMAXRES_id
+    REAL(KIND(1d0))                                  :: FlowChange_id
+    REAL(KIND(1d0))                                  :: PipeCapacity_id
+    REAL(KIND(1d0))                                  :: RunoffToWater_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: StateLimit_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: WetThresh_id
+    REAL(KIND(1d0))                                  :: BaseTHDD_id
+
+
+
+
     REAL(KIND(1d0))                                  :: PopDensDaytime_id
     REAL(KIND(1d0))                                  :: PopDensNighttime_id
     REAL(KIND(1d0))                                  :: DecidCap_id
@@ -258,11 +328,34 @@ CONTAINS
           XLAT1D = XLAT(i,j)
           XLONG1D = XLONG(i,j)
 
-          LAI_id          = LAI_SUEWS(I,:,J)
-          albDecTr_id     = albDecTr_SUEWS(I,J)
-          albEveTr_id     = albEveTr_SUEWS(I,J)
-          albGrass_id     = albGrass_SUEWS(I,J)
-          NumCapita_id    = NumCapita(I,J)
+          LAI_id                 = LAI_SUEWS(I,:,J)
+          albDecTr_id            = albDecTr_SUEWS(I,J)
+          albEveTr_id            = albEveTr_SUEWS(I,J)
+          albGrass_id            = albGrass_SUEWS(I,J)
+          NumCapita_id           = NumCapita(I,J)
+          SoilStoreCap_id        = SoilStoreCap(I,:,J)          
+          SoilDepth_id           = SoilDepth(I,J)          
+          SatHydraulicConduct_id = SatHydraulicConduct(I,J)
+          AlbMin_DecTr_id        = AlbMin_DecTr(I,J)        
+          AlbMax_DecTr_id        = AlbMax_DecTr(I,J)        
+          AlbMin_EveTr_id        = AlbMin_EveTr(I,J)        
+          AlbMax_EveTr_id        = AlbMax_EveTr(I,J)        
+          AlbMin_Grass_id        = AlbMin_Grass(I,J)        
+          AlbMax_Grass_id        = AlbMax_Grass(I,J)        
+          CapMin_dec_id          = CapMin_dec(I,J)                              
+          CapMax_dec_id          = CapMax_dec(I,J)                    
+          PorMin_dec_id          = PorMin_dec(I,J)                    
+          PorMax_dec_id          = PorMax_dec(I,J)                    
+          DRAINRT_id             = DRAINRT(I,J)                    
+          RAINCOVER_id           = RAINCOVER(I,J)                    
+          RAINMAXRES_id          = RAINMAXRES(I,J)                    
+          FlowChange_id          = FlowChange(I,J)                    
+          PipeCapacity_id        = PipeCapacity(I,J)                    
+          RunoffToWater_id       = RunoffToWater(I,J)                    
+          StateLimit_id          = StateLimit(I,J)                    
+          WetThresh_id           = WetThresh(I,:,J)                    
+          BaseTHDD_id            = BaseTHDD(I,:,J)
+
           PopDensDaytime_id    = PopDensDaytime(I,J)
           PopDensNighttime_id    = PopDensNighttime(I,J)
           DecidCap_id     = DecidCap_SUEWS(I,J)
@@ -300,7 +393,30 @@ CONTAINS
                                 ! surface properties (temporally invariant):
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
-               LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,PopDensDaytime_id,PopDensNighttime_id,&
+               LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
+               SoilStoreCap_id        ,&
+               SoilDepth_id           ,&
+               SatHydraulicConduct_id ,&
+               AlbMin_DecTr_id        ,&
+               AlbMax_DecTr_id        ,&
+               AlbMin_EveTr_id        ,&
+               AlbMax_EveTr_id        ,&
+               AlbMin_Grass_id        ,&
+               AlbMax_Grass_id        ,&
+               CapMin_dec_id          ,&
+               CapMax_dec_id          ,&
+               PorMin_dec_id          ,&
+               PorMax_dec_id          ,&
+               DRAINRT_id             ,&
+               RAINCOVER_id           ,&
+               RAINMAXRES_id          ,&
+               FlowChange_id          ,&
+               PipeCapacity_id        ,&
+               RunoffToWater_id       ,&
+               StateLimit_id          ,&
+               WetThresh_id           ,&
+               BaseTHDD_id            ,& 
+               PopDensDaytime_id,PopDensNighttime_id,&
                DecidCap_id,porosity_id,GDD_id,HDD_id,&
                state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
@@ -312,29 +428,51 @@ CONTAINS
                ims,ime, jms,jme, kms,kme,&
                its,ite, jts,jte, kts,kte)
 
-          qn1_av_SUEWS(I,J)      = qn1_av_id
-          qn1_s_SUEWS(I,J)       = qn1_s_id
-          LAI_SUEWS(I,:,J)       = LAI_id
-          albDecTr_SUEWS(I,J)    = albDecTr_id
-          albEveTr_SUEWS(I,J)    = albEveTr_id
-          albGrass_SUEWS(I,J)    = albGrass_id
-          NumCapita(I,J)   = NumCapita_id
-          PopDensDaytime(I,J)   = PopDensDaytime_id
-          PopDensNighttime(I,J)   = PopDensNighttime_id
-          DecidCap_SUEWS(I,J)    = DecidCap_id
-          porosity_SUEWS(I,J)    = porosity_id
-          GDD_SUEWS(I,:,J)       = GDD_id
-          HDD_SUEWS(I,:,J)       = HDD_id
-          state_SUEWS(I,:,J)     = state_id
-          soilmoist_SUEWS(I,:,J) = soilmoist_id
-          surf_var_SUEWS(I,:,J)  = surf_var_id
-          alb_SUEWS(I,:,J)       = alb_id
-          emis_SUEWS(I,:,J)      = emis_id
-          dqndt_SUEWS(I,J)       = dqndt_id
-          dqnsdt_SUEWS(I,J)      = dqnsdt_id
-          MeltWaterStore(I,:,J)  = MeltWaterStore_id
-          SnowAlb(I,J)           = SnowAlb_id
-          WUDay(I,:,J)           = WUDay_id
+          qn1_av_SUEWS(I,J)        =   qn1_av_id
+          qn1_s_SUEWS(I,J)         =   qn1_s_id
+          LAI_SUEWS(I,:,J)         =   LAI_id
+          albDecTr_SUEWS(I,J)      =   albDecTr_id
+          albEveTr_SUEWS(I,J)      =   albEveTr_id
+          albGrass_SUEWS(I,J)      =   albGrass_id
+          NumCapita(I,J)           =   NumCapita_id
+          SoilStoreCap(I,:,J)      =   SoilStoreCap_id            
+          SoilDepth(I,J)           =   SoilDepth_id           
+          SatHydraulicConduct(I,J) =   SatHydraulicConduct_id 
+          AlbMin_DecTr(I,J)        =   AlbMin_DecTr_id        
+          AlbMax_DecTr(I,J)        =   AlbMax_DecTr_id        
+          AlbMin_EveTr(I,J)        =   AlbMin_EveTr_id        
+          AlbMax_EveTr(I,J)        =   AlbMax_EveTr_id        
+          AlbMin_Grass(I,J)        =   AlbMin_Grass_id        
+          AlbMax_Grass(I,J)        =   AlbMax_Grass_id        
+          CapMin_dec(I,J)          =   CapMin_dec_id                              
+          CapMax_dec(I,J)          =   CapMax_dec_id                    
+          PorMin_dec(I,J)          =   PorMin_dec_id                    
+          PorMax_dec(I,J)          =   PorMax_dec_id                    
+          DRAINRT(I,J)             =   DRAINRT_id                    
+          RAINCOVER(I,J)           =   RAINCOVER_id                    
+          RAINMAXRES(I,J)          =   RAINMAXRES_id                    
+          FlowChange(I,J)          =   FlowChange_id                    
+          PipeCapacity(I,J)        =   PipeCapacity_id                    
+          RunoffToWater(I,J)       =   RunoffToWater_id                    
+          StateLimit(I,J)          =   StateLimit_id                    
+          WetThresh(I,:,J)         =   WetThresh_id                      
+          BaseTHDD(I,:,J)          =   BaseTHDD_id            
+          PopDensDaytime(I,J)      =   PopDensDaytime_id
+          PopDensNighttime(I,J)    =   PopDensNighttime_id
+          DecidCap_SUEWS(I,J)      =   DecidCap_id
+          porosity_SUEWS(I,J)      =   porosity_id
+          GDD_SUEWS(I,:,J)         =   GDD_id
+          HDD_SUEWS(I,:,J)         =   HDD_id
+          state_SUEWS(I,:,J)       =   state_id
+          soilmoist_SUEWS(I,:,J)   =   soilmoist_id
+          surf_var_SUEWS(I,:,J)    =   surf_var_id
+          alb_SUEWS(I,:,J)         =   alb_id
+          emis_SUEWS(I,:,J)        =   emis_id
+          dqndt_SUEWS(I,J)         =   dqndt_id
+          dqnsdt_SUEWS(I,J)        =   dqnsdt_id
+          MeltWaterStore(I,:,J)    =   MeltWaterStore_id
+          SnowAlb(I,J)             =   SnowAlb_id
+          WUDay(I,:,J)             =   WUDay_id
 !          z0m_in(I,J)            = z0m_in_id
 !          zdm_in(I,J)            = zdm_in_id
 
@@ -381,7 +519,30 @@ CONTAINS
                                 ! surface properties (temporally invariant):
        landusef_suews1d,ht,XLAT,XLONG,dz8w,DX,&
                                 ! surface properties/states (temporally updated):
-       LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,PopDensDaytime_id,PopDensNighttime_id,&
+       LAI_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
+       SoilStoreCap_id        ,&
+       SoilDepth_id           ,&
+       SatHydraulicConduct_id ,&
+       AlbMin_DecTr_id        ,&
+       AlbMax_DecTr_id        ,&
+       AlbMin_EveTr_id        ,&
+       AlbMax_EveTr_id        ,&
+       AlbMin_Grass_id        ,&
+       AlbMax_Grass_id        ,&
+       CapMin_dec_id          ,&
+       CapMax_dec_id          ,&
+       PorMin_dec_id          ,&
+       PorMax_dec_id          ,&
+       DRAINRT_id             ,&
+       RAINCOVER_id           ,&
+       RAINMAXRES_id          ,&
+       FlowChange_id          ,&
+       PipeCapacity_id        ,&
+       RunoffToWater_id       ,&
+       StateLimit_id          ,&
+       WetThresh_id           ,&
+       BaseTHDD_id            ,&
+       PopDensDaytime_id,PopDensNighttime_id,&       
        DecidCap_id,porosity_id,GDD_id,HDD_id,&
        state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
@@ -430,6 +591,28 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: albEveTr_id !Albedo of evergreen trees [-]
     REAL(KIND(1d0)),INTENT(INOUT) :: albGrass_id !Albedo of grass[-]
     REAL(KIND(1d0)),INTENT(INOUT) :: NumCapita_id !Number of people in the study area per hectare [ha-1]
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: SoilStoreCap_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: SoilDepth_id          
+    REAL(KIND(1d0)),INTENT(INOUT) :: SatHydraulicConduct_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: AlbMin_DecTr_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: AlbMax_DecTr_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: AlbMin_EveTr_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: AlbMax_EveTr_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: AlbMin_Grass_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: AlbMax_Grass_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: CapMin_dec_id         
+    REAL(KIND(1d0)),INTENT(INOUT) :: CapMax_dec_id         
+    REAL(KIND(1d0)),INTENT(INOUT) :: PorMin_dec_id         
+    REAL(KIND(1d0)),INTENT(INOUT) :: PorMax_dec_id         
+    REAL(KIND(1d0)),INTENT(INOUT) :: DRAINRT_id            
+    REAL(KIND(1d0)),INTENT(INOUT) :: RAINCOVER_id          
+    REAL(KIND(1d0)),INTENT(INOUT) :: RAINMAXRES_id         
+    REAL(KIND(1d0)),INTENT(INOUT) :: FlowChange_id         
+    REAL(KIND(1d0)),INTENT(INOUT) :: PipeCapacity_id       
+    REAL(KIND(1d0)),INTENT(INOUT) :: RunoffToWater_id      
+    REAL(KIND(1d0)),INTENT(INOUT) :: StateLimit_id         
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: WetThresh_id          
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: BaseTHDD_id           
     REAL(KIND(1d0)),INTENT(INOUT) :: PopDensDaytime_id !Daytime population density [ha-1] (i.e. workers)
     REAL(KIND(1d0)),INTENT(INOUT) :: PopDensNighttime_id !Nighttime population density [ha-1] (i.e. residents)
     REAL(KIND(1d0)),INTENT(INOUT) :: DecidCap_id !Storage capacity of deciduous trees [mm]
@@ -588,7 +771,30 @@ CONTAINS
          alb_id,emis_id,SnowAlb_id,OHM_coef_d,WaterDist_d,&
          AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d,&
          qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
-         surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,PopDensDaytime_id,PopDensNighttime_id,porosity_id,&
+         surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
+         SoilStoreCap_id,&
+         SoilDepth_id,&
+         SatHydraulicConduct_id,&
+         AlbMin_DecTr_id,&
+         AlbMax_DecTr_id,&
+         AlbMin_EveTr_id,&
+         AlbMax_EveTr_id,&
+         AlbMin_Grass_id,&
+         AlbMax_Grass_id,&
+         CapMin_dec_id,&
+         CapMax_dec_id,&
+         PorMin_dec_id,&
+         PorMax_dec_id,&
+         DRAINRT_id,&
+         RAINCOVER_id,&
+         RAINMAXRES_id,&
+         FlowChange_id,&
+         PipeCapacity_id,&
+         RunoffToWate_id,&
+         StateLimit_id,&
+         WetThresh_id,&
+         BaseTHDD_id,&
+         PopDensDaytime_id,PopDensNighttime_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
          qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
