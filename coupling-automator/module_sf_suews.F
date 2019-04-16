@@ -352,9 +352,9 @@ CONTAINS
           FlowChange_id          = FlowChange(I,J)                    
           PipeCapacity_id        = PipeCapacity(I,J)                    
           RunoffToWater_id       = RunoffToWater(I,J)                    
-          StateLimit_id          = StateLimit(I,J)                    
+          StateLimit_id          = StateLimit(I,:,J)                    
           WetThresh_id           = WetThresh(I,:,J)                    
-          BaseTHDD_id            = BaseTHDD(I,:,J)
+          BaseTHDD_id            = BaseTHDD(I,J)
 
           PopDensDaytime_id    = PopDensDaytime(I,J)
           PopDensNighttime_id    = PopDensNighttime(I,J)
@@ -454,9 +454,9 @@ CONTAINS
           FlowChange(I,J)          =   FlowChange_id                    
           PipeCapacity(I,J)        =   PipeCapacity_id                    
           RunoffToWater(I,J)       =   RunoffToWater_id                    
-          StateLimit(I,J)          =   StateLimit_id                    
+          StateLimit(I,:,J)          =   StateLimit_id                    
           WetThresh(I,:,J)         =   WetThresh_id                      
-          BaseTHDD(I,:,J)          =   BaseTHDD_id            
+          BaseTHDD(I,J)          =   BaseTHDD_id            
           PopDensDaytime(I,J)      =   PopDensDaytime_id
           PopDensNighttime(I,J)    =   PopDensNighttime_id
           DecidCap_SUEWS(I,J)      =   DecidCap_id
@@ -610,9 +610,9 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: FlowChange_id         
     REAL(KIND(1d0)),INTENT(INOUT) :: PipeCapacity_id       
     REAL(KIND(1d0)),INTENT(INOUT) :: RunoffToWater_id      
-    REAL(KIND(1d0)),INTENT(INOUT) :: StateLimit_id         
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: StateLimit_id         
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: WetThresh_id          
-    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: BaseTHDD_id           
+    REAL(KIND(1d0)),INTENT(INOUT) :: BaseTHDD_id           
     REAL(KIND(1d0)),INTENT(INOUT) :: PopDensDaytime_id !Daytime population density [ha-1] (i.e. workers)
     REAL(KIND(1d0)),INTENT(INOUT) :: PopDensNighttime_id !Nighttime population density [ha-1] (i.e. residents)
     REAL(KIND(1d0)),INTENT(INOUT) :: DecidCap_id !Storage capacity of deciduous trees [mm]
