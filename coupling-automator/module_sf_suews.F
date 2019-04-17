@@ -24,6 +24,24 @@ MODULE module_sf_SUEWS
   INTEGER                                      :: OHMIncQF
   INTEGER                                      :: AerodynamicResistanceMethod
   INTEGER,DIMENSION(3,1)                       :: LAIType
+  REAL,DIMENSION(8,1)                          :: OHM_threshSW
+  REAL,DIMENSION(8,1)                          :: OHM_threshWD
+  REAL                                         :: th
+  REAL                                         :: tl
+  REAL                                         :: Kmax
+  REAL                                         :: g1
+  REAL                                         :: g2
+  REAL                                         :: g3
+  REAL                                         :: g4
+  REAL                                         :: g5
+  REAL                                         :: g6
+  REAL                                         :: s1
+  REAL                                         :: s2
+  REAL,DIMENSION(4,3)                          :: LaiPower
+
+
+  
+
   INTEGER,parameter                            :: num_ind_max = 10
   INTEGER,parameter                            :: ind_undef = -999
   INTEGER,DIMENSION(8, num_ind_max)            :: suews_cat_ind
@@ -1017,7 +1035,9 @@ CONTAINS
 
     CALL SuMin(&
          snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
-         RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType,OHMIncQF,&! model options
+         RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType, &
+         OHM_threshSW,OHM_threshWD,th,tl,Kmax,g1,g2,g3,g4,g5,g6,s1,s2,LaiPower, &
+         OHMIncQF,&! model options
          iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
          alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
          z0m_in_id,zdm_in_id,&! roughness related settings
@@ -1161,9 +1181,10 @@ CONTAINS
     !----------------------------------------------------------------
 
     NAMELIST /coeff/   OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
-                       WUProfA_24hr, WUProfM_24hr
+                       WUProfA_24hr, WUProfM_24hr, OHM_threshSW, OHM_threshWD, th, tl, Kmax, &
+                       g1, g2, g3, g4, g5, g6, s1, s2
     NAMELIST /method/  snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, &
-                       StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod, LAIType
+                       StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod, LAIType, LaiPower
     NAMELIST /landuse/ suews_cat_ind, suews_cat_frac
 
     IF ( allowed_to_read ) THEN
@@ -1226,6 +1247,20 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (OHMIncQF, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (AerodynamicResistanceMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (LAIType, 3 * 1 * IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (OHM_threshSW, 8 * 1 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (OHM_threshWD, 8 * 1 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (th, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (tl, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (Kmax, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (g1, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (g2, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (g3, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (g4, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (g5, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (g6, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (s1, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (s2, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (LaiPower, 4 * 3 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (suews_cat_ind, 8 * 10 * IWORDSIZE)
        CALL wrf_dm_bcast_bytes (suews_cat_frac, 8 * 10 * RWORDSIZE)
 
