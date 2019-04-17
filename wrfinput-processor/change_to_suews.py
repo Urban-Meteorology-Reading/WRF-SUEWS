@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import xarray as xr
 import numpy as np
+import json
 import glob
 import os
 os.chdir('mod-input-python')
@@ -10,33 +11,35 @@ ds_base = xr.open_dataset('wrfinput_d01')
 
 
 # funcitons to add new variables with expanded dimensions
-def gen_var_expand(name, rules, var_base=ds_base['T2'].copy(deep=True)):
-    var_new = var_base.rename(name.upper())
+def gen_var_expand(var_key, vars_to_add, var_base=ds_base['T2'].copy(deep=True)):
+    var_new = var_base.rename(var_key.upper())
     var_attrs = var_base.attrs
-    (name_dim, axis, rep) = rules[0]
-    val_init = rules[1]
+    (name_dim, axis, rep) = (vars_to_add[var_key]['d_name'],
+                            vars_to_add[var_key]['axis'],
+                            vars_to_add[var_key]['rep'])
+    val_init = vars_to_add[var_key]['value']
     var_new = np.repeat(
         var_new.expand_dims(
             name_dim, axis=axis), rep, axis=axis)
 
     var_new.attrs = var_attrs
     var_new.attrs['MemoryOrder'] = 'XYZ'
-    var_new.attrs[u'description'] = name
+    var_new.attrs[u'description'] = var_key
     var_new.attrs['stagger'] = 'Z'
-    var_new.attrs['units'] = rules[2]
+    var_new.attrs['units'] = vars_to_add[var_key]['units']
     # set default values
     # var_new.values = np.ones_like(var_new.values) * val_init
     for i in range(0,rep):
-    	var_new.values[:,i,:,:]=val_init[i]
+        var_new.values[:,i,:,:]=val_init[i]
     return var_new
 
 
 # funcitons to add new variables with the same dimensionality
-def gen_var_keep(name, rules, var_base=ds_base['T2'].copy(deep=True)):
-    var_new = var_base.rename(name.upper())
-    var_new.attrs[u'description'] = name
-    var_new.attrs['units'] = rules[2]
-    val_init = rules[1]
+def gen_var_keep(var_key, vars_to_add, var_base=ds_base['T2'].copy(deep=True)):
+    var_new = var_base.rename(var_key.upper())
+    var_new.attrs[u'description'] = var_key
+    var_new.attrs['units'] = vars_to_add[var_key]['units']
+    val_init = vars_to_add[var_key]['value']
     # set default values
     var_new.values = np.ones_like(var_new.values) * val_init
 
@@ -44,105 +47,27 @@ def gen_var_keep(name, rules, var_base=ds_base['T2'].copy(deep=True)):
 
 
 # A generic wrapper to generate a variable for SUEWS
-def gen_var(name, rules, var_base=ds_base['T2'].copy()):
-    if type(rules[0]) is tuple:
-        var_new = gen_var_expand(name, rules, var_base)
+def gen_var(var_key, vars_to_add, var_base=ds_base['T2'].copy()):
+    if (vars_to_add[var_key]['rep']!=0):
+        var_new = gen_var_expand(var_key, vars_to_add, var_base)
     else:
-        var_new = gen_var_keep(name, rules, var_base)
-
+        var_new = gen_var_keep(var_key, vars_to_add, var_base)
     return var_new
 
 
-#  rules to create input variable needed by SUEWS
-# TODO: add default values
-# rule pattern:
-# var_name: [('new_dim', new_pos_axis, number_in_axis),value,units] if the first one is tuple
-# then it gives information for furthur dimensions
-dict_rules_suews = {
-    'LAI_SUEWS': [('lai', 1, 3), [2,2,2],''],
-    'albDecTr_SUEWS': [0, 0.1,''],
-    'albEveTr_SUEWS': [0, 0.1,''],
-    'albGrass_SUEWS': [0, 0.1,''],
-    'NumCapita': [0, 54,'ha-1'],
-    'BaseT': [('lai', 1, 3), [5,5,5],''],
-    'BaseTe': [('lai', 1, 3), [11,11,11],''],
-    'GDDFull': [('lai', 1, 3), [300,300,300],''],
-    'SDDFull': [('lai', 1, 3), [-450,-450,-450],''],
-    'LaiMin': [('lai', 1, 3), [4.,1.,1.6],''],
-    'LaiMax': [('lai', 1, 3), [5.1,5.5,5.9],''],
-    'MaxConductance': [('lai', 1, 3), [7.4,11.7,30.1],''],
-    'FAIbldg': [0, 0.,''],
-    'FAIEveTree': [0, 0.,''],
-    'FAIDecTree': [0, 0.,''],
-    'bldgH': [0, 10,''],
-    'EveTreeH': [0, 10,''],
-    'DecTreeH': [0, 10,''],
-    'AH_MIN': [('ahd', 1, 2), [10,10],''],
-    'AH_SLOPE_Cooling': [('ahd', 1, 2), [2.7,2.7],''],
-    'AH_SLOPE_Heating': [('ahd', 1, 2), [2.7,2.7],''],
-    'QF0_BEU': [('lai', 1, 3), [0.7442, 0.7955], ''],
-    'Qf_A': [('ahd', 1, 2), [0.1,0.1],''],
-    'Qf_B': [('ahd', 1, 2), [0.00986, 0.00986], ''],
-    'Qf_C': [('ahd', 1, 2), [0.0102, 0.0102], ''],
-    'T_CRITIC_Cooling': [('ahd', 1, 2), [7,7,],''],
-    'T_CRITIC_Heating': [('ahd', 1, 2), [7,7],''],
-    'TrafficRate': [('ahd', 1, 2), [0.0134, 0.0095], ''],
-    'surf_attr_MinStorCap': [('nsurf', 1, 7), [0.48, 0.25, 1.3, 0.3, 1.9, 0.8, 0.5], ''],
-    'surf_attr_DrainEquat': [('nsurf', 1, 7), [3., 3., 2., 2., 2., 3., 0.], ''],
-    'surf_attr_DrainCoef1': [('nsurf', 1, 7), [10., 10., 0.013, 0.013, 0.013, 10., 0.], ''],
-    'surf_attr_DrainCoef2': [('nsurf', 1, 7), [3., 3., 1.71, 1.71, 1.71, 3., 0.], ''],
-    'surf_attr_MaxStorCap': [('nsurf', 1, 7), [0.48, 0.25, 1.3, 0.8, 1.9, 0.8, 0.5], ''],
-    'SoilStoreCap': [('nsurf', 1, 7), [150., 150., 150., 150., 150., 150., 0.], 'mm'],
-    'SoilDepth': [('nsurf', 1, 7), [350,350,350,350,350,350,350], 'mm'],
-    'SatHydraulicConduct': [('nsurf', 1, 7), [5E-4,5E-4,5E-4,5E-4,5E-4,5E-4,5E-4], 'mm s-1'],
-    'AlbMin_DecTr': [0, 0.12,''],
-    'AlbMax_DecTr': [0, 0.18,''],
-    'AlbMin_EveTr': [0, 0.11,''],
-    'AlbMax_EveTr': [0, 0.12,''],
-    'AlbMin_Grass': [0, 0.18,''],
-    'AlbMax_Grass': [0, 0.21,''],
-    'CapMin_dec': [0, 0.3,'mm'],
-    'CapMax_dec': [0, 0.8,'mm'],
-    'PorMin_dec': [0, 0.2,''],
-    'PorMax_dec': [0, 0.6,''],
-    'DRAINRT': [0, 0.25,'mm h-1'],
-    'RAINCOVER': [0, 1,''],
-    'RAINMAXRES': [0, 10,'mm'],
-    'FlowChange': [0, 0, ''],
-    'PipeCapacity': [0, 100,''],
-    'RunoffToWater': [0, 0.1, ''],
-    'StateLimit': [('nsurf', 1, 7), [0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.],'mm'],
-    'WetThresh': [('nsurf', 1, 7), [0.48, 0.25, 1.3, 0.8, 1.9, 1., 0.5], 'mm'],
-    'BaseTHDD': [0, 18.9, 'degC'],
-    'PopDensDaytime': [0, 54, 'ha-1'],
-    'PopDensNighttime': [0, 54, 'ha-1'],
-    'DecidCap_SUEWS': [0, 10,''],
-    'porosity_SUEWS': [0, 0.1,''],
-    'GDD_SUEWS': [('gdd', 1, 5), [0,0,0,0,0],''],
-    'HDD_SUEWS': [('hdd', 1, 12), [0,0,0,0,0,0,0,0,0,0,0,0],''],
-    'state_SUEWS': [('nsurf', 1, 7), [1,1,1,1,1,1,1],''],
-    'soilmoist_SUEWS': [('nsurf', 1, 7), [150.,150.,150.,150.,150.,150.,150.],''],
-    'surf_var_SUEWS': [('nsurf', 1, 7), [10,10,10,10,10,10,10],''],
-    'qn1_av_SUEWS': [0, 0,''],
-    'qn1_s_SUEWS': [0, 0,''],
-    'dqndt_SUEWS': [0, 0,''],
-    'dqnsdt_SUEWS': [0, 0,''],
-    'MeltWaterStore': [('nsurf', 1, 7), [10,10,10,10,10,10,10],''],
-    'SnowAlb': [0, 0.1,''],
-    'WUDay': [('wu', 1, 9), [10,10,10,10,10,10,10,10,10],''],
-    'z0m_in': [0, .1,''],
-    'zdm_in': [0, .1,'']}
-
+# variables to be added to wrfinputs
+with open('../SUEWS_variables.json') as var_json:
+    vars_to_add = json.load(var_json)
 
 # added SUEWS required input to a single wrfinput file
 def add_SUEWS_wrfinput_single(x_file):
-    print 'working on:', x_file
+    print('working on:'+ x_file)
     # get base file
     ds_base = xr.open_dataset(x_file)
     # NB: variables in wrfinput have to be named in CAPITALISED strings
     ds_new = xr.Dataset({
-        name.upper(): gen_var(name, rules, ds_base['T2'].copy(deep=True))
-        for name, rules in dict_rules_suews.items()})
+        var_key.upper(): gen_var(var_key,vars_to_add, ds_base['T2'].copy(deep=True))
+        for var_key in vars_to_add.keys()})
 
     # merge with ds_base for export
     ds_merged = ds_base.update(ds_new)
@@ -164,7 +89,7 @@ def add_SUEWS_wrfinput_single(x_file):
     file_out = x_file+'.suews'
     ds_merged.to_netcdf(file_out,
                         mode='w', format='NETCDF3_64BIT')
-    print 'SUEWS input has beened added to:', file_out
+    print('SUEWS input has beened added to:'+ file_out)
 
     return file_out
 

@@ -1,0 +1,511 @@
+{
+    "LAI_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [2,2,2],
+        "units": ""
+    },
+
+    "albDecTr_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    },
+
+    "albEveTr_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    },
+
+    "albGrass_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    },
+
+    "NumCapita_SUEWS": {
+        "rep": 0,
+        "value": 54,
+        "units": "ha-1"
+    },
+    
+    "PopDensDaytime_SUEWS": {
+        "rep": 0,
+        "value": 54,
+        "units": "ha-1"
+    },
+
+    "PopDensNighttime_SUEWS": {
+        "rep": 0,
+        "value": 54,
+        "units": "ha-1"
+    },
+
+    "BaseT_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [5,5,5],
+        "units": ""
+    },
+    
+    "BaseTe_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [11,11,11],
+        "units": ""
+    },
+
+    "GDDFull_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [300,300,300],
+        "units": ""
+    },
+
+    "SDDFull_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [-450,-450,-450],
+        "units": ""
+    },
+
+    "LaiMin_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [4.0,1.0,1.6],
+        "units": ""
+    },
+
+    "LaiMax_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [5.1,5.5,5.9],
+        "units": ""
+    },
+
+    "MaxConductance_SUEWS": {
+        "rep": 3,
+        "axis": 1,
+        "d_name": "lai",
+        "value": [7.4,11.7,30.1],
+        "units": ""
+    },
+
+    "FAIbldg_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "FAIEveTree_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "FAIDecTree_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "bldgH_SUEWS": {
+        "rep": 0,
+        "value": 10,
+        "units": ""
+    },
+
+    "EveTreeH_SUEWS": {
+        "rep": 0,
+        "value": 10,
+        "units": ""
+    },
+
+    "DecTreeH_SUEWS": {
+        "rep": 0,
+        "value": 10,
+        "units": ""
+    },
+
+    "AH_MIN_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [10,10],
+        "units": ""
+    },
+
+    "AH_SLOPE_Cooling_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [2.7,2.7],
+        "units": ""
+    },
+
+    "AH_SLOPE_Heating_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [2.7,2.7],
+        "units": ""
+    },
+
+    "Qf_A_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [0.1,0.1],
+        "units": ""
+    },
+
+    "Qf_B_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [0.00986, 0.00986],
+        "units": ""
+    },
+
+    "Qf_C_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [0.0102, 0.0102],
+        "units": ""
+    },
+
+    "T_CRITIC_Cooling_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [7, 7],
+        "units": ""
+    },
+
+    "T_CRITIC_Heating_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [7, 7],
+        "units": ""
+    },
+
+    "TrafficRate_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [0.0134, 0.0095],
+        "units": ""
+    },
+    
+
+    "QF0_BEU_SUEWS": {
+        "rep": 2,
+        "axis": 1,
+        "d_name": "ahd",
+        "value": [0.7442, 0.7955],
+        "units": ""
+    },
+
+    "surf_attr_MinStorCap_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [0.48, 0.25, 1.3, 0.3, 1.9, 0.8, 0.5],
+        "units": ""
+    },
+
+    "surf_attr_DrainEquat_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [3.0, 3.0, 2.0, 2.0, 2.0, 3.0, 0.0],
+        "units": ""
+    },
+
+    "surf_attr_DrainCoef1_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [10.0, 10.0, 0.013, 0.013, 0.013, 10.0, 0.0],
+        "units": ""
+    },
+
+    "surf_attr_DrainCoef2_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [3.0, 3.0, 1.71, 1.71, 1.71, 3.0, 0.0],
+        "units": ""
+    },
+
+    "surf_attr_MaxStorCap_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [0.48, 0.25, 1.3, 0.8, 1.9, 0.8, 0.5],
+        "units": ""
+    },
+
+    "surf_attr_MaxStorCap_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [150.0, 150.0, 150.0, 150.0, 150.0, 150.0, 0.0],
+        "units": "mm"
+    },
+
+    "SoilDepth_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [350,350,350,350,350,350,350],
+        "units": "mm"
+    },
+
+    "SatHydraulicConduct_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [5E-4,5E-4,5E-4,5E-4,5E-4,5E-4,5E-4],
+        "units": "mm s-1"
+    },
+
+    "StateLimit_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 30000.0],
+        "units": "mm"
+    },
+
+    "WetThresh_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [0.48, 0.25, 1.3, 0.8, 1.9, 1.0, 0.5],
+        "units": "mm"
+    },
+
+    "soilmoist_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [150.0,150.0,150.0,150.0,150.0,150.0,150.0],
+        "units": ""
+    },
+
+    "surf_var_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [10,10,10,10,10,10,10],
+        "units": ""
+    },
+
+    "MeltWaterStore_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [10,10,10,10,10,10,10],
+        "units": ""
+    },
+
+    "state_SUEWS": {
+        "rep": 7,
+        "axis": 1,
+        "d_name": "nsurf",
+        "value": [1,1,1,1,1,1,1],
+        "units": ""
+    },
+
+    "GDD_SUEWS": {
+        "rep": 5,
+        "axis": 1,
+        "d_name": "gdd",
+        "value": [0,0,0,0,0],
+        "units": ""
+    },
+
+    "HDD_SUEWS": {
+        "rep": 12,
+        "axis": 1,
+        "d_name": "hdd",
+        "value": [0,0,0,0,0,0,0,0,0,0,0,0],
+        "units": ""
+    },
+
+    "WUDay_SUEWS": {
+        "rep": 9,
+        "axis": 1,
+        "d_name": "wu",
+        "value": [10,10,10,10,10,10,10,10,10],
+        "units": ""
+    },
+
+    "AlbMin_DecTr_SUEWS": {
+        "rep": 0,
+        "value": 0.12,
+        "units": ""
+    },
+
+    "AlbMax_DecTr_SUEWS": {
+        "rep": 0,
+        "value": 0.18,
+        "units": ""
+    },
+
+    "AlbMin_EveTr_SUEWS": {
+        "rep": 0,
+        "value": 0.11,
+        "units": ""
+    },
+
+    "AlbMax_EveTr_SUEWS": {
+        "rep": 0,
+        "value": 0.12,
+        "units": ""
+    },
+
+    "AlbMin_Grass_SUEWS": {
+        "rep": 0,
+        "value": 0.18,
+        "units": ""
+    },
+
+    "AlbMax_Grass_SUEWS": {
+        "rep": 0,
+        "value": 0.21,
+        "units": ""
+    },
+
+    "CapMin_dec_SUEWS": {
+        "rep": 0,
+        "value": 0.3,
+        "units": "mm"
+    },
+
+    "CapMax_dec_SUEWS": {
+        "rep": 0,
+        "value": 0.8,
+        "units": "mm"
+    },
+
+    "PorMin_dec_SUEWS": {
+        "rep": 0,
+        "value": 0.2,
+        "units": ""
+    },
+
+    "PorMax_dec_SUEWS": {
+        "rep": 0,
+        "value": 0.6,
+        "units": ""
+    },
+
+    "DRAINRT_SUEWS": {
+        "rep": 0,
+        "value": 0.25,
+        "units": "mm h-1"
+    },
+
+    "RAINCOVER_SUEWS": {
+        "rep": 0,
+        "value": 1,
+        "units": ""
+    },
+
+    "RAINMAXRES_SUEWS": {
+        "rep": 0,
+        "value": 10,
+        "units": "mm"
+    },
+
+    "FlowChange_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "PipeCapacity_SUEWS": {
+        "rep": 0,
+        "value": 100,
+        "units": ""
+    },
+
+    "RunoffToWater_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    },
+
+    "BaseTHDD_SUEWS": {
+        "rep": 0,
+        "value": 18.9,
+        "units": "degC"
+    },
+
+    "DecidCap_SUEWS": {
+        "rep": 0,
+        "value": 10,
+        "units": ""
+    },
+
+    "porosity_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    },
+
+    "qn1_av_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "qn1_s_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "dqndt_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "dqnsdt_SUEWS": {
+        "rep": 0,
+        "value": 0,
+        "units": ""
+    },
+
+    "SnowAlb_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    },
+
+    "z0m_in_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    },
+
+    "zdm_in_SUEWS": {
+        "rep": 0,
+        "value": 0.1,
+        "units": ""
+    }
+
+}
