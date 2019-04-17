@@ -62,6 +62,7 @@ NetRadiationMethod          = 3
 StorageHeatMethod           = 1
 OHMIncQF                    = 1
 AerodynamicResistanceMethod = 1
+LAIType                     = 0, 0, 0,
 /
 
 &landuse

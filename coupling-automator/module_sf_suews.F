@@ -23,6 +23,7 @@ MODULE module_sf_SUEWS
   INTEGER                                      :: StorageHeatMethod
   INTEGER                                      :: OHMIncQF
   INTEGER                                      :: AerodynamicResistanceMethod
+  INTEGER,DIMENSION(3,1)                       :: LAIType
   INTEGER,parameter                            :: num_ind_max = 10
   INTEGER,parameter                            :: ind_undef = -999
   INTEGER,DIMENSION(8, num_ind_max)            :: suews_cat_ind
@@ -1016,7 +1017,7 @@ CONTAINS
 
     CALL SuMin(&
          snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
-         RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,OHMIncQF,&! model options
+         RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType,OHMIncQF,&! model options
          iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
          alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
          z0m_in_id,zdm_in_id,&! roughness related settings
@@ -1162,7 +1163,7 @@ CONTAINS
     NAMELIST /coeff/   OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
                        WUProfA_24hr, WUProfM_24hr
     NAMELIST /method/  snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, &
-                       StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod
+                       StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod, LAIType
     NAMELIST /landuse/ suews_cat_ind, suews_cat_frac
 
     IF ( allowed_to_read ) THEN
@@ -1224,6 +1225,7 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (StorageHeatMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (OHMIncQF, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (AerodynamicResistanceMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (LAIType, 3 * 1 * IWORDSIZE)
        CALL wrf_dm_bcast_bytes (suews_cat_ind, 8 * 10 * IWORDSIZE)
        CALL wrf_dm_bcast_bytes (suews_cat_frac, 8 * 10 * RWORDSIZE)
 
