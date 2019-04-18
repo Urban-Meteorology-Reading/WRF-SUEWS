@@ -24,20 +24,20 @@ MODULE module_sf_SUEWS
   INTEGER                                      :: OHMIncQF
   INTEGER                                      :: AerodynamicResistanceMethod
   INTEGER,DIMENSION(3,1)                       :: LAIType
-  REAL,DIMENSION(8,1)                          :: OHM_threshSW
-  REAL,DIMENSION(8,1)                          :: OHM_threshWD
-  REAL                                         :: th
-  REAL                                         :: tl
-  REAL                                         :: Kmax
-  REAL                                         :: g1
-  REAL                                         :: g2
-  REAL                                         :: g3
-  REAL                                         :: g4
-  REAL                                         :: g5
-  REAL                                         :: g6
-  REAL                                         :: s1
-  REAL                                         :: s2
-  REAL,DIMENSION(4,3)                          :: LaiPower
+  REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshSW
+  REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshWD
+  REAL(KIND(1D0))                                         :: th
+  REAL(KIND(1D0))                                         :: tl
+  REAL(KIND(1D0))                                         :: Kmax
+  REAL(KIND(1D0))                                         :: g1
+  REAL(KIND(1D0))                                         :: g2
+  REAL(KIND(1D0))                                         :: g3
+  REAL(KIND(1D0))                                         :: g4
+  REAL(KIND(1D0))                                         :: g5
+  REAL(KIND(1D0))                                         :: g6
+  REAL(KIND(1D0))                                         :: s1
+  REAL(KIND(1D0))                                         :: s2
+  REAL(KIND(1D0)),DIMENSION(4,3)                          :: LaiPower
 
 
   
