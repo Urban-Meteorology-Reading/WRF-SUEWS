@@ -67,19 +67,19 @@ s2 = 0,
 /
 
 &method
-snowUse                     = 0
-RoughLenHeatMethod          = 2
-RoughLenMomMethod           = 2
-EmissionsMethod             = 2
-NetRadiationMethod          = 3
-StorageHeatMethod           = 1
-OHMIncQF                    = 1
-AerodynamicResistanceMethod = 1
+snowUse                     = 0,
+RoughLenHeatMethod          = 2,
+RoughLenMomMethod           = 2,
+EmissionsMethod             = 2,
+NetRadiationMethod          = 3,
+StorageHeatMethod           = 1,
+OHMIncQF                    = 1,
+AerodynamicResistanceMethod = 1,
 LAIType                     = 0, 0, 0,
-LaiPower(1,1:3)             = 0.03, 0.03, 0.03
-LaiPower(2,1:3)             = 0.0005, 0.0005, 0.0005
-LaiPower(3,1:3)             = 0.03, 0.03, 0.03
-LaiPower(4,1:3)             = 0.0005, 0.0005, 0.0005
+LaiPower(1,1:3)             = 0.03, 0.03, 0.03,
+LaiPower(2,1:3)             = 0.0005, 0.0005, 0.0005,
+LaiPower(3,1:3)             = 0.03, 0.03, 0.03,
+LaiPower(4,1:3)             = 0.0005, 0.0005, 0.0005,
 /
 
 &landuse

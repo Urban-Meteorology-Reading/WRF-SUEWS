@@ -24,20 +24,20 @@ MODULE module_sf_SUEWS
   INTEGER                                      :: OHMIncQF
   INTEGER                                      :: AerodynamicResistanceMethod
   INTEGER,DIMENSION(3,1)                       :: LAIType
-  REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshSW
-  REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshWD
-  REAL(KIND(1D0))                                         :: th
-  REAL(KIND(1D0))                                         :: tl
-  REAL(KIND(1D0))                                         :: Kmax
-  REAL(KIND(1D0))                                         :: g1
-  REAL(KIND(1D0))                                         :: g2
-  REAL(KIND(1D0))                                         :: g3
-  REAL(KIND(1D0))                                         :: g4
-  REAL(KIND(1D0))                                         :: g5
-  REAL(KIND(1D0))                                         :: g6
-  REAL(KIND(1D0))                                         :: s1
-  REAL(KIND(1D0))                                         :: s2
-  REAL(KIND(1D0)),DIMENSION(4,3)                          :: LaiPower
+  REAL,DIMENSION(8,1)                          :: OHM_threshSW
+  REAL,DIMENSION(8,1)                          :: OHM_threshWD
+  REAL                                         :: th
+  REAL                                         :: tl
+  REAL                                         :: Kmax
+  REAL                                         :: g1
+  REAL                                         :: g2
+  REAL                                         :: g3
+  REAL                                         :: g4
+  REAL                                         :: g5
+  REAL                                         :: g6
+  REAL                                         :: s1
+  REAL                                         :: s2
+  REAL,DIMENSION(4,3)                          :: LaiPower
 
 
   
@@ -980,7 +980,20 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfA_24hr_d
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfM_24hr_d
 
-
+    REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshSW_d
+    REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshWD_d
+    REAL(KIND(1D0))                                         :: th_d
+    REAL(KIND(1D0))                                         :: tl_d
+    REAL(KIND(1D0))                                         :: Kmax_d
+    REAL(KIND(1D0))                                         :: g1_d
+    REAL(KIND(1D0))                                         :: g2_d
+    REAL(KIND(1D0))                                         :: g3_d
+    REAL(KIND(1D0))                                         :: g4_d
+    REAL(KIND(1D0))                                         :: g5_d
+    REAL(KIND(1D0))                                         :: g6_d
+    REAL(KIND(1D0))                                         :: s1_d
+    REAL(KIND(1D0))                                         :: s2_d
+    REAL(KIND(1D0)),DIMENSION(4,3)                          :: LaiPower_d
     CHARACTER*256 :: message
 
 
@@ -1033,10 +1046,27 @@ CONTAINS
     WUProfA_24hr_d = WUProfA_24hr
     WUProfM_24hr_d = WUProfM_24hr
 
+
+  OHM_threshSW_d = OHM_threshSW
+  OHM_threshWD_d = OHM_threshWD
+  th_d = th
+  tl_d = tl
+  Kmax_d = Kmax
+  g1_d = g1
+  g2_d = g2
+  g3_d = g3
+  g4_d = g4
+  g5_d = g5
+  g6_d = g6
+  s1_d = s1
+  s2_d = s2
+  LaiPower_d = LaiPower
+
+
     CALL SuMin(&
          snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
          RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType, &
-         OHM_threshSW,OHM_threshWD,th,tl,Kmax,g1,g2,g3,g4,g5,g6,s1,s2,LaiPower, &
+         OHM_threshSW_d,OHM_threshWD_d,th_d,tl_d,Kmax_d,g1_d,g2_d,g3_d,g4_d,g5_d,g6_d,s1_d,s2_d,LaiPower_d, &
          OHMIncQF,&! model options
          iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
          alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
