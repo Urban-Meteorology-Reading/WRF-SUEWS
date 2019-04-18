@@ -256,14 +256,6 @@
         "units": ""
     },
 
-    "surf_attr_MaxStorCap_SUEWS": {
-        "rep": 7,
-        "axis": 1,
-        "d_name": "nsurf",
-        "value": [150.0, 150.0, 150.0, 150.0, 150.0, 150.0, 0.0],
-        "units": "mm"
-    },
-
     "SoilStoreCap_SUEWS": {
         "rep": 7,
         "axis": 1,
