@@ -1,0 +1,367 @@
+{
+    "LAI_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "albDecTr_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "albEveTr_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "albGrass_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "NumCapita_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "PopDensDaytime_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "PopDensNighttime_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "BaseT_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "BaseTe_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "GDDFull_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "SDDFull_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "LaiMin_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "LaiMax_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "MaxConductance_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "FAIbldg_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "FAIEveTree_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "FAIDecTree_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "bldgH_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "EveTreeH_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "DecTreeH_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AH_MIN_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AH_SLOPE_Cooling_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AH_SLOPE_Heating_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "Qf_A_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "Qf_B_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "Qf_C_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "T_CRITIC_Cooling_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "T_CRITIC_Heating_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "TrafficRate_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "QF0_BEU_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "surf_attr_MinStorCap_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "surf_attr_DrainEquat_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "surf_attr_DrainCoef1_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "surf_attr_DrainCoef2_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "surf_attr_MaxStorCap_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "SoilStoreCap_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "SoilDepth_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "SatHydraulicConduct_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "StateLimit_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "WetThresh_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "soilmoist_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "surf_var_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "MeltWaterStore_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "state_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "GDD_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "HDD_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "WUDay_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AlbMin_DecTr_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AlbMax_DecTr_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AlbMin_EveTr_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AlbMax_EveTr_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AlbMin_Grass_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "AlbMax_Grass_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "CapMin_dec_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "CapMax_dec_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "PorMin_dec_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "PorMax_dec_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "DRAINRT_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "RAINCOVER_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "RAINMAXRES_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "FlowChange_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "PipeCapacity_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "RunoffToWater_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "BaseTHDD_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "DecidCap_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "porosity_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "qn1_av_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "qn1_s_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "dqndt_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "dqnsdt_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "SnowAlb_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "z0m_in_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    },
+    "zdm_in_SUEWS": {
+        "min": 0,
+        "max":10,
+        "logic": "lai"
+    }
+}
