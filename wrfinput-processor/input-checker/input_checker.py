@@ -1,4 +1,6 @@
 # %%
+import yaml
+yaml.warnings({'YAMLLoadWarning': False})
 import xarray as xr
 import numpy as np
 import pandas as pd
@@ -14,9 +16,11 @@ check_file = 'check_file_suews.json'
 
 
 def open_check_file(check_file):
-
+    
     with open(check_file) as cf:
+        
         cr = json.load(cf)
+        
     # making the keys upper case to be consistent with wrfinputs
     cr_temp = {}
     for key in cr.keys():
