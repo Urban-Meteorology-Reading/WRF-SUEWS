@@ -1,367 +1,513 @@
 {
     "LAI_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "albDecTr_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "albEveTr_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "albGrass_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "NumCapita_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "PopDensDaytime_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "PopDensNighttime_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "BaseT_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "BaseTe_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "GDDFull_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "SDDFull_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "LaiMin_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "LaiMax_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "MaxConductance_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "FAIbldg_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "FAIEveTree_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "FAIDecTree_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "bldgH_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "EveTreeH_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "DecTreeH_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AH_MIN_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AH_SLOPE_Cooling_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AH_SLOPE_Heating_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "Qf_A_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "Qf_B_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "Qf_C_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "T_CRITIC_Cooling_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "T_CRITIC_Heating_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "TrafficRate_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "QF0_BEU_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "surf_attr_MinStorCap_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "surf_attr_DrainEquat_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "surf_attr_DrainCoef1_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "surf_attr_DrainCoef2_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "surf_attr_MaxStorCap_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "SoilStoreCap_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "SoilDepth_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "SatHydraulicConduct_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "StateLimit_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "WetThresh_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "soilmoist_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "surf_var_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "MeltWaterStore_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "state_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "GDD_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "HDD_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "WUDay_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AlbMin_DecTr_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AlbMax_DecTr_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AlbMin_EveTr_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AlbMax_EveTr_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AlbMin_Grass_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "AlbMax_Grass_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "CapMin_dec_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "CapMax_dec_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "PorMin_dec_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "PorMax_dec_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "DRAINRT_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "RAINCOVER_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "RAINMAXRES_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "FlowChange_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "PipeCapacity_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "RunoffToWater_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "BaseTHDD_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "DecidCap_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "porosity_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "qn1_av_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "qn1_s_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "dqndt_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "dqnsdt_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "SnowAlb_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "z0m_in_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     },
     "zdm_in_SUEWS": {
-        "min": 0,
-        "max":10,
-        "logic": "lai"
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     }
 }
