@@ -9,7 +9,7 @@
             1.6
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "albDecTr_SUEWS": {
         "dim": 0,
@@ -17,7 +17,7 @@
             0.12
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "albEveTr_SUEWS": {
         "dim": 0,
@@ -25,7 +25,7 @@
             0.1
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "albGrass_SUEWS": {
         "dim": 0,
@@ -33,7 +33,7 @@
             0.18
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "NumCapita_SUEWS": {
         "dim": 0,
@@ -69,7 +69,7 @@
             5.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "BaseTe_SUEWS": {
         "dim": 3,
@@ -81,7 +81,7 @@
             11.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "GDDFull_SUEWS": {
         "dim": 3,
@@ -93,7 +93,7 @@
             300.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "SDDFull_SUEWS": {
         "dim": 3,
@@ -105,7 +105,7 @@
             -450.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "LaiMin_SUEWS": {
         "dim": 3,
@@ -117,7 +117,7 @@
             1.6
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "LaiMax_SUEWS": {
         "dim": 3,
@@ -129,7 +129,7 @@
             5.9
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "MaxConductance_SUEWS": {
         "dim": 3,
@@ -141,7 +141,7 @@
             33.1
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "FAIbldg_SUEWS": {
         "dim": 0,
@@ -165,7 +165,7 @@
             -999.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "bldgH_SUEWS": {
         "dim": 0,
@@ -181,7 +181,7 @@
             13.1
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "DecTreeH_SUEWS": {
         "dim": 0,
@@ -189,7 +189,7 @@
             13.1
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "AH_MIN_SUEWS": {
         "dim": 2,
@@ -315,7 +315,7 @@
             0.5
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "surf_attr_DrainEquat_SUEWS": {
         "dim": 7,
@@ -331,7 +331,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "surf_attr_DrainCoef1_SUEWS": {
         "dim": 7,
@@ -347,7 +347,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "surf_attr_DrainCoef2_SUEWS": {
         "dim": 7,
@@ -363,7 +363,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "surf_attr_MaxStorCap_SUEWS": {
         "dim": 7,
@@ -379,7 +379,7 @@
             0.5
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "SoilStoreCap_SUEWS": {
         "dim": 7,
@@ -395,7 +395,7 @@
             0.0
         ],
         "unit": "mm",
-        "mask": "urban"
+        "mask": ""
     },
     "SoilDepth_SUEWS": {
         "dim": 7,
@@ -411,7 +411,7 @@
             0.0
         ],
         "unit": "mm",
-        "mask": "urban"
+        "mask": ""
     },
     "SatHydraulicConduct_SUEWS": {
         "dim": 7,
@@ -427,7 +427,7 @@
             0.0
         ],
         "unit": "mm s-1",
-        "mask": "urban"
+        "mask": ""
     },
     "StateLimit_SUEWS": {
         "dim": 7,
@@ -443,7 +443,7 @@
             30000.0
         ],
         "unit": "mm",
-        "mask": "urban"
+        "mask": ""
     },
     "WetThresh_SUEWS": {
         "dim": 7,
@@ -459,7 +459,7 @@
             0.5
         ],
         "unit": "mm",
-        "mask": "urban"
+        "mask": ""
     },
     "soilmoist_SUEWS": {
         "dim": 7,
@@ -475,7 +475,7 @@
             150.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "surf_var_SUEWS": {
         "dim": 7,
@@ -491,7 +491,7 @@
             10
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "MeltWaterStore_SUEWS": {
         "dim": 7,
@@ -507,7 +507,7 @@
             10
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "state_SUEWS": {
         "dim": 7,
@@ -523,7 +523,7 @@
             0.2
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "GDD_SUEWS": {
         "dim": 5,
@@ -537,7 +537,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "HDD_SUEWS": {
         "dim": 12,
@@ -558,7 +558,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "WUDay_SUEWS": {
         "dim": 9,
@@ -576,7 +576,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "AlbMin_DecTr_SUEWS": {
         "dim": 0,
@@ -584,7 +584,7 @@
             0.12
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "AlbMax_DecTr_SUEWS": {
         "dim": 0,
@@ -592,7 +592,7 @@
             0.18
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "AlbMin_EveTr_SUEWS": {
         "dim": 0,
@@ -600,7 +600,7 @@
             0.11
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "AlbMax_EveTr_SUEWS": {
         "dim": 0,
@@ -608,7 +608,7 @@
             0.12
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "AlbMin_Grass_SUEWS": {
         "dim": 0,
@@ -616,7 +616,7 @@
             0.18
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "AlbMax_Grass_SUEWS": {
         "dim": 0,
@@ -624,7 +624,7 @@
             0.21
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "CapMin_dec_SUEWS": {
         "dim": 0,
@@ -632,7 +632,7 @@
             0.3
         ],
         "unit": "mm",
-        "mask": "urban"
+        "mask": ""
     },
     "CapMax_dec_SUEWS": {
         "dim": 0,
@@ -640,7 +640,7 @@
             0.8
         ],
         "unit": "mm",
-        "mask": "urban"
+        "mask": ""
     },
     "PorMin_dec_SUEWS": {
         "dim": 0,
@@ -648,7 +648,7 @@
             0.2
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "PorMax_dec_SUEWS": {
         "dim": 0,
@@ -656,7 +656,7 @@
             0.6
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "DRAINRT_SUEWS": {
         "dim": 0,
@@ -664,7 +664,7 @@
             0.25
         ],
         "unit": "mm h-1",
-        "mask": "urban"
+        "mask": ""
     },
     "RAINCOVER_SUEWS": {
         "dim": 0,
@@ -672,7 +672,7 @@
             1.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "RAINMAXRES_SUEWS": {
         "dim": 0,
@@ -680,7 +680,7 @@
             10.0
         ],
         "unit": "mm",
-        "mask": "urban"
+        "mask": ""
     },
     "FlowChange_SUEWS": {
         "dim": 0,
@@ -688,7 +688,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "PipeCapacity_SUEWS": {
         "dim": 0,
@@ -704,7 +704,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "BaseTHDD_SUEWS": {
         "dim": 0,
@@ -720,7 +720,7 @@
             0.3
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "porosity_SUEWS": {
         "dim": 0,
@@ -728,7 +728,7 @@
             0.2
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "qn1_av_SUEWS": {
         "dim": 0,
@@ -736,13 +736,13 @@
             0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "qn1_s_SUEWS": {
         "dim": 0,
         "value": 0,
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "dqndt_SUEWS": {
         "dim": 0,
@@ -750,7 +750,7 @@
             0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "dqnsdt_SUEWS": {
         "dim": 0,
@@ -758,7 +758,7 @@
             0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "SnowAlb_SUEWS": {
         "dim": 0,
@@ -766,7 +766,7 @@
             0.0
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "z0m_in_SUEWS": {
         "dim": 0,
@@ -774,7 +774,7 @@
             1.9
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     },
     "zdm_in_SUEWS": {
         "dim": 0,
@@ -782,6 +782,6 @@
             14.2
         ],
         "unit": "",
-        "mask": "urban"
+        "mask": ""
     }
 }

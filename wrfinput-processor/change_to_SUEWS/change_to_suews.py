@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-import yaml
-yaml.warnings({'YAMLLoadWarning': False})
+#import yaml
+#yaml.warnings({'YAMLLoadWarning': False})
 import xarray as xr
 import numpy as np
 import json
@@ -68,7 +68,7 @@ def gen_var(var_key, vars_to_add, landuse_mask, var_base=ds_base['T2'].copy()):
 
 
 # variables to be added to wrfinputs
-with open('../SUEWS_param.json') as var_json:
+with open('../../SUEWS_param.json') as var_json:
     vars_to_add = json.load(var_json)
 
 

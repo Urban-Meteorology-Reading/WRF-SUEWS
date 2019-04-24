@@ -1,6 +1,6 @@
 # %%
-import yaml
-yaml.warnings({'YAMLLoadWarning': False})
+#import yaml
+#yaml.warnings({'YAMLLoadWarning': False})
 import json
 from pathlib import Path
 import supy as sp
@@ -12,7 +12,7 @@ df_state_init = sp.init_supy(path_runcontrol)
 
 ##################### JSON ######################################
 
-with open('SUEWS_param.json') as suews_file:
+with open('../SUEWS_param.json') as suews_file:
     suews_params = json.load(suews_file)
 
 
@@ -47,7 +47,7 @@ with open(new_json, 'w') as fp:
 
 ##################### NAMELIST ######################################
 
-nml = f90nml.read('namelist.suews')
+nml = f90nml.read('../namelist.suews')
 df_columns = df_state_init.columns
 
 
