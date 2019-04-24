@@ -89,7 +89,7 @@ for wrfinput in fl_wrfinput:
 
     ds = xr.open_dataset(wrfinput)
 
-    for var in ds.data_vars:
+    for var in ds.data_vars: 
         if 'SUEWS' in var:
             df_sum = check_var_suews(var, ds[var].values, cr, df_sum)
     print(df_sum)
