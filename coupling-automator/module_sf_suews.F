@@ -54,6 +54,13 @@ CONTAINS
        T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
        PSFC, PREC, ht,                          &
        QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
+
+      kdown_SUEWS,&
+      kup_SUEWS,  &
+      ldown_SUEWS,&
+      lup_SUEWS,  &
+      tsurf_SUEWS,&
+
        LAI_SUEWS,                               &
        albDecTr_SUEWS,                          &
        albEveTr_SUEWS,                          &
@@ -228,7 +235,11 @@ CONTAINS
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN, PSFC, PREC, ht
 
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq
+         QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS
+
+
+
+
     REAL , INTENT(IN)    :: DT, dt_prev, DX
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  XLONG, XLAT
     INTEGER, INTENT(IN)    ::     ids,ide, jds,jde, kds,kde,  &
@@ -321,7 +332,7 @@ CONTAINS
     REAL,DIMENSION(7)                 :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out
+    REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(3)                     :: LAI_id      !LAI for each veg surface [m2 m-2]
@@ -598,7 +609,7 @@ CONTAINS
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-               qn_out,qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,&
+               qn_out,qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out,&
                                 ! grid layout:
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
@@ -706,6 +717,13 @@ CONTAINS
           GRDFLX(I,J) = qs_out
           HFX(I,J)    = qh_out
           LH(I,J)     = qe_out
+
+          kdown_SUEWS(I,J) = kdown_out 
+          kup_SUEWS(I,J) = kup_out  
+          ldown_SUEWS(I,J) = ldown_out 
+          lup_SUEWS(I,J) = lup_out  
+          tsurf_SUEWS(I,J) = tsurf_out
+
           ! PRINT *, 'HFX(I,J) = ', HFX(I,J)
           ! PRINT *, 'LH(I,J) = ', LH(I,J)
 
@@ -787,7 +805,7 @@ CONTAINS
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-       qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,&
+       qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,kdown_o, kup_o, ldown_o, lup_o, tsurf_o,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -923,6 +941,11 @@ CONTAINS
     REAL(KIND(1d0)), INTENT(out) ::qsfc ! QE for output
     REAL(KIND(1d0)), INTENT(out) ::tsk ! TSK for output
     REAL(KIND(1d0)), INTENT(out) ::CHKLOWQ ! TSK for output
+    REAL(KIND(1d0)), INTENT(out) ::kdown_o
+    REAL(KIND(1d0)), INTENT(out) ::kup_o
+    REAL(KIND(1d0)), INTENT(out) ::ldown_o
+    REAL(KIND(1d0)), INTENT(out) ::lup_o
+    REAL(KIND(1d0)), INTENT(out) ::tsurf_o
 
 
     INTEGER, INTENT(IN)::     &
@@ -1130,7 +1153,12 @@ CONTAINS
          PopDensDaytime_id,PopDensNighttime_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
-         qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ)!output
+         qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,&
+         kdown_o,&
+         kup_o,&
+         ldown_o,&
+         lup_o,&
+         tsurf_o)
 
 
     WRITE( message,* ) 'after SuMin,  qn_SUEWS= ', qn

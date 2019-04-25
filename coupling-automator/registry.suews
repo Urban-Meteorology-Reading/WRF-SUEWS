@@ -85,3 +85,8 @@ state      real     SnowAlb_SUEWS                               ij              
 state      real     WUDay_SUEWS                                 i{dimwd}j             misc    -           -           irh    "WUDay_SUEWS"                  "WUDay_SUEWS"                     "mm"
 state      real     z0m_in_SUEWS                                ij                    misc    1           -           irh    "z0m_in_SUEWS"                 "z0m_in_SUEWS"                    "m"
 state      real     zdm_in_SUEWS                                ij                    misc    1           -           irh    "zdm_in_SUEWS"                 "zdm_in_SUEWS"                    "m"
+state      real     kdown_SUEWS                                 ij                    misc    1           -           rh     "kdown_SUEWS"                  "kdown_SUEWS"                     "W m-2"
+state      real     kup_SUEWS                                   ij                    misc    1           -           rh     "kup_SUEWS"                    "kup_SUEWS"                       "W m-2"
+state      real     ldown_SUEWS                                 ij                    misc    1           -           rh     "ldown_SUEWS"                  "ldown_SUEWS"                     "W m-2"
+state      real     lup_SUEWS                                   ij                    misc    1           -           rh     "lup_SUEWS"                    "lup_SUEWS"                       "W m-2"
+state      real     tsurf_SUEWS                                 ij                    misc    1           -           rh     "tsurf_SUEWS"                  "tsurf_SUEWS"                     "W m-2"
