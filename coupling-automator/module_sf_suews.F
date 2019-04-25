@@ -1028,7 +1028,7 @@ CONTAINS
     alt=ht
 
     ! get measurement height of windspeed
-    z= 10 !assume 10 m for now. TODO: this SHOULD be equal to the height of first model level
+    z= 60 !assume 10 m for now. TODO: this SHOULD be equal to the height of first model level
 
     ! get estimate of surface area
     SurfaceArea=dx*dx
