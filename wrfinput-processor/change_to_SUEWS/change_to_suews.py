@@ -88,7 +88,7 @@ def add_SUEWS_wrfinput_single(x_file):
     print('working on:' + x_file)
     # get base file
     ds_base = xr.open_dataset(x_file)
-    landuse_mask = urban_mask(ds_base)
+    landuse_mask = urban_mask(ds_base.copy())
     # NB: variables in wrfinput have to be named in CAPITALISED strings
     ds_new = xr.Dataset({
         var_key.upper(): gen_var(var_key, vars_to_add, landuse_mask, ds_base['T2'].copy(deep=True))
@@ -96,7 +96,7 @@ def add_SUEWS_wrfinput_single(x_file):
 
     # merge with ds_base for export
     ds_merged = ds_base.update(ds_new)
-
+    
     # amke sure SUEWS scheme option is set
     ds_merged.attrs['SF_SURFACE_PHYSICS'] = 9
 
