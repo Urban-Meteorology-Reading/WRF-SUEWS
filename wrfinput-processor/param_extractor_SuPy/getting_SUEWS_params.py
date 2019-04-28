@@ -52,9 +52,9 @@ df_columns = df_state_init.columns
 
 
 profiles = {'ahprof_24hr', 'humactivity_24hr', 'popprof_24hr',
-            'traffprof_24hr', 'wuprofa_24hr', 'wuprofm_24hr'}
+            'traffprof_24hr', 'wuprofa_24hr', 'wuprofm_24hr', 'laipower'}
 
-coefs = {'ohm_coef', 'waterdist', 'laipower'}
+coefs = {'ohm_coef', 'waterdist'}
 
 patch_change = {'coeff', 'method'}
 
@@ -69,9 +69,7 @@ for key in patch_change:
             dim_str = df_state_init[item[0]].columns[-1][1:-1]
             dims = tuple(int(s)+1 for s in dim_str.split(', ') if s.isdigit())
             order='C'
-            if item[0]=='laipower':
-                dims=dims[::-1]
-                order='F'
+
 
             new_value = [l.tolist() for l in
                         list(np.reshape(list(value), dims, order=order))]
