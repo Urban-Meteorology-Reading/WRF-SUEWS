@@ -78,7 +78,7 @@ def urban_mask(ds_base):
     urban_category = 12
     landusef = ds_base['LANDUSEF'].values[0, urban_category, :, :]
     landuse_mask = landusef
-    landuse_mask[landusef > 0] = 1
+    #landuse_mask[landusef > 0] = 1
     return landuse_mask
 
 
