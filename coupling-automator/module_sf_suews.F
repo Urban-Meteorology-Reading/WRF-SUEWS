@@ -51,7 +51,7 @@ CONTAINS
 
   !----------------------------------------------------------------
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
-       T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,  &
+       T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,glw,  &
        PSFC, PREC, ht,                          &
        QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
 
@@ -232,7 +232,7 @@ CONTAINS
     REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN)   ::  &
          QV3D, P3D, T3D, U3D, V3D, DZ3D
     !
-    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN, PSFC, PREC, ht
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw, PSFC, PREC, ht
 
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
          QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS
@@ -331,7 +331,7 @@ CONTAINS
     ! LOCAL VARS
     REAL,DIMENSION(7)                 :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
-    REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
+    REAL :: SWDOWN1D,GLW1D PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
     REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out
     REAL(KIND(1d0)) :: timezone
 
@@ -446,6 +446,8 @@ CONTAINS
 
 
           SWDOWN1D = SWDOWN(i,j)
+          GLW1D = GLW(i,j)
+
           PSFC1D = PSFC(i,j)
           PREC1D = PREC(i,j)
           landusef_suews1d = landusef_suews(I,:,J)
@@ -545,7 +547,7 @@ CONTAINS
                                 ! model configuration:
                I,J,DT,DT_PREV,year,day,hour,minute,second,dt_since_start,timezone,&
                                 ! forcing:
-               SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC1D,PREC1D,&
+               SWDOWN1D,GLW1D,QV1D,U1D,V1D,T1D,PSFC1D,PREC1D,&
                                 ! surface properties (temporally invariant):
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
@@ -741,7 +743,7 @@ CONTAINS
        I,J,DT,DT_PREV,iy,id,it,imin,isec,dt_since_start,timezone,&
 
                                 ! forcing:
-       SWDOWN1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
+       SWDOWN1D,GLW1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
                                 ! surface properties (temporally invariant):
        landusef_suews1d,ht,XLAT,XLONG,dz8w,DX,&
                                 ! surface properties/states (temporally updated):
@@ -829,6 +831,7 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::timezone   !NB:Timezone (GMT=0), assuming ZERO, SHOULD BE ALTERED
 
     REAL,INTENT(in) :: SWDOWN1D
+    REAL,INTENT(in) :: GLW1D
     REAL,INTENT(in) :: QV1D
     REAL,INTENT(in) :: U1D, V1D
     REAL,INTENT(in) :: T1D
@@ -1158,7 +1161,7 @@ CONTAINS
          kup_o,&
          ldown_o,&
          lup_o,&
-         tsurf_o)
+         tsurf_o,glw1D)
 
 
     WRITE( message,* ) 'after SuMin,  qn_SUEWS= ', qn

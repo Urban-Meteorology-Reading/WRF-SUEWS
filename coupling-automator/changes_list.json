@@ -430,7 +430,7 @@
                 "WRITE( message,* ) ' calling suewsdrv',sf_surface_physics",
                 "call wrf_debug(100, message)",
                 "          CALL suewsdrv(year, day_int, hour, minute, second, xtime, &",
-                "             t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,      &",
+                "             t_phy, qv_curr, p8w, u_phy, v_phy, dz8w, swdown,glw,      &",
                 "             psfc, rainbl, ht,                                     &",
                 "             QN_SUEWS,AH_SUEWS, grdflx, hfx, qfx, lh, tsk, qsfc, chklowq,                     &",
 
