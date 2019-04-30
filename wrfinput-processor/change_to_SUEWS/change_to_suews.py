@@ -107,15 +107,17 @@ def add_SUEWS_wrfinput_single(x_file):
     print('working on:' + x_file)
     # get base file
     ds_base = xr.open_dataset(x_file)
-    if x_file == 'wrfinput_d03':
-        print('modifying the landusef around KC')
-        ds_base = mod_landusef(ds_base)
+
 
     landuse_mask = urban_mask(ds_base.copy())
     # NB: variables in wrfinput have to be named in CAPITALISED strings
     ds_new = xr.Dataset({
         var_key.upper(): gen_var(var_key, vars_to_add, landuse_mask, ds_base['T2'].copy(deep=True))
         for var_key in vars_to_add.keys()})
+
+    if x_file == 'wrfinput_d03':
+        print('modifying the landusef around KC')
+        ds_base = mod_landusef(ds_base) 
 
     # merge with ds_base for export
     ds_merged = ds_base.update(ds_new)
@@ -131,9 +133,14 @@ def add_SUEWS_wrfinput_single(x_file):
 
     # export merged dataset to a new file
     file_out = x_file+'.suews'
+
+ 
+
     ds_merged.to_netcdf(file_out,
                         mode='w', format='NETCDF3_64BIT')
     print('SUEWS input has beened added to:' + file_out)
+
+  
 
     return file_out
 
