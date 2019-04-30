@@ -2,7 +2,7 @@
 CBLUse                = 0
 SnowUse               = 1
 SOLWEIGUse            = 0
-NetRadiationMethod    = 3
+NetRadiationMethod    = 1
 EmissionsMethod       = 2
 StorageHeatMethod     = 1
 OHMIncQF              = 0

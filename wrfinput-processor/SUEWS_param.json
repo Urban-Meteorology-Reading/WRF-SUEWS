@@ -170,7 +170,7 @@
     "bldgH_SUEWS": {
         "dim": 0,
         "value": [
-            12.6
+            22.0
         ],
         "unit": "",
         "mask": "urban"
@@ -229,8 +229,8 @@
         "axis": 1,
         "dim_name": "ahd",
         "value": [
-            0.3081357,
-            0.3081357
+            0.3743,
+            0.3412
         ],
         "unit": "",
         "mask": "urban"
@@ -240,8 +240,8 @@
         "axis": 1,
         "dim_name": "ahd",
         "value": [
-            0.0098631,
-            0.0098631
+            0.0,
+            0.0
         ],
         "unit": "",
         "mask": "urban"
@@ -251,8 +251,8 @@
         "axis": 1,
         "dim_name": "ahd",
         "value": [
-            0.0101826,
-            0.0101826
+            0.0073,
+            0.0067
         ],
         "unit": "",
         "mask": "urban"

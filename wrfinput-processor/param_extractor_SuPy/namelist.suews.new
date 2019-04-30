@@ -101,7 +101,7 @@
     roughlenheatmethod = 2
     roughlenmommethod = 2
     emissionsmethod = 2
-    netradiationmethod = 3
+    netradiationmethod = 1
     storageheatmethod = 1
     ohmincqf = 0
     aerodynamicresistancemethod = 2
