@@ -82,12 +82,33 @@ def urban_mask(ds_base):
     return landuse_mask
 
 
+def mod_landusef(ds_base):
+    
+    ds_base['LANDUSEF'].values[0, 12, 37-2:37+2, 20-2:20+2]=0.81
+    ds_base['LANDUSEF'].values[0, 0, 37-2:37+2, 20-2:20+2]=0.001/3
+    ds_base['LANDUSEF'].values[0, 1, 37-2:37+2, 20-2:20+2]=0.001/3
+    ds_base['LANDUSEF'].values[0, 4, 37-2:37+2, 20-2:20+2]=0.001/3
+    ds_base['LANDUSEF'].values[0, 2:3, 37-2:37+2, 20-2:20+2]=0.019/2
+    ds_base['LANDUSEF'].values[0, 5:9, 37-2:37+2, 20-2:20+2]=0.029/7
+    ds_base['LANDUSEF'].values[0, 11, 37-2:37+2, 20-2:20+2]=0.029/7
+    ds_base['LANDUSEF'].values[0, 13, 37-2:37+2, 20-2:20+2]=0.029/7
+    ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 20-2:20+2]=0.14/4
+    ds_base['LANDUSEF'].values[0, 17:19, 37-2:37+2, 20-2:20+2]=0.14/4
+    
+    #landuse_mask[landusef > 0] = 1
+    return ds_base
+
+
 # added SUEWS required input to a single wrfinput file
 
 def add_SUEWS_wrfinput_single(x_file):
     print('working on:' + x_file)
     # get base file
     ds_base = xr.open_dataset(x_file)
+    if x_file == 'wrfinput_d03':
+        print('modifying the landusef around KC')
+        ds_base = mod_landusef(ds_base)
+
     landuse_mask = urban_mask(ds_base.copy())
     # NB: variables in wrfinput have to be named in CAPITALISED strings
     ds_new = xr.Dataset({
