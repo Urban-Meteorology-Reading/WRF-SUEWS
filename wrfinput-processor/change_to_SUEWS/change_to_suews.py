@@ -88,12 +88,14 @@ def mod_landusef(ds_base):
     ds_base['LANDUSEF'].values[0, 0, 37-2:37+2, 20-2:20+2]=0.001/3
     ds_base['LANDUSEF'].values[0, 1, 37-2:37+2, 20-2:20+2]=0.001/3
     ds_base['LANDUSEF'].values[0, 4, 37-2:37+2, 20-2:20+2]=0.001/3
-    ds_base['LANDUSEF'].values[0, 2:3, 37-2:37+2, 20-2:20+2]=0.019/2
-    ds_base['LANDUSEF'].values[0, 5:9, 37-2:37+2, 20-2:20+2]=0.029/7
+    ds_base['LANDUSEF'].values[0, 2:4, 37-2:37+2, 20-2:20+2]=0.019/2
+    ds_base['LANDUSEF'].values[0, 5:10, 37-2:37+2, 20-2:20+2]=0.029/7
     ds_base['LANDUSEF'].values[0, 11, 37-2:37+2, 20-2:20+2]=0.029/7
     ds_base['LANDUSEF'].values[0, 13, 37-2:37+2, 20-2:20+2]=0.029/7
-    ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 20-2:20+2]=0.14/4
-    ds_base['LANDUSEF'].values[0, 17:19, 37-2:37+2, 20-2:20+2]=0.14/4
+    ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 20-2:20+2]=0.001/4
+    ds_base['LANDUSEF'].values[0, 17:20, 37-2:37+2, 20-2:20+2]=0.001/4
+    ds_base['LANDUSEF'].values[0, 10, 37-2:37+2, 20-2:20+2]=0.14/2
+    ds_base['LANDUSEF'].values[0, 16, 37-2:37+2, 20-2:20+2]=0.14/2
     
     #landuse_mask[landusef > 0] = 1
     return ds_base
