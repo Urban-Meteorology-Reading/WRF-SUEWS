@@ -51,7 +51,7 @@ CONTAINS
 
   !----------------------------------------------------------------
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
-       T3D, QV3D, P3D, U3D, V3D, DZ3d, SWDOWN,glw,  &
+       T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,glw,  &
        PSFC, PREC, ht,                          &
        QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
 
@@ -233,7 +233,7 @@ CONTAINS
          QV3D, P3D, T3D, U3D, V3D, DZ3D
     !
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw, PSFC, PREC, ht
-
+    REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::   Z3
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
          QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS
 
@@ -443,7 +443,8 @@ CONTAINS
           P1D  = P3D(i,1,j)
           U1D = U3D(i,1,j)
           V1D = V3D(i,1,j)
-          DZ1D = DZ3D(i,1,j)
+          !DZ1D = DZ3D(i,1,j)
+          DZ1D=Z3(i,1,j)
 
 
           SWDOWN1D = SWDOWN(i,j)
@@ -1032,8 +1033,9 @@ CONTAINS
     alt=ht
 
     ! get measurement height of windspeed
-    z= 60 !assume 10 m for now. TODO: this SHOULD be equal to the height of first model level
-
+    z= dz8w !
+    WRITE( message,* ) 'First vertical level is ', z
+    CALL wrf_debug(1,message)
     ! get estimate of surface area
     SurfaceArea=dx*dx
 
