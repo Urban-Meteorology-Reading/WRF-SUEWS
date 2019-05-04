@@ -56,6 +56,8 @@ configure.wrf.backup
 warnings.txt
 namelist.output
 wrfout_d0*
-mod-input-python/.ipynb_checkpoints
 SumData.DAT
 test-run
+
+# python related files
+.ipynb_checkpoints
