@@ -56,7 +56,12 @@ configure.wrf.backup
 warnings.txt
 namelist.output
 wrfout_d0*
-mod-input-python/.ipynb_checkpoints
 SumData.DAT
 test-run
+<<<<<<< HEAD
 wrfinput-processor/London-Land-Cover-Modify/.ipynb_checkpoints/
+=======
+
+# python related files
+.ipynb_checkpoints
+>>>>>>> 38504ef67f107867a9ff0a10801eafa8e146cdac
