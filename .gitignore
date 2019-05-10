@@ -58,9 +58,7 @@ namelist.output
 wrfout_d0*
 SumData.DAT
 test-run
-<<<<<<< HEAD
 wrfinput-processor/London-Land-Cover-Modify/.ipynb_checkpoints/
-=======
 
 # python related files
 .ipynb_checkpoints
