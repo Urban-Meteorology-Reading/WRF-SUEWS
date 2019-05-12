@@ -68,7 +68,7 @@ def gen_var(var_key, vars_to_add, landuse_mask, var_base=ds_base['T2'].copy()):
 
 
 # variables to be added to wrfinputs
-with open('../../SUEWS_param.json') as var_json:
+with open('../../SUEWS_param-Swindon.json') as var_json:
     vars_to_add = json.load(var_json)
 
 
@@ -82,23 +82,38 @@ def urban_mask(ds_base):
     return landuse_mask
 
 
-# def mod_landusef(ds_base):
+def mod_landusef(ds_base):
+     #this if for London KC
+    #  ds_base['LANDUSEF'].values[0, 12, 37-2:37+2, 20-2:20+2]=0.81
+    #  ds_base['LANDUSEF'].values[0, 0, 37-2:37+2, 20-2:20+2]=0.001/3
+    #  ds_base['LANDUSEF'].values[0, 1, 37-2:37+2, 20-2:20+2]=0.001/3
+    #  ds_base['LANDUSEF'].values[0, 4, 37-2:37+2, 20-2:20+2]=0.001/3
+    #  ds_base['LANDUSEF'].values[0, 2:4, 37-2:37+2, 20-2:20+2]=0.019/2
+    #  ds_base['LANDUSEF'].values[0, 5:10, 37-2:37+2, 20-2:20+2]=0.029/7
+    #  ds_base['LANDUSEF'].values[0, 11, 37-2:37+2, 20-2:20+2]=0.029/7
+    #  ds_base['LANDUSEF'].values[0, 13, 37-2:37+2, 20-2:20+2]=0.029/7
+    #  ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 20-2:20+2]=0.001/4
+    #  ds_base['LANDUSEF'].values[0, 17:20, 37-2:37+2, 20-2:20+2]=0.001/4
+    #  ds_base['LANDUSEF'].values[0, 10, 37-2:37+2, 20-2:20+2]=0.14/2
+    #  ds_base['LANDUSEF'].values[0, 16, 37-2:37+2, 20-2:20+2]=0.14/2
+
+
+          #this if for Swindon
+     ds_base['LANDUSEF'].values[0, 12, 37-2:37+2, 37-2:37+2]=0.49
+     ds_base['LANDUSEF'].values[0, 0, 37-2:37+2, 37-2:37+2]=0.01/3
+     ds_base['LANDUSEF'].values[0, 1, 37-2:37+2, 37-2:37+2]=0.01/3
+     ds_base['LANDUSEF'].values[0, 4, 37-2:37+2, 37-2:37+2]=0.01/3
+     ds_base['LANDUSEF'].values[0, 2:4, 37-2:37+2, 37-2:37+2]=0.08/2
+     ds_base['LANDUSEF'].values[0, 5:10, 37-2:37+2, 37-2:37+2]=0.36/7
+     ds_base['LANDUSEF'].values[0, 11, 37-2:37+2, 37-2:37+2]=0.36/7
+     ds_base['LANDUSEF'].values[0, 13, 37-2:37+2, 37-2:37+2]=0.36/7
+     ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 37-2:37+2]=0.06/4
+     ds_base['LANDUSEF'].values[0, 17:20, 37-2:37+2, 37-2:37+2]=0.06/4
+     ds_base['LANDUSEF'].values[0, 10, 37-2:37+2, 37-2:37+2]=0.0/2
+     ds_base['LANDUSEF'].values[0, 16, 37-2:37+2, 37-2:37+2]=0.0/2
     
-#     ds_base['LANDUSEF'].values[0, 12, 37-2:37+2, 20-2:20+2]=0.81
-#     ds_base['LANDUSEF'].values[0, 0, 37-2:37+2, 20-2:20+2]=0.001/3
-#     ds_base['LANDUSEF'].values[0, 1, 37-2:37+2, 20-2:20+2]=0.001/3
-#     ds_base['LANDUSEF'].values[0, 4, 37-2:37+2, 20-2:20+2]=0.001/3
-#     ds_base['LANDUSEF'].values[0, 2:4, 37-2:37+2, 20-2:20+2]=0.019/2
-#     ds_base['LANDUSEF'].values[0, 5:10, 37-2:37+2, 20-2:20+2]=0.029/7
-#     ds_base['LANDUSEF'].values[0, 11, 37-2:37+2, 20-2:20+2]=0.029/7
-#     ds_base['LANDUSEF'].values[0, 13, 37-2:37+2, 20-2:20+2]=0.029/7
-#     ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 20-2:20+2]=0.001/4
-#     ds_base['LANDUSEF'].values[0, 17:20, 37-2:37+2, 20-2:20+2]=0.001/4
-#     ds_base['LANDUSEF'].values[0, 10, 37-2:37+2, 20-2:20+2]=0.14/2
-#     ds_base['LANDUSEF'].values[0, 16, 37-2:37+2, 20-2:20+2]=0.14/2
-    
-#     #landuse_mask[landusef > 0] = 1
-#     return ds_base
+     #landuse_mask[landusef > 0] = 1
+     return ds_base
 
 
 # added SUEWS required input to a single wrfinput file
@@ -115,9 +130,9 @@ def add_SUEWS_wrfinput_single(x_file):
         var_key.upper(): gen_var(var_key, vars_to_add, landuse_mask, ds_base['T2'].copy(deep=True))
         for var_key in vars_to_add.keys()})
 
-    #if x_file == 'wrfinput_d03':
-    #    print('modifying the landusef around KC')
-    #    ds_base = mod_landusef(ds_base) 
+    if x_file == 'wrfinput_d03':
+        print('modifying the landusef around the site')
+        ds_base = mod_landusef(ds_base) 
 
     # merge with ds_base for export
     ds_merged = ds_base.update(ds_new)
