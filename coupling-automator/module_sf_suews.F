@@ -1224,7 +1224,7 @@ CONTAINS
     LOGICAL, INTENT(IN)         :: restart, allowed_to_read
 
     !  LOCAR VAR
-    INTEGER                            :: i, j, k, itf, jtf
+    INTEGER                            :: i, j, k, itf, jtf,opt
     CHARACTER(len = 1024)              :: message
     LOGICAL, EXTERNAL                  :: wrf_dm_on_monitor
     CHARACTER(len = 256)               :: filename ! local file name
@@ -1291,6 +1291,22 @@ CONTAINS
           END DO
        END IF
 
+    ! these checks are here because some of the available optins in
+    ! offline SUEWS is not valid in the online WRF-SUEWS
+    opt = EmissionsMethod
+    IF (.NOT.((opt.EQ.1).OR.(opt.EQ.2).OR.(opt.EQ.3).OR.(opt.EQ.4))) THEN
+            CALL wrf_error_fatal( "Invalid EmissionsMethod option. It should be 1,2,3, or 4" )
+    ENDIF
+
+    opt = NetRadiationMethod
+    IF (.NOT.((opt.EQ.1).OR.(opt.EQ.2).OR.(opt.EQ.3).OR.(opt.EQ.100).OR.(opt.EQ.200).OR.(opt.EQ.300))) THEN
+            CALL wrf_error_fatal( "Invalid NetRadiationMethod option. It should be 1,2,3,100,200 or 300" )
+    ENDIF
+
+    opt = StorageHeatMethod
+    IF (.NOT.(opt.EQ.1)) THEN
+            CALL wrf_error_fatal( "Invalid StorageHeatMethod option. It should be 1" )
+    ENDIF
 !NOTE: All the real type namelist variables are double precision, but only single precision
 !      real variables have WORDSIZE in WRF, so if the following lines needed, we shoulde redefine
 !      them in single precision and modify the interface in SUEWS1D.
