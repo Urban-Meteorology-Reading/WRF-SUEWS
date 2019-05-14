@@ -783,5 +783,65 @@
         ],
         "unit": "",
         "mask": ""
+    },
+    "Faut_SUEWS": {
+        "dim": 0,
+        "value": [
+            0
+        ],
+        "unit": "",
+        "mask": ""
+    },
+    "IrrFracConif_SUEWS": {
+        "dim": 0,
+        "value": [
+            0
+        ],
+        "unit": "",
+        "mask": ""
+    },
+    "IrrFracDecid_SUEWS": {
+        "dim": 0,
+        "value": [
+            0
+        ],
+        "unit": "",
+        "mask": ""
+    },
+    "IrrFracGrass_SUEWS": {
+        "dim": 0,
+        "value": [
+            0
+        ],
+        "unit": "",
+        "mask": ""
+    },
+    "DayWat_SUEWS": {
+        "dim": 7,
+        "value": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "unit": "",
+        "mask": ""
+    },
+    "DayWatPer_SUEWS": {
+        "dim": 7,
+        "value": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+        ],
+        "unit": "",
+        "mask": ""
     }
 }

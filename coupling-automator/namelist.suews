@@ -104,7 +104,6 @@
     netradiationmethod = 1
     storageheatmethod = 1.0
     ohmincqf = 0.0
-    aerodynamicresistancemethod = 2.0
     laitype = 0.0, 0.0, 0.0
     laipower(1:4, 1) = 0.03, 0.0005, 0.03, 0.0005
     laipower(1:4, 2) = 0.03, 0.0005, 0.03, 0.0005
