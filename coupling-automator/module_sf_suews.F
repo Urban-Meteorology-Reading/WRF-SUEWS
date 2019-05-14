@@ -15,6 +15,7 @@ MODULE module_sf_SUEWS
   REAL,DIMENSION(24,2)                         :: TraffProf_24hr
   REAL,DIMENSION(24,2)                         :: WUProfA_24hr
   REAL,DIMENSION(24,2)                         :: WUProfM_24hr
+  REAL,DIMENSION(24,2)                         :: snowProf_24hr
   INTEGER                                      :: snowUse
   INTEGER                                      :: RoughLenHeatMethod
   INTEGER                                      :: RoughLenMomMethod
@@ -24,6 +25,7 @@ MODULE module_sf_SUEWS
   INTEGER                                      :: OHMIncQF
   INTEGER, PARAMETER                           :: AerodynamicResistanceMethod = 2
   INTEGER,DIMENSION(3,1)                       :: LAIType
+  REAL,DIMENSION(8,1)                          :: SnowPackLimit
   REAL,DIMENSION(8,1)                          :: OHM_threshSW
   REAL,DIMENSION(8,1)                          :: OHM_threshWD
   REAL                                         :: th
@@ -38,6 +40,21 @@ MODULE module_sf_SUEWS
   REAL                                         :: s1
   REAL                                         :: s2
   REAL,DIMENSION(4,3)                          :: LaiPower
+  Real                                         :: CRWmax         
+  Real                                         :: CRWmin        
+  Real                                         :: PrecipLimit     
+  Real                                         :: PrecipLimitAlb
+  Real                                         :: RadMeltFact    
+  Real                                         :: SnowAlbMax         
+  Real                                         :: SnowAlbMin       
+  Real                                         :: SnowDensMax    
+  Real                                         :: SnowDensMin       
+  Real                                         :: SnowLimBldg        
+  Real                                         :: SnowLimPaved       
+  Real                                         :: tau_a           
+  Real                                         :: tau_f         
+  Real                                         :: tau_r         
+  Real                                         :: TempMeltFact       
 
 
   
@@ -1058,7 +1075,9 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: TraffProf_24hr_d
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfA_24hr_d
     REAL(KIND(1d0)),DIMENSION(24,2)                         :: WUProfM_24hr_d
+    REAL(KIND(1d0)),DIMENSION(24,2)                         :: snowProf_24hr_d
 
+    REAL(KIND(1D0)),DIMENSION(8,1)                          :: SnowPackLimit_d
     REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshSW_d
     REAL(KIND(1D0)),DIMENSION(8,1)                          :: OHM_threshWD_d
     REAL(KIND(1D0))                                         :: th_d
@@ -1073,6 +1092,21 @@ CONTAINS
     REAL(KIND(1D0))                                         :: s1_d
     REAL(KIND(1D0))                                         :: s2_d
     REAL(KIND(1D0)),DIMENSION(4,3)                          :: LaiPower_d
+    REAL(KIND(1D0))                                         :: CRWmax_d        
+    REAL(KIND(1D0))                                         :: CRWmin_d        
+    REAL(KIND(1D0))                                         :: PrecipLimit_d   
+    REAL(KIND(1D0))                                         :: PrecipLimitAlb_d
+    REAL(KIND(1D0))                                         :: RadMeltFact_d   
+    REAL(KIND(1D0))                                         :: SnowAlbMax_d    
+    REAL(KIND(1D0))                                         :: SnowAlbMin_d    
+    REAL(KIND(1D0))                                         :: SnowDensMax_d   
+    REAL(KIND(1D0))                                         :: SnowDensMin_d   
+    REAL(KIND(1D0))                                         :: SnowLimBldg_d   
+    REAL(KIND(1D0))                                         :: SnowLimPaved_d  
+    REAL(KIND(1D0))                                         :: tau_a_d         
+    REAL(KIND(1D0))                                         :: tau_f_d         
+    REAL(KIND(1D0))                                         :: tau_r_d         
+    REAL(KIND(1D0))                                         :: TempMeltFact_d  
     CHARACTER*256 :: message
 
 
@@ -1125,8 +1159,10 @@ CONTAINS
     TraffProf_24hr_d = TraffProf_24hr
     WUProfA_24hr_d = WUProfA_24hr
     WUProfM_24hr_d = WUProfM_24hr
+    snowProf_24hr_d = snowProf_24hr
 
 
+  SnowPackLimit_d = SnowPackLimit
   OHM_threshSW_d = OHM_threshSW
   OHM_threshWD_d = OHM_threshWD
   th_d = th
@@ -1141,18 +1177,50 @@ CONTAINS
   s1_d = s1
   s2_d = s2
   LaiPower_d = LaiPower
-
+  CRWmax_d         = CRWmax      
+  CRWmin_d         = CRWmin      
+  PrecipLimit_d    = PrecipLimit 
+  PrecipLimitAlb_d = PrecipLimitAlb
+  RadMeltFact_d    = RadMeltFact 
+  SnowAlbMax_d     = SnowAlbMax  
+  SnowAlbMin_d     = SnowAlbMin  
+  SnowDensMax_d    = SnowDensMax 
+  SnowDensMin_d    = SnowDensMin 
+  SnowLimBldg_d    = SnowLimBldg 
+  SnowLimPaved_d   = SnowLimPaved
+  tau_a_d          = tau_a       
+  tau_f_d          = tau_f       
+  tau_r_d          = tau_r       
+  TempMeltFact_d   = TempMeltFact
+  
 
     CALL SuMin(&
          snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
-         RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType, &
+         RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType,SnowPackLimit_d, &
          OHM_threshSW_d,OHM_threshWD_d,th_d,tl_d,Kmax_d,g1_d,g2_d,g3_d,g4_d,g5_d,g6_d,s1_d,s2_d,LaiPower_d, &
+
+         CRWmax_d        ,&
+         CRWmin_d        ,&
+         PrecipLimit_d   ,&
+         PrecipLimitAlb_d,&
+         RadMeltFact_d   ,&
+         SnowAlbMax_d    ,&
+         SnowAlbMin_d    ,&
+         SnowDensMax_d   ,&
+         SnowDensMin_d   ,&
+         SnowLimBldg_d   ,&
+         SnowLimPaved_d  ,&
+         tau_a_d         ,&
+         tau_f_d         ,&
+         tau_r_d         ,&
+         TempMeltFact_d  ,&
+
          OHMIncQF,&! model options
          iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
          alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
          z0m_in_id,zdm_in_id,&! roughness related settings
          alb_id,emis_id,SnowAlb_id,OHM_coef_d,WaterDist_d,&
-         AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d,&
+         AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d, snowProf_24hr_d,&
          qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
          surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
 
@@ -1303,8 +1371,12 @@ CONTAINS
     !----------------------------------------------------------------
 
     NAMELIST /coeff/   OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
-                       WUProfA_24hr, WUProfM_24hr, OHM_threshSW, OHM_threshWD, th, tl, Kmax, &
-                       g1, g2, g3, g4, g5, g6, s1, s2
+                       WUProfA_24hr, WUProfM_24hr,snowProf_24hr,SnowPackLimit, OHM_threshSW, OHM_threshWD, th, tl, Kmax, &
+                       g1, g2, g3, g4, g5, g6, s1, s2, &
+                       CRWmax,CRWmin,PrecipLimit,PrecipLimitAlb,RadMeltFact,SnowAlbMax, &
+                       SnowAlbMin,SnowDensMax,SnowDensMin,SnowLimBldg,SnowLimPaved,tau_a, &
+                       tau_f,tau_r, TempMeltFact    
+
     NAMELIST /method/  snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, &
                        StorageHeatMethod, OHMIncQF, LAIType, LaiPower
     NAMELIST /landuse/ suews_cat_ind, suews_cat_frac
@@ -1376,6 +1448,7 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (TraffProf_24hr, 24 * 2 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (WUProfA_24hr, 24 * 2 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (WUProfM_24hr, 24 * 2 * RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (snowProf_24hr, 24 * 2 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (snowUse, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (RoughLenHeatMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (RoughLenMomMethod, IWORDSIZE)
@@ -1384,6 +1457,7 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (StorageHeatMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (OHMIncQF, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (LAIType, 3 * 1 * IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (SnowPackLimit, 8 * 1 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (OHM_threshSW, 8 * 1 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (OHM_threshWD, 8 * 1 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (th, RWORDSIZE)
@@ -1397,6 +1471,21 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (g6, RWORDSIZE)
        CALL wrf_dm_bcast_bytes (s1, RWORDSIZE)
        CALL wrf_dm_bcast_bytes (s2, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (CRWmax      ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (CRWmin      ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (PrecipLimit ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (PrecipLimitAlb, RWORDSIZE)
+       CALL wrf_dm_bcast_bytes (RadMeltFact ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (SnowAlbMax  ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (SnowAlbMin  ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (SnowDensMax ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (SnowDensMin ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (SnowLimBldg ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (SnowLimPaved,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (tau_a       ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (tau_f       ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (tau_r       ,   RWORDSIZE)  
+       CALL wrf_dm_bcast_bytes (TempMeltFact,   RWORDSIZE)  
        CALL wrf_dm_bcast_bytes (LaiPower, 4 * 3 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (suews_cat_ind, 8 * 10 * IWORDSIZE)
        CALL wrf_dm_bcast_bytes (suews_cat_frac, 8 * 10 * RWORDSIZE)

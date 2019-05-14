@@ -33,7 +33,7 @@ def spinup_SUEWS():
     df_forcing_2.index.freq = first_part.index.freq
 
     round_number = 0
-    error = 1000
+    error = 0.1
     while (error >= 0.5):
         round_number = round_number+1
         print('Running SUEWS for round number '+str(round_number)+'.....')
@@ -61,7 +61,8 @@ df_state_init.netradiationmethod = 1
 df_state_init.rename(columns={'soilstore_id': 'soilmoist'}, inplace=True)
 ##################### JSON ######################################
 
-with open('../SUEWS_param.json') as suews_file:
+
+with open('../SUEWS_param-Swindon.json') as suews_file:
     suews_params = json.load(suews_file)
 
 
@@ -101,7 +102,7 @@ df_columns = df_state_init.columns
 
 
 profiles = {'ahprof_24hr', 'humactivity_24hr', 'popprof_24hr',
-            'traffprof_24hr', 'wuprofa_24hr', 'wuprofm_24hr', 'laipower'}
+            'traffprof_24hr', 'wuprofa_24hr', 'wuprofm_24hr', 'snowprof_24hr','laipower'}
 
 coefs = {'ohm_coef', 'waterdist'}
 
