@@ -33,7 +33,7 @@ def spinup_SUEWS():
     df_forcing_2.index.freq = first_part.index.freq
 
     round_number = 0
-    error = 0.1
+    error = 1000
     while (error >= 0.5):
         round_number = round_number+1
         print('Running SUEWS for round number '+str(round_number)+'.....')
