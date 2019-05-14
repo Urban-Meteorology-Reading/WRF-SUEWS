@@ -89,11 +89,10 @@ state      real     kdown_SUEWS                                 ij              
 state      real     kup_SUEWS                                   ij                    misc    1           -           rh     "kup_SUEWS"                    "kup_SUEWS"                       "W m-2"
 state      real     ldown_SUEWS                                 ij                    misc    1           -           rh     "ldown_SUEWS"                  "ldown_SUEWS"                     "W m-2"
 state      real     lup_SUEWS                                   ij                    misc    1           -           rh     "lup_SUEWS"                    "lup_SUEWS"                       "W m-2"
-
-
 state      real     Faut_SUEWS                                  ij                    misc    1           -           rh     "Faut"                         "Faut"                            ""
 state      real     IrrFracConif_SUEWS                          ij                    misc    1           -           rh     "IrrFracConif"                 "IrrFracConif"                    ""
 state      real     IrrFracDecid_SUEWS                          ij                    misc    1           -           rh     "IrrFracDecid"                 "IrrFracDecid"                    ""
 state      real     IrrFracGrass_SUEWS                          ij                    misc    1           -           rh     "IrrFracGrass"                 "IrrFracGrass"                    ""
 state      real     DayWat_SUEWS                                i{nsurf}j             misc    1           -           rh     "DayWat"                       "DayWat"                          ""
 state      real     DayWatPer_SUEWS                             i{nsurf}j             misc    1           -           rh     "DayWatPer"                    "DayWatPer"                       ""
+state      real     tsurf_SUEWS                                 ij                    misc    1           -           rh     "tsurf_SUEWS"                  "tsurf_SUEWS"                     ""
