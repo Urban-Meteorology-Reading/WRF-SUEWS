@@ -22,7 +22,7 @@ MODULE module_sf_SUEWS
   INTEGER                                      :: NetRadiationMethod
   INTEGER                                      :: StorageHeatMethod
   INTEGER                                      :: OHMIncQF
-  INTEGER                                      :: AerodynamicResistanceMethod
+  INTEGER, PARAMETER                           :: AerodynamicResistanceMethod = 2
   INTEGER,DIMENSION(3,1)                       :: LAIType
   REAL,DIMENSION(8,1)                          :: OHM_threshSW
   REAL,DIMENSION(8,1)                          :: OHM_threshWD
@@ -119,6 +119,13 @@ CONTAINS
        StateLimit_SUEWS,&
        WetThresh_SUEWS,&
        BaseTHDD_SUEWS,&
+       Faut_SUEWS,&        
+       IrrFracConif_SUEWS,&
+       IrrFracDecid_SUEWS,&
+       IrrFracGrass_SUEWS,&
+       DayWat_SUEWS,&   
+       DayWatPer_SUEWS,&
+
        PopDensDaytime_SUEWS,                          &
        PopDensNighttime_SUEWS,                        &
        DecidCap_SUEWS,                          &
@@ -305,7 +312,13 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: RunoffToWater_SUEWS      
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: StateLimit_SUEWS         
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: WetThresh_SUEWS          
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: BaseTHDD_SUEWS           
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: BaseTHDD_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: Faut_SUEWS        
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: IrrFracConif_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: IrrFracDecid_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: IrrFracGrass_SUEWS
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: DayWat_SUEWS   
+    REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)  :: DayWatPer_SUEWS    
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensDaytime_SUEWS !Daytime population density [ha-1] (i.e. workers)
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: PopDensNighttime_SUEWS ! Nighttime population density [ha-1] (i.e. residents)
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: DecidCap_SUEWS !Storage capacity of deciduous trees [mm]
@@ -395,7 +408,12 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(7)                     :: StateLimit_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: WetThresh_id
     REAL(KIND(1d0))                                  :: BaseTHDD_id
-
+    REAL(KIND(1d0))                                  :: Faut_id        
+    REAL(KIND(1d0))                                  :: IrrFracConif_id
+    REAL(KIND(1d0))                                  :: IrrFracDecid_id
+    REAL(KIND(1d0))                                  :: IrrFracGrass_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: DayWat_id   
+    REAL(KIND(1d0)),DIMENSION(7)                     :: DayWatPer_id
 
 
 
@@ -516,6 +534,13 @@ CONTAINS
           WetThresh_id           = WetThresh_SUEWS(I,:,J)                    
           BaseTHDD_id            = BaseTHDD_SUEWS(I,J)
 
+          Faut_id                = Faut_SUEWS(I,J)         
+          IrrFracConif_id        = IrrFracConif_SUEWS(I,J)
+          IrrFracDecid_id        = IrrFracDecid_SUEWS(I,J)    
+          IrrFracGrass_id        = IrrFracGrass_SUEWS(I,J)  
+          DayWat_id              = DayWat_SUEWS(I,:,J)      
+          DayWatPer_id           = DayWatPer_SUEWS(I,:,J)   
+
           PopDensDaytime_id    = PopDensDaytime_SUEWS(I,J)
           PopDensNighttime_id    = PopDensNighttime_SUEWS(I,J)
           DecidCap_id     = DecidCap_SUEWS(I,J)
@@ -606,7 +631,13 @@ CONTAINS
                RunoffToWater_id       ,&
                StateLimit_id          ,&
                WetThresh_id           ,&
-               BaseTHDD_id            ,& 
+               BaseTHDD_id            ,&
+               Faut_id                ,&
+               IrrFracConif_id        ,&       
+               IrrFracDecid_id        ,&           
+               IrrFracGrass_id        ,&         
+               DayWat_id              ,&         
+               DayWatPer_id           ,&       
                PopDensDaytime_id,PopDensNighttime_id,&
                DecidCap_id,porosity_id,GDD_id,HDD_id,&
                state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
@@ -679,7 +710,13 @@ CONTAINS
           RunoffToWater_SUEWS(I,J)       =   RunoffToWater_id                    
           StateLimit_SUEWS(I,:,J)          =   StateLimit_id                    
           WetThresh_SUEWS(I,:,J)         =   WetThresh_id                      
-          BaseTHDD_SUEWS(I,J)          =   BaseTHDD_id            
+          BaseTHDD_SUEWS(I,J)          =   BaseTHDD_id
+          Faut_SUEWS(I,J)              = Faut_id         
+          IrrFracConif_SUEWS(I,J)      = IrrFracConif_id
+          IrrFracDecid_SUEWS(I,J)      = IrrFracDecid_id    
+          IrrFracGrass_SUEWS(I,J)      = IrrFracGrass_id  
+          DayWat_SUEWS(I,:,J)          = DayWat_id        
+          DayWatPer_SUEWS(I,:,J)       = DayWatPer_id   
           PopDensDaytime_SUEWS(I,J)      =   PopDensDaytime_id
           PopDensNighttime_SUEWS(I,J)    =   PopDensNighttime_id
           DecidCap_SUEWS(I,J)      =   DecidCap_id
@@ -803,6 +840,14 @@ CONTAINS
        StateLimit_id          ,&
        WetThresh_id           ,&
        BaseTHDD_id            ,&
+
+       Faut_id                ,&
+       IrrFracConif_id        ,&
+       IrrFracDecid_id        ,&
+       IrrFracGrass_id        ,&
+       DayWat_id              ,&
+       DayWatPer_id           ,&
+
        PopDensDaytime_id,PopDensNighttime_id,&       
        DecidCap_id,porosity_id,GDD_id,HDD_id,&
        state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
@@ -906,7 +951,13 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(INOUT) :: RunoffToWater_id      
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: StateLimit_id         
     REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: WetThresh_id          
-    REAL(KIND(1d0)),INTENT(INOUT) :: BaseTHDD_id           
+    REAL(KIND(1d0)),INTENT(INOUT) :: BaseTHDD_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: Faut_id        
+    REAL(KIND(1d0)),INTENT(INOUT) :: IrrFracConif_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: IrrFracDecid_id
+    REAL(KIND(1d0)),INTENT(INOUT) :: IrrFracGrass_id
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: DayWat_id      
+    REAL(KIND(1d0)),DIMENSION(7),INTENT(INOUT) :: DayWatPer_id              
     REAL(KIND(1d0)),INTENT(INOUT) :: PopDensDaytime_id !Daytime population density [ha-1] (i.e. workers)
     REAL(KIND(1d0)),INTENT(INOUT) :: PopDensNighttime_id !Nighttime population density [ha-1] (i.e. residents)
     REAL(KIND(1d0)),INTENT(INOUT) :: DecidCap_id !Storage capacity of deciduous trees [mm]
@@ -1156,6 +1207,13 @@ CONTAINS
          StateLimit_id,&
          WetThresh_id,&
          BaseTHDD_id,&
+         Faut_id,&
+         IrrFracConif_id,&
+         IrrFracDecid_id,&
+         IrrFracGrass_id,&
+         DayWat_id,&
+         DayWatPer_id,&
+
          PopDensDaytime_id,PopDensNighttime_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
@@ -1248,7 +1306,7 @@ CONTAINS
                        WUProfA_24hr, WUProfM_24hr, OHM_threshSW, OHM_threshWD, th, tl, Kmax, &
                        g1, g2, g3, g4, g5, g6, s1, s2
     NAMELIST /method/  snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, &
-                       StorageHeatMethod, OHMIncQF, AerodynamicResistanceMethod, LAIType, LaiPower
+                       StorageHeatMethod, OHMIncQF, LAIType, LaiPower
     NAMELIST /landuse/ suews_cat_ind, suews_cat_frac
 
     IF ( allowed_to_read ) THEN
@@ -1325,7 +1383,6 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (NetRadiationMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (StorageHeatMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (OHMIncQF, IWORDSIZE)
-       CALL wrf_dm_bcast_bytes (AerodynamicResistanceMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (LAIType, 3 * 1 * IWORDSIZE)
        CALL wrf_dm_bcast_bytes (OHM_threshSW, 8 * 1 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (OHM_threshWD, 8 * 1 * RWORDSIZE)
