@@ -15,7 +15,7 @@ def spinup_SUEWS():
     print('Initializing SUEWS variables.....')
     df_state_init, df_forcing = sp.load_SampleData()
 
-    path_runcontrol = Path('./run_Swindon') / 'RunControl.nml'
+    path_runcontrol = Path('./run_London') / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
 
     first_day_str = '2012-01-10'
@@ -33,7 +33,7 @@ def spinup_SUEWS():
     df_forcing_2.index.freq = first_part.index.freq
 
     round_number = 0
-    error = 1000
+    error = 0.4
     while (error >= 0.5):
         round_number = round_number+1
         print('Running SUEWS for round number '+str(round_number)+'.....')
@@ -58,11 +58,19 @@ df_state_init = spinup_SUEWS()
 
 print('Putting NetRadiationMethod = 1')
 df_state_init.netradiationmethod = 1
+
+
+int_list_method=['snowuse','roughlenmommethod','roughlenmommethod','emissionsmethod',
+                'netradiationmethod','storageheatmethod','ohmincqf']
+for int_var in int_list_method:
+    df_state_init[int_var].iloc[0]=int(df_state_init[int_var].iloc[0])
+
+
 df_state_init.rename(columns={'soilstore_id': 'soilmoist'}, inplace=True)
 ##################### JSON ######################################
 
 
-with open('../SUEWS_param-Swindon.json') as suews_file:
+with open('../SUEWS_param.json') as suews_file:
     suews_params = json.load(suews_file)
 
 
