@@ -50,27 +50,42 @@ def gen_var_keep(var_key, vars_to_add, var_base=ds_base['T2'].copy(deep=True)):
 
 
 # A generic wrapper to generate a variable for SUEWS
-def gen_var(var_key, vars_to_add, landuse_mask, var_base=ds_base['T2'].copy()):
+def gen_var(var_key, vars_to_add, landuse_mask, landuse_mask_scale, var_base=ds_base['T2'].copy()):
+
+
     if (vars_to_add[var_key]['dim'] != 0):
         var_new = gen_var_expand(var_key, vars_to_add, var_base)
         landuse_mask_n = np.repeat(
             landuse_mask[None, ...], var_new.values.shape[1], axis=0)
         landuse_mask_n = np.repeat(
             landuse_mask_n[None, ...], var_new.values.shape[0], axis=0)
+
+        landuse_mask_n_scale = np.repeat(
+            landuse_mask_scale[None, ...], var_new.values.shape[1], axis=0)
+        landuse_mask_n_scale = np.repeat(
+            landuse_mask_n_scale[None, ...], var_new.values.shape[0], axis=0)
+
     else:
         var_new = gen_var_keep(var_key, vars_to_add, var_base)
         landuse_mask_n = np.repeat(
             landuse_mask[None, ...], var_new.values.shape[0], axis=0)
 
+        landuse_mask_n_scale = np.repeat(
+            landuse_mask_scale[None, ...], var_new.values.shape[0], axis=0)
+
     if (vars_to_add[var_key]['mask'] == 'urban'):
         var_new.values = np.multiply(var_new.values, landuse_mask_n)
+    elif (vars_to_add[var_key]['mask'] == 'urban-scale'):
+        var_new.values = np.multiply(var_new.values, landuse_mask_n_scale)        
     return var_new
 
 
 # variables to be added to wrfinputs
-with open('../../SUEWS_param-Swindon.json') as var_json:
-    vars_to_add = json.load(var_json)
+with open('../../SUEWS_param.json') as var_json:
+    vars_to_add_swindon = json.load(var_json)
 
+with open('../../SUEWS_param.json') as var_json:
+    vars_to_add_london = json.load(var_json)
 
 # finding urban masks
 
@@ -78,41 +93,36 @@ def urban_mask(ds_base):
     urban_category = 12
     landusef = ds_base['LANDUSEF'].values[0, urban_category, :, :]
     landuse_mask = landusef
-    #landuse_mask[landusef > 0] = 1
+    landuse_mask[landusef > 0] = 1
     return landuse_mask
+
+def urban_mask_scale(ds_base):
+    urban_category = 12
+    landusef = ds_base['LANDUSEF'].values[0, urban_category, :, :]
+    landuse_mask_scale = landusef
+    return landuse_mask_scale
 
 
 def mod_landusef(ds_base):
-     #this if for London KC
-    #  ds_base['LANDUSEF'].values[0, 12, 37-2:37+2, 20-2:20+2]=0.81
-    #  ds_base['LANDUSEF'].values[0, 0, 37-2:37+2, 20-2:20+2]=0.001/3
-    #  ds_base['LANDUSEF'].values[0, 1, 37-2:37+2, 20-2:20+2]=0.001/3
-    #  ds_base['LANDUSEF'].values[0, 4, 37-2:37+2, 20-2:20+2]=0.001/3
-    #  ds_base['LANDUSEF'].values[0, 2:4, 37-2:37+2, 20-2:20+2]=0.019/2
-    #  ds_base['LANDUSEF'].values[0, 5:10, 37-2:37+2, 20-2:20+2]=0.029/7
-    #  ds_base['LANDUSEF'].values[0, 11, 37-2:37+2, 20-2:20+2]=0.029/7
-    #  ds_base['LANDUSEF'].values[0, 13, 37-2:37+2, 20-2:20+2]=0.029/7
-    #  ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 20-2:20+2]=0.001/4
-    #  ds_base['LANDUSEF'].values[0, 17:20, 37-2:37+2, 20-2:20+2]=0.001/4
-    #  ds_base['LANDUSEF'].values[0, 10, 37-2:37+2, 20-2:20+2]=0.14/2
-    #  ds_base['LANDUSEF'].values[0, 16, 37-2:37+2, 20-2:20+2]=0.14/2
 
 
-          #this if for Swindon
-     ds_base['LANDUSEF'].values[0, 12, 37-2:37+2, 37-2:37+2]=0.49
-     ds_base['LANDUSEF'].values[0, 0, 37-2:37+2, 37-2:37+2]=0.01/3
-     ds_base['LANDUSEF'].values[0, 1, 37-2:37+2, 37-2:37+2]=0.01/3
-     ds_base['LANDUSEF'].values[0, 4, 37-2:37+2, 37-2:37+2]=0.01/3
-     ds_base['LANDUSEF'].values[0, 2:4, 37-2:37+2, 37-2:37+2]=0.08/2
-     ds_base['LANDUSEF'].values[0, 5:10, 37-2:37+2, 37-2:37+2]=0.36/7
-     ds_base['LANDUSEF'].values[0, 11, 37-2:37+2, 37-2:37+2]=0.36/7
-     ds_base['LANDUSEF'].values[0, 13, 37-2:37+2, 37-2:37+2]=0.36/7
-     ds_base['LANDUSEF'].values[0, 15, 37-2:37+2, 37-2:37+2]=0.06/4
-     ds_base['LANDUSEF'].values[0, 17:20, 37-2:37+2, 37-2:37+2]=0.06/4
-     ds_base['LANDUSEF'].values[0, 10, 37-2:37+2, 37-2:37+2]=0.0/2
-     ds_base['LANDUSEF'].values[0, 16, 37-2:37+2, 37-2:37+2]=0.0/2
+     #this if for Swindon
+     xx=45
+     yy=38
+     ds_base['LANDUSEF'].values[0, 12,    xx-2:xx+2, yy-2:yy+2]=0.49
+     ds_base['LANDUSEF'].values[0, 0,     xx-2:xx+2, yy-2:yy+2]=0.01/3
+     ds_base['LANDUSEF'].values[0, 1,     xx-2:xx+2, yy-2:yy+2]=0.01/3
+     ds_base['LANDUSEF'].values[0, 4,     xx-2:xx+2, yy-2:yy+2]=0.01/3
+     ds_base['LANDUSEF'].values[0, 2:4,   xx-2:xx+2, yy-2:yy+2]=0.08/2
+     ds_base['LANDUSEF'].values[0, 5:10,  xx-2:xx+2, yy-2:yy+2]=0.36/7
+     ds_base['LANDUSEF'].values[0, 11,    xx-2:xx+2, yy-2:yy+2]=0.36/7
+     ds_base['LANDUSEF'].values[0, 13,    xx-2:xx+2, yy-2:yy+2]=0.36/7
+     ds_base['LANDUSEF'].values[0, 15,    xx-2:xx+2, yy-2:yy+2]=0.06/4
+     ds_base['LANDUSEF'].values[0, 17:20, xx-2:xx+2, yy-2:yy+2]=0.06/4
+     ds_base['LANDUSEF'].values[0, 10,    xx-2:xx+2, yy-2:yy+2]=0.0/2
+     ds_base['LANDUSEF'].values[0, 16,    xx-2:xx+2, yy-2:yy+2]=0.0/2
     
-     #landuse_mask[landusef > 0] = 1
+     
      return ds_base
 
 
@@ -125,12 +135,19 @@ def add_SUEWS_wrfinput_single(x_file):
 
 
     landuse_mask = urban_mask(ds_base.copy())
+    landuse_mask_scale = urban_mask_scale(ds_base.copy())
+
+    if x_file == 'wrfinput_d04': #for Swindon
+        vars_to_add=vars_to_add_swindon
+    else:
+        vars_to_add=vars_to_add_london
+
     # NB: variables in wrfinput have to be named in CAPITALISED strings
     ds_new = xr.Dataset({
-        var_key.upper(): gen_var(var_key, vars_to_add, landuse_mask, ds_base['T2'].copy(deep=True))
+        var_key.upper(): gen_var(var_key, vars_to_add, landuse_mask, landuse_mask_scale, ds_base['T2'].copy(deep=True))
         for var_key in vars_to_add.keys()})
 
-    if x_file == 'wrfinput_d03':
+    if x_file == 'wrfinput_d04': #for Swindon
         print('modifying the landusef around the site')
         ds_base = mod_landusef(ds_base) 
 

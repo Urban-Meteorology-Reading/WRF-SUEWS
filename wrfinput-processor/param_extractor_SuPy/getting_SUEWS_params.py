@@ -15,10 +15,10 @@ def spinup_SUEWS():
     print('Initializing SUEWS variables.....')
     df_state_init, df_forcing = sp.load_SampleData()
 
-    path_runcontrol = Path('./run_Swindon') / 'RunControl.nml'
+    path_runcontrol = Path('./run_London') / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
 
-    first_day_str = '2012-4-10'
+    first_day_str = '2012-01-10'
     first_day = datetime.strptime(first_day_str, '%Y-%m-%d')
 
     print('Rotating the time based on the first day of '+first_day_str)
@@ -33,7 +33,7 @@ def spinup_SUEWS():
     df_forcing_2.index.freq = first_part.index.freq
 
     round_number = 0
-    error = 1000
+    error = 0.4
     while (error >= 0.5):
         round_number = round_number+1
         print('Running SUEWS for round number '+str(round_number)+'.....')
@@ -58,8 +58,17 @@ df_state_init = spinup_SUEWS()
 
 print('Putting NetRadiationMethod = 1')
 df_state_init.netradiationmethod = 1
+
+
+int_list_method=['snowuse','roughlenmommethod','roughlenmommethod','emissionsmethod',
+                'netradiationmethod','storageheatmethod','ohmincqf']
+for int_var in int_list_method:
+    df_state_init[int_var].iloc[0]=int(df_state_init[int_var].iloc[0])
+
+
 df_state_init.rename(columns={'soilstore_id': 'soilmoist'}, inplace=True)
 ##################### JSON ######################################
+
 
 with open('../SUEWS_param.json') as suews_file:
     suews_params = json.load(suews_file)
@@ -101,7 +110,7 @@ df_columns = df_state_init.columns
 
 
 profiles = {'ahprof_24hr', 'humactivity_24hr', 'popprof_24hr',
-            'traffprof_24hr', 'wuprofa_24hr', 'wuprofm_24hr', 'laipower'}
+            'traffprof_24hr', 'wuprofa_24hr', 'wuprofm_24hr', 'snowprof_24hr','laipower'}
 
 coefs = {'ohm_coef', 'waterdist'}
 
