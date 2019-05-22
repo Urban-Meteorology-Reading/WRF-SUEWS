@@ -18,7 +18,7 @@ def spinup_SUEWS():
     path_runcontrol = Path('./run_Swindon') / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
 
-    first_day_str = '2012-4-10'
+    first_day_str = '2012-01-10'
     first_day = datetime.strptime(first_day_str, '%Y-%m-%d')
 
     print('Rotating the time based on the first day of '+first_day_str)

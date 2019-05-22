@@ -118,6 +118,8 @@
     tau_f = 0.1
     tau_r = 0.02
     TempMeltFact = 0.12
+    startDLS = 85
+    endDLS = 302 
 /
 
 &method
