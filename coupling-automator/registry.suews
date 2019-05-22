@@ -96,3 +96,4 @@ state      real     IrrFracGrass_SUEWS                          ij              
 state      real     DayWat_SUEWS                                i{nsurf}j             misc    1           -           rh     "DayWat"                       "DayWat"                          ""
 state      real     DayWatPer_SUEWS                             i{nsurf}j             misc    1           -           rh     "DayWatPer"                    "DayWatPer"                       ""
 state      real     tsurf_SUEWS                                 ij                    misc    1           -           rh     "tsurf_SUEWS"                  "tsurf_SUEWS"                     ""
+state      real     smd_SUEWS                                   ij                    misc    1           -           rh     "smd_SUEWS"                    "smd_SUEWS"                       ""

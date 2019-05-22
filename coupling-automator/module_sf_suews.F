@@ -54,7 +54,9 @@ MODULE module_sf_SUEWS
   Real                                         :: tau_a           
   Real                                         :: tau_f         
   Real                                         :: tau_r         
-  Real                                         :: TempMeltFact       
+  Real                                         :: TempMeltFact
+  INTEGER                                      :: startDLS
+  INTEGER                                      :: endDLS       
 
 
   
@@ -77,6 +79,7 @@ CONTAINS
       ldown_SUEWS,&
       lup_SUEWS,  &
       tsurf_SUEWS,&
+      smd_SUEWS,&
 
        LAI_SUEWS,                               &
        albDecTr_SUEWS,                          &
@@ -259,7 +262,7 @@ CONTAINS
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw, PSFC, PREC, ht
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::   Z3
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS
+         QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
 
 
 
@@ -363,7 +366,7 @@ CONTAINS
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
     REAL(KIND(1d0)) ::GLW1D
-    REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out
+    REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(3)                     :: LAI_id      !LAI for each veg surface [m2 m-2]
@@ -661,7 +664,7 @@ CONTAINS
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-               qn_out,qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out,&
+               qn_out,qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out,&
                                 ! grid layout:
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
@@ -781,6 +784,7 @@ CONTAINS
           ldown_SUEWS(I,J) = ldown_out 
           lup_SUEWS(I,J) = lup_out  
           tsurf_SUEWS(I,J) = tsurf_out
+          smd_SUEWS(I,J) = smd_out
 
           ! PRINT *, 'HFX(I,J) = ', HFX(I,J)
           ! PRINT *, 'LH(I,J) = ', LH(I,J)
@@ -871,7 +875,7 @@ CONTAINS
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-       qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,kdown_o, kup_o, ldown_o, lup_o, tsurf_o,&
+       qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,kdown_o, kup_o, ldown_o, lup_o, tsurf_o, smd_o,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -1019,6 +1023,7 @@ CONTAINS
     REAL(KIND(1d0)), INTENT(out) ::ldown_o
     REAL(KIND(1d0)), INTENT(out) ::lup_o
     REAL(KIND(1d0)), INTENT(out) ::tsurf_o
+    REAL(KIND(1d0)), INTENT(out) ::smd_o
 
 
     INTEGER, INTENT(IN)::     &
@@ -1027,8 +1032,8 @@ CONTAINS
          its,ite, jts,jte, kts,kte
 
 
-    INTEGER,PARAMETER::startDLS=85   !DOY when daylight saving starts
-    INTEGER,PARAMETER::endDLS=302   !DOY when daylight saving ends
+    !INTEGER,PARAMETER::startDLS=85   !DOY when daylight saving starts
+    !INTEGER,PARAMETER::endDLS=302   !DOY when daylight saving ends
 
     ! variables:
     ! 1. static properties of land covers:
@@ -1290,7 +1295,7 @@ CONTAINS
          kup_o,&
          ldown_o,&
          lup_o,&
-         tsurf_o,glw1D)
+         tsurf_o,smd_o,glw1D)
 
 
     WRITE( message,* ) 'after SuMin,  qn_SUEWS= ', qn
@@ -1350,7 +1355,7 @@ CONTAINS
     LOGICAL, INTENT(IN)         :: restart, allowed_to_read
 
     !  LOCAR VAR
-    INTEGER                            :: i, j, k, itf, jtf,opt
+    INTEGER                            :: i, j, k, itf, jtf
     CHARACTER(len = 1024)              :: message
     LOGICAL, EXTERNAL                  :: wrf_dm_on_monitor
     CHARACTER(len = 256)               :: filename ! local file name
@@ -1375,7 +1380,7 @@ CONTAINS
                        g1, g2, g3, g4, g5, g6, s1, s2, &
                        CRWmax,CRWmin,PrecipLimit,PrecipLimitAlb,RadMeltFact,SnowAlbMax, &
                        SnowAlbMin,SnowDensMax,SnowDensMin,SnowLimBldg,SnowLimPaved,tau_a, &
-                       tau_f,tau_r, TempMeltFact    
+                       tau_f,tau_r, TempMeltFact, startDLS, endDLS    
 
     NAMELIST /method/  snowUse, RoughLenHeatMethod, RoughLenMomMethod, EmissionsMethod, NetRadiationMethod, &
                        StorageHeatMethod, OHMIncQF, LAIType, LaiPower
@@ -1419,24 +1424,28 @@ CONTAINS
                CALL wrf_error_fatal( message )
              END IF
           END DO
+
+      
+
+          IF ( (EmissionsMethod.ne.1).AND.(EmissionsMethod.ne.2).AND.(EmissionsMethod.ne.3).AND.(EmissionsMethod.ne.4) ) THEN
+                CALL wrf_error_fatal( "Invalid EmissionsMethod option. It should be 1,2,3, or 4" )
+          ENDIF
+
+          IF ((NetRadiationMethod.ne.1).AND.(NetRadiationMethod.ne.2).AND.(NetRadiationMethod.ne.3).AND.(NetRadiationMethod.ne.100).AND.(NetRadiationMethod.ne.200).AND.(NetRadiationMethod.ne.300)) THEN
+                CALL wrf_error_fatal( "Invalid NetRadiationMethod option. It should be 1,2,3,100,200 or 300" )
+          ENDIF
+
+
+          IF (StorageHeatMethod.ne.1) THEN
+                CALL wrf_error_fatal( "Invalid StorageHeatMethod option. It should be 1" )
+          ENDIF
+
        END IF
 
     ! these checks are here because some of the available optins in
     ! offline SUEWS is not valid in the online WRF-SUEWS
-    opt = EmissionsMethod
-    IF (.NOT.((opt.EQ.1).OR.(opt.EQ.2).OR.(opt.EQ.3).OR.(opt.EQ.4))) THEN
-            CALL wrf_error_fatal( "Invalid EmissionsMethod option. It should be 1,2,3, or 4" )
-    ENDIF
 
-    opt = NetRadiationMethod
-    IF (.NOT.((opt.EQ.1).OR.(opt.EQ.2).OR.(opt.EQ.3).OR.(opt.EQ.100).OR.(opt.EQ.200).OR.(opt.EQ.300))) THEN
-            CALL wrf_error_fatal( "Invalid NetRadiationMethod option. It should be 1,2,3,100,200 or 300" )
-    ENDIF
 
-    opt = StorageHeatMethod
-    IF (.NOT.(opt.EQ.1)) THEN
-            CALL wrf_error_fatal( "Invalid StorageHeatMethod option. It should be 1" )
-    ENDIF
 !NOTE: All the real type namelist variables are double precision, but only single precision
 !      real variables have WORDSIZE in WRF, so if the following lines needed, we shoulde redefine
 !      them in single precision and modify the interface in SUEWS1D.
@@ -1451,6 +1460,8 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (snowProf_24hr, 24 * 2 * RWORDSIZE)
        CALL wrf_dm_bcast_bytes (snowUse, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (RoughLenHeatMethod, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (startDLS, IWORDSIZE)
+       CALL wrf_dm_bcast_bytes (endDLS, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (RoughLenMomMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (EmissionsMethod, IWORDSIZE)
        CALL wrf_dm_bcast_bytes (NetRadiationMethod, IWORDSIZE)
@@ -1491,6 +1502,8 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (suews_cat_frac, 8 * 10 * RWORDSIZE)
 
     END IF
+
+
 
     ! initialize suews related table
     IF ( 6*(max_cats*max_seas)+1*max_cats .GT. 7501 ) THEN
