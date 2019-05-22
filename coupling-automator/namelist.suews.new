@@ -81,15 +81,15 @@
                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0
-    snowprof_24hr(1:24,1) =  0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                             0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                             0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                             0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-    snowprof_24hr(1:24,2) =  0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                             0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                             0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                             0.0, 0.0, 0.0, 0.0, 0.0, 0.0
-    snowpacklimit = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+    snowprof_24hr(1:24, 1) = -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
+                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
+                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
+                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0
+    snowprof_24hr(1:24, 2) = -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
+                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
+                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0,
+                             -999.0, -999.0, -999.0, -999.0, -999.0, -999.0
+    snowpacklimit = 120.0, 120.0, 120.0, 120.0, 120.0, -999.0, 0.0
     ohm_threshsw = 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0
     ohm_threshwd = 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9
     th = 55.0
@@ -103,33 +103,33 @@
     g6 = 0.05
     s1 = 5.56
     s2 = 0.0
-    CRWmax = 0.2
-    CRWmin = 0.05
-    PrecipLimit = 2.2  
-    PrecipLimitAlb = 2 
-    RadMeltFact = 0.001
-    SnowAlbMax = 0.8   
-    SnowAlbMin = 0.18
-    SnowDensMax = 450  
-    SnowDensMin = 100  
-    SnowLimBldg = 100  
-    SnowLimPaved = 100 
+    crwmax = 0.1
+    crwmin = 0.03
+    preciplimit = 2.2
+    preciplimitalb = 2.0
+    radmeltfact = 0.001
+    snowalbmax = 0.8
+    snowalbmin = 0.18
+    snowdensmax = 450.0
+    snowdensmin = 100.0
+    snowlimbldg = 8.5
+    snowlimpaved = 10.0
     tau_a = 0.01
     tau_f = 0.1
     tau_r = 0.02
-    TempMeltFact = 0.12
-    startDLS = 85
-    endDLS = 302 
+    tempmeltfact = 0.14
+    startdls = 85.0
+    enddls = 302.0
 /
 
 &method
-    snowuse = 1.0
-    roughlenheatmethod = 2.0
-    roughlenmommethod = 2.0
-    emissionsmethod = 2.0
+    snowuse = 1
+    roughlenheatmethod = 2
+    roughlenmommethod = 2
+    emissionsmethod = 2
     netradiationmethod = 1
-    storageheatmethod = 1.0
-    ohmincqf = 0.0
+    storageheatmethod = 1
+    ohmincqf = 0
     laitype = 0.0, 0.0, 0.0
     laipower(1:4, 1) = 0.03, 0.0005, 0.03, 0.0005
     laipower(1:4, 2) = 0.03, 0.0005, 0.03, 0.0005
