@@ -509,5 +509,47 @@
             "min": 0,
             "max": 10
         }
+    },
+    "Faut_SUEWS": {
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "IrrFracConif_SUEWS": {
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "IrrFracDecid_SUEWS": {
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "IrrFracGrass_SUEWS": {
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "DayWat_SUEWS": {
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
+    },
+    "DayWatPer_SUEWS": {
+        "logic": "range",
+        "param": {
+            "min": 0,
+            "max": 10
+        }
     }
 }
