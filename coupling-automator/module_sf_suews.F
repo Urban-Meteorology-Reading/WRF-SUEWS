@@ -70,7 +70,7 @@ CONTAINS
 
   !----------------------------------------------------------------
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
-       T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,glw,  &
+       T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,glw,cldfra,  &
        PSFC, PREC, ht,                          &
        QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
 
@@ -257,7 +257,7 @@ CONTAINS
     REAL, INTENT(IN   )    ::     xtime
 
     REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN)   ::  &
-         QV3D, P3D, T3D, U3D, V3D, DZ3D
+         QV3D, P3D, T3D, U3D, V3D, DZ3D,cldfra
     !
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw, PSFC, PREC, ht
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::   Z3
@@ -365,7 +365,7 @@ CONTAINS
     REAL,DIMENSION(7)                 :: landusef_suews1d
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) ::GLW1D
+    REAL(KIND(1d0)) ::GLW1D,cldfra1D
     REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out
     REAL(KIND(1d0)) :: timezone
 
@@ -471,10 +471,20 @@ CONTAINS
     ! PRINT *, 'dt = ', dt, 'dt_prev = ', dt_prev
 
     ! CALL MODIScat2SUEWScat(ims, ime, NLCAT, jms, jme, landusef, landusef_suews)
+    
+
+
+
+         
 
     DO J = jts, jte
-
+       
        DO I = its, ite
+       
+        
+
+        cldfra1D=SUM(cldfra(I,:,J))/(kte-kts+1)
+        
 
           T1D = T3D(i,1,j)
           QV1D = QV3D(i,1,j)
@@ -483,6 +493,7 @@ CONTAINS
           V1D = V3D(i,1,j)
           !DZ1D = DZ3D(i,1,j)
           DZ1D=Z3(i,1,j)
+          
 
 
           SWDOWN1D = SWDOWN(i,j)
@@ -594,7 +605,7 @@ CONTAINS
                                 ! model configuration:
                I,J,DT,DT_PREV,year,day,hour,minute,second,dt_since_start,timezone,&
                                 ! forcing:
-               SWDOWN1D,GLW1D,QV1D,U1D,V1D,T1D,PSFC1D,PREC1D,&
+               SWDOWN1D,GLW1D,cldfra1D,QV1D,U1D,V1D,T1D,PSFC1D,PREC1D,&
                                 ! surface properties (temporally invariant):
                landusef_suews1d,ht1d,XLAT1D,XLONG1D,DZ1D,DX,&
                                 ! surface properties/states (temporally updated):
@@ -803,7 +814,7 @@ CONTAINS
        I,J,DT,DT_PREV,iy,id,it,imin,isec,dt_since_start,timezone,&
 
                                 ! forcing:
-       SWDOWN1D,GLW1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
+       SWDOWN1D,GLW1D,cldfra1D,QV1D,U1D,V1D,T1D,PSFC,PREC1D,&
                                 ! surface properties (temporally invariant):
        landusef_suews1d,ht,XLAT,XLONG,dz8w,DX,&
                                 ! surface properties/states (temporally updated):
@@ -899,13 +910,12 @@ CONTAINS
     REAL(KIND(1d0)),INTENT(in)::timezone   !NB:Timezone (GMT=0), assuming ZERO, SHOULD BE ALTERED
 
     REAL,INTENT(in) :: SWDOWN1D
-    REAL(KIND(1D0)),INTENT(in) :: GLW1D
+    REAL(KIND(1D0)),INTENT(in) :: GLW1D,cldfra1D
     REAL,INTENT(in) :: QV1D
     REAL,INTENT(in) :: U1D, V1D
     REAL,INTENT(in) :: T1D
     REAL,INTENT(in) :: PSFC !note: unit is Pa
     REAL,INTENT(in) :: PREC1D ! precipitation amount
-
     REAL, DIMENSION(7) ,INTENT(IN ) :: landusef_suews1d !add in WRFcat2SUEWScat.f95
     REAL, INTENT(IN ) :: ht ! elevation
     REAL, INTENT(IN ) :: XLAT
@@ -1295,7 +1305,7 @@ CONTAINS
          kup_o,&
          ldown_o,&
          lup_o,&
-         tsurf_o,smd_o,glw1D)
+         tsurf_o,smd_o,glw1D,cldfra1D)
 
 
     WRITE( message,* ) 'after SuMin,  qn_SUEWS= ', qn
@@ -1431,8 +1441,8 @@ CONTAINS
                 CALL wrf_error_fatal( "Invalid EmissionsMethod option. It should be 1,2,3, or 4" )
           ENDIF
 
-          IF ((NetRadiationMethod.ne.1).AND.(NetRadiationMethod.ne.2).AND.(NetRadiationMethod.ne.3).AND.(NetRadiationMethod.ne.100).AND.(NetRadiationMethod.ne.200).AND.(NetRadiationMethod.ne.300)) THEN
-                CALL wrf_error_fatal( "Invalid NetRadiationMethod option. It should be 1,2,3,100,200 or 300" )
+          IF ((NetRadiationMethod.ne.1).AND.(NetRadiationMethod.ne.2).AND.(NetRadiationMethod.ne.3)) THEN
+                CALL wrf_error_fatal( "Invalid NetRadiationMethod option. It should be 1,2,3" )
           ENDIF
 
 
