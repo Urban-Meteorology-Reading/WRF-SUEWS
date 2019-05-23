@@ -363,9 +363,9 @@ CONTAINS
 
     ! LOCAL VARS
     REAL,DIMENSION(7)                 :: landusef_suews1d
-    REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D,cldfra1D
+    REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
-    REAL(KIND(1d0)) ::GLW1D
+    REAL(KIND(1d0)) ::GLW1D,cldfra1D
     REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out
     REAL(KIND(1d0)) :: timezone
 
@@ -916,7 +916,6 @@ CONTAINS
     REAL,INTENT(in) :: T1D
     REAL,INTENT(in) :: PSFC !note: unit is Pa
     REAL,INTENT(in) :: PREC1D ! precipitation amount
-
     REAL, DIMENSION(7) ,INTENT(IN ) :: landusef_suews1d !add in WRFcat2SUEWScat.f95
     REAL, INTENT(IN ) :: ht ! elevation
     REAL, INTENT(IN ) :: XLAT
