@@ -1442,8 +1442,8 @@ CONTAINS
                 CALL wrf_error_fatal( "Invalid EmissionsMethod option. It should be 1,2,3, or 4" )
           ENDIF
 
-          IF ((NetRadiationMethod.ne.1).AND.(NetRadiationMethod.ne.2).AND.(NetRadiationMethod.ne.3).AND.(NetRadiationMethod.ne.100).AND.(NetRadiationMethod.ne.200).AND.(NetRadiationMethod.ne.300)) THEN
-                CALL wrf_error_fatal( "Invalid NetRadiationMethod option. It should be 1,2,3,100,200 or 300" )
+          IF ((NetRadiationMethod.ne.1).AND.(NetRadiationMethod.ne.2).AND.(NetRadiationMethod.ne.3)) THEN
+                CALL wrf_error_fatal( "Invalid NetRadiationMethod option. It should be 1,2,3" )
           ENDIF
 
 
