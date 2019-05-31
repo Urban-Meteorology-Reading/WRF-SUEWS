@@ -123,14 +123,14 @@
 /
 
 &method
-    snowuse = 1.0
-    roughlenheatmethod = 2.0
-    roughlenmommethod = 2.0
-    emissionsmethod = 2.0
+    snowuse = 1
+    roughlenheatmethod = 2
+    roughlenmommethod = 2
+    emissionsmethod = 2
     netradiationmethod = 1
-    storageheatmethod = 1.0
-    ohmincqf = 0.0
-    laitype = 0.0, 0.0, 0.0
+    storageheatmethod = 1
+    ohmincqf = 0
+    laitype = 0, 0, 0
     laipower(1:4, 1) = 0.03, 0.0005, 0.03, 0.0005
     laipower(1:4, 2) = 0.03, 0.0005, 0.03, 0.0005
     laipower(1:4, 3) = 0.03, 0.0005, 0.03, 0.0005

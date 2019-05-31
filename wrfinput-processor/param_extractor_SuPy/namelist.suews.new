@@ -118,8 +118,8 @@
     tau_f = 0.1
     tau_r = 0.02
     tempmeltfact = 0.14
-    startdls = 85.0
-    enddls = 302.0
+    startdls = 85
+    enddls = 302
 /
 
 &method
@@ -130,7 +130,7 @@
     netradiationmethod = 1
     storageheatmethod = 1
     ohmincqf = 0
-    laitype = 0.0, 0.0, 0.0
+    laitype = 0, 0, 0
     laipower(1:4, 1) = 0.03, 0.0005, 0.03, 0.0005
     laipower(1:4, 2) = 0.03, 0.0005, 0.03, 0.0005
     laipower(1:4, 3) = 0.03, 0.0005, 0.03, 0.0005
