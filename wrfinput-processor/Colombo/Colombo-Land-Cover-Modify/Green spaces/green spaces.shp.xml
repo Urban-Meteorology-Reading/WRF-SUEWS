@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xml:lang="en"><Esri><CreaDate>20190604</CreaDate><CreaTime>10184500</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.3\ArcToolbox\Toolboxes\Conversion Tools.tbx\RasterToPolygon" Date="20190604" Time="101845">RasterToPolygon "Green spaces.tif" "H:\Satellite Images\Colombo_MC_QuickBird\Processed Images\Green spaces vector\Green spaces.shp" SIMPLIFY Value</Process></lineage></DataProperties></Esri></metadata>
