@@ -59,6 +59,14 @@
         "unit": "ha-1",
         "mask": "urban-scale"
     },
+    "timezone_SUEWS": {
+        "dim": 0,
+        "value": [
+            0
+        ],
+        "unit": "",
+        "mask": ""
+    },
     "BaseT_SUEWS": {
         "dim": 3,
         "axis": 1,

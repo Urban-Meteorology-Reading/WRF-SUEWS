@@ -170,7 +170,7 @@ def add_SUEWS_wrfinput_single(x_file):
 
     ds_merged.to_netcdf(file_out,
                         mode='w', format='NETCDF3_64BIT')
-    print('SUEWS input has beened added to:' + file_out)
+    print('SUEWS input has been added to:' + file_out)
 
   
 

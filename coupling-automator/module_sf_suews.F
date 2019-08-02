@@ -88,6 +88,7 @@ CONTAINS
        NumCapita_SUEWS,                               &
 
        BaseT_SUEWS                 ,&
+       timezone_SUEWS                 ,&
        BaseTe_SUEWS                ,&
        GDDFull_SUEWS               ,&
        SDDFull_SUEWS               ,&
@@ -281,6 +282,7 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: NumCapita_SUEWS !Number of people in the study area per hectare [ha-1]
 
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT_SUEWS               
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: timezone_SUEWS               
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe_SUEWS              
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull_SUEWS             
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull_SUEWS             
@@ -513,7 +515,8 @@ CONTAINS
           NumCapita_id           = NumCapita_SUEWS(I,J)
 
 
-          BaseT_id                 =    BaseT_SUEWS(I,:,J)                 
+          BaseT_id                 =    BaseT_SUEWS(I,:,J)
+          timezone_id                 =    timezone_SUEWS(I,J)                 
           BaseTe_id                =    BaseTe_SUEWS(I,:,J)                
           GDDFull_id               =    GDDFull_SUEWS(I,:,J)               
           SDDFull_id               =    SDDFull_SUEWS(I,:,J)               
@@ -598,7 +601,7 @@ CONTAINS
           ! because of the way PSFC is defined in SUEWS1D. Whether *that*
           ! is a good idea or not, this commenter cannot comment. JM
 
-          timezone=0 ! NB: fix it for now
+          timezone=timezone_id ! NB: fix it for now
           ! print*, 'landusef_suews1d = ',landusef_suews1d
 
           CALL SUEWS1D(&
@@ -690,6 +693,7 @@ CONTAINS
           NumCapita_SUEWS(I,J)           =   NumCapita_id
 
           BaseT_SUEWS(I,:,J)                  =   BaseT_id               
+          timzone_SUEWS(I,:,J)                  =   timezone_id               
           BaseTe_SUEWS(I,:,J)                 =   BaseTe_id              
           GDDFull_SUEWS(I,:,J)                =   GDDFull_id             
           SDDFull_SUEWS(I,:,J)                =   SDDFull_id             
