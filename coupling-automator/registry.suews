@@ -13,6 +13,7 @@ state      real     albEveTr_SUEWS                              ij              
 state      real     albGrass_SUEWS                              ij                    misc    1           -           irh    "albGrass_SUEWS"               "albGrass_SUEWS"                  ""
 state      real     NumCapita_SUEWS                             ij                    misc    1           -           irh    "NumCapita_SUEWS"              "NumCapita_SUEWS"                 "ha-1"
 state      real     BaseT_SUEWS                                 i{nvegsurf}j          misc    1           -           irh    "BaseT_SUEWS"                  "BaseT_SUEWS"                     "degC"
+state      real     timezone_SUEWS                              ij                    misc    1           -           irh    "timezone_SUEWS"               "timezone_SUEWS"                  ""
 state      real     BaseTe_SUEWS                                i{nvegsurf}j          misc    1           -           irh    "BaseTe_SUEWS"                 "BaseTe_SUEWS"                    "degC"
 state      real     GDDFull_SUEWS                               i{nvegsurf}j          misc    1           -           irh    "GDDFull_SUEWS"                "GDDFull_SUEWS"                   "degC"
 state      real     SDDFull_SUEWS                               i{nvegsurf}j          misc    1           -           irh    "SDDFull_SUEWS"                "SDDFull_SUEWS"                   "degC"
