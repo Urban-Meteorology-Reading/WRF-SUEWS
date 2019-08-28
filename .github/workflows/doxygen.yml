@@ -14,6 +14,14 @@ jobs:
       with:
         submodules: yes
         token: ${{ secrets.GH_PAT }}
+    - name: install
+      run: ls -lrt .; ls WRF
+#     - name: Github Hub
+#       uses: elgohr/Github-Hub-Action@1.2
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+#       with:
+#         args: submodule update 
     # - name: Checkout submodules
     #   uses: textbook/git-checkout-submodule-action@2.0.0
     # - name: install
