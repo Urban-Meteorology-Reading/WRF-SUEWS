@@ -81,10 +81,10 @@ def gen_var(var_key, vars_to_add, landuse_mask, landuse_mask_scale, var_base=ds_
 
 
 # variables to be added to wrfinputs
-with open('../../SUEWS_param.json') as var_json:
+with open('../../SUEWS_param_Swindon.json') as var_json:
     vars_to_add_swindon = json.load(var_json)
 
-with open('../../SUEWS_param.json') as var_json:
+with open('../../SUEWS_param_London.json') as var_json:
     vars_to_add_london = json.load(var_json)
 
 # finding urban masks

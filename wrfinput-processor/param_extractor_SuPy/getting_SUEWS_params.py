@@ -15,10 +15,10 @@ def spinup_SUEWS():
     print('Initializing SUEWS variables.....')
     df_state_init, df_forcing = sp.load_SampleData()
 
-    path_runcontrol = Path('./run_London') / 'RunControl.nml'
+    path_runcontrol = Path('./run_Swindon') / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
 
-    first_day_str = '2012-01-10'
+    first_day_str = '2012-04-10'
     first_day = datetime.strptime(first_day_str, '%Y-%m-%d')
 
     print('Rotating the time based on the first day of '+first_day_str)
@@ -34,7 +34,7 @@ def spinup_SUEWS():
 
     round_number = 0
     error = 0.4
-    while (error >= 0.5):
+    while (error >= 0.1):
         round_number = round_number+1
         print('Running SUEWS for round number '+str(round_number)+'.....')
         df_output, df_state_final = sp.run_supy(

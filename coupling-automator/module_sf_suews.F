@@ -459,7 +459,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(9)                     :: WUDay_id
     REAL(KIND(1d0))                                  :: z0m_in_id
     REAL(KIND(1d0))                                  :: zdm_in_id
-
+    REAL(KIND(1d0))                                  :: timezone_id
 
     INTEGER :: dt_since_start ! time since simulation starts [s]
 
@@ -685,8 +685,6 @@ CONTAINS
                ims,ime, jms,jme, kms,kme,&
                its,ite, jts,jte, kts,kte)
 
-          ZNT(I,J)        =ZNT1D
-          UST(I,J)=UST1D
           qn1_av_SUEWS(I,J)        =   qn1_av_id
           qn1_s_SUEWS(I,J)         =   qn1_s_id
           LAI_SUEWS(I,:,J)         =   LAI_id
@@ -696,7 +694,7 @@ CONTAINS
           NumCapita_SUEWS(I,J)           =   NumCapita_id
 
           BaseT_SUEWS(I,:,J)                  =   BaseT_id               
-          timzone_SUEWS(I,:,J)                  =   timezone_id               
+          timezone_SUEWS(I,J)                  =   timezone_id               
           BaseTe_SUEWS(I,:,J)                 =   BaseTe_id              
           GDDFull_SUEWS(I,:,J)                =   GDDFull_id             
           SDDFull_SUEWS(I,:,J)                =   SDDFull_id             
