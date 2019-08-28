@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@master
+      with:
+        submodules: yes
     # - name: Checkout submodules
     #   uses: textbook/git-checkout-submodule-action@2.0.0
     # - name: install
@@ -24,5 +26,5 @@ jobs:
       env:
        FOLDER: docs/doxygenoutput/html
        BRANCH: gh-pages
-       BUILD_SCRIPT: apt-get install -y graphviz doxygen-gui; git submodule update --init --recursive; cd docs; doxygen; cd ..
+       BUILD_SCRIPT: apt-get install -y graphviz doxygen-gui; cd docs; doxygen; cd ..
        ACCESS_TOKEN: ${{ secrets.GH_PAT }}
