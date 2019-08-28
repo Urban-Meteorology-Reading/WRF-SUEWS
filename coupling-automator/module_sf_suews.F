@@ -72,7 +72,7 @@ CONTAINS
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,glw,cldfra,  &
        PSFC, PREC, ht,                          &
-       QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq,        &
+       QN_SUEWS, AH_SUEWS, GRDFLX, HFX,znt,ust, QFX, LH, TSK, QSFC, chklowq,        &
 
       kdown_SUEWS,&
       kup_SUEWS,  &
@@ -260,10 +260,10 @@ CONTAINS
     REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN)   ::  &
          QV3D, P3D, T3D, U3D, V3D, DZ3D,cldfra
     !
-    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw, PSFC, PREC, ht
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw,PSFC, PREC, ht
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::   Z3
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         QN_SUEWS, AH_SUEWS, GRDFLX, HFX, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
+         QN_SUEWS, AH_SUEWS, GRDFLX, HFX,ZNT,UST, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
 
 
 
@@ -368,7 +368,7 @@ CONTAINS
     REAL :: QV1D, P1D, T1D, U1D, V1D, DZ1D
     REAL :: SWDOWN1D, PSFC1D, PREC1D, ht1d, XLONG1D, XLAT1D
     REAL(KIND(1d0)) ::GLW1D,cldfra1D
-    REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out
+    REAL(KIND(1d0)) :: qn_out, qf_out, qs_out, qh_out,znt_out,ust_out, qe_out, qsfc_out, tsk_out, CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out
     REAL(KIND(1d0)) :: timezone
 
     REAL(KIND(1d0)),DIMENSION(3)                     :: LAI_id      !LAI for each veg surface [m2 m-2]
@@ -500,6 +500,7 @@ CONTAINS
 
           SWDOWN1D = SWDOWN(i,j)
           GLW1D = GLW(i,j)
+
 
           PSFC1D = PSFC(i,j)
           PREC1D = PREC(i,j)
@@ -678,12 +679,14 @@ CONTAINS
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-               qn_out,qf_out,qs_out,qh_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out,&
+               qn_out,qf_out,qs_out,qh_out,znt_out,ust_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out,&
                                 ! grid layout:
                ids,ide, jds,jde, kds,kde,&
                ims,ime, jms,jme, kms,kme,&
                its,ite, jts,jte, kts,kte)
 
+          ZNT(I,J)        =ZNT1D
+          UST(I,J)=UST1D
           qn1_av_SUEWS(I,J)        =   qn1_av_id
           qn1_s_SUEWS(I,J)         =   qn1_s_id
           LAI_SUEWS(I,:,J)         =   LAI_id
@@ -792,6 +795,8 @@ CONTAINS
           AH_SUEWS(I,J) = qf_out
           GRDFLX(I,J) = qs_out
           HFX(I,J)    = qh_out
+          ZNT(I,J)=znt_out
+          UST(I,J)=ust_out
           LH(I,J)     = qe_out
 
           kdown_SUEWS(I,J) = kdown_out 
@@ -890,7 +895,7 @@ CONTAINS
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
 
                                 ! modelled outout:
-       qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,kdown_o, kup_o, ldown_o, lup_o, tsurf_o, smd_o,&
+       qn,qf,qs,qh,znt,ust,qe,qsfc,tsk,CHKLOWQ,kdown_o, kup_o, ldown_o, lup_o, tsurf_o, smd_o,&
                                 ! grid layout:
        ids,ide, jds,jde, kds,kde,&
        ims,ime, jms,jme, kms,kme,&
@@ -1028,6 +1033,8 @@ CONTAINS
     REAL(KIND(1d0)), INTENT(out) ::qf !QF for output
     REAL(KIND(1d0)), INTENT(out) ::qs !QS for output
     REAL(KIND(1d0)), INTENT(out) ::qh !QH for output
+    REAL(KIND(1d0)), INTENT(out) ::znt !znt for output
+    REAL(KIND(1d0)), INTENT(out) ::ust !ust for output
     REAL(KIND(1d0)), INTENT(out) ::qe ! QE for output
     REAL(KIND(1d0)), INTENT(out) ::qsfc ! QE for output
     REAL(KIND(1d0)), INTENT(out) ::tsk ! TSK for output
@@ -1304,7 +1311,7 @@ CONTAINS
          PopDensDaytime_id,PopDensNighttime_id,porosity_id,&
          GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
-         qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,&
+         qn,qf,qs,qh,znt,ust,qe,qsfc,tsk,CHKLOWQ,&
          kdown_o,&
          kup_o,&
          ldown_o,&
