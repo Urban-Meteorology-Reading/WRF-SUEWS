@@ -72,7 +72,7 @@ CONTAINS
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,glw,cldfra,  &
        PSFC, PREC, ht,                          &
-       QN_SUEWS, AH_SUEWS, GRDFLX, HFX,znt,ust, QFX, LH, TSK, QSFC, chklowq,        &
+       QN_SUEWS, AH_SUEWS, GRDFLX, HFX,znt,ust,akms,akhs, QFX, LH, TSK, QSFC, chklowq,        &
 
       kdown_SUEWS,&
       kup_SUEWS,  &
@@ -263,7 +263,7 @@ CONTAINS
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw,PSFC, PREC, ht
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::   Z3
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         QN_SUEWS, AH_SUEWS, GRDFLX, HFX,ZNT,UST, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
+         QN_SUEWS, AH_SUEWS, GRDFLX, HFX,ZNT,UST,akms,akhs, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
 
 
 
@@ -795,6 +795,10 @@ CONTAINS
           HFX(I,J)    = qh_out
           ZNT(I,J)=znt_out
           UST(I,J)=ust_out
+          AKMS(I,J)=ust_out*ust_out/(SQRT(U1D*U1D+V1D*V1D))
+          AKHS(I,J)=qh_out/(-(P1D/(287.04*T1D))*1004.6*(T1D-tsk_out))
+
+
           LH(I,J)     = qe_out
 
           kdown_SUEWS(I,J) = kdown_out 

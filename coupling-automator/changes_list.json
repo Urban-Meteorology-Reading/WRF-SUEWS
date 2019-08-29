@@ -456,7 +456,7 @@
                 "          CALL suewsdrv(year, day_int, hour, minute, second, xtime, &",
                 "             t_phy, qv_curr, p8w, u_phy, v_phy, dz8w,z, swdown,glw,cldfra,      &",
                 "             psfc, rainbl, ht,                                     &",
-                "             QN_SUEWS,AH_SUEWS, grdflx, hfx,znt,ust, qfx, lh, tsk, qsfc, chklowq,                     &",
+                "             QN_SUEWS,AH_SUEWS, grdflx, hfx,znt,ust,akms,akhs, qfx, lh, tsk, qsfc, chklowq,                     &",
 
                 "             kdown_SUEWS,                                          &",
                 "             kup_SUEWS,                                            &",
