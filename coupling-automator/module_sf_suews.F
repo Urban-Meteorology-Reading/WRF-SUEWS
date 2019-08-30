@@ -72,7 +72,7 @@ CONTAINS
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
        T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,glw,cldfra,  &
        PSFC, PREC, ht,                          &
-       QN_SUEWS,z0m_SUEWS AH_SUEWS, GRDFLX, HFX,znt,ust,akms,akhs, QFX, LH, TSK, QSFC, chklowq,        &
+       QN_SUEWS,z0m_SUEWS, AH_SUEWS, GRDFLX, HFX,znt,ust,akms,akhs, QFX, LH, TSK, QSFC, chklowq,        &
 
       kdown_SUEWS,&
       kup_SUEWS,  &
@@ -263,7 +263,7 @@ CONTAINS
     REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw,PSFC, PREC, ht
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::   Z3
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
-         QN_SUEWS,z0m_SUEWS AH_SUEWS, GRDFLX, HFX,ZNT,UST,akms,akhs, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
+         QN_SUEWS,z0m_SUEWS, AH_SUEWS, GRDFLX, HFX,ZNT,UST,akms,akhs, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
 
 
 
