@@ -76,6 +76,7 @@ state      real     landusef_SUEWS                              i{nsurf}j       
 state      real     alb_SUEWS                                   i{nsurf}j             misc    1           -           rh     "alb_SUEWS"                    "alb_SUEWS"                       ""
 state      real     emis_SUEWS                                  i{nsurf}j             misc    1           -           rh     "emis_SUEWS"                   "emis_SUEWS"                      ""
 state      real     QN_SUEWS                                    ij                    misc    1           -           rh     "QN_SUEWS"                     "QN_SUEWS"                        "W m-2"
+state      real     z0m_SUEWS                                   ij                    misc    1           -           rh     "z0m_SUEWS"                    "z0m_SUEWS"                       "m"
 state      real     AH_SUEWS                                    ij                    misc    1           -           rh     "AH_SUEWS"                     "AH_SUEWS"                        "W m-2"
 state      real     qn1_av_SUEWS                                ij                    misc    1           -           rh     "qn1_av_SUEWS"                 "qn1_av_SUEWS"                    "W m-2"
 state      real     qn1_s_SUEWS                                 ij                    misc    1           -           rh     "qn1_s_SUEWS"                  "qn1_s_SUEWS"                     "W m-2"
