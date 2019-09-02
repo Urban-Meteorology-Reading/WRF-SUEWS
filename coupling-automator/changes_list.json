@@ -231,6 +231,7 @@
                 " & ,WUDay_SUEWS=grid%WUDay_SUEWS &",
                 " & ,z0m_in_SUEWS=grid%z0m_in_SUEWS &",
                 " & ,zdm_in_SUEWS=grid%zdm_in_SUEWS &",
+                " & ,swdntc=grid%swdntc &",
                 "! variables for SUEWS: End"
             ]
         }
@@ -336,7 +337,8 @@
                 " & ,SnowAlb_SUEWS &",
                 " & ,WUDay_SUEWS &",
                 " & ,z0m_in_SUEWS &",
-                " & ,zdm_in_SUEWS &"
+                " & ,zdm_in_SUEWS &",
+                " & ,swdntc &"
             ],
             ",SLABSCHEME": [
                 ",SUEWSSCHEME &"
@@ -441,7 +443,8 @@
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: SnowAlb_SUEWS",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)   :: WUDay_SUEWS",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: z0m_in_SUEWS",
-            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: zdm_in_SUEWS"
+            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: zdm_in_SUEWS",
+            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: swdntc"
         ],
             "     sfc_select: SELECT CASE(sf_surface_physics)": [
                 "     CASE (SUEWSSCHEME)",
