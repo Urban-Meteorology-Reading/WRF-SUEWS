@@ -3,7 +3,7 @@
         "filePath": "Registry/",
         "query": {
             "package   ssibscheme     sf_surface_physics==8": [
-                "package   suewsscheme    sf_surface_physics==9       -             state:LAI_SUEWS,albDecTr_SUEWS,albEveTr_SUEWS,albGrass_SUEWS,NumCapita_SUEWS,BaseT_SUEWS,timezone_SUEWS,BaseTe_SUEWS,GDDFull_SUEWS,SDDFull_SUEWS,LaiMin_SUEWS,LaiMax_SUEWS,MaxConductance_SUEWS,FAIbldg_SUEWS,FAIEveTree_SUEWS,FAIDecTree_SUEWS,bldgH_SUEWS,EveTreeH_SUEWS,DecTreeH_SUEWS,AH_MIN_SUEWS,AH_SLOPE_Cooling_SUEWS,AH_SLOPE_Heating_SUEWS,QF0_BEU_SUEWS,Qf_A_SUEWS,Qf_B_SUEWS,Qf_C_SUEWS,T_CRITIC_Cooling_SUEWS,T_CRITIC_Heating_SUEWS,TrafficRate_SUEWS,surf_attr_MinStorCap_SUEWS,surf_attr_DrainEquat_SUEWS,surf_attr_DrainCoef1_SUEWS,surf_attr_DrainCoef2_SUEWS,surf_attr_MaxStorCap_SUEWS,SoilStoreCap_SUEWS,SoilDepth_SUEWS,SatHydraulicConduct_SUEWS,AlbMin_DecTr_SUEWS,AlbMax_DecTr_SUEWS,AlbMin_EveTr_SUEWS,AlbMax_EveTr_SUEWS,AlbMin_Grass_SUEWS,AlbMax_Grass_SUEWS,CapMin_dec_SUEWS,CapMax_dec_SUEWS,PorMin_dec_SUEWS,PorMax_dec_SUEWS,DRAINRT_SUEWS,RAINCOVER_SUEWS,RAINMAXRES_SUEWS,FlowChange_SUEWS,PipeCapacity_SUEWS,RunoffToWater_SUEWS,StateLimit_SUEWS,WetThresh_SUEWS,BaseTHDD_SUEWS,Faut_SUEWS,IrrFracConif_SUEWS,IrrFracDecid_SUEWS,IrrFracGrass_SUEWS,DayWat_SUEWS,DayWatPer_SUEWS,PopDensDaytime_SUEWS ,PopDensNighttime_SUEWS ,DecidCap_SUEWS,porosity_SUEWS,GDD_SUEWS,HDD_SUEWS,state_SUEWS,soilmoist_SUEWS,surf_var_SUEWS,landusef_SUEWS,alb_SUEWS,emis_SUEWS,qn1_av_SUEWS,qn1_s_SUEWS,dqndt_SUEWS,dqnsdt_SUEWS,MeltWaterStore_SUEWS,SnowAlb_SUEWS,WUDay_SUEWS,z0m_in_SUEWS,zdm_in_SUEWS"],
+                "package   suewsscheme    sf_surface_physics==9       -             state:LAI_SUEWS,albDecTr_SUEWS,albEveTr_SUEWS,albGrass_SUEWS,NumCapita_SUEWS,BaseT_SUEWS,timezone_SUEWS,transdiff_SUEWS,BaseTe_SUEWS,GDDFull_SUEWS,SDDFull_SUEWS,LaiMin_SUEWS,LaiMax_SUEWS,MaxConductance_SUEWS,FAIbldg_SUEWS,FAIEveTree_SUEWS,FAIDecTree_SUEWS,bldgH_SUEWS,EveTreeH_SUEWS,DecTreeH_SUEWS,AH_MIN_SUEWS,AH_SLOPE_Cooling_SUEWS,AH_SLOPE_Heating_SUEWS,QF0_BEU_SUEWS,Qf_A_SUEWS,Qf_B_SUEWS,Qf_C_SUEWS,T_CRITIC_Cooling_SUEWS,T_CRITIC_Heating_SUEWS,TrafficRate_SUEWS,surf_attr_MinStorCap_SUEWS,surf_attr_DrainEquat_SUEWS,surf_attr_DrainCoef1_SUEWS,surf_attr_DrainCoef2_SUEWS,surf_attr_MaxStorCap_SUEWS,SoilStoreCap_SUEWS,SoilDepth_SUEWS,SatHydraulicConduct_SUEWS,AlbMin_DecTr_SUEWS,AlbMax_DecTr_SUEWS,AlbMin_EveTr_SUEWS,AlbMax_EveTr_SUEWS,AlbMin_Grass_SUEWS,AlbMax_Grass_SUEWS,CapMin_dec_SUEWS,CapMax_dec_SUEWS,PorMin_dec_SUEWS,PorMax_dec_SUEWS,DRAINRT_SUEWS,RAINCOVER_SUEWS,RAINMAXRES_SUEWS,FlowChange_SUEWS,PipeCapacity_SUEWS,RunoffToWater_SUEWS,StateLimit_SUEWS,WetThresh_SUEWS,BaseTHDD_SUEWS,Faut_SUEWS,IrrFracConif_SUEWS,IrrFracDecid_SUEWS,IrrFracGrass_SUEWS,DayWat_SUEWS,DayWatPer_SUEWS,PopDensDaytime_SUEWS ,PopDensNighttime_SUEWS ,DecidCap_SUEWS,porosity_SUEWS,GDD_SUEWS,HDD_SUEWS,state_SUEWS,soilmoist_SUEWS,surf_var_SUEWS,landusef_SUEWS,alb_SUEWS,emis_SUEWS,qn1_av_SUEWS,qn1_s_SUEWS,dqndt_SUEWS,dqnsdt_SUEWS,MeltWaterStore_SUEWS,SnowAlb_SUEWS,WUDay_SUEWS,z0m_in_SUEWS,zdm_in_SUEWS"],
             "config   real    dt                      derived              max_domains    2.": [
                 "rconfig   real    dt_prev                 derived              max_domains    2.      h     \"dt_prev\"   \"TEMPORAL RESOLUTION\"      \"SECONDS\""
             ]
@@ -145,6 +145,7 @@
                 " & ,NumCapita_SUEWS=grid%NumCapita_SUEWS &",
                 " & ,BaseT_SUEWS                 = grid%BaseT_SUEWS                &",
                 " & ,timezone_SUEWS                 = grid%timezone_SUEWS                &",
+                " & ,transdiff_SUEWS                 = grid%transdiff_SUEWS                &",
                 " & ,BaseTe_SUEWS                = grid%BaseTe_SUEWS               &",
                 " & ,GDDFull_SUEWS               = grid%GDDFull_SUEWS              &",
                 " & ,SDDFull_SUEWS               = grid%SDDFull_SUEWS              &",
@@ -250,6 +251,7 @@
                 " & ,NumCapita_SUEWS &",
                 " & ,BaseT_SUEWS                &",
                 " & ,timezone_SUEWS                &",
+                " & ,transdiff_SUEWS                &",
                 " & ,BaseTe_SUEWS               &",
                 " & ,GDDFull_SUEWS              &",
                 " & ,SDDFull_SUEWS              &",
@@ -354,6 +356,7 @@
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: NumCapita_SUEWS !Number of people in the study area per hectare [ha-1]",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT_SUEWS               ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: timezone_SUEWS               ",
+            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: transdiff_SUEWS               ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe_SUEWS              ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull_SUEWS             ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull_SUEWS             ",
@@ -457,7 +460,7 @@
                 "WRITE( message,* ) ' calling suewsdrv',sf_surface_physics",
                 "call wrf_debug(100, message)",
                 "          CALL suewsdrv(year, day_int, hour, minute, second, xtime, &",
-                "             t_phy, qv_curr, p8w, u_phy, v_phy, dz8w,z, swdown,glw,cldfra,      &",
+                "             t_phy, qv_curr, p8w, u_phy, v_phy, dz8w,z, swdown,swdntc,glw,cldfra,      &",
                 "             psfc, rainbl, ht,                                     &",
                 "             QN_SUEWS,z0m_SUEWS,AH_SUEWS, grdflx, hfx,znt,ust,akms,akhs, qfx, lh, tsk, qsfc, chklowq,                     &",
 
@@ -474,6 +477,7 @@
                 "             NumCapita_SUEWS,                                            &",
                 "             BaseT_SUEWS                   ,                             &",
                 "             timezone_SUEWS                   ,                             &",
+                "             transdiff_SUEWS                   ,                             &",
                 "             BaseTe_SUEWS                  ,                             &",
                 "             GDDFull_SUEWS                 ,                             &",
                 "             SDDFull_SUEWS                 ,                             &",

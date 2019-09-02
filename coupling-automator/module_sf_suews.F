@@ -70,7 +70,7 @@ CONTAINS
 
   !----------------------------------------------------------------
   SUBROUTINE suewsdrv(year, day, hour, minute, second, xtime, &
-       T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,glw,cldfra,  &
+       T3D, QV3D, P3D, U3D, V3D, DZ3d,Z3, SWDOWN,SWDNTC,glw,cldfra,  &
        PSFC, PREC, ht,                          &
        QN_SUEWS,z0m_SUEWS, AH_SUEWS, GRDFLX, HFX,znt,ust,akms,akhs, QFX, LH, TSK, QSFC, chklowq,        &
 
@@ -89,6 +89,7 @@ CONTAINS
 
        BaseT_SUEWS                 ,&
        timezone_SUEWS                 ,&
+       transdiff_SUEWS                 ,&
        BaseTe_SUEWS                ,&
        GDDFull_SUEWS               ,&
        SDDFull_SUEWS               ,&
@@ -260,7 +261,8 @@ CONTAINS
     REAL, DIMENSION(ims:ime, kms:kme, jms:jme), INTENT(IN)   ::  &
          QV3D, P3D, T3D, U3D, V3D, DZ3D,cldfra
     !
-    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDOWN,glw,PSFC, PREC, ht
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(INOUT)    ::  SWDOWN
+    REAL, DIMENSION(ims:ime, jms:jme), INTENT(IN)    ::  SWDNTC,glw,PSFC, PREC, ht
     REAL, DIMENSION( ims:ime, kms:kme, jms:jme ), INTENT(IN )::   Z3
     REAL,DIMENSION( ims:ime, jms:jme ),INTENT(INOUT) ::   &
          QN_SUEWS,z0m_SUEWS, AH_SUEWS, GRDFLX, HFX,ZNT,UST,akms,akhs, QFX, LH, TSK, QSFC, chklowq, kdown_SUEWS, kup_SUEWS, ldown_SUEWS, lup_SUEWS, tsurf_SUEWS, smd_SUEWS
@@ -283,6 +285,7 @@ CONTAINS
 
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT_SUEWS               
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: timezone_SUEWS               
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: transdiff_SUEWS
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe_SUEWS              
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull_SUEWS             
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull_SUEWS             
@@ -460,6 +463,7 @@ CONTAINS
     REAL(KIND(1d0))                                  :: z0m_in_id
     REAL(KIND(1d0))                                  :: zdm_in_id
     REAL(KIND(1d0))                                  :: timezone_id
+    REAL(KIND(1d0))                                  :: diff_trans
 
     INTEGER :: dt_since_start ! time since simulation starts [s]
 
@@ -484,6 +488,19 @@ CONTAINS
        DO I = its, ite
        
         
+
+
+        ! transmissivity correction
+
+          if (hour.GE.12) then !aftert midday
+            diff_trans=(SWDOWN(I,J)/SWDNTC(I,J))-transdiff_SUEWS(I,J)
+            if(diff_trans.GE.0) then !make sure the difference is greater than zero (assuming that simulation overestimate kdown)
+              SWDOWN(I,J)=SWDNTC(I,J)*(diff_trans)
+            end if
+          end if
+
+
+
 
         cldfra1D=SUM(cldfra(I,:,J))/(kte-kts+1)
         
@@ -517,7 +534,7 @@ CONTAINS
 
 
           BaseT_id                 =    BaseT_SUEWS(I,:,J)
-          timezone_id                 =    timezone_SUEWS(I,J)                 
+          timezone_id                 =    timezone_SUEWS(I,J)                
           BaseTe_id                =    BaseTe_SUEWS(I,:,J)                
           GDDFull_id               =    GDDFull_SUEWS(I,:,J)               
           SDDFull_id               =    SDDFull_SUEWS(I,:,J)               
@@ -604,6 +621,8 @@ CONTAINS
 
           timezone=timezone_id ! NB: fix it for now
           ! print*, 'landusef_suews1d = ',landusef_suews1d
+
+
 
           CALL SUEWS1D(&
                                 ! model configuration:
@@ -694,7 +713,7 @@ CONTAINS
           NumCapita_SUEWS(I,J)           =   NumCapita_id
 
           BaseT_SUEWS(I,:,J)                  =   BaseT_id               
-          timezone_SUEWS(I,J)                  =   timezone_id               
+          timezone_SUEWS(I,J)                  =   timezone_id              
           BaseTe_SUEWS(I,:,J)                 =   BaseTe_id              
           GDDFull_SUEWS(I,:,J)                =   GDDFull_id             
           SDDFull_SUEWS(I,:,J)                =   SDDFull_id             
@@ -789,6 +808,11 @@ CONTAINS
           ! HFX(I,J)=min(max(qh_out,50.),50.)
           ! LH(I,J)=min(max(qe_out,50.),50.)
           ! QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
+
+        ! transmissivity correction
+
+
+
           QN_SUEWS(I,J) = qn_out
           z0m_SUEWS(I,J) = znt_out
           AH_SUEWS(I,J) = qf_out
