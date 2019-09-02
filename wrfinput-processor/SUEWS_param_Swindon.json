@@ -67,6 +67,14 @@
         "unit": "",
         "mask": ""
     },
+    "transdiff_SUEWS": {
+        "dim": 0,
+        "value": [
+            0.18
+        ],
+        "unit": "",
+        "mask": "urban"
+    },
     "BaseT_SUEWS": {
         "dim": 3,
         "axis": 1,
