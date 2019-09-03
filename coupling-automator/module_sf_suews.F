@@ -492,12 +492,14 @@ CONTAINS
 
         ! transmissivity correction
 
-          if (hour.GE.12) then !aftert midday
+          !if (hour.GE.12) then !aftert midday
             diff_trans=(SWDOWN(I,J)/SWDNTC(I,J))-transdiff_SUEWS(I,J)
             if(diff_trans.GE.0) then !make sure the difference is greater than zero (assuming that simulation overestimate kdown)
-              SWDOWN(I,J)=SWDNTC(I,J)*(diff_trans)
+              SWDOWN1D=SWDNTC(I,J)*(diff_trans)
+            ELSE
+              SWDOWN1D = SWDOWN(i,j)
             end if
-          end if
+          !end if
 
 
 
@@ -515,7 +517,7 @@ CONTAINS
           
 
 
-          SWDOWN1D = SWDOWN(i,j)
+          !SWDOWN1D = SWDOWN(i,j)
           GLW1D = GLW(i,j)
 
 
