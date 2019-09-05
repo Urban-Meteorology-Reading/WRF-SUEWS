@@ -9,16 +9,16 @@ import json
 import yaml
 yaml.warnings({'YAMLLoadWarning': False})
 
+cityname='Swindon'
+first_day_str = '2012-04-10'
 
 def spinup_SUEWS():
-
+    
     print('Initializing SUEWS variables.....')
-    df_state_init, df_forcing = sp.load_SampleData()
-
-    path_runcontrol = Path('./run_Swindon') / 'RunControl.nml'
+    path_runcontrol = Path('./run_'+cityname) / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
-
-    first_day_str = '2012-04-10'
+    grid = df_state_init.index[0]
+    df_forcing = sp.load_forcing_grid(path_runcontrol, grid)
     first_day = datetime.strptime(first_day_str, '%Y-%m-%d')
 
     print('Rotating the time based on the first day of '+first_day_str)
@@ -97,7 +97,7 @@ def find_insert_value_json():
 
 find_insert_value_json()
 
-new_json = 'SUEWS_param_new.json'
+new_json = 'SUEWS_param_'+cityname+'.json'
 print('creating '+new_json)
 with open(new_json, 'w') as fp:
     json.dump(suews_params, fp, indent=4)
@@ -145,6 +145,6 @@ for key in patch_change:
 
         nml[key][item[0]] = new_value
 
-new_nml = 'namelist.suews.new'
+new_nml = 'namelist_'+cityname+'.suews'
 print('creaitng '+new_nml)
 nml.write(new_nml, force=True)
