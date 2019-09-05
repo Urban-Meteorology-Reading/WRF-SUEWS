@@ -121,9 +121,10 @@ def mod_landusef(ds_base):
      ds_base['LANDUSEF'].values[0, 17:20, xx-2:xx+2, yy-2:yy+2]=0.06/4
      ds_base['LANDUSEF'].values[0, 10,    xx-2:xx+2, yy-2:yy+2]=0.0/2
      ds_base['LANDUSEF'].values[0, 16,    xx-2:xx+2, yy-2:yy+2]=0.0/2
+
     
      
-     return ds_base
+     return ds_base,xx,yy
 
 
 # added SUEWS required input to a single wrfinput file
@@ -149,7 +150,9 @@ def add_SUEWS_wrfinput_single(x_file):
 
     if x_file == 'wrfinput_d04': #for Swindon
         print('modifying the landusef around the site')
-        ds_base = mod_landusef(ds_base) 
+        ds_base,xx,yy = mod_landusef(ds_base)
+        ds_new ['PAVED_RATIO'].values[0, xx-2:xx+2, yy-2:yy+2]=0.67
+
 
     # merge with ds_base for export
     ds_merged = ds_base.update(ds_new)

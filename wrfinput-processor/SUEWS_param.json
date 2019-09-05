@@ -863,6 +863,14 @@
         ],
         "unit": "",
         "mask": ""
+    },
+    "paved_ratio": {
+        "dim": 0,
+        "value": [
+            0.5
+        ],
+        "unit": "",
+        "mask": ""
     }
 
 }
