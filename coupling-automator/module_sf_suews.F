@@ -90,7 +90,6 @@ CONTAINS
        BaseT_SUEWS                 ,&
        timezone_SUEWS                 ,&
        transdiff_SUEWS                 ,&
-       paved_ratio ,&
        BaseTe_SUEWS                ,&
        GDDFull_SUEWS               ,&
        SDDFull_SUEWS               ,&
@@ -287,7 +286,6 @@ CONTAINS
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT_SUEWS               
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: timezone_SUEWS               
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: transdiff_SUEWS
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: paved_ratio
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe_SUEWS              
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull_SUEWS             
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull_SUEWS             
@@ -466,7 +464,7 @@ CONTAINS
     REAL(KIND(1d0))                                  :: zdm_in_id
     REAL(KIND(1d0))                                  :: timezone_id
     REAL(KIND(1d0))                                  :: diff_trans
-    REAL(KIND(1d0))                                  :: sum_urban
+
     INTEGER :: dt_since_start ! time since simulation starts [s]
 
     INTEGER ::  I, J
@@ -490,11 +488,6 @@ CONTAINS
        DO I = its, ite
        
         
-
-        sum_urban=landusef_SUEWS(i, 1, j)+landusef_SUEWS(i, 2, j)
-        landusef_SUEWS(i, 1, j)=sum_urban*paved_ratio(i,j)
-        landusef_SUEWS(i, 2, j)=sum_urban*(1-paved_ratio(i,j))
-
 
 
         ! transmissivity correction
@@ -1377,6 +1370,7 @@ CONTAINS
          cen_lat,                                 &
          NLCAT,                                   &
          landusef,                                &
+         paved_ratio,                             &
          landusef_SUEWS,                          &
          alb_SUEWS,                               &
          emis_SUEWS,                              &
@@ -1397,6 +1391,7 @@ CONTAINS
     REAL, INTENT(IN)                                                :: cen_lat
     INTEGER,INTENT(IN)                                              :: NLCAT
     REAL,DIMENSION(ims:ime, NLCAT, jms:jme), INTENT(IN)             :: LANDUSEF
+     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: paved_ratio
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
@@ -1430,6 +1425,7 @@ CONTAINS
 
     REAL,DIMENSION(3,4,8)              :: OHM_coef
     REAL,DIMENSION(6,8)                :: WaterDist
+    REAL                               :: sum_urban
 
     !----------------------------------------------------------------
 
@@ -1679,6 +1675,14 @@ CONTAINS
        CALL toSUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
 
       ! this is to fix the paved/building ratio (by default the ratio is 1)
+       DO j = jts,jtf
+          DO i = its,itf
+            sum_urban=landusef_SUEWS(i, 1, j)+landusef_SUEWS(i, 2, j)
+            landusef_SUEWS(i, 1, j)=sum_urban*paved_ratio(i,j)
+            landusef_SUEWS(i, 2, j)=sum_urban*(1-paved_ratio(i,j))
+          ENDDO
+       ENDDO
+
 
     END IF
 
