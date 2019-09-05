@@ -36,7 +36,6 @@
         "query": {
             ",grid%QKE":[ 
                 ",grid%landusef_SUEWS&",
-                ",grid%paved_ratio&",
                 ",grid%alb_SUEWS&",
                 ",grid%emis_SUEWS&",
                 ",grid%qn1_av_SUEWS&",
@@ -52,7 +51,6 @@
         "query": {
             ",QKE": [
                 ",landusef_SUEWS &",
-                ",paved_ratio &",
                 ",alb_SUEWS &",
                 ",emis_SUEWS &",
                 ",qn1_av_SUEWS &",
@@ -62,7 +60,6 @@
                 ],
             "REAL,     DIMENSION(1:num_soil_layers),      INTENT(INOUT) :: ZS,DZS": [
                 " REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT) :: landusef_SUEWS",
-                " REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT) :: paved_ratio",
                 " REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT) :: alb_SUEWS",
                 " REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT) :: emis_SUEWS",
                 " REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   :: qn1_av_SUEWS",
@@ -75,7 +72,6 @@
                 " julday, &",
                 " cen_lat, &",
                 " landusef_SUEWS, &",
-                " paved_ratio, &",
                 " alb_SUEWS, &",
                 " emis_SUEWS, &",
                 " qn1_av_SUEWS, &",
@@ -88,7 +84,6 @@
                 " julday, &",
                 " cen_lat, &",
                 " landusef_SUEWS, &",
-                " paved_ratio, &",
                 " alb_SUEWS, &",
                 " emis_SUEWS, &",
                 " qn1_av_SUEWS, &",
@@ -104,7 +99,6 @@
                 " INTEGER, INTENT(IN)                                      :: julday",
                 " REAL, INTENT(IN)                                         :: cen_lat",
                 " REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT) :: landusef_SUEWS",
-                " REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)      :: paved_ratio",
                 " REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT) :: alb_SUEWS",
                 " REAL,OPTIONAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT) :: emis_SUEWS",
                 " REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)   :: qn1_av_SUEWS",
@@ -121,7 +115,6 @@
                 "       cen_lat, &",
                 "       NLCAT, &",
                 "       landusef, &",
-                "       paved_ratio, &",
                 "       landusef_SUEWS, &",
                 "       alb_SUEWS, &",
                 "       emis_SUEWS, &",
@@ -153,6 +146,7 @@
                 " & ,BaseT_SUEWS                 = grid%BaseT_SUEWS                &",
                 " & ,timezone_SUEWS                 = grid%timezone_SUEWS                &",
                 " & ,transdiff_SUEWS                 = grid%transdiff_SUEWS                &",
+                " & ,paved_ratio                 = grid%paved_ratio                &",
                 " & ,BaseTe_SUEWS                = grid%BaseTe_SUEWS               &",
                 " & ,GDDFull_SUEWS               = grid%GDDFull_SUEWS              &",
                 " & ,SDDFull_SUEWS               = grid%SDDFull_SUEWS              &",
@@ -239,7 +233,6 @@
                 " & ,z0m_in_SUEWS=grid%z0m_in_SUEWS &",
                 " & ,zdm_in_SUEWS=grid%zdm_in_SUEWS &",
                 " & ,swdntc=grid%swdntc &",
-                " & ,paved_ratio=grid%paved_ratio &",
                 "! variables for SUEWS: End"
             ]
         }
@@ -261,6 +254,7 @@
                 " & ,BaseT_SUEWS                &",
                 " & ,timezone_SUEWS                &",
                 " & ,transdiff_SUEWS                &",
+                " & ,paved_ratio                &",
                 " & ,BaseTe_SUEWS               &",
                 " & ,GDDFull_SUEWS              &",
                 " & ,SDDFull_SUEWS              &",
@@ -346,8 +340,7 @@
                 " & ,WUDay_SUEWS &",
                 " & ,z0m_in_SUEWS &",
                 " & ,zdm_in_SUEWS &",
-                " & ,swdntc &",
-                " & ,paved_ratio &"
+                " & ,swdntc &"
             ],
             ",SLABSCHEME": [
                 ",SUEWSSCHEME &"
@@ -368,6 +361,7 @@
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT_SUEWS               ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: timezone_SUEWS               ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: transdiff_SUEWS               ",
+            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: paved_ratio               ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe_SUEWS              ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull_SUEWS             ",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull_SUEWS             ",
@@ -453,8 +447,7 @@
             "   REAL,OPTIONAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)   :: WUDay_SUEWS",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: z0m_in_SUEWS",
             "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: zdm_in_SUEWS",
-            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: swdntc",
-            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: paved_ratio"
+            "   REAL,OPTIONAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)     :: swdntc"
         ],
             "     sfc_select: SELECT CASE(sf_surface_physics)": [
                 "     CASE (SUEWSSCHEME)",
@@ -491,6 +484,7 @@
                 "             BaseT_SUEWS                   ,                             &",
                 "             timezone_SUEWS                   ,                             &",
                 "             transdiff_SUEWS                   ,                             &",
+                "             paved_ratio                   ,                             &",
                 "             BaseTe_SUEWS                  ,                             &",
                 "             GDDFull_SUEWS                 ,                             &",
                 "             SDDFull_SUEWS                 ,                             &",
