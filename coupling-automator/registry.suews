@@ -100,3 +100,4 @@ state      real     DayWat_SUEWS                                i{nsurf}j       
 state      real     DayWatPer_SUEWS                             i{nsurf}j             misc    1           -           rh     "DayWatPer"                    "DayWatPer"                       ""
 state      real     tsurf_SUEWS                                 ij                    misc    1           -           rh     "tsurf_SUEWS"                  "tsurf_SUEWS"                     ""
 state      real     smd_SUEWS                                   ij                    misc    1           -           rh     "smd_SUEWS"                    "smd_SUEWS"                       ""
+state      real     paved_ratio                                 ij                    misc    1           -           rh     "paved_ratio"                  "paved_ratio"                     ""

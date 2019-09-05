@@ -1370,6 +1370,7 @@ CONTAINS
          cen_lat,                                 &
          NLCAT,                                   &
          landusef,                                &
+         paved_ratio,                             &
          landusef_SUEWS,                          &
          alb_SUEWS,                               &
          emis_SUEWS,                              &
@@ -1390,6 +1391,7 @@ CONTAINS
     REAL, INTENT(IN)                                                :: cen_lat
     INTEGER,INTENT(IN)                                              :: NLCAT
     REAL,DIMENSION(ims:ime, NLCAT, jms:jme), INTENT(IN)             :: LANDUSEF
+     REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)                   :: paved_ratio
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: landusef_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: alb_SUEWS
     REAL,DIMENSION(ims:ime,7,jms:jme),INTENT(INOUT)                 :: emis_SUEWS
@@ -1397,6 +1399,7 @@ CONTAINS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: qn1_S_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqndt_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)                   :: dqnsdt_SUEWS
+   
 
     INTEGER, INTENT(IN)         :: ids,ide, jds,jde, kds,kde, &
                                    ims,ime, jms,jme, kms,kme, &
@@ -1422,6 +1425,7 @@ CONTAINS
 
     REAL,DIMENSION(3,4,8)              :: OHM_coef
     REAL,DIMENSION(6,8)                :: WaterDist
+    REAL                               :: sum_urban
 
     !----------------------------------------------------------------
 
@@ -1669,6 +1673,15 @@ CONTAINS
        !    CALL wrf_error_fatal ('THE Land Use Categories NOT SUPPORTED By SUEWS Model NOW' )
        ! END IF
        CALL toSUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
+
+       DO j = jts,jtf
+          DO i = its,itf
+            sum_urban=landusef_SUEWS(i, 0, j)+landusef_SUEWS(i, 1, j)
+            landusef_SUEWS(i, 0, j)=sum_urban*paved_ratio(i,j)
+            landusef_SUEWS(i, 1, j)=sum_urban*(1-paved_ratio(i,j))
+          ENDDO
+       ENDDO
+
 
     END IF
 
