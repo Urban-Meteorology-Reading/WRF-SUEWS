@@ -9,7 +9,7 @@ import json
 import yaml
 yaml.warnings({'YAMLLoadWarning': False})
 
-cityname='Swindon'
+cityname='London'
 first_day_str = '2012-04-10'
 
 def spinup_SUEWS():
