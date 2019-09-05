@@ -15,7 +15,6 @@ state      real     NumCapita_SUEWS                             ij              
 state      real     BaseT_SUEWS                                 i{nvegsurf}j          misc    1           -           irh    "BaseT_SUEWS"                  "BaseT_SUEWS"                     "degC"
 state      real     timezone_SUEWS                              ij                    misc    1           -           irh    "timezone_SUEWS"               "timezone_SUEWS"                  ""
 state      real     transdiff_SUEWS                             ij                    misc    1           -           irh    "transdiff_SUEWS"              "transdiff_SUEWS"                 ""
-state      real     paved_ratio                                 ij                    misc    1           -           irh     "paved_ratio"                  "paved_ratio"                     ""
 state      real     BaseTe_SUEWS                                i{nvegsurf}j          misc    1           -           irh    "BaseTe_SUEWS"                 "BaseTe_SUEWS"                    "degC"
 state      real     GDDFull_SUEWS                               i{nvegsurf}j          misc    1           -           irh    "GDDFull_SUEWS"                "GDDFull_SUEWS"                   "degC"
 state      real     SDDFull_SUEWS                               i{nvegsurf}j          misc    1           -           irh    "SDDFull_SUEWS"                "SDDFull_SUEWS"                   "degC"
@@ -101,3 +100,4 @@ state      real     DayWat_SUEWS                                i{nsurf}j       
 state      real     DayWatPer_SUEWS                             i{nsurf}j             misc    1           -           irh     "DayWatPer"                    "DayWatPer"                       ""
 state      real     tsurf_SUEWS                                 ij                    misc    1           -           rh     "tsurf_SUEWS"                  "tsurf_SUEWS"                     ""
 state      real     smd_SUEWS                                   ij                    misc    1           -           rh     "smd_SUEWS"                    "smd_SUEWS"                       ""
+state      real     paved_ratio                                 ij                    misc    1           -           irh     "paved_ratio"                  "paved_ratio"                     ""
