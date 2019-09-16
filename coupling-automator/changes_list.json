@@ -580,7 +580,7 @@
                 "             WUDay_SUEWS,                                                &",
                 "             z0m_in_SUEWS,                                               &",
                 "             zdm_in_SUEWS,                                               &",
-                "             g1,g2,g3,g4,g5,g6                                               &",
+                "             g1,g2,g3,g4,g5,g6,                                               &",
                 "             XLONG, XLAT, DT, DT_PREV, DX,                         &",
                 "             ids,ide, jds,jde, kds,kde,                            &",
                 "             ims,ime, jms,jme, kms,kme,                            &",
