@@ -31,12 +31,6 @@ MODULE module_sf_SUEWS
   REAL                                         :: th
   REAL                                         :: tl
   REAL                                         :: Kmax
-  REAL                                         :: g1
-  REAL                                         :: g2
-  REAL                                         :: g3
-  REAL                                         :: g4
-  REAL                                         :: g5
-  REAL                                         :: g6
   REAL                                         :: s1
   REAL                                         :: s2
   REAL,DIMENSION(4,3)                          :: LaiPower
@@ -169,6 +163,7 @@ CONTAINS
        WUDay_SUEWS,                                   &
        z0m_in_SUEWS,                                  &
        zdm_in_SUEWS,                                  &
+       g1,g2,g3,g4,g5,g6, &
        xlong, xlat, DT, DT_PREV, DX,            &
        ids, ide, jds, jde, kds, kde,            &
        ims, ime, jms, jme, kms, kme,            &
@@ -365,6 +360,7 @@ CONTAINS
     REAL,DIMENSION(ims:ime,9,jms:jme),INTENT(INOUT)  :: WUDay_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: z0m_in_SUEWS
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: zdm_in_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)       :: g1,g2,g3,g4,g5,g6
 
     ! LOCAL VARS
     REAL,DIMENSION(7)                 :: landusef_suews1d
@@ -462,6 +458,7 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(9)                     :: WUDay_id
     REAL(KIND(1d0))                                  :: z0m_in_id
     REAL(KIND(1d0))                                  :: zdm_in_id
+    REAL(KIND(1d0))                                  :: g1_id,g2_id,g3_id,g4_id,g5_id,g6_id
     REAL(KIND(1d0))                                  :: timezone_id
     REAL(KIND(1d0))                                  :: diff_trans
 
@@ -615,6 +612,12 @@ CONTAINS
           WUDay_id   = WUDay_SUEWS(I,:,J)
           z0m_in_id  = z0m_in_SUEWS(I,J)
           zdm_in_id  = zdm_in_SUEWS(I,J)
+          g1_id  = g1(I,J)
+          g2_id  = g2(I,J)
+          g3_id  = g3(I,J)
+          g4_id  = g4(I,J)
+          g5_id  = g5(I,J)
+          g6_id  = g6(I,J)
 
           ! the indices to the PSFC argument in the following call look
           ! wrong; however, it is correct to call with its (and not ims)
@@ -698,7 +701,7 @@ CONTAINS
                DecidCap_id,porosity_id,GDD_id,HDD_id,&
                state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
                dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
-
+               g1_id,g2_id,g3_id,g4_id,g5_id,g6_id,& 
                                 ! modelled outout:
                qn_out,qf_out,qs_out,qh_out,znt_out,ust_out,qe_out,qsfc_out,tsk_out,CHKLOWQ_out,kdown_out, kup_out, ldown_out, lup_out, tsurf_out, smd_out,&
                                 ! grid layout:
@@ -922,7 +925,7 @@ CONTAINS
        DecidCap_id,porosity_id,GDD_id,HDD_id,&
        state_id,soilmoist_id,surf_var_id,alb_id,emis_id,qn1_av_id,qn1_s_id,&
        dqndt_id,dqnsdt_id,MeltWaterStore_id,SnowAlb_id,WUDay_id,z0m_in_id,zdm_in_id,&
-
+      g1_id,g2_id,g3_id,g4_id,g5_id,g6_id,& 
                                 ! modelled outout:
        qn,qf,qs,qh,znt,ust,qe,qsfc,tsk,CHKLOWQ,kdown_o, kup_o, ldown_o, lup_o, tsurf_o, smd_o,&
                                 ! grid layout:
@@ -1056,6 +1059,12 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(9),INTENT(INOUT)            :: WUDay_id
     REAL(KIND(1d0)),INTENT(IN)                            :: z0m_in_id
     REAL(KIND(1d0)),INTENT(IN)                            :: zdm_in_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: g1_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: g2_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: g3_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: g4_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: g5_id
+    REAL(KIND(1d0)),INTENT(IN)                            :: g6_id
 
     ! 11. output
     REAL(KIND(1d0)), INTENT(out) ::qn !QN for output
@@ -1138,12 +1147,6 @@ CONTAINS
     REAL(KIND(1D0))                                         :: th_d
     REAL(KIND(1D0))                                         :: tl_d
     REAL(KIND(1D0))                                         :: Kmax_d
-    REAL(KIND(1D0))                                         :: g1_d
-    REAL(KIND(1D0))                                         :: g2_d
-    REAL(KIND(1D0))                                         :: g3_d
-    REAL(KIND(1D0))                                         :: g4_d
-    REAL(KIND(1D0))                                         :: g5_d
-    REAL(KIND(1D0))                                         :: g6_d
     REAL(KIND(1D0))                                         :: s1_d
     REAL(KIND(1D0))                                         :: s2_d
     REAL(KIND(1D0)),DIMENSION(4,3)                          :: LaiPower_d
@@ -1223,12 +1226,6 @@ CONTAINS
   th_d = th
   tl_d = tl
   Kmax_d = Kmax
-  g1_d = g1
-  g2_d = g2
-  g3_d = g3
-  g4_d = g4
-  g5_d = g5
-  g6_d = g6
   s1_d = s1
   s2_d = s2
   LaiPower_d = LaiPower
@@ -1252,7 +1249,7 @@ CONTAINS
     CALL SuMin(&
          snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
          RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType,SnowPackLimit_d, &
-         OHM_threshSW_d,OHM_threshWD_d,th_d,tl_d,Kmax_d,g1_d,g2_d,g3_d,g4_d,g5_d,g6_d,s1_d,s2_d,LaiPower_d, &
+         OHM_threshSW_d,OHM_threshWD_d,th_d,tl_d,Kmax_d,g1_id,g2_id,g3_id,g4_id,g5_id,g6_id,s1_d,s2_d,LaiPower_d, &
 
          CRWmax_d        ,&
          CRWmin_d        ,&
@@ -1431,7 +1428,7 @@ CONTAINS
 
     NAMELIST /coeff/   OHM_coef, WaterDist, AHProf_24hr, HumActivity_24hr, PopProf_24hr, TraffProf_24hr, &
                        WUProfA_24hr, WUProfM_24hr,snowProf_24hr,SnowPackLimit, OHM_threshSW, OHM_threshWD, th, tl, Kmax, &
-                       g1, g2, g3, g4, g5, g6, s1, s2, &
+                       s1, s2, &
                        CRWmax,CRWmin,PrecipLimit,PrecipLimitAlb,RadMeltFact,SnowAlbMax, &
                        SnowAlbMin,SnowDensMax,SnowDensMin,SnowLimBldg,SnowLimPaved,tau_a, &
                        tau_f,tau_r, TempMeltFact, startDLS, endDLS    
@@ -1528,12 +1525,6 @@ CONTAINS
        CALL wrf_dm_bcast_bytes (th, RWORDSIZE)
        CALL wrf_dm_bcast_bytes (tl, RWORDSIZE)
        CALL wrf_dm_bcast_bytes (Kmax, RWORDSIZE)
-       CALL wrf_dm_bcast_bytes (g1, RWORDSIZE)
-       CALL wrf_dm_bcast_bytes (g2, RWORDSIZE)
-       CALL wrf_dm_bcast_bytes (g3, RWORDSIZE)
-       CALL wrf_dm_bcast_bytes (g4, RWORDSIZE)
-       CALL wrf_dm_bcast_bytes (g5, RWORDSIZE)
-       CALL wrf_dm_bcast_bytes (g6, RWORDSIZE)
        CALL wrf_dm_bcast_bytes (s1, RWORDSIZE)
        CALL wrf_dm_bcast_bytes (s2, RWORDSIZE)
        CALL wrf_dm_bcast_bytes (CRWmax      ,   RWORDSIZE)  
