@@ -59,7 +59,7 @@ wrfout_d0*
 SumData.DAT
 test-run
 wrfinput-processor/London-Land-Cover-Modify/.ipynb_checkpoints/
-
+wrfinput-processor/pre-processor/Other_modifies/Colombo/Colombo-Land-Cover-Fraction/Data/
 # python related files
 .ipynb_checkpoints
 
