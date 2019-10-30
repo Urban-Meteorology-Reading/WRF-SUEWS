@@ -67,7 +67,7 @@ if steps['modify_London'] == 1:
 ################################################
 if steps['g1_g6'] == 1:
     print('Modifying g1-g6 . . .')
-    g1_g6()
+    g1_g6(first_day_str)
     out = 'output/2-g1_g6_changed/'
     finalize = 1
 ################################################
