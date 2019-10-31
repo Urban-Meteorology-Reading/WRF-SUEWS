@@ -1,3 +1,4 @@
+#%%
 import glob
 import geopandas as gpd
 from pyproj import Proj, transform
@@ -11,6 +12,8 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 import matplotlib.colors as colors
 from .spin_up import spin_lai_albedo
 
+
+#%%
 def mod_gs(ds_base, g1, g2, g3, g4, g5, g6, i, j):
 
     ds_base['G1'].values[0, i, j] = g1
@@ -50,21 +53,24 @@ def mod_lai_albedo(ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_
 
 def g1_g6(first_day_str):
     x_files = glob.glob('output/1-changed_to_SUEWS/wrfinput_d0*')
+   
+    all_attrs=pd.read_csv('input/all_attrs.csv')
+    
 
-    maxlai = [2.3, 4, 1.3]
-    minlai = [0.8, 0.5, 0.15]
-    maxg = [21.83, 33.52, 13.86]
-    maxalb = [0.1, 0.14, 0.2]
-    minalb = [0.07, 0.1, 0.16]
+    maxlai = all_attrs['maxlai'].values
+    minlai = all_attrs['minlai'].values
+    maxg = all_attrs['maxg'].values
+    maxalb = all_attrs['maxalb'].values
+    minalb = all_attrs['minalb'].values
     alb_init, lai_init = spin_lai_albedo(maxalb, minalb,
                                          maxlai, minlai,
                                          first_day_str)
-    g1 = [1, 1, 1]
-    g2 = [104.383, 104.823, 104.47]
-    g3 = [0.509, 0.529, 0.789]
-    g4 = [0.772, 0.592, 0.612]
-    g5 = [36.277, 36.3, 37.243]
-    g6 = [0.023, 0.03, 0.025]
+    g1 = all_attrs['g1'].values
+    g2 = all_attrs['g2'].values
+    g3 = all_attrs['g3'].values
+    g4 = all_attrs['g4'].values
+    g5 = all_attrs['g5'].values
+    g6 = all_attrs['g6'].values
 
 
     for x_file in x_files:

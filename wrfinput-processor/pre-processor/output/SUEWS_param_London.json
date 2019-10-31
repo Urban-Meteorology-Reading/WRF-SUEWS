@@ -70,7 +70,7 @@
     "transdiff_SUEWS": {
         "dim": 0,
         "value": [
-            0.05828
+            0.111
         ],
         "unit": "",
         "mask": "urban"
