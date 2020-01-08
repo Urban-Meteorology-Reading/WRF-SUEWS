@@ -9,7 +9,7 @@ import shutil
 import json
 ################################################
 steps = {'clean_dirs': 1,
-         'extract_params': 1,
+         'extract_params': 0,
          'modify_trans': 1,
          'change_to_SUEWS': 1,
          'modify_London': 1,
@@ -18,7 +18,7 @@ steps = {'clean_dirs': 1,
          }
 ################################################
 citynames = ['London', 'Swindon']
-values_trans = [0.111, 0.0785]
+values_trans = [0.2039, 0.2105]
 first_day_str = '2012-04-10'
 finalize = 0
 ################################################
