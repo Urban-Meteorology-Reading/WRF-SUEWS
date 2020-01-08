@@ -9,7 +9,7 @@ import shutil
 import json
 ################################################
 steps = {'clean_dirs': 1,
-         'extract_params': 0,
+         'extract_params': 1,
          'modify_trans': 1,
          'change_to_SUEWS': 1,
          'modify_London': 1,
@@ -43,7 +43,7 @@ if steps['extract_params'] == 1:
 if steps['modify_trans'] == 1:
     print('Modifying taransmisivity . . .')
     for cityname, value in zip(citynames, values_trans):
-        with open('output/SUEWS_param_'+'Swindon'+'.json') as var_json:
+        with open('output/SUEWS_param_'+cityname+'.json') as var_json:
             vars_to_add = json.load(var_json)
             vars_to_add['transdiff_SUEWS']['value'] = [value]
 

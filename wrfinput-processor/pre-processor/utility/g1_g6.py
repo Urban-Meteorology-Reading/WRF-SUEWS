@@ -56,14 +56,15 @@ def g1_g6(first_day_str):
    
     all_attrs=pd.read_csv('input/all_attrs.csv')
     
-
+    
     maxlai = all_attrs['maxlai'].values
     minlai = all_attrs['minlai'].values
     maxg = all_attrs['maxg'].values
     maxalb = all_attrs['maxalb'].values
     minalb = all_attrs['minalb'].values
-    alb_init, lai_init = spin_lai_albedo(maxalb, minalb,
-                                         maxlai, minlai,
+
+    alb_init, lai_init = spin_lai_albedo(maxalb[0:3], minalb[0:3],
+                                         maxlai[0:3], minlai[0:3],
                                          first_day_str)
     g1 = all_attrs['g1'].values
     g2 = all_attrs['g2'].values
@@ -127,6 +128,7 @@ def g1_g6(first_day_str):
                         ds_base, g1[2], g2[2], g3[2], g4[2], g5[2], g6[2], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+
                 else:
                     pass
 
