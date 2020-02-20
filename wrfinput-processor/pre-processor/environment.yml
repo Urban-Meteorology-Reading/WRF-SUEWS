@@ -1,0 +1,20 @@
+name: WRF_SUEWS_pre
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python = 3.7
+  - jupyter
+  - pip
+  - geopandas
+  - matplotlib
+  - scipy
+  - xarray
+  - cdsapi
+  - yaml
+  - pip:
+    - supy == 2019.4.15
+    - supy-driver == 2018rc8
+    - pandas == 0.24
+    - tzwhere
+    - timezonefinder
