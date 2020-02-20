@@ -6,7 +6,7 @@ import numpy as np
 import supy as sp
 from pathlib import Path
 import json
-import yaml
+
 print('supy version is : '+sp.__version__)
 def spinup_SUEWS(cityname,first_day_str):
     
