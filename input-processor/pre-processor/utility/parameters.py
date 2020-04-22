@@ -26,15 +26,19 @@ def mod_gs(ds_base, g1, g2, g3, g4, g5, g6, i, j):
     return ds_base
 
 
-def mod_lai_albedo(ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j):
+def mod_lai_albedo(ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j):
 
     ds_base['MaxConductance_SUEWS'.upper()].values[0, :, i, j] = maxg
     ds_base['LaiMax_SUEWS'.upper()].values[0, :, i, j] = maxlai
     ds_base['LaiMin_SUEWS'.upper()].values[0, :, i, j] = minlai
     ds_base['Lai_SUEWS'.upper()].values[0, :, i, j] = lai_init
+    ds_base['BaseT_SUEWS'.upper()].values[0, :, i, j] = baset
+    ds_base['BaseTe_SUEWS'.upper()].values[0, :, i, j] = basete
 
     ds_base['GDDFULL_SUEWS'.upper()].values[0, :, i, j] = [1000, 1000, 1000]
     ds_base['SDDFULL_SUEWS'.upper()].values[0, :, i, j] = [-1000, -1000, -1000]
+
+
 
     ds_base['albMax_EveTr_SUEWS'.upper()].values[0, i, j] = maxalb[0]
     ds_base['albMax_DecTr_SUEWS'.upper()].values[0, i, j] = maxalb[1]
@@ -62,9 +66,12 @@ def parameters(first_day_str):
     maxg = all_attrs['maxg'].values[0:3]
     maxalb = all_attrs['maxalb'].values[0:3]
     minalb = all_attrs['minalb'].values[0:3]
+    baset = all_attrs['baset'].values[0:3]
+    basete = all_attrs['basete'].values[0:3]
 
-    alb_init, lai_init = spin_lai_albedo(maxalb[0:3], minalb[0:3],
-                                         maxlai[0:3], minlai[0:3],
+    alb_init, lai_init = spin_lai_albedo(maxalb, minalb,
+                                         maxlai, minlai,
+                                         baset,basete,
                                          first_day_str)
     g1 = all_attrs['g1'].values
     g2 = all_attrs['g2'].values
@@ -106,36 +113,34 @@ def parameters(first_day_str):
                                 [i, j], a['grass'][i, j], a['bsoil'][i, j], a['water'][i, j]])
 
                 if (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] > 0.50):
-                    ds_base = mod_lai_albedo(
-                        ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                    pass
 
                 elif (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] <= 0.50):
-                    ds_base = mod_lai_albedo(
-                        ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                    pass
 
                 elif mx_fr == a['evetr'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[0], g2[0], g3[0], g4[0], g5[0], g6[0], i, j)
                     ds_base = mod_lai_albedo(
-                        ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                        ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
 
                 elif mx_fr == a['dectr'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[1], g2[1], g3[1], g4[1], g5[1], g6[1], i, j)
                     ds_base = mod_lai_albedo(
-                        ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                        ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
 
                 elif mx_fr == a['grass'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[2], g2[2], g3[2], g4[2], g5[2], g6[2], i, j)
                     ds_base = mod_lai_albedo(
-                        ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                        ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
 
                 elif mx_fr == a['bsoil'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[3], g2[3], g3[3], g4[3], g5[3], g6[3], i, j)
                     ds_base = mod_lai_albedo(
-                        ds_base, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                        ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
 
                 else:
                     pass
