@@ -6,13 +6,21 @@ import numpy as np
 import supy as sp
 from pathlib import Path
 import json
+from .modify_df_state import modify_attr
 
 print('supy version is : '+sp.__version__)
-def spinup_SUEWS(cityname,first_day_str):
+def spinup_SUEWS(cityname,first_day_str,veg_spin=0,veg_type=''):
     
     print('Initializing SUEWS variables.....')
+
     path_runcontrol = Path('runs/run_'+cityname) / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
+
+    if veg_spin==1:
+        print('Initializing for '+veg_type)
+        df_state_init=modify_attr(df_state_init,veg_type)
+
+
     grid = df_state_init.index[0]
     df_forcing = sp.load_forcing_grid(path_runcontrol, grid)
     first_day = datetime.strptime(first_day_str, '%Y-%m-%d')
@@ -29,7 +37,9 @@ def spinup_SUEWS(cityname,first_day_str):
     df_forcing_2.index.freq = first_part.index.freq
     round_number = 0
     error = 0.4
-    while (error >= 0.1):
+    counter=0
+    while (error >= 0.1 or counter<3):
+        counter+=1
         round_number = round_number+1
         print('Running SUEWS for round number '+str(round_number)+'.....')
         df_output, df_state_final = sp.run_supy(
@@ -48,9 +58,12 @@ def spinup_SUEWS(cityname,first_day_str):
 
     return df_state_init
 
-def getting_SUEWS_params(cityname,first_day_str):
-
-    df_state_init = spinup_SUEWS(cityname,first_day_str)
+def getting_SUEWS_params(cityname,first_day_str,veg_spin=0,veg_type=''):
+    if veg_spin==1:
+        print('Spining up for vegetation . . .')
+        df_state_init = spinup_SUEWS(cityname,first_day_str,veg_spin=1,veg_type=veg_type)
+    else:
+        df_state_init = spinup_SUEWS(cityname,first_day_str)
 
     print('Putting NetRadiationMethod = 1')
     df_state_init.netradiationmethod = 1
@@ -92,8 +105,10 @@ def getting_SUEWS_params(cityname,first_day_str):
 
 
     find_insert_value_json()
-
-    new_json = 'output/SUEWS_param_'+cityname+'.json'
+    if veg_spin==1:
+        new_json = 'output/SUEWS_param_'+veg_type+'.json'
+    else:
+        new_json = 'output/SUEWS_param_'+cityname+'.json'
     print('creating '+new_json)
     with open(new_json, 'w') as fp:
         json.dump(suews_params, fp, indent=4)
@@ -140,7 +155,7 @@ def getting_SUEWS_params(cityname,first_day_str):
                 new_value = list(value)
 
             nml[key][item[0]] = new_value
-
-    new_nml = 'output/namelist_'+cityname+'.suews'
-    print('creaitng '+new_nml)
-    nml.write(new_nml, force=True)
+    if veg_spin!=1:
+        new_nml = 'output/namelist_'+cityname+'.suews'
+        print('creaitng '+new_nml)
+        nml.write(new_nml, force=True)

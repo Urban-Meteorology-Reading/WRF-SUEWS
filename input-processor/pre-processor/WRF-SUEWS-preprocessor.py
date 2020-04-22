@@ -9,7 +9,8 @@ import shutil
 import json
 ################################################
 steps = {'clean_dirs': 1,
-         'extract_params': 1,
+         'extract_params_cities': 1,
+         'extract_params_vegs': 1,
          'modify_trans': 1,
          'change_to_SUEWS': 1,
          'modify_London': 1,
@@ -18,14 +19,14 @@ steps = {'clean_dirs': 1,
          }
 ################################################
 citynames = ['London', 'Swindon']
-#values_trans = [0.2039, 0.2105] # April
-#first_day_str = '2012-04-10' # April
+# values_trans = [0.2039, 0.2105] # April
+# first_day_str = '2012-04-10' # April
 
-#values_trans = [0.186, 0.0712] # January
-#first_day_str = '2012-01-10' # January
+# values_trans = [0.186, 0.0712] # January
+# first_day_str = '2012-01-10' # January
 
-#values_trans = [0.0781, 0.0294] # July
-#first_day_str = '2012-07-15' # July
+# values_trans = [0.0781, 0.0294] # July
+# first_day_str = '2012-07-15' # July
 
 values_trans = [0.1485, 0.0876] # October
 first_day_str = '2012-10-1' # October
@@ -43,11 +44,19 @@ if steps['clean_dirs'] == 1:
         for file_name in src_files:
             os.remove('output/'+dir_path+file_name)
 ################################################
-if steps['extract_params'] == 1:
-    print('Extracting SUEWS parameters . . . ')
+if steps['extract_params_cities'] == 1:
+    print('Extracting SUEWS parameters for cities . . . ')
     for cityname in citynames:
         print('preparing for '+cityname+' . . .')
         getting_SUEWS_params(cityname, first_day_str)
+################################################
+if steps['extract_params_vegs'] == 1:
+    print('Extracting SUEWS parameters for vegetations . . . ')
+    for veg_type in ['EveTr','DecTr','Grass']:
+        print('preparing for '+veg_type+' . . .')
+        getting_SUEWS_params(citynames[0],first_day_str,
+                            veg_spin=1,veg_type=veg_type)
+
 ################################################
 if steps['modify_trans'] == 1:
     print('Modifying taransmisivity . . .')

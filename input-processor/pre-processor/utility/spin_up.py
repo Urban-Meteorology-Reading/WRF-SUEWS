@@ -5,7 +5,7 @@ import numpy as np
 import supy as sp
 from pathlib import Path
 #%%
-def spin_lai_albedo(maxalb,minalb,maxlai,minlai,first_day_str):
+def spin_lai_albedo(maxalb,minalb,maxlai,minlai,baset,basete,first_day_str):
     path_runcontrol = Path('runs/run_'+'Swindon') / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
     grid = df_state_init.index[0]
@@ -20,6 +20,9 @@ def spin_lai_albedo(maxalb,minalb,maxlai,minlai,first_day_str):
     df_state_init.loc[:,'albmin_grass']=minalb[2]
     df_state_init.loc[:,'laimax']=maxlai
     df_state_init.loc[:,'laimin']=minlai
+    df_state_init.loc[:,'baset']=baset
+    df_state_init.loc[:,'basete']=basete
+
     first_day = datetime.strptime(first_day_str, '%Y-%m-%d')
 
     print('Rotating the time based on the first day of '+first_day_str)
