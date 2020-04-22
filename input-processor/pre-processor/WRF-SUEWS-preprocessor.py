@@ -1,7 +1,7 @@
 # %%
 from utility.SUEWS_param import getting_SUEWS_params
 from utility.change_to_suews import change_input_to_SUEWS
-from utility.g1_g6 import g1_g6
+from utility.parameters import parameters
 from utility.timezone_collector import set_timezone
 from utility.modify_London import modify_all_London
 import os
@@ -13,24 +13,27 @@ steps = {'clean_dirs': 1,
          'modify_trans': 1,
          'change_to_SUEWS': 1,
          'modify_London': 1,
-         'g1_g6': 1,
+         'parameters': 1,
          'timezone': 0
          }
 ################################################
 citynames = ['London', 'Swindon']
 #values_trans = [0.2039, 0.2105] # April
-#values_trans = [0.186, 0.0712] # January
-#values_trans = [0.0781, 0.0294] # July
-values_trans = [0.1485, 0.0876] # October
 #first_day_str = '2012-04-10' # April
+
+#values_trans = [0.186, 0.0712] # January
 #first_day_str = '2012-01-10' # January
+
+#values_trans = [0.0781, 0.0294] # July
 #first_day_str = '2012-07-15' # July
+
+values_trans = [0.1485, 0.0876] # October
 first_day_str = '2012-10-1' # October
-finalize = 0
 ################################################
+finalize = 0
 if steps['clean_dirs'] == 1:
     dir_paths = ['1-changed_to_SUEWS/',
-                 '2-g1_g6_changed/',
+                 '2-parameters_changed/',
                  '3-timezone_changed/',
                  'final/'
                  ]
@@ -71,10 +74,10 @@ if steps['modify_London'] == 1:
     name2 = 'output/1-changed_to_SUEWS/wrfinput_d03.suews'
     os.rename(name1, name2)
 ################################################
-if steps['g1_g6'] == 1:
-    print('Modifying g1-g6 . . .')
-    g1_g6(first_day_str)
-    out = 'output/2-g1_g6_changed/'
+if steps['parameters'] == 1:
+    print('Modifying parameters . . .')
+    parameters(first_day_str)
+    out = 'output/2-parameters_changed/'
     finalize = 1
 ################################################
 if steps['timezone'] == 1:
