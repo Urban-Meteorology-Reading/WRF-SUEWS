@@ -11,6 +11,7 @@ from scipy.interpolate import griddata
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import matplotlib.colors as colors
 from .spin_up import spin_lai_albedo
+import json
 
 
 #%%
@@ -23,6 +24,12 @@ def mod_gs(ds_base, g1, g2, g3, g4, g5, g6, i, j):
     ds_base['G5'].values[0, i, j] = g5
     ds_base['G6'].values[0, i, j] = g6
 
+    return ds_base
+
+def change_soil_moisture(ds_base,veg_type,i,j):
+    with open(f'./output/SUEWS_param_{veg_type}.json') as param_file:
+        params = json.load(param_file)
+    ds_base['SoilMoist_SUEWS'.upper()].values[0, :, i, j]=params['soilmoist_SUEWS']['value']
     return ds_base
 
 
@@ -123,24 +130,28 @@ def parameters(first_day_str):
                         ds_base, g1[0], g2[0], g3[0], g4[0], g5[0], g6[0], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                    ds_base=change_soil_moisture(ds_base,'EveTr',i,j)
 
                 elif mx_fr == a['dectr'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[1], g2[1], g3[1], g4[1], g5[1], g6[1], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                    ds_base=change_soil_moisture(ds_base,'DecTr',i,j)
 
                 elif mx_fr == a['grass'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[2], g2[2], g3[2], g4[2], g5[2], g6[2], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                    ds_base=change_soil_moisture(ds_base,'Grass',i,j)
 
                 elif mx_fr == a['bsoil'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[3], g2[3], g3[3], g4[3], g5[3], g6[3], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
+                    ds_base=change_soil_moisture(ds_base,'Grass',i,j)
 
                 else:
                     pass
