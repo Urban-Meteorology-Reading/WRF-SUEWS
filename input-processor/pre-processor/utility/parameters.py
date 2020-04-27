@@ -71,6 +71,7 @@ def parameters(first_day_str):
     maxlai = all_attrs['maxlai'].values[0:3]
     minlai = all_attrs['minlai'].values[0:3]
     maxg = all_attrs['maxg'].values[0:3]
+    maxg_crop=all_attrs['maxg'].values[4]
     maxalb = all_attrs['maxalb'].values[0:3]
     minalb = all_attrs['minalb'].values[0:3]
     baset = all_attrs['baset'].values[0:3]
@@ -139,7 +140,16 @@ def parameters(first_day_str):
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
                     ds_base=change_soil_moisture(ds_base,'DecTr',i,j)
 
-                elif mx_fr == a['grass'][i, j]:
+                elif ((mx_fr == a['grass'][i, j]) and ((b.values[0, 11, i, j]+b.values[0, 13, i, j])>=0.5)):
+                    ds_base = mod_gs(
+                        ds_base, g1[4], g2[4], g3[4], g4[4], g5[4], g6[4], i, j)
+                    maxg_temp=maxg.copy()
+                    maxg_temp[2]=maxg_crop
+                    ds_base = mod_lai_albedo(
+                        ds_base,baset,basete, maxlai, minlai, maxg_temp, maxalb, minalb, alb_init, lai_init, i, j)
+                    ds_base=change_soil_moisture(ds_base,'Grass',i,j)
+
+                elif mx_fr == a['grass'][i, j] and (b.values[0, 11, i, j]+b.values[0, 13, i, j])<0.5:
                     ds_base = mod_gs(
                         ds_base, g1[2], g2[2], g3[2], g4[2], g5[2], g6[2], i, j)
                     ds_base = mod_lai_albedo(
