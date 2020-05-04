@@ -116,8 +116,8 @@ def modify_all_London():
     # +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0
     # '''
     # shapefile_converted=shapefile2.to_crs({'init': p2_text})
-    # shapefile_converted['Res_dens']=shapefile_converted['ResPop']/(shapefile_converted['Area']/10000)
-    # shapefile_converted['Work_dens']=shapefile_converted['WorkPop']/(shapefile_converted['Area']/10000)
+    # shapefile_converted['Res_dens']=shapefile_converted['ResPop']/(shapefile_converted.geometry.area/10000)
+    # shapefile_converted['Work_dens']=shapefile_converted['WorkPop']/(shapefile_converted.geometry.area/10000)
 
     # shapefile_converted_2=shapefile_converted.copy()
     # shapefile_converted_2.loc[shapefile_converted_2[shapefile_converted_2['Work_dens']>17000].index,'Work_dens']=np.nan
