@@ -111,56 +111,66 @@ def modify_all_London():
     ds_base['LANDUSEF'].values[0,16,:,:][cd]=new_all['Fr_Water'][cd]/2
 
 
-    # shapefile2 = gpd.read_file("data/ESRI1/OAres_work_pop.shp")
-    # p2_text='''ESRI:102009 +proj=lcc +lat_1=30 +lat_2=60 +lat_0=51.51 +lon_0=-0.96 
-    # +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0
-    # '''
-    # shapefile_converted=shapefile2.to_crs({'init': p2_text})
-    # shapefile_converted['Res_dens']=shapefile_converted['ResPop']/(shapefile_converted.geometry.area/10000)
-    # shapefile_converted['Work_dens']=shapefile_converted['WorkPop']/(shapefile_converted.geometry.area/10000)
-
-    # shapefile_converted_2=shapefile_converted.copy()
-    # shapefile_converted_2.loc[shapefile_converted_2[shapefile_converted_2['Work_dens']>17000].index,'Work_dens']=np.nan
-    # shapefile_converted_2.loc[shapefile_converted_2[shapefile_converted_2['Res_dens']>17000].index,'Res_dens']=np.nan
-
-    # x1=shapefile_converted_2.iloc[:]['geometry'].centroid.x
-    # y1=shapefile_converted_2.iloc[:]['geometry'].centroid.y
-    # names=['Work_dens','Res_dens']
-    # names_wrf=['PopDensDayTime_SUEWS','PopDensNightTime_SUEWS']
-    # for name,name_wrf in zip(names,names_wrf):
-    #     print(name)
-    #     z1=shapefile_converted_2[name]
-    #     grid_x, grid_y,new_0=regrid_lower_2('',z1,x1,y1,wrf_X,wrf_Y)
-    #     xx=np.where(new_0==new_0[~np.isnan(new_0)].max())[0]
-    #     yy=np.where(new_0==new_0[~np.isnan(new_0)].max())[1]
-    #     new_0[new_0==new_0[~np.isnan(new_0)].max()]=(new_0[xx+1,yy]+new_0[xx-1,yy]+new_0[xx,yy+1]+new_0[xx,yy-1])/4
-    #     ds_var=ds_base[name_wrf.upper()].values[0,:,:]
-    #     ds_var[~np.isnan(new_0)]=new_0[~np.isnan(new_0)]
-    #     #ds_var[np.isnan(new_0)]=0
-    #     zz=ds_base[name_wrf.upper()].values[0,:,:]
-    #     zz[zz<0]=0
-    #     zz[np.isnan(new_0) & (zz!=0)]=np.percentile(zz[~np.isnan(new_0)],50)
-    #     ds_base[name_wrf.upper()].values[0,:,:]=zz
+    shapefile2 = gpd.read_file("data/ESRI1/OAres_work_pop.shp")
+    p2_text='''+units=m +proj=lcc +lat_1=30 +lat_2=60 +lat_0=51.51 +lon_0=-0.96 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0
+    '''
+    shapefile_converted=shapefile2.to_crs(p2_text)
+    shapefile_converted_2=shapefile_converted.copy()
 
 
-    # w1s=[0.1446,0,0.0037]
-    # w2s=[0.133,0,0.0038]
-    # qs=['qf_a_suews','qf_b_suews','qf_c_suews']
-    # dtemp=ds_base.copy()
-    # zz=dtemp['landusef'.upper()].values[0,12,:,:]
-
-    # for q,w1,w2 in zip(qs,w1s,w2s):
+    x1=shapefile_converted_2.iloc[:]['geometry'].centroid.x
+    y1=shapefile_converted_2.iloc[:]['geometry'].centroid.y
+    names=['WorkPop','ResPop']
+    names_wrf=['PopDensDayTime_SUEWS','PopDensNightTime_SUEWS']
+    for name,name_wrf in zip(names,names_wrf):
         
-    #     print(q)
-    #     qa=dtemp[q.upper()].values[0,0,:,:]
-    #     qa[(zz<=0.50) & (qa!=0)]=w1
-    #     dtemp[q.upper()].values[0,0,:,:]=qa
+        print(name)
+        new_a=np.full_like(wrf_X,fill_value=0)
         
-    #     qa=dtemp[q.upper()].values[0,1,:,:]
-    #     qa[(zz<=0.50) & (qa!=0)]=w2
-    #     dtemp[q.upper()].values[0,1,:,:]=qa
+        for x,y,val in zip(x1,y1,shapefile_converted_2[name]):
+
+            for id_x,i in enumerate(wrf_X[0,:-1]):
+                if x>=i and x<=wrf_X[0,id_x+1]:
+                    id_x_wrf=id_x
+                    i_wrf=i
+
+            for id_y,j in enumerate(wrf_Y[:-1,0]):
+                if y>=j and y<=wrf_Y[id_y+1,0]:
+                    id_y_wrf=id_y
+                    j_wrf=j
+
+            new_a[id_y_wrf,id_x_wrf]+=val/100 # to ha-1
+            
+        new_a[np.where(new_a==0)]=np.nan
+        ds_var=ds_base[name_wrf.upper()].values[0,:,:]
+        ds_var[~np.isnan(new_a)]=new_a[~np.isnan(new_a)]
+        zz=ds_base[name_wrf.upper()].values[0,:,:]
+        zz[zz<0]=0
+        zz[np.isnan(new_a) & (zz!=0)]=np.percentile(zz[~np.isnan(new_a)],50)
+        ds_base[name_wrf.upper()].values[0,:,:]=zz
         
-    # ds_base=dtemp    
+    ds_base['PopDensDayTime_SUEWS'.upper()].values[0,37,19]=310
+    ds_base['PopDensNightTime_SUEWS'.upper()].values[0,37,19]=99
+
+# Modifying the QF coefficients to be more representive
+    w1s=[0.1446,0,0.0037]
+    w2s=[0.133,0,0.0038]
+    qs=['qf_a_suews','qf_b_suews','qf_c_suews']
+    dtemp=ds_base.copy()
+    zz=dtemp['landusef'.upper()].values[0,12,:,:]
+
+    for q,w1,w2 in zip(qs,w1s,w2s):
+        
+        print(q)
+        qa=dtemp[q.upper()].values[0,0,:,:]
+        qa[(zz<=0.50) & (qa!=0)]=w1
+        dtemp[q.upper()].values[0,0,:,:]=qa
+        
+        qa=dtemp[q.upper()].values[0,1,:,:]
+        qa[(zz<=0.50) & (qa!=0)]=w2
+        dtemp[q.upper()].values[0,1,:,:]=qa
+        
+    ds_base=dtemp    
 
 
     ds_merged = ds_base.update(ds_base)    
