@@ -74,6 +74,8 @@ def getting_SUEWS_params(cityname,first_day_str,veg_spin=0,veg_type=''):
 
     for int_var in int_list_method:
         df_state_init[int_var]=df_state_init[int_var].astype(int)
+    
+    df_state_init['snowuse']=int(0) # remove this if snowuse is implemented otherwise it cause problems during winter
 
     df_state_init.rename(columns={'soilstore_id': 'soilmoist'}, inplace=True)
     ##################### JSON ######################################
