@@ -119,28 +119,28 @@ def parameters(first_day_str):
 
                 mx_fr = np.max([a['urban'][i, j], a['evetr'][i, j], a['dectr']
                                 [i, j], a['grass'][i, j], a['bsoil'][i, j], a['water'][i, j]])
-
-                if (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] > 0.50):
-                    pass
-
-                elif (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] <= 0.50):
-                    pass
-
+                ###########################################################################
+                if (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] > 0.60):
+                    ds_base=change_soil_moisture(ds_base,'London',i,j)
+                ###########################################################################
+                elif (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] <= 0.60):
+                    ds_base=change_soil_moisture(ds_base,'Swindon',i,j)
+                ###########################################################################
                 elif mx_fr == a['evetr'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[0], g2[0], g3[0], g4[0], g5[0], g6[0], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
                     ds_base=change_soil_moisture(ds_base,'EveTr',i,j)
-
+                ###########################################################################
                 elif mx_fr == a['dectr'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[1], g2[1], g3[1], g4[1], g5[1], g6[1], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
                     ds_base=change_soil_moisture(ds_base,'DecTr',i,j)
-
-                elif ((mx_fr == a['grass'][i, j]) and ((b.values[0, 11, i, j]+b.values[0, 13, i, j])>=0.5)):
+                ###########################################################################
+                elif ((mx_fr == a['grass'][i, j]) and ((b.values[0, 11, i, j]+b.values[0, 13, i, j])>=0.5)):#Grass-Crop
                     ds_base = mod_gs(
                         ds_base, g1[4], g2[4], g3[4], g4[4], g5[4], g6[4], i, j)
                     maxg_temp=maxg.copy()
@@ -148,21 +148,21 @@ def parameters(first_day_str):
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg_temp, maxalb, minalb, alb_init, lai_init, i, j)
                     ds_base=change_soil_moisture(ds_base,'Grass',i,j)
-
+                ###########################################################################
                 elif mx_fr == a['grass'][i, j] and (b.values[0, 11, i, j]+b.values[0, 13, i, j])<0.5:
                     ds_base = mod_gs(
                         ds_base, g1[2], g2[2], g3[2], g4[2], g5[2], g6[2], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
                     ds_base=change_soil_moisture(ds_base,'Grass',i,j)
-
+                ###########################################################################
                 elif mx_fr == a['bsoil'][i, j]:
                     ds_base = mod_gs(
                         ds_base, g1[3], g2[3], g3[3], g4[3], g5[3], g6[3], i, j)
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
                     ds_base=change_soil_moisture(ds_base,'Grass',i,j)
-
+                ###########################################################################
                 else:
                     pass
 
