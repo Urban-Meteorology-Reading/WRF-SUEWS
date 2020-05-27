@@ -26,11 +26,11 @@ citynames = ['London', 'Swindon']
 # values_trans = [0.186, 0.0712] # January
 # first_day_str = '2012-01-10' # January
 
-# values_trans = [0.0781, 0.0294] # July
-# first_day_str = '2012-07-15' # July
+values_trans = [0.0781, 0.0294] # July
+first_day_str = '2012-07-15' # July
 
-values_trans = [0.1485, 0.0876] # October
-first_day_str = '2012-10-1' # October
+# values_trans = [0.1485, 0.0876] # October
+# first_day_str = '2012-10-1' # October
 ################################################
 finalize = 0
 if steps['clean_dirs'] == 1:
@@ -57,7 +57,6 @@ if steps['extract_params_vegs'] == 1:
         print('preparing for '+veg_type+' . . .')
         getting_SUEWS_params(citynames[0],first_day_str,
                             veg_spin=1,veg_type=veg_type)
-
 ################################################
 if steps['modify_trans'] == 1:
     print('Modifying taransmisivity . . .')

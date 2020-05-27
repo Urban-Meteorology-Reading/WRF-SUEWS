@@ -2,7 +2,7 @@ digraph pre_process {
     label="WRF_SUEWS_spin_up";
     labelloc="t"
     fontsize=30
-    dpi = 350
+    //dpi = 350
 
     Major_LC [shape=invhouse,style=filled,fillcolor=darkorchid1,label="Major land cover"]
     Bldg_Paved [label="Bldg + Paved"]
@@ -10,8 +10,8 @@ digraph pre_process {
     EveTr [label="EveTr"]
     DecTr [label="DecTr"]
     Bsoil [label="Bsoil"]
-    BP_less [label="Bldg+Paved < 0.5"]
-    BP_more [label="Bldg+Paved > 0.5"]
+    BP_less [label="Bldg+Paved < 0.6"]
+    BP_more [label="Bldg+Paved > 0.6"]
     base_KCL [style=filled,fontcolor=white,fillcolor=black,shape=polygon,label="KCL base run"]
     base_SWD [style=filled,fontcolor=white,fillcolor=black,shape=polygon,label="SWD base run"]
     base_Grass [style=filled,fontcolor=white,fillcolor=black,shape=polygon,label="Grass base run"]
