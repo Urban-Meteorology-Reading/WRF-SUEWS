@@ -9,9 +9,10 @@ import shutil
 import json
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
-steps = {'clean_dirs': 1,
-         'extract_params_cities': 1,
-         'extract_params_vegs': 1,
+steps = {'clean_dirs': 0,
+         'extract_params_cities': 0,
+         'extract_params_vegs': 0,
+         'extract_params_extra_lands': 0,
          'modify_trans': 1,
          'change_to_SUEWS': 1,
          'modify_London': 1,
@@ -56,6 +57,13 @@ if steps['extract_params_vegs'] == 1:
     for veg_type in ['EveTr','DecTr','Grass']:
         print('preparing for '+veg_type+' . . .')
         getting_SUEWS_params(citynames[0],first_day_str,
+                            veg_spin=1,veg_type=veg_type)
+################################################
+if steps['extract_params_extra_lands'] == 1:
+    print('Extracting SUEWS parameters for 4 extera lands . . . ')
+    for veg_type in ['G1','G2','G3','G4']:
+        print('preparing for '+veg_type+' . . .')
+        getting_SUEWS_params(citynames[1],first_day_str,
                             veg_spin=1,veg_type=veg_type)
 ################################################
 if steps['modify_trans'] == 1:
