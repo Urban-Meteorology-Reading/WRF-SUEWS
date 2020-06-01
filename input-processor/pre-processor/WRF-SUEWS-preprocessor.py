@@ -9,10 +9,10 @@ import shutil
 import json
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
-steps = {'clean_dirs': 0,
-         'extract_params_cities': 0,
-         'extract_params_vegs': 0,
-         'extract_params_extra_lands': 0,
+steps = {'clean_dirs': 1,
+         'extract_params_cities': 1,
+         'extract_params_vegs': 1,
+         'extract_params_extra_lands': 1,
          'modify_trans': 1,
          'change_to_SUEWS': 1,
          'modify_London': 1,
@@ -21,17 +21,18 @@ steps = {'clean_dirs': 0,
          }
 ################################################
 citynames = ['London', 'Swindon']
+
 # values_trans = [0.2039, 0.2105] # April
 # first_day_str = '2012-04-10' # April
 
 # values_trans = [0.186, 0.0712] # January
 # first_day_str = '2012-01-10' # January
 
-values_trans = [0.0781, 0.0294] # July
-first_day_str = '2012-07-15' # July
+# values_trans = [0.0781, 0.0294] # July
+# first_day_str = '2012-07-15' # July
 
-# values_trans = [0.1485, 0.0876] # October
-# first_day_str = '2012-10-1' # October
+values_trans = [0.1485, 0.0876] # October
+first_day_str = '2012-10-1' # October
 ################################################
 finalize = 0
 if steps['clean_dirs'] == 1:

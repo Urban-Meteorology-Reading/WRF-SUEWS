@@ -115,7 +115,7 @@
 /
 
 &method
-    snowuse = 1
+    snowuse = 0
     roughlenheatmethod = 2.0
     roughlenmommethod = 2
     emissionsmethod = 2
