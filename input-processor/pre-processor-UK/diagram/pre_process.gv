@@ -1,0 +1,29 @@
+digraph pre_process {
+    label="WRF_SUEWS_preprocessor";
+    labelloc="t"
+    fontsize=30
+    dpi = 350
+
+
+    WRF_input [style=filled,fillcolor=darkorchid1,label="WRF_input (WPS)"]
+    SUEWS_spin_up [style=filled,fillcolor=darkseagreen1,label="SUEWS spin up \n\nUrban\nDecTr\nEveTr\nGrass\nWater\nSoil"]
+    SUEWS_parameters [style=filled,fillcolor=darkseagreen1,label="SUEWS parameters: \n\nAlbedo\nLAI\nOHM\ng1-g6"]
+    intermediate_input [label="intermediate input"];
+    JSON [shape=circle,label="*.JSON",style=filled,fillcolor=darkseagreen1];
+    namelist [shape=invhouse,bgcolor=black,style=filled,label="namelist.suews\n\n \"global configuration\""]
+    WRF_SUEWS_input [shape=invhouse,bgcolor=black,style=filled];
+    spatial_input [style=filled,fillcolor=burlywood1,label="spatial inputs: \n\nland cover\npoulation\nbuilding height\ntree height\ntransmissivity"];
+    WRF_SUEWS [fontcolor=white,fillcolor=black,style=filled,];
+
+    
+    SUEWS_parameters -> SUEWS_spin_up;
+    WRF_input -> intermediate_input;
+    SUEWS_spin_up -> JSON;
+    JSON -> intermediate_input;
+    SUEWS_spin_up -> namelist;
+    intermediate_input [shape=polygon];
+    intermediate_input -> WRF_SUEWS_input;
+    spatial_input -> WRF_SUEWS_input
+    WRF_SUEWS_input -> WRF_SUEWS;
+    namelist -> WRF_SUEWS;
+}

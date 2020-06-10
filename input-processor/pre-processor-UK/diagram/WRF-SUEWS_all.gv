@@ -1,0 +1,19 @@
+digraph WRF_SUEWS_all {
+    label="WRF_SUEWS";
+    labelloc="t"
+    fontsize=30
+    dpi = 350
+
+    WRF_SUEWS_preprocessor [fontcolor=white,fillcolor=blue,style=filled,shape=box,color=blue];
+    WRF_SUEWS_input [shape=invhouse,bgcolor=black,style=filled];
+    namelist [shape=invhouse,bgcolor=black,style=filled,label="namelist.suews\n\n \"global configuration\""]
+    WRF_SUEWS [fontcolor=white,fillcolor=black,style=filled,];
+    output [style=filled,fillcolor=green]
+
+    WRF_SUEWS_preprocessor -> namelist;
+    WRF_SUEWS_preprocessor -> WRF_SUEWS_input;
+    WRF_SUEWS_input -> WRF_SUEWS;
+    namelist -> WRF_SUEWS;
+    WRF_SUEWS -> output;
+    
+}
