@@ -10,8 +10,8 @@ import json
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
 steps = {'clean_dirs': 1,
-         'extract_params_cities': 0,
-         'extract_params_vegs': 0,
+         'extract_params_cities': 1,
+         'extract_params_vegs': 1,
          'extract_params_extra_lands': 0,
          'modify_trans': 0,
          'change_to_SUEWS': 1,
@@ -21,7 +21,6 @@ steps = {'clean_dirs': 1,
          }
 ################################################
 citynames = ['Colombo']
-
 values_trans = [0] 
 first_day_str = '2016-01-01'
 ################################################
@@ -44,12 +43,12 @@ if steps['extract_params_cities'] == 1:
         print('preparing for '+cityname+' . . .')
         getting_SUEWS_params(cityname, first_day_str)
 ################################################
-# if steps['extract_params_vegs'] == 1:
-#     print('Extracting SUEWS parameters for vegetations . . . ')
-#     for veg_type in ['EveTr','DecTr','Grass']:
-#         print('preparing for '+veg_type+' . . .')
-#         getting_SUEWS_params(citynames[0],first_day_str,
-#                             veg_spin=1,veg_type=veg_type)
+if steps['extract_params_vegs'] == 1:
+    print('Extracting SUEWS parameters for vegetations . . . ')
+    for veg_type in ['EveTr','DecTr','Grass']:
+        print('preparing for '+veg_type+' . . .')
+        getting_SUEWS_params(citynames[0],first_day_str,
+                            veg_spin=1,veg_type=veg_type)
 ################################################
 # if steps['extract_params_extra_lands'] == 1:
 #     print('Extracting SUEWS parameters for 4 extera lands . . . ')
