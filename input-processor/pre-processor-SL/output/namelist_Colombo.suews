@@ -110,8 +110,8 @@
     tau_f = 0.1
     tau_r = 0.02
     tempmeltfact = 0.14
-    startdls = 85
-    enddls = 302
+    startdls = 365
+    enddls = 1
 /
 
 &method
