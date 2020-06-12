@@ -6,7 +6,7 @@ import supy as sp
 from pathlib import Path
 #%%
 def spin_lai_albedo(maxalb,minalb,maxlai,minlai,baset,basete,first_day_str):
-    path_runcontrol = Path('runs/run_'+'Swindon') / 'RunControl.nml'
+    path_runcontrol = Path('runs/run_'+'Colombo') / 'RunControl.nml'
     df_state_init = sp.init_supy(path_runcontrol)
     grid = df_state_init.index[0]
     df_forcing = sp.load_forcing_grid(path_runcontrol, grid)

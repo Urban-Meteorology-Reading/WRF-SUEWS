@@ -121,10 +121,10 @@ def parameters(first_day_str):
                                 [i, j], a['grass'][i, j], a['bsoil'][i, j], a['water'][i, j]])
                 ###########################################################################
                 if (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] > 0.60):
-                    ds_base=change_soil_moisture(ds_base,'London',i,j)
+                    ds_base=change_soil_moisture(ds_base,'Colombo',i,j)
                 ###########################################################################
                 elif (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] <= 0.60):
-                    ds_base=change_soil_moisture(ds_base,'Swindon',i,j)
+                    ds_base=change_soil_moisture(ds_base,'Colombo',i,j)
                 ###########################################################################
                 elif mx_fr == a['evetr'][i, j]:
                     ds_base = mod_gs(
@@ -156,19 +156,19 @@ def parameters(first_day_str):
                     ds_base = mod_lai_albedo(
                         ds_base,baset,basete, maxlai, minlai, maxg, maxalb, minalb, alb_init, lai_init, i, j)
                     
-                    fr_paved=ds_base['PAVED_RATIO'].values[0,i,j]*a['urban'][i, j]
-                    fr_build=a['urban'][i, j]-fr_paved
+                    # fr_paved=ds_base['PAVED_RATIO'].values[0,i,j]*a['urban'][i, j]
+                    # fr_build=a['urban'][i, j]-fr_paved
                     
-                    if (fr_paved>=0.18105 and fr_paved<0.27158) and (fr_build>=0.204301 and fr_build<0.27240233):
-                        ds_base=change_soil_moisture(ds_base,'G1',i,j)
-                    elif (fr_paved>=0.18105 and fr_paved<0.27158) and (fr_build>=0.13620117 and fr_build<0.204301):
-                        ds_base=change_soil_moisture(ds_base,'G2',i,j)
-                    elif (fr_paved>=0.18105 and fr_paved<0.27158) and (fr_build>=0.06810058 and fr_build<0.13620117):
-                        ds_base=change_soil_moisture(ds_base,'G3',i,j)
-                    elif (fr_paved>=0.27158 and fr_paved<0.36211554) and (fr_build>=0.06810058 and fr_build<0.13620117):
-                        ds_base=change_soil_moisture(ds_base,'G4',i,j)
-                    else:
-                        ds_base=change_soil_moisture(ds_base,'Grass',i,j)
+                    # if (fr_paved>=0.18105 and fr_paved<0.27158) and (fr_build>=0.204301 and fr_build<0.27240233):
+                    #     ds_base=change_soil_moisture(ds_base,'G1',i,j)
+                    # elif (fr_paved>=0.18105 and fr_paved<0.27158) and (fr_build>=0.13620117 and fr_build<0.204301):
+                    #     ds_base=change_soil_moisture(ds_base,'G2',i,j)
+                    # elif (fr_paved>=0.18105 and fr_paved<0.27158) and (fr_build>=0.06810058 and fr_build<0.13620117):
+                    #     ds_base=change_soil_moisture(ds_base,'G3',i,j)
+                    # elif (fr_paved>=0.27158 and fr_paved<0.36211554) and (fr_build>=0.06810058 and fr_build<0.13620117):
+                    #     ds_base=change_soil_moisture(ds_base,'G4',i,j)
+                    # else:
+                    ds_base=change_soil_moisture(ds_base,'Grass',i,j)
                 ###########################################################################
                 elif mx_fr == a['bsoil'][i, j]:
                     ds_base = mod_gs(

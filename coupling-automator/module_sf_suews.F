@@ -1665,7 +1665,7 @@ CONTAINS
        ! END IF
        CALL toSUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
 
-      ! this is to fix the paved/building ratio (by default the ratio is 1)
+      ! this is to fix the paved/(paved+building) ratio (by default the ratio is 0.5)
        DO j = jts,jtf
           DO i = its,itf
             sum_urban=landusef_SUEWS(i, 1, j)+landusef_SUEWS(i, 2, j)
