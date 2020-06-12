@@ -23,7 +23,7 @@ def get_timezone(lat,lon):
     return offset.total_seconds()/3600
 
 def set_timezone():
-    x_files=sorted(glob('output/2-g1_g6_changed/wrfinput_d0*'))
+    x_files=sorted(glob('output/2-parameters_changed/wrfinput_d0*'))
     for x_file in x_files:
         print('working on '+x_file)
         ds_base = xr.open_dataset(x_file)
@@ -44,7 +44,7 @@ def set_timezone():
             if 'coordinates' in ds_merged[var].attrs:
                 del ds_merged[var].attrs['coordinates']
 
-        file_out = 'output/3-timezone_changed/'+x_file.split('output/2-g1_g6_changed/')[1]
+        file_out = 'output/3-timezone_changed/'+x_file.split('output/2-parameters_changed/')[1]
 
         ds_merged.to_netcdf(file_out,
                             mode='w', format='NETCDF3_64BIT')

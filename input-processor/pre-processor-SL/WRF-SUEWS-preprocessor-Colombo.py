@@ -10,13 +10,13 @@ import json
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
 steps = {'clean_dirs': 1,
-         'extract_params_cities': 1,
-         'extract_params_vegs': 1,
+         'extract_params_cities': 0,
+         'extract_params_vegs': 0,
          'extract_params_extra_lands': 0,
          'modify_trans': 0,
          'change_to_SUEWS': 1,
          'modify_Colombo': 1,
-         'parameters': 0,
+         'parameters': 1,
          'timezone': 0
          }
 ################################################
@@ -82,17 +82,17 @@ if steps['modify_Colombo'] == 1:
     name2 = 'output/1-changed_to_SUEWS/wrfinput_d03.suews'
     os.rename(name1, name2)
 ################################################
-# if steps['parameters'] == 1:
-#     print('Modifying parameters . . .')
-#     parameters(first_day_str)
-#     out = 'output/2-parameters_changed/'
-#     finalize = 1
+if steps['parameters'] == 1:
+    print('Modifying parameters . . .')
+    parameters(first_day_str)
+    out = 'output/2-parameters_changed/'
+    finalize = 1
 ################################################
-# if steps['timezone'] == 1:
-#     print('Changing timezone values . . . ')
-#     set_timezone()
-#     out = 'output/3-timzone_changed'
-#     finalize = 1
+if steps['timezone'] == 1:
+    print('Changing timezone values . . . ')
+    set_timezone()
+    out = 'output/3-timzone_changed'
+    finalize = 1
 ################################################
 if finalize == 1:
     src_files = os.listdir(out)
