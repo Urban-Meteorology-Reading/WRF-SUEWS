@@ -10,8 +10,8 @@ import json
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
 steps = {'clean_dirs': 1,
-         'extract_params_cities': 0,
-         'extract_params_vegs': 0,
+         'extract_params_cities': 1,
+         'extract_params_vegs': 1,
          'extract_params_extra_lands': 0,
          'modify_trans': 0,
          'change_to_SUEWS': 1,

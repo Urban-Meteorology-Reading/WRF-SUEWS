@@ -8,20 +8,24 @@ import xarray as xr
 from scipy.interpolate import griddata
 
 def regrid_lower(name,df,wrf_X,wrf_Y,x2,y2):
-    Z=df[name]
-    grid_x=wrf_X
-    grid_y=wrf_Y
-    new_Z=griddata(list(zip(x2,y2)), Z.values, (grid_x, grid_y), method='linear')
-    #pc_plot(grid_x, grid_y,new_Z,name)
-    return grid_x, grid_y,new_Z
-    
-def regrid_lower_2(name,z1,x1,y1,wrf_X,wrf_Y):
-    Z=z1
-    grid_x=wrf_X
-    grid_y=wrf_Y
-    new_Z=griddata(list(zip(x1,y1)), Z, (grid_x, grid_y),method='linear')
-    #pc_plot(grid_x, grid_y,new_Z,name)
-    return grid_x, grid_y,new_Z
+    new_a=np.full_like(wrf_X,fill_value=0)
+    count_a=np.full_like(wrf_X,fill_value=0)
+    for x,y,val in zip(x2,y2,df[name]):
+
+        for id_x,i in enumerate(wrf_X[0,:-1]):
+            if x>=i and x<=wrf_X[0,id_x+1]:
+                id_x_wrf=id_x
+                i_wrf=i
+
+        for id_y,j in enumerate(wrf_Y[:-1,0]):
+            if y>=j and y<=wrf_Y[id_y+1,0]:
+                id_y_wrf=id_y
+                j_wrf=j
+
+        new_a[id_y_wrf,id_x_wrf]+=val
+        count_a[id_y_wrf,id_x_wrf]+=1
+    z=np.divide(new_a,count_a,where=~np.isnan(new_a))
+    return z
 
 def modify_all_London():
 
@@ -59,7 +63,7 @@ def modify_all_London():
 
     for name,name_wrf in zip(names,names_wrf):
         print(name)
-        grid_x, grid_y,new_0=regrid_lower(name,df,wrf_X,wrf_Y,x2,y2)
+        new_0=regrid_lower(name,df,wrf_X,wrf_Y,x2,y2)
         #new_all.update( {name : new_0} )
         ds_var=ds_base[name_wrf.upper()].values[0,:,:]
         ds_var[~np.isnan(new_0)]=new_0[~np.isnan(new_0)]
@@ -72,7 +76,7 @@ def modify_all_London():
     new_all={}
     for name in names:
         print(name)
-        grid_x, grid_y,new_0=regrid_lower(name,df,wrf_X,wrf_Y,x2,y2)
+        new_0=regrid_lower(name,df,wrf_X,wrf_Y,x2,y2)
         new_all[name]=new_0
 
     new_0=new_all['Fr_Paved']

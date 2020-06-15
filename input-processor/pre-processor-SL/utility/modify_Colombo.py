@@ -39,18 +39,31 @@ def modify_all_Colombo():
 
     wrf_X,wrf_Y=p2(wrf_LON,wrf_LAT)
 
-    def regrid_lower(name):
-        Z=df[name]
-        grid_x=wrf_X
-        grid_y=wrf_Y
-        new_Z=griddata(list(zip(x2,y2)), Z.values, (grid_x, grid_y), method='linear')
-        return grid_x, grid_y,new_Z
+    def regrid_lower(name,df,wrf_X,wrf_Y,x2,y2):
+        new_a=np.full_like(wrf_X,fill_value=0)
+        count_a=np.full_like(wrf_X,fill_value=0)
+        for x,y,val in zip(x2,y2,df[name]):
+
+            for id_x,i in enumerate(wrf_X[0,:-1]):
+                if x>=i and x<=wrf_X[0,id_x+1]:
+                    id_x_wrf=id_x
+                    i_wrf=i
+
+            for id_y,j in enumerate(wrf_Y[:-1,0]):
+                if y>=j and y<=wrf_Y[id_y+1,0]:
+                    id_y_wrf=id_y
+                    j_wrf=j
+
+            new_a[id_y_wrf,id_x_wrf]+=val
+            count_a[id_y_wrf,id_x_wrf]+=1
+        z=np.divide(new_a,count_a,where=~np.isnan(new_a))
+        return z
 
     names=['Fr_Paved' ,'Fr_Bldgs' ,'Fr_EveTr' ,'Fr_DecTr' ,'Fr_Grass' ,'Fr_Bsoil','Fr_Water']
     new_all={}
     for name in names:
         print(name)
-        grid_x, grid_y,new_0=regrid_lower(name)
+        new_0=regrid_lower(name,df,wrf_X,wrf_Y,x2,y2)
         new_all[name]=new_0
 
     new_0=new_all['Fr_Paved']
