@@ -440,6 +440,8 @@ CONTAINS
 
     REAL(KIND(1d0))                                  :: PopDensDaytime_id
     REAL(KIND(1d0))                                  :: PopDensNighttime_id
+    REAL(KIND(1d0))                                  :: PopDensDaytime_id_2
+    REAL(KIND(1d0))                                  :: PopDensNighttime_id_2
     REAL(KIND(1d0))                                  :: DecidCap_id
     REAL(KIND(1d0))                                  :: porosity_id
     REAL(KIND(1d0)),DIMENSION(5)                     :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
@@ -626,7 +628,15 @@ CONTAINS
 
           timezone=timezone_id ! NB: fix it for now
           ! print*, 'landusef_suews1d = ',landusef_suews1d
-
+          PopDensNighttime_id_2=PopDensNighttime_id
+          PopDensDaytime_id_2=PopDensDaytime_id
+          if ((hour.GE.9).AND.(hour.LE.16)) then
+            PopDensNighttime_id=PopDensDaytime_id
+          else if ((hour.GE.21).AND.(hour.LE.23)) then
+            PopDensDaytime_id=PopDensNighttime_id
+          else if ((hour.GE.0).AND.(hour.LE.4)) then
+            PopDensDaytime_id=PopDensNighttime_id
+         end if
 
 
           CALL SUEWS1D(&
@@ -777,8 +787,8 @@ CONTAINS
           IrrFracGrass_SUEWS(I,J)      = IrrFracGrass_id  
           DayWat_SUEWS(I,:,J)          = DayWat_id        
           DayWatPer_SUEWS(I,:,J)       = DayWatPer_id   
-          PopDensDaytime_SUEWS(I,J)      =   PopDensDaytime_id
-          PopDensNighttime_SUEWS(I,J)    =   PopDensNighttime_id
+          PopDensDaytime_SUEWS(I,J)      =   PopDensDaytime_id_2
+          PopDensNighttime_SUEWS(I,J)    =   PopDensNighttime_id_2
           DecidCap_SUEWS(I,J)      =   DecidCap_id
           porosity_SUEWS(I,J)      =   porosity_id
           GDD_SUEWS(I,:,J)         =   GDD_id
