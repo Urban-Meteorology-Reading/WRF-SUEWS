@@ -58,8 +58,8 @@ namelist.output
 wrfout_d0*
 SumData.DAT
 test-run
-wrfinput-processor/London-Land-Cover-Modify/.ipynb_checkpoints/
-wrfinput-processor/pre-processor/Other_modifies/Colombo/Colombo-Land-Cover-Fraction/Data/
+input-processor/pre-processor-SL/input/bldg_data/
+input-processor/pre-processor-SL/Other_modifies/Colombo/bldg_data/
 # python related files
 .ipynb_checkpoints
 
