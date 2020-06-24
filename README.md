@@ -2,6 +2,13 @@
 
 WRF-SUEWS coupling project
 
+**Make sure you use the following commands after cloning the repo:**
+
+``` bash
+git submodule init
+git submodule update
+```
+These commands update SUEWS repo associated with WRF-SUEWS. Currently, it is an older version of SUEWS than the most up-to-date one.
 
 # To compile and Run:
 1- Go to `coupling-automator`, and type `make`
