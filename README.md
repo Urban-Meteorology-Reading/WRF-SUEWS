@@ -38,3 +38,7 @@ These commands update SUEWS repo associated with WRF-SUEWS. Currently, it is an 
 8- `namelist.input` should also be modified to be consistent for WRF-SUEWS. See examples.
 
 9- The rest of steps, are similar to usual WRF runs (running WRF-SUEWS)
+
+# WPS process
+
+To generate the original `wrfinput` files (before processing them for WRF-SUEWS), you should follow [here](https://www2.mmm.ucar.edu/wrf/OnLineTutorial/CASES/JAN00). After generating `wrfinput` and `wrfbdy`, you need to follow pre-processing instructions to modify the input file suitbale for WRF-SUEWS runs
