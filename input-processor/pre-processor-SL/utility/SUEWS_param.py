@@ -33,8 +33,10 @@ def spinup_SUEWS(cityname,first_day_str,veg_spin=0,veg_type=''):
     second_part.index = second_part.index+pd.Timedelta('366 days')
 
     df_forcing_2 = first_part.append(second_part)
+    
     df_forcing_2.iy = df_forcing_2.index.year
     df_forcing_2.index.freq = first_part.index.freq
+   
     round_number = 0
     error = 0.4
     counter=0

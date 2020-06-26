@@ -19,7 +19,25 @@ def modify_all_Colombo():
     df.columns=['lat','lon','Fr_Paved' ,'Fr_Grass','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
     df['Fr_EveTr']=0
     df['Fr_DecTr']=0
-    df.head()
+
+
+    def toapp(row,to_inspect):
+        ct=0
+        if row[to_inspect]<0:
+            all_cat=['Fr_Paved' ,'Fr_Grass','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
+            for i in [x for x in all_cat if x!=to_inspect]:
+                if row[i]!=0:
+                    ct+=1
+            for i in [x for x in all_cat if x!=to_inspect]:
+                if row[i]!=0:
+                    row[i]=row[i]-row[to_inspect]/ct
+            row[to_inspect]=0
+        
+        return row
+    for i in ['Fr_Paved' ,'Fr_Grass','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']:
+        df=df.apply(lambda x:toapp(x,i),axis=1)
+
+
 
     lat=df['lat']
     lon=df['lon']

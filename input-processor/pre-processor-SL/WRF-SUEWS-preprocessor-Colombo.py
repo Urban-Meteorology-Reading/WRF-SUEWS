@@ -22,7 +22,7 @@ steps = {'clean_dirs': 1,
 ################################################
 citynames = ['Colombo']
 values_trans = [0] 
-first_day_str = '2016-01-01'
+first_day_str = '2016-04-10'
 ################################################
 finalize = 0
 if steps['clean_dirs'] == 1:
