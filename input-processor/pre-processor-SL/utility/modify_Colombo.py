@@ -14,7 +14,7 @@ from rasterio.features import rasterize
 from rasterio.transform import from_bounds
 
 def modify_all_Colombo():
-    list_files=glob.glob('/Users/hamidrezaomidvar/Desktop/LINDER/Colombo/fraction*')
+    list_files=glob.glob('/Users/hamidrezaomidvar/Desktop/LINDER/Colombo-3/fraction*')
     df=pd.concat([pd.read_csv(f,index_col=0) for f in list_files])
     df.columns=['lat','lon','Fr_Paved' ,'Fr_Grass','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
     df['Fr_EveTr']=0
@@ -74,9 +74,11 @@ def modify_all_Colombo():
                 if y>=j and y<=wrf_Y[id_y+1,0]:
                     id_y_wrf=id_y
                     j_wrf=j
-
-            new_a[id_y_wrf,id_x_wrf]+=val
-            count_a[id_y_wrf,id_x_wrf]+=1
+            try:
+                new_a[id_y_wrf,id_x_wrf]+=val
+                count_a[id_y_wrf,id_x_wrf]+=1
+            except:
+                print('some exception happened . . . (probably data is out of domain)')
         z=np.divide(new_a,count_a,where=~np.isnan(new_a))
         return z
 
