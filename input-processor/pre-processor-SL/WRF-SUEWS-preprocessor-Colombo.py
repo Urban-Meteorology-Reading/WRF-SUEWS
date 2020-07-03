@@ -4,6 +4,7 @@ from utility.change_to_suews import change_input_to_SUEWS
 from utility.parameters import parameters
 from utility.timezone_collector import set_timezone
 from utility.modify_Colombo import modify_all_Colombo
+from utility.modify_colombo_bldgh import   change_bldgh
 import os
 import shutil
 import json
@@ -14,8 +15,9 @@ steps = {'clean_dirs': 1,
          'extract_params_vegs': 0,
          'extract_params_extra_lands': 0,
          'modify_trans': 0,
-         'change_to_SUEWS': 1,
          'modify_Colombo': 1,
+         'change_to_SUEWS': 1,
+         'modify_bldgh': 1,
          'parameters': 1,
          'timezone': 0
          }
@@ -69,18 +71,21 @@ if steps['extract_params_vegs'] == 1:
 #         with open(new_json, 'w') as fp:
 #             json.dump(vars_to_add, fp, indent=4)
 ################################################
-if steps['change_to_SUEWS'] == 1:
-    print('Adding SUEWS inputs to WRF inputs . . .')
-    change_input_to_SUEWS()
-################################################
 #all specific modification should be done here!!!
 if steps['modify_Colombo'] == 1:
     print('Modifying Colombo domain . . .')
     modify_all_Colombo()
-    os.remove('output/1-changed_to_SUEWS/wrfinput_d03.suews')
-    name1 = 'output/1-changed_to_SUEWS/wrfinput_d03.suews.new'
-    name2 = 'output/1-changed_to_SUEWS/wrfinput_d03.suews'
-    os.rename(name1, name2)
+    # os.remove('output/1-changed_to_SUEWS/wrfinput_d03.suews')
+    # name1 = 'output/1-changed_to_SUEWS/wrfinput_d03.suews.new'
+    # name2 = 'output/1-changed_to_SUEWS/wrfinput_d03.suews'
+    # os.rename(name1, name2)
+################################################
+if steps['change_to_SUEWS'] == 1:
+    print('Adding SUEWS inputs to WRF inputs . . .')
+    change_input_to_SUEWS()
+################################################
+if steps['modify_bldgh'] == 1:
+    change_bldgh()
 ################################################
 if steps['parameters'] == 1:
     print('Modifying parameters . . .')
