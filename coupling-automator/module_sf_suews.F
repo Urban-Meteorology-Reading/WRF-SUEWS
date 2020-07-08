@@ -442,6 +442,7 @@ CONTAINS
     REAL(KIND(1d0))                                  :: PopDensNighttime_id
     REAL(KIND(1d0))                                  :: PopDensDaytime_id_2
     REAL(KIND(1d0))                                  :: PopDensNighttime_id_2
+    REAL(KIND(1d0))                                  :: hour_2
     REAL(KIND(1d0))                                  :: DecidCap_id
     REAL(KIND(1d0))                                  :: porosity_id
     REAL(KIND(1d0)),DIMENSION(5)                     :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
@@ -630,11 +631,17 @@ CONTAINS
           ! print*, 'landusef_suews1d = ',landusef_suews1d
           PopDensNighttime_id_2=PopDensNighttime_id
           PopDensDaytime_id_2=PopDensDaytime_id
-          if ((hour.GE.9).AND.(hour.LE.16)) then
+
+          hour_2=hour+timezone
+          if hour_2.G.24 then
+            hour_2=hour_2-24
+          end if
+
+          if ((hour_2.G.8).AND.(hour_2.LE.17)) then
             PopDensNighttime_id=PopDensDaytime_id
-          else if ((hour.GE.21).AND.(hour.LE.23)) then
+          else if ((hour_2.G.20).AND.(hour_2.LE.24)) then
             PopDensDaytime_id=PopDensNighttime_id
-          else if ((hour.GE.0).AND.(hour.LE.4)) then
+          else if ((hour_2.GE.0).AND.(hour_2.L.5)) then
             PopDensDaytime_id=PopDensNighttime_id
          end if
 
