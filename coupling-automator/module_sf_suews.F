@@ -633,15 +633,15 @@ CONTAINS
           PopDensDaytime_id_2=PopDensDaytime_id
 
           hour_2=hour+timezone
-          if hour_2.G.24 then
+          if (hour_2.GT.24) then
             hour_2=hour_2-24
           end if
 
-          if ((hour_2.G.8).AND.(hour_2.LE.17)) then
+          if ((hour_2.GT.8).AND.(hour_2.LE.17)) then
             PopDensNighttime_id=PopDensDaytime_id
-          else if ((hour_2.G.20).AND.(hour_2.LE.24)) then
+          else if ((hour_2.GT.20).AND.(hour_2.LE.24)) then
             PopDensDaytime_id=PopDensNighttime_id
-          else if ((hour_2.GE.0).AND.(hour_2.L.5)) then
+          else if ((hour_2.GE.0).AND.(hour_2.LT.5)) then
             PopDensDaytime_id=PopDensNighttime_id
          end if
 
