@@ -63,7 +63,7 @@ steps = {'clean_dirs': 1,
          }
 ```
 
-`clean_dirs`: cleaning directories in [output](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/output) folder before running the (main)[https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/master/input-processor/pre-processor-UK/WRF-SUEWS-preprocessor-UK.py] pre-processor code.
+`clean_dirs`: cleaning directories in [output](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/output) folder before running the [main](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/master/input-processor/pre-processor-UK/WRF-SUEWS-preprocessor-UK.py) pre-processor code.
 
 `extract_params_cities`: spining up SUEWS for cities  based on cities charactristics in the [runs folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/runs) - For all domains
 
