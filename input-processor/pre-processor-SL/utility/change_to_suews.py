@@ -111,6 +111,8 @@ def add_SUEWS_wrfinput_single(x_file):
 
 
     vars_to_add=vars_to_add_Colombo
+    # 'paved_ratio is already modified with land cover modification'
+    del vars_to_add['paved_ratio']
 
     # NB: variables in wrfinput have to be named in CAPITALISED strings
     ds_new = xr.Dataset({

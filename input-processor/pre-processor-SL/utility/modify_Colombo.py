@@ -93,6 +93,14 @@ def modify_all_Colombo():
     ds_base['LANDUSEF'].values[0,12,:,:][cd]=new_all['Fr_Paved'][cd]+new_all['Fr_Bldgs'][cd]
     ds_base['LANDUSEF'].values[0,12,:,:][cd]=np.round(ds_base['LANDUSEF'].values[0,12,:,:][cd],2)
 
+
+    temp=new_all['Fr_Paved'][cd]+new_all['Fr_Bldgs'][cd]
+    temp[temp==0]=0.001
+
+    ds_base['PAVED_RATIO'].values[0,:,:][cd]=new_all['Fr_Paved'][cd]/(temp)
+    ds_base['PAVED_RATIO'].values[0,:,:][cd][ds_base['PAVED_RATIO'].values[0,:,:][cd]>1]=0
+
+
     ds_base['LANDUSEF'].values[0,0,:,:][cd]=new_all['Fr_EveTr'][cd]/3
     ds_base['LANDUSEF'].values[0,1,:,:][cd]=new_all['Fr_EveTr'][cd]/3
     ds_base['LANDUSEF'].values[0,4,:,:][cd]=new_all['Fr_EveTr'][cd]/3
@@ -116,7 +124,6 @@ def modify_all_Colombo():
     ds_base['LANDUSEF'].values[0,10,:,:][cd]=new_all['Fr_Water'][cd]/2
     ds_base['LANDUSEF'].values[0,16,:,:][cd]=new_all['Fr_Water'][cd]/2
 
-  
     ds_merged = ds_base.update(ds_base)    
 
     for var in ds_merged.data_vars.keys():
