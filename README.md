@@ -94,3 +94,5 @@ Use conda to create a fresh environment for this pipeline using [environment.yml
 ```bash
 conda env create -f environment.yml
 ```
+## Outputs
+ Different versions of `wrfinput` files are saved in the [output folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/output) during the run. The final output to be used for WRF-SUEWS runs will be written in the [final folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/output/final)
