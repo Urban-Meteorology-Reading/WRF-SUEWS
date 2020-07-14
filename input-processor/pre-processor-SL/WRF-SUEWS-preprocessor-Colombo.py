@@ -4,15 +4,15 @@ from utility.change_to_suews import change_input_to_SUEWS
 from utility.parameters import parameters
 from utility.timezone_collector import set_timezone
 from utility.modify_Colombo import modify_all_Colombo
-from utility.modify_colombo_bldgh import   change_bldgh
+from utility.modify_colombo_bldgh import change_bldgh
 import os
 import shutil
 import json
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
 steps = {'clean_dirs': 1,
-         'extract_params_cities': 0,
-         'extract_params_vegs': 0,
+         'extract_params_cities': 1,
+         'extract_params_vegs': 1,
          'extract_params_extra_lands': 0,
          'modify_trans': 0,
          'modify_Colombo': 1,

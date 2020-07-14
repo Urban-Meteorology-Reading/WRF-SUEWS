@@ -16,14 +16,14 @@ from rasterio.transform import from_bounds
 def modify_all_Colombo():
     list_files=glob.glob('/Users/hamidrezaomidvar/Desktop/LINDER/Colombo-3/fraction*')
     df=pd.concat([pd.read_csv(f,index_col=0) for f in list_files])
-    df.columns=['lat','lon','Fr_Paved' ,'Fr_Grass','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
-    df['Fr_EveTr']=0
+    df.columns=['lat','lon','Fr_Paved' ,'Fr_EveTr','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
+    df['Fr_Grass']=0
     df['Fr_DecTr']=0
 
     def toapp(row,to_inspect):
         ct=0
         if row[to_inspect]<0:
-            all_cat=['Fr_Paved' ,'Fr_Grass','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
+            all_cat=['Fr_Paved' ,'Fr_EveTr','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
             for i in [x for x in all_cat if x!=to_inspect]:
                 if row[i]!=0:
                     ct+=1
@@ -33,7 +33,7 @@ def modify_all_Colombo():
             row[to_inspect]=0
         
         return row
-    for i in ['Fr_Paved' ,'Fr_Grass','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']:
+    for i in ['Fr_Paved' ,'Fr_EveTr','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']:
         df=df.apply(lambda x:toapp(x,i),axis=1)
 
 
