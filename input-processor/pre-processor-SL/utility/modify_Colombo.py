@@ -14,7 +14,7 @@ from rasterio.features import rasterize
 from rasterio.transform import from_bounds
 
 def modify_all_Colombo():
-    list_files=glob.glob('/Users/hamidrezaomidvar/Desktop/LINDER/Colombo-3/fraction*')
+    list_files=glob.glob('/Users/hamidrezaomidvar/Desktop/LINDER-2/Colombo-3/fraction*')
     df=pd.concat([pd.read_csv(f,index_col=0) for f in list_files])
     df.columns=['lat','lon','Fr_Paved' ,'Fr_EveTr','Fr_Water' ,'Fr_Bsoil','Fr_Bldgs']
     df['Fr_Grass']=0
@@ -46,10 +46,10 @@ def modify_all_Colombo():
     +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0
     '''
 
-    p1 = Proj(init='epsg:32631')
+    p1 = Proj(init='epsg:4326')
     p2 = Proj(p2_text)
-    x1, y1 = p1(list(lon),list(lat))
-    x2, y2 = transform(p1,p2,x1,y1)
+    # x1, y1 = p1(list(lon),list(lat))
+    x2, y2 = transform(p1,p2,list(lon),list(lat))
 
     x_file='./input/wrfinput_d03'
     ds_base = xr.open_dataset(x_file)
