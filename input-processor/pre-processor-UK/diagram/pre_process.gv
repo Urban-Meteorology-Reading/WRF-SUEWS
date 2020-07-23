@@ -1,27 +1,32 @@
 digraph pre_process {
-    label="WRF_SUEWS_preprocessor";
+    label="WRF-SUEWS preprocessor\n\n";
     labelloc="t"
-    fontsize=30
-    dpi = 350
+    fontsize=35
+    node [width=0,penwidth=2.5]; 
+    edge[arrowhead="vee",penwidth=2.5];
+    graph[splines=ortho];
+    //dpi = 350
 
 
-    WRF_input [style=filled,fillcolor=darkorchid1,label="WRF_input (WPS)"]
-    SUEWS_spin_up [style=filled,fillcolor=darkseagreen1,label="SUEWS spin up \n\nUrban\nDecTr\nEveTr\nGrass\nWater\nSoil"]
-    SUEWS_parameters [style=filled,fillcolor=darkseagreen1,label="SUEWS parameters: \n\nAlbedo\nLAI\nOHM\ng1-g6"]
-    intermediate_input [label="intermediate input"];
-    JSON [shape=circle,label="*.JSON",style=filled,fillcolor=darkseagreen1];
-    namelist [shape=invhouse,bgcolor=black,style=filled,label="namelist.suews\n\n \"global configuration\""]
-    WRF_SUEWS_input [shape=invhouse,bgcolor=black,style=filled];
-    spatial_input [style=filled,fillcolor=burlywood1,label="spatial inputs: \n\nland cover\npoulation\nbuilding height\ntree height\ntransmissivity"];
-    WRF_SUEWS [fontcolor=white,fillcolor=black,style=filled,];
+    WRF_input [fontsize=25,style=filled,fillcolor=orchid1,label="WRF input (WPS)"]
+    SUEWS_spin_up [fontsize=25,shape=square,style=dashed,fillcolor=darkseagreen1,label="SUEWS spin up categories:\n\nBldgs + Paved\nDecTr\nEveTr\nGrass\nWater\nSoil"]
+    SUEWS_parameters [ fontsize=25,shape=square,style=dashed,fillcolor=darkseagreen1,label="SUEWS parameters: \n\nAlbedo\nLAI\nOHM\nG1-G6\n..."]
+    intermediate_input [fontsize=25,shape=diamond,label="intermediate input"];
+    JSON [fontsize=25,shape=square,label="*.JSON",style=dashed,fillcolor=seagreen1];
+    namelist [fontsize=25,shape=diamond,bgcolor=black,style=filled,label="namelist.suews\n \"global configuration\""]
+    WRF_SUEWS_input [fontsize=25,label="WRF-SUEWS input\n \"grid based\"",shape=diamond,bgcolor=black,style=filled];
+    spatial_input [fontsize=25,shape=square,style=filled,fillcolor=burlywood1,label="Spatial inputs: \n\nland cover\npoulation\nbuilding height\ntree height\ntransmissivity\n..."];
+    WRF_SUEWS [fontsize=25,label="WRF-SUEWS",fontcolor=white,fillcolor=black,style=filled,];
+
 
     
-    SUEWS_parameters -> SUEWS_spin_up;
+    rankdir=TB
+    SUEWS_parameters -> SUEWS_spin_up  ;
     WRF_input -> intermediate_input;
     SUEWS_spin_up -> JSON;
     JSON -> intermediate_input;
     SUEWS_spin_up -> namelist;
-    intermediate_input [shape=polygon];
+    intermediate_input ;
     intermediate_input -> WRF_SUEWS_input;
     spatial_input -> WRF_SUEWS_input
     WRF_SUEWS_input -> WRF_SUEWS;
