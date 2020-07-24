@@ -245,6 +245,41 @@ def change_bldgh():
         #zz[np.isnan(new_0) & (zz!=0)]=np.mean(zz[~np.isnan(new_0)])
         ds_base[name.upper()].values[0,:,:]=zz
     ############## ############## ############## ############## ##############
+    for name in names:
+        print('Scaling population with building volume . . .')
+        print(name)
+        df=ds_base[name.upper()].values[0,:,:]
+
+        all_pop={}
+        for i in range(df.shape[0]):
+            for j in range(df.shape[1]):
+
+                val=ds_base[name.upper()].values[0,i,j]
+                if val not in all_pop.keys():
+                    all_pop[val]={}
+                    all_pop[val]['n']=1
+                    fh=ds_base['landusef'.upper()].values[0,12,i,j]*ds_base['bldgH_SUEWS'.upper()].values[0,i,j]
+                    all_pop[val]['sum']=fh
+                else:
+                    all_pop[val]['n']+=1
+                    fh=ds_base['landusef'.upper()].values[0,12,i,j]*ds_base['bldgH_SUEWS'.upper()].values[0,i,j]
+                    all_pop[val]['sum']+=fh
+
+
+        ds_cop=ds_base.copy()
+        df_2=ds_cop[name.upper()].values[0,:,:]
+        for i in range(df_2.shape[0]):
+            for j in range(df_2.shape[1]):
+
+                if all_pop[df_2[i,j]]['sum']!=0:
+
+                    a1=df_2[i,j]*all_pop[df_2[i,j]]['n']
+                    a2=ds_cop['landusef'.upper()].values[0,12,i,j]*ds_cop['bldgH_SUEWS'.upper()].values[0,i,j]
+
+                    ds_cop[name.upper()].values[0,i,j]=a1*a2/all_pop[df_2[i,j]]['sum']
+
+    ds_base=ds_cop
+    ############## ############## ############## ############## ##############
     ds_merged = ds_base.update(ds_base)    
 
     for var in ds_merged.data_vars.keys():
