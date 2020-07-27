@@ -56,6 +56,7 @@ configure.wrf.backup
 warnings.txt
 namelist.output
 wrfout_d0*
+wrfbdy_d01
 SumData.DAT
 test-run
 input-processor/pre-processor-SL/input/bldg_data/
