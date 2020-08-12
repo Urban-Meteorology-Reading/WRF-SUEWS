@@ -35,7 +35,7 @@ These commands update SUEWS repo associated with WRF-SUEWS. Currently, it is an 
 
 7- Use `LANDUSE.TBL` in `./test/em_real` to change the albedo associated with Urban aras (number `13` for `MODIFIED_IGBP_MODIS_NOAH` for both winter and summer. By default it is 15% (0.15). In London case, it is changed to 11%(0.11) based on Ward et al. 2016)
 
-8- `namelist.input` should also be modified to be consistent for WRF-SUEWS. See examples.
+8- `namelist.input` should also be modified to be consistent for WRF-SUEWS. See examples [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/namelist_example/UK) (specially the `sf_surface_physics = 9` which specifies to use SUEWS as the LSM).
 
 9- The rest of steps, are similar to usual WRF runs (running WRF-SUEWS)
 
@@ -77,16 +77,16 @@ steps = {'clean_dirs': 1,
 
 `modify_London`: modifying wrfinput variables related to greater London area (land fraction, building, vegetation height, QF coefficients etc.) - For most inner domain
 
-`parameters`: modifying parameters related to non-urban areas such as albedo, LAI, conductances based on Omidvar et al. 2020 - For all domains
+`parameters`: modifying parameters related to non-urban areas such as albedo, LAI, conductances based on [Omidvar et al. 2020](https://gmd.copernicus.org/preprints/gmd-2020-148/) - For all domains
 
-`timezone`: modifying grids timezone for all domains (might not work correctly because of the python package problem) - For all domains
+`timezone`: modifying grids timezone for all domains (might not work correctly because of the python package problem) - For all domains. It is recommended to specify the time-zone in the SUEWS runs forlder, so the `timezone` variable is assigned correctly in `wrf-input` files
 
 
 **Each of the above steps is related to a utility function located [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/utility)**
 
 **The input files (`wrf-inputs`) as well as non-urban parameters, and templates for `namelist.suews` and `SUEWS_param.json` are located in the [input folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/input)**
 
-**Data related to land cover and building and vegetation height is located i [Data folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/data)**
+**Data related to land cover and building and vegetation height is located in the [Data folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/data)**
 
 ## Environment to run pre-processors
 Use conda to create a fresh environment for this pipeline using [environment.yml](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/master/input-processor/pre-processor-UK/environment.yml):
