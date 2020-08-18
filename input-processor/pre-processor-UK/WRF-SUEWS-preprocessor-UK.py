@@ -22,16 +22,20 @@ steps = {'clean_dirs': 1,
 ################################################
 citynames = ['London', 'Swindon']
 
-# values_trans = [0.2039, 0.2105] # April
+# #values_trans = [0.2039, 0.2105] # April
+# values_trans = [0.01641, 0.01756] # April
 # first_day_str = '2012-04-10' # April
 
-# values_trans = [0.186, 0.0712] # January
+# #values_trans = [0.186, 0.0712] # January
+# values_trans = [0.1257, 0.1216] # January
 # first_day_str = '2012-01-10' # January
 
-# values_trans = [0.0781, 0.0294] # July
+# #values_trans = [0.0781, 0.0294] # July
+# values_trans = [0.0528, 0.0097] # July
 # first_day_str = '2012-07-15' # July
 
-values_trans = [0.1485, 0.0876] # October
+# #values_trans = [0.1485, 0.0876] # October
+values_trans = [0.2153, 0.01400] # October
 first_day_str = '2012-10-1' # October
 ################################################
 finalize = 0
