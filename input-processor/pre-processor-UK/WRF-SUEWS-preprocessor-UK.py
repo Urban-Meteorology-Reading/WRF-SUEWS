@@ -31,12 +31,12 @@ citynames = ['London', 'Swindon']
 # first_day_str = '2012-01-10' # January
 
 # #values_trans = [0.0781, 0.0294] # July
-# values_trans = [0.0528, 0.0097] # July
-# first_day_str = '2012-07-15' # July
+values_trans = [0.0528, 0.0097] # July
+first_day_str = '2012-07-15' # July
 
 # #values_trans = [0.1485, 0.0876] # October
-values_trans = [0.2153, 0.01400] # October
-first_day_str = '2012-10-1' # October
+# values_trans = [0.2153, 0.01400] # October
+# first_day_str = '2012-10-1' # October
 ################################################
 finalize = 0
 if steps['clean_dirs'] == 1:
