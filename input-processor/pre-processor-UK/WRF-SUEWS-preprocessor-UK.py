@@ -10,9 +10,9 @@ import json
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
 steps = {'clean_dirs': 1,
-         'extract_params_cities': 1,
-         'extract_params_vegs': 1,
-         'extract_params_extra_lands': 1,
+         'extract_params_cities': 0,
+         'extract_params_vegs': 0,
+         'extract_params_extra_lands': 0,
          'modify_trans': 1,
          'change_to_SUEWS': 1,
          'modify_London': 1,
@@ -26,13 +26,13 @@ citynames = ['London', 'Swindon']
 # values_trans = [0.01641, 0.01756] # April
 # first_day_str = '2012-04-10' # April
 
-# #values_trans = [0.186, 0.0712] # January
-# values_trans = [0.1257, 0.1216] # January
-# first_day_str = '2012-01-10' # January
+#values_trans = [0.186, 0.0712] # January
+values_trans = [0.1257, 0.1216] # January
+first_day_str = '2012-01-10' # January
 
-# #values_trans = [0.0781, 0.0294] # July
-values_trans = [0.0528, 0.0097] # July
-first_day_str = '2012-07-15' # July
+# # #values_trans = [0.0781, 0.0294] # July
+# values_trans = [0.0528, 0.0097] # July
+# first_day_str = '2012-07-15' # July
 
 # #values_trans = [0.1485, 0.0876] # October
 # values_trans = [0.2153, 0.01400] # October

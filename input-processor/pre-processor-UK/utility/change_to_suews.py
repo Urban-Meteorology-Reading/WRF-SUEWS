@@ -158,7 +158,7 @@ def add_SUEWS_wrfinput_single(x_file):
     if x_file in ['input/wrfinput_d04','input/wrfinput_d03']:
         ds_merged.attrs['SF_SURFACE_PHYSICS'] = 9
     else:
-        ds_merged.attrs['SF_SURFACE_PHYSICS'] = 2
+        ds_merged.attrs['SF_SURFACE_PHYSICS'] = 9
         
 
     # delete 'coordinates' attribute as xarray is unhappy with it
