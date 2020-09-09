@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 from shutil import copy, copytree, rmtree, ignore_patterns
 
+from pygments.lexers.pawn import PawnLexer
+
 import numpy as np
 import pandas as pd
 # os.chdir('./automator')
@@ -54,7 +56,11 @@ path_src_SUEWS = Path('../SUEWS/SUEWS-SourceCode')
 # %%
 # working directory for WRF-SUEWS coupling
 # to hold all the coupling modifications
-path_working = Path('../xx-test-xx')
+path_working = Path('~/Downloads/xx-test-xx')
+
+# create new folder if not existing:
+if not path_working.exists():
+    path_working.mkdir(parents=True)
 
 
 # %%
