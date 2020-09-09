@@ -817,16 +817,16 @@ CONTAINS
           ! print *, 'tsk = ', tsk_out
           tsk(i,j) = tsk_out
           ! update fluxes
-          WRITE( message,* ) 'qn_out = ', qn_out
-          CALL wrf_debug(100,message)
-          WRITE( message,* ) 'qf_out = ', qf_out
-          CALL wrf_debug(100,message)
-          WRITE( message,* ) 'qs_out = ', qs_out
-          CALL wrf_debug(100,message)
-          WRITE( message,* ) 'qh_out = ', qh_out
-          CALL wrf_debug(100,message)
-          WRITE( message,* ) 'qe_out = ', qe_out
-          CALL wrf_debug(100,message)
+          ! WRITE( message,* ) 'qn_out = ', qn_out
+          ! CALL wrf_debug(100,message)
+          ! WRITE( message,* ) 'qf_out = ', qf_out
+          ! CALL wrf_debug(100,message)
+          ! WRITE( message,* ) 'qs_out = ', qs_out
+          ! CALL wrf_debug(100,message)
+          ! WRITE( message,* ) 'qh_out = ', qh_out
+          ! CALL wrf_debug(100,message)
+          ! WRITE( message,* ) 'qe_out = ', qe_out
+          ! CALL wrf_debug(100,message)
           ! HFX(I,J)=min(max(qh_out,50.),50.)
           ! LH(I,J)=min(max(qe_out,50.),50.)
           ! QFX(I,J)=min(max(qsfc_out,2.e-3),2.e-3)
@@ -1195,7 +1195,11 @@ CONTAINS
     ! get measurement height of windspeed
     z= dz8w !
     WRITE( message,* ) 'First vertical level is ', z
-    CALL wrf_debug(1,message)
+    CALL wrf_debug(2000,message)
+
+
+
+
     ! get estimate of surface area
     SurfaceArea=dx*dx
 
@@ -1216,7 +1220,20 @@ CONTAINS
     tstep=INT(DT)
     tstep_prev=INT(DT_PREV)
 
-
+    WRITE( message,* ) 'kdown in SUEWS1D before calling SuMin ', avkdn
+    CALL wrf_debug(1000,message)
+    WRITE( message,* ) 'Temp in SUEWS1D before calling SuMin ', Temp_C
+    CALL wrf_debug(1000,message)
+    WRITE( message,* ) 'ldown in SUEWS1D before calling SuMin ', GLW1D
+    CALL wrf_debug(1000,message)
+    WRITE( message,* ) 'landusef_suews1d in SUEWS1D before calling SuMin ', landusef_suews1d
+    CALL wrf_debug(1000,message)
+    WRITE( message,* ) 'alb_id in SUEWS1D before calling SuMin ', alb_id
+    CALL wrf_debug(1000,message)
+    WRITE( message,* ) 'emis_id in SUEWS1D before calling SuMin ', emis_id
+    CALL wrf_debug(1000,message)
+    WRITE( message,* ) 'Press_hPa in SUEWS1D before calling SuMin ', Press_hPa
+    CALL wrf_debug(1000,message)    
     ! surface properties:
     ! ! TODO: this should be dynamic
     ! alb=alb0
@@ -1363,16 +1380,25 @@ CONTAINS
 
 
     WRITE( message,* ) 'after SuMin,  qn_SUEWS= ', qn
-    CALL wrf_debug(100,message)
+    CALL wrf_debug(2000,message)
     WRITE( message,* ) 'after SuMin,  qf_SUEWS= ', qf
-    CALL wrf_debug(100,message)
+    CALL wrf_debug(2000,message)
     WRITE( message,* ) 'after SuMin,  qs_SUEWS= ', qs
-    CALL wrf_debug(100,message)
+    CALL wrf_debug(2000,message)
     WRITE( message,* ) 'after SuMin,  qh_SUEWS= ', qh
-    CALL wrf_debug(100,message)
+    CALL wrf_debug(2000,message)
     WRITE( message,* ) 'after SuMin,  qe_SUEWS= ', qe
-    CALL wrf_debug(100,message)
-
+    CALL wrf_debug(2000,message)
+    WRITE( message,* ) 'after SuMin,  kdown_SUEWS= ', kdown_o
+    CALL wrf_debug(2000,message)
+    WRITE( message,* ) 'after SuMin,  kup_SUEWS= ', kup_o
+    CALL wrf_debug(2000,message)
+    WRITE( message,* ) 'after SuMin,  ldown_SUEWS= ', ldown_o
+    CALL wrf_debug(2000,message)
+    WRITE( message,* ) 'after SuMin,  lup_SUEWS= ', lup_o
+    CALL wrf_debug(2000,message)
+    WRITE( message,* ) 'after SuMin,  tsk= ', tsk
+    CALL wrf_debug(2000,message)
 
   END SUBROUTINE SUEWS1D
 
