@@ -280,7 +280,7 @@ CONTAINS
 
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseT_SUEWS               
     REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: timezone_SUEWS               
-    REAL,DIMENSION(ims:ime,jms:jme),INTENT(INOUT)    :: transdiff_SUEWS
+    REAL,DIMENSION(ims:ime,jms:jme),INTENT(IN)    :: transdiff_SUEWS
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: BaseTe_SUEWS              
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: GDDFull_SUEWS             
     REAL,DIMENSION(ims:ime,3,jms:jme),INTENT(INOUT)    :: SDDFull_SUEWS             
@@ -491,10 +491,15 @@ CONTAINS
 
 
         ! transmissivity correction
-
+          WRITE( message,* ) 'SWDOWN before calculation is', SWDOWN(I,J)
+          CALL wrf_debug(1000,message)
+          WRITE( message,* ) 'SWDNTC before calculation is', SWDNTC(I,J)
+          CALL wrf_debug(1000,message)
+          WRITE( message,* ) 'transdiff_SUEWS before calculation is', transdiff_SUEWS(I,J)
+          CALL wrf_debug(1000,message)
           !if (hour.GE.12) then !aftert midday
             diff_trans=(SWDOWN(I,J)/SWDNTC(I,J))-transdiff_SUEWS(I,J)
-            if(diff_trans.GE.0) then !make sure the difference is greater than zero (assuming that simulation overestimate kdown)
+            if((diff_trans.GE.0).AND.(SWDNTC(I,J).GT.0)) then !make sure the difference is greater than zero (assuming that simulation overestimate kdown)
               SWDOWN1D=SWDNTC(I,J)*(diff_trans)
             ELSE
               SWDOWN1D = SWDOWN(i,j)
