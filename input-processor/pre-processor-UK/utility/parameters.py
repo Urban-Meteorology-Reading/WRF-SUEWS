@@ -120,10 +120,10 @@ def parameters(first_day_str):
                 mx_fr = np.max([a['urban'][i, j], a['evetr'][i, j], a['dectr']
                                 [i, j], a['grass'][i, j], a['bsoil'][i, j], a['water'][i, j]])
                 ###########################################################################
-                if (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] > 0.60):
+                if (a['urban'][i, j] > 0.60):
                     ds_base=change_soil_moisture(ds_base,'London',i,j)
                 ###########################################################################
-                elif (mx_fr == a['urban'][i, j]) and (a['urban'][i, j] <= 0.60):
+                elif (a['urban'][i, j] > 0.16) and (a['urban'][i, j] <= 0.60):
                     ds_base=change_soil_moisture(ds_base,'Swindon',i,j)
                 ###########################################################################
                 elif mx_fr == a['evetr'][i, j]:
