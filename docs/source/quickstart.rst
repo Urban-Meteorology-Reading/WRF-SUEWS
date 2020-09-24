@@ -8,43 +8,68 @@ Quick Start
 Installation
 -----------------
 
-download source code
+Download source code
+~~~~~~~~~~~~~~~~~~~~
 
-Clone WRF-SUEWS repository. Make sure you use the following commands after cloning the repo:
+Clone WRF-SUEWS repository::
 
-``` bash
-git submodule init
-git submodule update
-```
-
-These commands update SUEWS repo associated with WRF-SUEWS. Currently, it is an older version of SUEWS than the most up-to-date one. 
+    git clone git@github.com:Urban-Meteorology-Reading/WRF-SUEWS.git
 
 
-run automatic coupler
+After cloning the repo, make sure you use the following commands to update SUEWS repo associated with WRF-SUEWS ::
 
-1- Go to `coupling-automator`, and type `make`
+    git submodule init
+    git submodule update
 
-2- It creates the WRF-SUEWS folder to compile (name of the folder depends on what you specify [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/50dba67f3a66cfee296d7c4de88d3f52353b13cd/coupling-automator/automate_main.py#L57))
 
-3- In the created folder, type `./configure`. This is for configuration of WRF-SUEWS. Choose number `15` for the compiler and `basic` option for the nesting.
+.. note:: Currently, it is an older version of SUEWS than the most up-to-date one.
 
-4- Then you need compile the code: `./compile em_real >& compile.log`. For this, you can submmit the job as following:
 
-```bash
-#!/bin/bash 
-#BSUB -q short-serial 
-#BSUB -o %J.out 
-#BSUB -e %J.err 
-#BSUB -W 02:30
+Couple WRF and SUEWS
+~~~~~~~~~~~~~~~~~~~~~
 
-./compile em_real >& log.compile
+Suppose you are in the root location of ``WRF-SUEWS`` directory, run the following code to set up a workspace folder for the coupled code (a folder named ``WRF-SUEWS`` by default; `the name can be customised <https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/50dba67f3a66cfee296d7c4de88d3f52353b13cd/coupling-automator/automate_main.py#L57>`)::
 
-```
+    # go to the coupler directory
+    cd coupling-automator
+
+    # run the coupler
+    make
+
+Compile WRF-SUEWS
+~~~~~~~~~~~~~~~~~~~~~
+
+Then go into the workspace folder (``WRF-SUEWS`` if not set otherwise) and configure the compilation, which is now same as the standard WRF workflow::
+
+    ./configure
+
+Compile the code as follows::
+
+    ./compile em_real >& compile.log
+
+
+.. note:: If working on `jasmin`, you can submit the job as following:
+
+
+    .. unclear: what is this file?
+
+    .. code-block:: bash
+
+        #!/bin/bash
+        #BSUB -q short-serial
+        #BSUB -o %J.out
+        #BSUB -e %J.err
+        #BSUB -W 02:30
+
+        ./compile em_real >& log.compile
+
+.. what is this? is this preprocessing?
+
 5- After compilation of the code, you need to transfer all the `wrf_input` files to the location of main run (usually `./test/em_real`). It should include the boundary condition file (this step should be done after pre-processing steps).
 
 6- You also need to copy `namelist.suews` to the same location (this step should be done after pre-processing steps).
 
-7- Use `LANDUSE.TBL` in `./test/em_real` to change the albedo associated with Urban aras (number `13` for `MODIFIED_IGBP_MODIS_NOAH` for both winter and summer. By default it is 15% (0.15). In London case, it is changed to 11%(0.11) based on Ward et al. 2016)
+7- Use `LANDUSE.TBL` in `./test/em_real` to change the albedo associated with Urban areas (number `13` for `MODIFIED_IGBP_MODIS_NOAH` for both winter and summer. By default it is 15% (0.15). In London case, it is changed to 11%(0.11) based on Ward et al. 2016)
 
 8- `namelist.input` should also be modified to be consistent for WRF-SUEWS. See examples [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/namelist_example/UK) (specially the `sf_surface_physics = 9` which specifies to use SUEWS as the LSM).
 
@@ -56,7 +81,7 @@ Pre-processing
 
 prepare `wrfinput` using WPS
 
-To generate the original `wrfinput` files (before processing them for WRF-SUEWS), you should follow [here](https://www2.mmm.ucar.edu/wrf/OnLineTutorial/CASES/JAN00/index.php). After generating `wrfinput` and `wrfbdy`, you need to follow pre-processing instructions to modify the input file suitbale for WRF-SUEWS runs
+To generate the original `wrfinput` files (before processing them for WRF-SUEWS), you should follow [here](https://www2.mmm.ucar.edu/wrf/OnLineTutorial/CASES/JAN00/index.php). After generating `wrfinput` and `wrfbdy`, you need to follow pre-processing instructions to modify the input file suitable for WRF-SUEWS runs
 
 Environment to run pre-processors
 
@@ -119,11 +144,11 @@ run simulation
 After compilation and preparing the inputs, use the following script to run the simulations on JASMIN (go to [WRF-SUEWS directory]/test/em_real):
 
 ```
-#!/bin/bash 
-#BSUB -q par-multi 
+#!/bin/bash
+#BSUB -q par-multi
 #BSUB -n 30
-#BSUB -o %J.out 
-#BSUB -e %J.err 
+#BSUB -o %J.out
+#BSUB -e %J.err
 #BSUB -W 48:00
 
 echo "Running WRF"
