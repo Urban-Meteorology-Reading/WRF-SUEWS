@@ -64,5 +64,12 @@ input-processor/pre-processor-SL/Other_modifies/Colombo/bldg_data/
 # python related files
 .ipynb_checkpoints
 
-# doxygen
-docs/doxygenoutput
+############################
+# docs:
+#   build
+docs/build
+
+#   doxygen
+docs/source/doxygenoutput
+
+
