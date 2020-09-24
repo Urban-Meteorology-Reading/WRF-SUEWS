@@ -48,7 +48,7 @@ Compile the code as follows::
     ./compile em_real >& compile.log
 
 
-.. note:: If working on `jasmin`, you can submit the job as following:
+.. note:: If working on `jasmin`, you can also submit the job as following:
 
 
     .. unclear: what is this file?
@@ -62,19 +62,6 @@ Compile the code as follows::
         #BSUB -W 02:30
 
         ./compile em_real >& log.compile
-
-.. what is this? is this preprocessing?
-
-5- After compilation of the code, you need to transfer all the `wrf_input` files to the location of main run (usually `./test/em_real`). It should include the boundary condition file (this step should be done after pre-processing steps).
-
-6- You also need to copy `namelist.suews` to the same location (this step should be done after pre-processing steps).
-
-7- Use `LANDUSE.TBL` in `./test/em_real` to change the albedo associated with Urban areas (number `13` for `MODIFIED_IGBP_MODIS_NOAH` for both winter and summer. By default it is 15% (0.15). In London case, it is changed to 11%(0.11) based on Ward et al. 2016)
-
-8- `namelist.input` should also be modified to be consistent for WRF-SUEWS. See examples [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/namelist_example/UK) (specially the `sf_surface_physics = 9` which specifies to use SUEWS as the LSM).
-
-9- The rest of steps, are similar to usual WRF runs (running WRF-SUEWS)
-
 
 Pre-processing
 ----------------------------------
@@ -141,7 +128,15 @@ Simulation
 ------------------------------------
 run simulation
 
-After compilation and preparing the inputs, use the following script to run the simulations on JASMIN (go to [WRF-SUEWS directory]/test/em_real):
+1- After compilation of the code and pre-processing steps to prepare `wrf_input` files, you need to transfer all the `wrf_input` files to the location of main run (usually `[WRF-SUEWS directory]/test/em_real`). It should include the boundary condition file.
+
+2- You also need to copy `namelist.suews` to the same location.
+
+3- Use `LANDUSE.TBL` in `./test/em_real` to change the albedo associated with Urban areas (number `13` for `MODIFIED_IGBP_MODIS_NOAH` for both winter and summer. By default it is 15% (0.15). In London case, it is changed to 11%(0.11) based on Ward et al. 2016)
+
+4- `namelist.input` should also be modified to be consistent for WRF-SUEWS. See examples [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/namelist_example/UK) (specially the `sf_surface_physics = 9` which specifies to use SUEWS as the LSM).
+
+5- Finally, use the following script to run the simulations on JASMIN (go to [WRF-SUEWS directory]/test/em_real):
 
 ```
 #!/bin/bash
@@ -154,7 +149,6 @@ After compilation and preparing the inputs, use the following script to run the 
 echo "Running WRF"
 mpirun ./wrf.exe
 ```
-
 
 
 Post-processing
