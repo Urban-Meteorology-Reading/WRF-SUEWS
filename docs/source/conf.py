@@ -15,17 +15,17 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import subprocess
+# import subprocess
 import os
 import platform
-import sys
-from time import strptime
+# import sys
+# from time import strptime
 
 # from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
-import nbsphinx
+# import nbsphinx
 # import exhale
 
 # import sphinxcontrib.bibtex
@@ -158,7 +158,7 @@ extensions = [
     "sphinx.ext.autosectionlabel",
     # 'sphinxfortran.fortran_autodoc',
     # 'sphinxfortran.fortran_domain',
-    "sphinxcontrib.bibtex",
+    # "sphinxcontrib.bibtex",
     "sphinx.ext.githubpages",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",

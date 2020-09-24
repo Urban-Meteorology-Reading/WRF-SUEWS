@@ -21,8 +21,11 @@ dependencies:
   - pygeos
   - sphinx
   - nbsphinx
+  - recommonmark
+  - pip
   - pip:
     - exhale
     - supy
     - urlpath
     - multiprocess
+    - sphinx_rtd_theme
