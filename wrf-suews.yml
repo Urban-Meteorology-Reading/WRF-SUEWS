@@ -1,0 +1,28 @@
+name: wrf-suews
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - geopandas
+  - geoplot
+  - pandas
+  - xarray
+  - h5netcdf
+  - psutil
+  - netcdf4
+  - notebook
+  - jupyterlab
+  - ipykernel
+  - dask
+  - descartes
+  - rtree
+  - mapclassify
+  - contextily
+  - pygeos
+  - sphinx
+  - nbsphinx
+  - pip:
+    - exhale
+    - supy
+    - urlpath
+    - multiprocess
