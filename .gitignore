@@ -68,6 +68,7 @@ input-processor/pre-processor-SL/Other_modifies/Colombo/bldg_data/
 # docs:
 #   build
 docs/build
+docs/source/_build
 
 #   doxygen
 docs/source/doxygenoutput
