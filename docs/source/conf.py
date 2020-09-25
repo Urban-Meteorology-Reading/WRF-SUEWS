@@ -21,7 +21,7 @@ import platform
 # import sys
 # from time import strptime
 
-# from datetime import datetime
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -116,9 +116,10 @@ import pandas as pd
 
 
 # -- Project information ----------------------------------------------------
-project = "SUEWS"
-doc_name = "SUEWS Documentation"
+project = "WRF-SUEWS"
+doc_name = "WRF-SUEWS Documentation"
 # today = datetime.today()
+year_current=datetime.today()
 copyright = "2018 – 2020" + ", micromet@University of Reading, led by Prof Sue Grimmond"
 author = "micromet@University of Reading, led by Prof Sue Grimmond"
 
