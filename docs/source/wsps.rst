@@ -13,16 +13,17 @@ Example: UK runs preprocessors from `here <https://github.com/Urban-Meteorology-
 
 .. code-block:: python
 
-    steps = {'clean_dirs': 1,
-         'extract_params_cities': 1,
-         'extract_params_vegs': 1,
-         'extract_params_extra_lands': 1,
-         'modify_trans': 1,
-         'change_to_SUEWS': 1,
-         'modify_London': 1,
-         'parameters': 1,
-         'timezone': 0
-         }
+    steps = {
+        'clean_dirs': 1,
+        'extract_params_cities': 1,
+        'extract_params_vegs': 1,
+        'extract_params_extra_lands': 1,
+        'modify_trans': 1,
+        'change_to_SUEWS': 1,
+        'modify_London': 1,
+        'parameters': 1,
+        'timezone': 0,
+        }
 
 
 .. option:: clean_dirs
@@ -31,35 +32,44 @@ Example: UK runs preprocessors from `here <https://github.com/Urban-Meteorology-
 
 .. option:: extract_params_cities
 
-    spining up SUEWS for cities  based on cities characteristics in the [runs folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/runs) - For all domains
+    spinning up SUEWS for cities  based on cities characteristics in the [runs folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/runs) - For all domains
 
 .. option:: extract_params_vegs
 
-    spining up SUEWS for pure vegetation grids (main land cover) - For all domains
+    - spinning up SUEWS for pure vegetation grids (main land cover)
+    - For all domains
 
 .. option:: extract_params_extra_lands
 
-    spining up SUEWS for other categories of land cover (combination of different land covers) - For all domains
+    - spinning up SUEWS for other categories of land cover (combination of different land covers)
+    - For all domains
 
 .. option:: modify_trans
 
-    modifying transmissivity - For all domains
+    - modifying transmissivity
+    - For all domains
 
 .. option:: change_to_SUEWS
 
-    modifying the variables in ``wrfinput`` files and adding SUEWS variables - For all domains
+    - modifying the variables in ``wrfinput`` files and adding SUEWS variables
+    - For all domains
 
 .. option:: modify_London
 
-    modifying ``wrfinput`` variables related to greater London area (land fraction, building, vegetation height, QF coefficients etc.) - For most inner domain
+    - modifying ``wrfinput`` variables related to greater London area (land fraction, building, vegetation height, QF coefficients etc.)
+
+    - For most inner domain
 
 .. option:: parameters
 
-    modifying parameters related to non-urban areas such as albedo, LAI, conductances based on [Omidvar et al. 2020](https://gmd.copernicus.org/preprints/gmd-2020-148/) - For all domains
+    - modifying parameters related to non-urban areas such as albedo, LAI, conductances based on `Omidvar et al. (2020) <https://gmd.copernicus.org/preprints/gmd-2020-148/>`_
+    - For all domains.
 
 .. option:: timezone
 
-    modifying grids timezone for all domains (might not work correctly because of the python package problem) - For all domains. It is recommended to specify the time-zone in the SUEWS runs forlder, so the `timezone` variable is assigned correctly in `wrf-input` files
+    - modifying grids timezone (might not work correctly because of the python package problem)
+    - For all domains
+    .. note:: It is recommended to specify the time-zone in the SUEWS runs folder, so the `timezone` variable is assigned correctly in `wrf-input` files
 
 
 Each of the above steps is related to a utility function located `here <https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/utility>`_.
