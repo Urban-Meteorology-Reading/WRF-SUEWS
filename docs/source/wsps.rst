@@ -23,7 +23,7 @@ Example: UK runs preprocessors from `here <https://github.com/Urban-Meteorology-
         'modify_London': 1,
         'parameters': 1,
         'timezone': 0,
-        }
+    }
 
 
 .. option:: clean_dirs
@@ -79,3 +79,6 @@ The input files (`wrf-inputs`) as well as non-urban parameters, and templates fo
 Data related to land cover and building and vegetation height is located in the `Data folder <https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/data>`_.
 
 Different versions of `wrfinput` files are saved in the `output folder <https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/output>`_ during the run. The final output to be used for WRF-SUEWS runs will be written in the `final folder <https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/pre-processor-UK/output/final>`_.
+
+.. what are the inputs?
+.. what are the outputs?
