@@ -2,15 +2,16 @@
 
 # TODO #84: to make the WSPS workflow more general (i.e., not too London specific)
 # %%
-from utility.SUEWS_param import getting_SUEWS_params
-from utility.change_to_suews import change_input_to_SUEWS
-from utility.parameters import parameters
-from utility.timezone_collector import set_timezone
-from utility.modify_London import modify_all_London
+import json
 import os
 import shutil
-import json
 from pathlib import Path
+
+from utility.change_to_suews import change_input_to_SUEWS
+from utility.modify_London import modify_all_London
+from utility.parameters import parameters
+from utility.SUEWS_param import getting_SUEWS_params
+from utility.timezone_collector import set_timezone
 
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes

@@ -2,12 +2,6 @@ import xarray as xr
 import numpy as np
 import json
 import glob
-import os
-
-# os.chdir('input')
-
-# load base nc file for modification
-# ds_base = xr.open_dataset('input/wrfinput_d01')
 
 
 # funcitons to add new variables with expanded dimensions
