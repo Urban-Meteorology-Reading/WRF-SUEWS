@@ -74,3 +74,8 @@ docs/source/_build
 docs/source/doxygenoutput
 
 
+############################
+# pre-processor output
+pre-processor/sample-case/output
+
+
