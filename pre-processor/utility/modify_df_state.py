@@ -12,14 +12,14 @@ def generate_array_same(attrs_site, attr):
     return [a, a, a]
 
 
-def modify_attr(df_state_init,veg_type):
+def modify_attr(df_state_init,df_phenol,veg_type):
     if veg_type not in ['G1','G2','G3','G4']:
-        all_attrs = pd.read_csv('input/all_attrs.csv')
-        attrs_site = all_attrs[all_attrs.lc == veg_type]
+        # df_phenol = pd.read_csv('input/phenol_attrs.csv')
+        attrs_site = df_phenol[df_phenol.lc == veg_type]
         df_state_init.loc[:, 'popdensdaytime']=0
         df_state_init.loc[:, 'popdensnighttime']=0
         df_state_init.loc[:, 'numcapita']=0
-        
+
 
         if attrs_site.lc.values[0] == 'DecTr':
             ar = [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]

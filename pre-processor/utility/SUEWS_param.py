@@ -11,16 +11,20 @@ from .modify_df_state import modify_attr
 print(f"supy version is : {sp.__version__}")
 
 
-def spinup_SUEWS(cityname, first_day_str, veg_spin=0, veg_type=""):
+def spinup_SUEWS(
+    path_runcontrol, path_csv_phenol, first_day_str, veg_spin=0, veg_type=""
+):
 
     print("Initializing SUEWS variables.....")
 
-    path_runcontrol = Path(f"runs/run_{cityname}") / "RunControl.nml"
+    # path_runcontrol = Path(path_runcontrol)
     df_state_init = sp.init_supy(path_runcontrol)
+
+    df_phenol = pd.read_csv(path_csv_phenol)
 
     if veg_spin == 1:
         print("Initializing for " + veg_type)
-        df_state_init = modify_attr(df_state_init, veg_type)
+        df_state_init = modify_attr(df_state_init, df_phenol, veg_type)
 
     grid = df_state_init.index[0]
     df_forcing = sp.load_forcing_grid(path_runcontrol, grid)
@@ -59,14 +63,27 @@ def spinup_SUEWS(cityname, first_day_str, veg_spin=0, veg_type=""):
     return df_state_init
 
 
-def getting_SUEWS_params(cityname, first_day_str, veg_spin=0, veg_type=""):
+def getting_SUEWS_params(
+    path_runcontrol,
+    path_csv_phenol,
+    path_json_prm,
+    path_nml_suews,
+    path_dir_out,
+    str_first_day,
+    veg_spin=0,
+    veg_type="",
+):
     if veg_spin == 1:
         print("Spining up for vegetation . . .")
         df_state_init = spinup_SUEWS(
-            cityname, first_day_str, veg_spin=1, veg_type=veg_type
+            path_runcontrol,
+            path_csv_phenol,
+            str_first_day,
+            veg_spin=1,
+            veg_type=veg_type,
         )
     else:
-        df_state_init = spinup_SUEWS(cityname, first_day_str)
+        df_state_init = spinup_SUEWS(path_runcontrol, path_csv_phenol, str_first_day)
 
     print("Putting NetRadiationMethod = 1")
     df_state_init.netradiationmethod = 1
@@ -94,40 +111,34 @@ def getting_SUEWS_params(cityname, first_day_str, veg_spin=0, veg_type=""):
     df_state_init.rename(columns={"soilstore_id": "soilmoist"}, inplace=True)
     ##################### JSON ######################################
 
-    with open("input/SUEWS_param.json") as suews_file:
+    with open(path_json_prm) as suews_file:
         suews_params = json.load(suews_file)
 
-    def find_insert_value_json():
+    for key in suews_params.keys():
 
-        for key in suews_params.keys():
+        param = key.split("_SUEWS")[0].lower()
+        df_columns = df_state_init.columns
 
-            param = key.split("_SUEWS")[0].lower()
+        if param in df_columns:
+            suews_params[key]["value"] = list(df_state_init[param].iloc[0])
+        elif param + "_id" in df_columns:
+            suews_params[key]["value"] = list(df_state_init[param + "_id"].iloc[0])
+        else:
+            print("Parameter " + '"' + param + '"' + " was not found in df_state")
 
-            df_columns = df_state_init.columns
-
-            if param in df_columns:
-
-                suews_params[key]["value"] = list(df_state_init[param].iloc[0])
-
-            elif param + "_id" in df_columns:
-
-                suews_params[key]["value"] = list(df_state_init[param + "_id"].iloc[0])
-
-            else:
-                print("Parameter " + '"' + param + '"' + " was not found in df_state")
-
-    find_insert_value_json()
+    path_out = Path(path_dir_out)
+    str_site = Path(path_runcontrol).parent.name
     if veg_spin == 1:
-        new_json = "output/SUEWS_param_" + veg_type + ".json"
+        new_json = path_out / f"SUEWS_param_{veg_type}.json"
     else:
-        new_json = "output/SUEWS_param_" + cityname + ".json"
-    print("creating " + new_json)
+        new_json = path_out / f"SUEWS_param_{str_site}.json"
+    print(f"creating {new_json.as_posix()} ")
     with open(new_json, "w") as fp:
         json.dump(suews_params, fp, indent=4)
 
     ##################### NAMELIST ######################################
 
-    nml = f90nml.read("input/namelist.suews")
+    nml = f90nml.read(path_nml_suews)
     df_columns = df_state_init.columns
 
     profiles = {
@@ -177,6 +188,6 @@ def getting_SUEWS_params(cityname, first_day_str, veg_spin=0, veg_type=""):
 
             nml[key][item[0]] = new_value
     if veg_spin != 1:
-        new_nml = "output/namelist_" + cityname + ".suews"
+        new_nml = path_out/f"namelist_{str_site}.suews"
         print("creaitng " + new_nml)
         nml.write(new_nml, force=True)

@@ -18,7 +18,7 @@ def gen_var_expand(var_key, vars_to_add, var_base):
 
     var_new.attrs = var_attrs
     var_new.attrs["MemoryOrder"] = "XYZ"
-    var_new.attrs[u"description"] = var_key
+    var_new.attrs["description"] = var_key
     var_new.attrs["stagger"] = "Z"
     var_new.attrs["unit"] = vars_to_add[var_key]["unit"]
     # set default values
@@ -30,7 +30,7 @@ def gen_var_expand(var_key, vars_to_add, var_base):
 # funcitons to add new variables with the same dimensionality
 def gen_var_keep(var_key, vars_to_add, var_base):
     var_new = var_base.rename(var_key.upper())
-    var_new.attrs[u"description"] = var_key
+    var_new.attrs["description"] = var_key
     var_new.attrs["unit"] = vars_to_add[var_key]["unit"]
     val_init = vars_to_add[var_key]["value"]
     # set default values
@@ -68,6 +68,7 @@ def gen_var(var_key, vars_to_add, landuse_mask, landuse_mask_scale, var_base):
             landuse_mask_scale[None, ...], var_new.values.shape[0], axis=0
         )
 
+    # TODO: what are these?
     if vars_to_add[var_key]["mask"] == "urban":
         var_new.values = np.multiply(var_new.values, landuse_mask_n)
     elif vars_to_add[var_key]["mask"] == "urban-scale":
@@ -78,15 +79,7 @@ def gen_var(var_key, vars_to_add, landuse_mask, landuse_mask_scale, var_base):
 # variables to be added to wrfinputs
 
 
-# finding urban masks
-def urban_mask(ds_base):
-    urban_category = 12
-    landusef = ds_base["LANDUSEF"].values[0, urban_category, :, :]
-    landuse_mask = landusef
-    landuse_mask[landusef > 0] = 1
-    return landuse_mask
-
-
+# get urban fractions
 def urban_mask_scale(ds_base):
     urban_category = 12
     landusef = ds_base["LANDUSEF"].values[0, urban_category, :, :]
@@ -94,8 +87,18 @@ def urban_mask_scale(ds_base):
     return landuse_mask_scale
 
 
-def mod_landusef(ds_base):
+# determine urban masks
+def urban_mask(ds_base):
+    # urban_category = 12
+    # landusef = ds_base["LANDUSEF"].values[0, urban_category, :, :]
+    # landuse_mask = landusef
+    # landuse_mask[landusef > 0] = 1
+    landuse_mask = urban_mask_scale(ds_base)
+    landuse_mask[landuse_mask > 0] = 1
+    return landuse_mask
 
+
+def mod_landusef(ds_base):
     # this if for Swindon
     xx = 45
     yy = 38
@@ -116,24 +119,27 @@ def mod_landusef(ds_base):
 
 
 # added SUEWS required input to a single wrfinput file
-def add_SUEWS_wrfinput_single(x_file):
-    print("working on:" + x_file)
+def add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm, path_dir_output):
+    print(f"working on: {path_wrfinput}")
     # get base file
-    ds_base = xr.open_dataset(x_file)
-
-    with open("output/SUEWS_param_Swindon.json") as var_json:
-        vars_to_add_swindon = json.load(var_json)
-
-    with open("output/SUEWS_param_London.json") as var_json:
-        vars_to_add_london = json.load(var_json)
+    ds_base = xr.open_dataset(path_wrfinput)
 
     landuse_mask = urban_mask(ds_base.copy())
     landuse_mask_scale = urban_mask_scale(ds_base.copy())
 
-    if x_file == "input/wrfinput_d04":  # for Swindon
-        vars_to_add = vars_to_add_swindon
-    else:
-        vars_to_add = vars_to_add_london
+    # with open("output/SUEWS_param_Swindon.json") as var_json:
+    #     vars_to_add_swindon = json.load(var_json)
+
+    # with open("output/SUEWS_param_London.json") as var_json:
+    #     vars_to_add_london = json.load(var_json)
+
+    # if path_wrfinput == "input/wrfinput_d04":  # for Swindon
+    #     vars_to_add = vars_to_add_swindon
+    # else:
+    #     vars_to_add = vars_to_add_london
+
+    with open(path_json_prm) as path_json:
+        vars_to_add = json.load(path_json)
 
     # NB: variables in wrfinput have to be named in CAPITALISED strings
     ds_new = xr.Dataset(
@@ -149,42 +155,48 @@ def add_SUEWS_wrfinput_single(x_file):
         }
     )
 
-    if x_file == "input/wrfinput_d04":  # for Swindon
-        print("modifying the landusef around the site")
-        ds_base, xx, yy = mod_landusef(ds_base)
-        ds_new["PAVED_RATIO"].values[0, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.67
+    # TODO #84: this is too specific to Swindon:
+    #  should be removed and dealt with in a Swindon-specific script
+    # if path_wrfinput == "input/wrfinput_d04":  # for Swindon
+    #     print("modifying the landusef around the site")
+    #     ds_base, xx, yy = mod_landusef(ds_base)
+    #     ds_new["PAVED_RATIO"].values[0, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.67
 
     # merge with ds_base for export
     ds_merged = ds_base.update(ds_new)
 
-    # amke sure SUEWS scheme option is set
-    if x_file in ["input/wrfinput_d04", "input/wrfinput_d03"]:
-        ds_merged.attrs["SF_SURFACE_PHYSICS"] = 9
-    else:
-        ds_merged.attrs["SF_SURFACE_PHYSICS"] = 9
+    # make sure SUEWS scheme option is set
+    ds_merged.attrs["SF_SURFACE_PHYSICS"] = 9
+    # if x_file in ["input/wrfinput_d04", "input/wrfinput_d03"]:
+    # ds_merged.attrs["SF_SURFACE_PHYSICS"] = 9
+    # else:
+    # ds_merged.attrs["SF_SURFACE_PHYSICS"] = 9
 
     # delete 'coordinates' attribute as xarray is unhappy with it
-
     for var in ds_merged.data_vars.keys():
         if "coordinates" in ds_merged[var].attrs:
             del ds_merged[var].attrs["coordinates"]
 
     # export merged dataset to a new file
-    file_out = "output/1-changed_to_SUEWS/" + x_file.split("input/")[1] + ".suews"
+    file_out = path_dir_output / f"{path_wrfinput.name}.suews"
 
     ds_merged.to_netcdf(file_out, mode="w", format="NETCDF3_64BIT")
-    print("SUEWS input has been added to:" + file_out)
+    print(f"SUEWS input has been added to:{file_out.as_posix()}")
 
     return file_out
 
 
 # modify all files in a loop:
 def add_SUEWS_wrfinput(wrfinput_list):
-    fl_out_list = [add_SUEWS_wrfinput_single(x_file) for x_file in wrfinput_list]
+    fl_out_list = [
+        add_SUEWS_wrfinput_single(path_wrfinput) for path_wrfinput in wrfinput_list
+    ]
     return fl_out_list
 
 
-def change_input_to_SUEWS():
+def change_input_to_SUEWS(path_dir_input):
     # get file list to modify
-    fl_wrfinput_base = glob.glob("input/wrfinput_d0?")
-    add_SUEWS_wrfinput(fl_wrfinput_base)
+    fl_wrfinput_base = sorted(path_dir_input.glob("wrfinput_d0?"))
+
+    fl_out_list = add_SUEWS_wrfinput(fl_wrfinput_base)
+    return fl_out_list

@@ -38,12 +38,12 @@ def modify_all_London():
     lon=df['lng']
 
     p2_text='''
-    +units=m +proj=lcc +lat_1=30 +lat_2=60 +lat_0=51.51 +lon_0=-0.96 
+    +units=m +proj=lcc +lat_1=30 +lat_2=60 +lat_0=51.51 +lon_0=-0.96
     +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0
     '''
 
     # p2_text='''
-    # +units=m +init=ESRI:102009 +proj=lcc +lat_1=30 +lat_2=60 +lat_0=51.51 +lon_0=-0.96 
+    # +units=m +init=ESRI:102009 +proj=lcc +lat_1=30 +lat_2=60 +lat_0=51.51 +lon_0=-0.96
     # +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0
     # '''
 
@@ -127,10 +127,10 @@ def modify_all_London():
     names=['WorkPop','ResPop']
     names_wrf=['PopDensDayTime_SUEWS','PopDensNightTime_SUEWS']
     for name,name_wrf in zip(names,names_wrf):
-        
+
         print(name)
         new_a=np.full_like(wrf_X,fill_value=0)
-        
+
         for x,y,val in zip(x1,y1,shapefile_converted_2[name]):
 
             for id_x,i in enumerate(wrf_X[0,:-1]):
@@ -144,7 +144,7 @@ def modify_all_London():
                     j_wrf=j
 
             new_a[id_y_wrf,id_x_wrf]+=val/100 # to ha-1
-            
+
         new_a[np.where(new_a==0)]=np.nan
         ds_var=ds_base[name_wrf.upper()].values[0,:,:]
         ds_var[~np.isnan(new_a)]=new_a[~np.isnan(new_a)]
@@ -152,7 +152,7 @@ def modify_all_London():
         zz[zz<0]=0
         zz[np.isnan(new_a) & (zz!=0)]=np.percentile(zz[~np.isnan(new_a)],50)
         ds_base[name_wrf.upper()].values[0,:,:]=zz
-        
+
     ds_base['PopDensDayTime_SUEWS'.upper()].values[0,37,19]=310
     ds_base['PopDensNightTime_SUEWS'.upper()].values[0,37,19]=99
 
@@ -164,25 +164,25 @@ def modify_all_London():
     zz=dtemp['landusef'.upper()].values[0,12,:,:]
 
     for q,w1,w2 in zip(qs,w1s,w2s):
-        
+
         print(q)
         qa=dtemp[q.upper()].values[0,0,:,:]
         qa[(zz<=0.50) & (qa!=0)]=w1
         dtemp[q.upper()].values[0,0,:,:]=qa
-        
+
         qa=dtemp[q.upper()].values[0,1,:,:]
         qa[(zz<=0.50) & (qa!=0)]=w2
         dtemp[q.upper()].values[0,1,:,:]=qa
-        
-    ds_base=dtemp    
+
+    ds_base=dtemp
 
 
-    ds_merged = ds_base.update(ds_base)    
+    ds_merged = ds_base.update(ds_base)
 
     for var in ds_merged.data_vars.keys():
         if 'coordinates' in ds_merged[var].attrs:
             del ds_merged[var].attrs['coordinates']
-            
+
     file_out = x_file+'.new'
 
     ds_merged.to_netcdf(file_out,
