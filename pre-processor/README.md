@@ -1,3 +1,11 @@
 # WRF-SUEWS Pre-processor (WSPS)
 
-<!-- what are included here -->
+## Mandatory steps (general)
+
+
+
+
+
+## Site specific steps
+
+
