@@ -189,5 +189,5 @@ def getting_SUEWS_params(
             nml[key][item[0]] = new_value
     if veg_spin != 1:
         new_nml = path_out/f"namelist_{str_site}.suews"
-        print("creaitng " + new_nml)
+        print(f"creaitng {new_nml.as_posix()}")
         nml.write(new_nml, force=True)

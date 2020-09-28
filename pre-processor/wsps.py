@@ -19,9 +19,9 @@ from utility.timezone_collector import set_timezone
 # TODO #84
 steps = {
     "clean_dirs": 1,
-    "extract_params_site": 0,
-    "extract_params_vegs": 0,
-    "extract_params_extra_lands": 0,
+    "extract_params_site": 1,
+    "extract_params_vegs": 1,
+    "extract_params_extra_lands": 1,
     "modify_trans": 1,
     "change_to_SUEWS": 1,
     "modify_London": 0,
@@ -79,7 +79,7 @@ if steps["clean_dirs"] == 1:
             shutil.rmtree(p_dir)
 
         # re-create an empty folder as will be needed in following steps
-        p_dir.mkdir()
+        p_dir.mkdir(parents=True)
 
 
 ################################################
