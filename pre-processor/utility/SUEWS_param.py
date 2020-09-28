@@ -17,7 +17,6 @@ def spinup_SUEWS(
 
     print("Initializing SUEWS variables.....")
 
-    # path_runcontrol = Path(path_runcontrol)
     df_state_init = sp.init_supy(path_runcontrol)
 
     df_phenol = pd.read_csv(path_csv_phenol)

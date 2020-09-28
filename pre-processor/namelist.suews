@@ -152,3 +152,18 @@
     suews_cat_frac(1:8, 9) = 0, 0, 0, 0, 0, 0, 0, 0
     suews_cat_frac(1:8, 10) = 0, 0, 0, 0, 0, 0, 0, 0
 /
+
+&wsps
+urban_site_spin_up    = 'London', 'Swindon'
+urban_domain_number   = '03',     '04'
+urban_class_threshold = 0.6,      0.16
+urban_class           = 'London', 'Swindon'
+veg_site_spin_up      = 'Swindon'
+transmissivity        = 0.1257,   0.1216
+start_date            = '2012-01-10'
+output_file_name      = 'output'
+input_file_name       = 'input'
+SUEWS_param_template  = 'SUEWS_param.json'
+phenology_parameters  = 'phenol_attrs.csv'
+data_dir              = 'data'
+/

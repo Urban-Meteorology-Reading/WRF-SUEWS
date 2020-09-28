@@ -1,69 +1,50 @@
 # WRF-SUEWS preprocessor
-
-# TODO #84: to make the WSPS workflow more general (i.e., not too London specific)
 # %%
 import json
 import os
 from os.path import isfile
 import shutil
 from pathlib import Path
+import f90nml
 
 from utility.change_to_suews import add_SUEWS_wrfinput_single
-from utility.modify_London import modify_all_London
-from utility.parameters import parameters
+from utility.update_phenology import update_phenology
 from utility.SUEWS_param import getting_SUEWS_params
 from utility.timezone_collector import set_timezone
+from utility.get_wsps_config import get_wsps_config
 
 ################################################
-# Dashboard for controling the steps: 0=no 1=yes
-# TODO #84
-# internal debugging use: DON'T MODIFY.
+# internal debugging use: DON'T MODIFY. Dashboard for controling the steps: 0=no 1=yes
 steps = {
-    "clean_dirs": 1,
-    "extract_params_site": 1,
-    "extract_params_vegs": 1,
-    "extract_params_extra_lands": 1,
-    "modify_trans": 1,
+    "clean_dirs": 1, # clean all output directories
+    "extract_params_site": 1, # spin up for sites
+    "extract_params_vegs": 1, # spin up for vegs
+    "modify_trans": 1, # changing transmissivity
     "change_to_SUEWS": 1, # update wrfinput
-    "modify_London": 0, # to remove
-    "parameters": 1, # update phenology
+    "update_phenology": 1, # update phenology
     "timezone": 0, # change timezone
 }
 ################################################
-list_site = ["London", "Swindon"]
+# path to output and input root:
+path_nml_suews = Path('.') / "namelist.suews"
+nml = f90nml.read(path_nml_suews)
+wsps_config=get_wsps_config(nml)
 
-# #values_trans = [0.2039, 0.2105] # April
-# values_trans = [0.01641, 0.01756] # April
-# first_day_str = '2012-04-10' # April
-
-# TODO #84: values_trans should be customisable.
-
-# values_trans = [0.186, 0.0712] # January
-values_trans = [0.1257, 0.1216]  # January
-str_first_day = "2012-01-10"  # January
-
-# # #values_trans = [0.0781, 0.0294] # July
-# values_trans = [0.0528, 0.0097] # July
-# first_day_str = '2012-07-15' # July
-
-# #values_trans = [0.1485, 0.0876] # October
-# values_trans = [0.2153, 0.01400] # October
-# first_day_str = '2012-10-1' # October
+output_dir = wsps_config.output_file_name # name of the output folder
+input_dir = wsps_config.input_file_name # name of the output folder
+path_dir_output = Path("./sample-case/"+output_dir).expanduser().resolve()
+path_dir_input = Path("./sample-case/"+input_dir).expanduser().resolve()
+path_json_prm = path_dir_input / wsps_config.SUEWS_param_template #path to SUEWS template variables json
+path_csv_phenol = path_dir_input / wsps_config.phenology_parameters #path to phenology parameters csv file
+list_site = wsps_config.urban_site_spin_up #list of urban sites
+urban_domain_number=wsps_config.urban_domain_number #domain number related to urban site
+list_veg = wsps_config.veg_site_spin_up # the site to use for vegetation spin up
+values_trans = wsps_config.values_trans # transmissivity values for urban sites
+str_first_day = wsps_config.start_date # start day of the run
+urban_class_threshold = wsps_config.urban_class_threshold #threshholds for urban classes
+urban_class = wsps_config.urban_class #urban classes
 ################################################
 finalize = 0
-
-# TODO #84: input folder should be customisable.
-path_dir_input = Path("./sample-case/input").expanduser().resolve()
-
-path_json_prm = path_dir_input / "SUEWS_param.json"
-path_csv_phenol = path_dir_input / "phenol_attrs.csv"
-path_nml_suews = path_dir_input / "namelist.suews"
-
-
-# TODO #84: output folder should be customisable.
-# path to output root:
-path_dir_output = Path("./sample-case/output").expanduser().resolve()
-
 if steps["clean_dirs"] == 1:
     list_dir = [
         "1-changed_to_SUEWS",
@@ -81,14 +62,12 @@ if steps["clean_dirs"] == 1:
 
         # re-create an empty folder as will be needed in following steps
         p_dir.mkdir(parents=True)
-
-
 ################################################
 if steps["extract_params_site"] == 1:
     print("\n Extracting SUEWS parameters for cities . . . ")
     for site in list_site:
         print("preparing for " + site + " . . .")
-        path_runcontrol = path_dir_input / "runs" / site / "RunControl.nml"
+        path_runcontrol = path_dir_input / "spin_ups" / site / "RunControl.nml"
         getting_SUEWS_params(
             path_runcontrol,
             path_csv_phenol,
@@ -102,27 +81,7 @@ if steps["extract_params_vegs"] == 1:
     print("\n Extracting SUEWS parameters for vegetations . . . ")
     for veg_type in ["EveTr", "DecTr", "Grass"]:
         print("preparing for " + veg_type + " . . .")
-        path_runcontrol = path_dir_input / "runs" / list_site[0] / "RunControl.nml"
-
-        getting_SUEWS_params(
-            path_runcontrol,
-            path_csv_phenol,
-            path_json_prm,
-            path_nml_suews,
-            path_dir_output,
-            str_first_day,
-            veg_spin=1,
-            veg_type=veg_type,
-        )
-################################################
-if steps["extract_params_extra_lands"] == 1:
-    print("\n Extracting SUEWS parameters for 4 extera lands . . . ")
-    for veg_type in ["G1", "G2", "G3", "G4"]:
-        print("preparing for " + veg_type + " . . .")
-        path_runcontrol = path_dir_input / "runs" / list_site[1] / "RunControl.nml"
-        # path_csv_phenol = path_dir_input / "phenol_attrs.csv"
-        # path_json_prm = path_dir_input / "SUEWS_param.json"
-        # path_nml_suews = path_dir_input / "namelist.suews"
+        path_runcontrol = path_dir_input / "spin_ups" / list_veg / "RunControl.nml"
         getting_SUEWS_params(
             path_runcontrol,
             path_csv_phenol,
@@ -156,32 +115,27 @@ if steps["change_to_SUEWS"] == 1:
     print("\n Adding SUEWS inputs to WRF inputs . . .")
     path_out = path_dir_output / "1-changed_to_SUEWS"
     list_wrfinput_base = sorted(path_dir_input.glob("wrfinput_d0?"))
+
     for path_wrfinput in list_wrfinput_base:
-        if "d04" in path_wrfinput.name:
-            path_json_prm_x = path_dir_output / "SUEWS_param_Swindon.json"
-        else:
-            path_json_prm_x = path_dir_output / "SUEWS_param_London.json"
-        add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm_x, path_out)
-    # change_input_to_SUEWS(path_dir_input)
+
+        flag_not_urban_domain = 1
+        for domain_n,urban_site in zip(urban_domain_number,list_site):
+            if domain_n in path_wrfinput.name:
+                path_json_prm_x = path_dir_output / f"SUEWS_param_{urban_site}.json"
+                flag_not_urban_domain = 0
+                add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm_x, path_out)
+
+        if flag_not_urban_domain:
+            path_json_prm_x = path_dir_output / f"SUEWS_param_{list_site[0]}.json"
+            add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm_x, path_out)
 ################################################
-# all specific modification should be done here!!!
-# TODO #84: this looks very specific to London;
-# should we include this in the WSPS?
-# maybe split this into a separate piece of code
-if steps["modify_London"] == 1:
-    print("\n Modifying London domain . . .")
-    modify_all_London()
-    os.remove("output/1-changed_to_SUEWS/wrfinput_d03.suews")
-    name1 = "output/1-changed_to_SUEWS/wrfinput_d03.suews.new"
-    name2 = "output/1-changed_to_SUEWS/wrfinput_d03.suews"
-    os.rename(name1, name2)
-################################################
-if steps["parameters"] == 1:
-    print("\n Modifying parameters . . .")
-    # TODO #84
-    # this is very specific to Swindon: needs to be corrected for more generic purpose
-    path_runcontrol = path_dir_input / "runs" / list_site[1] / "RunControl.nml"
-    parameters(path_dir_output, path_csv_phenol, path_runcontrol, str_first_day)
+if steps["update_phenology"] == 1:
+    print("\n Modifying phenology . . .")
+    path_runcontrol = path_dir_input / "spin_ups" / list_veg / "RunControl.nml"
+    update_phenology(path_dir_output, path_csv_phenol, 
+                    path_runcontrol, str_first_day,
+                    urban_class_threshold, urban_class
+                    )
     path_out = path_dir_output / "2-parameters_changed"
     finalize = 1
 ################################################
@@ -195,7 +149,5 @@ if finalize == 1:
     print(f'working on {path_out.as_posix()}')
     src_files = sorted([fn for fn in path_out.glob("*") if fn.is_file()])
     for file_name in src_files:
-        # full_file_name = os.path.join(out, file_name)
-        # if os.path.isfile(full_file_name):
         print(f"copying {file_name.name} to output/final")
         shutil.copy(file_name, path_dir_output / "final")

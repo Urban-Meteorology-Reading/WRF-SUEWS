@@ -27,9 +27,9 @@ def regrid_lower(name,df,wrf_X,wrf_Y,x2,y2):
     z=np.divide(new_a,count_a,where=~np.isnan(new_a))
     return z
 
-def modify_all_London():
+def modify_London(path_dir_output,path_dir_data,file_to_change):
 
-    df = pd.read_csv('data/SUEWS_SiteSelect.txt',sep='\t')
+    df = pd.read_csv(path_dir_data / 'SUEWS_SiteSelect.txt',sep='\t')
     df.columns=df.iloc[0]
     df=df.drop(df.index[0])
     df.drop(df.tail(2).index,inplace=True)
@@ -52,7 +52,7 @@ def modify_all_London():
     x1, y1 = p1(list(lon),list(lat))
     x2, y2 = transform(p1,p2,x1,y1)
 
-    x_file='./output/1-changed_to_SUEWS/wrfinput_d03.suews'
+    x_file=path_dir_output / file_to_change
     ds_base = xr.open_dataset(x_file)
     wrf_LAT=ds_base.XLAT.values[0,:,:]
     wrf_LON=ds_base.XLONG.values[0,:,:]
@@ -115,7 +115,7 @@ def modify_all_London():
     ds_base['LANDUSEF'].values[0,16,:,:][cd]=new_all['Fr_Water'][cd]/2
 
 
-    shapefile2 = gpd.read_file("data/ESRI1/OAres_work_pop.shp")
+    shapefile2 = gpd.read_file(path_dir_data / "ESRI1/OAres_work_pop.shp")
     p2_text='''+units=m +proj=lcc +lat_1=30 +lat_2=60 +lat_0=51.51 +lon_0=-0.96 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0
     '''
     shapefile_converted=shapefile2.to_crs(p2_text)
@@ -183,8 +183,8 @@ def modify_all_London():
         if 'coordinates' in ds_merged[var].attrs:
             del ds_merged[var].attrs['coordinates']
 
-    file_out = x_file+'.new'
+    file_out = x_file.parent / (x_file.name+'.new')
 
     ds_merged.to_netcdf(file_out,
                         mode='w', format='NETCDF3_64BIT')
-    print('SUEWS input has been added to:' + file_out)
+    print('SUEWS input has been added to:' + str(file_out))

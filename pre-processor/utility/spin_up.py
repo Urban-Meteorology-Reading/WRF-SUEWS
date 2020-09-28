@@ -7,7 +7,6 @@ from pathlib import Path
 
 #%%
 def spin_lai_albedo(maxalb, minalb, maxlai, minlai, baset, basete, first_day_str,path_runcontrol):
-    # path_runcontrol = Path("runs") / "Swindon" / "RunControl.nml"
     df_state_init = sp.init_supy(path_runcontrol)
     grid = df_state_init.index[0]
     df_forcing = sp.load_forcing_grid(path_runcontrol, grid)
@@ -47,8 +46,6 @@ def spin_lai_albedo(maxalb, minalb, maxlai, minlai, baset, basete, first_day_str
         df_state_init.iloc[0] = final_state
 
     # %%
-    # df_output.DailyState.dropna()['LAI_Grass'].plot()
-    # df_output.DailyState.dropna().filter(like='AlbGrass').plot()
     alb_init = df_state_final.loc[:, "alb"].iloc[1][2:5].values
     lai_init = df_state_final.loc[:, "lai_id"].iloc[1].values
     return alb_init, lai_init

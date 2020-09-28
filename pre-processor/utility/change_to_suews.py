@@ -98,26 +98,6 @@ def urban_mask(ds_base):
     return landuse_mask
 
 
-def mod_landusef(ds_base):
-    # this if for Swindon
-    xx = 45
-    yy = 38
-    ds_base["LANDUSEF"].values[0, 12, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.49
-    ds_base["LANDUSEF"].values[0, 0, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.01 / 3
-    ds_base["LANDUSEF"].values[0, 1, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.01 / 3
-    ds_base["LANDUSEF"].values[0, 4, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.01 / 3
-    ds_base["LANDUSEF"].values[0, 2:4, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.08 / 2
-    ds_base["LANDUSEF"].values[0, 5:10, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.36 / 7
-    ds_base["LANDUSEF"].values[0, 11, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.36 / 7
-    ds_base["LANDUSEF"].values[0, 13, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.36 / 7
-    ds_base["LANDUSEF"].values[0, 15, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.06 / 4
-    ds_base["LANDUSEF"].values[0, 17:20, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.06 / 4
-    ds_base["LANDUSEF"].values[0, 10, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.0 / 2
-    ds_base["LANDUSEF"].values[0, 16, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.0 / 2
-
-    return ds_base, xx, yy
-
-
 # added SUEWS required input to a single wrfinput file
 def add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm, path_dir_output):
     print(f"working on: {path_wrfinput}")
@@ -127,16 +107,6 @@ def add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm, path_dir_output):
     landuse_mask = urban_mask(ds_base.copy())
     landuse_mask_scale = urban_mask_scale(ds_base.copy())
 
-    # with open("output/SUEWS_param_Swindon.json") as var_json:
-    #     vars_to_add_swindon = json.load(var_json)
-
-    # with open("output/SUEWS_param_London.json") as var_json:
-    #     vars_to_add_london = json.load(var_json)
-
-    # if path_wrfinput == "input/wrfinput_d04":  # for Swindon
-    #     vars_to_add = vars_to_add_swindon
-    # else:
-    #     vars_to_add = vars_to_add_london
 
     with open(path_json_prm) as path_json:
         vars_to_add = json.load(path_json)
@@ -155,12 +125,6 @@ def add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm, path_dir_output):
         }
     )
 
-    # TODO #84: this is too specific to Swindon:
-    #  should be removed and dealt with in a Swindon-specific script
-    # if path_wrfinput == "input/wrfinput_d04":  # for Swindon
-    #     print("modifying the landusef around the site")
-    #     ds_base, xx, yy = mod_landusef(ds_base)
-    #     ds_new["PAVED_RATIO"].values[0, xx - 2 : xx + 2, yy - 2 : yy + 2] = 0.67
 
     # merge with ds_base for export
     ds_merged = ds_base.update(ds_new)
