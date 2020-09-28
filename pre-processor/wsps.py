@@ -17,16 +17,17 @@ from utility.timezone_collector import set_timezone
 ################################################
 # Dashboard for controling the steps: 0=no 1=yes
 # TODO #84
+# internal debugging use: DON'T MODIFY.
 steps = {
     "clean_dirs": 1,
     "extract_params_site": 1,
     "extract_params_vegs": 1,
     "extract_params_extra_lands": 1,
     "modify_trans": 1,
-    "change_to_SUEWS": 1,
-    "modify_London": 0,
-    "parameters": 1,
-    "timezone": 0,
+    "change_to_SUEWS": 1, # update wrfinput
+    "modify_London": 0, # to remove
+    "parameters": 1, # update phenology
+    "timezone": 0, # change timezone
 }
 ################################################
 list_site = ["London", "Swindon"]
