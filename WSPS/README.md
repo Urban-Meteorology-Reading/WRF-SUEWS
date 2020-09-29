@@ -68,4 +68,4 @@ Here are the explanation of each option:
 
 ### Site specific steps
 
-
+If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjuction with customised related modules in utility [folder]. You need to follow [this](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/master/WSPS/utility/site_specific/modify_template.py) template for writing the script for modification of your own site. see examples of London and Swindon in the folder.
