@@ -54,6 +54,18 @@ Here are the explanation of each option:
 
 - `transmissivity`: The values for transmissivity correction for each urban site. Put them 0 if no correction is needed.
 
+- `start_date`: Start date of the run
+
+- `output_file_name`: the output file name that will be generated in sample case [folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/WSPS/sample-case) 
+
+- `input_file_name`: the output file name contains necessary inputs in sample case [folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/WSPS/sample-case)
+
+- `SUEWS_param_template`: the name of `json` file contaning all the SUEWS variables needed to be added to WRF inputs (it is in the input folder).
+
+- `phenology_parameters`: The name of the file contaning parameters related to non-urban areas such as albedo, LAI, conductances based on [Omidvar et al. 2020](https://gmd.copernicus.org/preprints/gmd-2020-148/) (it is in the input folder)
+
+- `data_dir`: name of the data directory necessary for site_specific modifications (it is in the smaple case [folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/WSPS/sample-case))
+
 ### Site specific steps
 
 
