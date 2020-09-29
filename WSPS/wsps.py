@@ -22,7 +22,7 @@ steps = {
     "modify_trans": 1, # changing transmissivity
     "change_to_SUEWS": 1, # update wrfinput
     "update_phenology": 1, # update phenology
-    "timezone": 1, # change timezone
+    "timezone": 0, # change timezone
 }
 ################################################
 # path to output and input root:

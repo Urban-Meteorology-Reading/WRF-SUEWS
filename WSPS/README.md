@@ -52,7 +52,7 @@ Here are the explanation of each option:
 - `veg_site_spin_up`: this is the site configuration you need to use for vegetated spin up. It can be any configuration as long as there is a same-named folder with SUEWS related files to run SuPy in the [spin up folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/pre-processor/sample-case/input/spin_ups). In the example above, `Swindon` site configuration is used.
 
 
-
+- `transmissivity`: The values for transmissivity correction for each urban site. Put them 0 if no correction is needed.
 
 ### Site specific steps
 
