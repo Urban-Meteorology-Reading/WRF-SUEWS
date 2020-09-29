@@ -22,7 +22,7 @@ steps = {
     "modify_trans": 1, # changing transmissivity
     "change_to_SUEWS": 1, # update wrfinput
     "update_phenology": 1, # update phenology
-    "timezone": 0, # change timezone
+    "timezone": 1, # change timezone
 }
 ################################################
 # path to output and input root:
@@ -141,7 +141,7 @@ if steps["update_phenology"] == 1:
 ################################################
 if steps["timezone"] == 1:
     print("\n Changing timezone values . . . ")
-    set_timezone()
+    set_timezone(path_dir_output,str_first_day)
     path_out = path_dir_output / "3-timzone_changed"
     finalize = 1
 ################################################
@@ -149,5 +149,5 @@ if finalize == 1:
     print(f'working on {path_out.as_posix()}')
     src_files = sorted([fn for fn in path_out.glob("*") if fn.is_file()])
     for file_name in src_files:
-        print(f"copying {file_name.name} to output/final")
+        print(f"copying {file_name.name} to {output_dir}/final")
         shutil.copy(file_name, path_dir_output / "final")

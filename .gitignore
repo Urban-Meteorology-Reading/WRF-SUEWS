@@ -59,8 +59,6 @@ wrfout_d0*
 wrfbdy_d01
 SumData.DAT
 test-run
-input-processor/pre-processor-SL/input/bldg_data/
-input-processor/pre-processor-SL/Other_modifies/Colombo/bldg_data/
 # python related files
 .ipynb_checkpoints
 
@@ -76,6 +74,6 @@ docs/source/doxygenoutput
 
 ############################
 # pre-processor output
-pre-processor/sample-case/output/
+WSPS/sample-case/output/
 
 
