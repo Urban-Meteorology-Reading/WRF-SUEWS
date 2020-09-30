@@ -46,6 +46,11 @@ else:
 urban_domain_number=wsps_config.urban_domain_number #domain number related to urban site
 list_veg = wsps_config.veg_site_spin_up # the site to use for vegetation spin up
 values_trans = wsps_config.values_trans # transmissivity values for urban sites
+# to make sure we pass the list of values of transmissivity as a list even when there is one
+if type(values_trans) is list:
+    pass
+else:
+    values_trans=[values_trans]
 str_first_day = wsps_config.start_date # start day of the run
 urban_class_threshold = wsps_config.urban_class_threshold #threshholds for urban classes
 urban_class = wsps_config.urban_class #urban classes
