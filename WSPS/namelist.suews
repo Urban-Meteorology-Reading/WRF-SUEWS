@@ -154,13 +154,13 @@
 /
 
 &wsps
-urban_site_spin_up    = 'London', 'Swindon'
-urban_domain_number   = '03',     '04'
+urban_site_spin_up    = 'Colombo'
+urban_domain_number   = '03'
 urban_class_threshold = 0.6,      0.16
-urban_class           = 'London', 'Swindon'
-veg_site_spin_up      = 'Swindon'
-transmissivity        = 0.1257,   0.1216
-start_date            = '2012-01-10'
+urban_class           = 'Colombo', 'Colombo'
+veg_site_spin_up      = 'Colombo'
+transmissivity        = 0
+start_date            = '2016-04-10'
 output_file_name      = 'output'
 input_file_name       = 'input'
 SUEWS_param_template  = 'SUEWS_param.json'

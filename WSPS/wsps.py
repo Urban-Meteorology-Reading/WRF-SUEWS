@@ -37,6 +37,12 @@ path_dir_input = Path("./sample-case/"+input_dir).expanduser().resolve()
 path_json_prm = path_dir_input / wsps_config.SUEWS_param_template #path to SUEWS template variables json
 path_csv_phenol = path_dir_input / wsps_config.phenology_parameters #path to phenology parameters csv file
 list_site = wsps_config.urban_site_spin_up #list of urban sites
+# to make sure we pass the list of sites as a list even when there is one
+if type(list_site) is list:
+    pass
+else:
+    list_site=[list_site]
+
 urban_domain_number=wsps_config.urban_domain_number #domain number related to urban site
 list_veg = wsps_config.veg_site_spin_up # the site to use for vegetation spin up
 values_trans = wsps_config.values_trans # transmissivity values for urban sites
