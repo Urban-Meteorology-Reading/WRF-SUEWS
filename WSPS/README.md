@@ -2,26 +2,26 @@
 
 ## Steps in summary
 
-1- Use conda to create a fresh environment use environment.yml:
+1. Use `conda` to create a fresh environment use `environment.yml`:
 
 ```bash
 conda env create -f environment.yml
 ```
 
-2- Setup WSPS configuration in the `wsps` section of `namelist.suews`, and add SUEWS related run files associated with the configuration in the [spin up folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/pre-processor/sample-case/input/spin_ups). You also need to add all `wrfinput.nc` files from WPS process to your [input folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/pre-processor/sample-case/input)
+2. Set up WSPS configuration in the `wsps` section of `namelist.suews`, and add SUEWS related run files associated with the configuration in the [spin up folder](./sample-case/input/spin_ups). You also need to add all `wrfinput.nc` files from WPS process to your [input folder](./sample-case/input)
 
-3-  run:
+3.  run:
 ```bash
 python wsps.py
 ```
-4- The modified `wrfinput.nc` files will be in the generated output folder `output/final`
+4. The modified `wrfinput.nc` files will be in the generated output folder `output/final`
 
-5- If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjuction with customised related modules in utility [folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/pre-processor/utility/site_specific) (see examples of London and Swindon) 
+5. If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in utility [folder](./utility/site_specific) (see examples of London and Swindon)
 
 ## Steps in detail
 ### Mandatory steps (general)
 
-#### 1- Congfiguration
+#### Configuration
 In the first step, the WSPS needs to be configured in  `wsps` section of `namelist.suews` (in the root directory of pre processor folder). Please read below to see how to modify configuration (and add necessary SUEWS related fles) for your purpose:
 
 ```
@@ -56,7 +56,7 @@ Here are the explanation of each option:
 
 - `start_date`: Start date of the run
 
-- `output_file_name`: the output file name that will be generated in sample case [folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/WSPS/sample-case) 
+- `output_file_name`: the output file name that will be generated in sample case [folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/WSPS/sample-case)
 
 - `input_file_name`: the output file name contains necessary inputs in sample case [folder](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/WSPS/sample-case)
 
@@ -68,4 +68,4 @@ Here are the explanation of each option:
 
 ### Site specific steps
 
-If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjuction with customised related modules in utility [folder]. You need to follow [this](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/master/WSPS/utility/site_specific/modify_template.py) template for writing the script for modification of your own site. see examples of London and Swindon in the folder.
+If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in utility [folder]. You need to follow [this](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/master/WSPS/utility/site_specific/modify_template.py) template for writing the script for modification of your own site. see examples of London and Swindon in the folder.

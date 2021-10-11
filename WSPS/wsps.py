@@ -67,7 +67,7 @@ if steps["clean_dirs"] == 1:
     for dir_path in list_dir:
         # full path to work on
         p_dir = path_dir_output / dir_path
-        print(f"cleaning {p_dir.as_posix()} . . .")
+        print(f"cleaning {p_dir.as_posix()} ...")
 
         if p_dir.exists():
             shutil.rmtree(p_dir)
@@ -76,9 +76,9 @@ if steps["clean_dirs"] == 1:
         p_dir.mkdir(parents=True)
 ################################################
 if steps["extract_params_site"] == 1:
-    print("\n Extracting SUEWS parameters for cities . . . ")
+    print("\n Extracting SUEWS parameters for cities ... ")
     for site in list_site:
-        print("preparing for " + site + " . . .")
+        print("preparing for " + site + " ...")
         path_runcontrol = path_dir_input / "spin_ups" / site / "RunControl.nml"
         getting_SUEWS_params(
             path_runcontrol,
@@ -90,9 +90,9 @@ if steps["extract_params_site"] == 1:
         )
 ################################################
 if steps["extract_params_vegs"] == 1:
-    print("\n Extracting SUEWS parameters for vegetations . . . ")
+    print("\n Extracting SUEWS parameters for vegetations ... ")
     for veg_type in ["EveTr", "DecTr", "Grass"]:
-        print("preparing for " + veg_type + " . . .")
+        print("preparing for " + veg_type + " ...")
         path_runcontrol = path_dir_input / "spin_ups" / list_veg / "RunControl.nml"
         getting_SUEWS_params(
             path_runcontrol,
@@ -106,7 +106,7 @@ if steps["extract_params_vegs"] == 1:
         )
 ################################################
 if steps["modify_trans"] == 1:
-    print("\n Modifying taransmisivity . . .")
+    print("\n Modifying taransmisivity ...")
     for site, value in zip(list_site, values_trans):
         try:
             with open(path_dir_output / f"SUEWS_param_{site}.json") as var_json:
@@ -119,12 +119,12 @@ if steps["modify_trans"] == 1:
 
         # new_json = "output/SUEWS_param_" + site + ".json"
         new_json = path_dir_output / f"SUEWS_param_{site}.json"
-        print(f"\n Modifying {new_json.as_posix()} . . .")
+        print(f"\n Modifying {new_json.as_posix()} ...")
         with open(new_json, "w") as fp:
             json.dump(vars_to_add, fp, indent=4)
 ################################################
 if steps["change_to_SUEWS"] == 1:
-    print("\n Adding SUEWS inputs to WRF inputs . . .")
+    print("\n Adding SUEWS inputs to WRF inputs ...")
     path_out = path_dir_output / "1-changed_to_SUEWS"
     list_wrfinput_base = sorted(path_dir_input.glob("wrfinput_d0?"))
 
@@ -142,9 +142,9 @@ if steps["change_to_SUEWS"] == 1:
             add_SUEWS_wrfinput_single(path_wrfinput, path_json_prm_x, path_out)
 ################################################
 if steps["update_phenology"] == 1:
-    print("\n Modifying phenology . . .")
+    print("\n Modifying phenology ...")
     path_runcontrol = path_dir_input / "spin_ups" / list_veg / "RunControl.nml"
-    update_phenology(path_dir_output, path_csv_phenol, 
+    update_phenology(path_dir_output, path_csv_phenol,
                     path_runcontrol, str_first_day,
                     urban_class_threshold, urban_class
                     )
@@ -152,7 +152,7 @@ if steps["update_phenology"] == 1:
     finalize = 1
 ################################################
 if steps["timezone"] == 1:
-    print("\n Changing timezone values . . . ")
+    print("\n Changing timezone values ...")
     set_timezone(path_dir_output,str_first_day)
     path_out = path_dir_output / "3-timzone_changed"
     finalize = 1
