@@ -10,12 +10,14 @@ git submodule update
 ```
 These commands update SUEWS repo associated with WRF-SUEWS. Currently, it is an older version of SUEWS than the most up-to-date one.
 
-# To compile and Run on [jasmin]():
+# To compile and Run on [jasmin](https://www.ceda.ac.uk/services/jasmin/) (as of 12 Oct 2021):
 1. Go to `coupling-automator`, and type `make`
 
 2. It creates the WRF-SUEWS folder to compile (name of the folder depends on what you specify [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/50dba67f3a66cfee296d7c4de88d3f52353b13cd/coupling-automator/automate_main.py#L57))
 
-3. In the created folder, type `./configure`. This is for configuration of WRF-SUEWS. Choose number `15` for the compiler and `basic` option for the nesting.
+3. load jasmin compilers: `module load intel/20.0.0`
+
+3. In the created folder, type `./configure`. This is for configuration of WRF-SUEWS. Choose number `15` for the compiler (as of WRFv4 this refers to standard intel compiler) and `basic` option for the nesting.
 
 4. Then you need compile the code: `./compile em_real >& compile.log`. For this, you can submit the job as following:
 
