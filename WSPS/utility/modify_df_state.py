@@ -58,6 +58,10 @@ def modify_attr(df_state_init,df_phenol,veg_type):
     df_state_init.g3=attrs_site['g3'].values[0]
     df_state_init.g4=attrs_site['g4'].values[0]
     df_state_init.g5=attrs_site['g5'].values[0]
+    df_state_init.tl=attrs_site['tl'].values[0]
+    df_state_init.th=attrs_site['th'].values[0]
     df_state_init.g6=attrs_site['g6'].values[0]
+    df_state_init.s1=attrs_site['g6'].values[0]*attrs_site['smdWP'].values[0]
+    df_state_init.s2=0
 
     return df_state_init

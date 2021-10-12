@@ -40,9 +40,9 @@ def spinup_SUEWS(
     df_forcing_2.iy = df_forcing_2.index.year
     df_forcing_2.index.freq = first_part.index.freq
     round_number = 0
-    error = 0.4
+    error = 5
     counter = 0
-    while error >= 0.1 or counter < 3:
+    while error >= 1 or counter < 3:
         counter += 1
         round_number = round_number + 1
         print("Running SUEWS for round number " + str(round_number) + ".....")

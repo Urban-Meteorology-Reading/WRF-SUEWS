@@ -104,58 +104,68 @@ def update_phenology(path_dir_output, path_csv_phenol, path_runcontrol, first_da
     g3 = phenol_attrs["g3"].values
     g4 = phenol_attrs["g4"].values
     g5 = phenol_attrs["g5"].values
+    # TODO: tl, th, s1 and s2 should be varying at the grid level: currently set for a whole domain
+    # tl = phenol_attrs["tl"].values
+    # th = phenol_attrs["th"].values
     g6 = phenol_attrs["g6"].values
+    # s1 = phenol_attrs["g6"].values*phenol_attrs["smdWP"].values
+    # s2 = 0
 
     for path_wrfinput in list_path_wrfinput:
         print(f"working on {path_wrfinput.name}")
         ds_base = xr.open_dataset(path_wrfinput)
         ds_base_orig = ds_base.copy(deep=True)
-        a = {}
-        a["urban"] = 0
-        a["dectr"] = 0
-        a["evetr"] = 0
-        a["grass"] = 0
-        a["bsoil"] = 0
-        a["water"] = 0
 
-        b = ds_base["LANDUSEF"].copy(deep=True)
-        a["urban"] = b.values[0, 12, :, :]
+        # land cover fractions using SUEWS scheme
+        dict_sfr_suews = {}
+        dict_sfr_suews["urban"] = 0
+        dict_sfr_suews["dectr"] = 0
+        dict_sfr_suews["evetr"] = 0
+        dict_sfr_suews["grass"] = 0
+        dict_sfr_suews["bsoil"] = 0
+        dict_sfr_suews["water"] = 0
+
+        # base land cover surface fraction
+        lc_sfc_base = ds_base["LANDUSEF"].copy(deep=True)
+
+        # update all SUEWS-based lanc cover fractions
+        dict_sfr_suews["urban"] = lc_sfc_base.values[0, 12, :, :]
         for i in [2, 3]:
-            a["dectr"] = a["dectr"] + b.values[0, i, :, :]
+            dict_sfr_suews["dectr"] = dict_sfr_suews["dectr"] + lc_sfc_base.values[0, i, :, :]
         for i in [0, 1, 4]:
-            a["evetr"] = a["evetr"] + b.values[0, i, :, :]
+            dict_sfr_suews["evetr"] = dict_sfr_suews["evetr"] + lc_sfc_base.values[0, i, :, :]
         for i in [5, 6, 7, 8, 9, 11, 13]:
-            a["grass"] = a["grass"] + b.values[0, i, :, :]
+            dict_sfr_suews["grass"] = dict_sfr_suews["grass"] + lc_sfc_base.values[0, i, :, :]
         for i in [15, 17, 18, 19]:
-            a["bsoil"] = a["bsoil"] + b.values[0, i, :, :]
+            dict_sfr_suews["bsoil"] = dict_sfr_suews["bsoil"] + lc_sfc_base.values[0, i, :, :]
         for i in [10, 16]:
-            a["water"] = a["water"] + b.values[0, i, :, :]
+            dict_sfr_suews["water"] = dict_sfr_suews["water"] + lc_sfc_base.values[0, i, :, :]
 
-        for i in range(a["urban"].shape[0]):
-            for j in range(a["urban"].shape[1]):
+        for i in range(dict_sfr_suews["urban"].shape[0]):
+            for j in range(dict_sfr_suews["urban"].shape[1]):
 
                 mx_fr = np.max(
                     [
-                        a["urban"][i, j],
-                        a["evetr"][i, j],
-                        a["dectr"][i, j],
-                        a["grass"][i, j],
-                        a["bsoil"][i, j],
-                        a["water"][i, j],
+                        dict_sfr_suews["urban"][i, j],
+                        dict_sfr_suews["evetr"][i, j],
+                        dict_sfr_suews["dectr"][i, j],
+                        dict_sfr_suews["grass"][i, j],
+                        dict_sfr_suews["bsoil"][i, j],
+                        dict_sfr_suews["water"][i, j],
                     ]
                 )
                 ###########################################################################
                 not_urban_flag = 1
                 for idx,threshold in enumerate(urban_class_threshold):
                     if idx == 0:
-                        if a["urban"][i, j] > urban_class_threshold[idx]:
+                        if dict_sfr_suews["urban"][i, j] > urban_class_threshold[idx]:
                             ds_base = change_soil_moisture(
                                 ds_base, path_dir_output, urban_class[idx], i, j
                             )
                             not_urban_flag = 0
                             break
                     else:
-                        if (a["urban"][i, j] > urban_class_threshold[idx]) and (a["urban"][i, j] <= urban_class_threshold[idx-1]):
+                        if (dict_sfr_suews["urban"][i, j] > urban_class_threshold[idx]) and (dict_sfr_suews["urban"][i, j] <= urban_class_threshold[idx-1]):
                             ds_base = change_soil_moisture(
                                 ds_base, path_dir_output, urban_class[idx], i, j
                             )
@@ -163,7 +173,7 @@ def update_phenology(path_dir_output, path_csv_phenol, path_runcontrol, first_da
                             break
                 ###########################################################################
                 if not_urban_flag:
-                    if mx_fr == a["evetr"][i, j]:
+                    if mx_fr == dict_sfr_suews["evetr"][i, j]:
                         ds_base = mod_gs(
                             ds_base, g1[0], g2[0], g3[0], g4[0], g5[0], g6[0], i, j
                         )
@@ -185,7 +195,7 @@ def update_phenology(path_dir_output, path_csv_phenol, path_runcontrol, first_da
                             ds_base, path_dir_output, "EveTr", i, j
                         )
                     ###########################################################################
-                    elif mx_fr == a["dectr"][i, j]:
+                    elif mx_fr == dict_sfr_suews["dectr"][i, j]:
                         ds_base = mod_gs(
                             ds_base, g1[1], g2[1], g3[1], g4[1], g5[1], g6[1], i, j
                         )
@@ -207,8 +217,8 @@ def update_phenology(path_dir_output, path_csv_phenol, path_runcontrol, first_da
                             ds_base, path_dir_output, "DecTr", i, j
                         )
                     ###########################################################################
-                    elif (mx_fr == a["grass"][i, j]) and (
-                        (b.values[0, 11, i, j] + b.values[0, 13, i, j]) >= 0.5
+                    elif (mx_fr == dict_sfr_suews["grass"][i, j]) and (
+                        (lc_sfc_base.values[0, 11, i, j] + lc_sfc_base.values[0, 13, i, j]) >= 0.5
                     ):  # Grass-Crop
                         ds_base = mod_gs(
                             ds_base, g1[4], g2[4], g3[4], g4[4], g5[4], g6[4], i, j
@@ -235,8 +245,8 @@ def update_phenology(path_dir_output, path_csv_phenol, path_runcontrol, first_da
                         )
                     ###########################################################################
                     elif (
-                        mx_fr == a["grass"][i, j]
-                        and (b.values[0, 11, i, j] + b.values[0, 13, i, j]) < 0.5
+                        mx_fr == dict_sfr_suews["grass"][i, j]
+                        and (lc_sfc_base.values[0, 11, i, j] + lc_sfc_base.values[0, 13, i, j]) < 0.5
                     ):
                         ds_base = mod_gs(
                             ds_base, g1[2], g2[2], g3[2], g4[2], g5[2], g6[2], i, j
@@ -259,7 +269,7 @@ def update_phenology(path_dir_output, path_csv_phenol, path_runcontrol, first_da
                             ds_base, path_dir_output, "Grass", i, j
                             )
                     ###########################################################################
-                    elif mx_fr == a["bsoil"][i, j]:
+                    elif mx_fr == dict_sfr_suews["bsoil"][i, j]:
                         ds_base = mod_gs(
                             ds_base, g1[3], g2[3], g3[3], g4[3], g5[3], g6[3], i, j
                         )
