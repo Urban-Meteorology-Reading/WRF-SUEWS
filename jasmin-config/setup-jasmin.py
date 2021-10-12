@@ -10,7 +10,7 @@ from shutil import copytree, copy
 p_dir_baserun = Path("../compilation-20211012/run")
 
 # 2. pre-processed wrfinput for WRF-SUEWS
-p_dir_wrfinput = Path("~/input-WRF-SUEWS")
+p_dir_wrfinput = Path("~/input-WRF-SUEWS").expanduser()
 
 
 # 3. namelist for WRF-SUEWS
@@ -39,7 +39,7 @@ if list_dir_wrfinput:
     for p_dir in list_dir_wrfinput:
         print(f"checking {p_dir}:")
         if sorted(p_dir.glob("wrfinput*")):
-            pass
+            print(p_dir.glob("wrfinput*"))
         else:
             raise RuntimeError(f"{p_dir.as_posix()} is empty!")
 else:
@@ -57,7 +57,7 @@ if p_dir_basesim.exists():
     pass
 else:
     print(f"{p_dir_basesim} does not exist: creating it now ...")
-    p_dir_basesim.mkdir(exist_ok=True)
+    p_dir_basesim.mkdir(exist_ok=True,parents=True)
 
 # copy files
 for p_dir_wrfinput in list_dir_wrfinput:
@@ -65,13 +65,14 @@ for p_dir_wrfinput in list_dir_wrfinput:
     print(f"working on {str_sim}")
     # create sim directory using the same
     p_dir_sim = p_dir_basesim / str_sim
-    p_dir_sim.mkdir(exist_ok=True)
+    #p_dir_sim.mkdir(exist_ok=True,parents=True)
 
     # copy base run files
     copytree(p_dir_baserun, p_dir_sim)
 
     # copy processed wrfinput files
-    copytree(p_dir_wrfinput, p_dir_sim)
+    for fn in p_dir_wrfinput.glob('wrfinput*'):
+        copy(fn, p_dir_sim)
 
     # copy job file
     copy(p_sbatch, p_dir_sim)
