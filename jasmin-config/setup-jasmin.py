@@ -7,7 +7,7 @@ from shutil import copytree, copy
 ##########################################
 # essential paths
 # 1. base `run` directory of WRF
-p_dir_baserun = Path("../compilation-20211012")
+p_dir_baserun = Path("../compilation-20211012/run")
 
 # 2. pre-processed wrfinput for WRF-SUEWS
 p_dir_wrfinput = Path("~/input-WRF-SUEWS")
