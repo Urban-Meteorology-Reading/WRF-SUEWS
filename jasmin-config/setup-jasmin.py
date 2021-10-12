@@ -71,8 +71,8 @@ for p_dir_wrfinput in list_dir_wrfinput:
     copytree(p_dir_baserun, p_dir_sim)
 
     # copy processed wrfinput files
-    for fn in p_dir_wrfinput.glob('wrfinput*'):
-        copy(fn, p_dir_sim)
+    for fn in p_dir_wrfinput.glob('wrfinput*.suews'):
+        copy(fn, p_dir_sim/fn.name.replace('.suews',''))
 
     # copy job file
     copy(p_sbatch, p_dir_sim)
