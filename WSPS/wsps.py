@@ -14,47 +14,73 @@ from utility.timezone_collector import set_timezone
 from utility.get_wsps_config import get_wsps_config
 
 ################################################
-# internal debugging use: DON'T MODIFY. Dashboard for controling the steps: 0=no 1=yes
+# DON'T MODIFY
+# for internal debugging use
+# Dashboard for controling the steps:
+# 0=no 1=yes
 steps = {
-    "clean_dirs": 1, # clean all output directories
-    "extract_params_site": 1, # spin up for sites
-    "extract_params_vegs": 1, # spin up for vegs
-    "modify_trans": 1, # changing transmissivity
-    "change_to_SUEWS": 1, # update wrfinput
-    "update_phenology": 1, # update phenology
-    "timezone": 0, # change timezone
+    "clean_dirs": 1,  # clean all output directories
+    "extract_params_site": 1,  # spin up for sites
+    "extract_params_vegs": 1,  # spin up for vegs
+    "modify_trans": 1,  # changing transmissivity
+    "change_to_SUEWS": 1,  # update wrfinput
+    "update_phenology": 1,  # update phenology
+    "timezone": 0,  # change timezone
 }
 ################################################
 # path to output and input root:
-path_nml_suews = Path('.') / "namelist.suews"
+path_nml_suews = Path(".") / "namelist.suews"
 nml = f90nml.read(path_nml_suews)
-wsps_config=get_wsps_config(nml)
+wsps_config = get_wsps_config(nml)
 
-output_dir = wsps_config.output_file_name # name of the output folder
-input_dir = wsps_config.input_file_name # name of the output folder
-path_dir_output = Path("./sample-case/"+output_dir).expanduser().resolve()
-path_dir_input = Path("./sample-case/"+input_dir).expanduser().resolve()
-path_json_prm = path_dir_input / wsps_config.SUEWS_param_template #path to SUEWS template variables json
-path_csv_phenol = path_dir_input / wsps_config.phenology_parameters #path to phenology parameters csv file
-list_site = wsps_config.urban_site_spin_up #list of urban sites
+# name of the output folder
+output_dir = wsps_config.output_file_name
+
+# name of the output folder
+input_dir = wsps_config.input_file_name
+
+path_dir_output = Path("./sample-case/" + output_dir).expanduser().resolve()
+path_dir_input = Path("./sample-case/" + input_dir).expanduser().resolve()
+
+# path to SUEWS template variables json
+path_json_prm = path_dir_input / wsps_config.SUEWS_param_template
+
+# path to phenology parameters csv file
+path_csv_phenol = path_dir_input / wsps_config.phenology_parameters
+
+# list of urban sites
+list_site = wsps_config.urban_site_spin_up
 list_site = list_site if isinstance(list_site, list) else [list_site]
+
 # to make sure we pass the list of sites as a list even when there is one
 if type(list_site) is list:
     pass
 else:
-    list_site=[list_site]
+    list_site = [list_site]
 
-urban_domain_number=wsps_config.urban_domain_number #domain number related to urban site
-list_veg = wsps_config.veg_site_spin_up # the site to use for vegetation spin up
-values_trans = wsps_config.values_trans # transmissivity values for urban sites
+# domain number related to urban site
+urban_domain_number = wsps_config.urban_domain_number
+
+# the site to use for vegetation spin up
+site_veg = wsps_config.veg_site_spin_up
+
+# transmissivity values for urban sites
+values_trans = wsps_config.values_trans
+
 # to make sure we pass the list of values of transmissivity as a list even when there is one
 if type(values_trans) is list:
     pass
 else:
-    values_trans=[values_trans]
-str_first_day = wsps_config.start_date # start day of the run
-urban_class_threshold = wsps_config.urban_class_threshold #threshholds for urban classes
-urban_class = wsps_config.urban_class #urban classes
+    values_trans = [values_trans]
+
+# start day of the run
+str_first_day = wsps_config.start_date
+
+# land cover threshhold of impervious surfaces for urban classes
+urban_class_threshold = wsps_config.urban_class_threshold
+
+# urban classes
+urban_class = wsps_config.urban_class
 ################################################
 finalize = 0
 if steps["clean_dirs"] == 1:
@@ -93,7 +119,7 @@ if steps["extract_params_vegs"] == 1:
     print("\n Extracting SUEWS parameters for vegetations ... ")
     for veg_type in ["EveTr", "DecTr", "Grass"]:
         print("preparing for " + veg_type + " ...")
-        path_runcontrol = path_dir_input / "spin_ups" / list_veg / "RunControl.nml"
+        path_runcontrol = path_dir_input / "spin_ups" / site_veg / "RunControl.nml"
         getting_SUEWS_params(
             path_runcontrol,
             path_csv_phenol,
@@ -131,7 +157,7 @@ if steps["change_to_SUEWS"] == 1:
     for path_wrfinput in list_wrfinput_base:
 
         flag_not_urban_domain = 1
-        for domain_n,urban_site in zip(urban_domain_number,list_site):
+        for domain_n, urban_site in zip(urban_domain_number, list_site):
             if domain_n in path_wrfinput.name:
                 path_json_prm_x = path_dir_output / f"SUEWS_param_{urban_site}.json"
                 flag_not_urban_domain = 0
@@ -143,22 +169,26 @@ if steps["change_to_SUEWS"] == 1:
 ################################################
 if steps["update_phenology"] == 1:
     print("\n Modifying phenology ...")
-    path_runcontrol = path_dir_input / "spin_ups" / list_veg / "RunControl.nml"
-    update_phenology(path_dir_output, path_csv_phenol,
-                    path_runcontrol, str_first_day,
-                    urban_class_threshold, urban_class
-                    )
+    path_runcontrol = path_dir_input / "spin_ups" / site_veg / "RunControl.nml"
+    update_phenology(
+        path_dir_output,
+        path_csv_phenol,
+        path_runcontrol,
+        str_first_day,
+        urban_class_threshold,
+        urban_class,
+    )
     path_out = path_dir_output / "2-parameters_changed"
     finalize = 1
 ################################################
 if steps["timezone"] == 1:
     print("\n Changing timezone values ...")
-    set_timezone(path_dir_output,str_first_day)
+    set_timezone(path_dir_output, str_first_day)
     path_out = path_dir_output / "3-timzone_changed"
     finalize = 1
 ################################################
 if finalize == 1:
-    print(f'working on {path_out.as_posix()}')
+    print(f"working on {path_out.as_posix()}")
     src_files = sorted([fn for fn in path_out.glob("*") if fn.is_file()])
     for file_name in src_files:
         print(f"copying {file_name.name} to {output_dir}/final")
