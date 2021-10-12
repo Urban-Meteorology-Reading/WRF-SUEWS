@@ -11,6 +11,9 @@ git submodule update
 These commands update SUEWS repo associated with WRF-SUEWS. Currently, it is an older version of SUEWS than the most up-to-date one.
 
 # To compile and Run on [jasmin](https://www.ceda.ac.uk/services/jasmin/) (as of 12 Oct 2021):
+## dependencies
+please follow the official guide [here](https://www2.mmm.ucar.edu/wrf/OnLineTutorial/compilation_tutorial.php)
+## steps
 1. Go to `coupling-automator`, and type `make`
 
 2. It creates the WRF-SUEWS folder to compile (name of the folder depends on what you specify [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/50dba67f3a66cfee296d7c4de88d3f52353b13cd/coupling-automator/automate_main.py#L57))

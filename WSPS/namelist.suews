@@ -99,21 +99,21 @@
     s2 = 0.0
     CRWmax = 0.2
     CRWmin = 0.05
-    PrecipLimit = 2.2  
-    PrecipLimitAlb = 2 
+    PrecipLimit = 2.2
+    PrecipLimitAlb = 2
     RadMeltFact = 0.001
-    SnowAlbMax = 0.8   
+    SnowAlbMax = 0.8
     SnowAlbMin = 0.18
-    SnowDensMax = 450  
-    SnowDensMin = 100  
-    SnowLimBldg = 100  
-    SnowLimPaved = 100 
+    SnowDensMax = 450
+    SnowDensMin = 100
+    SnowLimBldg = 100
+    SnowLimPaved = 100
     tau_a = 0.01
     tau_f = 0.1
     tau_r = 0.02
     TempMeltFact = 0.12
     startDLS = 85
-    endDLS = 302 
+    endDLS = 302
 /
 
 &method
@@ -161,7 +161,7 @@ urban_class           = 'London', 'Swindon'
 veg_site_spin_up      = 'Swindon'
 transmissivity        = 0.1257,   0.1216
 start_date            = '2012-01-10'
-output_file_name      = 'output'
+output_file_name      = 'output-test'
 input_file_name       = 'input'
 SUEWS_param_template  = 'SUEWS_param.json'
 phenology_parameters  = 'phenol_attrs.csv'

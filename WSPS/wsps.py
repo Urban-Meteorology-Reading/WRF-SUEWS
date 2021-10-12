@@ -78,7 +78,7 @@ if steps["clean_dirs"] == 1:
 if steps["extract_params_site"] == 1:
     print("\n Extracting SUEWS parameters for cities ... ")
     for site in list_site:
-        print("preparing for " + site + " ...")
+        print(f"preparing for {site} ...")
         path_runcontrol = path_dir_input / "spin_ups" / site / "RunControl.nml"
         getting_SUEWS_params(
             path_runcontrol,
