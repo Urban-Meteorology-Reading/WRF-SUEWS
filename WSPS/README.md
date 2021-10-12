@@ -8,7 +8,7 @@
 conda env create -f environment.yml
 ```
 
-2. Set up WSPS configuration in the `wsps` section of `namelist.suews`, and add SUEWS related run files associated with the configuration in the [spin up folder](./sample-case/input/spin_ups). You also need to add all `wrfinput.nc` files from WPS process to your [input folder](./sample-case/input)
+2. Set up WSPS configuration in the `wsps` section of `namelist.suews`, and add SUEWS related run files associated with the configuration in the [spin up folder](./sample-case/input/spin_ups). You also need to add all `wrfinput.nc` files from WPS process to your [`input` folder](./sample-case/input)
 
 3.  run:
 ```bash
@@ -16,7 +16,7 @@ python wsps.py
 ```
 4. The modified `wrfinput.nc` files will be in the generated output folder `output/final`
 
-5. If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in utility [folder](./utility/site_specific) (see examples of London and Swindon)
+5. If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in [`utility` folder](./utility/site_specific) (see examples of London and Swindon)
 
 ## Steps in detail
 ### Mandatory steps (general)
@@ -47,7 +47,7 @@ Here are the explanation of each option:
 
 - `urban_domain_number`: this is the domain associated with each of sites in `urban_site_spin_up`
 
-- `urban_class_threshold` and `urban_class` : these are threshold related ot urban classes (urban fraction) and the associated site for each one. You can have as many threshold as you want. For example, in the above script, the thresholds are `1 < f < 0.6` is assigned to `London`, `0.6 < f < 0.16` is assigned to `Swindon`, and the rest are automatically assigned to vegetated classes.
+- `urban_class_threshold` and `urban_class` : these are threshold related to urban classes (urban fraction) and the associated site for each one. You can have as many threshold as you want. For example, in the above script, the thresholds are `1 < f < 0.6` is assigned to `London`, `0.6 < f < 0.16` is assigned to `Swindon`, and the rest are automatically assigned to vegetated classes.
 
 - `veg_site_spin_up`: this is the site configuration you need to use for vegetated spin up. It can be any configuration as long as there is a same-named folder with SUEWS related files to run SuPy in the [spin up folder](./sample-case/input/spin_ups). In the example above, `Swindon` site configuration is used.
 
@@ -56,16 +56,17 @@ Here are the explanation of each option:
 
 - `start_date`: Start date of the run
 
-- `output_file_name`: the output file name that will be generated in sample case [folder](./sample-case)
+- `output_file_name`: the output file name that will be generated in [sample case folder](./sample-case)
 
-- `input_file_name`: the output file name contains necessary inputs in sample case [folder](./sample-case)
+- `input_file_name`: the output file name contains necessary inputs in [sample case folder](./sample-case)
 
 - `SUEWS_param_template`: the name of `json` file containing all the SUEWS variables needed to be added to WRF inputs (it is in the input folder).
 
 - `phenology_parameters`: The name of the file containing parameters related to non-urban areas such as albedo, LAI, conductances based on [Omidvar et al. 2020](https://gmd.copernicus.org/preprints/gmd-2020-148/) (it is in the input folder)
 
-- `data_dir`: name of the data directory necessary for site_specific modifications (it is in the sample case [folder](./sample-case))
+- `data_dir`: name of the data directory necessary for site_specific modifications (it is in the [sample case folder](./sample-case))
 
 ### Site specific steps
 
-If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in [`utility` folder](./utility). You need to follow [this](./utility/site_specific/modify_template.py) template for writing the script for modification of your own site. see examples of London and Swindon in the folder.
+If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in [`utility` folder](./utility).
+You need to follow [this](./utility/site_specific/modify_template.py) template for writing the script for modification of your own site. see examples of [London](./utility/site_specific/modify_London.py) and [Swindon](./utility/site_specific/modify_Swindon.py) in the [`utility` folder](./utility/site_specific).
