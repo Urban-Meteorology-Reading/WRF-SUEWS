@@ -29,7 +29,7 @@ please follow the official guide [here](https://www2.mmm.ucar.edu/wrf/OnLineTuto
 
 6. You also need to copy `namelist.suews` to the same location.
 
-7. Use `LANDUSE.TBL` in `./test/em_real` to change the albedo associated with Urban aras (number `13` for `MODIFIED_IGBP_MODIS_NOAH` for both winter and summer. By default it is 15% (0.15). In London case, it is changed to 11%(0.11) based on Ward et al. 2016)
+7. Use `LANDUSE.TBL` in `./test/em_real` to change the albedo associated with Urban areas (number `13` for `MODIFIED_IGBP_MODIS_NOAH` for both winter and summer. By default it is 15% (0.15). In London case, it is changed to 11% (0.11) based on Ward et al. 2016)
 
 8. `namelist.input` should also be modified to be consistent for WRF-SUEWS. See examples [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/tree/master/input-processor/namelist_example/UK) (specially the `sf_surface_physics = 9` which specifies to use SUEWS as the LSM).
 
