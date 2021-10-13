@@ -9,9 +9,8 @@ from shutil import copytree, copy
 # 1. base `run` directory of WRF
 p_dir_baserun = Path("../compilation-20211012/run")
 
-# 2. pre-processed wrfinput for WRF-SUEWS
+# 2. pre-processed wrfinput and other files (wrfbdy and namelist.input) for WRF-SUEWS
 p_dir_wrfinput = Path("~/input-WRF-SUEWS").expanduser()
-
 
 # 3. namelist for WRF-SUEWS
 p_namelist_suews = Path("../WSPS/namelist.suews")
@@ -40,6 +39,10 @@ if list_dir_wrfinput:
         print(f"checking {p_dir}:")
         if sorted(p_dir.glob("wrfinput*")):
             print(p_dir.glob("wrfinput*"))
+        elif sorted(p_dir.glob("wrfbdy*")):
+            print(p_dir.glob("wrfbdy*"))
+        elif sorted(p_dir.glob("namelist*")):
+            print(p_dir.glob("namelist*"))
         else:
             raise RuntimeError(f"{p_dir.as_posix()} is empty!")
 else:
@@ -65,7 +68,6 @@ for p_dir_wrfinput in list_dir_wrfinput:
     print(f"working on {str_sim}")
     # create sim directory using the same
     p_dir_sim = p_dir_basesim / str_sim
-    #p_dir_sim.mkdir(exist_ok=True,parents=True)
 
     # copy base run files
     copytree(p_dir_baserun, p_dir_sim)
