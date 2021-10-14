@@ -39,10 +39,10 @@ if list_dir_wrfinput:
         print(f"checking {p_dir}:")
         for str_pattern in ["wrfinput*","wrfbdy*","namelist*"]:
             list_fn=sorted(p_dir.glob(str_pattern))
-        if list_fn:
-            print(list_fn)
-        else:
-            raise RuntimeError(f"{p_dir.as_posix()} doesn't have files matching {str_pattern}")
+            if list_fn:
+                print(list_fn)
+            else:
+                raise RuntimeError(f"{p_dir.as_posix()} doesn't have files matching {str_pattern}")
 else:
     raise RuntimeError(f"{p_dir_wrfinput.as_posix()} is empty!")
 
@@ -76,11 +76,11 @@ for p_dir_wrfinput in list_dir_wrfinput:
 
     # copy wrfbdy files
     for fn in p_dir_wrfinput.glob('wrfbdy*'):
-        copy(fn, p_dir_sim/fn)
+        copy(fn, p_dir_sim/fn.name)
 
     # overwrite namelist.input
     for fn in p_dir_wrfinput.glob('namelist.input'):
-        copy(fn, p_dir_sim/fn)
+        copy(fn, p_dir_sim/fn.name)
 
     # copy job file
     copy(p_sbatch, p_dir_sim)
