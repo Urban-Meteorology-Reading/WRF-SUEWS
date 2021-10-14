@@ -76,5 +76,16 @@ for p_dir_wrfinput in list_dir_wrfinput:
     for fn in p_dir_wrfinput.glob('wrfinput*.suews'):
         copy(fn, p_dir_sim/fn.name.replace('.suews',''))
 
+    # copy wrfbdy files
+    for fn in p_dir_wrfinput.glob('wrfbdy*'):
+        copy(fn, p_dir_sim/fn)
+
+    # overwrite namelist.input
+    for fn in p_dir_wrfinput.glob('namelist.input'):
+        copy(fn, p_dir_sim/fn)
+
     # copy job file
     copy(p_sbatch, p_dir_sim)
+##########################################
+
+##########################################
