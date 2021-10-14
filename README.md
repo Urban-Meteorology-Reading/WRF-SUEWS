@@ -22,7 +22,7 @@ please follow the official guide [here](https://www2.mmm.ucar.edu/wrf/OnLineTuto
 
 3. In the created folder, type `./configure`. This is for configuration of WRF-SUEWS. Choose number `15` for the compiler (as of WRFv4 this refers to standard intel compiler) and `basic` option for the nesting.
 
-4. Then you need compile the code: `./compile em_real >& compile.log`. For this, you can submit the [job file](./jasmin-config/sb-compile.sh) by `sbatch sb-compile.sh` in the compilation folder (specified by `path_working` in [automate_main.py](./coupling-automator/automate_main.py)).
+4. Then you need compile the code: `./compile em_real >& compile.log&`. For this, you can submit the [job file](./jasmin-config/sb-compile.sh) by `sbatch sb-compile.sh` in the compilation folder (specified by `path_working` in [automate_main.py](./coupling-automator/automate_main.py)).
 
 
 5. After compilation of the code, you need to transfer all the `wrf_input` files to the location of main run (usually `./test/em_real`). It should include the boundary condition file.
