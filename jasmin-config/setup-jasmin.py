@@ -37,14 +37,12 @@ list_dir_wrfinput = [
 if list_dir_wrfinput:
     for p_dir in list_dir_wrfinput:
         print(f"checking {p_dir}:")
-        if sorted(p_dir.glob("wrfinput*")):
-            print(p_dir.glob("wrfinput*"))
-        elif sorted(p_dir.glob("wrfbdy*")):
-            print(p_dir.glob("wrfbdy*"))
-        elif sorted(p_dir.glob("namelist*")):
-            print(p_dir.glob("namelist*"))
+        for str_pattern in ["wrfinput*","wrfbdy*","namelist*"]:
+            list_fn=sorted(p_dir.glob(str_pattern))
+        if list_fn:
+            print(list_fn)
         else:
-            raise RuntimeError(f"{p_dir.as_posix()} is empty!")
+            raise RuntimeError(f"{p_dir.as_posix()} doesn't have files matching {str_pattern}")
 else:
     raise RuntimeError(f"{p_dir_wrfinput.as_posix()} is empty!")
 
