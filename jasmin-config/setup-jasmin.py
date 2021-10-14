@@ -64,10 +64,9 @@ else:
 for p_dir_wrfinput in list_dir_wrfinput:
     str_sim = p_dir_wrfinput.name
     print(f"working on {str_sim}")
-    # create sim directory using the same
-    p_dir_sim = p_dir_basesim / str_sim
 
-    # copy base run files
+    # copy base run files to sim directories (will be created on the fly)
+    p_dir_sim = p_dir_basesim / str_sim
     copytree(p_dir_baserun, p_dir_sim)
 
     # copy processed wrfinput files
@@ -82,8 +81,12 @@ for p_dir_wrfinput in list_dir_wrfinput:
     for fn in p_dir_wrfinput.glob('namelist.input'):
         copy(fn, p_dir_sim/fn.name)
 
+    # copy namelist.suews file
+    copy(p_namelist_suews, p_dir_sim)
+
     # copy job file
     copy(p_sbatch, p_dir_sim)
 ##########################################
 
 ##########################################
+# submit jobs
