@@ -5,7 +5,7 @@
 #SBATCH -n 48
 #SBATCH -o %j.log
 #SBATCH -e %j.err
-#SBATCH --time=48:00
+#SBATCH --time=48:00:00
 
 # load MPI lib
 # https://help.jasmin.ac.uk/article/4896-how-to-submit-an-mpi-parallel-job-to-slurm
