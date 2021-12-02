@@ -2,10 +2,11 @@ name: wrf-suews
 channels:
   - conda-forge
 dependencies:
-  - python=3.8
+  - python=3.9
   - geopandas
   - geoplot
   - pandas
+  - astral
   - xarray
   - h5netcdf
   - psutil
@@ -22,9 +23,13 @@ dependencies:
   - sphinx
   - nbsphinx
   - recommonmark
+  - wrf-python
+  - scikit-image
   - pip
+  - black
   - pip:
     - exhale
+    - salem
     - supy
     - urlpath
     - multiprocess
