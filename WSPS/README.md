@@ -11,12 +11,15 @@ conda env create -f environment.yml
 2. Set up WSPS configuration in the `wsps` section of `namelist.suews`, and add SUEWS related run files associated with the configuration in the [spin up folder](./sample-case/input/spin_ups). You also need to add all `wrfinput.nc` files from WPS process to your [`input` folder](./sample-case/input)
 
 3.  run:
-```bash
+```shell
 python wsps.py
 ```
 4. The modified `wrfinput.nc` files will be in the generated output folder `output/final`
 
-5. If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in [`utility` folder](./utility/site_specific) (see examples of London and Swindon)
+5. (*optional*) If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in [`utility` folder](./utility/site_specific) (see examples of London and Swindon):
+```shell
+python wsps_site_specific.py
+```
 
 ## Steps in detail
 ### Mandatory steps (general)

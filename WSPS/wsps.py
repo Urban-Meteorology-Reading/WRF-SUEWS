@@ -16,7 +16,7 @@ from utility.get_wsps_config import get_wsps_config
 ################################################
 # DON'T MODIFY
 # for internal debugging use
-# Dashboard for controling the steps:
+# Dashboard for controlling the steps:
 # 0=no 1=yes
 steps = {
     "clean_dirs": 1,  # clean all output directories
@@ -76,7 +76,7 @@ else:
 # start day of the run
 str_first_day = wsps_config.start_date
 
-# land cover threshhold of impervious surfaces for urban classes
+# land cover threshold of impervious surfaces for urban classes
 urban_class_threshold = wsps_config.urban_class_threshold
 
 # urban classes

@@ -160,9 +160,23 @@ urban_class_threshold = 0.6,      0.16
 urban_class           = 'London', 'Swindon'
 veg_site_spin_up      = 'Swindon'
 transmissivity        = 0.1257,   0.1216
-start_date            = '2012-01-16'
-output_file_name      = 'output/201201'
-input_file_name       = 'input'
+
+!start_date            = '2012-01-11'
+!output_file_name      = 'output/201201'
+!input_file_name       = 'input/201201'
+
+!start_date            = '2012-04-11'
+!output_file_name      = 'output/201204'
+!input_file_name       = 'input/201204'
+
+start_date            = '2012-07-16'
+output_file_name      = 'output/201207'
+input_file_name       = 'input/201207'
+
+!start_date            = '2012-10-02'
+!output_file_name      = 'output/201204'
+!input_file_name       = 'input/201204'
+
 SUEWS_param_template  = 'SUEWS_param.json'
 phenology_parameters  = 'phenol_attrs.csv'
 data_dir              = 'data'
