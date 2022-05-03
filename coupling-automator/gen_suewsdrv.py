@@ -30,8 +30,8 @@ def get_file_list(path_Makefile):
 
     """
     # read in makefile source code as pd.Series
-    code_raw = pd.read_csv(path_Makefile, header=None, sep='\n',
-                           engine='python', comment='#', squeeze=True)
+    code_raw = pd.read_csv(path_Makefile, header=None, sep=r'\n',
+                           engine='python', comment='#').squeeze("columns")
     # clean source code
     code_clean = code_raw.str.replace('\t', ' ', regex=False).str.strip()
 
@@ -48,7 +48,7 @@ def get_file_list(path_Makefile):
                  for start, end in zip(pos_file_start, pos_file_end)]
 
     # organise dependencies as dicts for groups
-    mod_files = [mod.str.replace('\\', '').str.split('=').sum()
+    mod_files = [mod.str.replace('\\', '',regex=True).str.split('=').sum()
                  for mod in lines_mod]
     list_mod_files = [pd.Series(mod[1:]).str.strip() for mod in mod_files]
 
