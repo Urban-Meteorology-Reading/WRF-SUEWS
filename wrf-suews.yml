@@ -5,7 +5,7 @@ dependencies:
   - python=3.9
   - geopandas
   - geoplot
-  - pandas
+  - pandas=1.4
   - astral
   - xarray
   - h5netcdf
