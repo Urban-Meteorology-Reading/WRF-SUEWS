@@ -23,7 +23,7 @@ Set the wrf-suews environment by typing `conda env create --file=wrf_suews.yml` 
 ### Steps
 1. Go to `coupling-automator`, and type `make`
 
-2. It creates the WRF-SUEWS folder to compile (name of the folder depends on what you specify [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/50dba67f3a66cfee296d7c4de88d3f52353b13cd/coupling-automator/automate_main.py#L57))
+2. It creates the compilation-YYYYMMDD folder to compile (name of the folder depends on what you specify [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/50dba67f3a66cfee296d7c4de88d3f52353b13cd/coupling-automator/automate_main.py#L57))
 
 3. In the created folder, type `./configure`. This is for configuration of WRF-SUEWS. Choose number `15` for the compiler (as of WRFv4 this refers to standard intel compiler) and `basic` option for the nesting.
 
