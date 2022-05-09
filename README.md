@@ -12,7 +12,7 @@ These commands update SUEWS repo associated with WRF-SUEWS. Currently, it is an 
 
 ## To compile and Run on [JASMIN](https://www.ceda.ac.uk/services/jasmin/) (as of 04 May 2022)
 
-Firstly make sure to use same compiler (preferably INTEL) for installing pre-requisite libraries and WRF model compilation. To load intel compiler setting on JASMIN type `module load intel/20.0.0`.
+Firstly make sure to use same compiler (preferably INTEL) for installing pre-requisite libraries and WRF model compilation. To load intel compiler setting on JASMIN type `module load intel/20.0.0`
 
 ### Dependencies
 Please follow the official guide [here](https://www2.mmm.ucar.edu/wrf/OnLineTutorial/compilation_tutorial.php) for other libraries requirement for the WRF compilation.
