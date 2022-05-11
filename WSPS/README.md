@@ -8,7 +8,7 @@
 conda env create -f environment.yml
 ```
 
-2. Set up WSPS configuration in the `wsps` section of `namelist.suews`, and add SUEWS related run files associated with the configuration in the [spin up folder](./sample-case/input/spin_ups). You also need to add all `wrfinput.nc` files from WPS process to your [`input` folder](./sample-case/input)
+2. Set up WSPS configuration in the `wsps` section of `namelist.suews`, and add SUEWS related run files associated with the configuration in the [spin up folder](./sample-case/input/spin_ups). You also need to add all `wrfinput_d0*.nc` files from WPS process to your [`input` folder](./sample-case/input)
 
 3.  run:
 ```shell
