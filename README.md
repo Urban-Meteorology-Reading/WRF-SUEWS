@@ -30,7 +30,7 @@ Set the wrf-suews environment by typing `conda env create --file=wrf_suews.yml` 
 4. Then you need compile the code: `./compile em_real >& log.compile`. For this, you can submit the [job file](./jasmin-config/sb-compile.sh) by `sbatch sb-compile.sh` in the compilation folder (specified by `path_working` in [automate_main.py](./coupling-automator/automate_main.py)).
 
 
-5. After compilation of the code, you need to transfer all the `wrfinput_d0*` files to the location of main run (usually `./test/em_real` OR `./run`). It should include the boundary condition `wrfbdy_d01` file also.
+5. After compilation of the code, you need to transfer all the `wrfinput_d0*` files generated with WSPS to the location of main run (usually `./test/em_real` OR `./run`) (Remember to drop the .suews from the filenames). Also include the boundary condition `wrfbdy_d01` file in the run directory.
 
 6. You also need to copy `namelist.suews` to the same location.
 
