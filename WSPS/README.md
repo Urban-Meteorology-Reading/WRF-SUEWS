@@ -14,7 +14,7 @@ conda env create -f environment.yml
 ```shell
 python wsps.py
 ```
-4. The modified `wrfinput.nc` files will be in the generated output folder `output/final`
+4. The modified `wrfinput_d0*.nc` files will be in the generated output folder `output/final`. 
 
 5. (*optional*) If you wish to have site-specific modification of `wrfinput.nc` files (e.g. land cover, population density etc.), you can use `wps_site_specific.py` script in conjunction with customised related modules in [`utility` folder](./utility/site_specific) (see examples of London and Swindon):
 ```shell
