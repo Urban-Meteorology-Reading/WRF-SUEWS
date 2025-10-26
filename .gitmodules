@@ -4,5 +4,5 @@
 	branch = master
 [submodule "SUEWS"]
 	path = SUEWS
-	url = git@github.com:Urban-Meteorology-Reading/SUEWS.git
-	branch = test-dev
+	url = git@github.com:UMEP-dev/SUEWS.git
+	branch = master
