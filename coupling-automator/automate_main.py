@@ -7,8 +7,6 @@ import time
 from pathlib import Path
 from shutil import copy, copytree, rmtree, ignore_patterns
 
-from pygments.lexers.pawn import PawnLexer
-
 import numpy as np
 import pandas as pd
 
@@ -54,7 +52,7 @@ path_src_WRF = Path("../WRF")
 # %%
 # directory of SUEWS source code
 # this dir is included as a git submodule so DON'T make ANY change there
-path_src_SUEWS = Path("../SUEWS/SUEWS-SourceCode")
+path_src_SUEWS = Path("../SUEWS/src/suews")
 
 # %%
 # working directory for WRF-SUEWS coupling

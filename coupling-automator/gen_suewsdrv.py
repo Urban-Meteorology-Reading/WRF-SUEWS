@@ -36,21 +36,47 @@ def get_file_list(path_Makefile):
     code_clean = code_raw.str.replace('\t', ' ', regex=False).str.strip()
 
     # retrieve lines for dependencies
-    modules = ['UTILS', 'MODULES', 'OTHERS', 'TEST', 'WRF']
+    # Updated for new SUEWS 2025 Makefile structure
+    modules = ['UTILS =', 'PHYS =', 'DRIVER =', 'TEST =', 'WRF =']
     # positions for staring lines
-    pos_file_start = [code_clean.index[code_clean.str.startswith(mod)][0]
-                      for mod in modules]
-    # positions for ending lines
-    pos_file_end = copy(pos_file_start[1:]) + [pos_file_start[-1] + 1]
+    pos_file_start = []
+    for mod in modules:
+        matching_lines = code_clean.index[code_clean.str.startswith(mod)]
+        if len(matching_lines) > 0:
+            pos_file_start.append(matching_lines[0])
+
+    # positions for ending lines (look for empty lines or next section)
+    pos_file_end = []
+    for i, start in enumerate(pos_file_start):
+        if i < len(pos_file_start) - 1:
+            pos_file_end.append(pos_file_start[i+1])
+        else:
+            # For the last section, find the next empty line or section marker
+            remaining = code_clean.iloc[start:]
+            empty_or_section = remaining.index[
+                (remaining == '') |
+                remaining.str.startswith('#') |
+                remaining.str.contains('=.*\\$', regex=True, na=False)
+            ]
+            if len(empty_or_section) > 1:
+                pos_file_end.append(empty_or_section[1])
+            else:
+                pos_file_end.append(start + 10)  # default fallback
 
     # line blocks of groups
     lines_mod = [code_clean.iloc[start:end]
                  for start, end in zip(pos_file_start, pos_file_end)]
 
-    # organise dependencies as dicts for groups
-    mod_files = [mod.str.replace('\\', '',regex=True).str.split('=').sum()
-                 for mod in lines_mod]
-    list_mod_files = [pd.Series(mod[1:]).str.strip() for mod in mod_files]
+    # organise dependencies - handle continuation lines with backslash
+    list_mod_files = []
+    for mod in lines_mod:
+        # Join lines, remove backslashes and extract filenames
+        mod_text = ' '.join(mod.str.replace('\\', '', regex=False).values)
+        # Split by = and get the right side, then split by spaces
+        if '=' in mod_text:
+            files_part = mod_text.split('=', 1)[1]
+            files = [f.strip() for f in files_part.split() if f.strip() and f.strip().endswith('.o')]
+            list_mod_files.append(pd.Series(files))
 
     # combine all files into one list
     list_files = pd.concat(list_mod_files).reset_index(
@@ -74,13 +100,25 @@ def merge_source(path_source_dir, path_target):
         path for writing out the merged target file
 
     """
-    path_Makefile = os.path.join(path_source_dir, 'include.common')
+    path_Makefile = os.path.join(path_source_dir, 'Makefile')
     # get list of dependencies
     list_files = get_file_list(path_Makefile)
 
+    # Filter out suews_ctrl_ver.f95 as it's auto-generated
+    list_files = [f for f in list_files if f != 'suews_ctrl_ver.f95']
+
     f = open(path_target, 'w')
+
+    # Write a simple version module for WRF coupling
+    f.write("MODULE version\n")
+    f.write("IMPLICIT NONE\n")
+    f.write("CHARACTER(len=90) :: git_commit = 'WRF-SUEWS-2025' \n")
+    f.write("CHARACTER(len=90) :: compiler_ver = 'WRF Coupled Version' \n")
+    f.write("END MODULE version\n\n")
+
     for file in list_files:
-        fp = open(os.path.join(path_source_dir, file), 'r')
+        # Source files are in the 'src' subdirectory
+        fp = open(os.path.join(path_source_dir, 'src', file), 'r')
         line = fp.readline()
         while line:
             # check if define wrf
@@ -127,7 +165,7 @@ def merge_source(path_source_dir, path_target):
 
 
 # path settings:
-path_source_dir = '../SUEWS/SUEWS-SourceCode'
+path_source_dir = '../SUEWS/src/suews'
 path_target = './module_sf_suewsdrv.F'
 
 
