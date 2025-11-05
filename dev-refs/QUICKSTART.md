@@ -5,7 +5,6 @@ This guide helps you quickly verify the WRF v4.7.1 and SUEWS 2025.10.15 coupling
 ## TL;DR - Run This First
 
 ```bash
-cd /Users/tingsun/conductor/wrf-suews/.conductor/austin
 ./test_coupling.sh
 ```
 
