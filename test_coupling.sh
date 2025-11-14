@@ -3,7 +3,15 @@
 
 set -e  # Exit on error
 
-COMP_DIR="compilation-$(date +%Y%m%d)"
+# Find compilation directory - prefer user override, then most recent
+if [ -z "$COMP_DIR" ]; then
+    COMP_DIR=$(ls -dt compilation-* 2>/dev/null | head -1)
+    if [ -z "$COMP_DIR" ]; then
+        echo "No compilation directory found. Run: cd coupling-automator && make"
+        exit 1
+    fi
+fi
+
 ERRORS=0
 
 echo "=========================================="

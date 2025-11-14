@@ -16,8 +16,6 @@ This guide provides systematic testing procedures for the WRF v4.7.1 and SUEWS 2
 ### 1.1 Check Submodule Versions
 
 ```bash
-cd /Users/tingsun/conductor/wrf-suews/.conductor/austin
-
 # Check WRF version
 cd WRF
 git describe --tags
@@ -74,10 +72,11 @@ ls ../SUEWS/src/suews/src/suews_ctrl_sumin.f95
 ### 2.1 Clean Previous Compilation
 
 ```bash
-cd /Users/tingsun/conductor/wrf-suews/.conductor/austin
-
-# Remove old compilation directory if exists
-rm -rf compilation-$(date +%Y%m%d)
+# Remove old compilation directory if exists (optional)
+# Be careful: this removes the most recent compilation
+# rm -rf compilation-*
+# Or remove a specific directory:
+# rm -rf compilation-20251105
 ```
 
 ### 2.2 Run Coupling Automator
@@ -94,7 +93,8 @@ echo "Exit code: $?"
 ### 2.3 Verify Generated Files
 
 ```bash
-COMP_DIR="../compilation-$(date +%Y%m%d)"
+# Find most recent compilation directory
+COMP_DIR=$(ls -dt ../compilation-* 2>/dev/null | head -1)
 
 # Check critical files exist
 ls -lh $COMP_DIR/phys/module_sf_suews.F
@@ -114,7 +114,8 @@ grep -c "^MODULE " $COMP_DIR/phys/module_sf_suewsdrv.F
 ### 2.4 Verify WRF Modifications
 
 ```bash
-COMP_DIR="../compilation-$(date +%Y%m%d)"
+# Use most recent compilation directory
+COMP_DIR=$(ls -dt ../compilation-* 2>/dev/null | head -1)
 
 # Check Registry modifications
 echo "=== Checking Registry.EM_COMMON ==="
@@ -166,7 +167,8 @@ echo $NETCDF
 ### 3.2 Configure WRF-SUEWS
 
 ```bash
-cd compilation-$(date +%Y%m%d)
+# Navigate to most recent compilation directory
+cd $(ls -dt compilation-* 2>/dev/null | head -1)
 
 # Run configure
 ./configure 2>&1 | tee ../configure.log
@@ -300,7 +302,8 @@ ls -la output/final/wrfinput_d0*
 ### 5.1 Minimal Configuration Test
 
 ```bash
-cd compilation-$(date +%Y%m%d)/test/em_real
+# Navigate to test directory in most recent compilation
+cd $(ls -dt compilation-* 2>/dev/null | head -1)/test/em_real
 
 # Check namelist.input
 ls namelist.input
@@ -347,7 +350,8 @@ Save this as `test_coupling.sh`:
 
 set -e  # Exit on error
 
-COMP_DIR="compilation-$(date +%Y%m%d)"
+# Find most recent compilation directory
+COMP_DIR=$(ls -dt compilation-* 2>/dev/null | head -1)
 
 echo "=== WRF-SUEWS Coupling Test ==="
 echo ""

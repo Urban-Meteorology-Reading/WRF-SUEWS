@@ -43,8 +43,8 @@ cd ../SUEWS && git describe --tags
 cd coupling-automator
 make  # Runs python3 automate_main.py
 
-# Check success
-ls ../compilation-$(date +%Y%m%d)/phys/module_sf_suews*.F
+# Check success - list files in most recent compilation directory
+ls ../compilation-*/phys/module_sf_suews*.F
 # Expected: Two files listed
 ```
 
@@ -81,7 +81,8 @@ nf-config --version # Should show NetCDF version
 ### Compile
 
 ```bash
-cd compilation-$(date +%Y%m%d)
+# Navigate to most recent compilation directory
+cd $(ls -dt compilation-* 2>/dev/null | head -1)
 
 # Configure
 ./configure
