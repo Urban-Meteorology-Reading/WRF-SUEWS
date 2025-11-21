@@ -428,7 +428,8 @@ CONTAINS
     REAL(KIND(1d0))                                  :: RunoffToWater_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: StateLimit_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: WetThresh_id
-    REAL(KIND(1d0))                                  :: BaseTHDD_id
+   REAL(KIND(1d0))                                  :: BaseTHDD_id
+   REAL(KIND(1d0))                                  :: BaseT_HC_id
     REAL(KIND(1d0))                                  :: Faut_id        
     REAL(KIND(1d0))                                  :: IrrFracConif_id
     REAL(KIND(1d0))                                  :: IrrFracDecid_id
@@ -448,7 +449,8 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(5)                     :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(12)                    :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(7)                     :: state_id
-    REAL(KIND(1d0)),DIMENSION(7)                     :: soilmoist_id
+   REAL(KIND(1d0)),DIMENSION(7)                     :: soilmoist_id
+   REAL(KIND(1d0)),DIMENSION(7)                     :: soilstore_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: surf_var_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: alb_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: emis_id
@@ -456,7 +458,8 @@ CONTAINS
     REAL(KIND(1d0))                                  :: qn1_s_id
     REAL(KIND(1d0))                                  :: dqndt_id
     REAL(KIND(1d0))                                  :: dqnsdt_id
-    REAL(KIND(1d0)),DIMENSION(7)                     :: MeltWaterStore_id
+   REAL(KIND(1d0)),DIMENSION(7)                     :: MeltWaterStore_id
+   REAL(KIND(1d0)),DIMENSION(7)                     :: SnowWater
     REAL(KIND(1d0))                                  :: SnowAlb_id
     REAL(KIND(1d0)),DIMENSION(9)                     :: WUDay_id
     REAL(KIND(1d0))                                  :: z0m_in_id
@@ -592,6 +595,7 @@ CONTAINS
           StateLimit_id          = StateLimit_SUEWS(I,:,J)                    
           WetThresh_id           = WetThresh_SUEWS(I,:,J)                    
           BaseTHDD_id            = BaseTHDD_SUEWS(I,J)
+          BaseT_HC_id            = BaseTHDD_id
 
           Faut_id                = Faut_SUEWS(I,J)         
           IrrFracConif_id        = IrrFracConif_SUEWS(I,J)
@@ -608,6 +612,7 @@ CONTAINS
           HDD_id          = HDD_SUEWS(I,:,J)
           state_id        = state_SUEWS(I,:,J)
           soilmoist_id    = soilmoist_SUEWS(I,:,J)
+          soilstore_id    = soilmoist_id
           surf_var_id     = surf_var_SUEWS(I,:,J)
           alb_id          = alb_SUEWS(I,:,J)
           emis_id         = emis_SUEWS(I,:,J)
@@ -616,6 +621,7 @@ CONTAINS
           dqndt_id        = dqndt_SUEWS(I,J)
           dqnsdt_id        = dqnsdt_SUEWS(I,J)
           MeltWaterStore_id  = MeltWaterStore_SUEWS(I,:,J)
+          SnowWater       = MeltWaterStore_id
           SnowAlb_id = SnowAlb_SUEWS(I,J)
           WUDay_id   = WUDay_SUEWS(I,:,J)
           z0m_in_id  = z0m_in_SUEWS(I,J)
@@ -1138,6 +1144,7 @@ CONTAINS
     REAL (KIND(1d0))                :: Temp_C    !Air temperature
     REAL (KIND(1d0))                :: Press_hPa !Station air pressure in hPa
     REAL (KIND(1d0))                :: Precip    !Precipitation per timestep [mm]
+    REAL (KIND(1d0))                :: BaseT_HC_id
 
     REAL(KIND(1d0))::dectime ! decimal time of year
 
@@ -1177,6 +1184,8 @@ CONTAINS
     REAL(KIND(1D0))                                         :: PrecipLimit_d   
     REAL(KIND(1D0))                                         :: PrecipLimitAlb_d
     REAL(KIND(1D0))                                         :: RadMeltFact_d   
+    REAL(KIND(1D0)),DIMENSION(7)                            :: soilstore_id
+    REAL(KIND(1D0)),DIMENSION(7)                            :: SnowWater
     REAL(KIND(1D0))                                         :: SnowAlbMax_d    
     REAL(KIND(1D0))                                         :: SnowAlbMin_d    
     REAL(KIND(1D0))                                         :: SnowDensMax_d   
@@ -1283,13 +1292,15 @@ CONTAINS
   tau_f_d          = tau_f       
   tau_r_d          = tau_r       
   TempMeltFact_d   = TempMeltFact
+  BaseT_HC_id      = BaseTHDD_id
+  soilstore_id     = soilmoist_id
+  SnowWater        = MeltWaterStore_id
   
 
     CALL SuMin(&
-         snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,&! model options
+         snowUse,EmissionsMethod,NetRadiationMethod,RoughLenHeatMethod,& ! model options
          RoughLenMomMethod,StorageHeatMethod,AerodynamicResistanceMethod,LAIType,SnowPackLimit_d, &
          OHM_threshSW_d,OHM_threshWD_d,th_d,tl_d,Kmax_d,g1_id,g2_id,g3_id,g4_id,g5_id,g6_id,s1_d,s2_d,LaiPower_d, &
-
          CRWmax_d        ,&
          CRWmin_d        ,&
          PrecipLimit_d   ,&
@@ -1305,16 +1316,14 @@ CONTAINS
          tau_f_d         ,&
          tau_r_d         ,&
          TempMeltFact_d  ,&
-
-         OHMIncQF,&! model options
-         iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,&! time-related input
-         alt,lat,lng,Z,timezone,SurfaceArea,sfr,&! site-specific geographical settings
-         z0m_in_id,zdm_in_id,&! roughness related settings
-         alb_id,emis_id,SnowAlb_id,OHM_coef_d,WaterDist_d,&
-         AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d, snowProf_24hr_d,&
-         qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,&
+         OHMIncQF,& ! model options
+         iy,id,it,imin,isec,dt_since_start,tstep,tstep_prev,startDLS,endDLS,& ! time-related input
+         alt,lat,lng,Z,timezone,SurfaceArea,sfr,& ! site-specific geographical settings
+         z0m_in_id,zdm_in_id,& ! roughness related settings
+         alb_id,emis_id,SnowAlb_id,OHM_coef_d,WaterDist_d,& ! surface properties
+         AHProf_24hr_d,HumActivity_24hr_d,PopProf_24hr_d,TraffProf_24hr_d,WUProfA_24hr_d,WUProfM_24hr_d, snowProf_24hr_d,& ! hourly profile values
+         qn1_av_id,dqndt_id,qn1_s_id,dqnsdt_id,& ! OHM related Qn quantities
          surf_var_id,DecidCap_id,albDecTr_id,albEveTr_id,albGrass_id,NumCapita_id,&
-
          BaseT_id               ,&
          BaseTe_id              ,&
          GDDFull_id             ,&
@@ -1343,7 +1352,6 @@ CONTAINS
          surf_attr_DrainCoef1_id,&
          surf_attr_DrainCoef2_id,&
          surf_attr_MaxStorCap_id,&
-
          SoilStoreCap_id,&
          SoilDepth_id,&
          SatHydraulicConduct_id,&
@@ -1365,23 +1373,25 @@ CONTAINS
          RunoffToWater_id,&
          StateLimit_id,&
          WetThresh_id,&
-         BaseTHDD_id,&
+         BaseT_HC_id,&
          Faut_id,&
          IrrFracConif_id,&
          IrrFracDecid_id,&
          IrrFracGrass_id,&
          DayWat_id,&
          DayWatPer_id,&
-
          PopDensDaytime_id,PopDensNighttime_id,porosity_id,&
-         GDD_id,HDD_id,LAI_id,WUDay_id,soilmoist_id,state_id,MeltWaterStore_id,&
+         GDD_id,HDD_id,LAI_id,WUDay_id,soilstore_id,state_id,SnowWater,&
          avkdn,avRh,avU1,Press_hPa,Temp_C,Precip,& ! forcing variables
-         qn,qf,qs,qh,znt,ust,qe,qsfc,tsk,CHKLOWQ,&
+         qn,qf,qs,qh,qe,qsfc,tsk,CHKLOWQ,&
          kdown_o,&
          kup_o,&
          ldown_o,&
          lup_o,&
          tsurf_o,smd_o,glw1D,cldfra1D)
+
+    znt = z0m_in_id
+    ust = 0.0
 
 
     WRITE( message,* ) 'after SuMin,  qn_SUEWS= ', qn
@@ -1471,6 +1481,7 @@ CONTAINS
     REAL,DIMENSION(3,4,8)              :: OHM_coef
     REAL,DIMENSION(6,8)                :: WaterDist
     REAL                               :: sum_urban
+    REAL,DIMENSION(ims:ime,NLCAT,jms:jme) :: landusef_local
 
     !----------------------------------------------------------------
 
@@ -1667,7 +1678,15 @@ CONTAINS
           IF (FOUND_LU) THEN
              IF (LUSEAS == 1) ISN = 1
           ELSE
-             CALL wrf_error_fatal ( 'LANDUSE IN INPUT FILE DOES NOT MATCH LUTABLE: TABLE NOT USED' )
+             ! Fallback for idealized cases with synthetic landuse:
+             ! default to category 1 parameters to avoid fatal stop.
+             ISN = 1
+             albd = 0.15
+             sfz0 = 0.10
+             therin = 0.2
+             sfem = 0.95
+             slmo = 0.15
+             FOUND_LU = .TRUE.
           END IF
 
           ! rescale loaded values
@@ -1704,6 +1723,17 @@ CONTAINS
           ENDDO
        ENDDO
 
+       landusef_local = landusef
+       DO j = jts, jtf
+          DO i = its, itf
+             IF (SUM(landusef_local(i, :, j)) <= 0.) THEN
+                ! Idealized cases ship an empty LANDUSEF field; seed a default category
+                landusef_local(i, :, j) = 0.
+                landusef_local(i, 1, j) = 1.0
+             END IF
+          END DO
+       END DO
+
        ! IF (TRIM(MMINLU) == 'MODIFIED_IGBP_MODIS_NOAH') THEN
        !    CALL MODIScat2SUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
        ! ELSE IF (TRIM(MMINLU) == 'USGS') THEN
@@ -1711,7 +1741,7 @@ CONTAINS
        ! ELSE
        !    CALL wrf_error_fatal ('THE Land Use Categories NOT SUPPORTED By SUEWS Model NOW' )
        ! END IF
-       CALL toSUEWScat(its, itf, NLCAT, jts, jtf, landusef(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
+       CALL toSUEWScat(its, itf, NLCAT, jts, jtf, landusef_local(its:itf, :, jts:jtf), ISN, max_cats, max_seas, albd, sfem, landusef_SUEWS(its:itf, :, jts:jtf), alb_SUEWS(its:itf, :, jts:jtf), emis_SUEWS(its:itf, :, jts:jtf))
 
       ! this is to fix the paved/(paved+building) ratio (by default the ratio is 0.5)
        DO j = jts,jtf

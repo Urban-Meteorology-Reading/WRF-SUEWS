@@ -20,7 +20,9 @@ These commands fetch the WRF and SUEWS repositories that are coupled together.
 
 ## Guide for Compilation and Simulation
 
-### [JASMIN](https://www.ceda.ac.uk/services/jasmin/) (as of 04 May 2022)
+**Important Change (November 2025):** WRF-SUEWS now uses a library-based coupling approach. SUEWS is pre-compiled as a static library (`libsuews.a`) and linked with WRF, replacing the previous monolithic file merge approach. This improves build times by ~50%.
+
+### [JASMIN](https://www.ceda.ac.uk/services/jasmin/) (as of November 2025)
 
 Firstly make sure to use same compiler (preferably INTEL) for installing pre-requisite libraries and WRF model compilation.
 To load intel compiler setting on JASMIN type `module load intel/20.0.0`
@@ -32,14 +34,56 @@ Please follow the official guide [here](https://www2.mmm.ucar.edu/wrf/OnLineTuto
 Set the wrf-suews environment by typing `conda env create --file=wrf_suews.yml` and activate it by `conda activate wrf-suews` in the WRF-SUEWS directory.
 
 #### Steps
-1. Go to `coupling-automator` folder, and type `make`
 
-2. It creates the `compilation-YYYYMMDD` folder to compile (name of the folder depends on what you specify [here](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/blob/50dba67f3a66cfee296d7c4de88d3f52353b13cd/coupling-automator/automate_main.py#L57))
+**Option A: Automatic (Recommended)**
+```bash
+cd coupling-automator
+make              # Automatically builds SUEWS library if needed, then sets up WRF coupling
+cd ../compilation-YYYYMMDD
+./configure       # Choose option 15 (Intel compiler), basic nesting
+cd ../coupling-automator
+make patch        # Patches configure.wrf for SUEWS library linking
+cd ../compilation-YYYYMMDD
+sbatch sb-compile.sh  # Submit compilation job
+```
 
-3. In the created folder, type `./configure`
-This is for configuration of WRF-SUEWS. Choose number `15` for the compiler (as of WRFv4 this refers to standard intel compiler) and `basic` option for the nesting.
+**Option B: Manual Control**
 
-4. Then you need compile the code: `./compile em_real >& log.compile`. For this, you can submit the [job file](./jasmin-config/sb-compile.sh) by `sbatch sb-compile.sh` in the compilation folder (specified by `path_working` in [automate_main.py](./coupling-automator/automate_main.py)).
+1. Build SUEWS library (first time only):
+```bash
+cd SUEWS/src/suews
+make -f Makefile.lib PROFILE=ifort -j4
+make -f Makefile.lib install
+```
+
+2. Set up WRF-SUEWS coupling:
+```bash
+cd ../../coupling-automator
+make
+```
+This creates the `compilation-YYYYMMDD` folder (date-stamped compilation directory).
+
+3. Configure WRF:
+```bash
+cd ../compilation-YYYYMMDD
+./configure
+```
+Choose number `15` for Intel compiler and `basic` option for nesting.
+
+4. Patch configure.wrf for SUEWS linking (automated):
+```bash
+cd ../coupling-automator
+make patch
+```
+This automatically adds SUEWS library flags to `configure.wrf`.
+
+5. Compile WRF-SUEWS:
+```bash
+cd ../compilation-YYYYMMDD
+./compile em_real >& log.compile
+# Or submit via SLURM:
+sbatch sb-compile.sh
+```
 
 
 5. After compilation of the code, you need to transfer all the `wrfinput_d0*` files generated with WSPS to the location of main run (usually `./test/em_real` OR `./run`) (rename the files to the original names by removing .suews from the filenames). Also include the boundary condition `wrfbdy_d01` file in the run directory.
@@ -53,11 +97,12 @@ This is for configuration of WRF-SUEWS. Choose number `15` for the compiler (as 
 9. The rest of steps, are similar to usual WRF runs (running WRF-SUEWS)
 
 
-### Apple Silicon (M-series chips) (as of 26 Oct 2025)
+### Apple Silicon (M-series chips) (as of November 2025)
 
 **Current Versions:**
 - WRF: v4.7.1
 - SUEWS: 2025.10.15 (from UMEP-dev repository)
+- **Build System**: Library-based coupling (pre-compiled `libsuews.a`)
 
 #### Platform and Compiler
 
@@ -93,42 +138,65 @@ ln -s /opt/homebrew/bin/gcc-14 /usr/local/bin/gcc
 
 #### Compilation Steps
 
-1. Generate compilation working directory:
+**Option A: Automatic (Recommended)**
 ```bash
 cd coupling-automator
+make              # Builds SUEWS library + sets up WRF coupling
+cd ../compilation-YYYYMMDD
+./configure       # Choose option 15 (serial gcc/gfortran)
+cd ../coupling-automator
+make patch        # Auto-patches configure.wrf with SUEWS flags + GCC compatibility
+cd ../compilation-YYYYMMDD
+./compile em_real >& log.compile
+```
+
+**Option B: Manual Control**
+
+1. Build SUEWS library:
+```bash
+cd SUEWS/src/suews
+make -f Makefile.lib -j4
+make -f Makefile.lib install
+```
+
+2. Set up WRF-SUEWS coupling:
+```bash
+cd ../../coupling-automator
 make
 ```
 
-2. Configure WRF-SUEWS:
+3. Configure WRF:
 ```bash
-cd compilation-YYYYMMDD  # Date will be today's date (e.g., compilation-20251026)
+cd ../compilation-YYYYMMDD
 ./configure
 ```
 Choose option `15` for serial gcc/gfortran compiler
 
-3. Modify `configure.wrf` for Apple Silicon compatibility:
-
-Find the following line in `configure.wrf`:
+4. Patch configure.wrf (automated):
 ```bash
-FCBASEOPTS      =       $(FCBASEOPTS_NO_G) $(FCDEBUG)
+cd ../coupling-automator
+make patch
 ```
 
-Add compatibility flags:
+**Manual alternative:** If you prefer to patch `configure.wrf` manually, add these flags:
 ```bash
-FCBASEOPTS      =       $(FCBASEOPTS_NO_G) $(FCDEBUG) -fallow-invalid-boz -fallow-argument-mismatch
+FCBASEOPTS = $(FCBASEOPTS_NO_G) $(FCDEBUG) -fallow-invalid-boz -fallow-argument-mismatch
 ```
 
-4. Compile WRF-SUEWS:
+5. Compile WRF-SUEWS:
 ```bash
+cd ../compilation-YYYYMMDD
 ./compile em_real >& log.compile
 ```
 
 #### Important Notes for Apple Silicon
 
-- **SUEWS Repository Change**: SUEWS has moved from `Urban-Meteorology-Reading` to `UMEP-dev` organisation on GitHub
-- **New SUEWS Structure**: Source code location changed from `SUEWS-SourceCode` to `src/suews`
-- **Version Module**: Version information is now auto-generated for WRF coupling
-- **Compiler Flags**: The `-fallow-invalid-boz` and `-fallow-argument-mismatch` flags are essential for GCC 10+ compatibility
+- **Library-Based Coupling**: SUEWS is now pre-compiled as `libsuews.a` rather than merged into a monolithic file
+- **Build Time Improvement**: ~50% faster rebuilds (10-15 min → 5 min)
+- **SUEWS Repository**: SUEWS has moved from `Urban-Meteorology-Reading` to `UMEP-dev` organisation
+- **Source Location**: Changed from `SUEWS-SourceCode/` to `src/suews/`
+- **Compiler Compatibility**: `-fallow-invalid-boz` and `-fallow-argument-mismatch` flags essential for GCC 10+
+- **Automated Patching**: `make patch` handles all configure.wrf modifications automatically
 
 
 ## Pre-processing using WPS

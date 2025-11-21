@@ -10,9 +10,50 @@
 
 import pandas as pd
 import numpy as np
-from glob import glob
 import os
-from copy import copy
+
+SPARTACUS_SECTIONS = [
+    (
+        "ext_lib/spartacus-surface/utilities",
+        [
+            "parkind1.F90",
+            "print_matrix.F90",
+            "yomhook.F90",
+            "radiation_io.F90",
+            "easy_netcdf.F90",
+        ],
+    ),
+    (
+        "ext_lib/spartacus-surface/radtool",
+        [
+            "radiation_constants.F90",
+            "radtool_legendre_gauss.F90",
+            "radtool_matrix.F90",
+            "radtool_schur.F90",
+            "radtool_eigen_decomposition.F90",
+            "radtool_calc_matrices_lw_eig.F90",
+            "radtool_calc_matrices_sw_eig.F90",
+        ],
+    ),
+    (
+        "ext_lib/spartacus-surface/radsurf",
+        [
+            "radsurf_config.F90",
+            "radsurf_canopy_properties.F90",
+            "radsurf_boundary_conds_out.F90",
+            "radsurf_canopy_flux.F90",
+            "radsurf_sw_spectral_properties.F90",
+            "radsurf_lw_spectral_properties.F90",
+            "radsurf_overlap.F90",
+            "radsurf_forest_sw.F90",
+            "radsurf_forest_lw.F90",
+            "radsurf_urban_sw.F90",
+            "radsurf_urban_lw.F90",
+            "radsurf_simple_spectrum.F90",
+            "radsurf_interface.F90",
+        ],
+    ),
+]
 
 
 def get_file_list(path_Makefile):
@@ -109,6 +150,91 @@ def merge_source(path_source_dir, path_target):
 
     f = open(path_target, 'w')
 
+    # Track module names to detect duplicates
+    seen_modules = {}
+    module_renames = {}
+
+    def append_source(abs_path):
+        import re
+        from pathlib import Path
+        abs_path = Path(abs_path)  # Ensure it's a Path object
+        with open(abs_path, "r") as fp:
+            line = fp.readline()
+            while line:
+                stripped = line.lstrip()
+                if stripped.startswith("#ifdef wrf"):
+                    line = fp.readline()
+                    break_flag = False
+                    while not break_flag:
+                        stripped = line.lstrip()
+                        if stripped.startswith("#else"):
+                            line = fp.readline()
+                            while not break_flag:
+                                stripped = line.lstrip()
+                                if stripped.startswith("#endif"):
+                                    break_flag = True
+                                else:
+                                    f.writelines(line)
+                                    line = fp.readline()
+                        elif stripped.startswith("#endif"):
+                            break_flag = True
+                        else:
+                            # Skip content inside #ifdef wrf (without #else)
+                            line = fp.readline()
+                    # Skip past the #endif line
+                    line = fp.readline()
+                elif stripped.startswith("#ifdef nc"):
+                    line = fp.readline()
+                    break_flag = False
+                    while not break_flag:
+                        stripped = line.lstrip()
+                        if stripped.startswith("#else"):
+                            line = fp.readline()
+                            while not break_flag:
+                                stripped = line.lstrip()
+                                if stripped.startswith("#endif"):
+                                    break_flag = True
+                                else:
+                                    f.writelines(line)
+                                    line = fp.readline()
+                        elif stripped.startswith("#endif"):
+                            break_flag = True
+                        else:
+                            line = fp.readline()
+                    # Skip past the #endif line
+                    line = fp.readline()
+                else:
+                    # Check for MODULE declaration and rename if duplicate
+                    # Exclude "MODULE PROCEDURE" (used in generic interfaces)
+                    module_match = re.match(r'^(\s*)(MODULE)\s+(?!PROCEDURE\s)(\w+)', line, re.IGNORECASE)
+                    if module_match:
+                        indent, keyword, modname = module_match.groups()
+                        modname_lower = modname.lower()
+
+                        if modname_lower in seen_modules:
+                            # Duplicate found! Rename it
+                            source_file = abs_path.name
+                            new_modname = f"{modname}_from_{source_file.replace('.', '_')}"
+                            module_renames[modname_lower] = new_modname
+                            print(f"WARNING: Duplicate MODULE '{modname}' found in {source_file}")
+                            print(f"         Renaming to '{new_modname}'")
+                            line = f"{indent}{keyword} {new_modname}\n"
+                        else:
+                            seen_modules[modname_lower] = abs_path.name
+
+                    # Also rename END MODULE statements if module was renamed
+                    end_module_match = re.match(r'^(\s*)(END\s+MODULE)\s+(\w+)', line, re.IGNORECASE)
+                    if end_module_match:
+                        indent, keyword, modname = end_module_match.groups()
+                        modname_lower = modname.lower()
+                        if modname_lower in module_renames:
+                            new_modname = module_renames[modname_lower]
+                            line = f"{indent}{keyword} {new_modname}\n"
+
+                    f.writelines(line)
+                    line = fp.readline()
+        f.writelines('\n')
+
     # Write a simple version module for WRF coupling
     f.write("MODULE version\n")
     f.write("IMPLICIT NONE\n")
@@ -116,49 +242,15 @@ def merge_source(path_source_dir, path_target):
     f.write("CHARACTER(len=90) :: compiler_ver = 'WRF Coupled Version' \n")
     f.write("END MODULE version\n\n")
 
+    # Add SPARTACUS modules FIRST (they are dependencies for SUEWS)
+    for rel_dir, filenames in SPARTACUS_SECTIONS:
+        for filename in filenames:
+            append_source(os.path.join(path_source_dir, rel_dir, filename))
+
+    # Then add SUEWS modules (they USE SPARTACUS modules)
     for file in list_files:
-        # Source files are in the 'src' subdirectory
-        fp = open(os.path.join(path_source_dir, 'src', file), 'r')
-        line = fp.readline()
-        while line:
-            # check if define wrf
-            if line.lstrip().startswith('#ifdef wrf'):
-                line = fp.readline()
-                break_flag = False
-                while break_flag == False:
-                    if line.lstrip().startswith('#else'):
-                        line = fp.readline()
-                        while break_flag == False:
-                            if line.lstrip().startswith('#endif'):
-                                break_flag = True
-                            else:
-                                line = fp.readline()
-                    elif line.lstrip().startswith('#endif'):
-                        break_flag = True
-                    else:
-                        f.writelines(line)
-                    line = fp.readline()
-            # check if define nc
-            elif line.lstrip().startswith('#ifdef nc'):
-                line = fp.readline()
-                break_flag = False
-                while break_flag == False:
-                    if line.lstrip().startswith('#else'):
-                        line = fp.readline()
-                        while break_flag == False:
-                            if line.lstrip().startswith('#endif'):
-                                break_flag = True
-                            else:
-                                f.writelines(line)
-                                line = fp.readline()
-                    elif line.lstrip().startswith('#endif'):
-                        break_flag = True
-                    line = fp.readline()
-            else:
-                f.writelines(line)
-                line = fp.readline()
-        fp.close()
-        f.writelines('\n')
+        append_source(os.path.join(path_source_dir, 'src', file))
+
     f.close()
 
     return path_target
