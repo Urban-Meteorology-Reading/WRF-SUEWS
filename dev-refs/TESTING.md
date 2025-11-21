@@ -13,7 +13,45 @@ This guide provides systematic testing procedures for the WRF v4.7.1 and SUEWS 2
 
 ## 1. Quick Verification Tests
 
-### 1.1 Check Submodule Versions
+### 1.0 Automated Verification Script
+
+**NEW (November 2025)**: Use the automated test script for quick verification:
+
+```bash
+./test_coupling.sh
+```
+
+This script automatically checks:
+- ✅ WRF and SUEWS submodule versions (v4.7.1, 2025.10.15)
+- ✅ SUEWS repository migration (UMEP-dev organisation)
+- ✅ Coupling automator path updates (`src/suews` structure)
+- ✅ Version module handling in `gen_suewsdrv.py`
+- ✅ Generated compilation directory structure
+- ✅ SUEWS wrapper files (`module_sf_suews.F`, `registry.suews`)
+- ✅ WRF Registry modifications and code generation
+
+**Usage:**
+```bash
+# Run with default (most recent compilation directory)
+./test_coupling.sh
+
+# Or specify a compilation directory
+COMP_DIR=compilation-20251121 ./test_coupling.sh
+```
+
+**Output:** The script provides a clear pass/fail summary with actionable error messages.
+
+**When to use:**
+- After updating submodules
+- Before creating a pull request
+- After running coupling automation
+- When debugging coupling issues
+
+**Next Steps:** If all tests pass, proceed to compilation. If tests fail, review error messages and fix issues before compiling.
+
+---
+
+### 1.1 Check Submodule Versions (Manual)
 
 ```bash
 # Check WRF version

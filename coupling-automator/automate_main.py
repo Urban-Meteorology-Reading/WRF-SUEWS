@@ -141,6 +141,85 @@ def find_add(path_file, in_file, query, to_add):
 
 # %%
 # =====================================
+# DIRECTORY VALIDATION
+# =====================================
+
+def validate_working_directory():
+    """
+    Validate that script is running from correct directory.
+    Exit with clear error if not in coupling-automator/.
+    """
+    script_dir = Path(__file__).parent.resolve()
+    expected_dir_name = "coupling-automator"
+
+    if script_dir.name != expected_dir_name:
+        print("\n❌ ERROR: Script not running from correct directory!")
+        print("=" * 60)
+        print(f"\nCurrent directory: {script_dir}")
+        print(f"Expected: .../{expected_dir_name}/")
+        print("\nPlease run from coupling-automator directory:")
+        print("  cd coupling-automator")
+        print("  python3 automate_main.py")
+        print("  # OR")
+        print("  make")
+        print()
+        sys.exit(1)
+
+    return script_dir
+
+
+def validate_paths(script_dir):
+    """
+    Validate that required directories exist relative to script location.
+    """
+    # Establish absolute base paths
+    base_dir = script_dir.parent
+    path_src_WRF = base_dir / "WRF"
+    path_src_SUEWS = base_dir / "SUEWS" / "src" / "suews"
+
+    print("=" * 60)
+    print("VALIDATING DIRECTORY STRUCTURE")
+    print("=" * 60)
+
+    # Check WRF submodule
+    if not path_src_WRF.exists():
+        print(f"\n❌ ERROR: WRF submodule not found!")
+        print(f"  Expected: {path_src_WRF}")
+        print("\nInitialise submodules:")
+        print("  git submodule init")
+        print("  git submodule update")
+        print()
+        sys.exit(1)
+
+    # Check SUEWS submodule
+    if not path_src_SUEWS.exists():
+        print(f"\n❌ ERROR: SUEWS source directory not found!")
+        print(f"  Expected: {path_src_SUEWS}")
+        print("\nInitialise submodules:")
+        print("  git submodule init")
+        print("  git submodule update")
+        print()
+        sys.exit(1)
+
+    # Check changes_list.json
+    changes_file = script_dir / "changes_list.json"
+    if not changes_file.exists():
+        print(f"\n❌ ERROR: changes_list.json not found!")
+        print(f"  Expected: {changes_file}")
+        print()
+        sys.exit(1)
+
+    print(f"\n✓ WRF source: {path_src_WRF}")
+    print(f"✓ SUEWS source: {path_src_SUEWS}")
+    print(f"✓ Configuration: {changes_file}")
+    print("=" * 60)
+    print()
+
+    return path_src_WRF, path_src_SUEWS
+
+
+# %%
+# =====================================
 # MAIN COUPLING WORKFLOW
 # =====================================
 
@@ -150,22 +229,15 @@ print(" WRF-SUEWS COUPLING AUTOMATION (Library-Based)")
 print("=" * 70)
 print()
 
+# Validate working directory and paths
+script_dir = validate_working_directory()
+path_src_WRF, path_src_SUEWS = validate_paths(script_dir)
+
 # Check SUEWS library exists before starting
 check_suews_library()
 
 with open("changes_list.json") as fn_json:
     change_list = json.load(fn_json)
-# change_list
-# %%
-# directory of orginal/official source code
-# this dir is included as a git submodule so DON'T make ANY change there
-path_src_WRF = Path("../WRF")
-
-
-# %%
-# directory of SUEWS source code
-# this dir is included as a git submodule so DON'T make ANY change there
-path_src_SUEWS = Path("../SUEWS/src/suews")
 
 # %%
 # working directory for WRF-SUEWS coupling

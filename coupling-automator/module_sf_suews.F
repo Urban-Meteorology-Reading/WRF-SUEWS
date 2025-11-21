@@ -428,8 +428,8 @@ CONTAINS
     REAL(KIND(1d0))                                  :: RunoffToWater_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: StateLimit_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: WetThresh_id
-   REAL(KIND(1d0))                                  :: BaseTHDD_id
-   REAL(KIND(1d0))                                  :: BaseT_HC_id
+    REAL(KIND(1d0))                                  :: BaseTHDD_id
+    REAL(KIND(1d0))                                  :: BaseT_HC_id  ! Heating/cooling base temperature (alias for compatibility)
     REAL(KIND(1d0))                                  :: Faut_id        
     REAL(KIND(1d0))                                  :: IrrFracConif_id
     REAL(KIND(1d0))                                  :: IrrFracDecid_id
@@ -449,8 +449,8 @@ CONTAINS
     REAL(KIND(1d0)),DIMENSION(5)                     :: GDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(12)                    :: HDD_id      !Growing Degree Days (see SUEWS_DailyState.f95)
     REAL(KIND(1d0)),DIMENSION(7)                     :: state_id
-   REAL(KIND(1d0)),DIMENSION(7)                     :: soilmoist_id
-   REAL(KIND(1d0)),DIMENSION(7)                     :: soilstore_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: soilmoist_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: soilstore_id  ! Soil water storage (alias for soilmoist_id)
     REAL(KIND(1d0)),DIMENSION(7)                     :: surf_var_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: alb_id
     REAL(KIND(1d0)),DIMENSION(7)                     :: emis_id
@@ -458,8 +458,8 @@ CONTAINS
     REAL(KIND(1d0))                                  :: qn1_s_id
     REAL(KIND(1d0))                                  :: dqndt_id
     REAL(KIND(1d0))                                  :: dqnsdt_id
-   REAL(KIND(1d0)),DIMENSION(7)                     :: MeltWaterStore_id
-   REAL(KIND(1d0)),DIMENSION(7)                     :: SnowWater
+    REAL(KIND(1d0)),DIMENSION(7)                     :: MeltWaterStore_id
+    REAL(KIND(1d0)),DIMENSION(7)                     :: SnowWater  ! Snow water equivalent (alias for MeltWaterStore_id)
     REAL(KIND(1d0))                                  :: SnowAlb_id
     REAL(KIND(1d0)),DIMENSION(9)                     :: WUDay_id
     REAL(KIND(1d0))                                  :: z0m_in_id
@@ -592,10 +592,10 @@ CONTAINS
           FlowChange_id          = FlowChange_SUEWS(I,J)                    
           PipeCapacity_id        = PipeCapacity_SUEWS(I,J)                    
           RunoffToWater_id       = RunoffToWater_SUEWS(I,J)                    
-          StateLimit_id          = StateLimit_SUEWS(I,:,J)                    
-          WetThresh_id           = WetThresh_SUEWS(I,:,J)                    
+          StateLimit_id          = StateLimit_SUEWS(I,:,J)
+          WetThresh_id           = WetThresh_SUEWS(I,:,J)
           BaseTHDD_id            = BaseTHDD_SUEWS(I,J)
-          BaseT_HC_id            = BaseTHDD_id
+          BaseT_HC_id            = BaseTHDD_id  ! Alias for SUEWS library compatibility
 
           Faut_id                = Faut_SUEWS(I,J)         
           IrrFracConif_id        = IrrFracConif_SUEWS(I,J)
@@ -612,7 +612,7 @@ CONTAINS
           HDD_id          = HDD_SUEWS(I,:,J)
           state_id        = state_SUEWS(I,:,J)
           soilmoist_id    = soilmoist_SUEWS(I,:,J)
-          soilstore_id    = soilmoist_id
+          soilstore_id    = soilmoist_id  ! Alias for SUEWS library compatibility
           surf_var_id     = surf_var_SUEWS(I,:,J)
           alb_id          = alb_SUEWS(I,:,J)
           emis_id         = emis_SUEWS(I,:,J)
@@ -621,7 +621,7 @@ CONTAINS
           dqndt_id        = dqndt_SUEWS(I,J)
           dqnsdt_id        = dqnsdt_SUEWS(I,J)
           MeltWaterStore_id  = MeltWaterStore_SUEWS(I,:,J)
-          SnowWater       = MeltWaterStore_id
+          SnowWater       = MeltWaterStore_id  ! Alias for SUEWS library compatibility
           SnowAlb_id = SnowAlb_SUEWS(I,J)
           WUDay_id   = WUDay_SUEWS(I,:,J)
           z0m_in_id  = z0m_in_SUEWS(I,J)

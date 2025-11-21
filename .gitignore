@@ -80,3 +80,6 @@ WSPS/sample-case/input/*/
 
 .vscode/settings.json
 compilation-*/
+
+# Build artifacts and temporary directories
+suews-patched-build/

@@ -207,3 +207,13 @@ To generate the original `wrfinput` files (before processing them for WRF-SUEWS)
 ## SUEWS specific pre-processing using WRF-SUEWS preprocessing system (WSPS)
 Please refer to this [instruction](./WSPS/README.md) for WRF-SUEWS preprocessing system (WSPS).
 
+## Testing and Continuous Integration
+
+**Automated Testing**: This repository uses GitHub Actions for continuous integration testing. See [dev-refs/CI-CD.md](./dev-refs/CI-CD.md) for details on the automated test suite.
+
+**Manual Testing**: For comprehensive testing procedures and validation scripts, see:
+- [dev-refs/TESTING.md](./dev-refs/TESTING.md) - Comprehensive test procedures
+- `test_coupling.sh` - Quick verification script for coupling setup
+
+**Test Status**: ![CI Status](https://github.com/Urban-Meteorology-Reading/WRF-SUEWS/workflows/WRF-SUEWS%20Coupling%20Tests/badge.svg)
+

@@ -6,6 +6,32 @@
 # Ting Sun, ting.sun@reading.ac.uk
 # history:
 # 13 Aug 2018, initial version
+# Nov 2025, updated for SUEWS 2025.10.15 structure
+#####################################################################
+#
+# ⚠️  DEPRECATION NOTICE (November 2025)
+# ═══════════════════════════════════════════════════════════════
+# This script is RETAINED FOR BACKWARD COMPATIBILITY ONLY.
+#
+# The recommended approach is now LIBRARY-BASED COUPLING:
+#   - SUEWS is pre-compiled as libsuews.a (see SUEWS/lib/)
+#   - WRF links against the static library
+#   - Build times reduced by ~50%
+#
+# This monolithic merge approach (61,000-line module_sf_suewsdrv.F)
+# is kept for:
+#   - Legacy systems without library support
+#   - Debugging/comparison purposes
+#   - Fallback if library linking fails
+#
+# For new installations, use the library-based workflow:
+#   cd coupling-automator && make
+#
+# This will automatically build libsuews.a if needed and set up
+# the coupling WITHOUT invoking this script.
+#
+# See dev-refs/SUEWS-PRECOMPILED-LIBRARY-STRATEGY.md for details.
+# ═══════════════════════════════════════════════════════════════
 #####################################################################
 
 import pandas as pd

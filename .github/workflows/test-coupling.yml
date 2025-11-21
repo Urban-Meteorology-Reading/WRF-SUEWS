@@ -1,0 +1,360 @@
+name: WRF-SUEWS Coupling Tests
+
+on:
+  push:
+    branches: [ master, develop, sunt05/* ]
+  pull_request:
+    branches: [ master, develop ]
+  workflow_dispatch:
+
+env:
+  # Compiler versions
+  GCC_VERSION: 11
+  # NetCDF paths for Ubuntu
+  NETCDF: /usr
+  NETCDF_C: /usr
+  NETCDF_FORTRAN: /usr
+
+jobs:
+  # Job 1: Build SUEWS library
+  build-suews-library:
+    name: Build SUEWS Library
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          gfortran-${GCC_VERSION} \
+          gcc-${GCC_VERSION} \
+          g++-${GCC_VERSION} \
+          make \
+          libnetcdf-dev \
+          libnetcdff-dev \
+          netcdf-bin
+
+    - name: Set up compiler alternatives
+      run: |
+        sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_VERSION} 100
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 100
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} 100
+
+    - name: Verify compiler versions
+      run: |
+        echo "=== Compiler Versions ==="
+        gfortran --version
+        gcc --version
+        echo "=== NetCDF Configuration ==="
+        nc-config --all || true
+        nf-config --all || true
+
+    - name: Build SUEWS library
+      working-directory: SUEWS/src/suews
+      run: |
+        echo "=== Building SUEWS static library ==="
+        # Makefile.lib: Special makefile for library-based coupling (Nov 2025 approach)
+        # Produces: SUEWS/lib/libsuews.a and SUEWS/include/*.mod
+        make -f Makefile.lib -j$(nproc)
+        echo "=== Installing library and modules ==="
+        make -f Makefile.lib install
+
+    - name: Verify library build
+      run: |
+        echo "=== Checking library artifacts ==="
+        ls -lh SUEWS/lib/
+        test -f SUEWS/lib/libsuews.a || { echo "ERROR: libsuews.a not found"; exit 1; }
+        test -f SUEWS/lib/wrf_suews.mk || { echo "ERROR: wrf_suews.mk not found"; exit 1; }
+        echo "=== Checking module files ==="
+        ls -lh SUEWS/include/
+        test -d SUEWS/include || { echo "ERROR: include directory not found"; exit 1; }
+        echo "✓ SUEWS library build successful"
+
+    - name: Cache SUEWS library
+      uses: actions/cache/save@v4
+      with:
+        path: |
+          SUEWS/lib/
+          SUEWS/include/
+        key: suews-lib-${{ github.sha }}
+
+  # Job 2: Test coupling automation
+  test-coupling-automation:
+    name: Test Coupling Automation
+    needs: build-suews-library
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Restore SUEWS library cache
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          SUEWS/lib/
+          SUEWS/include/
+        key: suews-lib-${{ github.sha }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install Python dependencies
+      run: |
+        pip install pandas numpy
+
+    - name: Verify SUEWS library exists
+      run: |
+        echo "=== Checking for SUEWS library ==="
+        test -f SUEWS/lib/libsuews.a || { echo "ERROR: Library not restored from cache"; exit 1; }
+        echo "✓ SUEWS library found"
+
+    - name: Run coupling automation
+      working-directory: coupling-automator
+      run: |
+        echo "=== Running coupling automation ==="
+        python3 automate_main.py
+
+    - name: Verify coupling outputs
+      run: |
+        TODAY=$(date +%Y%m%d)
+        COMPILATION_DIR="compilation-${TODAY}"
+
+        echo "=== Checking compilation directory ==="
+        test -d "${COMPILATION_DIR}" || { echo "ERROR: Compilation directory not created"; exit 1; }
+
+        echo "=== Checking copied WRF source ==="
+        test -d "${COMPILATION_DIR}/phys" || { echo "ERROR: WRF source not copied"; exit 1; }
+
+        echo "=== Checking SUEWS wrapper files ==="
+        test -f "${COMPILATION_DIR}/phys/module_sf_suews.F" || { echo "ERROR: module_sf_suews.F not found"; exit 1; }
+        test -f "${COMPILATION_DIR}/Registry/registry.suews" || { echo "ERROR: registry.suews not found"; exit 1; }
+
+        echo "=== Checking WRF modifications ==="
+        grep -q "suews" "${COMPILATION_DIR}/Registry/Registry.EM_COMMON" || { echo "ERROR: Registry not modified for SUEWS"; exit 1; }
+
+        echo "✓ Coupling automation successful"
+
+  # Job 3: Test WRF configuration
+  test-wrf-configure:
+    name: Test WRF Configuration
+    needs: test-coupling-automation
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Restore SUEWS library cache
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          SUEWS/lib/
+          SUEWS/include/
+        key: suews-lib-${{ github.sha }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install Python dependencies
+      run: pip install pandas numpy
+
+    - name: Run coupling automation
+      working-directory: coupling-automator
+      run: python3 automate_main.py
+
+    - name: Install WRF dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          gfortran-${GCC_VERSION} \
+          gcc-${GCC_VERSION} \
+          g++-${GCC_VERSION} \
+          make \
+          m4 \
+          libnetcdf-dev \
+          libnetcdff-dev \
+          netcdf-bin \
+          csh \
+          tcsh
+
+    - name: Set up environment
+      run: |
+        echo "NETCDF=/usr" >> $GITHUB_ENV
+        echo "NETCDF_C=/usr" >> $GITHUB_ENV
+        echo "NETCDF_FORTRAN=/usr" >> $GITHUB_ENV
+        sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_VERSION} 100
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 100
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} 100
+
+    - name: Find compilation directory
+      id: find-dir
+      run: |
+        COMPILATION_DIR=$(ls -d compilation-* 2>/dev/null | head -n1)
+        echo "dir=${COMPILATION_DIR}" >> $GITHUB_OUTPUT
+        echo "Found compilation directory: ${COMPILATION_DIR}"
+
+    - name: Run WRF configure
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: |
+        echo "=== Running WRF configure ==="
+        # Option 34: Linux x86_64, gfortran compiler with gcc (dmpar)
+        printf "34\n1\n" | ./configure
+
+    - name: Verify configure.wrf created
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: |
+        test -f configure.wrf || { echo "ERROR: configure.wrf not created"; exit 1; }
+        echo "✓ configure.wrf created"
+
+    - name: Apply SUEWS library patches
+      working-directory: coupling-automator
+      run: |
+        echo "=== Patching configure.wrf for SUEWS ==="
+        python3 patch_configure.py
+
+    - name: Verify configure.wrf patched
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: |
+        echo "=== Checking for SUEWS configuration ==="
+        grep -q "wrf_suews.mk" configure.wrf || { echo "ERROR: wrf_suews.mk not included"; exit 1; }
+        grep -q "SUEWS_LDFLAGS" configure.wrf || { echo "ERROR: SUEWS_LDFLAGS not added"; exit 1; }
+        grep -q "SUEWS_CPPFLAGS" configure.wrf || { echo "ERROR: SUEWS_CPPFLAGS not added"; exit 1; }
+        echo "✓ configure.wrf properly patched"
+
+        echo "=== Showing SUEWS-related configuration ==="
+        grep -A2 "SUEWS" configure.wrf || true
+
+  # Job 4: Test minimal WRF compilation (Registry only)
+  test-wrf-registry:
+    name: Test WRF Registry Processing
+    needs: test-wrf-configure
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Restore SUEWS library cache
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          SUEWS/lib/
+          SUEWS/include/
+        key: suews-lib-${{ github.sha }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install Python dependencies
+      run: pip install pandas numpy
+
+    - name: Run coupling automation
+      working-directory: coupling-automator
+      run: python3 automate_main.py
+
+    - name: Install WRF dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          gfortran-${GCC_VERSION} \
+          gcc-${GCC_VERSION} \
+          g++-${GCC_VERSION} \
+          make \
+          m4 \
+          libnetcdf-dev \
+          libnetcdff-dev
+
+    - name: Set up environment
+      run: |
+        sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-${GCC_VERSION} 100
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 100
+
+    - name: Find compilation directory
+      id: find-dir
+      run: |
+        COMPILATION_DIR=$(ls -d compilation-* 2>/dev/null | head -n1)
+        echo "dir=${COMPILATION_DIR}" >> $GITHUB_OUTPUT
+
+    - name: Run WRF configure
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: |
+        echo "=== Running WRF configure ==="
+        printf "34\n1\n" | ./configure
+
+    - name: Apply SUEWS library patches
+      working-directory: coupling-automator
+      run: python3 patch_configure.py
+
+    - name: Test Registry processing
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: |
+        echo "=== Testing Registry code generation ==="
+        export NETCDF=/usr
+        export NETCDF_C=/usr
+        export NETCDF_FORTRAN=/usr
+
+        # Run just the Registry processing step
+        make -j1 registry || { echo "ERROR: Registry processing failed"; exit 1; }
+
+        echo "✓ Registry processing successful"
+
+    - name: Verify generated Registry files
+      working-directory: ${{ steps.find-dir.outputs.dir }}
+      run: |
+        echo "=== Checking generated Registry files ==="
+        test -f inc/state_struct.inc || { echo "ERROR: state_struct.inc not generated"; exit 1; }
+
+        echo "=== Checking for SUEWS variables in generated code ==="
+        grep -r "suews" inc/ || { echo "WARNING: No SUEWS variables found in generated code"; }
+
+        echo "✓ Registry files generated successfully"
+
+  # Job 5: Summary
+  test-summary:
+    name: Test Summary
+    needs: [build-suews-library, test-coupling-automation, test-wrf-configure, test-wrf-registry]
+    runs-on: ubuntu-22.04
+    if: always()
+
+    steps:
+    - name: Report results
+      run: |
+        echo "=== WRF-SUEWS Coupling Test Summary ==="
+        echo ""
+        echo "✓ SUEWS library build: ${{ needs.build-suews-library.result }}"
+        echo "✓ Coupling automation: ${{ needs.test-coupling-automation.result }}"
+        echo "✓ WRF configuration: ${{ needs.test-wrf-configure.result }}"
+        echo "✓ Registry processing: ${{ needs.test-wrf-registry.result }}"
+        echo ""
+
+        # Check if any job failed
+        if [ "${{ needs.build-suews-library.result }}" != "success" ] || \
+           [ "${{ needs.test-coupling-automation.result }}" != "success" ] || \
+           [ "${{ needs.test-wrf-configure.result }}" != "success" ] || \
+           [ "${{ needs.test-wrf-registry.result }}" != "success" ]; then
+          echo "❌ One or more tests failed"
+          exit 1
+        else
+          echo "✅ All tests passed successfully"
+        fi
